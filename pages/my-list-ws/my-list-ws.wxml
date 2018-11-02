@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class="page">
+  物损列表
+</view>

@@ -1,48 +1,118 @@
 <view class="page">
     <view class="page__bd">
-        <view class="weui-cells">
-            <view class="weui-cell">
+        <view class="weui-cells__title">注册信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">姓名</view>
+                </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__hd">
-                            <view class="weui-uploader__title">图片上传</view>
-                            <view class="weui-uploader__info">{{files.length}}/9</view>
-                        </view>
-                        <view class="weui-uploader__bd">
-                            <!-- <view class="weui-uploader__files" id="uploaderFiles">
-                                <block wx:for="{{files}}" wx:key="*this">
-                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                                        <text>Delete!!</text>
-                                    </view>
-                                </block> -->
-                                <!-- <view class="weui-uploader__file weui-uploader__file_status">
-                                    <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
-                                    <view class="weui-uploader__file-content">
-                                        <icon type="warn" size="23" color="#F43530"></icon>
-                                    </view>
-                                </view>
-                                <view class="weui-uploader__file weui-uploader__file_status">
-                                    <image class="weui-uploader__img" src="../images/pic_160.png" mode="aspectFill" />
-                                    <view class="weui-uploader__file-content">50%</view>
-                                </view> -->
-                            <!-- </view> -->
-                            <swiper indicator-dots="true"
-                              autoplay="false" interval="5000" duration="1000">
-                              <block wx:for="{{files}}" wx:key="*this">
-                                <swiper-item>
-                                  <image src="{{item}}" class="slide-image" width="355" height="150"/>
-                                  <text>Delete!!!</text>
-                                </swiper-item>
-                              </block>
-                            </swiper>
-                            <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                            </view>
-                        </view>
-                    </view>
+                    <input class="weui-input" placeholder="您的姓名"/>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入手机号"/>
+                </view>
+                <!-- <view class="weui-cell__ft">
+                    <view class="weui-vcode-btn">获取验证码</view>
+                </view> -->
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">地址</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+                        <view class="picker weui-input">
+                            {{region[0]}}，{{region[1]}}
+                            <block wx:if="{{region.length > 2}}">，{{region[2]}}</block>
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">角色</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindPickerChange" value="{{role}}" range="{{array}}">
+                        <view class="picker weui-input">
+                            {{array[role]}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">单位类别</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
+                        <view class="picker weui-input">
+                            {{companyCategoryList[companyCategory]}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">单位名称</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindPickerChange" value="{{companyName}}" range="{{companyNameList}}">
+                        <view class="picker weui-input">
+                            {{companyNameList[companyName]}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">邀请码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入邀请码"/>
+                </view>
+            </view>
+            <!-- <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">日期</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+                        <view class="weui-input">{{date}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">时间</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+                        <view class="weui-input">{{time}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">验证码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入验证码" />
+                </view>
+                <view class="weui-cell__ft">
+                    <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
+                </view>
+            </view> -->
+        </view>
+        <!-- <view class="weui-cells__tips">请填写</view> -->
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
         </view>
     </view>
 </view>

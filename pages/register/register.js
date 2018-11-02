@@ -2,29 +2,21 @@ const app = getApp()
 
 Page({
   data: {
-    files: []
+    array: ['游客', '查勘员', '服务者'],
+    region: ['辽宁省', '大连市'],
+    role: 0,
+    companyCategory: 0,
+    companyName: 0,
+    companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
+    companyNameList: ['Name 1', 'Name 2', 'Name 3']
   },
-  bindViewTap: function() {},
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
   },
-  chooseImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
-        });
-      }
-    })
-  },
-  previewImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+  bindRegionChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      region: e.detail.value
     })
   }
 })

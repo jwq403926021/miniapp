@@ -1,13 +1,21 @@
 {
   "pages":[
-    "pages/index/index",
-    "pages/register/register"
+    "pages/index/index", 
+    "pages/register/register",
+    "pages/cx-form/cx-form",
+    "pages/jc-form/jc-form",
+    "pages/ws-form/ws-form",
+    "pages/my-list-home/my-list-home",
+    "pages/my-list-ws/my-list-ws",
+    "pages/my-list-jc/my-list-jc",
+    "pages/my-list-cx/my-list-cx",
+    "pages/test/test"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "navigationBarTitleText": "汇报价"
   },
   "tabBar": {
     "selectedColor": "#07c586",
@@ -22,7 +30,7 @@
       {
         "iconPath": "asset/image/list.png",
         "selectedIconPath": "asset/image/list_active.png",
-        "pagePath": "pages/register/register",
+        "pagePath": "pages/my-list-home/my-list-home",
         "text": "我的工单"
       },
       {
