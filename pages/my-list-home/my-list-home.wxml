@@ -4,4 +4,31 @@
     <button bindtap="goToJcList" class="weui-btn" type="primary">我的家财工单</button>
     <button bindtap="goToCxList" class="weui-btn" type="primary">我的车险工单</button>
   </view>
+  <i-steps>
+    <i-step status="finish">
+        <view slot="title">
+              已完成
+        </view>
+        <view slot="content">
+            这里是该步骤的描述信息
+        </view>
+    </i-step>
+    <i-step status="process">
+        <view slot="title">
+            进行中
+        </view>
+        <view slot="content">
+            这里是该步骤的描述信息
+        </view>
+    </i-step>
+    <i-step status="">
+        <view slot="title">
+            错误
+        </view>
+        <view slot="content">
+            这里是该步骤的描述信息
+        </view>
+    </i-step>
+</i-steps>
+
 </view>
