@@ -9,5 +9,11 @@
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
+    <button class="weui-btn" type="primary">页面主操作 Normal</button>
+    <button class="weui-btn" type="primary" disabled="true">页面主操作 Disabled</button>
+    <button class="weui-btn" type="default">页面次要操作 Normal</button>
+    <button class="weui-btn" type="default" disabled="true">页面次要操作 Disabled</button>
+    <button class="weui-btn" type="warn">警告类操作 Normal</button>
+    <button class="weui-btn" type="warn" disabled="true">警告类操作 Disabled</button>
   </view>
 </view>
