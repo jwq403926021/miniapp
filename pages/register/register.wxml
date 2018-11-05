@@ -21,50 +21,50 @@
                     <view class="weui-vcode-btn">获取验证码</view>
                 </view> -->
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">地址</view>
                 </view>
                 <view class="weui-cell__bd">
                     <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-                        <view class="picker weui-input">
+                        <view class="picker weui-select weui-select_in-select-after">
                             {{region[0]}}，{{region[1]}}
                             <block wx:if="{{region.length > 2}}">，{{region[2]}}</block>
                         </view>
                     </picker>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">角色</view>
                 </view>
                 <view class="weui-cell__bd">
                     <picker bindchange="bindPickerChange" value="{{role}}" range="{{array}}">
-                        <view class="picker weui-input">
+                        <view class="picker weui-select weui-select_in-select-after">
                             {{array[role]}}
                         </view>
                     </picker>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">单位类别</view>
                 </view>
                 <view class="weui-cell__bd">
                     <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
-                        <view class="picker weui-input">
+                        <view class="picker weui-select weui-select_in-select-after">
                             {{companyCategoryList[companyCategory]}}
                         </view>
                     </picker>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">单位名称</view>
                 </view>
                 <view class="weui-cell__bd">
                     <picker bindchange="bindPickerChange" value="{{companyName}}" range="{{companyNameList}}">
-                        <view class="picker weui-input">
+                        <view class="picker weui-select weui-select_in-select-after">
                             {{companyNameList[companyName]}}
                         </view>
                     </picker>
@@ -78,6 +78,13 @@
                     <input class="weui-input" placeholder="请输入邀请码"/>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">我的邀请码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input">123</text>
+                </view>
             <!-- <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">日期</view>
@@ -115,4 +122,5 @@
             <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
         </view>
     </view>
+</view>
 </view>

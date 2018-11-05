@@ -1,7 +1,4 @@
 {
   "navigationBarTitleText": "注册",
-  "usingComponents": {
-    // "i-steps": "../../asset/iview/steps/index",
-    // "i-step": "../../asset/iview/step/index"
-  }
+  "usingComponents": {}
 }
