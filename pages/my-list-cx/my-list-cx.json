@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "i-row": "../../asset/iview/row/index",
+    "i-col": "../../asset/iview/col/index"
+  }
 }
