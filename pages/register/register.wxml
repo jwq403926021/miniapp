@@ -26,12 +26,14 @@
                     <view class="weui-label">地址</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{region[0]}}，{{region[1]}}
-                            <block wx:if="{{region.length > 2}}">，{{region[2]}}</block>
-                        </view>
-                    </picker>
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openRegionPicker">123444</view>
+                    <regionPicker reginSourceData="{{regionData}}" visible="{{regionPickerFlag}}" bind:change="onChange3" bind:cancel="cancelRegionPicker"></regionPicker>
+                    <!--<picker mode="region" bindchange="bindRegionChange" value="{{region}}">-->
+                        <!--<view class="picker weui-select weui-select_in-select-after">-->
+                            <!--{{region[0]}}，{{region[1]}}-->
+                            <!--<block wx:if="{{region.length > 2}}">，{{region[2]}}</block>-->
+                        <!--</view>-->
+                    <!--</picker>-->
                 </view>
             </view>
             <view class="weui-cell weui-cell_select">
