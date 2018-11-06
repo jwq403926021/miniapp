@@ -26,13 +26,15 @@
                     <view class="weui-label">地址</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openRegionPicker">123444</view>
-                    <regionPicker reginSourceData="{{regionData}}" visible="{{regionPickerFlag}}" bind:change="onChange3" bind:cancel="cancelRegionPicker"></regionPicker>
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openRegionPicker">123444
+                    </view>
+                    <regionPicker reginSourceData="{{regionData}}" visible="{{regionPickerFlag}}"
+                                  bind:change="onChange3" bind:cancel="cancelRegionPicker"></regionPicker>
                     <!--<picker mode="region" bindchange="bindRegionChange" value="{{region}}">-->
-                        <!--<view class="picker weui-select weui-select_in-select-after">-->
-                            <!--{{region[0]}}，{{region[1]}}-->
-                            <!--<block wx:if="{{region.length > 2}}">，{{region[2]}}</block>-->
-                        <!--</view>-->
+                    <!--<view class="picker weui-select weui-select_in-select-after">-->
+                    <!--{{region[0]}}，{{region[1]}}-->
+                    <!--<block wx:if="{{region.length > 2}}">，{{region[2]}}</block>-->
+                    <!--</view>-->
                     <!--</picker>-->
                 </view>
             </view>
@@ -87,42 +89,46 @@
                 <view class="weui-cell__bd">
                     <text class="weui-input">123</text>
                 </view>
-            <!-- <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">日期</view>
+                <!-- <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">日期</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+                            <view class="weui-input">{{date}}</view>
+                        </picker>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-                        <view class="weui-input">{{date}}</view>
-                    </picker>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">时间</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+                            <view class="weui-input">{{time}}</view>
+                        </picker>
+                    </view>
                 </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">验证码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" placeholder="请输入验证码" />
+                    </view>
+                    <view class="weui-cell__ft">
+                        <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
+                    </view>
+                </view> -->
             </view>
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">时间</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-                        <view class="weui-input">{{time}}</view>
-                    </picker>
-                </view>
+            <!-- <view class="weui-cells__tips">请填写</view> -->
+            <view class="weui-btn-area">
+                <button class="weui-btn" formType="submit" type="primary" bindtap="showTopTips">确定</button>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">验证码</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入验证码" />
-                </view>
-                <view class="weui-cell__ft">
-                    <image class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
-                </view>
-            </view> -->
+
         </view>
-        <!-- <view class="weui-cells__tips">请填写</view> -->
-        <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
-        </view>
+        <!--<form bindsubmit="formSubmit" report-submit="true">-->
+
+        <!--</form>-->
     </view>
-</view>
 </view>

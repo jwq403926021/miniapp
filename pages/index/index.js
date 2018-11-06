@@ -23,6 +23,9 @@ Page({
       url: '../cx-form/cx-form'
     })
   },
+  bindGetUserInfo (data) {
+    console.log('bindGetUserInfo:::', data)
+  },
   onLoad: function () {
 
 

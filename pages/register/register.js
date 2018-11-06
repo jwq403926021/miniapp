@@ -38,5 +38,8 @@ Page({
     this.setData({
       region: e.detail.value
     })
+  },
+  formSubmit (data) {
+    console.log("formSubmit::", data)
   }
 })

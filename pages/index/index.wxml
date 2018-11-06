@@ -12,5 +12,10 @@
     <button bindtap="goToJcForm" class="weui-btn" type="primary">创建家财险工单</button>
     <button bindtap="goToCxForm" class="weui-btn" type="primary">创建车险工单</button>
     <navigator url="/pages/test/test" hover-class="navigator-hover">测试页面</navigator>
+
+    <open-data type="userAvatarUrl"></open-data>
+    <open-data type="userNickName"></open-data>
+
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
   </view>
 </view>
