@@ -1,10 +1,10 @@
-<van-nav-bar
-        title="图片上传"
-        left-text="返回"
-        right-text="确认"
-        left-arrow
-        fixed="true"
-/>
+<!--<van-nav-bar-->
+        <!--title="图片上传"-->
+        <!--left-text="返回"-->
+        <!--right-text="确认"-->
+        <!--left-arrow-->
+        <!--fixed="true"-->
+<!--/>-->
 <!--bind:click-left="onClickLeft"-->
 <!--bind:click-right="onClickRight"-->
 <view class="page">
