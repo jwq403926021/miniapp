@@ -1,57 +1,37 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-            <view class="weui-navbar__title">{{item}}</view>
-          </view>
-        </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-      </view>
-      <view class="weui-tab__panel">
-        过滤条件
-        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">工单号</i-col>-->
-            <!--<i-col span="6" i-class="col-class">车牌号</i-col>-->
-            <!--<i-col span="6" i-class="col-class">日期</i-col>-->
-            <!--<i-col span="6" i-class="col-class">状态</i-col>-->
-          <!--</i-row>-->
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">1010</i-col>-->
-            <!--<i-col span="6" i-class="col-class">辽B 48514</i-col>-->
-            <!--<i-col span="6" i-class="col-class">2018-10-10</i-col>-->
-            <!--<i-col span="6" i-class="col-class">暂存</i-col>-->
-          <!--</i-row>-->
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">1010</i-col>-->
-            <!--<i-col span="6" i-class="col-class">辽B 48514</i-col>-->
-            <!--<i-col span="6" i-class="col-class">2018-10-10</i-col>-->
-            <!--<i-col span="6" i-class="col-class">已施工</i-col>-->
-          <!--</i-row>-->
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">工单号</i-col>-->
-            <!--<i-col span="6" i-class="col-class">车牌号</i-col>-->
-            <!--<i-col span="6" i-class="col-class">日期</i-col>-->
-            <!--<i-col span="6" i-class="col-class">状态</i-col>-->
-          <!--</i-row>-->
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">1010</i-col>-->
-            <!--<i-col span="6" i-class="col-class">辽B 48514</i-col>-->
-            <!--<i-col span="6" i-class="col-class">2018-10-10</i-col>-->
-            <!--<i-col span="6" i-class="col-class">暂存</i-col>-->
-          <!--</i-row>-->
-          <!--<i-row>-->
-            <!--<i-col span="6" i-class="col-class">1010</i-col>-->
-            <!--<i-col span="6" i-class="col-class">辽B 48514</i-col>-->
-            <!--<i-col span="6" i-class="col-class">2018-10-10</i-col>-->
-            <!--<i-col span="6" i-class="col-class">已经办结</i-col>-->
-          <!--</i-row>-->
-        </view>
-      </view>
-    </view>
+
+    <van-tabs color="#1AAD19" active="{{ activeIndex }}" bind:change="onChange">
+      过滤条件1
+      <van-tab title="处理中">
+        <van-row>
+          <van-col span="6">工单号</van-col>
+          <van-col span="6">车牌号</van-col>
+          <van-col span="6">日期</van-col>
+          <van-col span="6">状态</van-col>
+        </van-row>
+        <van-row>
+          <van-col span="6">1010</van-col>
+          <van-col span="6">辽B 48514</van-col>
+          <van-col span="6">2018-10-10</van-col>
+          <van-col span="6">暂存</van-col>
+        </van-row>
+      </van-tab>
+      <van-tab title="已办结">
+        <van-row>
+          <van-col span="6">工单号</van-col>
+          <van-col span="6">车牌号</van-col>
+          <van-col span="6">日期</van-col>
+          <van-col span="6">状态</van-col>
+        </van-row>
+        <van-row>
+          <van-col span="6">1010</van-col>
+          <van-col span="6">辽B 48514</van-col>
+          <van-col span="6">2018-10-10</van-col>
+          <van-col span="6">暂存</van-col>
+        </van-row>
+      </van-tab>
+    </van-tabs>
+
   </view>
 </view>

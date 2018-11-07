@@ -60,7 +60,7 @@
             </view>
         </view>
 
-        <button bindtap="" class="weui-btn" type="primary">客户维护信息</button>
+        <button bindtap="bindTapToClient" class="weui-btn" type="primary">客户维护信息</button>
 
         <!-- upload start-->
         <view class="weui-cells__title">损失清单</view>

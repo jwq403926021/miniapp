@@ -6,9 +6,9 @@ Page({
 
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindTapToClient: function () {
     wx.navigateTo({
-      url: '../register/register?id=' + 123
+      url: '../jc-form-client/jc-form-client?userId=' + 123
     })
   },
   onLoad: function () {

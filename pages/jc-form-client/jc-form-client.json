@@ -2,7 +2,6 @@
   "usingComponents": {
     "van-row": "../../asset/vant/row/index",
     "van-col": "../../asset/vant/col/index",
-    "van-tab": "../../asset/vant/tab/index",
-    "van-tabs": "../../asset/vant/tabs/index"
+    "van-icon": "../../asset/vant/icon/index"
   }
 }

@@ -4,6 +4,8 @@
     "pages/register/register",
     "pages/cx-form/cx-form",
     "pages/jc-form/jc-form",
+    "pages/jc-form-client/jc-form-client",
+    "pages/jc-form-client-upload/jc-form-client-upload",
     "pages/ws-form/ws-form",
     "pages/my-list-home/my-list-home",
     "pages/my-list-ws/my-list-ws",

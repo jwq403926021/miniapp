@@ -1,0 +1,32 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">声明</view>
+        <view class="page__desc">声明信息！！！！</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-cells">
+            <van-row>
+                <van-col span="6">
+                    <ul class="client-list">
+                        <li class="active">客户</li>
+                        <li>第三者(1)</li>
+                        <li class="add-button"><van-icon class="add-button-icon" name="add" /></li>
+                    </ul>
+                </van-col>
+                <van-col span="18">
+                    <view class="client-upload-btn-wrap">
+                        <view bindtap="goToClientUpload" data-index="1" class="btn">资料</view>
+                        <view bindtap="goToClientUpload" data-index="2" class="btn">事故源</view>
+                        <view bindtap="goToClientUpload" data-index="3" class="btn">全景</view>
+                        <view bindtap="goToClientUpload" data-index="4" class="btn">细节</view>
+                        <!--
+                        <button bindtap="" class="weui-btn" type="primary">资料</button>
+                        <button bindtap="" class="weui-btn" type="primary">事故源</button>
+                        <button bindtap="" class="weui-btn" type="primary">全景</button>
+                        <button bindtap="" class="weui-btn" type="primary">细节</button>-->
+                    </view>
+                </van-col>
+            </van-row>
+        </view>
+    </view>
+</view>

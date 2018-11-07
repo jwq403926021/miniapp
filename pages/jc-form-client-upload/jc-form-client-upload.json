@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "van-nav-bar": "../../asset/vant/nav-bar/index"
+  }
+}
