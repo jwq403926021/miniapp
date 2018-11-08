@@ -3,39 +3,44 @@ var util = require('./utils/util.js')
 App({
   onLaunch: function () {
     if (wx.getStorageSync('token')) {
-      // console.log('登陆过了')
+      console.log('登陆过了')
     } else {
       wx.login({
         success: function (res) {
           if (res.code) {
-            util.request({
-                authorization: false,
-                path: '/signin',
-                method: 'POST',
-                data: {
-                  authorize_type: '1',
-                  code: res.code
-                }
-            }, function (err, res) {
-              // console.log(res)
-              if (res.code == 1) {
-                let data = res.data
-                wx.showLoading({
-                  title: '登陆中',
-                })
-                wx.setStorageSync('openid', data.openid)
-                wx.setStorageSync('token', data.token)
-                wx.setStorageSync('user_type', data.user_type)
-                setTimeout(function () {
-                  wx.hideLoading()
-                  // wx.redirectTo({
-                  //   url: '../index/index',
-                  // })
-                }, 1000)
-              } else {
-                wx.showToast({ title: '登录出错请重试', icon: 'none', duration: 3000 });
-              }
-            })
+            wx.showLoading({title: '登录中'})
+            setTimeout(()=>{
+              wx.hideLoading()
+              wx.setStorageSync('token', '123')
+            },3000)
+            // util.request({
+            //     authorization: false,
+            //     path: '/signin',
+            //     method: 'POST',
+            //     data: {
+            //       authorize_type: '1',
+            //       code: res.code
+            //     }
+            // }, function (err, res) {
+            //   // console.log(res)
+            //   if (res.code == 1) {
+            //     let data = res.data
+            //     wx.showLoading({
+            //       title: '登陆中',
+            //     })
+            //     wx.setStorageSync('openid', data.openid)
+            //     wx.setStorageSync('token', data.token)
+            //     wx.setStorageSync('user_type', data.user_type)
+            //     setTimeout(function () {
+            //       wx.hideLoading()
+            //       // wx.redirectTo({
+            //       //   url: '../index/index',
+            //       // })
+            //     }, 1000)
+            //   } else {
+            //     wx.showToast({ title: '登录出错请重试', icon: 'none', duration: 3000 });
+            //   }
+            // })
           } else {
             wx.showToast({ title: '登录失败', icon: 'none', duration: 3000 });
           }

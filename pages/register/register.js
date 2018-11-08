@@ -18,7 +18,7 @@ Page({
   },
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
-
+    wx.hideLoading()
   },
   onChange3 (e) {
     console.log("onChange3", e)

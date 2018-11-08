@@ -5,7 +5,8 @@ const app = getApp()
 Page({
   data: {
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isLogin: false
   },
   //事件处理函数
   goToWsForm: function() {
@@ -27,8 +28,20 @@ Page({
     console.log('bindGetUserInfo:::', data)
   },
   onLoad: function () {
-
-
+    var value = wx.getStorageSync('token')
+    if(value) {
+      console.log('显示 index')
+      this.setData({
+        isLogin: true
+      })
+      wx.showTabBar()
+    }else{
+      console.log('隐藏 index')
+      wx.switchTab({
+        url: '../register/register'
+      })
+      wx.hideTabBar()
+    }
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
