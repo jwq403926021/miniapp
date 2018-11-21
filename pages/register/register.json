@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "regionPicker": "/components/regionPicker/regionPicker"
+    "regionPicker": "/components/regionPicker/regionPicker",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index"
   }
 }

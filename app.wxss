@@ -54,6 +54,7 @@ button[type=primary] {
 }
 .fl{ float:left}
 .fr{float:right}
+.mr5{margin-right: 5px}
 .clearfix:after{
     display:block;
     content:"";
@@ -96,4 +97,8 @@ button[type=default] {
 }
 .card-wrap{
     padding: 10px;
+}
+.vertical{
+    box-sizing: border-box;
+    padding-top: 10px;
 }

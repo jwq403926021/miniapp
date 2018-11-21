@@ -4,7 +4,7 @@ Page({
   data: {
     array: ['游客', '查勘员', '服务者'],
     region: ['辽宁省', '大连市'],
-    role: 0,
+    role: '',
     companyCategory: 0,
     companyName: 0,
     companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
@@ -15,6 +15,9 @@ Page({
       }
     },
     regionPickerFlag: false
+  },
+  onChange(event) {
+    this.setData({ role: event.detail });
   },
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
