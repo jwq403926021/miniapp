@@ -1,12 +1,14 @@
 //获取应用实例
 const app = getApp()
-
+import location from '../../asset/location'
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    show: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    areaList: location
   },
   //事件处理函数
   bindViewTap: function() {
@@ -48,6 +50,11 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  openLocation () {
+    this.setData({
+      show: !this.show
     })
   }
 })

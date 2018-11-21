@@ -194,9 +194,9 @@
       </view>
     </view>
 
-    <view class="button-sp-area">
-      <button class="weui-btn mini-btn" type="primary" size="mini">提交</button>
-      <button class="weui-btn mini-btn" type="default" size="mini">暂存</button>
+    <view class="button-sp-area two-btn-wrap">
+      <button type="primary">提交</button>
+      <button>暂存</button>
     </view>
 
   </view>

@@ -7,15 +7,52 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <view>
-    <button bindtap="goToWsForm" class="weui-btn" type="primary">创建物损工单</button>
-    <button bindtap="goToJcForm" class="weui-btn" type="primary">创建家财险工单</button>
-    <button bindtap="goToCxForm" class="weui-btn" type="primary">创建车险工单</button>
-    <navigator url="/pages/test/test" hover-class="navigator-hover">测试页面</navigator>
-
-    <open-data type="userAvatarUrl"></open-data>
-    <open-data type="userNickName"></open-data>
-
-    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+  <view class="banner">
+    <image src="../../asset/image/1.jpg" style="width: 100%"></image>
+  </view>
+  <view class="index-btn-wrap clearfix">
+    <view class="ws-index-btn fl" bindtap="goToWsForm">
+      <view>
+        <van-icon name="exchange" style="font-size: 24px" />
+      </view>
+      <view>
+        创建物损工单
+      </view>
+    </view>
+    <view class="fr index-btn-wrap-right">
+      <view class="jc-index-btn" bindtap="goToJcForm">
+        <view>
+          <van-icon name="shop" style="font-size: 24px" />
+        </view>
+        <view>
+          创建家财险工单
+        </view>
+      </view>
+      <view class="cx-index-btn" bindtap="goToCxForm">
+        <view>
+          <van-icon name="logistics" style="font-size: 24px" />
+        </view>
+        <view>
+          创建车险工单
+        </view>
+      </view>
+    </view>
+    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
+    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
+    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
+    <!--<navigator url="/pages/test/test" hover-class="navigator-hover">测试页面</navigator>-->
+    <!--<picker bindchange="bindPickerChange" value="{{0}}" range="{{array}}">-->
+      <!--<view class="picker_1">-->
+        <!--选择1：{{array[index]}}-->
+      <!--</view>-->
+    <!--</picker>-->
+    <!--<picker bindchange="bindPickerChange" value="{{0}}" range="{{array1}}">-->
+      <!--<view class="picker_2">-->
+        <!--选择2：{{array[index]}}-->
+      <!--</view>-->
+    <!--</picker>-->
+    <!--<open-data type="userAvatarUrl"></open-data>-->
+    <!--<open-data type="userNickName"></open-data>-->
+    <!--<button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>-->
   </view>
 </view>

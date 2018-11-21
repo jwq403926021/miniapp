@@ -15,12 +15,12 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTextStyle":"black",
+    "navigationBarBackgroundColor": "#1ab1fa",
+    "navigationBarTextStyle":"white",
     "navigationBarTitleText": "汇报价"
   },
   "tabBar": {
-    "selectedColor": "#07c586",
+    "selectedColor": "#1ab1fa",
     "color": "#ccc",
     "list": [
       {

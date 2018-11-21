@@ -2,6 +2,9 @@
   class="van-search custom-class {{ showAction || useActionSlot ? 'van-search--show-action' : '' }}"
   style="background: {{ background }}"
 >
+  <view>
+    <slot wx:if="{{ useLocationSlot }}" name="location" />
+  </view>
   <view class="van-search__field">
     <van-field
       clearable

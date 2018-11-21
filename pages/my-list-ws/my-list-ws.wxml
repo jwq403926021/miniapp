@@ -1,4 +1,45 @@
 <!--index.wxml-->
 <view class="page">
-  物损列表
+  <van-search
+          value="{{ value }}"
+          placeholder="请输入搜索关键词"
+          use-action-slot
+          use-location-slot
+          bind:search="onSearch"
+  >
+    <view slot="location" bind:tap="openLocation">
+      <view class="location-trigger">
+        <view class="caret">大连</view>
+      </view>
+    </view>
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+  <view class="filter-wrap clearfix">
+    <view class="field">
+      <view class="caret">条件-1</view>
+    </view>
+    <view class="field">
+      <view class="caret">条件-2</view>
+    </view>
+    <view class="field">
+      <view class="caret">条件-3</view>
+    </view>
+  </view>
+
+  <view class="card-wrap">
+    <van-card title="123" thumb="{{ imageURL }}">
+      <view slot="desc">
+        4444
+      </view>
+    </van-card>
+  </view>
+
+  <van-popup
+          show="{{ show }}"
+          position="bottom"
+          overlay="{{ true }}"
+          bind:close="onClose"
+  >
+    <van-area area-list="{{ areaList }}" value="110101" />
+  </van-popup>
 </view>

@@ -4,6 +4,8 @@ const app = getApp()
 
 Page({
   data: {
+    array: ['美国', '中国', '巴西', '日本'],
+    array1: ['美国1', '中国2', '巴西3', '日本4'],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isLogin: false

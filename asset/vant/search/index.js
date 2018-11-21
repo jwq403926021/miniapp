@@ -10,6 +10,7 @@ VantComponent({
     inputAlign: String,
     showAction: Boolean,
     useActionSlot: Boolean,
+    useLocationSlot: Boolean,
     placeholder: String,
     placeholderStyle: String,
     background: {
