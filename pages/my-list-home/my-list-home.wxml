@@ -1,7 +1,20 @@
 <view class="page">
-  <view>
-    <button bindtap="goToWsList" class="weui-btn" type="primary">我的物损工单</button>
-    <button bindtap="goToJcList" class="weui-btn" type="primary">我的家财工单</button>
-    <button bindtap="goToCxList" class="weui-btn" type="primary">我的车险工单</button>
+  <view class="my-list-item" bindtap="goToWsList">
+    <view class="fr">
+      <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
+    </view>
+    <view><van-icon name="exchange" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />物损工单 <text>0</text>/5</view>
+  </view>
+  <view class="my-list-item" bindtap="goToJcList">
+    <view class="fr">
+      <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
+    </view>
+    <view><van-icon name="shop" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />家财工单 <text>0</text>/5</view>
+  </view>
+  <view class="my-list-item" bindtap="goToCxList">
+    <view class="fr">
+      <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
+    </view>
+    <view><van-icon name="logistics" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />车险工单 <text>0</text>/5</view>
   </view>
 </view>

@@ -1,6 +1,10 @@
 <view class="page">
-    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
-    <view class="page__bd">
+    <button wx:if="{{!hasUserInfoAuth}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    <view class="userinfo" wx:if="{{hasUserInfoAuth}}">
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view class="page__bd" wx:if="{{hasUserInfoAuth}}">
         <view class="weui-cells__title">注册信息</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">

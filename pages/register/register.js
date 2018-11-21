@@ -14,7 +14,9 @@ Page({
         "eee": ["1","2"]
       }
     },
-    regionPickerFlag: false
+    regionPickerFlag: false,
+    hasUserInfoAuth: false,
+    userInfo: null
   },
   onChange(event) {
     this.setData({ role: event.detail });
@@ -22,6 +24,30 @@ Page({
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
     wx.hideLoading()
+
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          this.setData({
+            userInfo: app.globalData.userInfo,
+            hasUserInfoAuth: true
+          })
+        } else {
+          this.setData({
+            userInfo: null,
+            hasUserInfoAuth: false
+          })
+        }
+      }
+    })
+  },
+  bindGetUserInfo (data) {
+    app.globalData.userInfo = data.detail.userInfo
+    this.setData({
+      hasUserInfoAuth: true,
+      userInfo: app.globalData.userInfo,
+      hasUserInfoAuth: true
+    })
   },
   onChange3 (e) {
     console.log("onChange3", e)
