@@ -1,1 +1,1 @@
-exports.domain = 'https://nowapi.relianfit.cn';
+exports.domain = 'https://aplusprice.xyz';
