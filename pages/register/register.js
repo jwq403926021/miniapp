@@ -1,6 +1,5 @@
 const app = getApp()
 import util from '../../utils/util'
-
 Page({
     data: {
         show: false,
@@ -18,42 +17,33 @@ Page({
         this.setData({role: event.detail});
     },
     onLoad: function (routeParams) {
-        console.log('routeParams->', routeParams)
-
-        let abc = util.request({authorization: true, path: '/aprice/sys/area/list', method: 'GET'}, (data) => {
-            console.log("144444", data)
-        })
-
+        let _this = this
         wx.hideLoading()
-
         wx.getSetting({
             success: res => {
                 if (res.authSetting['scope.userInfo']) {
-                    this.setData({
-                        userInfo: app.globalData.userInfo,
-                        hasUserInfoAuth: true
-                    })
-                } else {
-                    this.setData({
-                        userInfo: null,
-                        hasUserInfoAuth: false
+                    wx.getUserInfo({
+                        success: function(res) {
+                            app.globalData.userInfo = res.userInfo
+                            _this.setData({
+                                userInfo: app.globalData.userInfo,
+                                hasUserInfoAuth: true
+                            })
+                        }
                     })
                 }
             }
         })
     },
     bindGetUserInfo(data) {
+        if (data.detail.errMsg == "getUserInfo:fail auth deny") {
+            return false
+        }
         app.globalData.userInfo = data.detail.userInfo
         this.setData({
             hasUserInfoAuth: true,
             userInfo: app.globalData.userInfo
         })
-    },
-    onChange3(e) {
-        console.log("onChange3", e)
-    },
-    formSubmit(data) {
-        console.log("formSubmit::", data)
     },
     openLocation() {
         this.setData({
@@ -61,13 +51,11 @@ Page({
         })
     },
     onConfirm() {
-        console.log('!!!!!!!!!')
         this.setData({
             show: false
         })
     },
     onCancel() {
-        console.log('!!!!!!333!!!')
         this.setData({
             show: false
         })

@@ -1,5 +1,8 @@
 <view class="page">
-    <button wx:if="{{!hasUserInfoAuth}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    <view wx:if="{{!hasUserInfoAuth}}" class="authAskBtnWrap">
+        <text>欢迎使用汇报价小程序，请先授权登录。以完成注册流程。</text>
+        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary" hover-class="my-button-hover">授权登录</button>
+    </view>
     <view class="userinfo" wx:if="{{hasUserInfoAuth}}">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
@@ -22,9 +25,17 @@
                 <view class="weui-cell__bd">
                     <input class="weui-input" placeholder="请输入手机号"/>
                 </view>
-                <!-- <view class="weui-cell__ft">
+                <view class="weui-cell__ft">
                     <view class="weui-vcode-btn">获取验证码</view>
-                </view> -->
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">验证码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入验证码"/>
+                </view>
             </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -126,7 +137,7 @@
             </view>
             <!-- <view class="weui-cells__tips">请填写</view> -->
             <view>
-                <button class="weui-btn no-radius" formType="submit" type="primary" bindtap="showTopTips">确定</button>
+                <button hover-class="my-button-hover" class="weui-btn no-radius" formType="submit" type="primary" bindtap="showTopTips">确定</button>
             </view>
 
         </view>

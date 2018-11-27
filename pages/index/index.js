@@ -30,8 +30,8 @@ Page({
     console.log('bindGetUserInfo:::', data)
   },
   onLoad: function () {
-    var value = wx.getStorageSync('token')
-    if(value) {
+    var value = wx.getStorageSync('state')
+    if(value === 1) {
       console.log('显示 index')
       this.setData({
         isLogin: true
@@ -71,13 +71,4 @@ Page({
     //   })
     // }
   }
-  // ,
-  // getUserInfo: function(e) {
-  //   console.log(e)
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // }
 })
