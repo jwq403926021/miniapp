@@ -12,6 +12,21 @@ Page({
         companyNameList: ['Name 1', 'Name 2', 'Name 3'],
         hasUserInfoAuth: false,
         userInfo: null
+// {
+//     "avatarUrl": "string",
+//     "cityCode": "string",
+//     "companyName": "string",
+//     "companyType": "string",
+//     "gender": "string",
+//     "inviteCode": "string",
+//     "mobile": "string",
+//     "mobileCode": "string",
+//     "name": "string",
+//     "nickName": "string",
+//     "provinceCode": "string",
+//     "role": "string",
+//     "townCode": "string"
+// }
     },
     onChange(event) {
         this.setData({role: event.detail});
