@@ -47,7 +47,7 @@
                     <view class="weui-label">地址</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">请填写地址</view>
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                 </view>
             </view>
             <view class="weui-cell weui-cell_select">

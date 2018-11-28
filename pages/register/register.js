@@ -6,6 +6,7 @@ Page({
     show: false,
     areaList: {},
     region: '',
+    regionLabel: '',
     role: '',
     companyCategory: '',
     companyName: '',
@@ -18,6 +19,7 @@ Page({
     registeInfo: {
       "avatarUrl": "",
       "cityCode": "",
+      "city": "",
       "companyName": "110", // 暂时
       "companyType": "119", // 暂时
       "gender": "",
@@ -27,8 +29,10 @@ Page({
       "name": "",
       "nickName": "",
       "provinceCode": "",
+      "province": "",
       "role": "1", // 暂时
-      "townCode": ""
+      "townCode": "",
+      "town": ""
     },
     isOurUser: 0
   },
@@ -63,15 +67,15 @@ Page({
     this.initArea()
   },
   initArea () {
-    // util.request({
-    //   path: '/sys/area/list',
-    //   method: 'GET'
-    // }, function (err, res) {
-    //   console.log('----', res)
-    //   if (res.code == 0) {
-    //
-    //   }
-    // })
+    let _this = this
+    util.request({
+      path: '/sys/area/list',
+      method: 'GET'
+    }, function (err, res) {
+      _this.setData({
+        areaList: res.DATA.DATA
+      })
+    })
   },
   companyTypeChange (data) {
     console.log(data.detail.value)
@@ -94,6 +98,9 @@ Page({
     })
   },
   submitRegiste() {
+    if (!this.checkPhone()) {
+      return false
+    }
     let params = this.data.registeInfo
     console.log(params, '---')
     util.request({
@@ -113,12 +120,24 @@ Page({
     })
   },
   onConfirm(data) {
-    console.log('1!!', data)
-    this.setData({
-      show: false
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
     })
+    this.setData({
+      show: false,
+      regionLabel: strArr.join(','),
+      'registeInfo.townCode': data.detail.values[2].code,
+      'registeInfo.cityCode': data.detail.values[1].code,
+      'registeInfo.provinceCode': data.detail.values[0].code,
+      'registeInfo.town': data.detail.values[2].name,
+      'registeInfo.city': data.detail.values[1].name,
+      'registeInfo.province': data.detail.values[0].name
+    })
+    console.log(this.data.registeInfo)
+    // console.log('1!!', data.detail.values)
   },
-  onClose() {
+  onCancel() {
     this.setData({
       show: false
     })
@@ -136,7 +155,7 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        let count = 10
+        let count = 120
         _this.setData({
           isDisableVerfiyBtn: true,
           verifyLabel: `${count}s后再试`

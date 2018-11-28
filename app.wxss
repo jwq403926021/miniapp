@@ -109,3 +109,11 @@ button[type=default] {
     box-sizing: border-box;
     padding-top: 10px;
 }
+.van-picker__confirm{
+    color: #0bb20c!important;
+    font-size: 16px!important;
+}
+.van-picker__cancel{
+    color: #808080!important;
+    font-size: 16px!important;
+}
