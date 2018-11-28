@@ -32,13 +32,13 @@ Page({
   onLoad: function () {
     var value = wx.getStorageSync('state')
     if(value === 1) {
-      console.log('显示 index')
+      console.log('显示 index', '|', value, '|')
       this.setData({
         isLogin: true
       })
       wx.showTabBar()
     }else{
-      console.log('隐藏 index')
+      console.log('隐藏 index', '|', value, '|')
       wx.switchTab({
         url: '../register/register'
       })

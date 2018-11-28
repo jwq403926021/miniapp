@@ -7,15 +7,15 @@ function request(param, cb) {
   var req = function (param) {
     return new Promise(function (resolve, reject) {
       param.data = param.data || {};
-      if (param.authorization) {
-        var token = wx.getStorageSync('token');
-      }
+      // if (param.authorization) {
+      var token = wx.getStorageSync('token');
+      // }
       wx.request({
         url: constants.domain + param.path,
         data: param.data === null ? '' : param.data,
         method: param.method,
         header: {
-          'authorization': 'Bearer ' + token
+          'token': token
         },
         success: function (res) {
           // console.log('request result:'+JSON.stringify(res))

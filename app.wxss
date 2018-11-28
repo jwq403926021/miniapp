@@ -42,6 +42,13 @@ page{
     text-align: left;
     font-size: 14px;
 }
+.weui-select{
+    font-size: 14px!important;
+    color:#808080
+}
+.van-radio__label{
+    font-size: 14px!important;
+}
 button{ border-radius: 0!important;}
 button[type=primary] {
     color:#FFFFFF;

@@ -9,12 +9,13 @@ App({
                     wx.showLoading({title: '登录中'})
                     util.request({
                         authorization: false,
-                        path: '/aprice/app/login',
+                        path: '/app/login',
                         method: 'POST',
                         data: {
                             code: res.code
                         }
                     }, function (err, res) {
+                        wx.hideLoading()
                         if (res.code == 0) {
                             wx.setStorageSync('state', res.state)
                             wx.setStorageSync('token', res.token)

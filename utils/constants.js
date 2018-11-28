@@ -1,1 +1,1 @@
-exports.domain = 'https://aplusprice.xyz';
+exports.domain = 'https://aplusprice.xyz/aprice';
