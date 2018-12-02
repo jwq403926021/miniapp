@@ -1,5 +1,5 @@
 <view class="page">
-    <view wx:if="{{!hasUserInfoAuth}}" class="authAskBtnWrap">
+    <view wx:if="{{!hasUserInfoAuth && showAskUserInfoBtn}}" class="authAskBtnWrap">
         <text>欢迎使用汇报价小程序，请先授权登录。</text>
         <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary" hover-class="my-button-hover">
             授权登录

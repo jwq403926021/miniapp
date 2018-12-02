@@ -11,6 +11,7 @@ Page({
     companyName: '',
     companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
     companyNameList: ['Name 1', 'Name 2', 'Name 3'],
+    showAskUserInfoBtn: false,
     hasUserInfoAuth: false,
     hasBindPhone: false,
     userInfo: null,
@@ -76,6 +77,10 @@ Page({
                 "registeInfo.townCode": app.globalData.currentRegisterInfo.townCode
               })
             }
+          })
+        } else {
+          this.setData({
+            showAskUserInfoBtn: true
           })
         }
       }
