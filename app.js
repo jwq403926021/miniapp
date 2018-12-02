@@ -1,48 +1,49 @@
 var util = require('./utils/util.js')
 //app.js
 App({
-    onLaunch: function () {
-        let _this = this
-        wx.login({
-            success: function (res) {
-                if (res.code) {
-                    wx.showLoading({title: '登录中'})
-                    util.request({
-                        authorization: false,
-                        path: '/app/login',
-                        method: 'POST',
-                        data: {
-                            code: res.code
-                        }
-                    }, function (err, res) {
-                        wx.hideLoading()
-                        if (res.code == 0) {
-                            wx.setStorageSync('status', res.status)
-                            wx.setStorageSync('token', res.token)
-                            _this.globalData.status = res.status
-                            _this.globalData.token = res.token
-                            if(res.status == 2) {
-                                console.log('未注册', res)
-                            } else {
-                                console.log('已登录', res)
-                              wx.switchTab({
-                                url: '../index/index',
-                                success: function (e) {
-                                  var page = getCurrentPages().pop();
-                                  if (page == undefined || page == null) return;
-                                  page.onLoad();
-                                }
-                              })
-                            }
-                        } else {
-                            wx.showToast({title: '登录出错请重试', icon: 'none', duration: 3000});
-                        }
-                    })
-                } else {
-                    wx.showToast({title: '登录失败', icon: 'none', duration: 3000});
-                }
+  onLaunch: function () {
+    let _this = this
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          wx.showLoading({title: '登录中'})
+          util.request({
+            authorization: false,
+            path: '/app/login',
+            method: 'POST',
+            data: {
+              code: res.code
             }
-        })
+          }, function (err, res) {
+            wx.hideLoading()
+            if (res.code == 0) {
+              wx.setStorageSync('status', res.status)
+              wx.setStorageSync('token', res.token)
+              _this.globalData.status = res.status
+              _this.globalData.token = res.token
+              if (res.status == 2) {
+                console.log('未注册', res)
+              } else {
+                console.log('已登录', res)
+                _this.globalData.currentRegisterInfo = res.userInfo
+                wx.switchTab({
+                  url: '../index/index',
+                  success: function (e) {
+                    var page = getCurrentPages().pop();
+                    if (page == undefined || page == null) return;
+                    page.onLoad();
+                  }
+                })
+              }
+            } else {
+              wx.showToast({title: '登录出错请重试', icon: 'none', duration: 3000});
+            }
+          })
+        } else {
+          wx.showToast({title: '登录失败', icon: 'none', duration: 3000});
+        }
+      }
+    })
 
 // if (wx.getStorageSync('token')) {
 //   console.log('登陆过了')
@@ -109,10 +110,11 @@ App({
 //     }
 //   }
 // })
-    },
-    globalData: {
-        userInfo: null,
-      status: 0,
-        token: ''
-    }
+  },
+  globalData: {
+    currentRegisterInfo: null,
+    userInfo: null,
+    status: 0,
+    token: ''
+  }
 })

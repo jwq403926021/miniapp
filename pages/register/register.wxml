@@ -99,7 +99,7 @@
                     </picker>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input">
+            <view class="weui-cell weui-cell_input" wx:if="{{!isOurUser}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">邀请码</view>
                 </view>
@@ -108,7 +108,7 @@
                            value="{{registeInfo.inviteCode}}" placeholder="请输入邀请码"/>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input">
+            <view class="weui-cell weui-cell_input" wx:if="{{isOurUser}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">我的邀请码</view>
                 </view>
