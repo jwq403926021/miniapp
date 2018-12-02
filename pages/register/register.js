@@ -13,6 +13,7 @@ Page({
     companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
     companyNameList: ['Name 1', 'Name 2', 'Name 3'],
     hasUserInfoAuth: false,
+    hasBindPhone: false,
     userInfo: null,
     isDisableVerfiyBtn: false,
     verifyLabel: '获取验证码',
@@ -33,8 +34,7 @@ Page({
       "role": "1", // 暂时
       "townCode": "",
       "town": ""
-    },
-    isOurUser: 0
+    }
   },
   onChange(event) {
     this.setData({
@@ -43,9 +43,12 @@ Page({
   },
   onLoad: function (routeParams) {
     let _this = this
+    let value = wx.getStorageSync('status')
+    let _isOurUser = (value == 2 || value == '') ? false : true
     this.setData({
-      isOurUser: 0
+      hasBindPhone: _isOurUser
     })
+    console.log('aiwocao!', _isOurUser)
     wx.hideLoading()
     wx.getSetting({
       success: res => {
@@ -53,11 +56,14 @@ Page({
           wx.getUserInfo({
             success: function (res) {
               app.globalData.userInfo = res.userInfo
-              let _data = Object.assign(_this.data.registeInfo, res.userInfo)
               _this.setData({
                 userInfo: app.globalData.userInfo,
                 hasUserInfoAuth: true,
-                registeInfo: _data
+                'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
+                'registeInfo.country': app.globalData.userInfo.country,
+                'registeInfo.gender': app.globalData.userInfo.gender,
+                'registeInfo.language': app.globalData.userInfo.language,
+                'registeInfo.nickName': app.globalData.userInfo.nickName
               })
             }
           })
@@ -90,27 +96,39 @@ Page({
       return false
     }
     app.globalData.userInfo = data.detail.userInfo
-    let _data = Object.assign(this.data.registeInfo, data.detail.userInfo)
     this.setData({
       userInfo: app.globalData.userInfo,
       hasUserInfoAuth: true,
-      registeInfo: _data
+      'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
+      'registeInfo.country': app.globalData.userInfo.country,
+      'registeInfo.gender': app.globalData.userInfo.gender,
+      'registeInfo.language': app.globalData.userInfo.language,
+      'registeInfo.nickName': app.globalData.userInfo.nickName
     })
+
+
   },
   submitRegiste() {
     if (!this.checkPhone()) {
       return false
     }
     let params = this.data.registeInfo
-    console.log(params, '---')
     util.request({
-      path: '/app/register111',
+      path: '/app/register',
       method: 'POST',
       data: params
     }, function (err, res) {
-      console.log('----', res)
+      console.log('rrr---', res)
       if (res.code == 0) {
-
+        wx.setStorageSync('status', 1)
+        wx.switchTab({
+          url: '../index/index',
+          success: function (e) {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+        })
       }
     })
   },
@@ -205,5 +223,46 @@ Page({
       nameMap[name] = e.detail.value
     }
     this.setData(nameMap)
+  },
+  bindPhoneNum () {
+    let _this = this
+    if (!this.checkPhone()) {
+      return false
+    }
+    if (this.data.registeInfo.mobileCode == '' || this.data.registeInfo.mobileCode == null){
+      wx.showToast({
+        title: '验证码不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+
+    util.request({
+      path: '/app/binding',
+      method: 'POST',
+      data: {
+        mobile: this.data.registeInfo.mobile,
+        code: this.data.registeInfo.mobileCode
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.setData({
+          'hasBindPhone': true,
+          "registeInfo.companyName": res.userInfo.companyNameCode || '119',
+          "registeInfo.companyType": res.userInfo.companyType || '119',
+          "registeInfo.inviteCode": res.userInfo.inviteCode,
+          "registeInfo.name": res.userInfo.name,
+          "registeInfo.role": res.userInfo.role,
+          'registeInfo.townCode': res.userInfo.townCode,
+          'registeInfo.cityCode': res.userInfo.cityCode,
+          'registeInfo.provinceCode': res.userInfo.provinceCode
+          // ,
+          // 'registeInfo.town': res.userInfo.town,
+          // 'registeInfo.city': res.userInfo.city,
+          // 'registeInfo.province': res.userInfo.province
+        })
+      }
+    })
   }
 })

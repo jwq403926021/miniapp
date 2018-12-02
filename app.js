@@ -17,14 +17,22 @@ App({
                     }, function (err, res) {
                         wx.hideLoading()
                         if (res.code == 0) {
-                            wx.setStorageSync('state', res.state)
+                            wx.setStorageSync('status', res.status)
                             wx.setStorageSync('token', res.token)
-                            _this.globalData.state = res.state
+                            _this.globalData.status = res.status
                             _this.globalData.token = res.token
-                            if(res.state == 0) {
-                                console.log('未注册 跳转登录', res)
+                            if(res.status == 2) {
+                                console.log('未注册', res)
                             } else {
-                                console.log('已登录 跳转登录', res)
+                                console.log('已登录', res)
+                              wx.switchTab({
+                                url: '../index/index',
+                                success: function (e) {
+                                  var page = getCurrentPages().pop();
+                                  if (page == undefined || page == null) return;
+                                  page.onLoad();
+                                }
+                              })
                             }
                         } else {
                             wx.showToast({title: '登录出错请重试', icon: 'none', duration: 3000});
@@ -104,7 +112,7 @@ App({
     },
     globalData: {
         userInfo: null,
-        state: 0,
+      status: 0,
         token: ''
     }
 })

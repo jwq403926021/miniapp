@@ -30,19 +30,19 @@ Page({
     console.log('bindGetUserInfo:::', data)
   },
   onLoad: function () {
-    var value = wx.getStorageSync('state')
-    if(value === 1) {
-      console.log('显示 index', '|', value, '|')
-      this.setData({
-        isLogin: true
-      })
-      wx.showTabBar()
-    }else{
+    var value = wx.getStorageSync('status')
+    if(value == 2 || value == '') {
       console.log('隐藏 index', '|', value, '|')
       wx.switchTab({
         url: '../register/register'
       })
       wx.hideTabBar()
+    }else{
+      console.log('显示 index', '|', value, '|')
+      this.setData({
+        isLogin: true
+      })
+      wx.showTabBar()
     }
     // if (app.globalData.userInfo) {
     //   this.setData({

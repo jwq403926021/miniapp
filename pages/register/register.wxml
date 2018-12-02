@@ -1,6 +1,6 @@
 <view class="page">
     <view wx:if="{{!hasUserInfoAuth}}" class="authAskBtnWrap">
-        <text>欢迎使用汇报价小程序，请先授权登录。以完成注册流程。</text>
+        <text>欢迎使用汇报价小程序，请先授权登录。</text>
         <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary" hover-class="my-button-hover">
             授权登录
         </button>
@@ -9,18 +9,9 @@
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
-    <view class="page__bd" wx:if="{{hasUserInfoAuth}}">
-        <view class="weui-cells__title">注册信息</view>
+    <view class="page__bd" wx:if="{{hasUserInfoAuth && !hasBindPhone}}">
+        <view class="weui-cells__title">绑定手机</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">姓名</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputgetName" data-name='registeInfo.name'
-                           value="{{registeInfo.name}}" placeholder="您的姓名"/>
-                </view>
-            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">手机号</view>
@@ -30,7 +21,7 @@
                            value="{{registeInfo.mobile}}" placeholder="请输入手机号"/>
                 </view>
                 <view class="weui-cell__ft">
-                    <view class="weui-vcode-btn {{isDisableVerfiyBtn ? 'eee' : ''}}" bindtap="requestVerifyCode">{{verifyLabel}}</view>
+                    <view class="weui-vcode-btn {{isDisableVerfiyBtn ? 'disabledBtn' : ''}}" bindtap="requestVerifyCode">{{verifyLabel}}</view>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -40,6 +31,25 @@
                 <view class="weui-cell__bd">
                     <input class="weui-input" bindinput="inputgetName" data-name='registeInfo.mobileCode'
                            value="{{registeInfo.mobileCode}}" placeholder="请输入验证码"/>
+                </view>
+            </view>
+            <view>
+                <button hover-class="my-button-hover" class="weui-btn no-radius" formType="submit" type="primary"
+                        bindtap="bindPhoneNum">绑定
+                </button>
+            </view>
+        </view>
+    </view>
+    <view class="page__bd" wx:if="{{hasUserInfoAuth && hasBindPhone}}">
+        <view class="weui-cells__title">注册信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">姓名</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='registeInfo.name'
+                           value="{{registeInfo.name}}" placeholder="您的姓名"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_select">
@@ -98,7 +108,7 @@
                            value="{{registeInfo.inviteCode}}" placeholder="请输入邀请码"/>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input" wx:if="{{isOurUser === 1}}">
+            <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">我的邀请码</view>
                 </view>

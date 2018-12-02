@@ -30,3 +30,6 @@
   white-space:nowrap;
 
 }
+.disabledBtn{
+  color: #aaa;
+}
