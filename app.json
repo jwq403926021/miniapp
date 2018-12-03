@@ -21,7 +21,7 @@
   },
   "tabBar": {
     "selectedColor": "#1ab1fa",
-    "color": "#ccc",
+    "color": "#a3a3a3",
     "list": [
       {
         "iconPath": "asset/image/home.png",

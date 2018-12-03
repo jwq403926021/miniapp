@@ -9,10 +9,14 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 }  */
+view{
+    /*color:#323232;*/
+}
 page{
     background-color: #F8F8F8;
     font-size: 14px!important;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    /*color:#323232;*/
 }
 .page__hd {
     padding: 40px;
