@@ -1,4 +1,6 @@
 //获取应用实例
+import util from "../../utils/util";
+
 const app = getApp()
 
 Page({
@@ -31,6 +33,19 @@ Page({
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
+    })
+  },
+  formSubmit (data) {
+    console.log(data)
+    util.request({
+      path: '/app/message/publishModelMessage',
+      method: 'GET',
+      data: {
+        formId: data.detail.formId,
+        openId: 'oXMt35H5eH1sunzSRvk_Tk4vQ3n4'
+      }
+    }, function (err, res) {
+      console.log('submit form:', res)
     })
   }
 })

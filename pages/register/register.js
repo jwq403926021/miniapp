@@ -57,24 +57,25 @@ Page({
           wx.getUserInfo({
             success: function (res) {
               app.globalData.userInfo = res.userInfo
+              let currentData = app.globalData.currentRegisterInfo
               _this.setData({
                 userInfo: app.globalData.userInfo,
                 hasUserInfoAuth: true,
-                region: app.globalData.currentRegisterInfo.townCode || '',
+                region: currentData ? currentData.townCode : '',
                 'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
                 'registeInfo.country': app.globalData.userInfo.country,
                 'registeInfo.gender': app.globalData.userInfo.gender,
                 'registeInfo.language': app.globalData.userInfo.language,
                 'registeInfo.nickName': app.globalData.userInfo.nickName,
-                "registeInfo.cityCode": app.globalData.currentRegisterInfo.cityCode || '',
-                "registeInfo.companyName": app.globalData.currentRegisterInfo.companyNameCode,
-                "registeInfo.companyType": app.globalData.currentRegisterInfo.companyType,
-                "registeInfo.inviteCode": app.globalData.currentRegisterInfo.inviteCode,
-                "registeInfo.mobile": app.globalData.currentRegisterInfo.mobile,
-                "registeInfo.name": app.globalData.currentRegisterInfo.name,
-                "registeInfo.provinceCode": app.globalData.currentRegisterInfo.provinceCode || '',
-                "registeInfo.role": app.globalData.currentRegisterInfo.role+'',
-                "registeInfo.townCode": app.globalData.currentRegisterInfo.townCode || ''
+                "registeInfo.cityCode": currentData ? currentData.cityCode : '',
+                "registeInfo.companyName": currentData ? currentData.companyNameCode : '',
+                "registeInfo.companyType": currentData ? currentData.companyType : '',
+                "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
+                "registeInfo.mobile": currentData ? currentData.mobile : '',
+                "registeInfo.name": currentData ? currentData.name : '',
+                "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
+                "registeInfo.role": currentData ? (currentData.role + '') : '',
+                "registeInfo.townCode": currentData ? currentData.townCode : ''
               })
             }
           })
@@ -89,9 +90,9 @@ Page({
   },
   getRegionLabel () {
     let arr = []
-    arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo.provinceCode])
-    arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo.cityCode])
-    arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo.townCode])
+    arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''])
+    arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : ''])
+    arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : ''])
     this.setData({
       regionLabel: arr.join(',')
     })
