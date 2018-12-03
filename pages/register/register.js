@@ -60,21 +60,21 @@ Page({
               _this.setData({
                 userInfo: app.globalData.userInfo,
                 hasUserInfoAuth: true,
-                region: app.globalData.currentRegisterInfo.townCode,
+                region: app.globalData.currentRegisterInfo.townCode || '',
                 'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
                 'registeInfo.country': app.globalData.userInfo.country,
                 'registeInfo.gender': app.globalData.userInfo.gender,
                 'registeInfo.language': app.globalData.userInfo.language,
                 'registeInfo.nickName': app.globalData.userInfo.nickName,
-                "registeInfo.cityCode": app.globalData.currentRegisterInfo.cityCode,
+                "registeInfo.cityCode": app.globalData.currentRegisterInfo.cityCode || '',
                 "registeInfo.companyName": app.globalData.currentRegisterInfo.companyNameCode,
                 "registeInfo.companyType": app.globalData.currentRegisterInfo.companyType,
                 "registeInfo.inviteCode": app.globalData.currentRegisterInfo.inviteCode,
                 "registeInfo.mobile": app.globalData.currentRegisterInfo.mobile,
                 "registeInfo.name": app.globalData.currentRegisterInfo.name,
-                "registeInfo.provinceCode": app.globalData.currentRegisterInfo.provinceCode,
+                "registeInfo.provinceCode": app.globalData.currentRegisterInfo.provinceCode || '',
                 "registeInfo.role": app.globalData.currentRegisterInfo.role+'',
-                "registeInfo.townCode": app.globalData.currentRegisterInfo.townCode
+                "registeInfo.townCode": app.globalData.currentRegisterInfo.townCode || ''
               })
             }
           })
