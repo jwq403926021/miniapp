@@ -60,7 +60,15 @@
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_input" wx:if="{{registeInfo.role}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">角色</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input">{{registeInfo.role}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{!registeInfo.role}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">角色</view>
                 </view>
@@ -71,6 +79,27 @@
                         <van-radio custom-class="fl mr5" name="2">查勘员</van-radio>
                         <van-radio custom-class="fl mr5" name="3">服务者</van-radio>
                     </van-radio-group>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{isModifyPhone}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='registeInfo.mobile'
+                           value="{{registeInfo.mobile}}" placeholder="请输入手机号"/>
+                </view>
+                <view class="weui-cell__ft">
+                    <view class="weui-vcode-btn {{isDisableVerfiyBtn ? 'disabledBtn' : ''}}" bindtap="requestVerifyCode">{{verifyLabel}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input" wx:if="{{isModifyPhone}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">验证码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='registeInfo.mobileCode'
+                           value="{{registeInfo.mobileCode}}" placeholder="请输入验证码"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_select">
@@ -113,7 +142,7 @@
                     <view class="weui-label">我的邀请码</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input">?</text>
+                    <text class="weui-input">{{registeInfo.inviteCode}}</text>
                 </view>
             </view>
             <view>
@@ -127,8 +156,6 @@
             show="{{ show }}"
             position="bottom"
             overlay="{{ true }}"
-            bind:cancel="onClose"
-            bind:confirm="onConfirm"
     >
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
     </van-popup>

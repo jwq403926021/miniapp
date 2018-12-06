@@ -5,7 +5,29 @@ const app = getApp()
 
 Page({
   data: {
-    files: []
+    role: 0, // 0 查勘员 | 1 施工人员 | 2 区域负责人 | 3 合作商负责人 |
+    status: 0, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
+    files: [],
+    show: false,
+    areaList: {},
+    region: '',
+    regionLabel: '',
+    taskData: {
+      provinceCode: '',
+      cityCode: '',
+      townCode: '',
+      area: '',
+      isCarDamaged: '1',
+      damagedUser: '',
+      damagedPhone: '',
+      customerUser: '',
+      customerPhone: '',
+      plateNumber: '',
+      information: '',
+      informationImage: [],
+      scene: '',
+      sceneImage: []
+    }
   },
   //事件处理函数
   bindViewTap: function () {
@@ -15,6 +37,89 @@ Page({
   },
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
+    this.initArea()
+  },
+  checkPhone (str){
+    if(!(/^1[34578]\d{9}$/.test(str))){
+      wx.showToast({
+        title: '请输入正确的手机号',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    return true
+  },
+  isLicenseNo(str){
+    str = str.replace(/\s+/g,"")
+    if (str) {
+      let flag = /(^[\u4E00-\u9FA5]{1}[A-Z0-9]{6}$)|(^[A-Z]{2}[A-Z0-9]{2}[A-Z0-9\u4E00-\u9FA5]{1}[A-Z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Z]{2}[0-9]{5}$)|(^(08|38){1}[A-Z0-9]{4}[A-Z0-9挂学警军港澳]{1}$)/.test(str);
+      if (!flag) {
+        wx.showToast({
+          title: '车牌号不正确',
+          icon: 'none',
+          duration: 2000
+        })
+        return false
+      }
+    } else {
+      wx.showToast({
+        title: '车牌号不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    return true
+  },
+  initArea () {
+    let _this = this
+    util.request({
+      path: '/sys/area/list',
+      method: 'GET'
+    }, function (err, res) {
+      _this.setData({
+        areaList: res.DATA.DATA
+      })
+      _this.getRegionLabel()
+    })
+  },
+  getRegionLabel () {
+    // let arr = []
+    // if (app.globalData.currentRegisterInfo) {
+    //   arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo.provinceCode])
+    //   arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo.cityCode])
+    //   arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo.townCode])
+    // }
+    // this.setData({
+    //   regionLabel: arr.length ? arr.join(',') : ''
+    // })
+  },
+  openLocation() {
+    console.log('!!!')
+    this.setData({
+      show: !this.show
+    })
+  },
+  onConfirm(data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+
+    this.setData({
+      show: false,
+      regionLabel: strArr.join(','),
+      'taskData.area': data.detail.values[2].code,
+      'taskData.townCode': data.detail.values[2].code,
+      'taskData.cityCode': data.detail.values[1].code,
+      'taskData.provinceCode': data.detail.values[0].code,
+    })
+  },
+  onCancel() {
+    this.setData({
+      show: false
+    })
   },
   chooseImage: function (e) {
     var that = this;
@@ -35,17 +140,73 @@ Page({
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
-  formSubmit (data) {
-    console.log(data)
-    util.request({
-      path: '/app/message/publishModelMessage',
-      method: 'GET',
-      data: {
-        formId: data.detail.formId,
-        openId: 'oXMt35H5eH1sunzSRvk_Tk4vQ3n4'
+  inputgetName(e) {
+    let name = e.currentTarget.dataset.name;
+    let nameMap = {}
+    if (name.indexOf('.')) {
+      let nameList = name.split('.')
+      if (this.data[nameList[0]]) {
+        nameMap[nameList[0]] = this.data[nameList[0]]
+      } else {
+        nameMap[nameList[0]] = {}
       }
-    }, function (err, res) {
-      console.log('submit form:', res)
-    })
+      nameMap[nameList[0]][nameList[1]] = e.detail.value
+    } else {
+      nameMap[name] = e.detail.value
+    }
+    this.setData(nameMap)
+  },
+  onIsCarDamagedChange (event) {
+    if (event.detail != '1') {
+      this.setData({
+        'taskData.plateNumber': ''
+      })
+    }
+    this.setData({
+      'taskData.isCarDamaged': event.detail
+    });
+  },
+  submitWS (data) {
+    console.log(this.data.taskData, '###')
+    let taskData = this.data.taskData
+
+    if (taskData.damagedUser == '' || taskData.customerUser == '') {
+      wx.showToast({
+        title: '请填写受损人姓名以及客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone)
+    let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone)
+    if (!isVaiddamagedPhone || !isVaidcustomerPhone) {
+      return
+    }
+    if (taskData.isCarDamaged == '1') {
+      let flag = this.isLicenseNo(taskData.plateNumber)
+      if (!flag) {
+        return
+      }
+    }
+    if (taskData.information == '') {
+      wx.showToast({
+        title: '请填写报案信息',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    console.log('SEnd Request')
+    // util.request({
+    //   path: '/app/message/publishModelMessage',
+    //   method: 'GET',
+    //   data: {
+    //     formId: data.detail.formId,
+    //     openId: 'oXMt35H5eH1sunzSRvk_Tk4vQ3n4'
+    //   }
+    // }, function (err, res) {
+    //   console.log('submit form:', res)
+    // })
   }
 })

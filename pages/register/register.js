@@ -35,7 +35,8 @@ Page({
       "townCode": "",
       // "town": ""
     },
-    isOurUser: false
+    isOurUser: false,
+    isModifyPhone: true
   },
   onChange(event) {
     this.setData({
@@ -49,7 +50,8 @@ Page({
     let _isOurUser = (value == 2 || value == '') ? false : true
     this.setData({
       hasBindPhone: _isOurUser,
-      isOurUser: _isOurUser
+      isOurUser: _isOurUser,
+      isModifyPhone: _isOurUser
     })
     wx.getSetting({
       success: res => {
@@ -90,11 +92,13 @@ Page({
   },
   getRegionLabel () {
     let arr = []
-    arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''])
-    arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : ''])
-    arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : ''])
+    if (app.globalData.currentRegisterInfo) {
+      arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo.provinceCode])
+      arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo.cityCode])
+      arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo.townCode])
+    }
     this.setData({
-      regionLabel: arr.join(',')
+      regionLabel: arr.length ? arr.join(',') : ''
     })
   },
   initArea () {
@@ -135,6 +139,7 @@ Page({
 
   },
   submitRegiste() {
+    let _this = this
     if (!this.checkPhone()) {
       return false
     }
@@ -146,6 +151,14 @@ Page({
     }, function (err, res) {
       console.log('rrr---', res)
       if (res.code == 0) {
+        _this.setData({
+          isModifyPhone: false
+        })
+        wx.showToast({
+          title: '操作成功',
+          icon: 'success',
+          duration: 2000
+        })
         wx.setStorageSync('status', 1)
         wx.switchTab({
           url: '../index/index',
@@ -274,6 +287,7 @@ Page({
     }, function (err, res) {
       if (res.code == 0) {
         _this.setData({
+          isModifyPhone: false,
           'hasBindPhone': true,
           "registeInfo.companyName": res.userInfo.companyNameCode || '119',
           "registeInfo.companyType": res.userInfo.companyType || '119',

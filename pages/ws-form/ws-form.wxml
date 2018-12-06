@@ -1,128 +1,142 @@
 <view class="page">
     <view class="page__bd">
-        <form bindsubmit="formSubmit" report-submit="true">
-            <view class="weui-cells__title">物损工单</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">事故区域</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-                            <view class="picker weui-input">
-                                {{region[0]}}，{{region[1]}}
-                                <block wx:if="{{region.length > 2}}">，{{region[2]}}</block>
+        <view class="weui-cells__title">物损工单</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">事故区域</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">受损人姓名</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedUser'
+                           value="{{taskData.damagedUser}}" placeholder="受损人姓名"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">受损人手机</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
+                           value="{{taskData.damagedPhone}}" placeholder="请输入受损人手机"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">客户姓名</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
+                           value="{{taskData.customerUser}}" placeholder="客户姓名"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">客户手机</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
+                           value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">险种</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <van-radio-group value="{{ taskData.isCarDamaged }}" custom-class="weui-input vertical"
+                                     bind:change="onIsCarDamagedChange">
+                        <van-radio custom-class="fl mr5" name="1">车物损</van-radio>
+                        <van-radio custom-class="fl mr5" name="0">非车</van-radio>
+                    </van-radio-group>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.isCarDamaged == '1'}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
+                           value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells__title">报案信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
+                              value="{{taskData.information}}" placeholder="请输入文本" style="height: 3.3em"/>
+                </view>
+            </view>
+        </view>
+        <!-- upload start-->
+        <view class="weui-cells__title">报案信息图片</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files" id="uploaderFiles">
+                                <block wx:for="{{files}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                                        <text>Delete!!</text>
+                                    </view>
+                                </block>
                             </view>
-                        </picker>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">受损人姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="受损人姓名"/>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">受损人手机</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="请输入受损人手机"/>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">客户姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="客户姓名"/>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">客户手机</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="请输入客户手机"/>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">车牌号</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" placeholder="请输入车牌号"/>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cells__title">报案信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <textarea class="weui-textarea" placeholder="请输入文本" style="height: 3.3em"/>
-                    </view>
-                </view>
-            </view>
-            <!-- upload start-->
-            <view class="weui-cells__title">报案信息图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderFiles">
-                                    <block wx:for="{{files}}" wx:key="*this">
-                                        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                                            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                            <text>Delete!!</text>
-                                        </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                                </view>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <!-- upload end-->
-            <view class="weui-cells__title">现场信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <textarea class="weui-textarea" placeholder="请输入文本" style="height: 3.3em"/>
-                    </view>
-                </view>
-            </view>
-            <!-- upload start-->
-            <view class="weui-cells__title">现场信息图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderFiles">
-                                    <block wx:for="{{files}}" wx:key="*this">
-                                        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                                            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                            <text>Delete!!</text>
-                                        </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                                </view>
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-            <!-- upload end-->
+        </view>
+        <!-- upload end-->
+        <view class="weui-cells__title">现场信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.scene'
+                              value="{{taskData.scene}}" placeholder="请输入文本" style="height: 3.3em"/>
+                </view>
+            </view>
+        </view>
+        <!-- upload start-->
+        <view class="weui-cells__title">现场信息图片</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files" id="uploaderFiles">
+                                <block wx:for="{{files}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                                        <text>Delete!!</text>
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- upload end-->
 
-            <!-- 需要 权限控制的字段 start -->
+        <!-- 需要 权限控制的字段 start -->
+        <view wx:if="{{role == 1}}">
             <view class="weui-cells__title">查勘员信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -365,12 +379,18 @@
                 </view>
             </view>
             <!-- upload end-->
-
-            <!-- 需要 权限控制的字段  end -->
-            <view class="button-sp-area two-btn-wrap">
-                <button type="primary" form-type="submit">提交</button>
-                <button>暂存</button>
-            </view>
-        </form>
+        </view>
+        <!-- 需要 权限控制的字段  end -->
+        <view class="button-sp-area two-btn-wrap">
+            <button type="primary" bindtap="submitWS">提交</button>
+            <button>暂存</button>
+        </view>
     </view>
+    <van-popup
+            show="{{ show }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
 </view>
