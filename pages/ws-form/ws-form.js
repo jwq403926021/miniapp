@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    id: null,
     role: 0, // 0 查勘员 | 1 施工人员 | 2 区域负责人 | 3 合作商负责人 |
     status: 0, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
     files: [],
@@ -37,7 +38,64 @@ Page({
   },
   onLoad: function (routeParams) {
     console.log('routeParams->', routeParams)
-    this.initArea()
+    if (routeParams.id) {
+      this.setData({
+        id: routeParams.id
+      })
+      this.initDataById(routeParams.id)
+    } else {
+      this.initArea()
+    }
+  },
+  initDataById (id) {
+    let _this = this
+    util.request({
+      path: '/app/damage/damageDetail',
+      method: 'GET',
+      data: {
+        damageId: id
+      }
+    }, function (err, res) {
+      let data = res.data
+      _this.sourceData = data
+      _this.setData({
+        // 'taskData.provinceCode': data.area,
+        // 'taskData.cityCode': data.area,
+        // 'taskData.townCode': data.area,
+        status: data.status,
+        'taskData.area': data.area,
+        'taskData.isCarDamaged': data.area,
+        'taskData.damagedUser': data.damagedUser,
+        'taskData.damagedPhone': data.damagedPhone,
+        'taskData.customerUser': data['customer_user'],
+        'taskData.customerPhone': data.customerPhone,
+        'taskData.plateNumber': data.plateNumber,
+        'taskData.information': data.information,
+        'taskData.informationImage': data.area,
+        'taskData.scene': data.id,
+        'taskData.sceneImage': data.area
+      })
+      // {
+      //   "id": 10,
+      //   "surveyUser": null,
+      //   "surveyPhone": null,
+      //   "workerUser": null,
+      //   "workerPhone": null,
+      //   "handlingType": null,
+      //   "budgetPreliminary": null,
+      //   "workType": null,
+      //   "deposit": null,
+      //   "trasactionId": null,
+      //   "offer": null,
+      //   "bidder": null,
+      //   "offerRemark": null,
+      //   "createUserId": null,
+      //   "updateUserId": null,
+      //   "createTime": null,
+      //   "updateTime": null,
+      //   "status": null
+      // }
+    })
   },
   checkPhone (str){
     if(!(/^1[34578]\d{9}$/.test(str))){
@@ -197,16 +255,12 @@ Page({
       })
       return
     }
-    console.log('SEnd Request')
-    // util.request({
-    //   path: '/app/message/publishModelMessage',
-    //   method: 'GET',
-    //   data: {
-    //     formId: data.detail.formId,
-    //     openId: 'oXMt35H5eH1sunzSRvk_Tk4vQ3n4'
-    //   }
-    // }, function (err, res) {
-    //   console.log('submit form:', res)
-    // })
+    util.request({
+      path: '/app/damage/addBySurvey',
+      method: 'POST',
+      data: taskData
+    }, function (err, res) {
+      console.log('submit form:', res)
+    })
   }
 })

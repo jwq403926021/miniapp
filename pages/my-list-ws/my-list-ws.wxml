@@ -47,9 +47,11 @@
   </van-transition>
 
   <view class="card-wrap">
-    <van-card title="123" thumb="{{ imageURL }}">
+    <van-card wx:for="{{dataList}}" wx:key="{{item.id}}" title="工单号：{{item.id}}" thumb="{{ imageURL }}" data-id="{{item.id}}" bindtap="goToHandleTask">
       <view slot="desc">
-        4444
+        <view>客户：{{item.customer_user}} | 受损方：{{item.damagedUser}}</view>
+        <view>工单状态：{{item.status}}</view>
+        <view>创建时间：{{item.createTime}}</view>
       </view>
     </van-card>
   </view>
