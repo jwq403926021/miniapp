@@ -85,7 +85,7 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderFiles">
-                                <block wx:for="{{files}}" wx:key="*this">
+                                <block wx:for="{{informationImageFiles}}" wx:key="*this">
                                     <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
                                         <text>Delete!!</text>
@@ -118,15 +118,15 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderFiles">
-                                <block wx:for="{{files}}" wx:key="*this">
-                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                <block wx:for="{{sceneImageFiles}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="previewImageForSceneImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
                                         <text>Delete!!</text>
                                     </view>
                                 </block>
                             </view>
                             <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                                <view class="weui-uploader__input" bindtap="chooseImageForSceneImage"></view>
                             </view>
                         </view>
                     </view>

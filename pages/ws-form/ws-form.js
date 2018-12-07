@@ -8,7 +8,8 @@ Page({
     id: null,
     role: 0, // 0 查勘员 | 1 施工人员 | 2 区域负责人 | 3 合作商负责人 |
     status: 0, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
-    files: [],
+    informationImageFiles: [],
+    sceneImageFiles: [],
     show: false,
     areaList: {},
     region: '',
@@ -186,8 +187,9 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        console.log(res.tempFilePaths, 'informationImageFiles')
         that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
+          informationImageFiles: that.data.informationImageFiles.concat(res.tempFilePaths)
         });
       }
     })
@@ -195,7 +197,27 @@ Page({
   previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
+      urls: this.data.informationImageFiles // 需要预览的图片http链接列表
+    })
+  },
+  chooseImageForSceneImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        console.log(res.tempFilePaths, 'sceneImageFiles')
+        that.setData({
+          sceneImageFiles: that.data.sceneImageFiles.concat(res.tempFilePaths)
+        });
+      }
+    })
+  },
+  previewImageForSceneImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.sceneImageFiles // 需要预览的图片http链接列表
     })
   },
   inputgetName(e) {
@@ -225,9 +247,8 @@ Page({
     });
   },
   submitWS (data) {
-    console.log(this.data.taskData, '###')
     let taskData = this.data.taskData
-
+    let _this = this
     if (taskData.damagedUser == '' || taskData.customerUser == '') {
       wx.showToast({
         title: '请填写受损人姓名以及客户姓名',
@@ -261,6 +282,60 @@ Page({
       data: taskData
     }, function (err, res) {
       console.log('submit form:', res)
+      let imgPaths = [...this.data.informationImageFiles, ...this.data.sceneImageFiles]
+      let count = 0
+      let successUp = 0
+      let failUp = 0
+      if (imgPaths.length) {
+        this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+      } else {
+        wx.showToast({
+          title: '保存成功',
+          icon: 'success',
+          duration: 2000
+        })
+      }
+    })
+  },
+  uploadOneByOne (imgPaths,successUp, failUp, count, length) {
+    var that = this
+
+    wx.showLoading({
+      title: `上传图片中`,
+    })
+
+    wx.uploadFile({
+      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      filePath: imgPaths[count],
+      name: `files`,
+      header: {
+        "Content-Type": "multipart/form-data"
+      },
+      formData: {
+        'flowId': '10'
+      },
+      success:function(e){
+        successUp++;//成功+1
+      },
+      fail:function(e){
+        failUp++;//失败+1
+      },
+      complete:function(e){
+        count++;//下一张
+        if(count == length){
+          //上传完毕，作一下提示
+          console.log('上传成功' + successUp + ',' + '失败' + failUp);
+          wx.showToast({
+            title: length == successUp ? '上传成功' : `上传成功${successUp}失败${failUp}`,
+            icon: 'success',
+            duration: 2000
+          })
+        }else{
+          //递归调用，上传下一张
+          that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
+          console.log('正在上传第' + count + '张');
+        }
+      }
     })
   }
 })
