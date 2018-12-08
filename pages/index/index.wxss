@@ -6,29 +6,29 @@
   box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.13), 0 0 4px 0 rgba(0, 0, 0, 0.08);
 }
 .ws-index-btn{
-  width: 50%;
+  width: 100%;
   text-align: center;
   border-right: 1px solid #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
-  height: 250px;
-  padding-top: 80px
+  height: 125px;
+  padding-top: 30px
 }
 .jc-index-btn{
+  width: 50%;
   text-align: center;
   height: 125px;
+  border-right: 1px solid #f7f7f7;
   border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
   padding-top: 30px
 }
 .cx-index-btn{
+  width: 50%;
   height: 125px;
   text-align: center;
   box-sizing: border-box;
   padding-top: 30px
-}
-.index-btn-wrap-right{
-  width: 50%;
-  box-sizing: border-box;
 }
 .ks-index-btn{
   width: 50%;

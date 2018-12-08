@@ -11,7 +11,7 @@
     <image src="../../asset/image/1.jpg" style="width: 100%"></image>
   </view>
   <view class="index-btn-wrap clearfix">
-    <view class="ws-index-btn fl" bindtap="goToWsForm">
+    <view class="ws-index-btn" bindtap="goToWsForm">
       <view>
         <van-icon name="exchange" style="font-size: 24px" />
       </view>
@@ -19,38 +19,36 @@
         创建物损工单
       </view>
     </view>
-    <view class="fr index-btn-wrap-right">
-      <view class="jc-index-btn" bindtap="goToJcForm">
-        <view>
-          <van-icon name="shop" style="font-size: 24px" />
-        </view>
-        <view>
-          创建家财险工单
-        </view>
+    <view class="jc-index-btn fl" bindtap="goToJcForm">
+      <view>
+        <van-icon name="shop" style="font-size: 24px" />
       </view>
-      <view class="cx-index-btn" bindtap="goToCxForm">
-        <view>
-          <van-icon name="logistics" style="font-size: 24px" />
-        </view>
-        <view>
-          创建车险工单
-        </view>
+      <view>
+        创建家财险工单
+      </view>
+    </view>
+    <view class="cx-index-btn fl" bindtap="goToCxForm">
+      <view>
+        <van-icon name="logistics" style="font-size: 24px" />
+      </view>
+      <view>
+        创建车险工单
       </view>
     </view>
     <view class="ks-index-btn fl" bindtap="goToKsForm">
       <view>
-        <van-icon name="exchange" style="font-size: 24px" />
+        <van-icon name="certificate" style="font-size: 24px" />
       </view>
       <view>
-        开锁
+        创建开锁工单
       </view>
     </view>
-    <view class="gd-index-btn fr" bindtap="goToGdForm">
+    <view class="gd-index-btn fl" bindtap="goToGdForm">
       <view>
-        <van-icon name="exchange" style="font-size: 24px" />
+        <van-icon name="exchange-record" style="font-size: 24px" />
       </view>
       <view>
-        管道疏通
+        创建管道疏通工单
       </view>
     </view>
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
