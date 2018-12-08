@@ -26,6 +26,16 @@ Page({
       url: '../cx-form/cx-form'
     })
   },
+  goToKsForm: function () {
+    wx.navigateTo({
+      url: '../ks-form/ks-form'
+    })
+  },
+  goToGdForm: function () {
+    wx.navigateTo({
+      url: '../gd-form/gd-form'
+    })
+  },
   bindGetUserInfo (data) {
     console.log('bindGetUserInfo:::', data)
   },

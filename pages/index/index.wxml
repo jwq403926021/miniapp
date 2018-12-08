@@ -37,6 +37,22 @@
         </view>
       </view>
     </view>
+    <view class="ks-index-btn fl" bindtap="goToKsForm">
+      <view>
+        <van-icon name="exchange" style="font-size: 24px" />
+      </view>
+      <view>
+        开锁
+      </view>
+    </view>
+    <view class="gd-index-btn fr" bindtap="goToGdForm">
+      <view>
+        <van-icon name="exchange" style="font-size: 24px" />
+      </view>
+      <view>
+        管道疏通
+      </view>
+    </view>
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->

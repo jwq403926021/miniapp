@@ -98,10 +98,10 @@ Page({
       // }
     })
   },
-  checkPhone (str){
+  checkPhone (str, msg){
     if(!(/^1[34578]\d{9}$/.test(str))){
       wx.showToast({
-        title: '请输入正确的手机号',
+        title: msg,
         icon: 'none',
         duration: 2000
       })
@@ -257,11 +257,19 @@ Page({
       })
       return
     }
-    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone)
-    let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone)
-    if (!isVaiddamagedPhone || !isVaidcustomerPhone) {
+
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+    if (!isVaidcustomerPhone) {
       return
     }
+
+    if (taskData.damagedPhone !== ''){
+      let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的受损人手机号')
+      if (!isVaiddamagedPhone) {
+        return
+      }
+    }
+
     if (taskData.isCarDamaged == '1') {
       let flag = this.isLicenseNo(taskData.plateNumber)
       if (!flag) {
@@ -282,16 +290,24 @@ Page({
       data: taskData
     }, function (err, res) {
       console.log('submit form:', res)
-      let imgPaths = [...this.data.informationImageFiles, ...this.data.sceneImageFiles]
-      let count = 0
-      let successUp = 0
-      let failUp = 0
-      if (imgPaths.length) {
-        this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+      if (res.code == 0) {
+        let imgPaths = [...this.data.informationImageFiles, ...this.data.sceneImageFiles]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
       } else {
         wx.showToast({
-          title: '保存成功',
-          icon: 'success',
+          title: '保存失败',
+          icon: 'none',
           duration: 2000
         })
       }
