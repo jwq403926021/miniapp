@@ -143,6 +143,14 @@ Page({
     if (!this.checkPhone()) {
       return false
     }
+    if (this.data.isOurUser && this.data.registeInfo.mobile != app.globalData.currentRegisterInfo.mobile && this.data.registeInfo.mobileCode == '') {
+      wx.showToast({
+        title: '手机验证码不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
     let params = this.data.registeInfo
     util.request({
       path: '/app/register',
@@ -204,6 +212,7 @@ Page({
     if (!this.checkPhone() || this.data.isDisableVerfiyBtn) {
       return false
     }
+
     util.request({
       path: '/app/register/code',
       method: 'GET',
