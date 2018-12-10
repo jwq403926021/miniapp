@@ -350,14 +350,22 @@ Page({
           wx.showToast({
             title: '保存成功',
             icon: 'success',
-            duration: 2000
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              }, 1000)
+            }
           })
+
         }
       } else {
         wx.showToast({
           title: '保存失败',
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
       }
     })
@@ -396,10 +404,14 @@ Page({
           wx.showToast({
             title: length == successUp ? '上传成功' : `上传成功${successUp}失败${failUp}`,
             icon: 'success',
-            duration: 2000
-          })
-          wx.navigateTo({
-            url: '../index/index'
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              }, 1000)
+            }
           })
         }else{
           //递归调用，上传下一张
