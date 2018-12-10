@@ -51,14 +51,14 @@
                     <view class="weui-label">险种</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <van-radio-group value="{{ taskData.isCarDamaged }}" custom-class="weui-input vertical"
-                                     bind:change="onIsCarDamagedChange">
+                    <van-radio-group value="{{ taskData.insuranceType }}" custom-class="weui-input vertical"
+                                     bind:change="oninsuranceTypeChange">
                         <van-radio custom-class="fl mr5" name="1">车物损</van-radio>
-                        <van-radio custom-class="fl mr5" name="0">非车</van-radio>
+                        <van-radio custom-class="fl mr5" name="2">非车</van-radio>
                     </van-radio-group>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.isCarDamaged == '1'}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
@@ -86,9 +86,9 @@
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderFiles">
                                 <block wx:for="{{informationImageFiles}}" wx:key="*this">
-                                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                        <text>Delete!!</text>
+                                        <van-icon catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
@@ -105,8 +105,8 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.scene'
-                              value="{{taskData.scene}}" placeholder="请输入文本" style="height: 3.3em"/>
+                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
+                              value="{{taskData.live}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
             </view>
         </view>
@@ -118,15 +118,15 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderFiles">
-                                <block wx:for="{{sceneImageFiles}}" wx:key="*this">
-                                    <view class="weui-uploader__file" bindtap="previewImageForSceneImage" id="{{item}}">
+                                <block wx:for="{{liveImageFiles}}" wx:key="*this">
+                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImageForliveImageFiles" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                        <text>Delete!!</text>
+                                        <van-icon catchtap="removeliveImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
                             <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseImageForSceneImage"></view>
+                                <view class="weui-uploader__input" bindtap="chooseImageForliveImageFiles"></view>
                             </view>
                         </view>
                     </view>
