@@ -7,15 +7,23 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
-    companyCategory: '',
-    companyCategoryLabel: '',
-    companyCategoryList: [],
-    companyName: '',
-    companyNameLabel: '',
-    companyNameList: [],
+
+    companyCategory: '0',
+    companyCategoryLabel: '保险公司',
+    // companyCategoryList: [],
+
     companySubCategory: '',
     companySubCategoryLabel: '',
     companySubCategoryList: [],
+
+    companyName: '',
+    companyNameLabel: '',
+    companyNameList: [],
+
+    companyLevel: '',
+    companyLevelLabel: '',
+    companyLevelList: ['省级', '市级', '区级'],
+
     showAskUserInfoBtn: false,
     hasUserInfoAuth: false,
     hasBindPhone: false,
@@ -25,10 +33,9 @@ Page({
     registeInfo: {
       "avatarUrl": "",
       "cityCode": "",
-      // "city": "",
-      "companyName": "110", // 暂时
-      "companyType": "119", // 暂时
-      insurance: '',
+      "companyNameCode": "",
+      "companyType": "2", // 默认 查勘员 的公司类别 为 2 保险公司
+      'insurance': '',
       "gender": "",
       "inviteCode": "",
       "mobile": "",
@@ -36,9 +43,10 @@ Page({
       "name": "",
       "nickName": "",
       "provinceCode": "",
-      // "province": "",
-      "role": "1", // 暂时
+      "role": '1',
       "townCode": "",
+      // "city": "",
+      // "province": "",
       // "town": ""
     },
     isOurUser: false,
@@ -69,22 +77,26 @@ Page({
               _this.setData({
                 userInfo: app.globalData.userInfo,
                 hasUserInfoAuth: true,
-                region: currentData ? currentData.townCode : '',
                 'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,
                 'registeInfo.country': app.globalData.userInfo.country,
                 'registeInfo.gender': app.globalData.userInfo.gender,
                 'registeInfo.language': app.globalData.userInfo.language,
-                'registeInfo.nickName': app.globalData.userInfo.nickName,
-                "registeInfo.cityCode": currentData ? currentData.cityCode : '',
-                "registeInfo.companyName": currentData ? currentData.companyNameCode : '',
-                "registeInfo.companyType": currentData ? currentData.companyType : '',
-                "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
-                "registeInfo.mobile": currentData ? currentData.mobile : '',
-                "registeInfo.name": currentData ? currentData.name : '',
-                "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
-                "registeInfo.role": currentData ? (currentData.role + '') : '',
-                "registeInfo.townCode": currentData ? currentData.townCode : ''
+                'registeInfo.nickName': app.globalData.userInfo.nickName
               })
+              if (currentData) {
+                _this.setData({
+                  region: currentData ? currentData.townCode : '',
+                  "registeInfo.cityCode": currentData ? currentData.cityCode : '',
+                  "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
+                  "registeInfo.companyType": currentData ? currentData.companyType : '',
+                  "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
+                  "registeInfo.mobile": currentData ? currentData.mobile : '',
+                  "registeInfo.name": currentData ? currentData.name : '',
+                  "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
+                  "registeInfo.role": currentData ? (currentData.role + '') : '',
+                  "registeInfo.townCode": currentData ? currentData.townCode : ''
+                })
+              }
             }
           })
         } else {
@@ -95,34 +107,47 @@ Page({
       }
     })
     this.initArea()
-    this.initCompanyCategory()
+    this.initCompanySubCategory()
+    // this.initCompanyCategory()
   },
-  initCompanyCategory () {
-    let _this = this
-    util.request({
-      path: '/sys/industry/all',
-      method: 'GET'
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.companySourceData = res.data
-        _this.setData({
-          'companyCategoryList': _this.companySourceData.map(item => { return item.name })
-        })
-      }
-    })
-
-    util.request({
-      path: '/sys/industryInsurance/all',
-      method: 'GET'
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.companySubSourceData = res.data
-        _this.setData({
-          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
-        })
-      }
-    })
-  },
+  // initCompanyCategory () {
+  //   let _this = this
+  //   util.request({
+  //     path: '/sys/industry/all',
+  //     method: 'GET'
+  //   }, function (err, res) {
+  //     if (res.code == 0) {
+  //       _this.companySourceData = res.data
+  //       _this.setData({
+  //         'companyCategoryList': _this.companySourceData.map(item => { return item.name })
+  //       })
+  //     }
+  //   })
+  // },
+  // companyCategoryChange (data) {
+  //   let _this = this
+  //   this.setData({
+  //     'registeInfo.companyType': this.companySourceData[data.detail.value].id,
+  //     companyCategoryLabel: this.companySourceData[data.detail.value].name,
+  //     companyCategory: data.detail.value
+  //   })
+  //
+  //   if (this.companySourceData[data.detail.value].id == 2) {
+  //     util.request({
+  //       path: '/sys/industryInsurance/all',
+  //       method: 'GET'
+  //     }, function (err, res) {
+  //       if (res.code == 0) {
+  //         _this.companySubSourceData = res.data
+  //         _this.setData({
+  //           'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
+  //         })
+  //       }
+  //     })
+  //   } else {
+  //     this.initCompanyName()
+  //   }
+  // },
   getRegionLabel () {
     let arr = []
     if (app.globalData.currentRegisterInfo) {
@@ -146,14 +171,52 @@ Page({
       _this.getRegionLabel()
     })
   },
-  initCompanyName () {
-    // companyNameList
+  initCompanySubCategory () {
     let _this = this
+    util.request({
+      path: '/sys/industryInsurance/all',
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companySubSourceData = res.data
+        _this.setData({
+          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
+        })
+      }
+    })
+  },
+  companySubCategoryChange (data) {
+    this.setData({
+      'registeInfo.insurance': this.companySubSourceData[data.detail.value].id,
+      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name,
+      companySubCategory: data.detail.value
+    })
+    this.initCompanyName()
+  },
+  checkCompanyNameList () {
+    if (this.data.companyNameList.length == 0) {
+      wx.showToast({
+        title: '没有可用单位名称',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  initCompanyName () {
+    let _this = this
+    let code
+    if (this.data.companyLevel == 0){
+      code = this.data.registeInfo.provinceCode
+    } if (this.data.companyLevel == 1) {
+      code = this.data.registeInfo.cityCode
+    } else {
+      code = this.data.registeInfo.townCode
+    }
     let data = {
-      areaCode: this.data.registeInfo.townCode,
+      areaCode: code,
       industryCode: this.data.registeInfo.companyType
     }
-    if (this.data.userInfo.companyType == 2) {
+    if (this.data.registeInfo.companyType == 2) {
       data.insurance = this.data.registeInfo.insurance
     }
     util.request({
@@ -161,56 +224,29 @@ Page({
       method: 'GET',
       data: data
     }, function (err, res) {
-      console.log('!! c name', res)
+      if (res.code == 0) {
+        _this.companyNameSourceData = res.data
+        _this.setData({
+          'companyNameList': _this.companyNameSourceData.map(item => { return item.companyName })
+        })
+      }
     })
-  },
-  companyTypeChange (data) {
-    this.setData({
-      'registeInfo.companyType': this.companySourceData[data.detail.value].id,
-      companyCategoryLabel: this.companySourceData[data.detail.value].name
-    })
-
-    if (this.companySourceData[data.detail.value].id == 2) { // 当为2 保险行业 时不load 单位名称
-      // do nothing
-    } else {
-      this.initCompanyName()
-    }
-  },
-  insuranceChange (data) {
-    this.setData({
-      'registeInfo.insurance': this.companySubSourceData[data.detail.value].id,
-      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name
-    })
-    this.initCompanyName()
   },
   companyNameChange (data) {
-    console.log(data.detail.value)
+    if (this.companyNameSourceData.length > 0) {
+      this.setData({
+        'registeInfo.companyNameCode': this.companyNameSourceData[data.detail.value].id,
+        companyNameLabel: this.companyNameSourceData[data.detail.value].companyName,
+        companyName: data.detail.value
+      })
+    }
   },
-  checkCompanyName () {
-    if (!this.data.registeInfo.townCode) {
-      wx.showToast({
-        title: '请选择地址',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
-    if (!this.data.registeInfo.companyType) {
-      wx.showToast({
-        title: '请选择单位类别',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
-    if (this.data.registeInfo.companyType == 2 && (this.data.registeInfo.insurance == ''  || this.data.registeInfo.insurance == null)) {
-      wx.showToast({
-        title: '请选择公司子类',
-        icon: 'none',
-        duration: 2000
-      })
-      return false
-    }
+  companyLevelChange (data) {
+    this.setData({
+      companyLevel: data.detail.value,
+      companyLevelLabel: this.data.companyLevelList[data.detail.value],
+    })
+    this.initCompanyName()
   },
   bindGetUserInfo(data) {
     if (data.detail.errMsg == "getUserInfo:fail auth deny") {
@@ -226,8 +262,6 @@ Page({
       'registeInfo.language': app.globalData.userInfo.language,
       'registeInfo.nickName': app.globalData.userInfo.nickName
     })
-
-
   },
   submitRegiste() {
     let _this = this
@@ -242,13 +276,42 @@ Page({
       })
       return false
     }
+    if (!this.data.registeInfo.townCode) {
+      wx.showToast({
+        title: '地址不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+
+    if (this.data.registeInfo.role == 1) {
+      // if (!this.registeInfo.companySubCategory) {
+      //   wx.showToast({
+      //     title: '单位子类不能为空',
+      //     icon: 'none',
+      //     duration: 2000
+      //   })
+      // }
+      if (!this.registeInfo.companyNameCode) {
+        wx.showToast({
+          title: '单位名称不能为空',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    } else {
+
+    }
+
     let params = this.data.registeInfo
+    console.log(params, '??')
+    return false
     util.request({
       path: '/app/register',
       method: 'POST',
       data: params
     }, function (err, res) {
-      console.log('rrr---', res)
       if (res.code == 0) {
         _this.setData({
           isModifyPhone: false
@@ -290,8 +353,7 @@ Page({
       'registeInfo.city': data.detail.values[1].name,
       'registeInfo.province': data.detail.values[0].name
     })
-    console.log(this.data.registeInfo)
-    // console.log('1!!', data.detail.values)
+    this.initCompanyName()
   },
   onCancel() {
     this.setData({
@@ -389,11 +451,11 @@ Page({
         _this.setData({
           isModifyPhone: false,
           'hasBindPhone': true,
-          "registeInfo.companyName": res.userInfo.companyNameCode || '119',
-          "registeInfo.companyType": res.userInfo.companyType || '119',
+          "registeInfo.companyName": res.userInfo.companyNameCode,
+          "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
-          "registeInfo.role": res.userInfo.role,
+          "registeInfo.role": res.userInfo.role || '1', // '新用户默认 1查勘员'
           'registeInfo.townCode': res.userInfo.townCode,
           'registeInfo.cityCode': res.userInfo.cityCode,
           'registeInfo.provinceCode': res.userInfo.provinceCode

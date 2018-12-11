@@ -393,6 +393,21 @@ icon {
   right: 15px;
   margin-top: -4px
 }
+.weui-select.readonly:before {
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border:none;
+  -webkit-transform: none;
+  transform: none;
+  position: relative;
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -4px
+}
 
 .weui-select_in-select-after {
   padding-left: 0
