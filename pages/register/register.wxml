@@ -110,7 +110,20 @@
                     <picker bindchange="companyTypeChange" value="{{registeInfo.companyType}}"
                             range="{{companyCategoryList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{companyCategoryList[companyCategory] ? companyCategoryList[companyCategory] : '请选择单位类别'}}
+                            {{companyCategoryLabel || '请选择单位类别'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{registeInfo.companyType == 2}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">公司子类</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="insuranceChange" value="{{registeInfo.insurance}}"
+                            range="{{companySubCategoryList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{companySubCategoryLabel || '请选择单位子类'}}
                         </view>
                     </picker>
                 </view>
@@ -119,7 +132,7 @@
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">单位名称</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" catchtap="checkCompanyName">
                     <picker bindchange="companyNameChange" value="{{registeInfo.companyName}}"
                             range="{{companyNameList}}">
                         <view class="picker weui-select weui-select_in-select-after">

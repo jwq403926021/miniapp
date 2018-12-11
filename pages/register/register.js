@@ -8,9 +8,14 @@ Page({
     region: '',
     regionLabel: '',
     companyCategory: '',
+    companyCategoryLabel: '',
+    companyCategoryList: [],
     companyName: '',
-    companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
-    companyNameList: ['Name 1', 'Name 2', 'Name 3'],
+    companyNameLabel: '',
+    companyNameList: [],
+    companySubCategory: '',
+    companySubCategoryLabel: '',
+    companySubCategoryList: [],
     showAskUserInfoBtn: false,
     hasUserInfoAuth: false,
     hasBindPhone: false,
@@ -23,6 +28,7 @@ Page({
       // "city": "",
       "companyName": "110", // 暂时
       "companyType": "119", // 暂时
+      insurance: '',
       "gender": "",
       "inviteCode": "",
       "mobile": "",
@@ -92,7 +98,30 @@ Page({
     this.initCompanyCategory()
   },
   initCompanyCategory () {
+    let _this = this
+    util.request({
+      path: '/sys/industry/all',
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companySourceData = res.data
+        _this.setData({
+          'companyCategoryList': _this.companySourceData.map(item => { return item.name })
+        })
+      }
+    })
 
+    util.request({
+      path: '/sys/industryInsurance/all',
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companySubSourceData = res.data
+        _this.setData({
+          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
+        })
+      }
+    })
   },
   getRegionLabel () {
     let arr = []
@@ -117,13 +146,71 @@ Page({
       _this.getRegionLabel()
     })
   },
+  initCompanyName () {
+    // companyNameList
+    let _this = this
+    let data = {
+      areaCode: this.data.registeInfo.townCode,
+      industryCode: this.data.registeInfo.companyType
+    }
+    if (this.data.userInfo.companyType == 2) {
+      data.insurance = this.data.registeInfo.insurance
+    }
+    util.request({
+      path: '/sys/company/list',
+      method: 'GET',
+      data: data
+    }, function (err, res) {
+      console.log('!! c name', res)
+    })
+  },
   companyTypeChange (data) {
-    console.log(data.detail.value)
-    // companyCategoryList: ['Type 1', 'Type 2', 'Type 3'],
+    this.setData({
+      'registeInfo.companyType': this.companySourceData[data.detail.value].id,
+      companyCategoryLabel: this.companySourceData[data.detail.value].name
+    })
+
+    if (this.companySourceData[data.detail.value].id == 2) { // 当为2 保险行业 时不load 单位名称
+      // do nothing
+    } else {
+      this.initCompanyName()
+    }
+  },
+  insuranceChange (data) {
+    this.setData({
+      'registeInfo.insurance': this.companySubSourceData[data.detail.value].id,
+      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name
+    })
+    this.initCompanyName()
   },
   companyNameChange (data) {
     console.log(data.detail.value)
-    // companyNameList: ['Name 1', 'Name 2', 'Name 3'],
+  },
+  checkCompanyName () {
+    if (!this.data.registeInfo.townCode) {
+      wx.showToast({
+        title: '请选择地址',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    if (!this.data.registeInfo.companyType) {
+      wx.showToast({
+        title: '请选择单位类别',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    if (this.data.registeInfo.companyType == 2 && (this.data.registeInfo.insurance == ''  || this.data.registeInfo.insurance == null)) {
+      wx.showToast({
+        title: '请选择公司子类',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
   },
   bindGetUserInfo(data) {
     if (data.detail.errMsg == "getUserInfo:fail auth deny") {
