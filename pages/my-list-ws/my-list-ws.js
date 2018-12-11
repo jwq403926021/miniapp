@@ -53,7 +53,7 @@ Page({
       }
     }, function (err, res) {
       _this.setData({
-        dataList: res.data.records
+        dataList: res.data
       })
     })
   },

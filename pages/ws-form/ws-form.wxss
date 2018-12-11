@@ -1,0 +1,10 @@
+.image-preview-wrap{
+  position: relative;
+}
+
+.delete-image-icon{
+  position: absolute!important;
+  right: 0;
+  top: 0;
+  color: #ff313d;
+}

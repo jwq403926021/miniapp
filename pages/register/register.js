@@ -89,6 +89,10 @@ Page({
       }
     })
     this.initArea()
+    this.initCompanyCategory()
+  },
+  initCompanyCategory () {
+
   },
   getRegionLabel () {
     let arr = []

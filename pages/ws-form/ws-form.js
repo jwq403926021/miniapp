@@ -9,7 +9,7 @@ Page({
     role: 0, // 0 查勘员 | 1 施工人员 | 2 区域负责人 | 3 合作商负责人 |
     status: 0, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
     informationImageFiles: [],
-    sceneImageFiles: [],
+    liveImageFiles: [],
     show: false,
     areaList: {},
     region: '',
@@ -19,7 +19,7 @@ Page({
       cityCode: '',
       townCode: '',
       area: '',
-      isCarDamaged: '1',
+      insuranceType: '1',
       damagedUser: '',
       damagedPhone: '',
       customerUser: '',
@@ -27,8 +27,8 @@ Page({
       plateNumber: '',
       information: '',
       informationImage: [],
-      scene: '',
-      sceneImage: []
+      live: '',
+      liveImage: []
     }
   },
   //事件处理函数
@@ -65,16 +65,16 @@ Page({
         // 'taskData.townCode': data.area,
         status: data.status,
         'taskData.area': data.area,
-        'taskData.isCarDamaged': data.area,
+        'taskData.insuranceType': data.insuranceType,
         'taskData.damagedUser': data.damagedUser,
         'taskData.damagedPhone': data.damagedPhone,
         'taskData.customerUser': data['customer_user'],
         'taskData.customerPhone': data.customerPhone,
         'taskData.plateNumber': data.plateNumber,
         'taskData.information': data.information,
-        'taskData.informationImage': data.area,
-        'taskData.scene': data.id,
-        'taskData.sceneImage': data.area
+        'taskData.informationImage': data.informationImage,
+        'taskData.live': data.live,
+        'taskData.liveImage': data.liveImage
       })
       // {
       //   "id": 10,
@@ -187,10 +187,19 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        console.log(res.tempFilePaths, 'informationImageFiles')
-        that.setData({
-          informationImageFiles: that.data.informationImageFiles.concat(res.tempFilePaths)
-        });
+        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        if (list.length >= 9) {
+          wx.showToast({
+            title: '报案图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            informationImageFiles: list
+          });
+        }
+
       }
     })
   },
@@ -200,24 +209,32 @@ Page({
       urls: this.data.informationImageFiles // 需要预览的图片http链接列表
     })
   },
-  chooseImageForSceneImage: function (e) {
+  chooseImageForliveImageFiles: function (e) {
     var that = this;
     wx.chooseImage({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        console.log(res.tempFilePaths, 'sceneImageFiles')
-        that.setData({
-          sceneImageFiles: that.data.sceneImageFiles.concat(res.tempFilePaths)
-        });
+        let list = that.data.liveImageFiles.concat(res.tempFilePaths)
+        if (list.length >= 9) {
+          wx.showToast({
+            title: '现场图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            liveImageFiles: list
+          });
+        }
       }
     })
   },
-  previewImageForSceneImage: function (e) {
+  previewImageForliveImageFiles: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.sceneImageFiles // 需要预览的图片http链接列表
+      urls: this.data.liveImageFiles // 需要预览的图片http链接列表
     })
   },
   inputgetName(e) {
@@ -236,15 +253,31 @@ Page({
     }
     this.setData(nameMap)
   },
-  onIsCarDamagedChange (event) {
+  oninsuranceTypeChange (event) {
     if (event.detail != '1') {
       this.setData({
         'taskData.plateNumber': ''
       })
     }
     this.setData({
-      'taskData.isCarDamaged': event.detail
+      'taskData.insuranceType': event.detail
     });
+  },
+  removeliveImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.liveImageFiles.splice(index, 1)
+    this.setData({
+      liveImageFiles: _this.data.liveImageFiles
+    })
+  },
+  removeinformationImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.informationImageFiles.splice(index, 1)
+    this.setData({
+      informationImageFiles: _this.data.informationImageFiles
+    })
   },
   submitWS (data) {
     let taskData = this.data.taskData
@@ -270,7 +303,7 @@ Page({
       }
     }
 
-    if (taskData.isCarDamaged == '1') {
+    if (taskData.insuranceType == '1') {
       let flag = this.isLicenseNo(taskData.plateNumber)
       if (!flag) {
         return
@@ -291,30 +324,55 @@ Page({
     }, function (err, res) {
       console.log('submit form:', res)
       if (res.code == 0) {
-        let imgPaths = [...this.data.informationImageFiles, ...this.data.sceneImageFiles]
+        _this.id = res.data
+        /*
+        1 报案信息
+        2 现场信息
+        3 现场信息施工人员
+        4 损失清单
+        5 押金、授权
+        6 施工完成
+        7 保险计算书
+        */
+        let informationImageFiles = _this.data.informationImageFiles.map(item => {
+          return {file: item, type: 1}
+        })
+        let liveImageFiles = _this.data.liveImageFiles.map(item => {
+          return {file: item, type: 2}
+        })
+        let imgPaths = [...informationImageFiles, ...liveImageFiles]
         let count = 0
         let successUp = 0
         let failUp = 0
         if (imgPaths.length) {
-          this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
             title: '保存成功',
             icon: 'success',
-            duration: 2000
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              }, 1000)
+            }
           })
+
         }
       } else {
         wx.showToast({
           title: '保存失败',
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
       }
     })
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
+    console.log(this.id)
 
     wx.showLoading({
       title: `上传图片中`,
@@ -322,13 +380,15 @@ Page({
 
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
-      filePath: imgPaths[count],
+      filePath: imgPaths[count].file,
       name: `files`,
       header: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': '10'
+        'flowId': that.id,
+        'type': imgPaths[count].type
       },
       success:function(e){
         successUp++;//成功+1
@@ -344,7 +404,14 @@ Page({
           wx.showToast({
             title: length == successUp ? '上传成功' : `上传成功${successUp}失败${failUp}`,
             icon: 'success',
-            duration: 2000
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              }, 1000)
+            }
           })
         }else{
           //递归调用，上传下一张
