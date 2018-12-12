@@ -33,3 +33,7 @@
 .disabledBtn{
   color: #aaa;
 }
+.weui-input{
+  font-size: 14px;
+  color: #808080;
+}

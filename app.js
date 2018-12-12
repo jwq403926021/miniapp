@@ -24,7 +24,7 @@ App({
               if (res.status == 2) {
                 console.log('未注册', res)
               } else {
-                console.log('已登录', res)
+                console.log('已注册，直接登录', res)
                 _this.globalData.currentRegisterInfo = res.userInfo
                 wx.switchTab({
                   url: '../index/index',

@@ -94,6 +94,7 @@ Page({
                   "registeInfo.name": currentData ? currentData.name : '',
                   "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
                   "registeInfo.role": currentData ? (currentData.role + '') : '',
+                  "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
                   "registeInfo.townCode": currentData ? currentData.townCode : ''
                 })
               }
@@ -293,20 +294,42 @@ Page({
       //     duration: 2000
       //   })
       // }
-      if (!this.registeInfo.companyNameCode) {
+      if (!this.data.registeInfo.companyNameCode) {
         wx.showToast({
           title: '单位名称不能为空',
           icon: 'none',
           duration: 2000
         })
       }
-    } else {
-
+    }
+      // {
+      //   "avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8QbgMIXTeBIE2seEoebd9ib2qCwZR2sQIoTgj3epqYSTt76ic2qEtUOnZsBCM8AWbWT6M8Rg8P4Lg/132",
+      //   "cityCode":"210200",
+      //   "companyNameCode":2,
+      //   "companyType":"2",
+      //   "insurance":2,
+      //   "gender":1,
+      //   "inviteCode":"123",
+      //   "mobile":"15904949205",
+      //   "mobileCode":"123",
+      //   "name":"123",
+      //   "nickName":"魚兒",
+      //   "provinceCode":"210000",
+      //   "role":"1",
+      //   "townCode":"210202",
+      //   "country":"Bolivia",
+      //   "language":"zh_CN",
+      //   "town":"中山区",
+      //   "city":"大连市",
+      //   "province":"辽宁省"
+      // }
+    let params = Object.assign({}, this.data.registeInfo)
+    if (this.data.registeInfo.role != 1) {
+      delete params['companyNameCode']
+      delete params['companyType']
+      delete params['insurance']
     }
 
-    let params = this.data.registeInfo
-    console.log(params, '??')
-    return false
     util.request({
       path: '/app/register',
       method: 'POST',
@@ -334,9 +357,11 @@ Page({
     })
   },
   openLocation() {
-    this.setData({
-      show: !this.show
-    })
+    if (!this.data.isOurUser) {
+      this.setData({
+        show: !this.show
+      })
+    }
   },
   onConfirm(data) {
     let strArr = []
@@ -451,11 +476,12 @@ Page({
         _this.setData({
           isModifyPhone: false,
           'hasBindPhone': true,
-          "registeInfo.companyName": res.userInfo.companyNameCode,
+          "registeInfo.companyNameCode": res.userInfo.companyNameCode,
           "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
           "registeInfo.role": res.userInfo.role || '1', // '新用户默认 1查勘员'
+          "registeInfo.roleName": res.userInfo.roleName,
           'registeInfo.townCode': res.userInfo.townCode,
           'registeInfo.cityCode': res.userInfo.cityCode,
           'registeInfo.provinceCode': res.userInfo.provinceCode

@@ -40,6 +40,7 @@
             </view>
         </view>
     </view>
+    <!--wx:if="{{hasUserInfoAuth && hasBindPhone}}"-->
     <view class="page__bd" wx:if="{{hasUserInfoAuth && hasBindPhone}}">
         <view class="weui-cells__title">注册信息</view>
         <view class="weui-cells weui-cells_after-title">
@@ -52,19 +53,14 @@
                            value="{{registeInfo.name}}" placeholder="您的姓名"/>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input" wx:if="{{registeInfo.role && isOurUser}}">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">角色</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input">{{registeInfo.role}}</text>
-                </view>
-            </view>
             <view class="weui-cell weui-cell_select" wx:if="{{!isOurUser}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">角色</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{isOurUser}}">
+                    <text class="weui-input">{{registeInfo.roleName}}</text>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{!isOurUser}}">
                     <van-radio-group value="{{ registeInfo.role }}" custom-class="weui-input vertical"
                                      bind:change="onChange">
                         <van-radio custom-class="fl mr5" name="1">查勘员</van-radio>
@@ -96,10 +92,13 @@
             </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">单位地址</view>
+                    <view class="weui-label">地址</view>
                 </view>
-                <view class="weui-cell__bd">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写单位地址'}}</view>
+                <view class="weui-cell__bd" wx:if="{{isOurUser}}">
+                    <text class="weui-input">{{regionLabel}}</text>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{!isOurUser}}">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                 </view>
             </view>
             <block wx:if="{{registeInfo.role == 1}}">
@@ -119,7 +118,7 @@
                         <!--</picker>-->
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select readonly">
+                <view class="weui-cell weui-cell_select" wx:if="{{!isOurUser}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">单位级别</view>
                     </view>
@@ -132,7 +131,7 @@
                         </picker>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select readonly">
+                <view class="weui-cell weui-cell_select" wx:if="{{!isOurUser}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">单位子类</view>
                     </view>
@@ -149,7 +148,10 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">单位名称</view>
                     </view>
-                    <view class="weui-cell__bd" bindtap="checkCompanyNameList">
+                    <view class="weui-cell__bd" wx:if="{{isOurUser}}">
+                        <text class="weui-input">{{registeInfo.companyNameCode}}</text>
+                    </view>
+                    <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{!isOurUser}}">
                         <picker bindchange="companyNameChange" value="{{companyName}}"
                                 range="{{companyNameList}}">
                             <view class="picker weui-select weui-select_in-select-after">
