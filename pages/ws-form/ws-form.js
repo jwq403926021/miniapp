@@ -391,7 +391,8 @@ Page({
         'type': imgPaths[count].type
       },
       success:function(e){
-        if (e.code == 0) {
+        let responseCode = JSON.parse(e.data)
+        if (responseCode.code == 0) {
           successUp++;//成功+1
         } else {
           failUp++;//失败+1

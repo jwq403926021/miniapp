@@ -176,7 +176,7 @@
                     <view class="weui-label">我的邀请码</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input">{{registeInfo.inviteCode}}</text>
+                    <text class="weui-input">{{registeInfo.inviteCode || '?'}}</text>
                 </view>
             </view>
             <view>
