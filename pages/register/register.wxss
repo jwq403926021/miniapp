@@ -35,5 +35,7 @@
 }
 .weui-input{
   font-size: 14px;
+}
+.weui-input.readonly{
   color: #808080;
 }

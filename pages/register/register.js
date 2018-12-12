@@ -35,7 +35,7 @@ Page({
       "cityCode": "",
       "companyNameCode": "",
       "companyType": "2", // 默认 查勘员 的公司类别 为 2 保险公司
-      'insurance': '',
+      'insurance': '', // 保险 子类别
       "gender": "",
       "inviteCode": "",
       "mobile": "",
@@ -329,7 +329,8 @@ Page({
       delete params['companyType']
       delete params['insurance']
     }
-
+    console.log(params, 'aahhaha')
+    return false
     util.request({
       path: '/app/register',
       method: 'POST',

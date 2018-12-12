@@ -58,7 +58,7 @@
                     <view class="weui-label">角色</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{isOurUser}}">
-                    <text class="weui-input">{{registeInfo.roleName}}</text>
+                    <text class="weui-input readonly">{{registeInfo.roleName}}</text>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{!isOurUser}}">
                     <van-radio-group value="{{ registeInfo.role }}" custom-class="weui-input vertical"
@@ -95,7 +95,7 @@
                     <view class="weui-label">地址</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{isOurUser}}">
-                    <text class="weui-input">{{regionLabel}}</text>
+                    <text class="weui-input readonly">{{regionLabel}}</text>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{!isOurUser}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
@@ -149,7 +149,7 @@
                         <view class="weui-label">单位名称</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{isOurUser}}">
-                        <text class="weui-input">{{registeInfo.companyNameCode}}</text>
+                        <text class="weui-input readonly">{{registeInfo.companyNameCode}}</text>
                     </view>
                     <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{!isOurUser}}">
                         <picker bindchange="companyNameChange" value="{{companyName}}"
