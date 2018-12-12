@@ -86,9 +86,12 @@
         <view class="weui-cells__title">报案信息</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{!show}}">
                     <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
                               value="{{taskData.information}}" disabled="{{id !== null}}" placeholder="请输入文本" style="height: 3.3em"/>
+                </view>
+                <view class="weui-cell__bd" style="height: 3.3em" wx:if="{{show}}">
+                    {{taskData.information}}
                 </view>
             </view>
         </view>
@@ -119,9 +122,12 @@
         <view class="weui-cells__title">现场信息</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{!show}}">
                     <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
                               value="{{taskData.live}}" disabled="{{id !== null}}" placeholder="请输入文本" style="height: 3.3em"/>
+                </view>
+                <view class="weui-cell__bd" style="height: 3.3em" wx:if="{{show}}">
+                    {{taskData.information}}
                 </view>
             </view>
         </view>

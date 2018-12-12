@@ -135,3 +135,6 @@ button[type=default] {
 textarea[disabled]{
     color: #808080!important;
 }
+.van-picker{
+    z-index: 99999;
+}
