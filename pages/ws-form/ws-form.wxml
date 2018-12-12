@@ -6,26 +6,35 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">事故区域</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{id == null}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{id != null}}">
+                    <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">受损人姓名</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{id == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedUser'
                            value="{{taskData.damagedUser}}" placeholder="受损人姓名"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{id != null}}">
+                    <text class="weui-input readonly">{{taskData.damagedUser || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">受损人手机</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{id == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
                            value="{{taskData.damagedPhone}}" placeholder="请输入受损人手机"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{id != null}}">
+                    <text class="weui-input readonly">{{taskData.damagedPhone || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -50,21 +59,27 @@
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">险种</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{id == null}}">
                     <van-radio-group value="{{ taskData.insuranceType }}" custom-class="weui-input vertical"
                                      bind:change="oninsuranceTypeChange">
                         <van-radio custom-class="fl mr5" name="1">车物损</van-radio>
                         <van-radio custom-class="fl mr5" name="2">非车</van-radio>
                     </van-radio-group>
                 </view>
+                <view class="weui-cell__bd" wx:if="{{id != null}}">
+                    <text class="weui-input readonly">{{taskData.insuranceType == 1 ? '车物损' : '非车'}}</text>
+                </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{id == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
                            value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{id != null}}">
+                    <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
                 </view>
             </view>
         </view>
@@ -73,7 +88,7 @@
             <view class="weui-cell">
                 <view class="weui-cell__bd">
                     <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
-                              value="{{taskData.information}}" placeholder="请输入文本" style="height: 3.3em"/>
+                              value="{{taskData.information}}" disabled="{{id !== null}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
             </view>
         </view>
@@ -88,11 +103,11 @@
                                 <block wx:for="{{informationImageFiles}}" wx:key="*this">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                        <van-icon catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{id == null}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box">
+                            <view class="weui-uploader__input-box" wx:if="{{id == null}}">
                                 <view class="weui-uploader__input" bindtap="chooseImage"></view>
                             </view>
                         </view>
@@ -106,7 +121,7 @@
             <view class="weui-cell">
                 <view class="weui-cell__bd">
                     <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
-                              value="{{taskData.live}}" placeholder="请输入文本" style="height: 3.3em"/>
+                              value="{{taskData.live}}" disabled="{{id !== null}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
             </view>
         </view>
@@ -121,11 +136,11 @@
                                 <block wx:for="{{liveImageFiles}}" wx:key="*this">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImageForliveImageFiles" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                        <van-icon catchtap="removeliveImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{id == null}}" catchtap="removeliveImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box">
+                            <view class="weui-uploader__input-box" wx:if="{{id == null}}">
                                 <view class="weui-uploader__input" bindtap="chooseImageForliveImageFiles"></view>
                             </view>
                         </view>

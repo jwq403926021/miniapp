@@ -38,14 +38,13 @@ Page({
     })
   },
   onLoad: function (routeParams) {
-    console.log('routeParams->', routeParams)
+    console.log('工单号：->', routeParams)
+    this.initArea()
     if (routeParams.id) {
       this.setData({
         id: routeParams.id
       })
       this.initDataById(routeParams.id)
-    } else {
-      this.initArea()
     }
   },
   initDataById (id) {
@@ -59,23 +58,47 @@ Page({
     }, function (err, res) {
       let data = res.data
       _this.sourceData = data
+      _this.sourceImage = res.Image
+      let informationImageFiles = []
+      let liveImageFiles = []
+      /*
+        1 报案信息
+        2 现场信息
+        3 现场信息施工人员
+        4 损失清单
+        5 押金、授权
+        6 施工完成
+        7 保险计算书
+        */
+      _this.sourceImage.forEach(item => {
+        switch (item.type) {
+          case 1:
+            informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            break
+          case 2:
+            liveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            break
+        }
+      })
       _this.setData({
-        // 'taskData.provinceCode': data.area,
-        // 'taskData.cityCode': data.area,
-        // 'taskData.townCode': data.area,
+        region: data.area,
         status: data.status,
+        informationImageFiles: informationImageFiles,
+        liveImageFiles: liveImageFiles,
         'taskData.area': data.area,
         'taskData.insuranceType': data.insuranceType,
         'taskData.damagedUser': data.damagedUser,
         'taskData.damagedPhone': data.damagedPhone,
-        'taskData.customerUser': data['customer_user'],
+        'taskData.customerUser': data.customerUser,
         'taskData.customerPhone': data.customerPhone,
         'taskData.plateNumber': data.plateNumber,
         'taskData.information': data.information,
-        'taskData.informationImage': data.informationImage,
         'taskData.live': data.live,
-        'taskData.liveImage': data.liveImage
+        // 'taskData.informationImage': data.informationImage, //todo
+        // 'taskData.liveImage': data.liveImage // todo
       })
+
+      _this.getRegionLabel()
       // {
       //   "id": 10,
       //   "surveyUser": null,
@@ -144,15 +167,19 @@ Page({
     })
   },
   getRegionLabel () {
-    // let arr = []
-    // if (app.globalData.currentRegisterInfo) {
-    //   arr.push(this.data.areaList['province_list'][app.globalData.currentRegisterInfo.provinceCode])
-    //   arr.push(this.data.areaList['city_list'][app.globalData.currentRegisterInfo.cityCode])
-    //   arr.push(this.data.areaList['county_list'][app.globalData.currentRegisterInfo.townCode])
-    // }
-    // this.setData({
-    //   regionLabel: arr.length ? arr.join(',') : ''
-    // })
+    let arr = []
+    if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
+      let provinceCode = this.data.region.slice(0,2) + '0000'
+      let cityCode = this.data.region.slice(0,4) + '00'
+      let townCode = this.data.region
+      console.log(this.data.region, this.data.areaList, '##')
+      arr.push(this.data.areaList['province_list'][provinceCode])
+      arr.push(this.data.areaList['city_list'][cityCode])
+      arr.push(this.data.areaList['county_list'][townCode])
+    }
+    this.setData({
+      regionLabel: arr.length ? arr.join(',') : ''
+    })
   },
   openLocation() {
     console.log('!!!')
@@ -168,6 +195,7 @@ Page({
 
     this.setData({
       show: false,
+      region: data.detail.values[2].code,
       regionLabel: strArr.join(','),
       'taskData.area': data.detail.values[2].code,
       'taskData.townCode': data.detail.values[2].code,

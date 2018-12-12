@@ -3,18 +3,18 @@
     <view class="fr">
       <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
     </view>
-    <view><van-icon name="exchange" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />物损工单 <text>0</text>/5</view>
+    <view><van-icon name="exchange" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />物损工单</view>
   </view>
   <view class="my-list-item" bindtap="goToJcList">
     <view class="fr">
       <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
     </view>
-    <view><van-icon name="shop" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />家财工单 <text>0</text>/5</view>
+    <view><van-icon name="shop" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />家财工单</view>
   </view>
   <view class="my-list-item" bindtap="goToCxList">
     <view class="fr">
       <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
     </view>
-    <view><van-icon name="logistics" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />车险工单 <text>0</text>/5</view>
+    <view><van-icon name="logistics" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />车险工单</view>
   </view>
 </view>
