@@ -391,7 +391,11 @@ Page({
         'type': imgPaths[count].type
       },
       success:function(e){
-        successUp++;//成功+1
+        if (e.code == 0) {
+          successUp++;//成功+1
+        } else {
+          failUp++;//失败+1
+        }
       },
       fail:function(e){
         failUp++;//失败+1
@@ -399,18 +403,19 @@ Page({
       complete:function(e){
         count++;//下一张
         if(count == length){
-          //上传完毕，作一下提示
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
           wx.showToast({
-            title: length == successUp ? '上传成功' : `上传成功${successUp}失败${failUp}`,
-            icon: 'success',
+            title: length == successUp ? '上传成功' : `上传成功${successUp},失败${failUp}`,
+            icon: length == successUp ? 'success' : 'none',
             duration: 1000,
             success () {
-              setTimeout(() => {
-                wx.switchTab({
-                  url: '../index/index'
-                })
-              }, 1000)
+              if (length == successUp) {
+                setTimeout(() => {
+                  wx.switchTab({
+                    url: '../index/index'
+                  })
+                }, 1000)
+              }
             }
           })
         }else{
