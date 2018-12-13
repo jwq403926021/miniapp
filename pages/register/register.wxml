@@ -53,7 +53,7 @@
                            value="{{registeInfo.name}}" placeholder="您的姓名"/>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select" wx:if="{{!isOurUser}}">
+            <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">角色</view>
                 </view>
@@ -171,12 +171,17 @@
                            value="{{registeInfo.inviteCode}}" placeholder="请输入邀请码"/>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input" wx:if="{{isOurUser}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{isOurUser}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">我的邀请码</view>
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input">{{registeInfo.inviteCode || '?'}}</text>
+                </view>
+                <view class="weui-cell__ft">
+                    <view class="field-right-btn" data-code="{{registeInfo.inviteCode}}" bindtap="copyInviteCode">
+                        <van-icon name="description"></van-icon>
+                    </view>
                 </view>
             </view>
             <view>

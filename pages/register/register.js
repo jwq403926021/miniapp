@@ -28,7 +28,7 @@ Page({
     hasUserInfoAuth: false,
     hasBindPhone: false,
     userInfo: null,
-    isDisableVerfiyBtn: false,
+    isDisableVerfiyBtn: true,
     verifyLabel: '获取验证码',
     registeInfo: {
       "avatarUrl": "",
@@ -450,6 +450,12 @@ Page({
       nameMap[name] = e.detail.value
     }
     this.setData(nameMap)
+
+    if (name == 'registeInfo.mobile') {
+      this.setData({
+        isDisableVerfiyBtn: false
+      })
+    }
   },
   bindPhoneNum () {
     let _this = this
@@ -490,6 +496,19 @@ Page({
           // 'registeInfo.town': res.userInfo.town,
           // 'registeInfo.city': res.userInfo.city,
           // 'registeInfo.province': res.userInfo.province
+        })
+      }
+    })
+  },
+  copyInviteCode (e) {
+    let code = e.currentTarget.dataset.code;
+    wx.setClipboardData({
+      data: code,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            console.log(res.data)
+          }
         })
       }
     })

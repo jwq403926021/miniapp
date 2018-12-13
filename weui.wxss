@@ -185,12 +185,13 @@ icon {
   word-wrap: break-word;
   word-break: break-all;
   font-size:14px;
+  line-height: 3em
 }
 
 .weui-input {
-  height: 2.58823529em;
-  min-height: 2.58823529em;
-  line-height: 2.58823529em
+  height: 3em;
+  min-height: 3em;
+  line-height: 3em
 }
 
 .weui-toptips {
@@ -370,10 +371,10 @@ icon {
   position: relative;
   padding-left: 15px;
   padding-right: 30px;
-  height: 2.58823529em;
-  min-height: 2.58823529em;
-  line-height: 2.58823529em;
-  border-right: 1 rpx solid #d9d9d9
+  height: 3em;
+  min-height: 3em;
+  line-height: 3em;
+  border-right: 1 rpx solid #d9d9d9;
 }
 
 .weui-select:before {

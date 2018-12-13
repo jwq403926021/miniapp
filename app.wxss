@@ -87,7 +87,9 @@ button[type=default] {
     font-size: 14px;
     padding-right: 15px;
 }
-.filter-wrap{}
+.filter-wrap{
+    line-height: 2.5em;
+}
 .filter-wrap .field{
     float:left;
     padding: 0 10px;
@@ -137,4 +139,16 @@ textarea[disabled]{
 }
 .van-picker{
     z-index: 99999;
+}
+
+.field-right-btn {
+    display:inline-block;
+    padding:0 1.5em;
+    line-height:2.58823529em;
+    font-size:14px;
+    color:#1bb9fa;
+    white-space:nowrap;
+    margin-left:5px;
+    height:2.58823529em;
+    vertical-align:middle;
 }

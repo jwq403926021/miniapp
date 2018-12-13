@@ -61,5 +61,15 @@ Page({
     wx.navigateTo({
       url: '../ws-form/ws-form?id=' + event.currentTarget.dataset.id
     })
+  },
+  onClose () {
+    this.setData({
+      show: false
+    })
+  },
+  onConfirm () {
+    this.setData({
+      show: false
+    })
   }
 })

@@ -135,7 +135,7 @@ Page({
   isLicenseNo(str){
     str = str.replace(/\s+/g,"")
     if (str) {
-      let flag = /(^[\u4E00-\u9FA5]{1}[A-Z0-9]{6}$)|(^[A-Z]{2}[A-Z0-9]{2}[A-Z0-9\u4E00-\u9FA5]{1}[A-Z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Z]{2}[0-9]{5}$)|(^(08|38){1}[A-Z0-9]{4}[A-Z0-9挂学警军港澳]{1}$)/.test(str);
+      let flag = /(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{6}$)|(^[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9\u4E00-\u9FA5]{1}[A-Za-z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Za-z]{2}[0-9]{5}$)|(^(08|38){1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警军港澳]{1}$)/.test(str);
       if (!flag) {
         wx.showToast({
           title: '车牌号不正确',
@@ -376,7 +376,7 @@ Page({
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
-            title: '保存成功',
+            title: '创建成功',
             icon: 'success',
             duration: 1000,
             success () {
@@ -391,7 +391,7 @@ Page({
         }
       } else {
         wx.showToast({
-          title: '保存失败',
+          title: '创建失败',
           icon: 'none',
           duration: 1000
         })
@@ -434,7 +434,7 @@ Page({
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
           wx.showToast({
-            title: length == successUp ? '上传成功' : `上传成功${successUp},失败${failUp}`,
+            title: length == successUp ? '创建成功' : `图片上传失败:${failUp}`,
             icon: length == successUp ? 'success' : 'none',
             duration: 1000,
             success () {
@@ -453,6 +453,12 @@ Page({
           console.log('正在上传第' + count + '张');
         }
       }
+    })
+  },
+  dialPhone (e) {
+    let phone = e.currentTarget.dataset.phone;
+    wx.makePhoneCall({
+      phoneNumber: phone
     })
   }
 })

@@ -4,6 +4,7 @@
     "van-radio": "../../asset/vant/radio/index",
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-area": "../../asset/vant/area/index",
-    "van-popup": "../../asset/vant/popup/index"
+    "van-popup": "../../asset/vant/popup/index",
+    "van-icon": "../../asset/vant/icon/index"
   }
 }
