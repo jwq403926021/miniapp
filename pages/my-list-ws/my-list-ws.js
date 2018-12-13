@@ -62,7 +62,7 @@ Page({
       url: '../ws-form/ws-form?id=' + event.currentTarget.dataset.id
     })
   },
-  onClose () {
+  onCancel () {
     this.setData({
       show: false
     })

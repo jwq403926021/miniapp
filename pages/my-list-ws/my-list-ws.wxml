@@ -67,9 +67,7 @@
           show="{{ show }}"
           position="bottom"
           overlay="{{ true }}"
-          bind:close="onClose"
-          bind:confirm="onConfirm"
   >
-    <van-area area-list="{{ areaList }}" value="110101" />
+    <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
   </van-popup>
 </view>
