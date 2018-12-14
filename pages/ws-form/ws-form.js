@@ -6,8 +6,7 @@ const app = getApp()
 Page({
   data: {
     id: null,
-    role: 0, // 0 查勘员 | 1 施工人员 | 2 区域负责人 | 3 合作商负责人 |
-    status: 0, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
+    role: 1, // 1 查勘员 | 12 合作商施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 |
     informationImageFiles: [],
     liveImageFiles: [],
     show: false,
@@ -15,6 +14,7 @@ Page({
     region: '',
     regionLabel: '',
     taskData: {
+      status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
       cityCode: '',
       townCode: '',
@@ -28,7 +28,12 @@ Page({
       information: '',
       informationImage: [],
       live: '',
-      liveImage: []
+      liveImage: [],
+      surveyUser: '',
+      surveyPhone: '',
+      workerUser: '',
+      workerPhone: '',
+      workType: 0
     }
   },
   //事件处理函数
@@ -42,7 +47,8 @@ Page({
     this.initArea()
     if (routeParams.id) {
       this.setData({
-        id: routeParams.id
+        id: routeParams.id,
+        role: 12// app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -82,9 +88,9 @@ Page({
       })
       _this.setData({
         region: data.area,
-        status: data.status,
         informationImageFiles: informationImageFiles,
         liveImageFiles: liveImageFiles,
+        'taskData.status': data.status,
         'taskData.area': data.area,
         'taskData.insuranceType': data.insuranceType,
         'taskData.damagedUser': data.damagedUser,
@@ -94,8 +100,11 @@ Page({
         'taskData.plateNumber': data.plateNumber,
         'taskData.information': data.information,
         'taskData.live': data.live,
-        // 'taskData.informationImage': data.informationImage, //todo
-        // 'taskData.liveImage': data.liveImage // todo
+        "taskData.surveyUser": data.surveyUser,
+        "taskData.surveyPhone": data.surveyPhone,
+        "taskData.workerUser": data.workerUser,
+        "taskData.workerPhone": data.workerPhone,
+        "taskData.workType": data.workType || '0'
       })
 
       _this.getRegionLabel()
