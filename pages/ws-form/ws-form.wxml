@@ -193,7 +193,7 @@
             </view>
         </view>
         <!-- upload end-->
-        #{{role}} |{{id}} {{taskData.status}}#
+        #{{role}} | {{id}} | {{modifyId}}#
 
         <!-- 需要 权限控制的字段 start -->
         <block wx:if="{{id != null}}">
@@ -491,7 +491,7 @@
         <view class="button-sp-area" wx:if="{{role == 1 && id == null}}">
             <button type="primary" bindtap="submitWS">新建 提交</button>
         </view>
-        <view class="button-sp-area" wx:if="{{role == 12 && id != null}}">
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 1}}">
             <button type="primary" bindtap="handleWS">施工 提交</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 1 && id != null && taskData.status == 2}}">

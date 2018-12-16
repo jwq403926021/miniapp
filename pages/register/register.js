@@ -329,8 +329,6 @@ Page({
       delete params['companyType']
       delete params['insurance']
     }
-    console.log(params, 'aahhaha')
-    return false
     util.request({
       path: '/app/register',
       method: 'POST',

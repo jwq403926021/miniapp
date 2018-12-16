@@ -17,6 +17,7 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    modifyId: null,
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
@@ -45,19 +46,13 @@ Page({
       offerRemark: ''
     }
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../register/register?id=' + 123
-    })
-  },
   onLoad: function (routeParams) {
     console.log('工单号：->', routeParams)
     this.initArea()
-    if (routeParams.id) {
+    if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 1// 1 查勘员 12 施工人员TODO::: app.globalData.currentRegisterInfo.role
+        role: 12// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -112,6 +107,7 @@ Page({
         }
       })
       _this.setData({
+        modifyId: data.id,
         region: data.area,
         informationImageFiles: informationImageFiles,
         liveImageFiles: liveImageFiles,
@@ -197,7 +193,6 @@ Page({
       let provinceCode = this.data.region.slice(0,2) + '0000'
       let cityCode = this.data.region.slice(0,4) + '00'
       let townCode = this.data.region
-      console.log(this.data.region, this.data.areaList, '##')
       arr.push(this.data.areaList['province_list'][provinceCode])
       arr.push(this.data.areaList['city_list'][cityCode])
       arr.push(this.data.areaList['county_list'][townCode])
@@ -207,7 +202,6 @@ Page({
     })
   },
   openLocation() {
-    console.log('!!!')
     this.setData({
       show: !this.show
     })
@@ -482,7 +476,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log(this.id)
+    console.log('upload flowID:', this.id)
 
     wx.showLoading({
       title: `上传图片中`,
@@ -522,9 +516,13 @@ Page({
             success () {
               if (length == successUp) {
                 setTimeout(() => {
-                  wx.switchTab({
-                    url: '../index/index'
-                  })
+                  if (that.data.modifyId){
+                    that.goToList()
+                  }else {
+                    wx.switchTab({
+                      url: '../index/index'
+                    })
+                  }
                 }, 1000)
               }
             }
@@ -543,10 +541,9 @@ Page({
       phoneNumber: phone
     })
   },
-  submitWS (id) {
+  submitWS () {
     let data = this.data.taskData
     let _this = this
-    console.log(id, '!!!')
 
     let taskData = {
       provinceCode: data.provinceCode,
@@ -562,8 +559,8 @@ Page({
       information: data.information,
       live: data.live
     }
-    if (id) {
-      taskData.damage = id
+    if (this.data.modifyId) {
+      taskData.id = _this.data.modifyId
     }
 
     if (taskData.damagedUser == '' || taskData.customerUser == '') {
@@ -609,7 +606,7 @@ Page({
     }, function (err, res) {
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
-        _this.id = res.data
+        _this.id = res.data || _this.data.id
         /*
         1 报案信息
         2 现场信息
@@ -644,13 +641,16 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                wx.switchTab({
-                  url: '../index/index'
-                })
+                if (_this.data.modifyId){
+                  _this.goToList()
+                }else{
+                  wx.switchTab({
+                    url: '../index/index'
+                  })
+                }
               }, 1000)
             }
           })
-
         }
       } else {
         wx.showToast({
@@ -661,10 +661,28 @@ Page({
       }
     })
   },
+  goToList () {
+    wx.navigateBack({
+      url: '../my-list-ws/my-list-ws',
+      success: function (e) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    })
+  },
   handleWS () {
-    console.log(this.data.taskData, 'handlws')
     let data = this.data.taskData
+    if (data.workType == '' || data.workType == null) {
+      wx.showToast({
+        title: '请选择处理方式',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
     let params = {
+      id: this.data.modifyId,
       damageId: this.data.id,
       surveyUser: data.surveyUser,
       surveyPhone: data.surveyPhone,
@@ -685,8 +703,7 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        console.log(res, '!@#!@#!@#handlws')
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../my-list-ws/my-list-ws',
           success: function (e) {
             var page = getCurrentPages().pop();
@@ -704,6 +721,6 @@ Page({
     })
   },
   modifyWS () {
-    this.submitWS(this.data.id)
+    this.submitWS()
   }
 })
