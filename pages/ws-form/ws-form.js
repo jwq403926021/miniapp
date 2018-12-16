@@ -52,7 +52,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 12// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 1// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -119,7 +119,7 @@ Page({
         'taskData.area': data.area,
         'taskData.insuranceType': data.insuranceType,
         'taskData.damagedUser': data.damagedUser,
-        'taskData.damagedPhone': data.damagedPhone,
+        'taskData.damagedPhone': data.damagedPhone || '',
         'taskData.customerUser': data.customerUser,
         'taskData.customerPhone': data.customerPhone,
         'taskData.plateNumber': data.plateNumber,
@@ -559,8 +559,23 @@ Page({
       information: data.information,
       live: data.live
     }
+
+    let informationImageFiles = []
+    _this.data.informationImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        informationImageFiles.push({file: item, type: 1})
+      }
+    })
+    let liveImageFiles = []
+    _this.data.liveImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        liveImageFiles.push({file: item, type: 2})
+      }
+    })
+    console.log('liveImageFiles:', liveImageFiles)
     if (this.data.modifyId) {
       taskData.id = _this.data.modifyId
+      taskData.liveImage = liveImageFiles.length > 0 ? 1 : 0
     }
 
     if (taskData.damagedUser == '' || taskData.customerUser == '') {
@@ -616,19 +631,9 @@ Page({
         6 施工完成
         7 保险计算书
         */
-        let informationImageFiles = []
-        _this.data.informationImageFiles.map(item => {
-          if (item.indexOf('https://') == -1){
-            informationImageFiles.push({file: item, type: 1})
-          }
-        })
-        let liveImageFiles = []
-        _this.data.liveImageFiles.map(item => {
-          if (item.indexOf('https://') == -1){
-            liveImageFiles.push({file: item, type: 2})
-          }
-        })
+
         let imgPaths = [...informationImageFiles, ...liveImageFiles]
+        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -662,7 +667,7 @@ Page({
     })
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-ws/my-list-ws',
       success: function (e) {
         var page = getCurrentPages().pop();
