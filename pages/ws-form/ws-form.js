@@ -52,7 +52,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 1// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 12// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -270,7 +270,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.informationImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '报案图片不能超过9个',
             icon: 'none',
@@ -306,7 +306,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.liveImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '现场图片不能超过9个',
             icon: 'none',
@@ -341,7 +341,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.workLiveImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '现场图片不能超过9个',
             icon: 'none',
@@ -382,7 +382,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.damageImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '损失清单图片不能超过9个',
             icon: 'none',
@@ -417,7 +417,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.authorityImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '授权图片不能超过9个',
             icon: 'none',
@@ -452,7 +452,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.caleImageFiles.concat(res.tempFilePaths)
-        if (list.length >= 9) {
+        if (res.tempFilePaths.length >= 9) {
           wx.showToast({
             title: '授权图片不能超过9个',
             icon: 'none',
@@ -477,11 +477,6 @@ Page({
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
     console.log('upload flowID:', this.id)
-
-    wx.showLoading({
-      title: `上传图片中`,
-    })
-
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].file,
@@ -510,7 +505,7 @@ Page({
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
           wx.showToast({
-            title: length == successUp ? '创建成功' : `图片上传失败:${failUp}`,
+            title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
             icon: length == successUp ? 'success' : 'none',
             duration: 1000,
             success () {
@@ -576,6 +571,7 @@ Page({
     if (this.data.modifyId) {
       taskData.id = _this.data.modifyId
       taskData.liveImage = liveImageFiles.length > 0 ? 1 : 0
+      taskData.damageId = _this.data.id
     }
 
     if (taskData.damagedUser == '' || taskData.customerUser == '') {
@@ -622,15 +618,6 @@ Page({
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
         _this.id = res.data || _this.data.id
-        /*
-        1 报案信息
-        2 现场信息
-        3 现场信息施工人员
-        4 损失清单
-        5 押金、授权
-        6 施工完成
-        7 保险计算书
-        */
 
         let imgPaths = [...informationImageFiles, ...liveImageFiles]
         console.log('Upload Files:', imgPaths)
@@ -676,7 +663,8 @@ Page({
       }
     })
   },
-  handleWS () {
+  workHandleWS () {
+    let _this = this
     let data = this.data.taskData
     if (data.workType == '' || data.workType == null) {
       wx.showToast({
@@ -708,14 +696,7 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        wx.redirectTo({
-          url: '../my-list-ws/my-list-ws',
-          success: function (e) {
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad();
-          }
-        })
+        _this.goToList()
       } else {
         wx.showToast({
           title: '提交失败',
@@ -727,5 +708,178 @@ Page({
   },
   modifyWS () {
     this.submitWS()
+  },
+  workImproveWS () {
+    let _this = this
+    let data = this.data.taskData
+    if(_this.data.workLiveImageFiles.length == 0){
+      wx.showToast({
+        title: '请上传现场信息图片（施工方）',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+
+    if (data.handlingType == '0') {
+      if (data.deposit == '' || data.deposit == null){
+        wx.showToast({
+          title: '请填写押金金额',
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
+      if (data.trasactionId == '' || data.trasactionId == null){
+        wx.showToast({
+          title: '请填写银行交易单号',
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
+      if (this.data.authorityImageFiles.length == 0){
+        wx.showToast({
+          title: '请上传押金/授权图片',
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
+    }
+    if (data.handlingType == '1') {
+      if (this.data.authorityImageFiles.length == 0){
+        wx.showToast({
+          title: '请上传押金/授权图片',
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
+    }
+
+    let workLiveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        workLiveImageFiles.push({file: item, type: 3})
+      }
+    })
+    let damageImageFiles = []
+    _this.data.damageImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        damageImageFiles.push({file: item, type: 4})
+      }
+    })
+    let authorityImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        authorityImageFiles.push({file: item, type: 5})
+      }
+    })
+
+    let params = {
+      id: this.data.modifyId,
+      damageId: this.data.id,
+      surveyUser: data.surveyUser,
+      surveyPhone: data.surveyPhone,
+      workerUser: data.workerUser,
+      workerPhone: data.workerPhone,
+      workType: data.workType,
+      budgetPreliminary: data.budgetPreliminary, // 初步估损金额
+      handlingType: data.handlingType,
+      deposit: data.deposit,
+      trasactionId: data.trasactionId,
+      offer: data.offer,
+      bidder: data.bidder,
+      offerRemark: data.offerRemark
+    }
+    console.log('workImproveWS:', params)
+    return
+    util.request({
+      path: '/app/damage/addByWorker',
+      method: 'POST',
+      data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  workHandleNoImageAsk () {
+    let _this = this
+    let data = this.data.taskData
+    if (data.budgetPreliminary == '' || data.budgetPreliminary == null){
+      wx.showToast({
+        title: '请填写初步估损金额',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    let params = {
+      id: this.data.modifyId,
+      damageId: this.data.id,
+      surveyUser: data.surveyUser,
+      surveyPhone: data.surveyPhone,
+      workerUser: data.workerUser,
+      workerPhone: data.workerPhone,
+      workType: data.workType,
+      budgetPreliminary: data.budgetPreliminary, // 初步估损金额
+      handlingType: data.handlingType,
+      deposit: data.deposit,
+      trasactionId: data.trasactionId,
+      offer: data.offer,
+      bidder: data.bidder,
+      offerRemark: data.offerRemark
+    }
+    util.request({
+      path: '/app/damage/addByWorker',
+      method: 'POST',
+      data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   }
 })
+
+/*
+1 报案信息
+2 现场信息
+3 现场信息施工人员
+4 损失清单
+5 押金、授权
+6 施工完成
+7 保险计算书
+*/

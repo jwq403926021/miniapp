@@ -264,7 +264,7 @@
                     </view>
                     <!-- 当 工单状态 为 1 查勘员已派送 3 查勘员已完善工单 才可编辑 -->
                     <view class="weui-cell__bd" wx:if="{{(taskData.status == 1 || taskData.status == 3) && role == 12}}">
-                        <input class="weui-input" bindinput="inputgetName" data-name='taskData.budgetPreliminary'
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.budgetPreliminary'
                                value="{{taskData.budgetPreliminary}}"  placeholder="初步估损金额"/>
                     </view>
                     <view class="weui-cell__bd" wx:else>
@@ -283,7 +283,7 @@
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderWorkLiveFiles">
                                     <block wx:for="{{workLiveImageFiles}}" wx:key="*this">
-                                        <view class="weui-uploader__file" bindtap="previewWorkLiveImage" id="{{item}}">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewWorkLiveImage" id="{{item}}">
                                             <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
                                             <!--Todo :: 工单驳回后的状态也可以修改-->
                                             <van-icon wx:if="{{(taskData.status == 6 || taskData.status == 9) && role == 12}}" catchtap="removeWorkLiveImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -309,7 +309,7 @@
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderdamageFiles">
                                     <block wx:for="{{damageImageFiles}}" wx:key="*this">
-                                        <view class="weui-uploader__file" bindtap="previewDamageImage" id="{{item}}">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewDamageImage" id="{{item}}">
                                             <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{role == 12}}" catchtap="removeDamageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
@@ -353,7 +353,7 @@
                             <view class="weui-label">押金金额</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6)}}">
-                            <input class="weui-input" bindinput="inputgetName" data-name='taskData.deposit'
+                            <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'
                                    value="{{taskData.deposit}}" placeholder="押金金额"/>
                         </view>
                         <view class="weui-cell__bd" wx:else>
@@ -375,28 +375,30 @@
                 </view>
             </block>
 
-            <view class="weui-cells__title">授权/押金</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderauthorityFiles">
-                                    <block wx:for="{{authorityImageFiles}}" wx:key="*this">
-                                        <view class="weui-uploader__file" bindtap="previewAuthorityImage" id="{{item}}">
-                                            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6)}}" catchtap="removeAuthorityImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                                        </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6)}}">
-                                    <view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>
+            <block wx:if="{{taskData.handlingType == 0 || taskData.handlingType == 1}}">
+                <view class="weui-cells__title">授权/押金</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploaderauthorityFiles">
+                                        <block wx:for="{{authorityImageFiles}}" wx:key="*this">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item}}">
+                                                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6)}}" catchtap="removeAuthorityImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6)}}">
+                                        <view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
+            </block>
         </block>
 
         <block wx:if="{{id != null && taskData.bidder && (taskData.role == 1 || taskData.role == 6)}}">
@@ -466,7 +468,7 @@
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files" id="uploadercaleFiles">
                                         <block wx:for="{{damageImageFiles}}" wx:key="*this">
-                                            <view class="weui-uploader__file" bindtap="previewCaleImage" id="{{item}}">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item}}">
                                                 <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
                                                 <van-icon wx:if="{{role == 12}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
@@ -491,11 +493,17 @@
         <view class="button-sp-area" wx:if="{{role == 1 && id == null}}">
             <button type="primary" bindtap="submitWS">新建 提交</button>
         </view>
-        <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 1}}">
-            <button type="primary" bindtap="handleWS">施工 提交</button>
-        </view>
         <view class="button-sp-area" wx:if="{{role == 1 && id != null && taskData.status == 2}}">
             <button type="primary" bindtap="modifyWS">查勘 改善 提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 1}}">
+            <button type="primary" bindtap="workHandleWS">施工 提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7)}}">
+            <button type="primary" bindtap="workImproveWS">施工 完善 提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 3}}">
+            <button type="primary" bindtap="workHandleNoImageAsk">施工 无图片 咨询 最后一步</button>
         </view>
     </view>
     <van-popup
