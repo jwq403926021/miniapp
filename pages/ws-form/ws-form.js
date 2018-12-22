@@ -793,8 +793,20 @@ Page({
       bidder: data.bidder,
       offerRemark: data.offerRemark
     }
+
+    if (_this.data.workLiveImageFiles.length) {
+      params.workerLiveImage = 1
+    }
+    if (_this.data.damageImageFiles.length) {
+      params.lossImage = 1
+    }
+    if (_this.data.authorityImageFiles.length) {
+      params.depositImage = 1
+    }
+    if (_this.data.insuranceImage.length) {
+      params.insuranceImage = 1
+    }
     console.log('workImproveWS:', params)
-    return
     util.request({
       path: '/app/damage/addByWorker',
       method: 'POST',
