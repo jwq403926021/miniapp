@@ -206,16 +206,12 @@ Page({
   initCompanyName () {
     let _this = this
     let code
-    if (this.data.companyLevel == 0){
-      code = this.data.registeInfo.provinceCode
-    } if (this.data.companyLevel == 1) {
-      code = this.data.registeInfo.cityCode
-    } else {
-      code = this.data.registeInfo.townCode
-    }
     let data = {
-      areaCode: code,
-      industryCode: this.data.registeInfo.companyType
+      industryCode: this.data.registeInfo.companyType,
+      cityCode: this.data.registeInfo.cityCode,
+      provinceCode: this.data.registeInfo.provinceCode,
+      organization: this.data.companyLevel,
+      areaCode: this.data.registeInfo.townCode
     }
     if (this.data.registeInfo.companyType == 2) {
       data.insurance = this.data.registeInfo.insurance
@@ -300,6 +296,7 @@ Page({
           icon: 'none',
           duration: 2000
         })
+        return false
       }
     }
       // {
