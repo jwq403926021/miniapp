@@ -18,6 +18,19 @@ Page({
     region: '',
     regionLabel: '',
     modifyId: null,
+    statusMap: {
+      '1': '查勘员已派送',
+      '2': '待查勘员完善',
+      '3': '查勘员已完善',
+      '4': '待区域负责人线下报价',
+      '5': '待报价中心报价',
+      '6': '施工人员去现场',
+      '7': '施工中',
+      '8': '计算书已上传',
+      '9': '报价中心驳回',
+      '10': '已报价',
+      '11': '已办结'
+    },
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
@@ -476,7 +489,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.id)
+    console.log('upload flowID:', this.data.id, 'upload type', imgPaths[count])
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].file,
@@ -486,7 +499,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.id,
+        'flowId': that.data.id,
         'type': imgPaths[count].type
       },
       success:function(e){
@@ -617,8 +630,9 @@ Page({
     }, function (err, res) {
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
-        _this.id = res.data || _this.data.id
-
+        _this.setData({
+          id: res.data
+        })
         let imgPaths = [...informationImageFiles, ...liveImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
@@ -776,7 +790,12 @@ Page({
         authorityImageFiles.push({file: item, type: 5})
       }
     })
-
+    let caleImageFiles = []
+    _this.data.caleImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        caleImageFiles.push({file: item, type: 7})
+      }
+    })
     let params = {
       id: this.data.modifyId,
       damageId: this.data.id,
@@ -793,15 +812,26 @@ Page({
       bidder: data.bidder,
       offerRemark: data.offerRemark
     }
+    if (workLiveImageFiles.length) {
+      params.workerLiveImage = 1
+    }
+    if (damageImageFiles.length) {
+      params.lossImage = 1
+    }
+    if (authorityImageFiles.length) {
+      params.depositImage = 1
+    }
+    if (caleImageFiles.length){
+      params.insuranceImage = 1
+    }
     console.log('workImproveWS:', params)
-    return
     util.request({
       path: '/app/damage/addByWorker',
       method: 'POST',
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles]
+        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles, ...caleImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0

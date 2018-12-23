@@ -16,7 +16,7 @@
                         <view class="weui-label">工单状态</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.status}}</text>
+                        <text class="weui-input readonly">{{statusMap[taskData.status]}} {{taskData.status}}</text>
                     </view>
                 </view>
             </block>
@@ -458,7 +458,7 @@
             <!--</view>-->
         <!--</view>-->
 
-        <block wx:if="{{taskData.status == 5 || taskData.status == 7 ||taskData.status == 10}}">
+        <block wx:if="{{taskData.status == 5 || taskData.status == 7 ||taskData.status == 8 || taskData.status == 9 ||taskData.status == 10 ||taskData.status == 11}}">
             <view class="weui-cells__title">保险计算书</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -467,14 +467,15 @@
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files" id="uploadercaleFiles">
-                                        <block wx:for="{{damageImageFiles}}" wx:key="*this">
+                                        <block wx:for="{{caleImageFiles}}" wx:key="*this">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item}}">
                                                 <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
                                         </block>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}">
                                         <view class="weui-uploader__input" bindtap="chooseCaleImage"></view>
                                     </view>
                                 </view>
