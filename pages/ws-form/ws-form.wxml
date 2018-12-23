@@ -475,7 +475,6 @@
                                         </block>
                                     </view>
                                     <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}">
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}">
                                         <view class="weui-uploader__input" bindtap="chooseCaleImage"></view>
                                     </view>
                                 </view>
