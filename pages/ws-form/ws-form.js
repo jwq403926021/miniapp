@@ -18,6 +18,9 @@ Page({
     region: '',
     regionLabel: '',
     modifyId: null,
+    workerList: ['施工人员1', '施工人员2', '施工人员3'],
+    workerValue: '',
+    workerLabel: '',
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
@@ -52,7 +55,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 12// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 6// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -476,7 +479,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.id)
+    console.log('upload flowID:', this.id, '????',this.data.id)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].file,
@@ -486,7 +489,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.id,
+        'flowId': that.id || that.data.id,
         'type': imgPaths[count].type
       },
       success:function(e){
@@ -776,6 +779,12 @@ Page({
         authorityImageFiles.push({file: item, type: 5})
       }
     })
+    let caleImageFiles = []
+    _this.data.caleImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        caleImageFiles.push({file: item, type: 7})
+      }
+    })
 
     let params = {
       id: this.data.modifyId,
@@ -803,7 +812,7 @@ Page({
     if (_this.data.authorityImageFiles.length) {
       params.depositImage = 1
     }
-    if (_this.data.insuranceImage.length) {
+    if (_this.data.caleImageFiles.length) {
       params.insuranceImage = 1
     }
     console.log('workImproveWS:', params)
@@ -813,7 +822,7 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles]
+        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles, ...caleImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
@@ -872,6 +881,40 @@ Page({
       path: '/app/damage/addByWorker',
       method: 'POST',
       data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  cooperaterManagerAssign () {
+    let _this = this
+    util.request({
+      path: '/app/damage/reassignment',
+      method: 'POST'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  companyManagerChangeStatus () {
+    let _this = this
+    util.request({
+      path: '/app/damage/toSpot',
+      method: 'POST'
     }, function (err, res) {
       if (res.code == 0) {
         _this.goToList()

@@ -62,11 +62,11 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 10
+        pageSize: 1000
       }
     }, function (err, res) {
       _this.setData({
-        dataList: res.data
+        dataList: res.page.list
       })
     })
   },
