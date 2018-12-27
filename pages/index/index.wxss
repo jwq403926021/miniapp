@@ -21,6 +21,17 @@ page{
 .new-btn .van-icon{
   color:#016eff
 }
+.welcome{
+  text-align: center;
+  background: #016eff;
+  border-bottom: 1px solid #f7f7f7;
+  box-sizing: border-box;
+  height: 125px;
+  line-height: 125px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
 .order-box{
   text-align: center;
   background: #016eff;

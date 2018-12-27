@@ -7,20 +7,23 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <view>
-    <view class="order-box">
-      <view class="num">0</view>
-      <view class="num-description">工单数量</view>
-    </view>
-    <view class="order-box">
-      <view class="num">0</view>
-      <view class="num-description">工单数量</view>
-    </view>
-    <view class="order-box">
-      <view class="num">0</view>
-      <view class="num-description">工单数量</view>
-    </view>
+  <view class="welcome">
+    程序试运行，欢迎测试
   </view>
+  <!--<view>-->
+    <!--<view class="order-box">-->
+      <!--<view class="num">0</view>-->
+      <!--<view class="num-description">工单数量</view>-->
+    <!--</view>-->
+    <!--<view class="order-box">-->
+      <!--<view class="num">0</view>-->
+      <!--<view class="num-description">工单数量</view>-->
+    <!--</view>-->
+    <!--<view class="order-box">-->
+      <!--<view class="num">0</view>-->
+      <!--<view class="num-description">工单数量</view>-->
+    <!--</view>-->
+  <!--</view>-->
   <view class="index-btn-wrap fl">
     <view class="new-btn fl" bindtap="goToWsForm">
       <view>
