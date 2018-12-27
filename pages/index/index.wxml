@@ -7,49 +7,63 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <view class="banner">
-    <image src="../../asset/image/1.jpg" style="width: 100%"></image>
+  <view>
+    <view class="order-box">
+      <view class="num">0</view>
+      <view class="num-description">工单数量</view>
+    </view>
+    <view class="order-box">
+      <view class="num">0</view>
+      <view class="num-description">工单数量</view>
+    </view>
+    <view class="order-box">
+      <view class="num">0</view>
+      <view class="num-description">工单数量</view>
+    </view>
   </view>
-  <view class="index-btn-wrap clearfix">
-    <view class="ws-index-btn" bindtap="goToWsForm">
+  <view class="index-btn-wrap fl">
+    <view class="new-btn fl" bindtap="goToWsForm">
       <view>
         <van-icon name="exchange" style="font-size: 24px" />
       </view>
       <view>
-        创建物损工单
+        物损
       </view>
     </view>
-    <view class="jc-index-btn fl" bindtap="goToJcForm">
+    <view class="new-btn fl" bindtap="goToJcForm">
       <view>
         <van-icon name="shop" style="font-size: 24px" />
       </view>
       <view>
-        创建家财险工单
+        家财险
       </view>
     </view>
-    <view class="cx-index-btn fl" bindtap="goToCxForm">
+    <view class="new-btn fl" bindtap="goToCxForm">
       <view>
         <van-icon name="logistics" style="font-size: 24px" />
       </view>
       <view>
-        创建车险工单
+        车险
       </view>
     </view>
-    <view class="ks-index-btn fl" bindtap="goToKsForm">
+    <view class="new-btn fl" bindtap="goToKsForm">
       <view>
         <van-icon name="certificate" style="font-size: 24px" />
       </view>
       <view>
-        创建开锁工单
+        开锁
       </view>
     </view>
-    <view class="gd-index-btn fl" bindtap="goToGdForm">
+    <view class="new-btn fl" bindtap="goToGdForm">
       <view>
         <van-icon name="exchange-record" style="font-size: 24px" />
       </view>
       <view>
-        创建管道疏通工单
+        管道疏通
       </view>
+    </view>
+    <view class="new-btn fl" bindtap="goToGdForm">
+
     </view>
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
     <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->

@@ -10,7 +10,7 @@ VantComponent({
     },
     activeColor: {
       type: String,
-      value: '#06bf04'
+      value: '#016eff'
     }
   },
   watch: {

@@ -56,11 +56,11 @@ page{
 button{ border-radius: 0!important;}
 button[type=primary] {
     color:#FFFFFF;
-    background-color:#1bb9fa;
+    background-color:#016eff;
 }
 .my-button-hover{
     color:#FFFFFF;
-    background-color:#1bb9fa;
+    background-color:#016eff;
     opacity: 0.8;
 }
 .fl{ float:left}
@@ -146,7 +146,7 @@ textarea[disabled]{
     padding:0 1.5em;
     line-height:2.58823529em;
     font-size:14px;
-    color:#1bb9fa;
+    color:#016eff;
     white-space:nowrap;
     margin-left:5px;
     height:2.58823529em;
