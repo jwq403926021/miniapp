@@ -340,7 +340,7 @@
                         </van-radio-group>
                     </view>
                     <view class="weui-cell__bd"  wx:else>
-                        <text class="weui-input readonly">{{['押金', '授权'][taskData.handlingType]}}</text>
+                        <text class="weui-input readonly">{{['押金', '授权'][taskData.handlingType] || '-'}}</text>
                     </view>
                 </view>
             </view>
