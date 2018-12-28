@@ -18,7 +18,7 @@ Page({
     region: '',
     regionLabel: '',
     modifyId: null,
-    workerList: ['施工人员1', '施工人员2', '施工人员3'],
+    workerList: [],
     workerValue: '',
     workerLabel: '',
     taskData: {
@@ -55,7 +55,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 6// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 11// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -141,7 +141,7 @@ Page({
         'taskData.bidder': data.bidder,
         'taskData.offerRemark': data.offerRemark
       })
-
+      _this.initReassignList()
       _this.getRegionLabel()
     })
   },
@@ -188,6 +188,31 @@ Page({
         areaList: res.DATA.DATA
       })
       _this.getRegionLabel()
+    })
+  },
+  initReassignList () {
+    let _this = this
+    util.request({
+      path: '/app/damage/getPersonList',
+      method: 'GET',
+      data: {
+        role: 12,
+        townCode: this.data.region
+      }
+    }, function (err, res) {
+      _this.workListSource = res.data
+      let workerList = res.data.map(item => {
+        return item.name
+      })
+      _this.setData({
+        'workerList': workerList
+      })
+    })
+  },
+  workerChange (event) {
+    this.setData({
+      'workerValue': event.detail.value,
+      'workerLabel': this.workListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -895,20 +920,29 @@ Page({
   },
   cooperaterManagerAssign () {
     let _this = this
-    util.request({
-      path: '/app/damage/reassignment',
-      method: 'POST'
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.goToList()
-      } else {
-        wx.showToast({
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
+    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
+      wx.showToast({
+        title: '请选择改派人员',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    console.log(this.workListSource[this.data.workerValue],'re assign userId')
+    // util.request({
+    //   path: '/app/damage/reassignment',
+    //   method: 'POST'
+    // }, function (err, res) {
+    //   if (res.code == 0) {
+    //     _this.goToList()
+    //   } else {
+    //     wx.showToast({
+    //       title: '提交失败',
+    //       icon: 'none',
+    //       duration: 1000
+    //     })
+    //   }
+    // })
   },
   companyManagerChangeStatus () {
     let _this = this

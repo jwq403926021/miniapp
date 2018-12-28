@@ -514,7 +514,7 @@
                     <view class="weui-label">施工人员</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="companyLevelChange" value="{{workerValue}}"
+                    <picker bindchange="workerChange" value="{{workerValue}}"
                             range="{{workerList}}">
                         <view class="picker weui-select weui-select_in-select-after">
                             {{workerLabel || '请选择施工人员'}}
