@@ -18,6 +18,9 @@ page{
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
     /*color:#323232;*/
 }
+.button-hover{
+    background-color: #016eff!important;
+}
 .page__hd {
     padding: 40px;
 }
@@ -57,11 +60,6 @@ button{ border-radius: 0!important;}
 button[type=primary] {
     color:#FFFFFF;
     background-color:#016eff;
-}
-.my-button-hover{
-    color:#FFFFFF;
-    background-color:#016eff;
-    opacity: 0.8;
 }
 .fl{ float:left}
 .fr{float:right}
