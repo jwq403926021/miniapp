@@ -57,11 +57,22 @@ Page({
       'registeInfo.role': event.detail
     });
   },
+  onShow: function () {
+    let value = wx.getStorageSync('status')
+    let _isOurUser = (value == 2 || value == '') ? false : true
+    console.log('show-->',_isOurUser, value)
+    this.setData({
+      hasBindPhone: _isOurUser,
+      isOurUser: _isOurUser,
+      isModifyPhone: _isOurUser
+    })
+  },
   onLoad: function (routeParams) {
     wx.hideLoading()
     let _this = this
     let value = wx.getStorageSync('status')
     let _isOurUser = (value == 2 || value == '') ? false : true
+    console.log('load-->',_isOurUser, value)
     this.setData({
       hasBindPhone: _isOurUser,
       isOurUser: _isOurUser,
@@ -263,6 +274,24 @@ Page({
       'registeInfo.language': app.globalData.userInfo.language,
       'registeInfo.nickName': app.globalData.userInfo.nickName
     })
+
+    let currentData = app.globalData.currentRegisterInfo
+    if (currentData) {
+      this.setData({
+        region: currentData ? currentData.townCode : '',
+        "registeInfo.cityCode": currentData ? currentData.cityCode : '',
+        "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
+        "registeInfo.companyType": currentData ? currentData.companyType : '',
+        "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
+        "registeInfo.mobile": currentData ? currentData.mobile : '',
+        "registeInfo.name": currentData ? currentData.name : '',
+        "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
+        "registeInfo.role": currentData ? (currentData.role + '') : '',
+        "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
+        "registeInfo.townCode": currentData ? currentData.townCode : ''
+      })
+    }
+    console.log('hasUserInfoAuth && hasBindPhone', this.data.hasUserInfoAuth,this.data.hasBindPhone)
   },
   submitRegiste() {
     let _this = this
