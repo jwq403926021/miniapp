@@ -215,6 +215,7 @@ icon {
 }
 
 .weui-textarea {
+  font-size: 14px;
   display: block;
   width: 100%
 }
