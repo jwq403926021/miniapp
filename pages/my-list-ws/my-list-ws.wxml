@@ -44,25 +44,26 @@
       <!--</view>-->
     <!--</van-card>-->
   <!--</view>-->
-  <view class="weui-panel weui-panel_access" wx:for="{{dataList}}" wx:key="{{item.id}}">
-    <view class="weui-panel__bd">
-      <view class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>
-        <view class="weui-media-box__desc">
-          <view>工单状态：{{statusMap[item.status]}} | {{item.status}}</view>
-          <view>客户：{{item.customerUser}}</view>
-          <view>创建时间：{{item.createTime}}</view>
+  <scroll-view scroll-y='true' style='height:{{ height }}px' bindscrolltolower='getMore'>
+    <view class="weui-panel weui-panel_access" wx:for="{{dataList}}" wx:key="{{item.id}}">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>
+          <view class="weui-media-box__desc">
+            <view>工单状态：{{statusMap[item.status]}} | {{item.status}}</view>
+            <view>客户：{{item.customerUser}}</view>
+            <view>创建时间：{{item.createTime}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-panel__ft">
+        <view class="weui-cell weui-cell_access weui-cell_link" data-id="{{item.damageId}}" bindtap="goToHandleTask">
+          <view class="weui-cell__bd">查看处理</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
       </view>
     </view>
-    <view class="weui-panel__ft">
-      <view class="weui-cell weui-cell_access weui-cell_link" data-id="{{item.damageId}}" bindtap="goToHandleTask">
-        <view class="weui-cell__bd">查看处理</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-      </view>
-    </view>
-  </view>
-
+  </scroll-view>
   <van-popup
           show="{{ show }}"
           position="bottom"

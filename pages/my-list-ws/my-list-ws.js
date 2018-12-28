@@ -14,6 +14,7 @@ Page({
     isShowFilterOne: false,
     filterOne: '0',
     dataList: [],
+    height: '',
     statusMap: {
       '1': '查勘员已派送',
       '2': '待查勘员完善',
@@ -57,6 +58,14 @@ Page({
   },
   onLoad: function () {
     let _this = this
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          height: res.windowHeight
+        })
+      }
+    })
+
     util.request({
       path: '/app/damage/damageList',
       method: 'GET',
@@ -69,6 +78,9 @@ Page({
         dataList: res.page.list
       })
     })
+  },
+  getMore () {
+
   },
   goToHandleTask (event) {
     wx.navigateTo({
