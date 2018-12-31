@@ -149,7 +149,7 @@
                         <view class="weui-label">单位名称</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{isOurUser}}">
-                        <text class="weui-input readonly">{{registeInfo.companyNameCode || '-'}}</text>
+                        <text class="weui-input readonly">{{registeInfo.companyName || '-'}}</text>
                     </view>
                     <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{!isOurUser}}">
                         <picker bindchange="companyNameChange" value="{{companyName}}"

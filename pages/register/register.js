@@ -34,6 +34,7 @@ Page({
       "avatarUrl": "",
       "cityCode": "",
       "companyNameCode": "",
+      "companyName": "",
       "companyType": "2", // 默认 查勘员 的公司类别 为 2 保险公司
       'insurance': '', // 保险 子类别
       "gender": "",
@@ -99,6 +100,7 @@ Page({
                   region: currentData ? currentData.townCode : '',
                   "registeInfo.cityCode": currentData ? currentData.cityCode : '',
                   "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
+                  "registeInfo.companyName": currentData ? currentData.companyName : '',
                   "registeInfo.companyType": currentData ? currentData.companyType : '',
                   "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
                   "registeInfo.mobile": currentData ? currentData.mobile : '',
@@ -120,46 +122,7 @@ Page({
     })
     this.initArea()
     this.initCompanySubCategory()
-    // this.initCompanyCategory()
   },
-  // initCompanyCategory () {
-  //   let _this = this
-  //   util.request({
-  //     path: '/sys/industry/all',
-  //     method: 'GET'
-  //   }, function (err, res) {
-  //     if (res.code == 0) {
-  //       _this.companySourceData = res.data
-  //       _this.setData({
-  //         'companyCategoryList': _this.companySourceData.map(item => { return item.name })
-  //       })
-  //     }
-  //   })
-  // },
-  // companyCategoryChange (data) {
-  //   let _this = this
-  //   this.setData({
-  //     'registeInfo.companyType': this.companySourceData[data.detail.value].id,
-  //     companyCategoryLabel: this.companySourceData[data.detail.value].name,
-  //     companyCategory: data.detail.value
-  //   })
-  //
-  //   if (this.companySourceData[data.detail.value].id == 2) {
-  //     util.request({
-  //       path: '/sys/industryInsurance/all',
-  //       method: 'GET'
-  //     }, function (err, res) {
-  //       if (res.code == 0) {
-  //         _this.companySubSourceData = res.data
-  //         _this.setData({
-  //           'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
-  //         })
-  //       }
-  //     })
-  //   } else {
-  //     this.initCompanyName()
-  //   }
-  // },
   getRegionLabel () {
     let arr = []
     if (app.globalData.currentRegisterInfo) {
@@ -216,17 +179,12 @@ Page({
   },
   initCompanyName () {
     let _this = this
-    let code
-    if (this.data.companyLevel == 0){
-      code = this.data.registeInfo.provinceCode
-    } if (this.data.companyLevel == 1) {
-      code = this.data.registeInfo.cityCode
-    } else {
-      code = this.data.registeInfo.townCode
-    }
     let data = {
-      areaCode: code,
-      industryCode: this.data.registeInfo.companyType
+      industryCode: this.data.registeInfo.companyType,
+      cityCode:this.data.registeInfo.cityCode,
+      provinceCode:this.data.registeInfo.provinceCode,
+      areaCode:this.data.registeInfo.townCode,
+      organization:this.data.companyLevel
     }
     if (this.data.registeInfo.companyType == 2) {
       data.insurance = this.data.registeInfo.insurance
@@ -281,6 +239,7 @@ Page({
         region: currentData ? currentData.townCode : '',
         "registeInfo.cityCode": currentData ? currentData.cityCode : '',
         "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
+        "registeInfo.companyName": currentData ? currentData.companyName : '',
         "registeInfo.companyType": currentData ? currentData.companyType : '',
         "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
         "registeInfo.mobile": currentData ? currentData.mobile : '',
@@ -298,9 +257,18 @@ Page({
     if (!this.checkPhone()) {
       return false
     }
+
     if (this.data.isOurUser && this.data.registeInfo.mobile != app.globalData.currentRegisterInfo.mobile && this.data.registeInfo.mobileCode == '') {
       wx.showToast({
         title: '手机验证码不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    if (this.data.registeInfo.name == '' || this.data.registeInfo.name == null){
+      wx.showToast({
+        title: '姓名不能为空',
         icon: 'none',
         duration: 2000
       })
@@ -316,13 +284,6 @@ Page({
     }
 
     if (this.data.registeInfo.role == 1) {
-      // if (!this.registeInfo.companySubCategory) {
-      //   wx.showToast({
-      //     title: '单位子类不能为空',
-      //     icon: 'none',
-      //     duration: 2000
-      //   })
-      // }
       if (!this.data.registeInfo.companyNameCode) {
         wx.showToast({
           title: '单位名称不能为空',
@@ -331,27 +292,6 @@ Page({
         })
       }
     }
-      // {
-      //   "avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8QbgMIXTeBIE2seEoebd9ib2qCwZR2sQIoTgj3epqYSTt76ic2qEtUOnZsBCM8AWbWT6M8Rg8P4Lg/132",
-      //   "cityCode":"210200",
-      //   "companyNameCode":2,
-      //   "companyType":"2",
-      //   "insurance":2,
-      //   "gender":1,
-      //   "inviteCode":"123",
-      //   "mobile":"15904949205",
-      //   "mobileCode":"123",
-      //   "name":"123",
-      //   "nickName":"魚兒",
-      //   "provinceCode":"210000",
-      //   "role":"1",
-      //   "townCode":"210202",
-      //   "country":"Bolivia",
-      //   "language":"zh_CN",
-      //   "town":"中山区",
-      //   "city":"大连市",
-      //   "province":"辽宁省"
-      // }
     let params = Object.assign({}, this.data.registeInfo)
     if (this.data.registeInfo.role != 1) {
       delete params['companyNameCode']
@@ -364,21 +304,31 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
+        app.globalData.currentRegisterInfo = res.userInfo
         _this.setData({
-          isModifyPhone: false
+          isOurUser: true,
+          isModifyPhone: false,
+          "registeInfo.mobileCode": '',
+          "registeInfo.inviteCode": res.userInfo.inviteCode,
+          "registeInfo.roleName": res.userInfo.roleName,
+          "registeInfo.companyName": res.userInfo.companyName
         })
-        wx.showToast({
+          wx.setStorageSync('status', 1)
+          wx.showToast({
           title: '操作成功',
           icon: 'success',
-          duration: 2000
-        })
-        wx.setStorageSync('status', 1)
-        wx.switchTab({
-          url: '../index/index',
-          success: function (e) {
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad();
+          duration: 2000,
+          success: function () {
+              setTimeout(()=> {
+                  wx.switchTab({
+                      url: '../index/index',
+                      success: function (e) {
+                          var page = getCurrentPages().pop();
+                          if (page == undefined || page == null) return;
+                          page.onLoad();
+                      }
+                  })
+              }, 2000)
           }
         })
       }
@@ -511,6 +461,7 @@ Page({
           isModifyPhone: false,
           'hasBindPhone': true,
           "registeInfo.companyNameCode": res.userInfo.companyNameCode,
+          "registeInfo.companyName": res.userInfo.companyName,
           "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
@@ -519,10 +470,6 @@ Page({
           'registeInfo.townCode': res.userInfo.townCode,
           'registeInfo.cityCode': res.userInfo.cityCode,
           'registeInfo.provinceCode': res.userInfo.provinceCode
-          // ,
-          // 'registeInfo.town': res.userInfo.town,
-          // 'registeInfo.city': res.userInfo.city,
-          // 'registeInfo.province': res.userInfo.province
         })
       }
     })

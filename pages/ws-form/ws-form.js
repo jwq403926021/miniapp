@@ -64,6 +64,7 @@ Page({
   },
   onLoad: function (routeParams) {
     console.log('工单号：->', routeParams)
+    console.log('????', app.globalData.currentRegisterInfo)
     this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({
@@ -193,6 +194,13 @@ Page({
   },
   initArea () {
     let _this = this
+    _this.setData({
+      region: app.globalData.currentRegisterInfo.townCode,
+      'taskData.area': app.globalData.currentRegisterInfo.townCode,
+      'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
+      'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
+      'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
+    })
     util.request({
       path: '/sys/area/list',
       method: 'GET'
