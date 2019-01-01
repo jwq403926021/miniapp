@@ -1,7 +1,7 @@
 <view class="page">
     <view wx:if="{{!hasUserInfoAuth && showAskUserInfoBtn}}" class="authAskBtnWrap">
         <text>欢迎使用汇报价小程序，请先授权登录。</text>
-        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary" hover-class="my-button-hover">
+        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary">
             授权登录
         </button>
     </view>
@@ -34,7 +34,7 @@
                 </view>
             </view>
             <view>
-                <button hover-class="my-button-hover" class="weui-btn no-radius" formType="submit" type="primary"
+                <button class="weui-btn no-radius" formType="submit" type="primary"
                         bindtap="bindPhoneNum">绑定
                 </button>
             </view>
@@ -149,7 +149,7 @@
                         <view class="weui-label">单位名称</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{isOurUser}}">
-                        <text class="weui-input readonly">{{registeInfo.companyNameCode || '-'}}</text>
+                        <text class="weui-input readonly">{{registeInfo.companyName || '-'}}</text>
                     </view>
                     <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{!isOurUser}}">
                         <picker bindchange="companyNameChange" value="{{companyName}}"
@@ -185,7 +185,7 @@
                 </view>
             </view>
             <view>
-                <button hover-class="my-button-hover" class="weui-btn no-radius" formType="submit" type="primary"
+                <button class="weui-btn no-radius" formType="submit" type="primary"
                         bindtap="submitRegiste">确定
                 </button>
             </view>

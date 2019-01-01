@@ -1,6 +1,6 @@
 <view class="page">
     <view class="page__bd">
-        <view class="weui-cells__title">物损工单</view>
+        <view class="weui-cells__title">物损工单 #{{role}} | {{id}} | {{modifyId}}#</view>
         <view class="weui-cells weui-cells_after-title">
             <block wx:if="{{id != null}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -16,7 +16,7 @@
                         <view class="weui-label">工单状态</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{statusMap[taskData.status]}} {{taskData.status}}</text>
+                        <text class="weui-input readonly">{{statusMap[taskData.status]}} | {{taskData.status}}</text>
                     </view>
                 </view>
             </block>
@@ -193,7 +193,6 @@
             </view>
         </view>
         <!-- upload end-->
-        #{{role}} | {{id}} | {{modifyId}}#
 
         <!-- 需要 权限控制的字段 start -->
         <block wx:if="{{id != null}}">
@@ -340,7 +339,7 @@
                         </van-radio-group>
                     </view>
                     <view class="weui-cell__bd"  wx:else>
-                        <text class="weui-input readonly">{{['押金', '授权'][taskData.handlingType]}}</text>
+                        <text class="weui-input readonly">{{['押金', '授权'][taskData.handlingType] || '-'}}</text>
                     </view>
                 </view>
             </view>
@@ -458,7 +457,7 @@
             <!--</view>-->
         <!--</view>-->
 
-        <block wx:if="{{taskData.status == 5 || taskData.status == 7 ||taskData.status == 8 || taskData.status == 9 ||taskData.status == 10 ||taskData.status == 11}}">
+        <block wx:if="{{taskData.status == 5 || taskData.status == 7 ||taskData.status == 10}}">
             <view class="weui-cells__title">保险计算书</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -470,11 +469,11 @@
                                         <block wx:for="{{caleImageFiles}}" wx:key="*this">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item}}">
                                                 <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
                                         </block>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 7)}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
                                         <view class="weui-uploader__input" bindtap="chooseCaleImage"></view>
                                     </view>
                                 </view>
@@ -505,6 +504,29 @@
         <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 3}}">
             <button type="primary" bindtap="workHandleNoImageAsk">施工 无图片 咨询 最后一步</button>
         </view>
+        <view class="button-sp-area" wx:if="{{role == 6 && id != null && (taskData.status == 2 || taskData.status == 3 || taskData.status == 4)}}">
+            <button type="primary" bindtap="companyManagerChangeStatus">公司市负责人 变更状态</button>
+        </view>
+        <block wx:if="{{role == 11 && id != null && taskData.status == 1}}">
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">施工人员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="workerChange" value="{{workerValue}}"
+                                range="{{workerList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{workerLabel || '请选择施工人员'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+            <view class="button-sp-area">
+                <button type="primary" bindtap="cooperaterManagerAssign">合作商市负责人 改派 提交</button>
+            </view>
+        </block>
     </view>
     <van-popup
             show="{{ show }}"

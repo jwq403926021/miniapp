@@ -18,6 +18,9 @@ page{
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
     /*color:#323232;*/
 }
+.button-hover{
+    background-color: #016eff!important;
+}
 .page__hd {
     padding: 40px;
 }
@@ -56,12 +59,7 @@ page{
 button{ border-radius: 0!important;}
 button[type=primary] {
     color:#FFFFFF;
-    background-color:#1bb9fa;
-}
-.my-button-hover{
-    color:#FFFFFF;
-    background-color:#1bb9fa;
-    opacity: 0.8;
+    background-color:#016eff;
 }
 .fl{ float:left}
 .fr{float:right}
@@ -146,7 +144,7 @@ textarea[disabled]{
     padding:0 1.5em;
     line-height:2.58823529em;
     font-size:14px;
-    color:#1bb9fa;
+    color:#016eff;
     white-space:nowrap;
     margin-left:5px;
     height:2.58823529em;

@@ -3,7 +3,7 @@ var DEFAULT_COLOR = '#999';
 var COLOR_MAP = {
   danger: '#f44',
   primary: '#38f',
-  success: '#06bf04'
+  success: '#016eff'
 };
 VantComponent({
   props: {

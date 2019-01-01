@@ -18,6 +18,9 @@ Page({
     region: '',
     regionLabel: '',
     modifyId: null,
+    workerList: [],
+    workerValue: '',
+    workerLabel: '',
     statusMap: {
       '1': '查勘员已派送',
       '2': '待查勘员完善',
@@ -61,11 +64,12 @@ Page({
   },
   onLoad: function (routeParams) {
     console.log('工单号：->', routeParams)
+    console.log('????', app.globalData.currentRegisterInfo)
     this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: 12// 1 查勘员 | 12 施工人员 | TODO::: app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -151,7 +155,7 @@ Page({
         'taskData.bidder': data.bidder,
         'taskData.offerRemark': data.offerRemark
       })
-
+      _this.initReassignList()
       _this.getRegionLabel()
     })
   },
@@ -190,6 +194,13 @@ Page({
   },
   initArea () {
     let _this = this
+    _this.setData({
+      region: app.globalData.currentRegisterInfo.townCode,
+      'taskData.area': app.globalData.currentRegisterInfo.townCode,
+      'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
+      'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
+      'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
+    })
     util.request({
       path: '/sys/area/list',
       method: 'GET'
@@ -198,6 +209,31 @@ Page({
         areaList: res.DATA.DATA
       })
       _this.getRegionLabel()
+    })
+  },
+  initReassignList () {
+    let _this = this
+    util.request({
+      path: '/app/damage/getPersonList',
+      method: 'GET',
+      data: {
+        role: 12,
+        townCode: this.data.region
+      }
+    }, function (err, res) {
+      _this.workListSource = res.data
+      let workerList = res.data.map(item => {
+        return item.name
+      })
+      _this.setData({
+        'workerList': workerList
+      })
+    })
+  },
+  workerChange (event) {
+    this.setData({
+      'workerValue': event.detail.value,
+      'workerLabel': this.workListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -489,7 +525,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.data.id, 'upload type', imgPaths[count])
+    console.log('upload flowID:', this.id, '????',this.data.id)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].file,
@@ -499,7 +535,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.data.id,
+        'flowId': that.id || that.data.id,
         'type': imgPaths[count].type
       },
       success:function(e){
@@ -630,9 +666,8 @@ Page({
     }, function (err, res) {
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
-        _this.setData({
-          id: res.data
-        })
+        _this.id = res.data || _this.data.id
+
         let imgPaths = [...informationImageFiles, ...liveImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
@@ -668,7 +703,7 @@ Page({
     })
   },
   goToList () {
-    wx.redirectTo({
+    wx.navigateBack({
       url: '../my-list-ws/my-list-ws',
       success: function (e) {
         var page = getCurrentPages().pop();
@@ -796,6 +831,7 @@ Page({
         caleImageFiles.push({file: item, type: 7})
       }
     })
+
     let params = {
       id: this.data.modifyId,
       damageId: this.data.id,
@@ -812,16 +848,17 @@ Page({
       bidder: data.bidder,
       offerRemark: data.offerRemark
     }
-    if (workLiveImageFiles.length) {
+
+    if (_this.data.workLiveImageFiles.length) {
       params.workerLiveImage = 1
     }
-    if (damageImageFiles.length) {
+    if (_this.data.damageImageFiles.length) {
       params.lossImage = 1
     }
-    if (authorityImageFiles.length) {
+    if (_this.data.authorityImageFiles.length) {
       params.depositImage = 1
     }
-    if (caleImageFiles.length){
+    if (_this.data.caleImageFiles.length) {
       params.insuranceImage = 1
     }
     console.log('workImproveWS:', params)
@@ -890,6 +927,56 @@ Page({
       path: '/app/damage/addByWorker',
       method: 'POST',
       data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  cooperaterManagerAssign () {
+    let _this = this
+    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
+      wx.showToast({
+        title: '请选择改派人员',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    util.request({
+      path: '/app/damage/reassignment',
+      method: 'POST',
+      data: {
+        damageId: this.data.id,
+        workerId: this.workListSource[this.data.workerValue].userId,
+        workerPhone: this.workListSource[this.data.workerValue].mobile
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  companyManagerChangeStatus () {
+    let _this = this
+    util.request({
+      path: '/app/damage/toSpot',
+      method: 'POST',
+      data: {
+        damageId: this.data.id
+      }
     }, function (err, res) {
       if (res.code == 0) {
         _this.goToList()

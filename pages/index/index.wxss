@@ -1,50 +1,53 @@
-
+page{
+  background: #fff!important;
+}
+.banner{
+  height: 240px;
+  overflow: hidden;
+}
 .index-btn-wrap{
-  border-radius: 10px;
   background: #fff;
-  margin: 20px;
-  box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.13), 0 0 4px 0 rgba(0, 0, 0, 0.08);
-}
-.ws-index-btn{
   width: 100%;
+}
+.new-btn{
   text-align: center;
   border-right: 1px solid #f7f7f7;
   border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
   height: 125px;
-  padding-top: 30px
+  padding-top: 30px;
+  width: 33.33333%;
 }
-.jc-index-btn{
-  width: 50%;
+.new-btn .van-icon{
+  color:#016eff
+}
+.welcome{
   text-align: center;
-  height: 125px;
-  border-right: 1px solid #f7f7f7;
+  background: #016eff;
   border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
-  padding-top: 30px
-}
-.cx-index-btn{
-  width: 50%;
   height: 125px;
-  text-align: center;
-  box-sizing: border-box;
-  padding-top: 30px
+  line-height: 125px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
 }
-.ks-index-btn{
-  width: 50%;
+.order-box{
   text-align: center;
-  border-right: 1px solid #f7f7f7;
+  background: #016eff;
+  border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
   height: 125px;
-  border-top: 1px solid #f7f7f7;
-  padding-top: 30px;
+  width: 33.33333%;
+  float: left;
+  color: #fff;
 }
-.gd-index-btn{
-  width: 50%;
+.order-box .num{
   text-align: center;
-  border-right: 1px solid #f7f7f7;
-  box-sizing: border-box;
-  height: 125px;
-  border-top: 1px solid #f7f7f7;
-  padding-top: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+.order-box .num-description{
+  text-align: center;
 }

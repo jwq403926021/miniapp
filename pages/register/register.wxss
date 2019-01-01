@@ -26,7 +26,7 @@
   border-left:1px solid #e5e5e5;
   line-height:2.58823529em;
   font-size:14px;
-  color:#1bb9fa;
+  color:#016eff;
   white-space:nowrap;
 
 }
