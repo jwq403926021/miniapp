@@ -1,20 +1,38 @@
 <view class="page">
   <view class="page__bd">
-
-
     <view class="weui-cells__title">家财工单</view>
     <view class="weui-cells weui-cells_after-title">
+
+      <block wx:if="{{id != null}}">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">工单号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{id}}</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">工单状态</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{statusMap[taskData.status]}} | {{taskData.status}}</text>
+          </view>
+        </view>
+      </block>
+
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
           <view class="weui-label">事故区域</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-            <view class="picker weui-input">
-              {{region[0]}}，{{region[1]}}
-              <block wx:if="{{region.length > 2}}">，{{region[2]}}</block>
-            </view>
-          </picker>
+          <view class="weui-cell__bd" wx:if="{{id == null}}">
+            <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{id != null}}">
+            <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -22,7 +40,8 @@
           <view class="weui-label">客户姓名</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="客户姓名"/>
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.autoInsuranceName'
+                 value="{{taskData.autoInsuranceName}}" placeholder="客户姓名"/>
         </view>
       </view>
       <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -30,7 +49,13 @@
           <view class="weui-label">客户手机</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="客户手机"/>
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.autoInsuranceMobile'
+                 value="{{taskData.autoInsuranceMobile}}" placeholder="请输入客户手机"/>
+        </view>
+        <view class="weui-cell__ft" wx:if="{{id != null}}">
+          <view class="field-right-btn" data-phone="{{taskData.autoInsuranceMobile}}" bindtap="dialPhone">
+            <van-icon name="phone"></van-icon>
+          </view>
         </view>
       </view>
 
@@ -38,48 +63,68 @@
         <view class="weui-cell__hd">
           <view class="weui-label">车牌号</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="车牌号"/>
+        <view class="weui-cell__bd" wx:if="{{id == null}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
+                 value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{id != null}}">
+          <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
         </view>
       </view>
 
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">是否为保险事故</view>
+          <view class="weui-label">是否保险事故</view>
         </view>
-        <view class="weui-cell__bd">
-          <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
-            <view class="picker weui-select weui-select_in-select-after">
-              {{companyCategoryList[companyCategory]}}
+        <view class="weui-cell__bd" wx:if="{{id == null && role == 15}}">  <!--游客 可选择-->
+          <van-radio-group value="{{ taskData.type }}" custom-class="weui-input vertical"
+                           bind:change="onTypeChange">
+            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+          </van-radio-group>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{id == null && role == 1}}">
+          <text class="weui-input readonly">{{'是'}}</text>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{id != null}}">
+          <text class="weui-input readonly">{{taskData.type == 0 ? '否' : '是'}}</text>
+        </view>
+      </view>
+
+      <block wx:if="{{id != null}}">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发起人姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发起人手机</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{taskData.autoInsuranceMobile || '-'}}</text>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="field-right-btn" data-phone="{{taskData.autoInsuranceMobile}}" bindtap="dialPhone">
+              <van-icon name="phone"></van-icon>
             </view>
-          </picker>
+          </view>
         </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">发起人姓名</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="发起人姓名"/>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">发起人手机</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="发起人手机"/>
-        </view>
-      </view>
-
+      </block>
     </view>
 
     <view class="weui-cells__title">报案信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="报案信息" style="height: 3.3em"/>
+        <view class="weui-cell__bd" wx:if="{{id == null}}">
+                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.remark'
+                              value="{{taskData.remark}}" disabled="{{id != null}}" placeholder="请输入文本" style="height: 3.3em"/>
+        </view>
+        <view class="weui-cell__bd" style="height: 3.3em" wx:if="{{id != null}}">
+          {{taskData.remark}}
         </view>
       </view>
     </view>
@@ -125,79 +170,86 @@
       </view>
     </view>
 
-    <!-- upload start-->
-    <view class="weui-cells__title">车辆定损图片</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{files}}" wx:key="*this">
-                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                    <text>Delete!!</text>
-                  </view>
-                </block>
-              </view>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+    <block wx:if="{{id != null}}">
+      <view class="weui-cells__title">车辆定损图片</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                      <text>Delete!!</text>
+                    </view>
+                  </block>
+                </view>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
               </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
-    <!-- upload end-->
 
-    <view class="weui-cells__title"></view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">保险公司</view>
+      <view class="weui-cells__title"></view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">保险公司</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
+              <view class="picker weui-select weui-select_in-select-after">
+                {{companyCategoryList[companyCategory]}}
+              </view>
+            </picker>
+          </view>
         </view>
-        <view class="weui-cell__bd">
-          <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
-            <view class="picker weui-select weui-select_in-select-after">
-              {{companyCategoryList[companyCategory]}}
-            </view>
-          </picker>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">定损员姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
+              <view class="picker weui-select weui-select_in-select-after">
+                {{companyCategoryList[companyCategory]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">定损员手机</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="定损员手机"/>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">报价金额</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="报价金额"/>
+          </view>
         </view>
       </view>
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">定损员姓名</view>
-        </view>
-        <view class="weui-cell__bd">
-          <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
-            <view class="picker weui-select weui-select_in-select-after">
-              {{companyCategoryList[companyCategory]}}
-            </view>
-          </picker>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">定损员手机</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="定损员手机"/>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">报价金额</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="报价金额"/>
-        </view>
-      </view>
-    </view>
+    </block>
 
     <view class="button-sp-area two-btn-wrap">
       <button type="primary">提交</button>
       <button>暂存</button>
     </view>
-
   </view>
+
+  <van-popup
+          show="{{ show }}"
+          position="bottom"
+          overlay="{{ true }}"
+  >
+    <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+  </van-popup>
 </view>
