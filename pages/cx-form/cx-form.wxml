@@ -120,8 +120,8 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd" wx:if="{{id == null}}">
-                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.remark'
-                              value="{{taskData.remark}}" disabled="{{id != null}}" placeholder="请输入文本" style="height: 3.3em"/>
+          <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.remark'
+                    value="{{taskData.remark}}" disabled="{{id != null}}" placeholder="请输入文本" style="height: 3.3em"/>
         </view>
         <view class="weui-cell__bd" style="height: 3.3em" wx:if="{{id != null}}">
           {{taskData.remark}}
@@ -136,16 +136,19 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{files}}" wx:key="*this">
-                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+              <view class="weui-uploader__files" id="uploaderInformationFiles">
+                <view wx:if="{{informationImageFiles.length == 0 && id != null}}">
+                  无图片
+                </view>
+                <block wx:for="{{informationImageFiles}}" wx:key="*this">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                    <text>Delete!!</text>
+                    <van-icon wx:if="{{id == null && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                   </view>
                 </block>
               </view>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+              <view class="weui-uploader__input-box" wx:if="{{id == null && role == 1}}">
+                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
               </view>
             </view>
           </view>
@@ -158,12 +161,13 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">选择修理厂</view>
+          <view class="weui-label">修理厂</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="bindPickerChange" value="{{companyCategory}}" range="{{companyCategoryList}}">
+          <picker bindchange="repairPlantChange" value="{{repairPlantValue}}"
+                  range="{{repairPlantList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{companyCategoryList[companyCategory]}}
+              {{repairPlantLabel || '选择修理厂'}}
             </view>
           </picker>
         </view>
@@ -240,7 +244,7 @@
     </block>
 
     <view class="button-sp-area two-btn-wrap">
-      <button type="primary">提交</button>
+      <button type="primary" bindtap="newSubmit">新建 提交</button>
       <button>暂存</button>
     </view>
   </view>

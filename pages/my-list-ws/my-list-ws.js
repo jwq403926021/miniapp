@@ -5,11 +5,7 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
     show: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     areaList: location,
     isShowFilterOne: false,
     filterOne: '0',
@@ -28,12 +24,6 @@ Page({
       '10': '已报价',
       '11': '已办结'
     }
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../register/register?id='+123
-    })
   },
   openFilterOne () {
     this.setData({

@@ -11,6 +11,9 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    repairPlantValue: '',
+    repairPlantLabel: '',
+    repairPlantList: ['1', '2'],
     taskData: {
       autoInsuranceName: '',
       autoInsuranceMobile: '',
@@ -19,8 +22,10 @@ Page({
       areaCode: '',
       cityCode: '',
       provinceCode: '',
+      repairPlantId: '',
       remark: ''
-    }
+    },
+    informationImageFiles: [],
   },
   //事件处理函数
   bindViewTap: function() {
@@ -32,6 +37,7 @@ Page({
     console.log('车险 工单号：->', routeParams)
     console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     this.initArea()
+    this.initRepairPlant()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
@@ -126,6 +132,25 @@ Page({
       _this.getRegionLabel()
     })
   },
+  initRepairPlant () {
+    let _this = this
+    util.request({
+      path: '/sys/company',
+      method: 'GET',
+      data: {
+        page: '1',
+        size: '200'
+      }
+    }, function (err, res) {
+      console.log(res, '!!!!!!')
+      _this.repairPlantSource = res.data.records
+      _this.setData({
+        'repairPlantList': res.data.records.map(item => {
+          return item.companyName
+        })
+      })
+    })
+  },
   getRegionLabel () {
     let arr = []
     if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
@@ -213,5 +238,132 @@ Page({
       return false
     }
     return true
+  },
+  repairPlantChange (event) {
+    this.setData({
+      'repairPlantValue': event.detail.value,
+      'repairPlantLabel': this.repairPlantSource[event.detail.value].name
+    })
+  },
+  previewInfoImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.informationImageFiles
+    })
+  },
+  removeinformationImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.informationImageFiles.splice(index, 1)
+    this.setData({
+      informationImageFiles: _this.data.informationImageFiles
+    })
+  },
+  chooseInfoImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length >= 9) {
+          wx.showToast({
+            title: '报案图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            informationImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  newSubmit () {
+    let data = this.data.taskData
+    let _this = this
+    let taskData = {
+      "areaCode": data.areaCode,
+      "cityCode": data.cityCode,
+      "provinceCode": data.provinceCode,
+      "autoInsuranceMobile": data.autoInsuranceMobile,
+      "autoInsuranceName": data.autoInsuranceName,
+      "plateNumber": data.plateNumber,
+      "remark": data.remark,
+      "repairPlantId": '3' || data.repairPlantId,
+      "type": data.type
+    }
+    let informationImageFiles = []
+    _this.data.informationImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        informationImageFiles.push({file: item, type: 1})
+      }
+    })
+
+    if (taskData.autoInsuranceName == '') {
+      wx.showToast({
+        title: '请填写客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    let isVaidcustomerPhone = this.checkPhone(taskData.autoInsuranceMobile, '请输入正确的客户手机号')
+    if (!isVaidcustomerPhone) {
+      return
+    }
+
+    util.request({
+      path: '/sys/autoInsurance',
+      method: 'POST',
+      data: taskData
+    }, function (err, res) {
+      console.log('工单新建：', res)
+      if (res.code == 0) {
+        let imgPaths = [...informationImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            title: '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                if (_this.data.modifyId){
+                  _this.goToList()
+                }else{
+                  wx.switchTab({
+                    url: '../index/index'
+                  })
+                }
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  goToList () {
+    wx.navigateBack({
+      url: '../my-list-cx/my-list-cx',
+      success: function (e) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    })
   }
 })

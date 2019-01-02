@@ -1,8 +1,12 @@
 {
   "usingComponents": {
-    "van-row": "../../asset/vant/row/index",
-    "van-col": "../../asset/vant/col/index",
-    "van-tab": "../../asset/vant/tab/index",
-    "van-tabs": "../../asset/vant/tabs/index"
+    "van-search": "../../asset/vant/search/index",
+    "van-area": "../../asset/vant/area/index",
+    "van-popup": "../../asset/vant/popup/index",
+    "van-cell": "../../asset/vant/cell/index",
+    "van-cell-group": "../../asset/vant/cell-group/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index",
+    "van-transition": "../../asset/vant/transition/index"
   }
 }
