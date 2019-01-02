@@ -7,7 +7,6 @@ Page({
   data: {
 
   },
-
   //事件处理函数
   goToWsList: function () {
     wx.navigateTo({
@@ -24,7 +23,16 @@ Page({
       url: '../my-list-cx/my-list-cx'
     })
   },
-
+  goToLockList () {
+    wx.navigateTo({
+      url: '../my-list-lock/my-list-lock'
+    })
+  },
+  goToPipeList () {
+    wx.navigateTo({
+      url: '../my-list-pipe/my-list-pipe'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

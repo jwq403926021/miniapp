@@ -17,4 +17,16 @@
     </view>
     <view><van-icon name="logistics" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />车险工单</view>
   </view>
+  <view class="my-list-item" bindtap="goToLockList">
+    <view class="fr">
+      <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
+    </view>
+    <view><van-icon name="certificate" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />开锁工单</view>
+  </view>
+  <view class="my-list-item" bindtap="goToPipeList">
+    <view class="fr">
+      <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 40px;" />
+    </view>
+    <view><van-icon name="exchange-record" style="font-size: 24px; vertical-align: middle; margin-right: 15px;" />疏通管道工单</view>
+  </view>
 </view>

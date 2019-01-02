@@ -13,6 +13,8 @@
     "pages/my-list-ws/my-list-ws",
     "pages/my-list-jc/my-list-jc",
     "pages/my-list-cx/my-list-cx",
+    "pages/my-list-lock/my-list-lock",
+    "pages/my-list-pipe/my-list-pipe",
     "pages/test/test"
   ],
   "window":{
