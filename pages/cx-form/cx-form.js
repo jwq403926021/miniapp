@@ -138,16 +138,11 @@ Page({
       path: '/sys/company/list',
       method: 'GET',
       data: {
-        // industryCode: '8',
-        // organization: '2',
-        // cityCode: _this.data.taskData.cityCode,
-        // provinceCode: _this.data.taskData.provinceCode,
-        // areaCode: _this.data.taskData.areaCode
-        industryCode: '4',
-        organization: '0',
-        cityCode: 110100,
-        provinceCode: 110000,
-        areaCode: 110101
+        industryCode: '8',
+        organization: '2',
+        cityCode: _this.data.taskData.cityCode,
+        provinceCode: _this.data.taskData.provinceCode,
+        areaCode: _this.data.taskData.areaCode
       }
     }, function (err, res) {
       _this.repairPlantSource = res.data
