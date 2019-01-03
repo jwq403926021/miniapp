@@ -57,7 +57,7 @@ Page({
     })
 
     util.request({
-      path: '/sys/autoInsurance',
+      path: '/app/autoInsurance',
       method: 'GET',
       data: {
         page: 1,

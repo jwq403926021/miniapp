@@ -13,7 +13,7 @@ Page({
     regionLabel: '',
     repairPlantValue: '',
     repairPlantLabel: '',
-    repairPlantList: ['1', '2'],
+    repairPlantList: [],
     taskData: {
       autoInsuranceName: '',
       autoInsuranceMobile: '',
@@ -37,7 +37,6 @@ Page({
     console.log('车险 工单号：->', routeParams)
     console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     this.initArea()
-    this.initRepairPlant()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
@@ -122,6 +121,7 @@ Page({
       'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
       'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
     })
+    this.initRepairPlant()
     util.request({
       path: '/sys/area/list',
       method: 'GET'
@@ -135,17 +135,24 @@ Page({
   initRepairPlant () {
     let _this = this
     util.request({
-      path: '/sys/company',
+      path: '/sys/company/list',
       method: 'GET',
       data: {
-        page: '1',
-        size: '200'
+        // industryCode: '8',
+        // organization: '2',
+        // cityCode: _this.data.taskData.cityCode,
+        // provinceCode: _this.data.taskData.provinceCode,
+        // areaCode: _this.data.taskData.areaCode
+        industryCode: '4',
+        organization: '0',
+        cityCode: 110100,
+        provinceCode: 110000,
+        areaCode: 110101
       }
     }, function (err, res) {
-      console.log(res, '!!!!!!')
-      _this.repairPlantSource = res.data.records
+      _this.repairPlantSource = res.data
       _this.setData({
-        'repairPlantList': res.data.records.map(item => {
+        'repairPlantList': res.data.map(item => {
           return item.companyName
         })
       })
@@ -241,8 +248,9 @@ Page({
   },
   repairPlantChange (event) {
     this.setData({
+      'taskData.repairPlantId': this.repairPlantSource[event.detail.value].id,
       'repairPlantValue': event.detail.value,
-      'repairPlantLabel': this.repairPlantSource[event.detail.value].name
+      'repairPlantLabel': this.repairPlantSource[event.detail.value].companyName
     })
   },
   previewInfoImage: function (e) {
@@ -291,13 +299,14 @@ Page({
       "autoInsuranceName": data.autoInsuranceName,
       "plateNumber": data.plateNumber,
       "remark": data.remark,
-      "repairPlantId": '3' || data.repairPlantId,
+      "repairPlantId": data.repairPlantId,
       "type": data.type
     }
+    // type=2 现场图片上传  type=8 上传定损图片
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        informationImageFiles.push({file: item, type: 1})
+        informationImageFiles.push({file: item, type: 2})
       }
     })
 
@@ -315,8 +324,31 @@ Page({
       return
     }
 
+    let flag = this.isLicenseNo(taskData.plateNumber)
+    if (!flag) {
+      return
+    }
+
+    if (!informationImageFiles.length){
+      wx.showToast({
+        title: '请上传报案照片',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.repairPlantId == '' || taskData.repairPlantId == null){
+      wx.showToast({
+        title: '请选择修理厂',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
     util.request({
-      path: '/sys/autoInsurance',
+      path: '/app/autoInsurance',
       method: 'POST',
       data: taskData
     }, function (err, res) {
@@ -324,6 +356,9 @@ Page({
       if (res.code == 0) {
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
+        _this.setData({
+          'id': res.autoInsuranceId
+        })
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -355,6 +390,73 @@ Page({
         })
       }
     })
+  },
+  uploadOneByOne (imgPaths,successUp, failUp, count, length) {
+    var that = this
+    console.log('upload flowID:', this.data.id)
+    wx.uploadFile({
+      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      filePath: imgPaths[count].file,
+      name: `files`,
+      header: {
+        "Content-Type": "multipart/form-data",
+        'token': wx.getStorageSync('token')
+      },
+      formData: {
+        'flowId': that.data.id,
+        'type': imgPaths[count].type
+      },
+      success:function(e){
+        let responseCode = JSON.parse(e.data)
+        if (responseCode.code == 0) {
+          successUp++;//成功+1
+        } else {
+          failUp++;//失败+1
+        }
+      },
+      fail:function(e){
+        failUp++;//失败+1
+      },
+      complete:function(e){
+        count++;//下一张
+        if(count == length){
+          console.log('上传成功' + successUp + ',' + '失败' + failUp);
+          wx.showToast({
+            title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
+            icon: length == successUp ? 'success' : 'none',
+            duration: 1000,
+            success () {
+              if (length == successUp) {
+                setTimeout(() => {
+                  if (that.data.modifyId){
+                    that.goToList()
+                  }else {
+                    wx.switchTab({
+                      url: '../index/index'
+                    })
+                  }
+                }, 1000)
+              }
+            }
+          })
+        }else{
+          //递归调用，上传下一张
+          that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
+          console.log('正在上传第' + count + '张');
+        }
+      }
+    })
+  },
+  checkPhone (str, msg){
+    if(!(/^1[34578]\d{9}$/.test(str))){
+      wx.showToast({
+        title: msg,
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    return true
   },
   goToList () {
     wx.navigateBack({
