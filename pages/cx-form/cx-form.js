@@ -48,13 +48,14 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: '/app/damage/damageDetail',
+      path: '/app/autoInsurance/info',
       method: 'GET',
       data: {
-        damageId: id
+        autoInsuranceId: id
       }
     }, function (err, res) {
       let data = res.data
+      console.log('##', data)
       _this.sourceData = data
       _this.sourceImage = res.Image
       // let informationImageFiles = []
@@ -85,30 +86,30 @@ Page({
       //       break
       //   }
       // })
-      _this.setData({
-        'taskData.status': data.status,
-        'taskData.area': data.area,
-        'taskData.insuranceType': data.insuranceType,
-        'taskData.damagedUser': data.damagedUser,
-        'taskData.damagedPhone': data.damagedPhone || '',
-        'taskData.customerUser': data.customerUser,
-        'taskData.customerPhone': data.customerPhone,
-        'taskData.plateNumber': data.plateNumber,
-        'taskData.information': data.information,
-        'taskData.live': data.live,
-        "taskData.surveyUser": data.surveyUser,
-        "taskData.surveyPhone": data.surveyPhone,
-        "taskData.workerUser": data.workerUser,
-        "taskData.workerPhone": data.workerPhone,
-        "taskData.workType": data.workType,
-        "taskData.budgetPreliminary": data.budgetPreliminary,
-        'taskData.handlingType': data.handlingType,
-        'taskData.deposit': data.deposit,
-        'taskData.trasactionId': data.trasactionId,
-        'taskData.offer': data.offer,
-        'taskData.bidder': data.bidder,
-        'taskData.offerRemark': data.offerRemark
-      })
+      // _this.setData({
+      //   'taskData.status': data.status,
+      //   'taskData.area': data.area,
+      //   'taskData.insuranceType': data.insuranceType,
+      //   'taskData.damagedUser': data.damagedUser,
+      //   'taskData.damagedPhone': data.damagedPhone || '',
+      //   'taskData.customerUser': data.customerUser,
+      //   'taskData.customerPhone': data.customerPhone,
+      //   'taskData.plateNumber': data.plateNumber,
+      //   'taskData.information': data.information,
+      //   'taskData.live': data.live,
+      //   "taskData.surveyUser": data.surveyUser,
+      //   "taskData.surveyPhone": data.surveyPhone,
+      //   "taskData.workerUser": data.workerUser,
+      //   "taskData.workerPhone": data.workerPhone,
+      //   "taskData.workType": data.workType,
+      //   "taskData.budgetPreliminary": data.budgetPreliminary,
+      //   'taskData.handlingType': data.handlingType,
+      //   'taskData.deposit': data.deposit,
+      //   'taskData.trasactionId': data.trasactionId,
+      //   'taskData.offer': data.offer,
+      //   'taskData.bidder': data.bidder,
+      //   'taskData.offerRemark': data.offerRemark
+      // })
       _this.getRegionLabel()
     })
   },
