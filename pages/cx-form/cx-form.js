@@ -6,6 +6,7 @@ const app = getApp()
 Page({
   data: {
     id: null,
+    modifyId: null,
     role: 1,
     show: false,
     areaList: {},
@@ -93,6 +94,7 @@ Page({
       //   }
       // })
       _this.setData({
+        'modifyId': data.id,
         'taskData.autoInsuranceName': data.autoInsuranceName,
         'taskData.autoInsuranceMobile': data.autoInsuranceMobile,
         'taskData.plateNumber': data.plateNumber,
@@ -429,11 +431,11 @@ Page({
     let data = this.data.taskData
     let _this = this
     let taskData = {
-      "id": data.areaCode,
-      "autoInsuranceId": data.cityCode,
-      "insurerId": data.insurerId,
-      "insurerUserId": data.insurerUserId,
-      "insurerUserMobile": data.insurerUserMobile
+      "id": this.data.modifyId,
+      "autoInsuranceId": this.data.id,
+      "insurerId": '1' || data.insurerId,
+      "insurerUserId": '1' || data.insurerUserId,
+      "insurerUserMobile": '1504992092' || data.insurerUserMobile
     }
 
     let assessImageFiles = []
@@ -443,14 +445,67 @@ Page({
       }
     })
 
-    if (taskData.autoInsuranceName == '') {
+    if (taskData.insurerId == '' || taskData.insurerId == null) {
       wx.showToast({
-        title: '请填写客户姓名',
+        title: '请选择保险公司',
         icon: 'none',
         duration: 2000
       })
       return
     }
+    if (taskData.insurerUserId == '' || taskData.insurerUserId == null) {
+      wx.showToast({
+        title: '请选择定损人员',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    util.request({
+      path: '/app/autoInsurance',
+      method: 'PUT',
+      data: taskData
+    }, function (err, res) {
+      console.log('定损 提交：', res)
+      if (res.code == 0) {
+        let imgPaths = [...assessImageFiles]
+        console.log('Upload Files:', imgPaths)
+        _this.setData({
+          'id': res.autoInsuranceId
+        })
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            title: '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                if (_this.data.modifyId){
+                  _this.goToList()
+                }else{
+                  wx.switchTab({
+                    url: '../index/index'
+                  })
+                }
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
