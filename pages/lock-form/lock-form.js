@@ -289,6 +289,9 @@ Page({
       taskData.id = this.data.id
       taskData.orderId = this.data.orderId
     }
+    if (this.data.status == '12'){
+      taskData.status = '12'
+    }
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
