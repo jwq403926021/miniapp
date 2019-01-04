@@ -27,10 +27,10 @@
           <view class="weui-label">事故区域</view>
         </view>
         <view class="weui-cell__bd">
-          <view class="weui-cell__bd" wx:if="{{id == null && role == '1'}}">
+          <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
             <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{id != null}}">
+          <view class="weui-cell__bd" wx:if="{{role != '1' || (id != null && status != '12')}}">
             <text class="weui-input readonly">{{regionLabel || '-'}}</text>
           </view>
         </view>
@@ -63,11 +63,11 @@
     <view class="weui-cells__title">报案信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd" wx:if="{{id == null && role == '1'}}">
+        <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
           <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
-                    value="{{taskData.information}}" disabled="{{id != null}}" placeholder="请输入文本" style="height: 3.3em"/>
+                    value="{{taskData.information}}" disabled="{{role != '1' || (id != null && status != '12')}}" placeholder="请输入报案信息" style="height: 3.3em"/>
         </view>
-        <view class="weui-cell__bd" style="height: 3.3em; font-size: 14px;" wx:if="{{id != null}}">
+        <view class="weui-cell__bd" style="height: 3.3em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
           {{taskData.information}}
         </view>
       </view>
@@ -81,17 +81,17 @@
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="uploaderInformationFiles">
-                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null}}">
+                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && status != '12'}}">
                   无图片
                 </view>
                 <block wx:for="{{informationImageFiles}}" wx:key="*this">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item}}">
                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                    <van-icon wx:if="{{id == null && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                    <van-icon wx:if="{{(id == null || status == '12') && role == '1'}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                   </view>
                 </block>
               </view>
-              <view class="weui-uploader__input-box" wx:if="{{id == null && role == 1}}">
+              <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '12') && role == '1'}}">
                 <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
               </view>
             </view>
@@ -159,7 +159,7 @@
 
     </block>
 
-    <view class="button-sp-area two-btn-wrap" wx:if="{{id == null}}">
+    <view class="button-sp-area two-btn-wrap" wx:if="{{(id == null || status == '12') && role == '1'}}">
       <button type="primary" bindtap="commitSubmit">新建 提交</button>
       <button data-save="true" bindtap="commitSubmit">暂存</button>
     </view>

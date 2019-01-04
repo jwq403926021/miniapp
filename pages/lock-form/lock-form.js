@@ -50,7 +50,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.orderId,
-        role: 19// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
+        role: 1// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -285,7 +285,7 @@ Page({
       "cityCode": data.cityCode,
       "provinceCode": data.provinceCode
     }
-    if (isSave && taskData.id) {
+    if (this.data.id) {
       taskData.id = this.data.id
       taskData.orderId = this.data.orderId
     }
@@ -320,7 +320,7 @@ Page({
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
         _this.setData({
-          'id': res.orderId
+          'orderId': res.orderId
         })
         let count = 0
         let successUp = 0
@@ -427,15 +427,12 @@ Page({
 
     util.request({
       path: '/app/lock/finish',
-      method: 'POST',
+      method: 'PUT',
       data: taskData
     }, function (err, res) {
       if (res.code == 0) {
         let imgPaths = [...liveImageFiles]
         console.log('Upload Files:', imgPaths)
-        _this.setData({
-          'id': res.orderId
-        })
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -448,13 +445,7 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                if (_this.data.modifyId){
-                  _this.goToList()
-                }else{
-                  wx.switchTab({
-                    url: '../index/index'
-                  })
-                }
+                _this.goToList()
               }, 1000)
             }
           })
@@ -480,7 +471,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.data.id,
+        'flowId': that.data.orderId,
         'type': imgPaths[count].type
       },
       success:function(e){
@@ -505,7 +496,7 @@ Page({
             success () {
               if (length == successUp) {
                 setTimeout(() => {
-                  if (that.data.modifyId){
+                  if (that.data.id){
                     that.goToList()
                   }else {
                     wx.switchTab({
