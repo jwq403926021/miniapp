@@ -28,7 +28,7 @@ Page({
   },
   goToKsForm: function () {
     wx.navigateTo({
-      url: '../ks-form/ks-form'
+      url: '../lock-form/lock-form'
     })
   },
   goToGdForm: function () {
