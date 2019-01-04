@@ -150,3 +150,9 @@ textarea[disabled]{
     height:2.58823529em;
     vertical-align:middle;
 }
+
+.no-image{
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 0;
+}

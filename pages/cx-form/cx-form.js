@@ -14,6 +14,20 @@ Page({
     repairPlantValue: '',
     repairPlantLabel: '',
     repairPlantList: [],
+    insurer: '',
+    insurerLabel: '',
+    insurerList: [],
+    insurerUser: '',
+    insurerUserLabel: '',
+    insurerUserList: [],
+    status: '',
+    statusMap: {
+      '51': '提交至修理厂',
+      '52': '待修理厂报价',
+      '53': '待报价中心报价',
+      '54': '待保险公司核价',
+      '56': '保险公司核价完成'
+    },
     taskData: {
       autoInsuranceName: '',
       autoInsuranceMobile: '',
@@ -23,9 +37,17 @@ Page({
       cityCode: '',
       provinceCode: '',
       repairPlantId: '',
-      remark: ''
+      remark: '',
+
+      originatorUserName: '',
+      originatorUserMobile: '',
+      insurerId: '',
+      insurerUserId: '',
+      insurerUserMobile: '',
+      insurerPrice: ''
     },
     informationImageFiles: [],
+    assessImageFiles: []
   },
   //事件处理函数
   bindViewTap: function() {
@@ -40,7 +62,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -60,10 +82,6 @@ Page({
       _this.sourceImage = res.Image
       // let informationImageFiles = []
       // let liveImageFiles = []
-      // let workLiveImageFiles = []
-      // let damageImageFiles = []
-      // let authorityImageFiles = []
-      // let caleImageFiles = []
       // _this.sourceImage.forEach(item => {
       //   switch (item.type) {
       //     case 1:
@@ -72,44 +90,29 @@ Page({
       //     case 2:
       //       liveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
       //       break
-      //     case 3:
-      //       workLiveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
-      //     case 4:
-      //       damageImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
-      //     case 5:
-      //       authorityImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
-      //     case 7:
-      //       caleImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
       //   }
       // })
-      // _this.setData({
-      //   'taskData.status': data.status,
-      //   'taskData.area': data.area,
-      //   'taskData.insuranceType': data.insuranceType,
-      //   'taskData.damagedUser': data.damagedUser,
-      //   'taskData.damagedPhone': data.damagedPhone || '',
-      //   'taskData.customerUser': data.customerUser,
-      //   'taskData.customerPhone': data.customerPhone,
-      //   'taskData.plateNumber': data.plateNumber,
-      //   'taskData.information': data.information,
-      //   'taskData.live': data.live,
-      //   "taskData.surveyUser": data.surveyUser,
-      //   "taskData.surveyPhone": data.surveyPhone,
-      //   "taskData.workerUser": data.workerUser,
-      //   "taskData.workerPhone": data.workerPhone,
-      //   "taskData.workType": data.workType,
-      //   "taskData.budgetPreliminary": data.budgetPreliminary,
-      //   'taskData.handlingType': data.handlingType,
-      //   'taskData.deposit': data.deposit,
-      //   'taskData.trasactionId': data.trasactionId,
-      //   'taskData.offer': data.offer,
-      //   'taskData.bidder': data.bidder,
-      //   'taskData.offerRemark': data.offerRemark
-      // })
+      _this.setData({
+        'taskData.autoInsuranceName': data.autoInsuranceName,
+        'taskData.autoInsuranceMobile': data.autoInsuranceMobile,
+        'taskData.plateNumber': data.plateNumber,
+        'taskData.type': data.type,
+        'taskData.areaCode': data.areaCode,
+        'taskData.cityCode': data.cityCode,
+        'taskData.provinceCode': data.provinceCode,
+        'taskData.repairPlantId': data.repairPlantId,
+        "taskData.remark": data.remark,
+
+        'status': data.status,
+        'repairPlantLabel': data.repairPlantNname,
+        'taskData.originatorUserName': data.originatorUserName,
+        'taskData.originatorUserMobile': data.originatorUserMobile,
+
+        "taskData.insurerId": data.insurerId,
+        "taskData.insurerUserId": data.insurerUserId,
+        "taskData.insurerUserMobile": data.insurerUserMobile,
+        'taskData.insurerPrice': data.insurerPrice
+      })
       _this.getRegionLabel()
     })
   },
@@ -284,6 +287,41 @@ Page({
       }
     })
   },
+  previewAssessImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.assessImageFiles
+    })
+  },
+  removeAssessImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.assessImageFiles.splice(index, 1)
+    this.setData({
+      assessImageFiles: _this.data.assessImageFiles
+    })
+  },
+  chooseAssessImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.assessImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length >= 9) {
+          wx.showToast({
+            title: '报案图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            assessImageFiles: list
+          });
+        }
+      }
+    })
+  },
   newSubmit () {
     let data = this.data.taskData
     let _this = this
@@ -386,6 +424,33 @@ Page({
         })
       }
     })
+  },
+  assessSubmit () {
+    let data = this.data.taskData
+    let _this = this
+    let taskData = {
+      "id": data.areaCode,
+      "autoInsuranceId": data.cityCode,
+      "insurerId": data.insurerId,
+      "insurerUserId": data.insurerUserId,
+      "insurerUserMobile": data.insurerUserMobile
+    }
+
+    let assessImageFiles = []
+    _this.data.assessImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        assessImageFiles.push({file: item, type: 8})
+      }
+    })
+
+    if (taskData.autoInsuranceName == '') {
+      wx.showToast({
+        title: '请填写客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this

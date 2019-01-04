@@ -135,7 +135,7 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderInformationFiles">
-                                <view wx:if="{{informationImageFiles.length == 0 && id != null && taskData.status != 2}}">
+                                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && taskData.status != 2}}">
                                     无图片
                                 </view>
                                 <block wx:for="{{informationImageFiles}}" wx:key="*this">
@@ -174,7 +174,7 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderLiveFiles">
-                                <view wx:if="{{liveImageFiles.length == 0 && id != null && taskData.status != 2}}">
+                                <view class="no-image" wx:if="{{liveImageFiles.length == 0 && id != null && taskData.status != 2}}">
                                     无图片
                                 </view>
                                 <block wx:for="{{liveImageFiles}}" wx:key="*this">
