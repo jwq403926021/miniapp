@@ -289,7 +289,7 @@ Page({
       taskData.id = this.data.id
       taskData.orderId = this.data.orderId
     }
-    if (this.data.status == '12'){
+    if (this.data.status == '12'){ // 暂存 二次点击
       taskData.status = '12'
     }
     let informationImageFiles = []
