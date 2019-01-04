@@ -1,18 +1,24 @@
 <view class="page">
   <scroll-view scroll-y='true' style='height:{{ height }}px' bindscrolltolower='getMore'>
     <view class="filter-wrap clearfix">
-      <view class="field">
-        <view>过滤检索</view>
-      </view>
-      <view class="field" bind:tap="openLocation">
-        <view class="caret">地址</view>
-      </view>
+      <!--<view class="field">-->
+        <!--<view>过滤检索</view>-->
+      <!--</view>-->
+      <!--<view class="field" bind:tap="openLocation">-->
+        <!--<view class="caret">地址</view>-->
+      <!--</view>-->
       <view class="field">
         <view class="caret" bind:tap="openFilterOne">状态</view>
       </view>
-      <view class="field">
-        <view class="caret">险种</view>
-      </view>
+      <van-search
+              value="{{ value }}"
+              placeholder="请输入客户姓名"
+              use-action-slot
+              custom-class="my-search"
+              bind:search="onSearch">
+        <view slot="action" bind:tap="onSearch">搜索</view>
+
+      </van-search>
     </view>
     <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}">
       <view class="weui-panel__bd">
