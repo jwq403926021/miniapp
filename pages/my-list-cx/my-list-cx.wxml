@@ -48,6 +48,7 @@
       </van-cell-group>
     </van-radio-group>
   </van-transition>
+  <view wx:if="{{isShowFilterOne}}" class="mask"></view>
   <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
     <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
   </van-popup>
