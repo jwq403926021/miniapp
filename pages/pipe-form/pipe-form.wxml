@@ -1,6 +1,6 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-cells__title">开锁工单</view>
+    <view class="weui-cells__title">管道疏通工单</view>
     <view class="weui-cells weui-cells_after-title">
 
       <block wx:if="{{id != null}}">
