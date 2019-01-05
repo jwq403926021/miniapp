@@ -110,6 +110,9 @@ Page({
         'taskData.originatorUserName': data.originatorUserName,
         'taskData.originatorUserMobile': data.originatorUserMobile,
 
+        'insurerUserLabel': data.insurerUserName,
+        'insurerLabel': data.insurerName,
+
         "taskData.insurerId": data.insurerId,
         "taskData.insurerUserId": data.insurerUserId,
         "taskData.insurerUserMobile": data.insurerUserMobile,
