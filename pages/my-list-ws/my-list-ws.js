@@ -22,7 +22,8 @@ Page({
       '8': '计算书已上传',
       '9': '报价中心驳回',
       '10': '已报价',
-      '11': '已办结'
+      '11': '已办结',
+      '12': '暂存'
     }
   },
   openFilterOne () {
@@ -61,7 +62,7 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        pageSize: 1000
+        size: 500
       }
     }, function (err, res) {
       _this.setData({

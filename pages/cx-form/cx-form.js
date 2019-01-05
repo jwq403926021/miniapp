@@ -128,6 +128,7 @@ Page({
       'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
     })
     this.initRepairPlant()
+    this.initinsurerCompany()
     util.request({
       path: '/sys/area/list',
       method: 'GET'
@@ -136,6 +137,28 @@ Page({
         areaList: res.DATA.DATA
       })
       _this.getRegionLabel()
+    })
+  },
+  initinsurerCompany () {
+    let _this = this
+    util.request({
+      path: '/sys/company/list',
+      method: 'GET',
+      data: {
+        industryCode: '2',
+        organization: '2',
+        insurance: '2',
+        cityCode: _this.data.taskData.cityCode,
+        provinceCode: _this.data.taskData.provinceCode,
+        areaCode: _this.data.taskData.areaCode
+      }
+    }, function (err, res) {
+      _this.insurerCompanySource = res.data
+      _this.setData({
+        'insurerList': res.data.map(item => {
+          return item.companyName
+        })
+      })
     })
   },
   initRepairPlant () {
@@ -248,10 +271,45 @@ Page({
     return true
   },
   repairPlantChange (event) {
+    let repairPlantId = this.repairPlantSource[event.detail.value].id
     this.setData({
-      'taskData.repairPlantId': this.repairPlantSource[event.detail.value].id,
+      'taskData.repairPlantId': repairPlantId,
       'repairPlantValue': event.detail.value,
       'repairPlantLabel': this.repairPlantSource[event.detail.value].companyName
+    })
+  },
+  bindInsurerChange (event) {
+    let _this = this
+    let insurerCompanyId = this.insurerCompanySource[event.detail.value].id
+    console.log('insurerCompanyId:', insurerCompanyId)
+    util.request({
+      path: '/app/userList',
+      method: 'GET',
+      data: {
+        companyId: insurerCompanyId
+      }
+    }, function (err, res) {
+      _this.insurerUserSource = res.data
+      _this.setData({
+        'insurerUserList': res.data.map(item => {
+          return item.name
+        })
+      })
+    })
+    this.setData({
+      'taskData.insurerId': insurerCompanyId,
+      'insurer': event.detail.value,
+      'insurerLabel': this.insurerCompanySource[event.detail.value].companyName
+    })
+  },
+  bindInsurerUserChange (event) {
+    let insurerUserId = this.insurerUserSource[event.detail.value].userId
+    let insurerUserMobile = this.insurerUserSource[event.detail.value].mobile
+    this.setData({
+      'taskData.insurerUserId': insurerUserId,
+      'taskData.insurerUserMobile': insurerUserMobile,
+      'insurerUser': event.detail.value,
+      'insurerUserLabel': this.insurerUserSource[event.detail.value].name
     })
   },
   previewInfoImage: function (e) {

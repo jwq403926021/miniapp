@@ -225,7 +225,7 @@
             <view class="weui-label">定损员</view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindInsurerChange" value="{{insurerUser}}" range="{{insurerUserList}}">
+            <picker bindchange="bindInsurerUserChange" value="{{insurerUser}}" range="{{insurerUserList}}">
               <view class="picker weui-select weui-select_in-select-after">
                 {{insurerUserLabel || '选择定损员'}}
               </view>

@@ -32,7 +32,8 @@ Page({
       '8': '计算书已上传',
       '9': '报价中心驳回',
       '10': '已报价',
-      '11': '已办结'
+      '11': '已办结',
+      '12': '暂存'
     },
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
@@ -585,10 +586,10 @@ Page({
       phoneNumber: phone
     })
   },
-  submitWS () {
+  submitWS (e) {
     let data = this.data.taskData
     let _this = this
-
+    let isSave = e.currentTarget.dataset.save
     let taskData = {
       provinceCode: data.provinceCode,
       cityCode: data.cityCode,
@@ -660,7 +661,7 @@ Page({
     }
     console.log('工单新建 改善参数：', taskData)
     util.request({
-      path: '/app/damage/addBySurvey',
+      path: isSave ? '/app/damage/saveBySurvey' : '/app/damage/addBySurvey',
       method: 'POST',
       data: taskData
     }, function (err, res) {
