@@ -81,18 +81,18 @@ Page({
       console.log('##', data)
       _this.sourceData = data
       _this.sourceImage = res.Image
-      // let informationImageFiles = []
-      // let liveImageFiles = []
-      // _this.sourceImage.forEach(item => {
-      //   switch (item.type) {
-      //     case 1:
-      //       informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
-      //     case 2:
-      //       liveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
-      //       break
-      //   }
-      // })
+      let informationImageFiles = []
+      let assessImageFiles = []
+      _this.sourceImage.forEach(item => {
+        switch (item.type) {
+          case 2:
+            informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            break
+          case 8:
+            assessImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            break
+        }
+      })
       _this.setData({
         'modifyId': data.id,
         'taskData.autoInsuranceName': data.autoInsuranceName,
@@ -113,7 +113,9 @@ Page({
         "taskData.insurerId": data.insurerId,
         "taskData.insurerUserId": data.insurerUserId,
         "taskData.insurerUserMobile": data.insurerUserMobile,
-        'taskData.insurerPrice': data.insurerPrice
+        'taskData.insurerPrice': data.insurerPrice,
+        'informationImageFiles': informationImageFiles,
+        'assessImageFiles': assessImageFiles
       })
       _this.getRegionLabel()
     })
