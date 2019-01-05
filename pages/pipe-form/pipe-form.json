@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-area": "../../asset/vant/area/index",
+    "van-popup": "../../asset/vant/popup/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index",
+    "van-icon": "../../asset/vant/icon/index"
+  }
+}

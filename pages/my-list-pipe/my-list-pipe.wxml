@@ -1,32 +1,38 @@
 <view class="page">
   <scroll-view scroll-y='true' style='height:{{ height }}px' bindscrolltolower='getMore'>
     <view class="filter-wrap clearfix">
+      <!--<view class="field">-->
+        <!--<view>过滤检索</view>-->
+      <!--</view>-->
+      <!--<view class="field" bind:tap="openLocation">-->
+        <!--<view class="caret">地址</view>-->
+      <!--</view>-->
       <view class="field">
-        <view>过滤检索</view>
+        <view class="caret" bind:tap="openFilterOne">{{searchStatusLabel}}</view>
       </view>
-      <view class="field" bind:tap="openLocation">
-        <view class="caret">地址</view>
-      </view>
-      <view class="field">
-        <view class="caret" bind:tap="openFilterOne">状态</view>
-      </view>
-      <view class="field">
-        <view class="caret">险种</view>
-      </view>
+      <van-search
+              value="{{ searchKeyword }}"
+              placeholder="请输入客户姓名"
+              use-action-slot
+              custom-class="my-search"
+              bind:change="searchKeywordChange">
+        <view slot="action" bind:tap="onSearch">搜索</view>
+
+      </van-search>
     </view>
     <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}">
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_text">
-          <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>
+          <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.orderId}}</view>
           <view class="weui-media-box__desc">
             <view>工单状态：{{statusMap[item.status]}} | {{item.status}}</view>
-            <view>客户：{{item.customerUser}}</view>
+            <view>客户：{{item.customName}}</view>
             <view>创建时间：{{item.createTime}}</view>
           </view>
         </view>
       </view>
       <view class="weui-panel__ft">
-        <view class="weui-cell weui-cell_access weui-cell_link" data-id="{{item.damageId}}" bindtap="goToHandleTask">
+        <view class="weui-cell weui-cell_access weui-cell_link" data-id="{{item.id}}" data-orderid="{{item.orderId}}" bindtap="goToHandleTask">
           <view class="weui-cell__bd">查看处理</view>
           <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
@@ -34,16 +40,13 @@
     </view>
   </scroll-view>
   <van-transition name="fade-up" show="{{ isShowFilterOne }}" custom-class="filterBlock">
-    <van-radio-group value="{{ filterOne }}" bind:change="filterOneChange">
+    <van-radio-group value="{{ searchStatus }}" bind:change="filterOneChange">
       <van-cell-group>
-        <van-cell title="不限" clickable data-name="0" bind:click="filterItemClick">
-          <van-radio name="0" />
+        <van-cell title="不限" clickable data-name="-1" data-label="不限" bind:click="filterItemClick">
+          <van-radio name="-1" />
         </van-cell>
-        <van-cell title="单选框 1" clickable data-name="1" bind:click="filterItemClick">
-          <van-radio name="1" />
-        </van-cell>
-        <van-cell title="单选框 2" clickable data-name="2" bind:click="filterItemClick">
-          <van-radio name="2" />
+        <van-cell wx:for="{{statusList}}" wx:key="{{item.id}}" title="{{item.name}}" clickable data-name="{{item.id}}" data-label="{{item.name}}" bind:click="filterItemClick">
+          <van-radio name="{{item.id}}" />
         </van-cell>
       </van-cell-group>
     </van-radio-group>

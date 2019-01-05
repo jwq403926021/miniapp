@@ -33,7 +33,7 @@ Page({
   },
   goToGdForm: function () {
     wx.navigateTo({
-      url: '../gd-form/gd-form'
+      url: '../pipe-form/pipe-form'
     })
   },
   bindGetUserInfo (data) {
