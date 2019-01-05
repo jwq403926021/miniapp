@@ -106,7 +106,7 @@ Page({
         "taskData.remark": data.remark,
 
         'status': data.status,
-        'repairPlantLabel': data.repairPlantNname,
+        'repairPlantLabel': data.repairPlantName,
         'taskData.originatorUserName': data.originatorUserName,
         'taskData.originatorUserMobile': data.originatorUserMobile,
 
