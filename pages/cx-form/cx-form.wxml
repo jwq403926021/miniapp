@@ -212,7 +212,7 @@
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">保险公司</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{status == '51'}}">
+          <view class="weui-cell__bd" wx:if="{{status == '51' && role == 16}}">
             <picker bindchange="bindInsurerChange" value="{{insurer}}" range="{{insurerList}}">
               <view class="picker weui-select weui-select_in-select-after">
                 {{insurerLabel || '选择保险公司'}}
@@ -227,7 +227,7 @@
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">定损员</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{status == '51'}}">
+          <view class="weui-cell__bd" wx:if="{{status == '51' && role == 16}}">
             <picker bindchange="bindInsurerUserChange" value="{{insurerUser}}" range="{{insurerUserList}}">
               <view class="picker weui-select weui-select_in-select-after">
                 {{insurerUserLabel || '选择定损员'}}
@@ -255,8 +255,8 @@
             <text class="weui-input readonly">{{taskData.insurerPrice || '-'}}</text>
           </view>
         </view>
-
       </view>
+
     </block>
 
     <view class="button-sp-area two-btn-wrap" wx:if="{{id == null}}">
