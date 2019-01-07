@@ -70,7 +70,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 6 //app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -163,6 +163,7 @@ Page({
   checkPhone (str, msg){
     if(!(/^1[34578]\d{9}$/.test(str))){
       wx.showToast({
+        mask: true,
         title: msg,
         icon: 'none',
         duration: 2000
@@ -177,6 +178,7 @@ Page({
       let flag = /(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{6}$)|(^[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9\u4E00-\u9FA5]{1}[A-Za-z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Za-z]{2}[0-9]{5}$)|(^(08|38){1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警军港澳]{1}$)/.test(str);
       if (!flag) {
         wx.showToast({
+          mask: true,
           title: '车牌号不正确',
           icon: 'none',
           duration: 2000
@@ -185,6 +187,7 @@ Page({
       }
     } else {
       wx.showToast({
+        mask: true,
         title: '车牌号不能为空',
         icon: 'none',
         duration: 2000
@@ -320,9 +323,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.informationImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '报案图片不能超过9个',
+            mask: true,
+            title: '报案图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -356,9 +360,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.liveImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '现场图片不能超过9个',
+            mask: true,
+            title: '现场图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -391,9 +396,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.workLiveImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '现场图片不能超过9个',
+            mask: true,
+            title: '现场图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -432,9 +438,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.damageImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '损失清单图片不能超过9个',
+            mask: true,
+            title: '损失清单图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -467,9 +474,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.authorityImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '授权图片不能超过9个',
+            mask: true,
+            title: '授权图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -502,9 +510,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.caleImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '授权图片不能超过9个',
+            mask: true,
+            title: '授权图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -555,6 +564,7 @@ Page({
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
           wx.showToast({
+            mask: true,
             title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
             icon: length == successUp ? 'success' : 'none',
             duration: 1000,
@@ -626,6 +636,7 @@ Page({
 
     if (taskData.damagedUser == '' || taskData.customerUser == '') {
       wx.showToast({
+        mask: true,
         title: '请填写受损人姓名以及客户姓名',
         icon: 'none',
         duration: 2000
@@ -653,6 +664,7 @@ Page({
     }
     if (taskData.information == '') {
       wx.showToast({
+        mask: true,
         title: '请填写报案信息',
         icon: 'none',
         duration: 2000
@@ -660,6 +672,11 @@ Page({
       return
     }
     console.log('工单新建 改善参数：', taskData)
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: isSave ? '/app/damage/saveBySurvey' : '/app/damage/addBySurvey',
       method: 'POST',
@@ -678,6 +695,7 @@ Page({
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
+            mask: true,
             title: '创建成功',
             icon: 'success',
             duration: 1000,
@@ -696,6 +714,7 @@ Page({
         }
       } else {
         wx.showToast({
+          mask: true,
           title: '创建失败',
           icon: 'none',
           duration: 1000
@@ -718,6 +737,7 @@ Page({
     let data = this.data.taskData
     if (data.workType == '' || data.workType == null) {
       wx.showToast({
+        mask: true,
         title: '请选择处理方式',
         icon: 'none',
         duration: 1000
@@ -740,6 +760,11 @@ Page({
       bidder: data.bidder,
       offerRemark: data.offerRemark
     }
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/damage/addByWorker',
       method: 'POST',
@@ -749,6 +774,7 @@ Page({
         _this.goToList()
       } else {
         wx.showToast({
+          mask: true,
           title: '提交失败',
           icon: 'none',
           duration: 1000
@@ -764,6 +790,7 @@ Page({
     let data = this.data.taskData
     if(_this.data.workLiveImageFiles.length == 0){
       wx.showToast({
+        mask: true,
         title: '请上传现场信息图片（施工方）',
         icon: 'none',
         duration: 1000
@@ -774,6 +801,7 @@ Page({
     if (data.handlingType == '0') {
       if (data.deposit == '' || data.deposit == null){
         wx.showToast({
+          mask: true,
           title: '请填写押金金额',
           icon: 'none',
           duration: 1000
@@ -782,6 +810,7 @@ Page({
       }
       if (data.trasactionId == '' || data.trasactionId == null){
         wx.showToast({
+          mask: true,
           title: '请填写银行交易单号',
           icon: 'none',
           duration: 1000
@@ -790,6 +819,7 @@ Page({
       }
       if (this.data.authorityImageFiles.length == 0){
         wx.showToast({
+          mask: true,
           title: '请上传押金/授权图片',
           icon: 'none',
           duration: 1000
@@ -800,6 +830,7 @@ Page({
     if (data.handlingType == '1') {
       if (this.data.authorityImageFiles.length == 0){
         wx.showToast({
+          mask: true,
           title: '请上传押金/授权图片',
           icon: 'none',
           duration: 1000
@@ -863,6 +894,11 @@ Page({
       params.insuranceImage = 1
     }
     console.log('workImproveWS:', params)
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/damage/addByWorker',
       method: 'POST',
@@ -878,6 +914,7 @@ Page({
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
+            mask: true,
             title: '提交成功',
             icon: 'success',
             duration: 1000,
@@ -890,6 +927,7 @@ Page({
         }
       } else {
         wx.showToast({
+          mask: true,
           title: '提交失败',
           icon: 'none',
           duration: 1000
@@ -902,6 +940,7 @@ Page({
     let data = this.data.taskData
     if (data.budgetPreliminary == '' || data.budgetPreliminary == null){
       wx.showToast({
+        mask: true,
         title: '请填写初步估损金额',
         icon: 'none',
         duration: 1000
@@ -924,6 +963,11 @@ Page({
       bidder: data.bidder,
       offerRemark: data.offerRemark
     }
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/damage/addByWorker',
       method: 'POST',
@@ -933,6 +977,7 @@ Page({
         _this.goToList()
       } else {
         wx.showToast({
+          mask: true,
           title: '提交失败',
           icon: 'none',
           duration: 1000
@@ -944,12 +989,18 @@ Page({
     let _this = this
     if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
       wx.showToast({
+        mask: true,
         title: '请选择改派人员',
         icon: 'none',
         duration: 1000
       })
       return false
     }
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/damage/reassignment',
       method: 'POST',
@@ -963,6 +1014,7 @@ Page({
         _this.goToList()
       } else {
         wx.showToast({
+          mask: true,
           title: '提交失败',
           icon: 'none',
           duration: 1000
@@ -970,8 +1022,13 @@ Page({
       }
     })
   },
-  companyManagerChangeStatus () {
+  companyManagerChangeStatusToLive () {
     let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/damage/toSpot',
       method: 'POST',
@@ -983,6 +1040,33 @@ Page({
         _this.goToList()
       } else {
         wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  companyManagerChangeStatusToOffed () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
+    util.request({
+      path: '/app/damage/toSpot',
+      method: 'POST',
+      data: {
+        damageId: this.data.id
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
           title: '提交失败',
           icon: 'none',
           duration: 1000

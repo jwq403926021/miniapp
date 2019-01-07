@@ -26,6 +26,21 @@ Page({
       '12': '暂存'
     }
   },
+  onPullDownRefresh () {
+    util.request({
+      path: '/app/damage/damageList',
+      method: 'GET',
+      data: {
+        page: 1,
+        size: 500
+      }
+    }, function (err, res) {
+      wx.stopPullDownRefresh()
+      _this.setData({
+        dataList: res.page.list
+      })
+    })
+  },
   openFilterOne () {
     this.setData({
       isShowFilterOne: true

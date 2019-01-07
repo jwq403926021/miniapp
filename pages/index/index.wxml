@@ -1,31 +1,12 @@
-<!--index.wxml-->
 <view wx:if="{{isLogin}}" class="page">
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
   <view class="welcome">
     程序试运行，欢迎测试
   </view>
-  <!--<view>-->
-    <!--<view class="order-box">-->
-      <!--<view class="num">0</view>-->
-      <!--<view class="num-description">工单数量</view>-->
-    <!--</view>-->
-    <!--<view class="order-box">-->
-      <!--<view class="num">0</view>-->
-      <!--<view class="num-description">工单数量</view>-->
-    <!--</view>-->
-    <!--<view class="order-box">-->
-      <!--<view class="num">0</view>-->
-      <!--<view class="num-description">工单数量</view>-->
-    <!--</view>-->
-  <!--</view>-->
-  <view class="index-btn-wrap fl">
-    <view class="new-btn fl" bindtap="goToWsForm">
+  <view wx:if="{{role == 21}}" style="text-align: center; font-size: 18px; line-height: 100px;">
+    您好：服务者，请您联系管理维护您的角色
+  </view>
+  <view wx:else class="index-btn-wrap">
+    <view class="new-btn fl" bindtap="goToWsForm" wx:if="{{role != 15}}">
       <view>
         <van-icon name="exchange" style="font-size: 24px" />
       </view>
@@ -33,7 +14,7 @@
         物损
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToJcForm">
+    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role != 15}}">
       <view>
         <van-icon name="shop" style="font-size: 24px" />
       </view>
@@ -49,7 +30,7 @@
         车险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToKsForm">
+    <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role != 15}}">
       <view>
         <van-icon name="certificate" style="font-size: 24px" />
       </view>
@@ -57,7 +38,7 @@
         开锁
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToGdForm">
+    <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role != 15}}">
       <view>
         <van-icon name="exchange-record" style="font-size: 24px" />
       </view>
@@ -73,22 +54,5 @@
             意见反馈
         </view>
     </view>
-    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
-    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
-    <!--<button class="weui-btn" hover-class="my-button-hover" type="primary"></button>-->
-    <!--<navigator url="/pages/test/test" hover-class="navigator-hover">测试页面</navigator>-->
-    <!--<picker bindchange="bindPickerChange" value="{{0}}" range="{{array}}">-->
-      <!--<view class="picker_1">-->
-        <!--选择1：{{array[index]}}-->
-      <!--</view>-->
-    <!--</picker>-->
-    <!--<picker bindchange="bindPickerChange" value="{{0}}" range="{{array1}}">-->
-      <!--<view class="picker_2">-->
-        <!--选择2：{{array[index]}}-->
-      <!--</view>-->
-    <!--</picker>-->
-    <!--<open-data type="userAvatarUrl"></open-data>-->
-    <!--<open-data type="userNickName"></open-data>-->
-    <!--<button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>-->
   </view>
 </view>

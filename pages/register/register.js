@@ -171,6 +171,7 @@ Page({
   checkCompanyNameList () {
     if (this.data.companyNameList.length == 0) {
       wx.showToast({
+        mask: true,
         title: '没有可用单位名称',
         icon: 'none',
         duration: 2000
@@ -260,6 +261,7 @@ Page({
 
     if (this.data.isOurUser && this.data.registeInfo.mobile != app.globalData.currentRegisterInfo.mobile && this.data.registeInfo.mobileCode == '') {
       wx.showToast({
+        mask: true,
         title: '手机验证码不能为空',
         icon: 'none',
         duration: 2000
@@ -268,6 +270,7 @@ Page({
     }
     if (this.data.registeInfo.name == '' || this.data.registeInfo.name == null){
       wx.showToast({
+        mask: true,
         title: '姓名不能为空',
         icon: 'none',
         duration: 2000
@@ -276,6 +279,7 @@ Page({
     }
     if (!this.data.registeInfo.townCode) {
       wx.showToast({
+        mask: true,
         title: '地址不能为空',
         icon: 'none',
         duration: 2000
@@ -286,6 +290,7 @@ Page({
     if (this.data.registeInfo.role == 1) {
       if (!this.data.registeInfo.companyNameCode) {
         wx.showToast({
+          mask: true,
           title: '单位名称不能为空',
           icon: 'none',
           duration: 2000
@@ -298,6 +303,11 @@ Page({
       delete params['companyType']
       delete params['insurance']
     }
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/register',
       method: 'POST',
@@ -315,21 +325,22 @@ Page({
         })
           wx.setStorageSync('status', 1)
           wx.showToast({
-          title: '操作成功',
-          icon: 'success',
-          duration: 2000,
-          success: function () {
-              setTimeout(()=> {
-                  wx.switchTab({
-                      url: '../index/index',
-                      success: function (e) {
-                          var page = getCurrentPages().pop();
-                          if (page == undefined || page == null) return;
-                          page.onLoad();
-                      }
-                  })
-              }, 2000)
-          }
+            mask: true,
+            title: '操作成功',
+            icon: 'success',
+            duration: 2000,
+            success: function () {
+                setTimeout(()=> {
+                    wx.switchTab({
+                        url: '../index/index',
+                        success: function (e) {
+                            var page = getCurrentPages().pop();
+                            if (page == undefined || page == null) return;
+                            page.onLoad();
+                        }
+                    })
+                }, 2000)
+            }
         })
       }
     })
@@ -404,6 +415,7 @@ Page({
     var phone = this.data.registeInfo.mobile
     if(!(/^1[34578]\d{9}$/.test(phone))){
       wx.showToast({
+        mask: true,
         title: '请输入正确的手机号',
         icon: 'none',
         duration: 2000
@@ -441,13 +453,18 @@ Page({
     }
     if (this.data.registeInfo.mobileCode == '' || this.data.registeInfo.mobileCode == null){
       wx.showToast({
+        mask: true,
         title: '验证码不能为空',
         icon: 'none',
         duration: 2000
       })
       return false
     }
-
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/binding',
       method: 'POST',

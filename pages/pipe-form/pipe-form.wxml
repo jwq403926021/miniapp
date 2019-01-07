@@ -160,14 +160,14 @@
     </block>
 
     <view class="button-sp-area two-btn-wrap" wx:if="{{(id == null || status == '12') && role == '1'}}">
-      <button type="primary" bindtap="commitSubmit">新建 提交</button>
+      <button type="primary" bindtap="commitSubmit">提交</button><!-- 新建 提交 -->
       <button data-save="true" bindtap="commitSubmit">暂存</button>
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status == '1' && role == '19'}}">
-      <button type="primary" bindtap="managerSubmit">负责人 确认</button>
+      <button type="primary" bindtap="managerSubmit">确认</button><!-- 负责人 提交 -->
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status == '13'}}">
-      <button type="primary" bindtap="completeSubmit">办结 提交</button>
+      <button type="primary" bindtap="completeSubmit">提交</button><!-- 办结 提交 -->
     </view>
   </view>
 

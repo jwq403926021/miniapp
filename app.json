@@ -17,7 +17,7 @@
     "pages/my-list-pipe/my-list-pipe"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#016eff",
     "navigationBarTextStyle":"white",
     "navigationBarTitleText": "汇报价"

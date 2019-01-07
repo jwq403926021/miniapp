@@ -40,6 +40,21 @@ Page({
       show: !this.show
     })
   },
+  onPullDownRefresh () {
+    util.request({
+      path: '/app/autoInsurance',
+      method: 'GET',
+      data: {
+        page: 1,
+        size: 1000
+      }
+    }, function (err, res) {
+      wx.stopPullDownRefresh()
+      _this.setData({
+        dataList: res.data.records
+      })
+    })
+  },
   onLoad: function () {
     let _this = this
     wx.getSystemInfo({

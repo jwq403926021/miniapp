@@ -180,3 +180,17 @@ textarea[disabled]{
     background: rgba(0,0,0,.5);
     z-index: 1;
 }
+.image-preview-wrap{
+    position: relative;
+}
+
+.delete-image-icon{
+    font-size:22px!important;
+    position: absolute!important;
+    right: 0;
+    top: 0;
+    color: #ff313d;
+}
+.button-sp-area{
+    margin-top: 10px;
+}

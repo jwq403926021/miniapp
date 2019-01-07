@@ -61,6 +61,17 @@ Page({
       show: !this.show
     })
   },
+  onPullDownRefresh () {
+    util.request({
+      path: '/app/dredge/list',
+      method: 'GET'
+    }, function (err, res) {
+      wx.stopPullDownRefresh()
+      _this.setData({
+        dataList: res.data
+      })
+    })
+  },
   onLoad: function () {
     let _this = this
     wx.getSystemInfo({
@@ -108,7 +119,7 @@ Page({
     if (this.data.searchKeyword) {
       filter.customName = this.data.searchKeyword
     }
-    if (this.data.searchStatus) {
+    if (this.data.searchStatus != -1) {
       filter.status = this.data.searchStatus
     }
     console.log(filter, this.data.searchKeyword, this.data.searchStatus)

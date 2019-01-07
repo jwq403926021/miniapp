@@ -36,11 +36,11 @@ App({
                 })
               }
             } else {
-              wx.showToast({title: '登录出错请重试', icon: 'none', duration: 3000});
+              wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});
             }
           })
         } else {
-          wx.showToast({title: '登录失败', icon: 'none', duration: 3000});
+          wx.showToast({mask: true,title: '登录失败', icon: 'none', duration: 3000});
         }
       }
     })

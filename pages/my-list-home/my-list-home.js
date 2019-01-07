@@ -1,11 +1,12 @@
 // pages/my-list-home/my-list-home.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    role: null
   },
   //事件处理函数
   goToWsList: function () {
@@ -37,7 +38,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role
+    })
   },
 
   /**

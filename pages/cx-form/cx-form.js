@@ -259,6 +259,7 @@ Page({
       let flag = /(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{6}$)|(^[A-Za-z]{2}[A-Za-z0-9]{2}[A-Za-z0-9\u4E00-\u9FA5]{1}[A-Za-z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Za-z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Za-z]{2}[0-9]{5}$)|(^(08|38){1}[A-Za-z0-9]{4}[A-Za-z0-9挂学警军港澳]{1}$)/.test(str);
       if (!flag) {
         wx.showToast({
+          mask: true,
           title: '车牌号不正确',
           icon: 'none',
           duration: 2000
@@ -267,6 +268,7 @@ Page({
       }
     } else {
       wx.showToast({
+        mask: true,
         title: '车牌号不能为空',
         icon: 'none',
         duration: 2000
@@ -338,9 +340,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.informationImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '报案图片不能超过9个',
+            mask: true,
+            title: '报案图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -373,9 +376,10 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.assessImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length >= 9) {
+        if (res.tempFilePaths.length > 8) {
           wx.showToast({
-            title: '报案图片不能超过9个',
+            mask: true,
+            title: '报案图片不能超过8个',
             icon: 'none',
             duration: 2000
           })
@@ -411,6 +415,7 @@ Page({
 
     if (taskData.autoInsuranceName == '') {
       wx.showToast({
+        mask: true,
         title: '请填写客户姓名',
         icon: 'none',
         duration: 2000
@@ -430,6 +435,7 @@ Page({
 
     if (!informationImageFiles.length){
       wx.showToast({
+        mask: true,
         title: '请上传报案照片',
         icon: 'none',
         duration: 2000
@@ -439,13 +445,18 @@ Page({
 
     if (taskData.repairPlantId == '' || taskData.repairPlantId == null){
       wx.showToast({
+        mask: true,
         title: '请选择修理厂',
         icon: 'none',
         duration: 2000
       })
       return
     }
-
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/autoInsurance',
       method: 'POST',
@@ -465,6 +476,7 @@ Page({
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
+            mask: true,
             title: '创建成功',
             icon: 'success',
             duration: 1000,
@@ -483,6 +495,7 @@ Page({
         }
       } else {
         wx.showToast({
+          mask: true,
           title: '创建失败',
           icon: 'none',
           duration: 1000
@@ -510,6 +523,7 @@ Page({
 
     if (taskData.insurerId == '' || taskData.insurerId == null) {
       wx.showToast({
+        mask: true,
         title: '请选择保险公司',
         icon: 'none',
         duration: 2000
@@ -518,13 +532,18 @@ Page({
     }
     if (taskData.insurerUserId == '' || taskData.insurerUserId == null) {
       wx.showToast({
+        mask: true,
         title: '请选择定损人员',
         icon: 'none',
         duration: 2000
       })
       return
     }
-
+    wx.showLoading({
+      mask: true,
+      title: '提交中',
+      duration: 1000
+    })
     util.request({
       path: '/app/autoInsurance',
       method: 'PUT',
@@ -544,6 +563,7 @@ Page({
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
           wx.showToast({
+            mask: true,
             title: '创建成功',
             icon: 'success',
             duration: 1000,
@@ -562,6 +582,7 @@ Page({
         }
       } else {
         wx.showToast({
+          mask: true,
           title: '创建失败',
           icon: 'none',
           duration: 1000
@@ -601,6 +622,7 @@ Page({
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
           wx.showToast({
+            mask: true,
             title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
             icon: length == successUp ? 'success' : 'none',
             duration: 1000,
@@ -629,6 +651,7 @@ Page({
   checkPhone (str, msg){
     if(!(/^1[34578]\d{9}$/.test(str))){
       wx.showToast({
+        mask: true,
         title: msg,
         icon: 'none',
         duration: 2000
