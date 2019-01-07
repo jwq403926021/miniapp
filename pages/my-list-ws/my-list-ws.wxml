@@ -1,16 +1,16 @@
 <view class="page">
-  <view class="filter-wrap clearfix">
+  <view class="filter-wrap clearfix" style="background: #f2f2f2">
     <view class="field">
       <view>过滤检索</view>
     </view>
-    <view class="field" bind:tap="openLocation">
-      <view class="caret">地址</view>
+    <view class="field">
+      <view class="caret" bind:tap="openFilterStatusPop">状态</view>
     </view>
     <view class="field">
-      <view class="caret" bind:tap="openFilterOne">状态</view>
+      <view class="caret" bind:tap="openFilterTypePop">险种</view>
     </view>
     <view class="field">
-      <view class="caret">险种</view>
+      <view class="caret" bind:tap="openFilterDatePop">时间</view>
     </view>
   </view>
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.damageId}}" bindtap="goToHandleTask">
@@ -31,22 +31,58 @@
       </view>
     </view>
   </view>
-  <van-transition name="fade-up" show="{{ isShowFilterOne }}" custom-class="filterBlock">
-    <van-radio-group value="{{ filterOne }}" bind:change="filterOneChange">
+  <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ statusFilter }}" bind:change="statusFilterChange">
       <van-cell-group>
-        <van-cell title="不限" clickable data-name="0" bind:click="filterItemClick">
+        <van-cell title="不限" clickable data-name="0" bind:click="statusFilterItemClick">
           <van-radio name="0" />
         </van-cell>
-        <van-cell title="单选框 1" clickable data-name="1" bind:click="filterItemClick">
+        <van-cell title="单选框 1" clickable data-name="1" bind:click="statusFilterItemClick">
           <van-radio name="1" />
         </van-cell>
-        <van-cell title="单选框 2" clickable data-name="2" bind:click="filterItemClick">
+        <van-cell title="单选框 2" clickable data-name="2" bind:click="statusFilterItemClick">
           <van-radio name="2" />
         </van-cell>
       </van-cell-group>
     </van-radio-group>
   </van-transition>
-  <view wx:if="{{isShowFilterOne}}" class="mask"></view>
+  <van-transition name="fade-up" show="{{ isShowTypeFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ typeFilter }}" bind:change="typeFilterChange">
+      <van-cell-group>
+        <van-cell title="不限" clickable data-name="0" bind:click="typeFilterItemClick">
+          <van-radio name="0" />
+        </van-cell>
+        <van-cell title="车物损" clickable data-name="1" bind:click="typeFilterItemClick">
+          <van-radio name="1" />
+        </van-cell>
+        <van-cell title="非车" clickable data-name="2" bind:click="typeFilterItemClick">
+          <van-radio name="2" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <van-transition name="fade-up" show="{{ isShowDateFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ dateFilter }}" bind:change="dateFilterChange">
+      <van-cell-group>
+        <van-cell title="不限" clickable data-name="0" bind:click="dateFilterItemClick">
+          <van-radio name="0" />
+        </van-cell>
+        <van-cell title="最近3天" clickable data-name="1" bind:click="dateFilterItemClick">
+          <van-radio name="1" />
+        </van-cell>
+        <van-cell title="最近7天" clickable data-name="2" bind:click="dateFilterItemClick">
+          <van-radio name="2" />
+        </van-cell>
+        <van-cell title="最近30天" clickable data-name="2" bind:click="dateFilterItemClick">
+          <van-radio name="3" />
+        </van-cell>
+        <van-cell title="超过30天" clickable data-name="2" bind:click="dateFilterItemClick">
+          <van-radio name="4" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <view wx:if="{{isShowDateFilter || isShowTypeFilter || isShowStatusFilter}}" class="mask"></view>
   <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
     <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
   </van-popup>

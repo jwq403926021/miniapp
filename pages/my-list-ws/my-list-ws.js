@@ -7,8 +7,12 @@ Page({
   data: {
     show: false,
     areaList: location,
-    isShowFilterOne: false,
-    filterOne: '0',
+    isShowStatusFilter: false,
+    statusFilter: '0',
+    isShowTypeFilter: false,
+    typeFilter: '0',
+    isShowDateFilter: false,
+    dateFilter: '0',
     dataList: [],
     height: '',
     statusMap: {
@@ -41,20 +45,52 @@ Page({
       })
     })
   },
-  openFilterOne () {
+  openFilterStatusPop () {
     this.setData({
-      isShowFilterOne: true
+      isShowStatusFilter: true
     });
   },
-  filterOneChange (data) {
-    console.log('filterOneChange::', data)
+  openFilterTypePop () {
+    this.setData({
+      isShowTypeFilter: true
+    });
   },
-  filterItemClick (event) {
+  openFilterDatePop () {
+    this.setData({
+      isShowDateFilter: true
+    });
+  },
+  statusFilterChange (data) {
+    console.log('statusFilterChange::', data)
+  },
+  typeFilterChange (data) {
+    console.log('typeFilterChange::', data)
+  },
+  dateFilterChange (data) {
+    console.log('dateFilterChange::', data)
+  },
+  statusFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
     console.log(value)
     this.setData({
-      filterOne: value,
-      isShowFilterOne: false
+      statusFilter: value,
+      isShowStatusFilter: false
+    });
+  },
+  typeFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    console.log(value)
+    this.setData({
+      statusFilter: value,
+      isShowTypeFilter: false
+    });
+  },
+  dateFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    console.log(value)
+    this.setData({
+      statusFilter: value,
+      isShowDateFilter: false
     });
   },
   openLocation () {
