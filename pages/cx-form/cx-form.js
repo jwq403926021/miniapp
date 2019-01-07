@@ -340,7 +340,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.informationImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length > 8) {
+        if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
             title: '报案图片不能超过8个',
@@ -376,7 +376,7 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         let list = that.data.assessImageFiles.concat(res.tempFilePaths)
-        if (res.tempFilePaths.length > 8) {
+        if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
             title: '报案图片不能超过8个',
