@@ -226,9 +226,9 @@ Page({
       }
     }, function (err, res) {
       _this.workListSource = res.data
-      let workerList = res.data.map(item => {
+      let workerList = res.data ? res.data.map(item => {
         return item.name
-      })
+      }) : []
       _this.setData({
         'workerList': workerList
       })

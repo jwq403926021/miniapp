@@ -31,6 +31,7 @@ Page({
     }
   },
   onPullDownRefresh () {
+    let _this = this
     util.request({
       path: '/app/damage/damageList',
       method: 'GET',
