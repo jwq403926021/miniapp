@@ -23,6 +23,10 @@ App({
               _this.globalData.token = res.token
               if (res.status == 2) {
                 console.log('未注册', res)
+                wx.switchTab({
+                  url: '../register/register'
+                })
+                wx.hideTabBar()
               } else {
                 console.log('已注册，直接登录', res)
                 _this.globalData.currentRegisterInfo = res.userInfo

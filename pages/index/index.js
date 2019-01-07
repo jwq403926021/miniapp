@@ -30,6 +30,16 @@ Page({
       url: '../pipe-form/pipe-form'
     })
   },
+  onShow () {
+    var value = wx.getStorageSync('status')
+    if(value == 2 || value == '') {
+      console.log('隐藏 index', '|', value, '|')
+      wx.switchTab({
+        url: '../register/register'
+      })
+      wx.hideTabBar()
+    }
+  },
   onLoad: function () {
     var value = wx.getStorageSync('status')
     if(value == 2 || value == '') {
