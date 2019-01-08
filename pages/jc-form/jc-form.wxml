@@ -106,8 +106,8 @@
                 </view>
             </view>
 
-            <button data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">For test</button>
-            <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">上传信息</button>
+            <button data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">填写图片信息 For test</button>
+            <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">填写图片信息</button>
 
             <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (taskData.status == 40)}}">
                 <view class="weui-cells__title">损失清单</view>
