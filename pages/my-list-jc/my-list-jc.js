@@ -16,23 +16,21 @@ Page({
     dataList: [],
     height: '',
     statusMap: {
-      '1': '查勘员已派送',
-      '2': '待查勘员完善',
-      '4': '待区域负责人线下报价',
-      '5': '待报价中心报价',
-      '6': '施工人员去现场',
-      '7': '施工中',
-      '8': '计算书已上传',
-      '9': '报价中心驳回',
-      '10': '已报价',
-      '11': '已办结',
-      '12': '暂存'
+      '12': '暂存',
+      '20': '待客服人员处理',
+      '30': '待被保险人完善', // 也是驳回状态
+      '31': '被保险人已完善,待报价中心报价',
+      '32': '已报价,待被保险人审阅',
+      '33': '被保险人不满意，待沟通',
+      '50': '被保险人满意，待财务处理',
+      '40': '待合作商完善', // 也是驳回状态
+      '41': '合作商已完善,待报价中心报价'
     }
   },
   onPullDownRefresh () {
     let _this = this
     util.request({
-      path: '/app/family/orders',
+      path: '/app/family/insured/orders',
       method: 'GET',
       data: {
         page: 1,
@@ -109,7 +107,7 @@ Page({
     })
 
     util.request({
-      path: '/app/family/orders',
+      path: '/app/family/insured/orders',
       method: 'GET',
       data: {
         page: 1,

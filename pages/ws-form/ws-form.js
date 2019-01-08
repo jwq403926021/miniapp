@@ -326,7 +326,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '报案图片不能超过8个',
+            title: '报案图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -363,7 +363,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '现场图片不能超过8个',
+            title: '现场图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -399,7 +399,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '现场图片不能超过8个',
+            title: '施工人员现场图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -441,7 +441,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '损失清单图片不能超过8个',
+            title: '损失清单图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -477,7 +477,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '授权图片不能超过8个',
+            title: '授权图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -513,7 +513,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '授权图片不能超过8个',
+            title: '保险计算书图片不能超过9个',
             icon: 'none',
             duration: 2000
           })

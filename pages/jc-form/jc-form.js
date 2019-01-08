@@ -14,10 +14,17 @@ Page({
     status: '',
     statusMap: {
       '12': '暂存',
-      '1': '查勘员已派送',
-      '13': '负责人已确认',
-      '11': '已办结',
-      '99': '处理中'
+      '20': '待客服人员处理',
+      '30': '待被保险人完善', // 也是驳回状态
+      '31': '被保险人已完善,待报价中心报价',
+      '32': '已报价,待被保险人审阅',
+      '33': '被保险人不满意，待沟通',
+      '40': '待合作商完善', // 也是驳回状态
+      '41': '合作商已完善,待报价中心报价',
+      '42': '已报价,非施工处理',
+      '50': '已报价,待财务处理'
+      // '11': '已办结',
+      // '99': '处理中'
     },
     taskData: {
       "cityId": '',
@@ -27,8 +34,13 @@ Page({
       "customerPhone": '',
       "investigatorName": '',
       "investigatorPhone": '',
-      "investigatorText": ''
-    }
+      "investigatorText": '',
+      "bankTransactionId": '',
+      "constructionMethod": '',
+      "deposit": ''
+    },
+    caleImageFiles: [],
+    authorityImageFiles: []
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -40,6 +52,11 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  onConstructionMethodChange (event) {
+    this.setData({
+      'taskData.constructionMethod': event.detail
+    });
   },
   initDataById (id) {
     let _this = this
@@ -75,7 +92,10 @@ Page({
         "taskData.customerName": data.customName,
         "taskData.investigatorName": data.investigatorName,
         "taskData.investigatorPhone": data.investigatorPhone,
-        "taskData.investigatorText": data.investigatorText
+        "taskData.investigatorText": data.investigatorText,
+        "taskData.bankTransactionId": data.bankTransactionId,
+        "taskData.constructionMethod": data.constructionMethod,
+        "taskData.deposit": data.deposit
       })
       _this.getRegionLabel()
     })
@@ -157,6 +177,78 @@ Page({
     let phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
       phoneNumber: phone
+    })
+  },
+  previewAuthorityImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.authorityImageFiles
+    })
+  },
+  chooseAuthorityImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.authorityImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length > 9) {
+          wx.showToast({
+            mask: true,
+            title: '授权图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            authorityImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  removeAuthorityImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.authorityImageFiles.splice(index, 1)
+    this.setData({
+      authorityImageFiles: _this.data.authorityImageFiles
+    })
+  },
+  previewCaleImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.caleImageFiles
+    })
+  },
+  chooseCaleImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.caleImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length > 9) {
+          wx.showToast({
+            mask: true,
+            title: '保险计算书图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            caleImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  removeCaleImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.caleImageFiles.splice(index, 1)
+    this.setData({
+      caleImageFiles: _this.data.caleImageFiles
     })
   },
   commitOrder(e) {
