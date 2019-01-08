@@ -37,7 +37,7 @@
         <van-cell title="不限" clickable data-name="0" bind:click="statusFilterItemClick">
           <van-radio name="0" />
         </van-cell>
-        <van-cell title="单选框 1" clickable data-name="1" bind:click="statusFilterItemClick">
+        <van-cell title="单选框1" clickable data-name="1" bind:click="statusFilterItemClick">
           <van-radio name="1" />
         </van-cell>
         <van-cell title="单选框 2" clickable data-name="2" bind:click="statusFilterItemClick">
