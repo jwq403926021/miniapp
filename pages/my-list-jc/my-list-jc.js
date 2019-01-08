@@ -1,53 +1,143 @@
 //获取应用实例
-const app = getApp()
+import util from "../../utils/util";
 
+const app = getApp()
+import location from '../../asset/location'
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    show: false,
+    areaList: location,
+    isShowStatusFilter: false,
+    statusFilter: '0',
+    isShowTypeFilter: false,
+    typeFilter: '0',
+    isShowDateFilter: false,
+    dateFilter: '0',
+    dataList: [],
+    height: '',
+    statusMap: {
+      '1': '查勘员已派送',
+      '2': '待查勘员完善',
+      '3': '查勘员已完善',
+      '4': '待区域负责人线下报价',
+      '5': '待报价中心报价',
+      '6': '施工人员去现场',
+      '7': '施工中',
+      '8': '计算书已上传',
+      '9': '报价中心驳回',
+      '10': '已报价',
+      '11': '已办结',
+      '12': '暂存'
+    }
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../register/register?id='+123
+  onPullDownRefresh () {
+    let _this = this
+    util.request({
+      path: '/app/family/orders',
+      method: 'GET',
+      data: {
+        page: 1,
+        size: 500
+      }
+    }, function (err, res) {
+      wx.stopPullDownRefresh()
+      _this.setData({
+        dataList: res.data.records
+      })
+    })
+  },
+  openFilterStatusPop () {
+    this.setData({
+      isShowStatusFilter: true
+    });
+  },
+  openFilterTypePop () {
+    this.setData({
+      isShowTypeFilter: true
+    });
+  },
+  openFilterDatePop () {
+    this.setData({
+      isShowDateFilter: true
+    });
+  },
+  statusFilterChange (data) {
+    console.log('statusFilterChange::', data)
+  },
+  typeFilterChange (data) {
+    console.log('typeFilterChange::', data)
+  },
+  dateFilterChange (data) {
+    console.log('dateFilterChange::', data)
+  },
+  statusFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    console.log(value)
+    this.setData({
+      statusFilter: value,
+      isShowStatusFilter: false
+    });
+  },
+  typeFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    console.log(value)
+    this.setData({
+      statusFilter: value,
+      isShowTypeFilter: false
+    });
+  },
+  dateFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    console.log(value)
+    this.setData({
+      statusFilter: value,
+      isShowDateFilter: false
+    });
+  },
+  openLocation () {
+    this.setData({
+      show: !this.show
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+    let _this = this
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          height: res.windowHeight
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
+    })
+
+    util.request({
+      path: '/app/family/orders',
+      method: 'GET',
+      data: {
+        page: 1,
+        size: 500
+      }
+    }, function (err, res) {
+      _this.setData({
+        dataList: res.data.records
       })
-    }
+    })
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  getMore () {
+
+  },
+  goToHandleTask (event) {
+    wx.navigateTo({
+      url: '../jc-form/jc-form?id=' + event.currentTarget.dataset.id
+    })
+  },
+  onCancel () {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      show: false
+    })
+  },
+  onConfirm () {
+    this.setData({
+      show: false
     })
   }
 })
