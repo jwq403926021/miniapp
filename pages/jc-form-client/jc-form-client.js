@@ -6,7 +6,8 @@ Page({
 
   },
   onLoad: function () {
-
+    let familyImages = wx.getStorageSync('familyImages')
+    console.log(familyImages)
   },
   goToClientUpload (e) {
     console.log('goToClientUpload-->', e.currentTarget.dataset['index'])
