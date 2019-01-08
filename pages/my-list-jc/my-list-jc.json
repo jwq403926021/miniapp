@@ -1,7 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "van-search": '../../asset/vant/search/index',
+    "van-search": "../../asset/vant/search/index",
     "van-area": "../../asset/vant/area/index",
     "van-popup": "../../asset/vant/popup/index",
     "van-cell": "../../asset/vant/cell/index",
