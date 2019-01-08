@@ -19,11 +19,6 @@
                         <view bindtap="goToClientUpload" data-index="2" class="btn">事故源</view>
                         <view bindtap="goToClientUpload" data-index="3" class="btn">全景</view>
                         <view bindtap="goToClientUpload" data-index="4" class="btn">细节</view>
-                        <!--
-                        <button bindtap="" class="weui-btn" type="primary">资料</button>
-                        <button bindtap="" class="weui-btn" type="primary">事故源</button>
-                        <button bindtap="" class="weui-btn" type="primary">全景</button>
-                        <button bindtap="" class="weui-btn" type="primary">细节</button>-->
                     </view>
                 </van-col>
             </van-row>

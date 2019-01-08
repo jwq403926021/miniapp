@@ -47,7 +47,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        flowId: routeParams.flowId,
+        flowId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
@@ -350,6 +350,11 @@ Page({
         if (page == undefined || page == null) return;
         page.onLoad();
       }
+    })
+  },
+  bindTapToClient (event) {
+    wx.navigateTo({
+      url: '../jc-form-client/jc-form-client?flowId=' + event.currentTarget.dataset.id
     })
   }
 })
