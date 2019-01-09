@@ -6,7 +6,7 @@
     您好：服务者，请您联系管理维护您的角色
   </view>
   <view wx:else class="index-btn-wrap">
-    <view class="new-btn fl" bindtap="goToWsForm" wx:if="{{role != 15}}">
+    <view class="new-btn fl" bindtap="goToWsForm" wx:if="{{role == 1}}">
       <view>
         <van-icon name="exchange" style="font-size: 24px" />
       </view>
@@ -14,7 +14,7 @@
         物损
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role != 15}}">
+    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
       <view>
         <van-icon name="shop" style="font-size: 24px" />
       </view>
@@ -22,7 +22,7 @@
         家财险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToCxForm">
+    <view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">
       <view>
         <van-icon name="logistics" style="font-size: 24px" />
       </view>
@@ -30,7 +30,7 @@
         车险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role != 15}}">
+    <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role == 1 || role == 19}}">
       <view>
         <van-icon name="certificate" style="font-size: 24px" />
       </view>
@@ -38,7 +38,7 @@
         开锁
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role != 15}}">
+    <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role == 1 || role == 20}}">
       <view>
         <van-icon name="exchange-record" style="font-size: 24px" />
       </view>
