@@ -674,8 +674,7 @@ Page({
     console.log('工单新建 改善参数：', taskData)
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: isSave ? '/app/damage/saveBySurvey' : '/app/damage/addBySurvey',
@@ -762,8 +761,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/addByWorker',
@@ -896,8 +894,7 @@ Page({
     console.log('workImproveWS:', params)
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/addByWorker',
@@ -965,8 +962,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/addByWorker',
@@ -998,8 +994,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/reassignment',
@@ -1026,8 +1021,7 @@ Page({
     let _this = this
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/toSpot',
@@ -1052,8 +1046,7 @@ Page({
     let _this = this
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/damage/toSpot',

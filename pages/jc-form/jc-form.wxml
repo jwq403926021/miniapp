@@ -8,7 +8,7 @@
                         <view class="weui-label">工单号</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{orderId}}</text>
+                        <text class="weui-input readonly">{{flowId}}</text>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -132,8 +132,7 @@
                 </view>
             </view>
 
-            <button data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">填写图片信息 For test</button>
-            <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">填写图片信息</button>
+            <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">完善图片信息</button>
 
             <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (taskData.status == 40)}}">
                 <view class="weui-cells__title">损失清单</view>
@@ -284,6 +283,13 @@
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (id == null || taskData.status == 12)}}">
             <button type="primary" bindtap="commitOrder">提交</button>
             <button data-save="true" bindtap="commitOrder">暂存</button>
+        </view>
+        <!--(role == 15 && status == 30) || (role == 12 && status == 40)-->
+        <view class="button-sp-area" wx:if="{{role == 15 && status == 30}}">
+            <button type="primary" bindtap="insuredCommit">提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && status == 40}}">
+            <button type="primary" bindtap="partnerCommit">提交</button>
         </view>
     </view>
 </view>

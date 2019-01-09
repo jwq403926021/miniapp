@@ -319,8 +319,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: isSave ? '/app/lock/save' : '/app/lock/commit',
@@ -375,8 +374,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/lock/confirm',
@@ -448,8 +446,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/lock/finish',

@@ -320,8 +320,7 @@ Page({
 
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: isSave ? '/app/dredge/save' : '/app/dredge/commit',
@@ -376,8 +375,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/dredge/confirm',
@@ -449,8 +447,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/dredge/finish',

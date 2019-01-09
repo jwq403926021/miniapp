@@ -454,8 +454,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/autoInsurance',
@@ -541,8 +540,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '提交中',
-      duration: 1000
+      title: '提交中'
     })
     util.request({
       path: '/app/autoInsurance',
