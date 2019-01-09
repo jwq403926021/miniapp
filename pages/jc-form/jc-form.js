@@ -41,19 +41,7 @@ Page({
     },
     caleImageFiles: [],
     authorityImageFiles: [],
-    informationImageFiles: [],
-    familyImages: {
-      house: [],// 房屋及装修 2001
-      electrical: [],// 家电及文体用品 2002
-      cloths: [],// 衣物床品 2003
-      furniture: [],// 家具及其他生活用品 2004
-      overall : [],// 全景 2005
-      certificate: [],// 房产证 2006
-      identification: [],// 省份证 2007
-      bank: [],// 银行卡 2008
-      register: [],// 户口本 2009
-      source: []// 事故源 2010
-    }
+    informationImageFiles: []
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -78,12 +66,24 @@ Page({
       method: 'GET'
     }, function (err, res) {
       let data = res.data
-      console.log('##', data)
       _this.sourceData = data
-      _this.sourceImage = res.Image
+      _this.sourceImage = res.image
       let informationImageFiles = []
       let authorityImageFiles = []
       let caleImageFiles = []
+      let familyImages = {
+        house: [],// 房屋及装修 2001
+        electrical: [],// 家电及文体用品 2002
+        cloths: [],// 衣物床品 2003
+        furniture: [],// 家具及其他生活用品 2004
+        overall : [],// 全景 2005
+        certificate: [],// 房产证 2006
+        identification: [],// 省份证 2007
+        bank: [],// 银行卡 2008
+        register: [],// 户口本 2009
+        source: []// 事故源 2010
+      }
+      console.log('##', res)
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
@@ -95,8 +95,36 @@ Page({
           case 7:
             caleImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
             break
+          case 2001:
+            familyImages.house.push(item)
+            break
+          case 2002:
+            familyImages.electrical.push(item)
+            break
+          case 2003:
+            familyImages.cloths.push(item)
+            break
+          case 2004:
+            familyImages.furniture.push(item)
+            break
+          case 2005:
+            familyImages.overall.push(item)
+            break
+          case 2007:
+            familyImages.identification.push(item)
+            break
+          case 2008:
+            familyImages.bank.push(item)
+            break
+          case 2009:
+            familyImages.register.push(item)
+            break
+          case 2010:
+            familyImages.source.push(item)
+            break
         }
       })
+      wx.setStorageSync('familyImages', familyImages)
       _this.setData({
         'id': data.flowId,
         'flowId': data.flowId,
@@ -116,7 +144,6 @@ Page({
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles
       })
-      // wx.setStorageSync('familyImages', this.data.familyImages)
       _this.getRegionLabel()
     })
   },
