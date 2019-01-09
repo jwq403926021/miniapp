@@ -240,5 +240,8 @@
             </view>
         </view>
         <!-- 事故源 end -->
+        <view class="button-sp-area">
+            <button type="primary" bindtap="back">添加其他信息</button>
+        </view>
     </view>
 </view>

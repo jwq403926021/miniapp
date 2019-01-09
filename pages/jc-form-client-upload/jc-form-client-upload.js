@@ -24,5 +24,10 @@ Page({
     //   "type": 1,
     //   "clientIndex": 0
     // }
+  },
+  back () {
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

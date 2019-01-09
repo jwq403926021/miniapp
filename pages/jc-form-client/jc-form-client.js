@@ -45,5 +45,10 @@ Page({
     this.setData({
       currentIndex: e.currentTarget.dataset['index']
     })
+  },
+  back () {
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

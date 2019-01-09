@@ -8,7 +8,6 @@
             <van-row>
                 <van-col span="6">
                     <ul class="client-list">
-
                         <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{index}}" data-index="{{index}}" class="{{ currentIndex == index ? 'active' : ''}}">
                             {{index == 0 ? '客户' : ('第三者' + index)}}
                         </li>
@@ -24,6 +23,9 @@
                     </view>
                 </van-col>
             </van-row>
+        </view>
+        <view class="button-sp-area">
+            <button type="primary" bindtap="back">返回提交信息</button>
         </view>
     </view>
 </view>
