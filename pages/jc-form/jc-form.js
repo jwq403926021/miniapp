@@ -110,6 +110,9 @@ Page({
           case 2005:
             familyImages.overall.push(item)
             break
+          case 2006:
+            familyImages.certificate.push(item)
+            break
           case 2007:
             familyImages.identification.push(item)
             break
@@ -337,18 +340,23 @@ Page({
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
     console.log('upload flowID:', this.id, '????',this.data.id)
+    let formData = {
+      'flowId': that.id || that.data.id,
+      'type': imgPaths[count].type
+    }
+    if (imgPaths[count].hasOwnProperty('clientIndex') && imgPaths[count].clientIndex != null) {
+      formData.clientIndex = imgPaths[count].clientIndex
+    }
+    console.log('---->>', formData)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
-      filePath: imgPaths[count].file,
+      filePath: imgPaths[count].path,
       name: `files`,
       header: {
         "Content-Type": "multipart/form-data",
         'token': wx.getStorageSync('token')
       },
-      formData: {
-        'flowId': that.id || that.data.id,
-        'type': imgPaths[count].type
-      },
+      formData: formData,
       success:function(e){
         let responseCode = JSON.parse(e.data)
         if (responseCode.code == 0) {
@@ -405,7 +413,7 @@ Page({
   },
   goToList () {
     wx.navigateBack({
-      url: '../my-jc-lock/my-jc-lock',
+      url: '../my-list-jc/my-list-jc',
       success: function (e) {
         var page = getCurrentPages().pop();
         if (page == undefined || page == null) return;
@@ -415,7 +423,7 @@ Page({
   },
   bindTapToClient (event) {
     wx.navigateTo({
-      url: '../jc-form-client/jc-form-client?flowId=' + event.currentTarget.dataset.id
+      url: `../jc-form-client/jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
     })
   },
   partnerCommit () {
@@ -423,25 +431,39 @@ Page({
   },
   insuredCommit () {
     let _this = this
+    let taskData = this.data.taskData
+    let familyImagesList = []
     console.log('被保险人完善参数：', taskData)
+
+    let familyImages = wx.getStorageSync('familyImages')
+    let result = this.checkUploadImages(familyImages)
+    console.log('familyImages::', familyImages)
+    if (result.flag) {
+      familyImagesList = result.data
+    } else {
+      wx.showToast({
+        mask: true,
+        title: result.data,
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
-    let familyImages = wx.getStorageSync('familyImages')
-    console.log('familyImages::', familyImages)
-    return
     util.request({
       path: `/app/family/insured/orders`,
       method: 'PUT',
       data: {
-        active: 'perfect'
+        active: 'perfect',
+        flowId: _this.data.flowId
       }
     }, function (err, res) {
       console.log('被保险人完善 结果：', res)
       if (res.code == 0) {
-      // ...informationImageFiles
-        let imgPaths = []
+        let imgPaths = familyImagesList
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
@@ -512,7 +534,7 @@ Page({
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        informationImageFiles.push({file: item, type: 1})
+        informationImageFiles.push({path: item, type: 1})
       }
     })
 
@@ -529,7 +551,6 @@ Page({
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
         _this.id = res.data.flowId || _this.data.id
-
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
@@ -565,5 +586,85 @@ Page({
         })
       }
     })
+  },
+  getImageTypeStr (str) {
+    let result = ''
+    switch (str) {
+      case 'house':
+        result = '房屋及装修'
+        break
+      case 'electrical':
+        result = '家电及文体用品'
+        break
+      case 'cloths':
+        result = '衣物床品'
+        break
+      case 'furniture':
+        result = '家具及其他生活用品'
+        break
+      case 'overall':
+        result = '全景'
+        break
+      case 'certificate':
+        result = '房产证'
+        break
+      case 'identification':
+        result = '身份证'
+        break
+      case 'bank':
+        result = '银行卡'
+        break
+      case 'register':
+        result = '户口本'
+        break
+      case 'source':
+        result = '事故源'
+        break
+    }
+    return result
+  },
+  checkUploadImages (familyImages) {
+    let clientIndexArr = []
+    let familyImagesList = []
+
+    for(let key in familyImages) {
+      familyImages[key].forEach(item => {
+        if (item.hasOwnProperty('clientIndex')) {
+          familyImagesList.push(item)
+          clientIndexArr.push(parseInt(item.clientIndex))
+        }
+      })
+    }
+    clientIndexArr = Array.from(new Set(clientIndexArr))
+    clientIndexArr.sort()
+    let str = ''
+    for (let i = 0; i < clientIndexArr.length; i++) {
+      if (str != '') {
+        break
+      }
+      for (let key in familyImages) {
+        let _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
+        if (!_arr.length) {
+          str = `${clientIndexArr[i] == 0 ? '客户' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
+          break
+        }
+      }
+    }
+    if (str == '') {
+      return {
+        flag: true,
+        data: familyImagesList
+      }
+    } else {
+      return {
+        flag: false,
+        data: str
+      }
+    }
+    // for (let key in familyImages) {
+    //   familyImages[key].forEach(item => {
+    //     familyImagesList.push(item)
+    //   })
+    // }
   }
 })

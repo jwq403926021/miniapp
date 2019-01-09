@@ -538,7 +538,7 @@ Page({
     console.log('upload flowID:', this.id, '????',this.data.id)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
-      filePath: imgPaths[count].file,
+      filePath: imgPaths[count].path,
       name: `files`,
       header: {
         "Content-Type": "multipart/form-data",
@@ -618,13 +618,13 @@ Page({
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        informationImageFiles.push({file: item, type: 1})
+        informationImageFiles.push({path: item, type: 1})
       }
     })
     let liveImageFiles = []
     _this.data.liveImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        liveImageFiles.push({file: item, type: 2})
+        liveImageFiles.push({path: item, type: 2})
       }
     })
     console.log('liveImageFiles:', liveImageFiles)
@@ -840,25 +840,25 @@ Page({
     let workLiveImageFiles = []
     _this.data.workLiveImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        workLiveImageFiles.push({file: item, type: 3})
+        workLiveImageFiles.push({path: item, type: 3})
       }
     })
     let damageImageFiles = []
     _this.data.damageImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        damageImageFiles.push({file: item, type: 4})
+        damageImageFiles.push({path: item, type: 4})
       }
     })
     let authorityImageFiles = []
     _this.data.authorityImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        authorityImageFiles.push({file: item, type: 5})
+        authorityImageFiles.push({path: item, type: 5})
       }
     })
     let caleImageFiles = []
     _this.data.caleImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        caleImageFiles.push({file: item, type: 7})
+        caleImageFiles.push({path: item, type: 7})
       }
     })
 

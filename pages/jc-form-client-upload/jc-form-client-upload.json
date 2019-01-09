@@ -1,5 +1,11 @@
 {
   "usingComponents": {
-    "van-nav-bar": "../../asset/vant/nav-bar/index"
+    "van-row": "../../asset/vant/row/index",
+    "van-col": "../../asset/vant/col/index",
+    "van-area": "../../asset/vant/area/index",
+    "van-popup": "../../asset/vant/popup/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index",
+    "van-icon": "../../asset/vant/icon/index"
   }
 }

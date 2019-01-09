@@ -4,9 +4,12 @@ const app = getApp()
 Page({
   data: {
     clientIndexArr: [0],
-    currentIndex: 0
+    currentIndex: 0,
+    flowId: null,
+    status: null,
+    role: null
   },
-  onLoad: function () {
+  onLoad: function (routeParams) {
     let familyImages = wx.getStorageSync('familyImages')
     let clientIndexArr = []
     for(let key in familyImages) {
@@ -24,12 +27,16 @@ Page({
         clientIndexArr: clientIndexArr
       })
     }
+    this.setData({
+      flowId: routeParams.flowId,
+      status: routeParams.status,
+      role: 15//app.globalData.currentRegisterInfo.role
+    })
     console.log(this.data.clientIndexArr, '|clientIndexArr')
   },
   goToClientUpload (e) {
-    console.log('goToClientUpload-->', this.data.currentIndex)
     wx.navigateTo({
-      url: '../jc-form-client-upload/jc-form-client-upload?index=' + this.data.currentIndex + '&type=' + e.currentTarget.dataset['type']
+      url: `../jc-form-client-upload/jc-form-client-upload?index=${this.data.currentIndex}&type=${e.currentTarget.dataset['type']}&flowId=${this.data.flowId}&status=${this.data.status}`
     })
   },
   addClient () {

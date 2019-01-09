@@ -299,7 +299,7 @@ Page({
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        informationImageFiles.push({file: item, type: 1})
+        informationImageFiles.push({path: item, type: 1})
       }
     })
 
@@ -422,7 +422,7 @@ Page({
     let liveImageFiles = []
     _this.data.liveImageFiles.map(item => {
       if (item.indexOf('https://') == -1){
-        liveImageFiles.push({file: item, type: 10})
+        liveImageFiles.push({path: item, type: 10})
       }
     })
 
@@ -490,7 +490,7 @@ Page({
     console.log('upload flowID:', this.data.id)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
-      filePath: imgPaths[count].file,
+      filePath: imgPaths[count].path,
       name: `files`,
       header: {
         "Content-Type": "multipart/form-data",
