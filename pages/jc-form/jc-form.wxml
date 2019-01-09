@@ -49,11 +49,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">客户手机</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
                            value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
                 </view>
-                <block wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                <block wx:if="{{id != null && taskData.status != 12}}">
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
@@ -63,6 +63,32 @@
                         </view>
                     </view>
                 </block>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">报案信息图片</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files" id="uploaderInformationFiles">
+                                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null}}">
+                                    无图片
+                                </view>
+                                <block wx:for="{{informationImageFiles}}" wx:key="*this">
+                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                                        <van-icon wx:if="{{(id == null || taskData.status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
+                                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
             </view>
         </view>
 

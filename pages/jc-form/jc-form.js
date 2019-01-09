@@ -41,6 +41,7 @@ Page({
     },
     caleImageFiles: [],
     authorityImageFiles: [],
+    informationImageFiles: [],
     familyImages: {
       house: [],// 房屋及装修
       electrical: [],// 家电及文体用品
@@ -84,14 +85,18 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
-      let liveImageFiles = []
+      let authorityImageFiles = []
+      let caleImageFiles = []
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
             informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
             break
-          case 9:
-            liveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+          case 5:
+            authorityImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            break
+          case 7:
+            caleImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
             break
         }
       })
@@ -107,7 +112,10 @@ Page({
         "taskData.investigatorText": data.investigatorText,
         "taskData.bankTransactionId": data.bankTransactionId,
         "taskData.constructionMethod": data.constructionMethod,
-        "taskData.deposit": data.deposit
+        "taskData.deposit": data.deposit,
+        informationImageFiles: informationImageFiles,
+        caleImageFiles: caleImageFiles,
+        authorityImageFiles: authorityImageFiles
       })
       _this.getRegionLabel()
     })
@@ -189,6 +197,42 @@ Page({
     let phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
       phoneNumber: phone
+    })
+  },
+  chooseInfoImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length > 9) {
+          wx.showToast({
+            mask: true,
+            title: '报案图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            informationImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  previewInfoImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.informationImageFiles
+    })
+  },
+  removeinformationImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.informationImageFiles.splice(index, 1)
+    this.setData({
+      informationImageFiles: _this.data.informationImageFiles
     })
   },
   previewAuthorityImage: function (e) {
@@ -276,12 +320,6 @@ Page({
       "investigatorText": data.investigatorText
     }
 
-    // if (this.data.modifyId) {
-    //   taskData.id = _this.data.modifyId
-    //   taskData.liveImage = liveImageFiles.length > 0 ? 1 : 0
-    //   taskData.damageId = _this.data.id
-    // }
-
     if (taskData.customerName == '') {
       wx.showToast({
         mask: true,
@@ -306,6 +344,14 @@ Page({
       })
       return
     }
+
+    let informationImageFiles = []
+    _this.data.informationImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        informationImageFiles.push({file: item, type: 1})
+      }
+    })
+
     console.log('工单新建 改善参数：', taskData)
     wx.showLoading({
       mask: true,
@@ -319,19 +365,34 @@ Page({
     }, function (err, res) {
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '创建成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              wx.switchTab({
-                url: '../index/index'
-              })
-            }, 1000)
-          }
-        })
+        _this.id = res.data || _this.data.id
+
+        let imgPaths = [...informationImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                if (_this.data.flowId){
+                  _this.goToList()
+                }else{
+                  wx.switchTab({
+                    url: '../index/index'
+                  })
+                }
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           mask: true,
@@ -339,6 +400,63 @@ Page({
           icon: 'none',
           duration: 1000
         })
+      }
+    })
+  },
+  uploadOneByOne (imgPaths,successUp, failUp, count, length) {
+    var that = this
+    console.log('upload flowID:', this.id, '????',this.data.id)
+    wx.uploadFile({
+      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      filePath: imgPaths[count].file,
+      name: `files`,
+      header: {
+        "Content-Type": "multipart/form-data",
+        'token': wx.getStorageSync('token')
+      },
+      formData: {
+        'flowId': that.id || that.data.id,
+        'type': imgPaths[count].type
+      },
+      success:function(e){
+        let responseCode = JSON.parse(e.data)
+        if (responseCode.code == 0) {
+          successUp++;//成功+1
+        } else {
+          failUp++;//失败+1
+        }
+      },
+      fail:function(e){
+        failUp++;//失败+1
+      },
+      complete:function(e){
+        count++;//下一张
+        if(count == length){
+          console.log('上传成功' + successUp + ',' + '失败' + failUp);
+          wx.showToast({
+            mask: true,
+            title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
+            icon: length == successUp ? 'success' : 'none',
+            duration: 1000,
+            success () {
+              if (length == successUp) {
+                setTimeout(() => {
+                  if (that.data.flowId){
+                    that.goToList()
+                  }else {
+                    wx.switchTab({
+                      url: '../index/index'
+                    })
+                  }
+                }, 1000)
+              }
+            }
+          })
+        }else{
+          //递归调用，上传下一张
+          that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
+          console.log('正在上传第' + count + '张');
+        }
       }
     })
   },
