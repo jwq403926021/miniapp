@@ -20,6 +20,14 @@ function request(param, cb) {
         success: function (res) {
           // console.log('request result:'+JSON.stringify(res))
           if (res.statusCode == 200) {
+            if (res.data.code == 500 || res.data.CODE == 500){
+              wx.showToast({
+                mask: true,
+                title: res.data.msg || '请求错误，请联系管理员',
+                icon: 'none',
+                duration: 2000
+              })
+            }
             resolve(res.data)
           } else {
             // console.log('requst 请求失败:'+JSON.stringify(res))
