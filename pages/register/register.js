@@ -100,7 +100,7 @@ Page({
                   region: currentData ? currentData.townCode : '',
                   "registeInfo.cityCode": currentData ? currentData.cityCode : '',
                   "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-                  "registeInfo.companyName": currentData ? currentData.companyName : '',
+                  "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
                   "registeInfo.companyType": currentData ? currentData.companyType : '',
                   "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
                   "registeInfo.mobile": currentData ? currentData.mobile : '',
@@ -240,7 +240,7 @@ Page({
         region: currentData ? currentData.townCode : '',
         "registeInfo.cityCode": currentData ? currentData.cityCode : '',
         "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-        "registeInfo.companyName": currentData ? currentData.companyName : '',
+        "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
         "registeInfo.companyType": currentData ? currentData.companyType : '',
         "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
         "registeInfo.mobile": currentData ? currentData.mobile : '',
@@ -320,7 +320,7 @@ Page({
           "registeInfo.mobileCode": '',
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.roleName": res.userInfo.roleName,
-          "registeInfo.companyName": res.userInfo.companyName
+          "registeInfo.companyName": res.userInfo.companyName ||res.userInfo.sysCompanyEntity.companyName
         })
           wx.setStorageSync('status', 1)
           wx.showToast({
@@ -476,7 +476,7 @@ Page({
           isModifyPhone: false,
           'hasBindPhone': true,
           "registeInfo.companyNameCode": res.userInfo.companyNameCode,
-          "registeInfo.companyName": res.userInfo.companyName,
+          "registeInfo.companyName": res.userInfo.companyName || res.userInfo.sysCompanyEntity.companyName,
           "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
