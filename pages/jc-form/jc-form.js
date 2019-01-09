@@ -365,7 +365,7 @@ Page({
     }, function (err, res) {
       console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
-        _this.id = res.data || _this.data.id
+        _this.id = res.data.flowId || _this.data.id
 
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
