@@ -194,3 +194,13 @@ textarea[disabled]{
 .button-sp-area{
     margin-top: 10px;
 }
+.category-icon{
+    width: 24px;
+    height: 24px;
+}
+.category-icon-list{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 15px;
+}
