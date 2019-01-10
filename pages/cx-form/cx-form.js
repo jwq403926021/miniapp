@@ -243,7 +243,7 @@ Page({
     this.setData(nameMap)
   },
   dialPhone (e) {
-    let phone = e.currentTarget.dataset.phone;
+    let phone = e.currentTarget.dataset.phone+'';
     wx.makePhoneCall({
       phoneNumber: phone
     })

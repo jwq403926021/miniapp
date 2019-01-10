@@ -132,5 +132,10 @@ Page({
         dataList: res.data
       })
     })
+  },
+  closeFilter () {
+    this.setData({
+      isShowFilterOne:false
+    })
   }
 })

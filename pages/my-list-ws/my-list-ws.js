@@ -139,5 +139,12 @@ Page({
     this.setData({
       show: false
     })
+  },
+  closeFilter () {
+    this.setData({
+      isShowDateFilter:false,
+      isShowStatusFilter: false,
+      isShowTypeFilter:false
+    })
   }
 })

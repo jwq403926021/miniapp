@@ -205,7 +205,7 @@
                 </view>
 
                 <block wx:if="{{taskData.constructionMethod == 1}}">
-                    <view class="weui-cells__title">押金/授权</view>
+                    <view class="weui-cells__title">押金</view>
                     <view class="weui-cells weui-cells_after-title">
                         <view class="weui-cell">
                             <view class="weui-cell__bd">

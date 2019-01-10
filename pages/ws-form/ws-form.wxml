@@ -26,12 +26,44 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">事故区域</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{id == null || taskData.status == 12}}">
+                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 12}}">
                     <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                 </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">客户姓名</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
+                           value="{{taskData.customerUser}}" placeholder="客户姓名"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                    <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">客户手机</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
+                           value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
+                </view>
+                <block wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </block>
             </view>
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
@@ -59,37 +91,6 @@
                     </view>
                     <view class="weui-cell__ft">
                         <view class="field-right-btn" data-phone="{{taskData.damagedPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </block>
-            </view>
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">客户姓名</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
-                           value="{{taskData.customerUser}}" placeholder="客户姓名"/>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
-                    <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">客户手机</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                           value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
-                </view>
-                <block wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
@@ -395,7 +396,7 @@
             </block>
 
             <block wx:if="{{taskData.handlingType == 0 || taskData.handlingType == 1}}">
-                <view class="weui-cells__title">授权/押金</view>
+                <view class="weui-cells__title">{{['押金', '授权书'][taskData.handlingType] || '-'}}</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
                         <view class="weui-cell__bd">

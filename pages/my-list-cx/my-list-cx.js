@@ -95,5 +95,10 @@ Page({
     this.setData({
       show: false
     })
+  },
+  closeFilter () {
+    this.setData({
+      isShowFilterOne:false
+    })
   }
 })

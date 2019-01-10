@@ -50,7 +50,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.orderId,
-        role: app.globalData.currentRegisterInfo.role// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
+        role: 19//app.globalData.currentRegisterInfo.role// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -171,7 +171,7 @@ Page({
     this.setData(nameMap)
   },
   dialPhone (e) {
-    let phone = e.currentTarget.dataset.phone;
+    let phone = e.currentTarget.dataset.phone+'';
     wx.makePhoneCall({
       phoneNumber: phone
     })

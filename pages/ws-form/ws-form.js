@@ -70,7 +70,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role //app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
+        role: 12//app.globalData.currentRegisterInfo.role //app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -591,7 +591,7 @@ Page({
     })
   },
   dialPhone (e) {
-    let phone = e.currentTarget.dataset.phone;
+    let phone = e.currentTarget.dataset.phone+'';
     wx.makePhoneCall({
       phoneNumber: phone
     })
