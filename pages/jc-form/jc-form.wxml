@@ -37,11 +37,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">客户姓名</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{(id == null || status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.customerName}}" placeholder="客户姓名"/>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                <view class="weui-cell__bd" wx:if="{{id != null && status != 12}}">
                     <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
                 </view>
             </view>
@@ -49,11 +49,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">客户手机</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{(id == null || status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
                            value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
                 </view>
-                <block wx:if="{{id != null && taskData.status != 12}}">
+                <block wx:if="{{id != null && status != 12}}">
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
@@ -79,11 +79,11 @@
                                 <block wx:for="{{informationImageFiles}}" wx:key="*this">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item}}">
                                         <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(id == null || taskData.status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{(id == null || status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
+                            <view class="weui-uploader__input-box" wx:if="{{(id == null || status == 12) && role == 1}}">
                                 <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
                             </view>
                         </view>
@@ -95,11 +95,11 @@
         <view class="weui-cells__title">查勘员备注</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{(id == null || status == 12) && role == 1}}">
                     <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                              value="{{taskData.investigatorText}}" disabled="{{id !== null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 3.3em"/>
+                              value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 12}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 12}}">
                     {{taskData.investigatorText}}
                 </view>
             </view>
@@ -134,7 +134,7 @@
 
             <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">完善图片信息</button>
 
-            <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (taskData.status == 40)}}">
+            <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (status == 40)}}">
                 <view class="weui-cells__title">损失清单</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -166,7 +166,7 @@
                         <view class="weui-cell__hd weui-cell__hd_in-select-after">
                             <view class="weui-label">施工方式</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{role == 12 && taskData.status == 40}}">
+                        <view class="weui-cell__bd" wx:if="{{role == 12 && status == 40}}">
                             <van-radio-group value="{{ taskData.constructionMethod }}" custom-class="weui-input vertical"
                                              bind:change="onConstructionMethodChange">
                                 <van-radio custom-class="fl mr5" name="0">施救</van-radio>
@@ -181,7 +181,7 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">押金金额</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{role == 12 && taskData.status == 40}}">
+                        <view class="weui-cell__bd" wx:if="{{role == 12 && status == 40}}">
                             <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'
                                    value="{{taskData.deposit}}" placeholder="请输入押金金额"/>
                         </view>
@@ -194,7 +194,7 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">银行交易单号</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{role == 12 && taskData.status == 40}}">
+                        <view class="weui-cell__bd" wx:if="{{role == 12 && status == 40}}">
                             <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.bankTransactionId'
                                    value="{{taskData.bankTransactionId}}" placeholder="请输入银行交易单号"/>
                         </view>
@@ -215,11 +215,11 @@
                                             <block wx:for="{{authorityImageFiles}}" wx:key="*this">
                                                 <view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item}}">
                                                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                                    <van-icon wx:if="{{role == 12 && taskData.status == 40}}" catchtap="removeAuthorityImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeAuthorityImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                                 </view>
                                             </block>
                                         </view>
-                                        <view class="weui-uploader__input-box" wx:if="{{role == 12 && taskData.status == 40}}">
+                                        <view class="weui-uploader__input-box" wx:if="{{role == 12 && status == 40}}">
                                             <view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>
                                         </view>
                                     </view>
@@ -240,11 +240,11 @@
                                             <block wx:for="{{caleImageFiles}}" wx:key="*this">
                                                 <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item}}">
                                                     <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                                    <van-icon wx:if="{{role == 12 && taskData.status == 40}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                                 </view>
                                             </block>
                                         </view>
-                                        <view class="weui-uploader__input-box" wx:if="{{role == 12 && taskData.status == 40}}">
+                                        <view class="weui-uploader__input-box" wx:if="{{role == 12 && status == 40}}">
                                             <view class="weui-uploader__input" bindtap="chooseCaleImage"></view>
                                         </view>
                                     </view>
@@ -260,7 +260,7 @@
                 <view class="weui-cells__title">报价员提示</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
-                        <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
+                        <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 12}}">
                             {{taskData.investigatorText}}
                         </view>
                     </view>
@@ -280,7 +280,7 @@
             </block>
         </block>
 
-        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (id == null || taskData.status == 12)}}">
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (id == null || status == 12)}}">
             <button type="primary" bindtap="commitOrder">提交</button>
             <button data-save="true" bindtap="commitOrder">暂存</button>
         </view>
