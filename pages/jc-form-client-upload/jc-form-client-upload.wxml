@@ -276,7 +276,7 @@
         </block>
         <!-- 事故源 end -->
         <view class="button-sp-area">
-            <button type="primary" bindtap="back">添加其他信息</button>
+            <button type="primary" bindtap="back">返回</button>
         </view>
     </view>
 </view>

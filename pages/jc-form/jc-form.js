@@ -39,6 +39,7 @@ Page({
       "constructionMethod": '',
       "deposit": ''
     },
+    damageImageFiles: [],
     caleImageFiles: [],
     authorityImageFiles: [],
     informationImageFiles: []
@@ -49,7 +50,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: 12 // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
       })
       this.initDataById(routeParams.id)
     }
@@ -96,33 +97,43 @@ Page({
             caleImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
             break
           case 2001:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.house.push(item)
             break
           case 2002:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.electrical.push(item)
             break
           case 2003:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.cloths.push(item)
             break
           case 2004:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.furniture.push(item)
             break
           case 2005:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.overall.push(item)
             break
           case 2006:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.certificate.push(item)
             break
           case 2007:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.identification.push(item)
             break
           case 2008:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.bank.push(item)
             break
           case 2009:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.register.push(item)
             break
           case 2010:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.source.push(item)
             break
         }
@@ -142,7 +153,7 @@ Page({
         "taskData.investigatorText": data.investigatorText,
         "taskData.bankTransactionId": data.bankTransactionId,
         "taskData.constructionMethod": data.constructionMethod,
-        "taskData.deposit": data.deposit,
+        "taskData.deposit": data.deposit || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles
@@ -337,6 +348,42 @@ Page({
       caleImageFiles: _this.data.caleImageFiles
     })
   },
+  previewDamageImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.damageImageFiles
+    })
+  },
+  chooseDamageImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let list = that.data.damageImageFiles.concat(res.tempFilePaths)
+        if (res.tempFilePaths.length > 9) {
+          wx.showToast({
+            mask: true,
+            title: '损失清单图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            damageImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  removeDamageImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.damageImageFiles.splice(index, 1)
+    this.setData({
+      damageImageFiles: _this.data.damageImageFiles
+    })
+  },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
     console.log('upload flowID:', this.id, '????',this.data.id)
@@ -428,6 +475,160 @@ Page({
   },
   partnerCommit () {
     let _this = this
+    let taskData = this.data.taskData
+    let familyImagesList = []
+    console.log('合作商 完善参数：', taskData)
+
+    let familyImages = wx.getStorageSync('familyImages')
+    let result = this.checkUploadImages(familyImages)
+    console.log('familyImages::', familyImages)
+    if (result.flag) {
+      familyImagesList = result.data
+    } else {
+      wx.showToast({
+        mask: true,
+        title: result.data,
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    let authorityImageFiles = []
+    let caleImageFiles = []
+    let damageImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item, type: 5})
+      }
+    })
+    _this.data.caleImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        caleImageFiles.push({path: item, type: 7})
+      }
+    })
+    _this.data.damageImageFiles.map(item => {
+      if (item.indexOf('https://') == -1){
+        damageImageFiles.push({path: item, type: 4})
+      }
+    })
+
+    if (damageImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '损失清单不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
+      wx.showToast({
+        mask: true,
+        title: '施工方式不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    if (_this.data.taskData.constructionMethod == 1) {
+      if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
+        wx.showToast({
+          mask: true,
+          title: '押金金额不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
+        wx.showToast({
+          mask: true,
+          title: '银行交易单号不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (authorityImageFiles.length == 0) {
+        wx.showToast({
+          mask: true,
+          title: '押金图片不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    }
+
+    if (caleImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '保险计算书不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    console.log({
+      "active": _this.data.taskData.constructionMethod == 0 ? '' : '',  // 0 施救 1 施工
+      "bankTransactionId": _this.data.taskData.bankTransactionId,
+      "constructionMethod": _this.data.taskData.constructionMethod,
+      "deposit": _this.data.taskData.deposit,
+      flowId: _this.data.flowId
+    }, '##')
+    console.log(familyImagesList, authorityImageFiles, caleImageFiles, damageImageFiles, '!!')
+    return
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/partner/orders`,
+      method: 'PUT',
+      data: {
+        "active": _this.data.taskData.constructionMethod == 0 ? '' : '',  // 0 施救 1 施工
+        "bankTransactionId": _this.data.taskData.bankTransactionId,
+        "constructionMethod": _this.data.taskData.constructionMethod,
+        "deposit": _this.data.taskData.deposit,
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      console.log('被保险人完善 结果：', res)
+      if (res.code == 0) {
+        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   insuredCommit () {
     let _this = this
@@ -651,6 +852,12 @@ Page({
       }
     }
     if (str == '') {
+      if (familyImagesList.length == 0) {
+        return {
+          flag: false,
+          data: '图片信息不能为空'
+        }
+      }
       return {
         flag: true,
         data: familyImagesList

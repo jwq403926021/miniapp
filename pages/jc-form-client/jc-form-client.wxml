@@ -11,7 +11,7 @@
                         <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{index}}" data-index="{{index}}" class="{{ currentIndex == index ? 'active' : ''}}">
                             {{index == 0 ? '客户' : ('第三者' + index)}}
                         </li>
-                        <li class="add-button" bindtap="addClient"><van-icon class="add-button-icon" name="add" /></li>
+                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" class="add-button" bindtap="addClient"><van-icon class="add-button-icon" name="add" /></li>
                     </ul>
                 </van-col>
                 <van-col span="18">
@@ -25,7 +25,7 @@
             </van-row>
         </view>
         <view class="button-sp-area">
-            <button type="primary" bindtap="back">返回提交信息</button>
+            <button type="primary" bindtap="back">返回</button>
         </view>
     </view>
 </view>

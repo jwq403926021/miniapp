@@ -100,7 +100,7 @@
                               value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 12}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 12}}">
-                    {{taskData.investigatorText}}
+                    {{taskData.investigatorText || '-'}}
                 </view>
             </view>
         </view>
@@ -132,9 +132,11 @@
                 </view>
             </view>
 
-            <button wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">完善图片信息</button>
+            <button wx:if="{{(role == 15 || role == 12) && status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
+                {{((role == 15 && status == 30) || (role == 12 && status == 40)) ? '完善图片信息' : '图片信息'}}
+            </button>
 
-            <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (status == 40)}}">
+            <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (status == 40 || status == 41 || status == 42 || status == 50)}}">
                 <view class="weui-cells__title">损失清单</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -145,11 +147,11 @@
                                         <block wx:for="{{damageImageFiles}}" wx:key="*this">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewDamageImage" id="{{item}}">
                                                 <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12}}" catchtap="removeDamageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeDamageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
                                         </block>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && status == 40}}">
                                         <view class="weui-uploader__input" bindtap="chooseDamageImage"></view>
                                     </view>
                                 </view>
