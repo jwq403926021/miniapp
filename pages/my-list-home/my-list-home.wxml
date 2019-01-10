@@ -5,31 +5,31 @@
   <view wx:else>
     <view class="my-list-item" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
       <view class="fr">
-        <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 30px;" />
+        <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view><image class="category-icon-list" src="../../asset/image/ee.png" mode="aspectFill"/>物损工单</view>
     </view>
     <view class="my-list-item" bindtap="goToJcList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 8 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 15 || role == 22}}">
       <view class="fr">
-        <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 30px;" />
+        <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view><image class="category-icon-list" src="../../asset/image/house.png" mode="aspectFill"/>家财工单</view>
     </view>
     <view class="my-list-item" bindtap="goToCxList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 16 || role == 17 || role == 22}}">
       <view class="fr">
-        <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 30px;" />
+        <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view><image class="category-icon-list" src="../../asset/image/car.png" mode="aspectFill"/>车险工单</view>
     </view>
     <view class="my-list-item" bindtap="goToLockList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 19 || role == 22}}">
       <view class="fr">
-        <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 30px;" />
+        <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view><image class="category-icon-list" src="../../asset/image/lock.png" mode="aspectFill"/>开锁工单</view>
     </view>
     <view class="my-list-item" bindtap="goToPipeList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 20 || role == 22}}">
       <view class="fr">
-        <van-icon name="arrow" style="font-size: 18px; vertical-align: middle; line-height: 30px;" />
+        <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view><image class="category-icon-list" src="../../asset/image/pipe.png" mode="aspectFill"/>疏通管道工单</view>
     </view>
