@@ -572,17 +572,6 @@ Page({
       })
       return false
     }
-
-    console.log({
-      "active": _this.data.taskData.constructionMethod == 0 ? '' : '',  // 0 施救 1 施工
-      "bankTransactionId": _this.data.taskData.bankTransactionId,
-      "constructionMethod": _this.data.taskData.constructionMethod,
-      "deposit": _this.data.taskData.deposit,
-      flowId: _this.data.flowId
-    }, '##')
-    console.log(familyImagesList, authorityImageFiles, caleImageFiles, damageImageFiles, '!!')
-    return
-
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -591,7 +580,7 @@ Page({
       path: `/app/family/partner/orders`,
       method: 'PUT',
       data: {
-        "active": _this.data.taskData.constructionMethod == 0 ? '' : '',  // 0 施救 1 施工
+        "active": 'site_perfect',
         "bankTransactionId": _this.data.taskData.bankTransactionId,
         "constructionMethod": _this.data.taskData.constructionMethod,
         "deposit": _this.data.taskData.deposit,
