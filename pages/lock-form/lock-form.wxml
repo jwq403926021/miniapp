@@ -159,6 +159,38 @@
 
     </block>
 
+    <block wx:if="{{id != null && status != '12'}}">
+      <view class="weui-cells__title"></view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">查勘员手机</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{taskData.insurerUserMobile || '-'}}</text>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="field-right-btn" data-phone="{{taskData.insurerUserMobile}}" bindtap="dialPhone">
+              <van-icon name="phone"></van-icon>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">开锁负责人手机</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{taskData.lockUserMobile || '-'}}</text>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="field-right-btn" data-phone="{{taskData.lockUserMobile}}" bindtap="dialPhone">
+              <van-icon name="phone"></van-icon>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
     <view class="button-sp-area two-btn-wrap" wx:if="{{(id == null || status == '12') && role == '1'}}">
       <button type="primary" bindtap="commitSubmit">提交</button><!-- 新建 提交 -->
       <button data-save="true" bindtap="commitSubmit">暂存</button>

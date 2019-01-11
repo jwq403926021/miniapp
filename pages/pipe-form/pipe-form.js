@@ -32,12 +32,8 @@ Page({
       "information": "",
       "offer": "",
       "live": "",
-      // "insurerUserId": '',
-      // "insurerUserMobile": "",
-      // "lockUserId": "",
-      // "lockUserMobile": "",
-      // "orderId": "",
-      // "status": ""
+      "insurerUserMobile": "",
+      "dredgeUserMobile": ""
     },
     informationImageFiles: [],
     liveImageFiles: []
@@ -91,7 +87,9 @@ Page({
         "taskData.customName": data.customName,
         "taskData.information": data.information,
         "taskData.offer": data.offer,
-        "taskData.live": data.live
+        "taskData.live": data.live,
+        "taskData.insurerUserMobile": data.insurerUserMobile,
+        "taskData.dredgeUserMobile": data.dredgeUserMobile
       })
       _this.getRegionLabel()
     })
