@@ -50,7 +50,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
       })
       this.initDataById(routeParams.id)
     }
@@ -88,13 +88,16 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            informationImageFiles.push(item)
             break
           case 5:
-            authorityImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            authorityImageFiles.push(item)
             break
           case 7:
-            caleImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            caleImageFiles.push(item)
             break
           case 2001:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -246,7 +249,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.informationImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -265,7 +274,7 @@ Page({
   previewInfoImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.informationImageFiles
+      urls: this.data.informationImageFiles.map(item => {return item.path})
     })
   },
   removeinformationImageFiles (e) {
@@ -279,7 +288,7 @@ Page({
   previewAuthorityImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.authorityImageFiles
+      urls: this.data.authorityImageFiles.map(item => {return item.path})
     })
   },
   chooseAuthorityImage: function (e) {
@@ -288,7 +297,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.authorityImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.authorityImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -315,7 +330,7 @@ Page({
   previewCaleImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.caleImageFiles
+      urls: this.data.caleImageFiles.map(item => {return item.path})
     })
   },
   chooseCaleImage: function (e) {
@@ -324,7 +339,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.caleImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.caleImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -351,7 +372,7 @@ Page({
   previewDamageImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.damageImageFiles
+      urls: this.data.damageImageFiles.map(item => {return item.path})
     })
   },
   chooseDamageImage: function (e) {
@@ -360,7 +381,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.damageImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.damageImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -498,18 +525,18 @@ Page({
     let caleImageFiles = []
     let damageImageFiles = []
     _this.data.authorityImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        authorityImageFiles.push({path: item, type: 5})
+      if (item.path.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item.path, type: 5})
       }
     })
     _this.data.caleImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        caleImageFiles.push({path: item, type: 7})
+      if (item.path.indexOf('https://') == -1){
+        caleImageFiles.push({path: item.path, type: 7})
       }
     })
     _this.data.damageImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        damageImageFiles.push({path: item, type: 4})
+      if (item.path.indexOf('https://') == -1){
+        damageImageFiles.push({path: item.path, type: 4})
       }
     })
 
@@ -723,8 +750,8 @@ Page({
 
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        informationImageFiles.push({path: item, type: 1})
+      if (item.path.indexOf('https://') == -1){
+        informationImageFiles.push({path: item.path, type: 1})
       }
     })
 

@@ -39,7 +39,7 @@ Page({
       'familyImages.bank': familyImages.bank,
       'familyImages.register': familyImages.register,
       'familyImages.source': familyImages.source,
-      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
+      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
     })
   },
   getImageTypeNumber (str) {
@@ -90,7 +90,7 @@ Page({
         let tempList = []
         res.tempFilePaths.forEach(item => {
           tempList.push({
-            "path": item,
+            "path": item, "id": null,
             "type": imageTypeNumber,
             "clientIndex": _this.data.clientIndex
           })
@@ -119,7 +119,7 @@ Page({
     let imageTypeStr = e.currentTarget.dataset.imagetype
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: _this.data.familyImages[imageTypeStr]
+      urls: _this.data.familyImages[imageTypeStr].map(item => {return item.path})
     })
   },
   removeImageFiles (e) {

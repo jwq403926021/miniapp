@@ -86,10 +86,12 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 2:
-            informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            informationImageFiles.push(item)
             break
           case 8:
-            assessImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            assessImageFiles.push(item)
             break
         }
       })
@@ -322,7 +324,7 @@ Page({
   previewInfoImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.informationImageFiles
+      urls: this.data.informationImageFiles.map(item => {return item.path})
     })
   },
   removeinformationImageFiles (e) {
@@ -339,7 +341,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.informationImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -358,7 +366,7 @@ Page({
   previewAssessImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.assessImageFiles
+      urls: this.data.assessImageFiles.map(item => {return item.path})
     })
   },
   removeAssessImageFiles (e) {
@@ -375,7 +383,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.assessImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.assessImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -408,8 +422,8 @@ Page({
     // type=2 现场图片上传  type=8 上传定损图片
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        informationImageFiles.push({path: item, type: 2})
+      if (item.path.indexOf('https://') == -1){
+        informationImageFiles.push({path: item.path, type: 2})
       }
     })
 
@@ -515,8 +529,8 @@ Page({
 
     let assessImageFiles = []
     _this.data.assessImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        assessImageFiles.push({path: item, type: 8})
+      if (item.path.indexOf('https://') == -1){
+        assessImageFiles.push({path: item.path, type: 8})
       }
     })
 

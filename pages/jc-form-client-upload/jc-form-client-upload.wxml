@@ -17,7 +17,7 @@
                                     <view class="no-image" wx:if="{{familyImages.house.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.house}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.house}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="house" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="house" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -43,7 +43,7 @@
                                     <view class="no-image" wx:if="{{familyImages.electrical.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.electrical}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.electrical}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="electrical" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="electrical" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -68,7 +68,7 @@
                                     <view class="no-image" wx:if="{{familyImages.cloths.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.cloths}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.cloths}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="cloths" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="cloths" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -93,7 +93,7 @@
                                     <view class="no-image" wx:if="{{familyImages.furniture.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.furniture}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.furniture}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="furniture" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="furniture" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -123,7 +123,7 @@
                                     <view class="no-image" wx:if="{{familyImages.overall.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.overall}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.overall}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="overall" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="overall" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -153,7 +153,7 @@
                                     <view class="no-image" wx:if="{{familyImages.certificate.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.certificate}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.certificate}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="certificate" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="certificate" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -178,7 +178,7 @@
                                     <view class="no-image" wx:if="{{familyImages.identification.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.identification}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.identification}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="identification" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="identification" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -203,7 +203,7 @@
                                     <view class="no-image" wx:if="{{familyImages.bank.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.bank}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.bank}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="bank" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="bank" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -228,7 +228,7 @@
                                     <view class="no-image" wx:if="{{familyImages.register.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.register}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.register}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="register" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="register" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -258,7 +258,7 @@
                                     <view class="no-image" wx:if="{{familyImages.source.length == 0 && !(role == 15 && status == 30) && !(role == 12 && status == 40)}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{familyImages.source}}" wx:key="*this">
+                                    <block wx:for="{{familyImages.source}}" wx:key="{{index}}">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="source" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" data-imagetype="source" catchtap="removeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>

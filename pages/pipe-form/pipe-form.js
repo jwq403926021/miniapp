@@ -69,10 +69,12 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            informationImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            informationImageFiles.push(item)
             break
           case 10:
-            liveImageFiles.push(`https://aplusprice.xyz/file/${item.path}`)
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            liveImageFiles.push(item)
             break
         }
       })
@@ -206,7 +208,7 @@ Page({
   previewInfoImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.informationImageFiles
+      urls: this.data.informationImageFiles.map(item => {return item.path})
     })
   },
   removeinformationImageFiles (e) {
@@ -223,7 +225,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.informationImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.informationImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -242,7 +250,7 @@ Page({
   previewLiveImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data.liveImageFiles
+      urls: this.data.liveImageFiles.map(item => {return item.path})
     })
   },
   removeLiveImageFiles (e) {
@@ -259,7 +267,13 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let list = that.data.liveImageFiles.concat(res.tempFilePaths)
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.liveImageFiles.concat(tempList)
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
@@ -296,8 +310,8 @@ Page({
     }
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        informationImageFiles.push({path: item, type: 1})
+      if (item.path.indexOf('https://') == -1){
+        informationImageFiles.push({path: item.path, type: 1})
       }
     })
 
@@ -419,8 +433,8 @@ Page({
 
     let liveImageFiles = []
     _this.data.liveImageFiles.map(item => {
-      if (item.indexOf('https://') == -1){
-        liveImageFiles.push({path: item, type: 10})
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 10})
       }
     })
 
