@@ -30,7 +30,7 @@
         车险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role == 1 || role == 19}}">
+    <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role == 1}}">
       <view>
         <image class="category-icon" src="../../asset/image/lock.png" mode="aspectFill"/>
       </view>
@@ -38,7 +38,7 @@
         开锁
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role == 1 || role == 20}}">
+    <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role == 1}}">
       <view>
         <image class="category-icon" src="../../asset/image/pipe.png" mode="aspectFill"/>
       </view>
