@@ -195,12 +195,12 @@ textarea[disabled]{
     margin-top: 10px;
 }
 .category-icon{
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
 }
 .category-icon-list{
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
     vertical-align: middle;
     margin-right: 15px;
 }
