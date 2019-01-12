@@ -34,6 +34,11 @@ Page({
       url: '../my-list-pipe/my-list-pipe'
     })
   },
+  goToFeedbackList () {
+    wx.navigateTo({
+      url: '../my-list-feedback/my-list-feedback'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

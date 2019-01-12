@@ -30,6 +30,11 @@ Page({
       url: '../pipe-form/pipe-form'
     })
   },
+  goToFeedback () {
+    wx.navigateTo({
+      url: '../feedback-form/feedback-form'
+    })
+  },
   onShow () {
     var value = wx.getStorageSync('status')
     if(value == 2 || value == '') {

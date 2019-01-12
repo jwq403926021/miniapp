@@ -33,5 +33,11 @@
       </view>
       <view><image class="category-icon-list" src="../../asset/image/pipe.png" mode="aspectFill"/>疏通管道工单</view>
     </view>
+    <view class="my-list-item" bindtap="goToFeedbackList">
+      <view class="fr">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view><image class="category-icon-list" src="../../asset/image/feedback.png" mode="aspectFill"/>意见反馈</view>
+    </view>
   </view>
 </view>

@@ -1,0 +1,64 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title">意见反馈</view>
+    <view class="weui-cells weui-cells_after-title">
+
+      <block wx:if="{{id != null}}">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">工单状态</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{statusMap[status]}} | {{status}}</text>
+          </view>
+        </view>
+      </block>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customName'
+                 value="{{taskData.customName}}" placeholder="客户姓名"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">手机</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
+                 value="{{taskData.customMobile}}" placeholder="请输入客户手机"/>
+        </view>
+        <view class="weui-cell__ft" wx:if="{{id != null}}">
+          <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">
+            <van-icon name="phone"></van-icon>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">意见</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
+          <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
+                    value="{{taskData.information}}" disabled="{{role != '1' || (id != null && status != '12')}}" placeholder="请输入报案信息" style="height: 3.3em"/>
+        </view>
+        <view class="weui-cell__bd" style="height: 3.3em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
+          {{taskData.information}}
+        </view>
+      </view>
+    </view>
+
+
+    <view class="button-sp-area">
+      <button type="primary" bindtap="completeSubmit">提交</button><!-- 办结 提交 -->
+    </view>
+  </view>
+
+  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
+    <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+  </van-popup>
+</view>
