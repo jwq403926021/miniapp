@@ -517,6 +517,150 @@ Page({
       url: `../jc-form-client/jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
     })
   },
+  insuredAgree () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/insured/orders`,
+      method: 'PUT',
+      data: {
+        "active": 'access',
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  insuredReject () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/insured/orders`,
+      method: 'PUT',
+      data: {
+        "active": 'refuse',
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  partnerConsultAgree () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/partner/orders`,
+      method: 'PUT',
+      data: {
+        "active": 'consult_site',
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  partnerConsultReject () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/partner/orders`,
+      method: 'PUT',
+      data: {
+        "active": 'consult_refuse',
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   partnerCommit () {
     let _this = this
     let taskData = this.data.taskData
@@ -557,15 +701,15 @@ Page({
       }
     })
 
-    if (damageImageFiles.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '损失清单不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
+    // if (damageImageFiles.length == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '损失清单不能为空',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    //   return false
+    // }
 
     if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
       wx.showToast({
@@ -607,15 +751,15 @@ Page({
       }
     }
 
-    if (caleImageFiles.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '保险计算书不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
+    // if (caleImageFiles.length == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '保险计算书不能为空',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    //   return false
+    // }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -625,6 +769,162 @@ Page({
       method: 'PUT',
       data: {
         "active": 'site_perfect',
+        "bankTransactionId": _this.data.taskData.bankTransactionId,
+        "constructionMethod": _this.data.taskData.constructionMethod,
+        "deposit": _this.data.taskData.deposit,
+        flowId: _this.data.flowId
+      }
+    }, function (err, res) {
+      console.log('被保险人完善 结果：', res)
+      if (res.code == 0) {
+        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  consultAgree () {
+    let _this = this
+    let taskData = this.data.taskData
+    let familyImagesList = []
+    console.log('合作商 协商 完善参数：', taskData)
+
+    let familyImages = wx.getStorageSync('familyImages')
+    let result = this.checkUploadImages(familyImages)
+    console.log('familyImages::', familyImages)
+    if (result.flag) {
+      familyImagesList = result.data
+    } else {
+      wx.showToast({
+        mask: true,
+        title: result.data,
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    let authorityImageFiles = []
+    let caleImageFiles = []
+    let damageImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item.path, type: 5})
+      }
+    })
+    _this.data.caleImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        caleImageFiles.push({path: item.path, type: 7})
+      }
+    })
+    _this.data.damageImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        damageImageFiles.push({path: item.path, type: 4})
+      }
+    })
+
+    // if (damageImageFiles.length == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '损失清单不能为空',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    //   return false
+    // }
+
+    if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
+      wx.showToast({
+        mask: true,
+        title: '施工方式不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    if (_this.data.taskData.constructionMethod == 0) {
+      wx.showToast({
+        mask: true,
+        title: '请更改施工方式为施工',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    if (_this.data.taskData.constructionMethod == 1) {
+      if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
+        wx.showToast({
+          mask: true,
+          title: '押金金额不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
+        wx.showToast({
+          mask: true,
+          title: '银行交易单号不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (authorityImageFiles.length == 0) {
+        wx.showToast({
+          mask: true,
+          title: '押金图片不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    }
+
+    // if (caleImageFiles.length == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '保险计算书不能为空',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    //   return false
+    // }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/partner/orders`,
+      method: 'PUT',
+      data: {
+        "active": 'site_finish',
         "bankTransactionId": _this.data.taskData.bankTransactionId,
         "constructionMethod": _this.data.taskData.constructionMethod,
         "deposit": _this.data.taskData.deposit,

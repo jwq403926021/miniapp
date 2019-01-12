@@ -31,7 +31,7 @@ Page({
       flowId: routeParams.flowId,
       status: routeParams.status,
       'familyImages.house': familyImages.house,
-      'familyImages.cloths': familyImages.house,
+      'familyImages.cloths': familyImages.cloths,
       'familyImages.electrical': familyImages.electrical,
       'familyImages.furniture': familyImages.furniture,
       'familyImages.overall': familyImages.overall,
