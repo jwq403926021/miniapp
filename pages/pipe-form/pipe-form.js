@@ -1,5 +1,6 @@
 //获取应用实例
 import util from "../../utils/util";
+import common from "../../utils/common";
 
 const app = getApp()
 
@@ -218,6 +219,10 @@ Page({
     this.setData({
       informationImageFiles: _this.data.informationImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   chooseInfoImage: function (e) {
     var that = this;
@@ -260,6 +265,10 @@ Page({
     this.setData({
       liveImageFiles: _this.data.liveImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   chooseLiveImage: function (e) {
     var that = this;

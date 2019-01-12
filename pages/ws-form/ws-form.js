@@ -1,6 +1,6 @@
 //获取应用实例
 import util from "../../utils/util";
-
+import common from "../../utils/common";
 const app = getApp()
 
 Page({
@@ -364,6 +364,10 @@ Page({
     this.setData({
       informationImageFiles: _this.data.informationImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   chooseImageForliveImageFiles: function (e) {
     var that = this;
@@ -406,6 +410,10 @@ Page({
     this.setData({
       liveImageFiles: _this.data.liveImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   chooseWorkLiveImage: function (e) {
     var that = this;
@@ -442,6 +450,10 @@ Page({
     this.setData({
       liveImageFiles: _this.data.workLiveImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewWorkLiveImage: function (e) {
     wx.previewImage({
@@ -490,6 +502,10 @@ Page({
     this.setData({
       damageImageFiles: _this.data.damageImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewAuthorityImage: function (e) {
     wx.previewImage({
@@ -532,6 +548,10 @@ Page({
     this.setData({
       caleImageFiles: _this.data.caleImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewCaleImage: function (e) {
     wx.previewImage({
@@ -574,6 +594,10 @@ Page({
     this.setData({
       authorityImageFiles: _this.data.authorityImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this

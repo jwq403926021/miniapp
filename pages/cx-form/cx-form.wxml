@@ -143,7 +143,7 @@
                 <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                    <van-icon wx:if="{{id == null && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                    <van-icon wx:if="{{id == null && role == 1}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                   </view>
                 </block>
               </view>
@@ -193,7 +193,7 @@
                   <block wx:for="{{assessImageFiles}}" wx:key="{{index}}">
                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewAssessImage" id="{{item.path}}">
                       <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                      <van-icon wx:if="{{status == '51'}}" catchtap="removeAssessImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                      <van-icon wx:if="{{status == '51'}}" catchtap="removeAssessImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                     </view>
                   </block>
                 </view>

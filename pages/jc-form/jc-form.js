@@ -1,5 +1,6 @@
 //获取应用实例
 import util from "../../utils/util";
+import common from "../../utils/common";
 const app = getApp()
 
 Page({
@@ -50,7 +51,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
       })
       this.initDataById(routeParams.id)
     }
@@ -284,6 +285,10 @@ Page({
     this.setData({
       informationImageFiles: _this.data.informationImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewAuthorityImage: function (e) {
     wx.previewImage({
@@ -326,6 +331,10 @@ Page({
     this.setData({
       authorityImageFiles: _this.data.authorityImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewCaleImage: function (e) {
     wx.previewImage({
@@ -368,6 +377,10 @@ Page({
     this.setData({
       caleImageFiles: _this.data.caleImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   previewDamageImage: function (e) {
     wx.previewImage({
@@ -410,6 +423,10 @@ Page({
     this.setData({
       damageImageFiles: _this.data.damageImageFiles
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this

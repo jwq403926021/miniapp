@@ -79,7 +79,7 @@
                                 <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(id == null || status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{(id == null || status == 12) && role == 1}}" data-id="{{item.id}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
@@ -147,7 +147,7 @@
                                         <block wx:for="{{damageImageFiles}}" wx:key="{{index}}">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewDamageImage" id="{{item.path}}">
                                                 <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeDamageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeDamageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
                                         </block>
                                     </view>
@@ -217,7 +217,7 @@
                                             <block wx:for="{{authorityImageFiles}}" wx:key="{{index}}">
                                                 <view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item.path}}">
                                                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeAuthorityImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeAuthorityImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                                 </view>
                                             </block>
                                         </view>
@@ -242,7 +242,7 @@
                                             <block wx:for="{{caleImageFiles}}" wx:key="{{index}}">
                                                 <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item.path}}">
                                                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeCaleImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                    <van-icon wx:if="{{role == 12 && status == 40}}" catchtap="removeCaleImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                                 </view>
                                             </block>
                                         </view>

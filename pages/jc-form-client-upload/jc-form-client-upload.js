@@ -1,4 +1,5 @@
 //获取应用实例
+import common from "../../utils/common";
 const app = getApp()
 
 Page({
@@ -39,7 +40,7 @@ Page({
       'familyImages.bank': familyImages.bank,
       'familyImages.register': familyImages.register,
       'familyImages.source': familyImages.source,
-      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
+      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
     })
   },
   getImageTypeNumber (str) {
@@ -130,6 +131,10 @@ Page({
     this.setData({
       [`familyImages.${imageTypeStr}`]: _this.data.familyImages[imageTypeStr]
     })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
     console.log('after remove image', _this.data.familyImages)
     wx.setStorageSync('familyImages', _this.data.familyImages)
   },
