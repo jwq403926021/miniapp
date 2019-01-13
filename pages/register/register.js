@@ -472,11 +472,12 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
+        wx.hideLoading()
         _this.setData({
           isModifyPhone: false,
           'hasBindPhone': true,
           "registeInfo.companyNameCode": res.userInfo.companyNameCode,
-          "registeInfo.companyName": res.userInfo.companyName || res.userInfo.sysCompanyEntity.companyName,
+          "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : '',
           "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.name": res.userInfo.name,
