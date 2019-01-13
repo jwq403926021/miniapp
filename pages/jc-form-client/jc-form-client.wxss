@@ -24,10 +24,35 @@
   color:#0bb20c;
   font-weight: bold;
 }
-.client-list li.add-button{
-  border-right: none;
+.add-client-button{
+  font-size: 24px;
+  font-weight: bold;
+  border: none!important;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
-.add-button-icon{
-  font-size:20px;
-  vertical-align:middle;
+.remove-client-button{
+  font-weight: bold;
+  font-size: 24px;
+  border: none!important;
+}
+.add-client-button span{
+  width: 80px;
+  height:30px;
+  display:block;
+  margin:0 auto;
+  border-radius:5px;
+  line-height:30px;
+  color:#fff;
+  background:#016eff;
+}
+.remove-client-button span{
+  width: 80px;
+  height:30px;
+  display:block;
+  margin:0 auto;
+  border-radius:5px;
+  line-height:30px;
+  color:#fff;
+  background: #ff313d;
 }

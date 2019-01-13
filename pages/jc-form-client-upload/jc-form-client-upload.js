@@ -10,10 +10,10 @@ Page({
       cloths: [],// 衣物床品
       furniture: [],// 家具及其他生活用品
       overall : [],// 全景
-      certificate: [],// 房产证
+      certificate: [],// 房产证、楼号、门牌号
       identification: [],// 省份证
       bank: [],// 银行卡
-      register: [],// 户口本
+      register: [],// 户口本、关系证明
       source: []// 事故源
     },
     clientIndex: 0,

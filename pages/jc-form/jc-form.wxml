@@ -132,7 +132,7 @@
                 </view>
             </view>
 
-            <button wx:if="{{(role == 15 || role == 12 || role == 1) && status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
+            <button style="width:80%" wx:if="{{(role == 15 || role == 12 || role == 1) && status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
                 {{((role == 15 && status == 30) || (role == 12 && status == 40)) ? '完善图片信息' : '图片信息'}}
             </button>
 

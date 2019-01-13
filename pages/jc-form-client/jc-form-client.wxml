@@ -8,10 +8,15 @@
             <van-row>
                 <van-col span="6">
                     <ul class="client-list">
-                        <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{index}}" data-index="{{index}}" class="{{ currentIndex == index ? 'active' : ''}}">
-                            {{index == 0 ? '客户' : ('第三者' + index)}}
+                        <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{item}}" data-index="{{item}}" class="{{ currentIndex == item ? 'active' : ''}}">
+                            {{item == 0 ? '客户' : ('第三者' + index)}}
                         </li>
-                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" class="add-button" bindtap="addClient"><van-icon class="add-button-icon" name="add" /></li>
+                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" class="add-client-button" bindtap="addClient">
+                            <span>添加</span>
+                        </li>
+                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40)}}" class="remove-client-button" bindtap="removeClient">
+                            <span>删除</span>
+                        </li>
                     </ul>
                 </van-col>
                 <van-col span="18">

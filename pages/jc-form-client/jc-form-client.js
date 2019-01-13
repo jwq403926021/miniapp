@@ -1,4 +1,5 @@
 //获取应用实例
+import common from "../../utils/common";
 const app = getApp()
 
 Page({
@@ -41,12 +42,45 @@ Page({
   },
   addClient () {
     let arr = this.data.clientIndexArr
-    let lastIndex = arr.length
-    arr.push(arr.length)
+    let lastIndex = parseInt(arr[arr.length - 1]) + 1
+    arr.push(lastIndex)
     this.setData({
       clientIndexArr: arr,
       currentIndex: lastIndex
     })
+  },
+  removeClient () {
+    let arr = this.data.clientIndexArr
+    let index = arr.findIndex(item => {
+      return item == this.data.currentIndex
+    })
+    if (index == 0) {
+      wx.showToast({
+        mask: true,
+        title: '无法删除客户项',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      let clientIndex = arr.splice(index, 1)[0]
+      let familyImages = wx.getStorageSync('familyImages')
+      for(let key in familyImages) {
+        familyImages[key].forEach((item,index) => {
+          if (item.clientIndex == clientIndex) {
+            familyImages[key].splice(index, 1)
+            if (item.id != null) {
+              common.deleteImage(item.id)
+            }
+          }
+        })
+      }
+      wx.setStorageSync('familyImages', familyImages)
+      console.log('clientIndex::', clientIndex, familyImages)
+      this.setData({
+        clientIndexArr: arr,
+        currentIndex: 0
+      })
+    }
   },
   setCurrentIndex (e) {
     this.setData({

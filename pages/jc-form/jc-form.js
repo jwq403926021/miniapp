@@ -23,9 +23,9 @@ Page({
       '40': '待合作商完善', // 也是驳回状态
       '41': '合作商已完善,待报价中心报价',
       '42': '已报价,需协商',
-      '50': '已报价,待财务处理'
-      // '11': '已办结',
-      // '99': '处理中'
+      '50': '已报价,待财务处理',
+      '11': '已办结',
+      '99': '处理中'
     },
     taskData: {
       "cityId": '',
@@ -79,10 +79,10 @@ Page({
         cloths: [],// 衣物床品 2003
         furniture: [],// 家具及其他生活用品 2004
         overall : [],// 全景 2005
-        certificate: [],// 房产证 2006
+        certificate: [],// 房产证、楼号、门牌号 2006
         identification: [],// 省份证 2007
         bank: [],// 银行卡 2008
-        register: [],// 户口本 2009
+        register: [],// 户口本、关系证明 2009
         source: []// 事故源 2010
       }
       console.log('##', res)
@@ -1040,30 +1040,30 @@ Page({
       "investigatorText": data.investigatorText
     }
 
-    if (taskData.customerName == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写客户姓名',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
+    // if (taskData.customerName == '') {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '请填写客户姓名',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return
+    // }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
-    if (!isVaidcustomerPhone) {
-      return
-    }
+    // let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+    // if (!isVaidcustomerPhone) {
+    //   return
+    // }
 
-    if (taskData.investigatorText == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写查勘员备注',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
+    // if (taskData.investigatorText == '') {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '请填写查勘员备注',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return
+    // }
 
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
@@ -1140,7 +1140,7 @@ Page({
         result = '全景'
         break
       case 'certificate':
-        result = '房产证'
+        result = '房产证、楼号、门牌号'
         break
       case 'identification':
         result = '身份证'
@@ -1149,7 +1149,7 @@ Page({
         result = '银行卡'
         break
       case 'register':
-        result = '户口本'
+        result = '户口本、关系证明'
         break
       case 'source':
         result = '事故源'

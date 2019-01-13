@@ -4,7 +4,6 @@
 <!--<view bindtap="goToClientUpload" data-type="3" class="btn">细节</view>-->
 <view class="page">
     <view class="page__bd">
-        {{role}} | {{status}}
         <!-- 细节 start -->
         <block wx:if="{{type == 3}}">
             <view class="weui-cells__title">房屋及装修</view>
@@ -143,7 +142,7 @@
 
         <!-- 资料 start -->
         <block wx:if="{{type == 0}}">
-            <view class="weui-cells__title">房产证</view>
+            <view class="weui-cells__title">房产证、楼号、门牌号</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
@@ -218,7 +217,7 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cells__title">户口本</view>
+            <view class="weui-cells__title">户口本、关系证明</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">

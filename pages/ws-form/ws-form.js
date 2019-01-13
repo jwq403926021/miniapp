@@ -693,33 +693,45 @@ Page({
         liveImageFiles.push({path: item.path, type: 2})
       }
     })
-    console.log('liveImageFiles:', liveImageFiles)
+
     if (this.data.modifyId) {
       taskData.id = _this.data.modifyId
       taskData.liveImage = liveImageFiles.length > 0 ? 1 : 0
       taskData.damageId = _this.data.id
     }
 
-    if (taskData.damagedUser == '' || taskData.customerUser == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写受损人姓名以及客户姓名',
-        icon: 'none',
-        duration: 2000
-      })
-      return
+    // if (taskData.damagedUser == '' || taskData.customerUser == '') {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '请填写受损人姓名以及客户姓名',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return
+    // }
+
+    if (taskData.customerPhone != ''){
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+      if (!isVaidcustomerPhone) {
+        return
+      }
     }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
-    if (!isVaidcustomerPhone) {
-      return
-    }
-
-    if (taskData.damagedPhone !== ''){
+    if(taskData.damagedPhone != '') {
       let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的受损人手机号')
       if (!isVaiddamagedPhone) {
         return
       }
+    }
+
+    if (taskData.damagedPhone == '' && taskData.customerPhone == '' && informationImageFiles.length == 0){
+      wx.showToast({
+        mask: true,
+        title: '请填写客户手机、受损人手机、报案图片任选一项',
+        icon: 'none',
+        duration: 2000
+      })
+      return
     }
 
     if (taskData.insuranceType == '1') {
@@ -728,15 +740,15 @@ Page({
         return
       }
     }
-    if (taskData.information == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写报案信息',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
+    // if (taskData.information == '') {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '请填写报案信息',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return
+    // }
     console.log('工单新建 改善参数：', taskData)
     wx.showLoading({
       mask: true,
