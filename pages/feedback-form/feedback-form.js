@@ -6,16 +6,9 @@ const app = getApp()
 
 Page({
   data: {
-    orderId: null,
     id: null,
     role: 1,
     show: false,
-    areaList: {},
-    region: '',
-    regionLabel: '',
-    repairPlantValue: '',
-    repairPlantLabel: '',
-    repairPlantList: [],
     status: '',
     statusMap: {
       '12': '暂存',
@@ -25,27 +18,15 @@ Page({
       '99': '处理中'
     },
     taskData: {
-      "provinceCode": "",
-      "areaCode": "",
-      "cityCode": "",
-      "customMobile": '',
-      "customName": "",
-      "information": "",
-      "offer": "",
-      "live": "",
-      "insurerUserMobile": "",
-      "dredgeUserMobile": ""
-    },
-    informationImageFiles: [],
-    liveImageFiles: []
+      "title": "",
+      "content": "",
+      "feedbackType": "1"
+    }
   },
   onLoad: function (routeParams ) {
-    console.log('开锁 工单号：->', routeParams)
-    console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        orderId: routeParams.orderId,
         role: app.globalData.currentRegisterInfo.role// app.globalData.currentRegisterInfo.role//  TODO::: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
@@ -61,19 +42,9 @@ Page({
       }
     }, function (err, res) {
       _this.setData({
-        'informationImageFiles': informationImageFiles,
-        'liveImageFiles': liveImageFiles,
-        'status': data.status,
-        'taskData.areaCode': data.areaCode,
-        'taskData.cityCode': data.cityCode,
-        'taskData.provinceCode': data.provinceCode,
-        "taskData.customMobile": data.customMobile,
-        "taskData.customName": data.customName,
-        "taskData.information": data.information,
-        "taskData.offer": data.offer,
-        "taskData.live": data.live,
-        "taskData.insurerUserMobile": data.insurerUserMobile,
-        "taskData.dredgeUserMobile": data.dredgeUserMobile
+        "title": "",
+        "content": "",
+        "feedbackType": ""
       })
     })
   },
@@ -99,35 +70,49 @@ Page({
       phoneNumber: phone
     })
   },
+  onTypeChange (event) {
+    this.setData({
+      'taskData.feedbackType': event.detail
+    });
+  },
   commitSubmit (e) {
-    let data = this.data.taskData
+    let taskData = this.data.taskData
     let _this = this
 
-    if (taskData.customName == '') {
+    if (taskData.title == '') {
       wx.showToast({
         mask: true,
-        title: '请填写客户姓名',
+        title: '请填写标题',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
-    if (!isVaidcustomerPhone) {
+    if (taskData.content == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写内容',
+        icon: 'none',
+        duration: 2000
+      })
       return
     }
+
+    // let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
+    // if (!isVaidcustomerPhone) {
+    //   return
+    // }
 
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: '/app/dredge/commit',
+      path: '/app/feedbacks',
       method: 'POST',
       data: taskData
     }, function (err, res) {
-      console.log('工单新建：', res)
       if (res.code == 0) {
         wx.showToast({
           mask: true,
@@ -136,7 +121,7 @@ Page({
           duration: 1000,
           success () {
             setTimeout(() => {
-              if (_this.data.modifyId){
+              if (_this.data.id){
                 _this.goToList()
               }else{
                 wx.switchTab({

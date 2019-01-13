@@ -82,11 +82,15 @@ Page({
       }
     })
     util.request({
-      path: '/app/lock/list',
-      method: 'GET'
+      path: '/app/feedbacks',
+      method: 'GET',
+      data: {
+        page: 1,
+        size: 1000
+      }
     }, function (err, res) {
       _this.setData({
-        dataList: []//res.data
+        dataList: res.data.records
       })
     })
   },
@@ -94,9 +98,9 @@ Page({
 
   },
   goToHandleTask (event) {
-    wx.navigateTo({
-      url: '../lock-form/lock-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
-    })
+    // wx.navigateTo({
+    //   url: '../lock-form/lock-form?id=' + event.currentTarget.dataset.id
+    // })
   },
   onCancel () {
     this.setData({
