@@ -20,7 +20,7 @@
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
           <view>客户：{{item.customerUser || '-'}}</view>
-          <view>创建时间：{{item.createTime}}</view>
+          <view>创建时间：{{item.createTime || '-'}}</view>
         </view>
       </view>
     </view>
