@@ -8,7 +8,7 @@
   <view wx:else class="index-btn-wrap">
     <view class="new-btn fl" bindtap="goToWsForm" wx:if="{{role == 1}}">
       <view>
-        <image class="category-icon" src="../../asset/image/ee.png" mode="aspectFill"/>
+        <text class="iconfont icon-sunhuai myicon"></text>
       </view>
       <view>
         物损
@@ -16,7 +16,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
       <view>
-        <image class="category-icon" src="../../asset/image/house.png" mode="aspectFill"/>
+        <text class="iconfont icon-fangwuxinxi myicon"></text>
       </view>
       <view>
         家财险
@@ -24,7 +24,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">
       <view>
-        <image class="category-icon" src="../../asset/image/car.png" mode="aspectFill"/>
+        <text class="iconfont icon-qiche301 myicon"></text>
       </view>
       <view>
         车险
@@ -32,7 +32,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToKsForm" wx:if="{{role == 1}}">
       <view>
-        <image class="category-icon" src="../../asset/image/lock.png" mode="aspectFill"/>
+        <text class="iconfont icon-kaisuo myicon"></text>
       </view>
       <view>
         开锁
@@ -40,7 +40,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToGdForm" wx:if="{{role == 1}}">
       <view>
-        <image class="category-icon" src="../../asset/image/pipe.png" mode="aspectFill"/>
+        <text class="iconfont icon-channel myicon"></text>
       </view>
       <view>
         管道疏通
@@ -48,7 +48,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToFeedback">
         <view>
-          <image class="category-icon" src="../../asset/image/feedback.png" mode="aspectFill"/>
+          <text class="iconfont icon-yijianfankui myicon"></text>
         </view>
         <view>
             意见反馈
