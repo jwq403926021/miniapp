@@ -19,7 +19,7 @@
 
     <!--</van-search>-->
   <!--</view>-->
-  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-orderid="{{item.id}}" bindtap="goToHandleTask">
+  <view class="weui-panel weui-panel_access" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-orderid="{{item.id}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text">反馈用户：{{item.name}}</view>
