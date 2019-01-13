@@ -8,7 +8,7 @@ Page({
     show: false,
     areaList: location,
     isShowStatusFilter: false,
-    statusFilter: '0',
+    statusFilter: '-1',
     isShowTypeFilter: false,
     typeFilter: '0',
     isShowDateFilter: false,
@@ -17,6 +17,7 @@ Page({
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     statusMap: {
+      '-1': '状态不限',
       '1': '查勘员已派送',
       '2': '待查勘员完善',
       '3': '查勘员已完善',
@@ -73,11 +74,11 @@ Page({
   },
   statusFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
       statusFilter: value,
       isShowStatusFilter: false
     });
+    this.getInitData()
   },
   typeFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
@@ -104,8 +105,13 @@ Page({
     let _this = this
     let filter = {
       page: 1,
-      size: 1000,
-      date: this.data.dateFilter
+      size: 1000
+    }
+    if (this.data.statusFilter != '-1') {
+      filter.status = this.data.statusFilter
+    }
+    if (this.data.dateFilter != null || this.data.dateFilter != ''){
+      filter.datetime = this.data.dateFilter
     }
     util.request({
       path: '/app/damage/damageList',
