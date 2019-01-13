@@ -1,6 +1,6 @@
 <view wx:if="{{isLogin}}" class="page">
   <view class="welcome">
-    程序试运行，欢迎测试
+    汇报价，欢迎您
   </view>
   <view wx:if="{{role == 21}}" style="text-align: center; font-size: 18px; line-height: 100px;">
     您好：服务者，请您联系管理维护您的角色

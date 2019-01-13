@@ -14,6 +14,7 @@ Page({
     isShowDateFilter: false,
     dateFilter: '0',
     dataList: [],
+    dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     statusMap: {
       '12': '暂存',
@@ -88,11 +89,54 @@ Page({
   },
   dateFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
-      statusFilter: value,
+      dateFilter: value,
       isShowDateFilter: false
     });
+    this.getInitData()
+  },
+  getInitData () {
+    let _this = this
+    let todayDate = +new Date()
+    let tempDate
+    let start
+    let end = todayDate
+    let onDay = 1000 * 60 * 60 * 24
+    switch (this.data.dateFilter) {
+      case '0':
+        start = null
+        end = null
+        break
+      case '1':
+        tempDate = new Date(todayDate - onDay * 3)
+        start = (+new Date(`${tempDate.getFullYear()}/${tempDate.getMonth()+1}/${tempDate.getDate()} 00:00:00`))
+        break
+      case '2':
+        tempDate = new Date(todayDate - onDay * 7)
+        start = (+new Date(`${tempDate.getFullYear()}/${tempDate.getMonth()+1}/${tempDate.getDate()} 00:00:00`))
+        break
+      case '3':
+        tempDate = new Date(todayDate - onDay * 30)
+        start = (+new Date(`${tempDate.getFullYear()}/${tempDate.getMonth()+1}/${tempDate.getDate()} 00:00:00`))
+        break
+    }
+    let filter = {
+      page: 1,
+      size: 1000
+    }
+    if (start && end) {
+      filter.start = start
+      filter.end = end
+    }
+    util.request({
+      path: '/app/family/insured/orders',
+      method: 'GET',
+      data: filter
+    }, function (err, res) {
+      _this.setData({
+        dataList: res.data.records
+      })
+    })
   },
   openLocation () {
     this.setData({
@@ -114,7 +158,7 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 500
+        size: 1000
       }
     }, function (err, res) {
       _this.setData({

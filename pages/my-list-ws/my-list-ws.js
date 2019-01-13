@@ -14,6 +14,7 @@ Page({
     isShowDateFilter: false,
     dateFilter: '0',
     dataList: [],
+    dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     statusMap: {
       '1': '查勘员已派送',
@@ -88,15 +89,32 @@ Page({
   },
   dateFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
-      statusFilter: value,
+      dateFilter: value,
       isShowDateFilter: false
     });
+    this.getInitData()
   },
   openLocation () {
     this.setData({
       show: !this.show
+    })
+  },
+  getInitData () {
+    let _this = this
+    let filter = {
+      page: 1,
+      size: 1000,
+      date: this.data.dateFilter
+    }
+    util.request({
+      path: '/app/damage/damageList',
+      method: 'GET',
+      data: filter
+    }, function (err, res) {
+      _this.setData({
+        dataList: res.page.list
+      })
     })
   },
   onLoad: function () {
@@ -114,7 +132,7 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 500
+        size: 1000
       }
     }, function (err, res) {
       _this.setData({
