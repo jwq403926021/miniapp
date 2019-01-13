@@ -62,15 +62,16 @@ Page({
     })
   },
   onPullDownRefresh () {
-    util.request({
-      path: '/app/lock/list',
-      method: 'GET'
-    }, function (err, res) {
-      wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.data
-      })
-    })
+    // let _this = thisl
+    // util.request({
+    //   path: '/app/lock/list',
+    //   method: 'GET'
+    // }, function (err, res) {
+    //   wx.stopPullDownRefresh()
+    //   _this.setData({
+    //     dataList: res.data
+    //   })
+    // })
   },
   onLoad: function () {
     let _this = this
