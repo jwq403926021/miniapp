@@ -8,7 +8,7 @@ Page({
     show: false,
     areaList: location,
     isShowStatusFilter: false,
-    statusFilter: '0',
+    statusFilter: '-1',
     isShowTypeFilter: false,
     typeFilter: '0',
     isShowDateFilter: false,
@@ -17,6 +17,7 @@ Page({
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     statusMap: {
+      '-1': '状态不限',
       '1': '查勘员已派送',
       '2': '待查勘员完善',
       '3': '查勘员已完善',
@@ -73,17 +74,16 @@ Page({
   },
   statusFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
       statusFilter: value,
       isShowStatusFilter: false
     });
+    this.getInitData()
   },
   typeFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
-      statusFilter: value,
+      typeFilter: value,
       isShowTypeFilter: false
     });
   },
@@ -105,7 +105,10 @@ Page({
     let filter = {
       page: 1,
       size: 1000,
-      date: this.data.dateFilter
+      datetime: this.data.dateFilter
+    }
+    if (this.data.statusFilter != '-1') {
+      filter.status = this.data.statusFilter
     }
     util.request({
       path: '/app/damage/damageList',
@@ -113,7 +116,7 @@ Page({
       data: filter
     }, function (err, res) {
       _this.setData({
-        dataList: res.page.list
+        dataList: res.data
       })
     })
   },
@@ -132,11 +135,12 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 1000
+        size: 1000,
+        datetime: '0'
       }
     }, function (err, res) {
       _this.setData({
-        dataList: res.page.list
+        dataList: res.data
       })
     })
   },
