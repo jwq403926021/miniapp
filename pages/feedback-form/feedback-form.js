@@ -121,13 +121,7 @@ Page({
           duration: 1000,
           success () {
             setTimeout(() => {
-              if (_this.data.id){
-                _this.goToList()
-              }else{
-                wx.switchTab({
-                  url: '../index/index'
-                })
-              }
+              _this.goToList()
             }, 1000)
           }
         })
@@ -154,7 +148,7 @@ Page({
     return true
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-feedback/my-list-feedback',
       success: function (e) {
         var page = getCurrentPages().pop();
