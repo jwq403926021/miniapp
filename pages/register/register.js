@@ -320,7 +320,7 @@ Page({
           "registeInfo.mobileCode": '',
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.roleName": res.userInfo.roleName,
-          "registeInfo.companyName": res.userInfo.companyName ||res.userInfo.sysCompanyEntity.companyName
+          "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : ''
         })
           wx.setStorageSync('status', 1)
           wx.showToast({
