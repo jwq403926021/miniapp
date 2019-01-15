@@ -27,6 +27,7 @@ function request(param, cb) {
                 icon: 'none',
                 duration: 2000
               })
+              reject(res.data)
             }
             resolve(res.data)
           } else {
