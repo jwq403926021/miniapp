@@ -228,7 +228,7 @@ Page({
       method: 'GET',
       data: {
         role: 12,
-        townCode: this.data.region
+        townCode: (this.data.region.slice(0,4) + '00')
       }
     }, function (err, res) {
       _this.workListSource = res.data
