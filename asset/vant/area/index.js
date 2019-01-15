@@ -136,11 +136,13 @@ VantComponent({
       if (city.length && code.slice(2, 4) === '00') {
         code = city[0].code;
       }
-
-      this.setData({
-        'columns[2]': this.getList('county', code.slice(0, 4)),
-        pickerValue: [this.getIndex('province', code), this.getIndex('city', code), this.getIndex('county', code)]
-      });
+      let _list = this.getList('county', code.slice(0, 4))
+      if (_list.length > 0){
+        this.setData({
+          'columns[2]': _list,
+          pickerValue: [this.getIndex('province', code), this.getIndex('city', code), this.getIndex('county', code)]
+        });
+      }
     },
     getValues: function getValues() {
       var _this$data3 = this.data,
