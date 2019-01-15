@@ -767,7 +767,7 @@ Page({
         } else {
           wx.showToast({
             mask: true,
-            title: isSave ? '修改成功' : '创建成功',
+            title: isSave ? '暂存成功' : '创建成功',
             icon: 'success',
             duration: 1000,
             success () {
@@ -780,7 +780,7 @@ Page({
       } else {
         wx.showToast({
           mask: true,
-          title: isSave ? '修改失败' : '创建失败',
+          title: isSave ? '暂存失败' : '创建失败',
           icon: 'none',
           duration: 1000
         })
