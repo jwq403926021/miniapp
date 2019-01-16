@@ -14,7 +14,7 @@ Page({
     regionLabel: '',
     status: '',
     statusMap: {
-      '12': '暂存',
+      '29': '暂存',
       '20': '待客服人员处理',
       '30': '待被保险人完善', // 也是驳回状态
       '31': '被保险人已完善,待报价中心报价',
@@ -165,7 +165,7 @@ Page({
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
-        region: data.areaCountryId
+        region: data.areaCountryId + ''
       })
       _this.getRegionLabel()
     })
@@ -1036,12 +1036,20 @@ Page({
     let _this = this
     let isSave = e.currentTarget.dataset.save
     let taskData = {
+      "active": 'submit',
       "cityId": data.cityId,
       "countryId": data.countryId,
       "provinceId": data.provinceId,
       "customerName": data.customerName,
       "customerPhone": data.customerPhone,
       "investigatorText": data.investigatorText
+    }
+    if (isSave) {
+      taskData.active = 'save'
+    }
+
+    if (this.data.flowId) {
+      taskData.flowId = this.data.flowId
     }
 
     // if (taskData.customerName == '') {
@@ -1099,7 +1107,7 @@ Page({
         } else {
           wx.showToast({
             mask: true,
-            title: '创建成功',
+            title: isSave ? '暂存成功' : '创建成功',
             icon: 'success',
             duration: 1000,
             success () {
@@ -1112,7 +1120,7 @@ Page({
       } else {
         wx.showToast({
           mask: true,
-          title: '创建失败',
+          title: isSave ? '暂存失败' : '创建失败',
           icon: 'none',
           duration: 1000
         })
