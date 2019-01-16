@@ -564,7 +564,7 @@ Page({
     return true
   },
   goToList () {
-    wx.redirectTo({
+    wx.navigateBack({
       url: '../my-list-pipe/my-list-pipe',
       success: function (e) {
         var page = getCurrentPages().pop();
