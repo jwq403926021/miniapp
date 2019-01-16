@@ -106,31 +106,61 @@
         </view>
 
         <block wx:if="{{id != null}}">
-            <view class="weui-cells__title"></view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员姓名</view>
+            <block wx:if="{{role != 1}}">
+                <view class="weui-cells__title"></view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">查勘员姓名</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{taskData.investigatorName || '-'}}</text>
+                        </view>
                     </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.investigatorName || '-'}}</text>
-                    </view>
-                </view>
 
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员手机</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">查勘员手机</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>
+                        </view>
+                        <view class="weui-cell__ft">
+                            <view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">
+                                <van-icon name="phone"></van-icon>
+                            </view>
                         </view>
                     </view>
                 </view>
-            </view>
+            </block>
+
+            <block wx:if="{{role != 10 && role != 11 && role != 12}}">
+                <view class="weui-cells__title"></view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">施工方姓名</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{taskData.workerName || '-'}}</text>
+                        </view>
+                    </view>
+
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">施工方手机</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>
+                        </view>
+                        <view class="weui-cell__ft">
+                            <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">
+                                <van-icon name="phone"></van-icon>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
 
             <button style="width:80%" wx:if="{{status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
                 {{((role == 15 && status == 30) || (role == 12 && status == 40)) ? '完善图片信息' : '图片信息'}}
