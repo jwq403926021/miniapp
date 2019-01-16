@@ -309,4 +309,11 @@
             <button type="primary" bindtap="consultAgree">协商同意提交</button> <!--协商同意 完善 -->
         </view>
     </view>
+    <van-popup
+            show="{{ show }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
 </view>
