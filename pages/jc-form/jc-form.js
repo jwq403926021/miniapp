@@ -655,10 +655,11 @@ Page({
       }
     })
   },
-  partnerCommit () {
+  partnerCommit (e) {
     let _this = this
     let taskData = this.data.taskData
     let familyImagesList = []
+    let isSave = e.currentTarget.dataset.save
     console.log('合作商 完善参数：', taskData)
 
     let familyImages = wx.getStorageSync('familyImages')
@@ -667,13 +668,15 @@ Page({
     if (result.flag) {
       familyImagesList = result.data
     } else {
-      wx.showToast({
-        mask: true,
-        title: result.data,
-        icon: 'none',
-        duration: 1000
-      })
-      return false
+      if (!isSave) {
+        wx.showToast({
+          mask: true,
+          title: result.data,
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
     }
 
     let authorityImageFiles = []
@@ -705,43 +708,45 @@ Page({
     //   return false
     // }
 
-    if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
-      wx.showToast({
-        mask: true,
-        title: '施工方式不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
+    if (!isSave) {
+      if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
+        wx.showToast({
+          mask: true,
+          title: '施工方式不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
 
-    if (_this.data.taskData.constructionMethod == 1) {
-      if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
-        wx.showToast({
-          mask: true,
-          title: '押金金额不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
-        wx.showToast({
-          mask: true,
-          title: '银行交易单号不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (authorityImageFiles.length == 0) {
-        wx.showToast({
-          mask: true,
-          title: '押金图片不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
+      if (_this.data.taskData.constructionMethod == 1) {
+        if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
+          wx.showToast({
+            mask: true,
+            title: '押金金额不能为空',
+            icon: 'none',
+            duration: 1000
+          })
+          return false
+        }
+        if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
+          wx.showToast({
+            mask: true,
+            title: '银行交易单号不能为空',
+            icon: 'none',
+            duration: 1000
+          })
+          return false
+        }
+        if (authorityImageFiles.length == 0) {
+          wx.showToast({
+            mask: true,
+            title: '押金图片不能为空',
+            icon: 'none',
+            duration: 1000
+          })
+          return false
+        }
       }
     }
 
@@ -762,7 +767,7 @@ Page({
       path: `/app/family/partner/orders`,
       method: 'PUT',
       data: {
-        "active": 'site_perfect',
+        "active": isSave ? 'save' : 'site_perfect',
         "bankTransactionId": _this.data.taskData.bankTransactionId,
         "constructionMethod": _this.data.taskData.constructionMethod,
         "deposit": _this.data.taskData.deposit,
@@ -781,7 +786,7 @@ Page({
         } else {
           wx.showToast({
             mask: true,
-            title: '提交成功',
+            title: isSave ? '暂存成功' : '提交成功',
             icon: 'success',
             duration: 1000,
             success () {
@@ -794,7 +799,7 @@ Page({
       } else {
         wx.showToast({
           mask: true,
-          title: '提交失败',
+          title: isSave ? '暂存失败' : '提交失败',
           icon: 'none',
           duration: 1000
         })
@@ -1072,7 +1077,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/family/saveBySurvey' : '/app/family/orders',
+      path: '/app/family/orders',
       method: 'POST',
       data: taskData
     }, function (err, res) {
