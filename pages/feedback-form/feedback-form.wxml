@@ -9,7 +9,7 @@
             <!--<view class="weui-label">反馈状态</view>-->
           <!--</view>-->
           <!--<view class="weui-cell__bd">-->
-            <!--<text class="weui-input readonly">{{statusMap[status]}} | {{status}}</text>-->
+            <!--<text class="weui-input readonly">{{statusMap[status]}}</text>-->
           <!--</view>-->
         <!--</view>-->
       <!--</block>-->
