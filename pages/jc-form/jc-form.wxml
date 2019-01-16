@@ -96,7 +96,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(id == null || status == 12) && role == 1}}">
-                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
                               value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 12}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 12}}">
