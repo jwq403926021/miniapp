@@ -164,7 +164,8 @@ Page({
         "taskData.deposit": data.deposit || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
-        authorityImageFiles: authorityImageFiles
+        authorityImageFiles: authorityImageFiles,
+        region: data.areaCountryId
       })
       _this.getRegionLabel()
     })
