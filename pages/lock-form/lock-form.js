@@ -562,7 +562,7 @@ Page({
     return true
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-lock/my-list-lock',
       success: function (e) {
         var page = getCurrentPages().pop();

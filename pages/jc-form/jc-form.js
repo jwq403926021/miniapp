@@ -502,7 +502,7 @@ Page({
     return true
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-jc/my-list-jc',
       success: function (e) {
         var page = getCurrentPages().pop();

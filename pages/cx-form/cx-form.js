@@ -663,7 +663,7 @@ Page({
     return true
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-cx/my-list-cx',
       success: function (e) {
         var page = getCurrentPages().pop();

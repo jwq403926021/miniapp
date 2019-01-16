@@ -788,7 +788,7 @@ Page({
     })
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-ws/my-list-ws',
       success: function (e) {
         var page = getCurrentPages().pop();
