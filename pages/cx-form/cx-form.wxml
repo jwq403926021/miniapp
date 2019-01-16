@@ -123,7 +123,7 @@
           <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.remark'
                     value="{{taskData.remark}}" disabled="{{id != null}}" placeholder="请输入文本" style="height: 3.3em"/>
         </view>
-        <view class="weui-cell__bd" style="height: 3.3em" wx:if="{{id != null}}">
+        <view class="weui-cell__bd" style="min-height: 3.3em;" wx:if="{{id != null}}">
           {{taskData.remark}}
         </view>
       </view>
