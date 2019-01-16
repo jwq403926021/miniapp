@@ -2,12 +2,13 @@ var util = require('./utils/util.js')
 //app.js
 App({
   onShow: function (obj) {
-    if (this.globalData.logining == false && obj.scene != null) {
-      this.login()
-    }
+    // console.log(obj, '##')
+    // if (this.globalData.logining == false && obj.scene != null) {
+    //   this.login()
+    // }
   },
   onLaunch: function () {
-    this.globalData.logining = true
+    // this.globalData.logining = true
     this.login()
   },
   login () {
@@ -63,7 +64,7 @@ App({
     currentRegisterInfo: null,
     userInfo: null,
     status: 0,
-    token: '',
-    logining: false
+    token: ''
+    // ,logining: false
   }
 })
