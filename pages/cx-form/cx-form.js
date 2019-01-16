@@ -503,13 +503,7 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                if (_this.data.modifyId){
-                  _this.goToList()
-                }else{
-                  wx.switchTab({
-                    url: '../index/index'
-                  })
-                }
+                _this.goToList()
               }, 1000)
             }
           })
@@ -589,13 +583,7 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                if (_this.data.modifyId){
-                  _this.goToList()
-                }else{
-                  wx.switchTab({
-                    url: '../index/index'
-                  })
-                }
+                _this.goToList()
               }, 1000)
             }
           })
@@ -649,13 +637,7 @@ Page({
             success () {
               if (length == successUp) {
                 setTimeout(() => {
-                  if (that.data.modifyId){
-                    that.goToList()
-                  }else {
-                    wx.switchTab({
-                      url: '../index/index'
-                    })
-                  }
+                  that.goToList()
                 }, 1000)
               }
             }
@@ -681,7 +663,7 @@ Page({
     return true
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-cx/my-list-cx',
       success: function (e) {
         var page = getCurrentPages().pop();

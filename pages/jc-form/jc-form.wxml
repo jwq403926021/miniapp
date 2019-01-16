@@ -16,7 +16,7 @@
                         <view class="weui-label">工单状态</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{statusMap[status]}} | {{status}}</text>
+                        <text class="weui-input readonly">{{statusMap[status]}}</text>
                     </view>
                 </view>
             </block>
@@ -96,7 +96,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(id == null || status == 12) && role == 1}}">
-                    <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
                               value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 12}}" placeholder="请输入文本" style="height: 3.3em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 12}}">
@@ -132,7 +132,7 @@
                 </view>
             </view>
 
-            <button style="width:80%" wx:if="{{(role == 15 || role == 12 || role == 1) && status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
+            <button style="width:80%" wx:if="{{status != 12 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
                 {{((role == 15 && status == 30) || (role == 12 && status == 40)) ? '完善图片信息' : '图片信息'}}
             </button>
 
@@ -301,11 +301,19 @@
             <button bindtap="partnerConsultReject">沟通不接受转现场</button> <!-- 被保险人 不满意 沟通后转去现场 -->
         </view>
 
-        <view class="button-sp-area" wx:if="{{role == 12 && status == 40}}">
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 12 && status == 40}}">
             <button type="primary" bindtap="partnerCommit">提交</button> <!--施工人员完善 -->
+            <button data-save="true" bindtap="partnerCommit">暂存</button> <!--施工人员完善 -->
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && status == 42}}">
             <button type="primary" bindtap="consultAgree">协商同意提交</button> <!--协商同意 完善 -->
         </view>
     </view>
+    <van-popup
+            show="{{ show }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
 </view>

@@ -25,6 +25,7 @@
     font-size: 30px;
     color: #016eff;
     margin-right: 10px;
+    vertical-align:middle;
 }
 .icon-qiche301:before {
     content: "\e6c9";

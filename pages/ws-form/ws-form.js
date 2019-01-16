@@ -228,7 +228,7 @@ Page({
       method: 'GET',
       data: {
         role: 12,
-        townCode: this.data.region
+        townCode: (this.data.region.slice(0,4) + '00')
       }
     }, function (err, res) {
       _this.workListSource = res.data
@@ -637,13 +637,7 @@ Page({
             success () {
               if (length == successUp) {
                 setTimeout(() => {
-                  if (that.data.modifyId){
-                    that.goToList()
-                  }else {
-                    wx.switchTab({
-                      url: '../index/index'
-                    })
-                  }
+                  that.goToList()
                 }, 1000)
               }
             }
@@ -773,18 +767,12 @@ Page({
         } else {
           wx.showToast({
             mask: true,
-            title: isSave ? '修改成功' : '创建成功',
+            title: isSave ? '暂存成功' : '创建成功',
             icon: 'success',
             duration: 1000,
             success () {
               setTimeout(() => {
-                if (_this.data.modifyId){
-                  _this.goToList()
-                }else{
-                  wx.switchTab({
-                    url: '../index/index'
-                  })
-                }
+                _this.goToList()
               }, 1000)
             }
           })
@@ -792,7 +780,7 @@ Page({
       } else {
         wx.showToast({
           mask: true,
-          title: isSave ? '修改失败' : '创建失败',
+          title: isSave ? '暂存失败' : '创建失败',
           icon: 'none',
           duration: 1000
         })
@@ -800,7 +788,7 @@ Page({
     })
   },
   goToList () {
-    wx.navigateBack({
+    wx.redirectTo({
       url: '../my-list-ws/my-list-ws',
       success: function (e) {
         var page = getCurrentPages().pop();

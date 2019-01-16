@@ -9,7 +9,7 @@
             <!--<view class="weui-label">反馈状态</view>-->
           <!--</view>-->
           <!--<view class="weui-cell__bd">-->
-            <!--<text class="weui-input readonly">{{statusMap[status]}} | {{status}}</text>-->
+            <!--<text class="weui-input readonly">{{statusMap[status]}}</text>-->
           <!--</view>-->
         <!--</view>-->
       <!--</block>-->
@@ -49,7 +49,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd" wx:if="{{id == null}}">
-          <textarea class="weui-textarea" bindinput="inputgetName" data-name='taskData.content'
+          <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.content'
                     value="{{taskData.content}}" placeholder="请输入反馈内容" style="height: 3.3em"/>
         </view>
         <view class="weui-cell__bd" style="height: 3.3em; font-size: 14px;" wx:if="{{id != null}}">

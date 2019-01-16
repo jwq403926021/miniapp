@@ -82,9 +82,8 @@ Page({
   },
   typeFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
-    console.log(value)
     this.setData({
-      statusFilter: value,
+      typeFilter: value,
       isShowTypeFilter: false
     });
   },
@@ -105,13 +104,11 @@ Page({
     let _this = this
     let filter = {
       page: 1,
-      size: 1000
+      size: 1000,
+      datetime: this.data.dateFilter
     }
     if (this.data.statusFilter != '-1') {
       filter.status = this.data.statusFilter
-    }
-    if (this.data.dateFilter != null || this.data.dateFilter != ''){
-      filter.datetime = this.data.dateFilter
     }
     util.request({
       path: '/app/damage/damageList',
@@ -119,7 +116,7 @@ Page({
       data: filter
     }, function (err, res) {
       _this.setData({
-        dataList: res.page.list
+        dataList: res.data
       })
     })
   },
@@ -138,11 +135,12 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 1000
+        size: 1000,
+        datetime: '0'
       }
     }, function (err, res) {
       _this.setData({
-        dataList: res.page.list
+        dataList: res.data
       })
     })
   },
