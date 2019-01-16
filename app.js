@@ -1,8 +1,8 @@
 var util = require('./utils/util.js')
 //app.js
 App({
-  onShow: function () {
-    if (this.globalData.logining == false) {
+  onShow: function (obj) {
+    if (this.globalData.logining == false && obj.scene != null) {
       this.login()
     }
   },
