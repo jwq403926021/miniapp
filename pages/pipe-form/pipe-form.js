@@ -564,13 +564,23 @@ Page({
     return true
   },
   goToList () {
-    wx.redirectTo({
-      url: '../my-list-pipe/my-list-pipe',
-      success: function (e) {
-        var page = getCurrentPages().pop();
-        if (page == undefined || page == null) return;
-        page.onLoad();
-      }
-    })
+    let pages = getCurrentPages()
+    let length = pages.filter((item) => {
+      return item.route == 'pages/my-list-pipe/my-list-pipe'
+    }).length
+    if (length) {
+      wx.navigateBack({
+        url: '../my-list-pipe/my-list-pipe',
+        success: function (e) {
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+      })
+    } else {
+      wx.redirectTo({
+        url: '../my-list-pipe/my-list-pipe'
+      })
+    }
   }
 })

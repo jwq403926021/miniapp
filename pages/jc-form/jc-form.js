@@ -502,14 +502,24 @@ Page({
     return true
   },
   goToList () {
-    wx.redirectTo({
-      url: '../my-list-jc/my-list-jc',
-      success: function (e) {
-        var page = getCurrentPages().pop();
-        if (page == undefined || page == null) return;
-        page.onLoad();
-      }
-    })
+    let pages = getCurrentPages()
+    let length = pages.filter((item) => {
+      return item.route == 'pages/my-list-jc/my-list-jc'
+    }).length
+    if (length) {
+      wx.navigateBack({
+        url: '../my-list-jc/my-list-jc',
+        success: function (e) {
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+      })
+    } else {
+      wx.redirectTo({
+        url: '../my-list-jc/my-list-jc'
+      })
+    }
   },
   bindTapToClient (event) {
     wx.navigateTo({

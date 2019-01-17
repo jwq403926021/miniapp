@@ -788,14 +788,24 @@ Page({
     })
   },
   goToList () {
-    wx.redirectTo({
-      url: '../my-list-ws/my-list-ws',
-      success: function (e) {
-        var page = getCurrentPages().pop();
-        if (page == undefined || page == null) return;
-        page.onLoad();
-      }
-    })
+    let pages = getCurrentPages()
+    let length = pages.filter((item) => {
+      return item.route == 'pages/my-list-ws/my-list-ws'
+    }).length
+    if (length) {
+      wx.navigateBack({
+        url: '../my-list-ws/my-list-ws',
+        success: function (e) {
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+      })
+    } else {
+      wx.redirectTo({
+        url: '../my-list-ws/my-list-ws'
+      })
+    }
   },
   workHandleWS () {
     let _this = this
