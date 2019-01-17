@@ -57,7 +57,7 @@
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
-                    <view class="weui-cell__ft">
+                    <view wx:if="{{taskData.customerPhone}}" class="weui-cell__ft">
                         <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
@@ -125,7 +125,7 @@
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>
                         </view>
-                        <view class="weui-cell__ft">
+                        <view wx:if="{{taskData.investigatorPhone}}" class="weui-cell__ft">
                             <view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">
                                 <van-icon name="phone"></van-icon>
                             </view>
@@ -153,7 +153,7 @@
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>
                         </view>
-                        <view class="weui-cell__ft">
+                        <view wx:if="{{taskData.workerPhone}}" class="weui-cell__ft">
                             <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">
                                 <van-icon name="phone"></van-icon>
                             </view>

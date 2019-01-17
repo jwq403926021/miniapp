@@ -52,7 +52,7 @@
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
                  value="{{taskData.customMobile}}" placeholder="请输入客户手机"/>
         </view>
-        <view class="weui-cell__ft" wx:if="{{id != null}}">
+        <view class="weui-cell__ft" wx:if="{{id != null && taskData.customMobile}}">
           <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">
             <van-icon name="phone"></van-icon>
           </view>
@@ -169,7 +169,7 @@
           <view class="weui-cell__bd">
             <text class="weui-input readonly">{{taskData.insurerUserMobile || '-'}}</text>
           </view>
-          <view class="weui-cell__ft">
+          <view class="weui-cell__ft" wx:if="{{taskData.insurerUserMobile}}">
             <view class="field-right-btn" data-phone="{{taskData.insurerUserMobile}}" bindtap="dialPhone">
               <van-icon name="phone"></van-icon>
             </view>
@@ -182,7 +182,7 @@
           <view class="weui-cell__bd">
             <text class="weui-input readonly">{{taskData.lockUserMobile || '-'}}</text>
           </view>
-          <view class="weui-cell__ft">
+          <view class="weui-cell__ft" wx:if="{{taskData.lockUserMobile}}">
             <view class="field-right-btn" data-phone="{{taskData.lockUserMobile}}" bindtap="dialPhone">
               <van-icon name="phone"></van-icon>
             </view>
