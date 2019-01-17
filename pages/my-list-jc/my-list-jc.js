@@ -170,7 +170,7 @@ Page({
 
   },
   goToHandleTask (event) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../jc-form/jc-form?id=' + event.currentTarget.dataset.id
     })
   },

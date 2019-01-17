@@ -94,7 +94,7 @@ Page({
 
   },
   goToHandleTask (event) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../lock-form/lock-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
     })
   },

@@ -148,7 +148,7 @@ Page({
 
   },
   goToHandleTask (event) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../ws-form/ws-form?id=' + event.currentTarget.dataset.id
     })
   },

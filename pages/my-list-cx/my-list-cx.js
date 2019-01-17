@@ -82,7 +82,7 @@ Page({
 
   },
   goToHandleTask (event) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../cx-form/cx-form?id=' + event.currentTarget.dataset.id
     })
   },
