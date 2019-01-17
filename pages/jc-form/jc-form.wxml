@@ -289,11 +289,11 @@
 
 
             <block wx:if="{{(role == 15 || role == 1) && (status == 32 || status == 42 || status == 50)}}">
-                <view class="weui-cells__title">报价员提示</view>
+                <view class="weui-cells__title">报价意见</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
-                        <view class="weui-cell__bd readonly" style="color:#808080; height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 29}}">
-                            {{ '?' }}
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 29}}">
+                            {{ taskData.offerText || '-' }}
                         </view>
                     </view>
                 </view>
@@ -305,7 +305,7 @@
                             <view class="weui-label">报价金额</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{ '?' }}</text>
+                            <text class="weui-input readonly">{{ taskData.offerPrice || '-' }}</text>
                         </view>
                     </view>
                 </view>

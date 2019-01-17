@@ -40,7 +40,9 @@ Page({
       "investigatorText": '',
       "bankTransactionId": '',
       "constructionMethod": '',
-      "deposit": ''
+      "deposit": '',
+      "offerText": '',
+      "offerPrice": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
@@ -162,6 +164,8 @@ Page({
         "taskData.bankTransactionId": data.bankTransactionId,
         "taskData.constructionMethod": data.constructionMethod,
         "taskData.deposit": data.deposit || '',
+        "taskData.offerText": data.offerText || '',
+        "taskData.offerPrice": data.offerPrice || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
