@@ -885,15 +885,15 @@ Page({
       return false
     }
 
-    if (_this.data.taskData.constructionMethod == 0) {
-      wx.showToast({
-        mask: true,
-        title: '请更改施工方式为施工',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
+    // if (_this.data.taskData.constructionMethod == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '请更改施工方式为施工',
+    //     icon: 'none',
+    //     duration: 1000
+    //   })
+    //   return false
+    // }
 
     if (_this.data.taskData.constructionMethod == 1) {
       if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
