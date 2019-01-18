@@ -76,6 +76,7 @@ Page({
       _this.sourceImage = res.image
       let informationImageFiles = []
       let authorityImageFiles = []
+      let damageImageFiles = []
       let caleImageFiles = []
       let familyImages = {
         house: [],// 房屋及装修 2001
@@ -95,6 +96,10 @@ Page({
           case 1:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             informationImageFiles.push(item)
+            break
+          case 4:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            damageImageFiles.push(item)
             break
           case 5:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -169,6 +174,7 @@ Page({
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
+        damageImageFiles: damageImageFiles,
         region: data.areaCountryId + ''
       })
       _this.getRegionLabel()
@@ -685,7 +691,11 @@ Page({
     let result = this.checkUploadImages(familyImages)
     console.log('familyImages::', familyImages)
     if (result.flag) {
-      familyImagesList = result.data
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
     } else {
       if (!isSave) {
         wx.showToast({
@@ -757,7 +767,7 @@ Page({
           })
           return false
         }
-        if (authorityImageFiles.length == 0) {
+        if (_this.data.authorityImageFiles.length == 0) {
           wx.showToast({
             mask: true,
             title: '押金图片不能为空',
@@ -835,7 +845,11 @@ Page({
     let result = this.checkUploadImages(familyImages)
     console.log('familyImages::', familyImages)
     if (result.flag) {
-      familyImagesList = result.data
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
     } else {
       wx.showToast({
         mask: true,
@@ -991,7 +1005,11 @@ Page({
     let result = this.checkUploadImages(familyImages)
     console.log('familyImages::', familyImages)
     if (result.flag) {
-      familyImagesList = result.data
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
     } else {
       wx.showToast({
         mask: true,
