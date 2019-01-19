@@ -33,20 +33,7 @@ Page({
     }
   },
   onPullDownRefresh () {
-    let _this = this
-    util.request({
-      path: '/app/damage/damageList',
-      method: 'GET',
-      data: {
-        page: 1,
-        size: 500
-      }
-    }, function (err, res) {
-      wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.page.list
-      })
-    })
+    this.getInitData()
   },
   openFilterStatusPop () {
     this.setData({
@@ -110,15 +97,23 @@ Page({
     if (this.data.statusFilter != '-1') {
       filter.status = this.data.statusFilter
     }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: '/app/damage/damageList',
       method: 'GET',
       data: filter
     }, function (err, res) {
+      wx.hideLoading()
       _this.setData({
         dataList: res.data
       })
     })
+  },
+  onShow () {
+    this.getInitData()
   },
   onLoad: function () {
     let _this = this
@@ -128,20 +123,6 @@ Page({
           height: res.windowHeight
         })
       }
-    })
-
-    util.request({
-      path: '/app/damage/damageList',
-      method: 'GET',
-      data: {
-        page: 1,
-        size: 1000,
-        datetime: '0'
-      }
-    }, function (err, res) {
-      _this.setData({
-        dataList: res.data
-      })
     })
   },
   getMore () {

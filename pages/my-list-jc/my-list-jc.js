@@ -32,20 +32,7 @@ Page({
     },
   },
   onPullDownRefresh () {
-    let _this = this
-    util.request({
-      path: '/app/family/insured/orders',
-      method: 'GET',
-      data: {
-        page: 1,
-        size: 500
-      }
-    }, function (err, res) {
-      wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.data.records
-      })
-    })
+    this.getInitData()
   },
   openFilterStatusPop () {
     this.setData({
@@ -128,11 +115,16 @@ Page({
       filter.start = start
       filter.end = end
     }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: '/app/family/insured/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
+      wx.hideLoading()
       _this.setData({
         dataList: res.data.records
       })
@@ -143,6 +135,9 @@ Page({
       show: !this.show
     })
   },
+  onShow () {
+    this.getInitData()
+  },
   onLoad: function () {
     let _this = this
     wx.getSystemInfo({
@@ -151,19 +146,6 @@ Page({
           height: res.windowHeight
         })
       }
-    })
-
-    util.request({
-      path: '/app/family/insured/orders',
-      method: 'GET',
-      data: {
-        page: 1,
-        size: 1000
-      }
-    }, function (err, res) {
-      _this.setData({
-        dataList: res.data.records
-      })
     })
   },
   getMore () {

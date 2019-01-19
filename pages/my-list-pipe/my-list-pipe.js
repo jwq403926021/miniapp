@@ -54,7 +54,7 @@ Page({
       isShowFilterOne: false,
       searchStatusLabel: label
     })
-    this.onSearch()
+    this.getInitData()
   },
   openLocation () {
     this.setData({
@@ -62,15 +62,10 @@ Page({
     })
   },
   onPullDownRefresh () {
-    util.request({
-      path: '/app/dredge/list',
-      method: 'GET'
-    }, function (err, res) {
-      wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.data
-      })
-    })
+    this.getInitData()
+  },
+  onShow () {
+    this.getInitData()
   },
   onLoad: function () {
     let _this = this
@@ -80,14 +75,6 @@ Page({
           height: res.windowHeight
         })
       }
-    })
-    util.request({
-      path: '/app/dredge/list',
-      method: 'GET'
-    }, function (err, res) {
-      _this.setData({
-        dataList: res.data
-      })
     })
   },
   getMore () {
@@ -113,7 +100,7 @@ Page({
       searchKeyword: data.detail
     })
   },
-  onSearch () {
+  getInitData () {
     let _this = this
     let filter = {}
     if (this.data.searchKeyword) {
@@ -123,11 +110,16 @@ Page({
       filter.status = this.data.searchStatus
     }
     console.log(filter, this.data.searchKeyword, this.data.searchStatus)
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: '/app/dredge/list',
       method: 'GET',
       data: filter
     }, function (err, res) {
+      wx.hideLoading()
       _this.setData({
         dataList: res.data
       })

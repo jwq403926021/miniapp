@@ -41,6 +41,17 @@ Page({
     })
   },
   onPullDownRefresh () {
+    this.getInitData()
+  },
+  onShow () {
+    this.getInitData()
+  },
+  getInitData () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: '/app/autoInsurance',
       method: 'GET',
@@ -49,7 +60,7 @@ Page({
         size: 1000
       }
     }, function (err, res) {
-      wx.stopPullDownRefresh()
+      wx.hideLoading()
       _this.setData({
         dataList: res.data.records
       })
@@ -63,19 +74,6 @@ Page({
           height: res.windowHeight
         })
       }
-    })
-
-    util.request({
-      path: '/app/autoInsurance',
-      method: 'GET',
-      data: {
-        page: 1,
-        size: 1000
-      }
-    }, function (err, res) {
-      _this.setData({
-        dataList: res.data.records
-      })
     })
   },
   getMore () {

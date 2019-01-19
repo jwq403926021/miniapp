@@ -669,12 +669,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-cx/my-list-cx',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-cx/my-list-cx'
       })
     } else {
       wx.redirectTo({

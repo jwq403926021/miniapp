@@ -15,7 +15,7 @@
             use-action-slot
             custom-class="my-search"
             bind:change="searchKeywordChange">
-      <view slot="action" bind:tap="onSearch">搜索</view>
+      <view slot="action" bind:tap="getInitData">搜索</view>
 
     </van-search>
   </view>

@@ -794,12 +794,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-ws/my-list-ws',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-ws/my-list-ws'
       })
     } else {
       wx.redirectTo({

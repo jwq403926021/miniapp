@@ -154,12 +154,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-feedback/my-list-feedback',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-feedback/my-list-feedback'
       })
     } else {
       wx.redirectTo({

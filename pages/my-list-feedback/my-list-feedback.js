@@ -62,25 +62,16 @@ Page({
     })
   },
   onPullDownRefresh () {
-    // let _this = thisl
-    // util.request({
-    //   path: '/app/lock/list',
-    //   method: 'GET'
-    // }, function (err, res) {
-    //   wx.stopPullDownRefresh()
-    //   _this.setData({
-    //     dataList: res.data
-    //   })
-    // })
+    this.initData()
   },
-  onLoad: function () {
+  onShow () {
+    this.initData()
+  },
+  initData () {
     let _this = this
-    wx.getSystemInfo({
-      success: function (res) {
-        _this.setData({
-          height: res.windowHeight
-        })
-      }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
     })
     util.request({
       path: '/app/feedbacks',
@@ -90,9 +81,20 @@ Page({
         size: 1000
       }
     }, function (err, res) {
+      wx.hideLoading()
       _this.setData({
         dataList: res.data.records
       })
+    })
+  },
+  onLoad: function () {
+    let _this = this
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          height: res.windowHeight
+        })
+      }
     })
   },
   getMore () {

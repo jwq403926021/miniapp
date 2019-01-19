@@ -570,12 +570,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-pipe/my-list-pipe',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-pipe/my-list-pipe'
       })
     } else {
       wx.redirectTo({

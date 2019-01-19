@@ -568,12 +568,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-lock/my-list-lock',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-lock/my-list-lock'
       })
     } else {
       wx.redirectTo({

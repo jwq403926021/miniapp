@@ -524,12 +524,7 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-jc/my-list-jc',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
-        }
+        url: '../my-list-jc/my-list-jc'
       })
     } else {
       wx.redirectTo({
@@ -751,16 +746,24 @@ Page({
     console.log('合作商 完善参数：', taskData)
 
     let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
-    console.log('familyImages::', familyImages)
-    if (result.flag) {
+    let result
+
+    if (isSave) {
+      result = this.checkUploadImages(familyImages, true)
       result.data.map(item => {
         if (item.path.indexOf('https://') == -1){
           familyImagesList.push(item)
         }
       })
     } else {
-      if (!isSave) {
+      result = this.checkUploadImages(familyImages)
+      if (result.flag) {
+        result.data.map(item => {
+          if (item.path.indexOf('https://') == -1){
+            familyImagesList.push(item)
+          }
+        })
+      } else {
         wx.showToast({
           mask: true,
           title: result.data,
@@ -1258,7 +1261,7 @@ Page({
     }
     return result
   },
-  checkUploadImages (familyImages) {
+  checkUploadImages (familyImages, flag) {
     let clientIndexArr = []
     let familyImagesList = []
 
@@ -1269,6 +1272,12 @@ Page({
           clientIndexArr.push(parseInt(item.clientIndex))
         }
       })
+    }
+    if (flag) {
+      return {
+        flag: true,
+        data: familyImagesList
+      }
     }
     clientIndexArr = Array.from(new Set(clientIndexArr))
     clientIndexArr.sort()
