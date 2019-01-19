@@ -13,6 +13,7 @@ Page({
     region: '',
     regionLabel: '',
     status: '',
+    assignMethod: '0',
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -59,6 +60,11 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  onAssignMethodChange (event) {
+    this.setData({
+      'assignMethod': event.detail
+    });
   },
   onConstructionMethodChange (event) {
     this.setData({
@@ -549,6 +555,63 @@ Page({
         "active": 'access',
         flowId: _this.data.flowId
       }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  servicerCommit () {
+    let _this = this
+    let taskData = {
+      flowId: _this.data.flowId,
+      active: _this.data.assignMethod === '0' ? 'advice' : 'site',
+      provinceId: _this.data.taskData.provinceId,
+      cityId: _this.data.taskData.cityId,
+      countryId: _this.data.taskData.countryId,
+      customerName: _this.data.taskData.customerName,
+      customerPhone: _this.data.taskData.customerPhone
+    }
+    if (taskData.customerName == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+    if (!isVaidcustomerPhone) {
+      return
+    }
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/customerservice/orders`,
+      method: 'PUT',
+      data: taskData
     }, function (err, res) {
       if (res.code == 0) {
         wx.showToast({

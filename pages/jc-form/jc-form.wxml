@@ -25,10 +25,10 @@
                     <view class="weui-label">事故区域</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == '1'}}">
+                    <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                         <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{role != '1' || (id != null && status != 29)}}">
+                    <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                         <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                     </view>
                 </view>
@@ -37,11 +37,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">客户姓名</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.customerName}}" placeholder="客户姓名"/>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{id != null && status != 29}}">
+                <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
                 </view>
             </view>
@@ -49,11 +49,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">客户手机</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
                            value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
                 </view>
-                <block wx:if="{{id != null && status != 29}}">
+                <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
@@ -63,6 +63,18 @@
                         </view>
                     </view>
                 </block>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 20}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">派送</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
+                                     bind:change="onAssignMethodChange">
+                        <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
+                        <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
+                    </van-radio-group>
+                </view>
             </view>
         </view>
 
@@ -316,6 +328,9 @@
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (id == null || status == 29)}}">
             <button type="primary" bindtap="commitOrder">提交</button>
             <button data-save="true" bindtap="commitOrder">暂存</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 8 && status == 20}}">
+            <button type="primary" bindtap="servicerCommit">客服提交</button>   <!--被保险人完善 -->
         </view>
         <!--(role == 15 && status == 30) || (role == 12 && status == 40)-->
         <view class="button-sp-area" wx:if="{{role == 15 && status == 30}}">
