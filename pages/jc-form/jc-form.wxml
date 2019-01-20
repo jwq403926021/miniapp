@@ -78,6 +78,19 @@
             </view>
         </view>
 
+        <view class="weui-cells__title">查勘员备注</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
+                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                              value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 29}}" placeholder="请输入文本" style="height: 3.3em"/>
+                </view>
+                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 29}}">
+                    {{taskData.investigatorText || '-'}}
+                </view>
+            </view>
+        </view>
+
         <view class="weui-cells__title">报案信息图片</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
@@ -100,19 +113,6 @@
                             </view>
                         </view>
                     </view>
-                </view>
-            </view>
-        </view>
-
-        <view class="weui-cells__title">查勘员备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
-                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                              value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 29}}" placeholder="请输入文本" style="height: 3.3em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 3.3em; font-size:14px;" wx:if="{{id != null && status != 29}}">
-                    {{taskData.investigatorText || '-'}}
                 </view>
             </view>
         </view>

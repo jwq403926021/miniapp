@@ -68,7 +68,7 @@
                     value="{{taskData.information}}" disabled="{{role != '1' || (id != null && status != '12')}}" placeholder="请输入报案信息" style="height: 3.3em"/>
         </view>
         <view class="weui-cell__bd" style="min-height: 3.3em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
-          {{taskData.information}}
+          {{taskData.information || '-'}}
         </view>
       </view>
     </view>
@@ -110,7 +110,7 @@
                       value="{{taskData.live}}" placeholder="请输入现场信息" style="height: 3.3em"/>
           </view>
           <view class="weui-cell__bd" style="min-height: 3.3em;" wx:if="{{id != null && status == '11'}}">
-            {{taskData.live}}
+            {{taskData.live || '-'}}
           </view>
         </view>
       </view>

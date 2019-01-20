@@ -1264,6 +1264,7 @@ Page({
   checkUploadImages (familyImages, flag) {
     let clientIndexArr = []
     let familyImagesList = []
+    let exclude = ['register']
 
     for(let key in familyImages) {
       familyImages[key].forEach(item => {
@@ -1287,6 +1288,9 @@ Page({
         break
       }
       for (let key in familyImages) {
+        if (exclude.indexOf(key) != -1) {
+          continue
+        }
         let _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
         if (!_arr.length) {
           str = `${clientIndexArr[i] == 0 ? '客户' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
