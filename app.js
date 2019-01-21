@@ -48,7 +48,10 @@ App({
     wx.login({
       success: function (res) {
         if (res.code) {
-          wx.showLoading({title: '登录中'})
+          wx.showLoading({
+            title: '登录中',
+            mask: true
+          })
           util.request({
             authorization: false,
             path: '/app/login',
