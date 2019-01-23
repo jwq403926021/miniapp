@@ -1160,10 +1160,14 @@ Page({
     //   return
     // }
 
-    // let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
-    // if (!isVaidcustomerPhone) {
-    //   return
-    // }
+    let isVaidcustomerPhone
+    if (taskData.customerPhone != '') {
+      isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+      if (!isVaidcustomerPhone) {
+        return
+      }
+    }
+
 
     // if (taskData.investigatorText == '') {
     //   wx.showToast({
