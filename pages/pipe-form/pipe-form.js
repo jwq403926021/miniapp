@@ -552,7 +552,7 @@ Page({
     })
   },
   checkPhone (str, msg){
-    if(!(/^1[34578]\d{9}$/.test(str))){
+    if(!(/^1[345789]\d{9}$/.test(str))){
       wx.showToast({
         mask: true,
         title: msg,
