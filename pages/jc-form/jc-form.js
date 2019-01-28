@@ -833,15 +833,15 @@ Page({
           })
           return false
         }
-        if (_this.data.authorityImageFiles.length == 0) {
-          wx.showToast({
-            mask: true,
-            title: '押金图片不能为空',
-            icon: 'none',
-            duration: 1000
-          })
-          return false
-        }
+        // if (_this.data.authorityImageFiles.length == 0) {
+        //   wx.showToast({
+        //     mask: true,
+        //     title: '押金图片不能为空',
+        //     icon: 'none',
+        //     duration: 1000
+        //   })
+        //   return false
+        // }
       }
     }
 
@@ -994,15 +994,15 @@ Page({
         })
         return false
       }
-      if (authorityImageFiles.length == 0) {
-        wx.showToast({
-          mask: true,
-          title: '押金图片不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
+      // if (authorityImageFiles.length == 0) {
+      //   wx.showToast({
+      //     mask: true,
+      //     title: '押金图片不能为空',
+      //     icon: 'none',
+      //     duration: 1000
+      //   })
+      //   return false
+      // }
     }
 
     // if (caleImageFiles.length == 0) {
@@ -1268,7 +1268,7 @@ Page({
   checkUploadImages (familyImages, flag) {
     let clientIndexArr = []
     let familyImagesList = []
-    let exclude = ['register']
+    let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'bank', 'source']
 
     for(let key in familyImages) {
       familyImages[key].forEach(item => {
