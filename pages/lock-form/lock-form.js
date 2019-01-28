@@ -333,10 +333,23 @@ Page({
       return
     }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
-    if (!isVaidcustomerPhone) {
+    if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '客户手机和报案图片必须填写一项',
+        icon: 'none',
+        duration: 2000
+      })
       return
     }
+
+    if (taskData.customMobile) {
+      let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
+      if (!isVaidcustomerPhone) {
+        return
+      }
+    }
+
     wx.showLoading({
       mask: true,
       title: '提交中'
