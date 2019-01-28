@@ -107,6 +107,7 @@ Page({
       data: filter
     }, function (err, res) {
       wx.hideLoading()
+      wx.stopPullDownRefresh()
       _this.setData({
         dataList: res.data
       })
