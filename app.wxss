@@ -257,3 +257,15 @@ textarea[disabled]{
     vertical-align: middle;
     margin-right: 15px;
 }
+.companyNameWrap{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 100px);
+    overflow:hidden;
+}
+.companyNameWrap2{
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:calc(100% - 30px);
+    overflow:hidden;
+}

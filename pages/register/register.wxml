@@ -148,13 +148,13 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">单位名称</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{isOurUser}}">
+                    <view class="weui-cell__bd companyNameWrap" wx:if="{{isOurUser}}">
                         <text class="weui-input readonly">{{registeInfo.companyName || '-'}}</text>
                     </view>
                     <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{!isOurUser}}">
                         <picker bindchange="companyNameChange" value="{{companyName}}"
                                 range="{{companyNameList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
+                            <view class="picker weui-select weui-select_in-select-after {{companyNameLabel?'companyNameWrap':'companyNameWrap2'}}">
                                 {{companyNameLabel || '请选择单位名称'}}
                             </view>
                         </picker>

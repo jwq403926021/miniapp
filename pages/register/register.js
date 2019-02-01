@@ -164,7 +164,10 @@ Page({
     this.setData({
       'registeInfo.insurance': this.companySubSourceData[data.detail.value].id,
       companySubCategoryLabel: this.companySubSourceData[data.detail.value].name,
-      companySubCategory: data.detail.value
+      companySubCategory: data.detail.value,
+      'registeInfo.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
     })
     this.initCompanyName()
   },
@@ -216,6 +219,9 @@ Page({
     this.setData({
       companyLevel: data.detail.value,
       companyLevelLabel: this.data.companyLevelList[data.detail.value],
+      'registeInfo.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
     })
     this.initCompanyName()
   },
@@ -286,15 +292,15 @@ Page({
       })
       return false
     }
-
     if (this.data.registeInfo.role == 1) {
-      if (!this.data.registeInfo.companyNameCode) {
+      if (this.data.registeInfo.companyNameCode == null || this.data.registeInfo.companyNameCode == '') {
         wx.showToast({
           mask: true,
           title: '单位名称不能为空',
           icon: 'none',
           duration: 2000
         })
+        return false
       }
     }
     let params = Object.assign({}, this.data.registeInfo)
@@ -364,7 +370,10 @@ Page({
       'registeInfo.provinceCode': data.detail.values[0].code,
       'registeInfo.town': data.detail.values[2].name,
       'registeInfo.city': data.detail.values[1].name,
-      'registeInfo.province': data.detail.values[0].name
+      'registeInfo.province': data.detail.values[0].name,
+      'registeInfo.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
     })
     this.initCompanyName()
   },
