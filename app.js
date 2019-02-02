@@ -76,14 +76,17 @@ App({
               } else {
                 console.log('已注册，直接登录', res)
                 _this.globalData.currentRegisterInfo = res.userInfo
-                wx.switchTab({
-                  url: '../index/index',
-                  success: function (e) {
-                    var page = getCurrentPages().pop();
-                    if (page == undefined || page == null) return;
-                    page.onLoad();
-                  }
-                })
+                var page = getCurrentPages().pop();
+                if (page == undefined || page == null) return;
+                page.onLoad();
+                // wx.switchTab({
+                //   url: '../index/index',
+                //   success: function (e) {
+                //     var page = getCurrentPages().pop();
+                //     if (page == undefined || page == null) return;
+                //     page.onLoad();
+                //   }
+                // })
               }
             } else {
               wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});
