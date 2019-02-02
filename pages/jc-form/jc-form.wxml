@@ -299,7 +299,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{(role == 10 || role == 11 || role == 12) && taskData.offerText && id != null && status != 29}}">
+            <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4 && taskData.offerText && id != null}}">
                 <view class="weui-cells__title">报价意见</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -310,7 +310,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{(role == 10 || role == 11 || role == 12) && taskData.offerPrice && id != null && status != 29}}">
+            <block wx:if="{{role != 10 && role != 11 && role != 12 && taskData.offerPrice && id != null}}">
                 <view class="weui-cells__title"></view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
