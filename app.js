@@ -78,7 +78,9 @@ App({
                 _this.globalData.currentRegisterInfo = res.userInfo
                 var page = getCurrentPages().pop();
                 if (page == undefined || page == null) return;
-                page.onLoad();
+                if (page.route == 'pages/index/index') {
+                  page.onLoad();
+                }
                 // wx.switchTab({
                 //   url: '../index/index',
                 //   success: function (e) {
