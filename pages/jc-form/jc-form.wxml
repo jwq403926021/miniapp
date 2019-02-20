@@ -73,6 +73,7 @@
                                      bind:change="onAssignMethodChange">
                         <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
                         <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
+                        <van-radio disabled="{{status == 52}}" custom-class="fl mr5" name="2">定损员</van-radio>
                     </van-radio-group>
                 </view>
             </view>
@@ -146,7 +147,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{role != 10 && role != 11 && role != 12}}">
+            <block wx:if="{{role != 10 && role != 11 && role != 12 && taskData.workerName}}">
                 <view class="weui-cells__title"></view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -175,7 +176,7 @@
             </block>
 
             <button style="width:80%" wx:if="{{status != 29 && status != 20}}" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
-                {{((role == 15 && status == 30) || (role == 12 && status == 40)) ? '完善图片信息' : '图片信息'}}
+                {{((role == 15 && status == 30) || (role == 12 && status == 40) || (role == 23 && status == 51)) ? '完善图片信息' : '图片信息'}}
             </button>
 
             <block wx:if="{{(role != 1 && role != 2 && role != 3 && role != 4) && (status == 40 || status == 41 || status == 42 || status == 50 || status == 11)}}">
@@ -186,6 +187,9 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files" id="uploaderdamageFiles">
+                                        <view class="no-image" wx:if="{{damageImageFiles.length == 0 && id != null && status != 29 && role != 12}}">
+                                            无图片
+                                        </view>
                                         <block wx:for="{{damageImageFiles}}" wx:key="{{index}}">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewDamageImage" id="{{item.path}}">
                                                 <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
@@ -281,6 +285,9 @@
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__bd">
                                         <view class="weui-uploader__files" id="uploadercaleFiles">
+                                            <view class="no-image" wx:if="{{caleImageFiles.length == 0 && id != null && status != 29 && role != 12}}">
+                                                无图片
+                                            </view>
                                             <block wx:for="{{caleImageFiles}}" wx:key="{{index}}">
                                                 <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item.path}}">
                                                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
@@ -299,6 +306,37 @@
                 </view>
             </block>
 
+            <block wx:if="{{status == 51 || status == 52 || status == 11}}">
+                <view class="weui-cells__title">定损备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{status == 51 && role == 23}}">
+                            <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.losserText'
+                                      value="{{taskData.losserText}}" placeholder="请输入文本" style="height: 3.3em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 3.3em; font-size:14px;" wx:else>
+                            {{taskData.losserText || '-'}}
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cells__title"></view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">定损金额</view>
+                        </view>
+                        <view class="weui-cell__bd" wx:if="{{status == 51 && role == 23}}">
+                            <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
+                                   value="{{taskData.offerPrice}}" placeholder="定损金额"/>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
             <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4 && taskData.offerText && id != null}}">
                 <view class="weui-cells__title">报价意见</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -310,7 +348,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{role != 10 && role != 11 && role != 12 && taskData.offerPrice && id != null}}">
+            <block wx:if="{{role != 10 && role != 11 && role != 12 && taskData.offerPrice && id != null && status != 51 && status != 52}}">
                 <view class="weui-cells__title"></view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -329,8 +367,12 @@
             <button type="primary" bindtap="commitOrder">提交</button>
             <button data-save="true" bindtap="commitOrder">暂存</button>
         </view>
-        <view class="button-sp-area" wx:if="{{role == 8 && status == 20}}">
+        <view class="button-sp-area" wx:if="{{role == 8 && (status == 20 || status == 52)}}">
             <button type="primary" bindtap="servicerCommit">客服提交</button>   <!--被保险人完善 -->
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 23 && status == 51}}">
+            <button type="primary" bindtap="lossCommit">办结</button>
+            <button data-reject="true" bindtap="lossCommit">驳回</button>
         </view>
         <!--(role == 15 && status == 30) || (role == 12 && status == 40)-->
         <view class="button-sp-area" wx:if="{{role == 15 && status == 30}}">

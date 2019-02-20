@@ -25,6 +25,8 @@ Page({
       '41': '合作商已完善,待报价中心报价',
       '42': '已报价',
       '50': '已报价,待财务处理',
+      '51': '待定损员处理',
+      '52': '定损员已驳回',
       '11': '已办结',
       '99': '处理中'
     },
@@ -39,10 +41,12 @@ Page({
       "workerName": '',
       "workerPhone": '',
       "investigatorText": '',
+      "investigatorId": '',
       "bankTransactionId": '',
       "constructionMethod": '',
       "deposit": '',
       "offerText": '',
+      "losserText": '',
       "offerPrice": ''
     },
     damageImageFiles: [],
@@ -172,10 +176,12 @@ Page({
         "taskData.workerName": data.workerName,
         "taskData.workerPhone": data.workerPhone,
         "taskData.investigatorText": data.investigatorText,
+        "taskData.investigatorId": data.investigatorId,
         "taskData.bankTransactionId": data.bankTransactionId,
         "taskData.constructionMethod": data.constructionMethod,
         "taskData.deposit": data.deposit || '',
         "taskData.offerText": data.offerText || '',
+        "taskData.losserText": data.losserText || '',
         "taskData.offerPrice": data.offerPrice || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
@@ -573,11 +579,120 @@ Page({
       }
     })
   },
+  lossCommit (e) {
+    let _this = this
+    let isReject = e.currentTarget.dataset.reject
+    let data = {
+      flowId: _this.data.flowId,
+      active: isReject ? 'reject' : 'finish',
+      losserText: _this.data.taskData.losserText,
+      offerPrice: _this.data.taskData.offerPrice,
+      investigatorId: _this.data.taskData.investigatorId
+    }
+    let familyImagesList = []
+    let familyImages = wx.getStorageSync('familyImages')
+    let result = this.checkUploadImages(familyImages)
+    if (result.flag) {
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
+    } else {
+      wx.showToast({
+        mask: true,
+        title: result.data,
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    if (isReject) {
+      if (_this.data.taskData.losserText == '' || _this.data.taskData.losserText == null){
+        wx.showToast({
+          mask: true,
+          title: '定损备注不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    } else {
+      if (_this.data.taskData.losserText == '' || _this.data.taskData.losserText == null){
+        wx.showToast({
+          mask: true,
+          title: '定损备注不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (_this.data.taskData.offerPrice == '' || _this.data.taskData.offerPrice == null){
+        wx.showToast({
+          mask: true,
+          title: '定损金额不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    }
+    // console.log('lossCommit:', data)
+    // return
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/family/losser/orders`,
+      method: 'PUT',
+      data: data
+    }, function (err, res) {
+      console.log('定损员处理 ：', res)
+      if (res.code == 0) {
+        let imgPaths = [...familyImagesList]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   servicerCommit () {
     let _this = this
+    let active
+    if (_this.data.assignMethod === '0') {
+      active = 'advice'
+    } else if (_this.data.assignMethod === '1') {
+      active = 'site'
+    } else {
+      active = 'loss'
+    }
     let taskData = {
       flowId: _this.data.flowId,
-      active: _this.data.assignMethod === '0' ? 'advice' : 'site',
+      active: active,
       provinceId: _this.data.taskData.provinceId,
       cityId: _this.data.taskData.cityId,
       countryId: _this.data.taskData.countryId,
