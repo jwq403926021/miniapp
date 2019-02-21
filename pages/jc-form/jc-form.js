@@ -69,7 +69,7 @@ Page({
   setFinishCase (event) {
     let _this = this
     const id = event.currentTarget.dataset.id;
-    const finishCase = event.currentTarget.dataset.finishCase == 1 ? 0 : 1;
+    const finishcase = event.currentTarget.dataset.finishcase == 1 ? 0 : 1;
     wx.showLoading({
       mask: true,
       title: '加载中'
@@ -79,12 +79,12 @@ Page({
       method: 'GET',
       data: {
         flowId: id,
-        finishCase: finishCase
+        finishCase: finishcase
       }
     }, function (err, res) {
       wx.hideLoading()
       _this.setData({
-        'taskData.finishCase': finishCase
+        'taskData.finishCase': finishcase
       })
     })
   },

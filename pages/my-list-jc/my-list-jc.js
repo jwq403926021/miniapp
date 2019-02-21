@@ -36,7 +36,7 @@ Page({
   setFinishCase (event) {
     let _this = this
     const id = event.currentTarget.dataset.id;
-    const finishCase = event.currentTarget.dataset.finishCase == 1 ? 0 : 1;
+    const finishcase = event.currentTarget.dataset.finishcase == 1 ? 0 : 1;
     const index = event.currentTarget.dataset.index;
     wx.showLoading({
       mask: true,
@@ -47,11 +47,11 @@ Page({
       method: 'GET',
       data: {
         flowId: id,
-        finishCase: finishCase
+        finishCase: finishcase
       }
     }, function (err, res) {
       wx.hideLoading()
-      _this.data.dataList[index].finishCase = finishCase
+      _this.data.dataList[index].finishCase = finishcase
       _this.setData({
         dataList: _this.data.dataList
       })
