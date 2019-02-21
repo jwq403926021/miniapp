@@ -33,6 +33,30 @@ Page({
       '99': '处理中'
     },
   },
+  setFinishCase (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const finishCase = event.currentTarget.dataset.finishCase == 1 ? 0 : 1;
+    const index = event.currentTarget.dataset.index;
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/family/finishCase',
+      method: 'GET',
+      data: {
+        flowId: id,
+        finishCase: finishCase
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.data.dataList[index].finishCase = finishCase
+      _this.setData({
+        dataList: _this.data.dataList
+      })
+    })
+  },
   onPullDownRefresh () {
     this.getInitData()
   },

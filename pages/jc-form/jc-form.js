@@ -47,7 +47,8 @@ Page({
       "deposit": '',
       "offerText": '',
       "losserText": '',
-      "offerPrice": ''
+      "offerPrice": '',
+      "finishCase": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
@@ -64,6 +65,28 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  setFinishCase (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const finishCase = event.currentTarget.dataset.finishCase == 1 ? 0 : 1;
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/family/finishCase',
+      method: 'GET',
+      data: {
+        flowId: id,
+        finishCase: finishCase
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.setData({
+        'taskData.finishCase': finishCase
+      })
+    })
   },
   onAssignMethodChange (event) {
     this.setData({
@@ -166,6 +189,7 @@ Page({
         'id': data.flowId,
         'flowId': data.flowId,
         'status': data.status,
+        'taskData.finishCase': data.finishCase,
         'taskData.countryId': data.areaCountryId,
         'taskData.cityId': data.areaCityId,
         'taskData.provinceId': data.areaProvinceId,
