@@ -70,6 +70,9 @@ Page({
     let _this = this
     const id = event.currentTarget.dataset.id;
     const finishcase = event.currentTarget.dataset.finishcase == 1 ? 0 : 1;
+    if (this.data.role != 1) {
+      return false
+    }
     wx.showLoading({
       mask: true,
       title: '加载中'
