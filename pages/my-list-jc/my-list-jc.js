@@ -16,6 +16,7 @@ Page({
     dataList: [],
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
+    role: 1,
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -167,6 +168,9 @@ Page({
   },
   onLoad: function () {
     let _this = this
+    _this.setData({
+      role: app.globalData.currentRegisterInfo.role
+    })
     wx.getSystemInfo({
       success: function (res) {
         _this.setData({
