@@ -618,7 +618,7 @@ Page({
     }
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
+    let result = this.checkUploadImages(familyImages, true)
     if (result.flag) {
       result.data.map(item => {
         if (item.path.indexOf('https://') == -1){

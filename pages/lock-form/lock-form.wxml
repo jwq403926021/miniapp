@@ -152,7 +152,7 @@
                    value="{{taskData.offer}}" placeholder="收款金额"/>
           </view>
           <view class="weui-cell__bd" wx:if="{{status == '11'}}">
-            <text class="weui-input readonly">{{taskData.offer || '-'}}</text>
+            <text class="weui-input readonly">{{(taskData.offer == null || taskData.offer == '') ? '-' : taskData.offer}}</text>
           </view>
         </view>
       </view>
