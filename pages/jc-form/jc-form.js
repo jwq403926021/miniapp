@@ -614,7 +614,10 @@ Page({
       active: isReject ? 'reject' : 'finish',
       losserText: _this.data.taskData.losserText,
       offerPrice: _this.data.taskData.offerPrice,
-      investigatorId: _this.data.taskData.investigatorId
+      investigatorId: _this.data.taskData.investigatorId,
+      customerName: _this.data.taskData.customerName,
+      customerPhone: _this.data.taskData.customerPhone,
+      investigatorText: _this.data.taskData.investigatorText
     }
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
