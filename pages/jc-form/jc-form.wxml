@@ -235,7 +235,7 @@
                                    value="{{taskData.deposit}}" placeholder="请输入押金金额"/>
                         </view>
                         <view class="weui-cell__bd" wx:else>
-                            <text class="weui-input readonly">{{taskData.deposit || '-'}}</text>
+                            <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
                         </view>
 
                     </view>
@@ -357,7 +357,7 @@
                             <view class="weui-label">报价金额</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{ taskData.offerPrice || '-' }}</text>
+                            <text class="weui-input readonly">{{(taskData.offerPrice == null || taskData.offerPrice == '') ? '-' : taskData.offerPrice}}</text>
                         </view>
                     </view>
                 </view>

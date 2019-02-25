@@ -252,7 +252,7 @@
             <view class="weui-label">报价金额</view>
           </view>
           <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{taskData.insurerPrice || '-'}}</text>
+            <text class="weui-input readonly">{{(taskData.insurerPrice == null || taskData.insurerPrice == '') ? '-' : taskData.insurerPrice}}</text>
           </view>
         </view>
       </view>

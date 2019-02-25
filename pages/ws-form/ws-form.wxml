@@ -290,7 +290,7 @@
                                value="{{taskData.budgetPreliminary}}"  placeholder="初步估损金额"/>
                     </view>
                     <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{taskData.budgetPreliminary || '-'}}</text>
+                        <text class="weui-input readonly">{{(taskData.budgetPreliminary == null || taskData.budgetPreliminary == '') ? '-' : taskData.budgetPreliminary}}</text>
                     </view>
                 </view>
             </view>
@@ -379,7 +379,7 @@
                                    value="{{taskData.deposit}}" placeholder="押金金额"/>
                         </view>
                         <view class="weui-cell__bd" wx:else>
-                            <text class="weui-input readonly">{{taskData.deposit || '-'}}</text>
+                            <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -430,7 +430,7 @@
                         <view class="weui-label">报价金额</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.offer || '-'}}</text>
+                        <text class="weui-input readonly">{{(taskData.offer == null || taskData.offer == '') ? '-' : taskData.offer}}</text>
                     </view>
                 </view>
 
