@@ -1411,7 +1411,7 @@ Page({
     let clientIndexArr = []
     let familyImagesList = []
     let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'bank', 'source']
-    let excludeThird = ['identification', 'bank', 'register', 'source']
+    let excludeThird = ['house', 'electrical', 'cloths', 'furniture', 'overall', 'certificate', 'identification', 'bank', 'register', 'source']
     for(let key in familyImages) {
       familyImages[key].forEach(item => {
         if (item.hasOwnProperty('clientIndex')) {
