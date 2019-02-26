@@ -1,15 +1,27 @@
 var util = require('./utils/util.js')
 //app.js
 App({
-  onShow: function (obj) {
-    // console.log(obj, '##')
-    // if (this.globalData.logining == false && obj.scene != null) {
-    //   this.login()
-    // }
-  },
   onLaunch: function () {
     // this.globalData.logining = true
     this.login()
+  },
+  onShow (obj) {
+    let page = getCurrentPages().pop();
+    if (page == undefined || page == null) return
+    if ([
+      "pages/index/index",
+      "pages/register/register",
+      "pages/my-list-home/my-list-home",
+      "pages/my-list-ws/my-list-ws",
+      "pages/my-list-jc/my-list-jc",
+      "pages/my-list-cx/my-list-cx",
+      "pages/my-list-lock/my-list-lock",
+      "pages/my-list-feedback/my-list-feedback",
+      "pages/my-list-pipe/my-list-pipe"
+    ].indexOf(obj.path) != -1) {
+      console.log('refresh!')
+      page.onLoad()
+    }
   },
   login () {
     let _this = this
