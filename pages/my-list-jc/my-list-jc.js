@@ -16,6 +16,8 @@ Page({
     dataList: [],
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
+    searchKeyword: '',
+    searchFlowId: '',
     role: 1,
     statusMap: {
       '29': '暂存',
@@ -112,6 +114,16 @@ Page({
     });
     this.getInitData()
   },
+  searchKeywordChange (data) {
+    this.setData({
+      searchKeyword: data.detail
+    })
+  },
+  searchFlowIdChange (data) {
+    this.setData({
+      searchFlowId: data.detail
+    })
+  },
   getInitData () {
     let _this = this
     let todayDate = +new Date()
@@ -140,6 +152,13 @@ Page({
     let filter = {
       page: 1,
       size: 1000
+    }
+
+    if (this.data.searchKeyword) {
+      filter.customerName = this.data.searchKeyword
+    }
+    if (this.data.searchFlowId) {
+      filter.flowId = this.data.searchFlowId
     }
     if (start && end) {
       filter.start = start
