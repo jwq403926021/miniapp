@@ -44,6 +44,7 @@ Page({
       })
       wx.hideTabBar()
     }
+    this.onLoad()
   },
   onLoad: function () {
     var value = wx.getStorageSync('status')

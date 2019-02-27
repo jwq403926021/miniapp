@@ -6,6 +6,7 @@ App({
     this.login()
   },
   onShow (obj) {
+    let _this = this
     let page = getCurrentPages().pop();
     if (page == undefined || page == null) return
     if ([
@@ -19,7 +20,9 @@ App({
       "pages/my-list-feedback/my-list-feedback",
       "pages/my-list-pipe/my-list-pipe"
     ].indexOf(obj.path) != -1) {
-      console.log('refresh!')
+      if (!_this.globalData.token) {
+        _this.login()
+      }
       page.onLoad()
     }
   },
@@ -90,9 +93,9 @@ App({
                 _this.globalData.currentRegisterInfo = res.userInfo
                 var page = getCurrentPages().pop();
                 if (page == undefined || page == null) return;
-                if (page.route == 'pages/index/index') {
-                  page.onLoad();
-                }
+                // if (page.route == 'pages/index/index') {
+                page.onLoad();
+                // }
                 // wx.switchTab({
                 //   url: '../index/index',
                 //   success: function (e) {
