@@ -148,7 +148,7 @@ button[type=default] {
     background: #f2f2f2;
 }
 .my-search{
-    padding: 7px!important;
+    padding: 7px 0 7px 7px!important;
 }
 .caret:after{
     display:inline-block;
@@ -285,4 +285,10 @@ textarea[disabled]{
 }
 .finishcase-in-detail{
     margin: 10px;
+}
+.searchBtn{
+    color: #016eff;
+}
+.filterDropdown {
+    width: 75px;
 }
