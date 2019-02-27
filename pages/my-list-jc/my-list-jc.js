@@ -12,9 +12,12 @@ Page({
     isShowTypeFilter: false,
     typeFilter: '0',
     isShowDateFilter: false,
+    isShowFinishCaseFilter: false,
     dateFilter: '0',
+    finishCaseFilter: '0',
     dataList: [],
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
+    finishCaseFilterArr: ['未结案', '已结案'],
     height: '',
     searchKeyword: '',
     searchFlowId: '',
@@ -81,6 +84,11 @@ Page({
       isShowDateFilter: true
     });
   },
+  openFilterFinishCasePop () {
+    this.setData({
+      isShowFinishCaseFilter: true
+    });
+  },
   statusFilterChange (data) {
     console.log('statusFilterChange::', data)
   },
@@ -111,6 +119,14 @@ Page({
     this.setData({
       dateFilter: value,
       isShowDateFilter: false
+    });
+    this.getInitData()
+  },
+  finishCaseFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    this.setData({
+      finishCaseFilter: value,
+      isShowFinishCaseFilter: false
     });
     this.getInitData()
   },
@@ -154,6 +170,9 @@ Page({
       size: 1000
     }
 
+    if (this.data.finishCaseFilter) {
+      filter.finish = this.data.finishCaseFilter
+    }
     if (this.data.searchKeyword) {
       filter.customerName = this.data.searchKeyword
     }
@@ -222,6 +241,7 @@ Page({
   closeFilter () {
     this.setData({
       isShowDateFilter:false,
+      isShowFinishCaseFilter:false,
       isShowTypeFilter:false,
       isShowStatusFilter:false
     })
