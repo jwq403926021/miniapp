@@ -625,6 +625,7 @@ Page({
     if (result.flag) {
       result.data.map(item => {
         if (item.path.indexOf('https://') == -1){
+
           familyImagesList.push(item)
         }
       })
@@ -642,6 +643,15 @@ Page({
         wx.showToast({
           mask: true,
           title: '定损备注不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (_this.data.taskData.offerPrice != '' && _this.data.taskData.offerPrice != 0){
+        wx.showToast({
+          mask: true,
+          title: '驳回时，定损金额必须为空或0',
           icon: 'none',
           duration: 1000
         })
@@ -1475,5 +1485,15 @@ Page({
     //     familyImagesList.push(item)
     //   })
     // }
+  },
+  downloadImages () {
+    let urls = this.sourceImage.map(item => {
+      if (!((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4 )) {
+        return item.path
+      }
+    })
+    common.downloadImages({
+      urls: urls
+    })
   }
 })

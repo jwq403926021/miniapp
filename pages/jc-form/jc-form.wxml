@@ -65,7 +65,7 @@
                     </view>
                 </block>
             </view>
-            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 20}}">
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && (status == 20 || status == 52)}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">派送</view>
                 </view>
@@ -74,7 +74,7 @@
                                      bind:change="onAssignMethodChange">
                         <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
                         <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
-                        <van-radio disabled="{{status == 52}}" custom-class="fl mr5" name="2">定损员</van-radio>
+                        <van-radio wx-if="{{status != 52}}" custom-class="fl mr5" name="2">定损员</van-radio>
                     </van-radio-group>
                 </view>
             </view>
@@ -320,20 +320,21 @@
                         </view>
                     </view>
                 </view>
-
+            </block>
+            <block wx:if="{{status == 51 || status == 52}}">
                 <view class="weui-cells__title"></view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">定损金额</view>
+                            <view class="weui-label">报价金额</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{status == 51 && role == 23}}">
                             <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
-                                   value="{{taskData.offerPrice}}" placeholder="定损金额"/>
+                                   value="{{taskData.offerPrice}}" placeholder="报价金额"/>
                         </view>
-                        <view class="weui-cell__bd" wx:else>
-                            <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
-                        </view>
+                        <!--<view class="weui-cell__bd" wx:else>-->
+                            <!--<text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>-->
+                        <!--</view>-->
                     </view>
                 </view>
             </block>
@@ -396,6 +397,9 @@
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && status == 42}}">
             <button type="primary" bindtap="consultAgree">协商同意提交</button> <!--协商同意 完善 -->
+        </view>
+        <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
+            <button type="primary" bindtap="downloadImages">下载工单图片</button>
         </view>
     </view>
     <van-popup

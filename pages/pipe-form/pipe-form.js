@@ -589,5 +589,15 @@ Page({
         url: '../my-list-pipe/my-list-pipe'
       })
     }
+  },
+  downloadImages () {
+    let urls = this.sourceImage.map(item => {
+      if (!((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4 )) {
+        return item.path
+      }
+    })
+    common.downloadImages({
+      urls: urls
+    })
   }
 })
