@@ -50,9 +50,9 @@
       <view class="weui-cell">
         <view class="weui-cell__bd" wx:if="{{id == null}}">
           <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.content'
-                    value="{{taskData.content}}" placeholder="请输入反馈内容" style="height: 3.3em"/>
+                    value="{{taskData.content}}" placeholder="请输入反馈内容" style="height: 7em"/>
         </view>
-        <view class="weui-cell__bd" style="min-height: 3.3em; font-size: 14px;" wx:if="{{id != null}}">
+        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{id != null}}">
           {{taskData.content}}
         </view>
       </view>
