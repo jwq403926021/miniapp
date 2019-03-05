@@ -35,6 +35,11 @@ Page({
       url: '../feedback-form/feedback-form'
     })
   },
+  goToAccident () {
+    wx.navigateTo({
+      url: '../accident-audit-form/accident-audit-form' //TODO: TEMP
+    })
+  },
   onShow () {
     var value = wx.getStorageSync('status')
     if(value == 2 || value == '') {

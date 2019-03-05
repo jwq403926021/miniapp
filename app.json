@@ -9,6 +9,8 @@
     "pages/lock-form/lock-form",
     "pages/pipe-form/pipe-form",
     "pages/ws-form/ws-form",
+    "pages/accident-form/accident-form",
+    "pages/accident-audit-form/accident-audit-form",
     "pages/feedback-form/feedback-form",
     "pages/my-list-home/my-list-home",
     "pages/my-list-ws/my-list-ws",
@@ -16,7 +18,8 @@
     "pages/my-list-cx/my-list-cx",
     "pages/my-list-lock/my-list-lock",
     "pages/my-list-feedback/my-list-feedback",
-    "pages/my-list-pipe/my-list-pipe"
+    "pages/my-list-pipe/my-list-pipe",
+    "pages/my-list-accident/my-list-accident"
   ],
   "window":{
     "backgroundTextStyle":"dark",

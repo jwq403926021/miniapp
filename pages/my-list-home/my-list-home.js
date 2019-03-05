@@ -39,6 +39,11 @@ Page({
       url: '../my-list-feedback/my-list-feedback'
     })
   },
+  goToAccidentList () {
+    wx.navigateTo({
+      url: '../my-list-accident/my-list-accident'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

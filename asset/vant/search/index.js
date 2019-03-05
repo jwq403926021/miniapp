@@ -1,7 +1,7 @@
 import { VantComponent } from '../common/component';
 VantComponent({
   field: true,
-  classes: ['cancel-class'],
+  classes: ['field-class', 'input-class', 'cancel-class'],
   props: {
     focus: Boolean,
     error: Boolean,
@@ -10,7 +10,6 @@ VantComponent({
     inputAlign: String,
     showAction: Boolean,
     useActionSlot: Boolean,
-    useLocationSlot: Boolean,
     placeholder: String,
     placeholderStyle: String,
     background: {
@@ -24,13 +23,13 @@ VantComponent({
   },
   methods: {
     onChange: function onChange(event) {
-      this.setData({
+      this.set({
         value: event.detail
       });
       this.$emit('change', event.detail);
     },
     onCancel: function onCancel() {
-      this.setData({
+      this.set({
         value: ''
       });
       this.$emit('cancel');
@@ -44,6 +43,9 @@ VantComponent({
     },
     onBlur: function onBlur() {
       this.$emit('blur');
+    },
+    onClear: function onClear() {
+      this.$emit('clear');
     }
   }
 });

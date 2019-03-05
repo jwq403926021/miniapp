@@ -1,0 +1,82 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title">基本信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">工单号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{orderId}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">工单状态</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{statusMap[status]}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">事故区域</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
+            <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{role != '1' || (id != null && status != '12')}}">
+            <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">客户姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customName'
+                 value="{{taskData.customName}}" placeholder="客户姓名"/>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">客户手机</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
+                 value="{{taskData.customMobile}}" placeholder="请输入客户手机"/>
+        </view>
+        <view class="weui-cell__ft" wx:if="{{id != null && taskData.customMobile}}">
+          <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">
+            <van-icon name="phone"></van-icon>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">审核信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <van-collapse value="{{ activeNames }}" bind:change="onChange">
+        <van-collapse-item title="门急诊医疗费核损" name="1">
+          门急诊医疗费核损
+        </van-collapse-item>
+        <van-collapse-item title="住院医疗费核损" name="2">
+          住院医疗费核损
+        </van-collapse-item>
+        <van-collapse-item title="住院津贴" name="3">
+          住院津贴
+        </van-collapse-item>
+      </van-collapse>
+    </view>
+
+    <view class="button-sp-area two-btn-wrap">
+      <button type="primary" bindtap="commitSubmit">提交</button>
+      <button data-save="true" bindtap="commitSubmit">驳回</button>
+    </view>
+  </view>
+
+  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}"></van-popup>
+</view>
