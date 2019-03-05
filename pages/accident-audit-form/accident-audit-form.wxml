@@ -142,14 +142,83 @@
 
     <view class="weui-cells__title">审核信息</view>
     <view class="weui-cells weui-cells_after-title">
-      <van-collapse value="{{ activeNames }}" bind:change="onChange">
-        <van-collapse-item title="门急诊医疗费核损" name="1">
-          门急诊医疗费核损
+      <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
+        <van-collapse-item title="门急诊医疗费核损" name="0">
+          <van-cell-group custom-class="accident-input-cell-group" border="{{false}}">
+            <van-field
+                    value="{{ username }}"
+                    label="门急诊限额"
+                    placeholder="请输入门急诊限额"
+                    border="{{ false }}"
+            />
+            <van-field
+                    value="{{ password }}"
+                    label="免赔额"
+                    placeholder="请输入免赔额"
+                    border="{{ false }}"
+            />
+            <van-field
+                    value="{{ password }}"
+                    label="给付比例"
+                    placeholder="请输入给付比例"
+                    border="{{ false }}"
+            />
+          </van-cell-group>
+
+          <view class="mtb10">
+            <van-row custom-class="accident-detail-table-header">
+              <van-col span="6">名称</van-col>
+              <van-col span="6">自付比例</van-col>
+              <van-col span="6">金额</van-col>
+              <van-col span="6">操作</van-col>
+            </van-row>
+            <van-row custom-class="accident-detail-table-body">
+              <van-col span="6">
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入名称"/>
+              </van-col>
+              <van-col span="6">
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入比例"/>
+              </van-col>
+              <van-col span="6">
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入金额"/>
+              </van-col>
+              <van-col span="6">
+                删除
+              </van-col>
+            </van-row>
+            <van-row custom-class="accident-detail-table-body">
+              <van-col span="24">
+                添加 +
+              </van-col>
+            </van-row>
+          </view>
+
+          <van-cell-group custom-class="accident-input-cell-group" border="{{false}}">
+            <van-field
+                    readonly
+                    value="12"
+                    label="自费核损总额"
+                    border="{{ false }}"
+            />
+            <van-field
+                    value="{{ password }}"
+                    label="医疗费总额"
+                    placeholder="医疗费总额"
+                    border="{{ false }}"
+            />
+            <van-field
+                    readonly
+                    value="32"
+                    label="医疗费理算金额"
+                    border="{{ false }}"
+            />
+          </van-cell-group>
+
         </van-collapse-item>
-        <van-collapse-item title="住院医疗费核损" name="2">
+        <van-collapse-item title="住院医疗费核损" name="1">
           住院医疗费核损
         </van-collapse-item>
-        <van-collapse-item title="住院津贴" name="3">
+        <van-collapse-item title="住院津贴" name="2">
           住院津贴
         </van-collapse-item>
       </van-collapse>

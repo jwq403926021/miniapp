@@ -3,6 +3,10 @@
     "van-area": "../../asset/vant/area/index",
     "van-popup": "../../asset/vant/popup/index",
     "van-collapse": "../../asset/vant/collapse/index",
-    "van-collapse-item": "../../asset/vant/collapse-item/index"
+    "van-collapse-item": "../../asset/vant/collapse-item/index",
+    "van-row": "../../asset/vant/row/index",
+    "van-col": "../../asset/vant/col/index",
+    "van-cell-group": "../../asset/vant/cell-group/index",
+    "van-field": "../../asset/vant/field/index"
   }
 }
