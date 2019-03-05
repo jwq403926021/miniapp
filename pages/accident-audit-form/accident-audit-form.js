@@ -35,7 +35,7 @@ Page({
     let _list = this.data.tempDetailList
     _list.push({'name':'1', 'percent': '10', 'price': '20'})
     this.setData({
-      tempDetailList: _list
+      ['tempDetailList']: _list
     })
   },
   addItemSubmit (event) {

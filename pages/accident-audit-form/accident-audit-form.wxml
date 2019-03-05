@@ -187,15 +187,13 @@
                 删除
               </van-col>
             </van-row>
-            <van-row custom-class="accident-detail-table-body">
-              <van-col custom-class="addtext" span="24" bindtap="addNewItem">
-                添加 +
-              </van-col>
-            </van-row>
+            <view class="accident-detail-table-body addtext" span="24" bindtap="addNewItem">
+              添加 +
+            </view>
           </view>
 
           <van-cell-group custom-class="accident-input-cell-group" border="{{false}}">
-            <van-field
+            <van-field;
                     readonly
                     value="12"
                     label="自费核损总额"
