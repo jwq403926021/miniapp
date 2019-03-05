@@ -7,7 +7,7 @@ App({
   },
   onShow (obj) {
     let _this = this
-    let page = getCurrentPages().pop();
+    let page = getCurrentPages().pop()
     if (page == undefined || page == null) return
     if ([
       "pages/index/index",
