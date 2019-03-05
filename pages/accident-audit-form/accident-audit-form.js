@@ -13,7 +13,7 @@ Page({
     status: '',
     statusMap: {},
     taskData: {},
-    activeNames: ['1']
+    activeNames: []
   },
   onLoad: function (routeParams ) {
 

@@ -2,56 +2,139 @@
   <view class="page__bd">
     <view class="weui-cells__title">基本信息</view>
     <view class="weui-cells weui-cells_after-title">
+
+
+
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">工单号</view>
+          <view class="weui-label">报案号</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{orderId}}</text>
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
         </view>
       </view>
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">工单状态</view>
+          <view class="weui-label">被保险人姓名</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{statusMap[status]}}</text>
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者身份证号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
         </view>
       </view>
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">事故区域</view>
+          <view class="weui-label">报案人电话</view>
         </view>
         <view class="weui-cell__bd">
-          <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
-            <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{role != '1' || (id != null && status != '12')}}">
-            <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+          <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+        </view>
+        <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
+          <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+            <van-icon name="phone"></van-icon>
           </view>
         </view>
       </view>
+
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">客户姓名</view>
+          <view class="weui-label">查勘员姓名</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customName'
-                 value="{{taskData.customName}}" placeholder="客户姓名"/>
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
         </view>
       </view>
+
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">客户手机</view>
+          <view class="weui-label">查勘员电话</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
-                 value="{{taskData.customMobile}}" placeholder="请输入客户手机"/>
+          <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
         </view>
-        <view class="weui-cell__ft" wx:if="{{id != null && taskData.customMobile}}">
-          <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">
+        <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
+          <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
             <van-icon name="phone"></van-icon>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">保险期间</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">上次总核损金额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">身份资料</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderInformationFiles">
+                <view class="no-image">
+                  无图片
+                </view>
+                <block wx:for="{{informationImageFiles}}"wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">医疗单证</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderInformationFiles">
+                <view class="no-image">
+                  无图片
+                </view>
+                <block wx:for="{{informationImageFiles}}"wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                  </view>
+                </block>
+              </view>
+            </view>
           </view>
         </view>
       </view>
