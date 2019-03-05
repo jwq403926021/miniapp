@@ -17,18 +17,42 @@ Page({
     detailListArr: [
       // {'name':'1', 'percent': '10', 'price': '20'},
       // {'name':'1', 'percent': '10', 'price': '20'}
-    ]
+    ],
+    tempDetailList: []
   },
   onLoad: function (routeParams ) {
 
   },
+  removeItem (event) {
+    let itemindex = event.currentTarget.dataset.itemindex
+    this.data.detailListArr.splice(itemindex, 1)
+    console.log(itemindex, this.data.detailListArr, '???')
+    this.setData({
+      detailListArr: this.data.detailListArr
+    })
+  },
+  addItemToTempList () {
+    let _list = this.data.tempDetailList
+    _list.push({'name':'1', 'percent': '10', 'price': '20'})
+    this.setData({
+      tempDetailList: _list
+    })
+  },
   addItemSubmit (event) {
-    let isCancel = event.currentTarget.dataset.cancel+'';
+    let isCancel = event.currentTarget.dataset.cancel;
+    let _list = [...this.data.detailListArr, ...this.data.tempDetailList]
     if (isCancel) {
-      this.setData({ show: false })
+      this.setData({
+        show: false,
+        tempDetailList: []
+      })
       return false
     }
-    this.setData({ show: false })
+    this.setData({
+      show: false,
+      detailListArr: _list,
+      tempDetailList: []
+    })
   },
   addNewItem (event) {
     this.setData({

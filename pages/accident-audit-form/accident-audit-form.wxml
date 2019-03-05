@@ -183,7 +183,7 @@
               <van-col span="6">
                 <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col custom-class="deleteColor" span="6">
+              <van-col data-itemindex="{{index}}" bindtap="removeItem" custom-class="deleteColor" span="6">
                 删除
               </van-col>
             </van-row>
@@ -240,7 +240,10 @@
             use-action-slot>
       <view slot="action" bind:tap="onSearch">搜索</view>
     </van-search>
-    <van-row custom-class="accident-detail-table-header popup">
+    <view class="countnum">
+      已追加项目数量：{{tempDetailList.length}}个
+    </view>
+    <van-row custom-class="accident-detail-table-header">
       <van-col span="6">名称</van-col>
       <van-col span="6">自付比例%</van-col>
       <van-col span="6">金额</van-col>
@@ -257,7 +260,7 @@
         <text>20</text>
       </van-col>
       <van-col span="6">
-        <text>追加</text> | <text>移除</text>
+        <text class="primaryColor" bindtap="addItemToTempList">追加</text>
       </van-col>
     </van-row>
     <view class="button-sp-area two-btn-wrap">
