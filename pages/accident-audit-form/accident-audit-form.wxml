@@ -3,8 +3,6 @@
     <view class="weui-cells__title">基本信息</view>
     <view class="weui-cells weui-cells_after-title">
 
-
-
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
           <view class="weui-label">报案号</view>
@@ -106,7 +104,7 @@
                 <view class="no-image">
                   无图片
                 </view>
-                <block wx:for="{{informationImageFiles}}"wx:key="{{index}}">
+                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
@@ -128,7 +126,7 @@
                 <view class="no-image">
                   无图片
                 </view>
-                <block wx:for="{{informationImageFiles}}"wx:key="{{index}}">
+                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
@@ -168,26 +166,29 @@
           <view class="mtb10">
             <van-row custom-class="accident-detail-table-header">
               <van-col span="6">名称</van-col>
-              <van-col span="6">自付比例</van-col>
+              <van-col span="6">自付比例%</van-col>
               <van-col span="6">金额</van-col>
               <van-col span="6">操作</van-col>
             </van-row>
-            <van-row custom-class="accident-detail-table-body">
+            <van-row wx:if="{{detailListArr.length == 0}}" custom-class="accident-detail-table-body">
+              <van-col span="24">无数据</van-col>
+            </van-row>
+            <van-row wx:if="{{detailListArr.length > 0}}" wx:for="{{detailListArr}}" wx:key="{{index}}" custom-class="accident-detail-table-body">
               <van-col span="6">
-                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入名称"/>
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{item.name}}" placeholder="输入名称"/>
               </van-col>
               <van-col span="6">
-                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入比例"/>
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{item.percent}}" placeholder="输入比例"/>
               </van-col>
               <van-col span="6">
-                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{taskData.customerUser}}" placeholder="输入金额"/>
+                <input bindinput="inputgetName" data-name='taskData.customerUser' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col span="6">
+              <van-col custom-class="deleteColor" span="6">
                 删除
               </van-col>
             </van-row>
             <van-row custom-class="accident-detail-table-body">
-              <van-col span="24">
+              <van-col custom-class="addtext" span="24" bindtap="addNewItem">
                 添加 +
               </van-col>
             </van-row>
@@ -223,12 +224,45 @@
         </van-collapse-item>
       </van-collapse>
     </view>
-
+    <view class="totalPrice">
+      总理算金额：888
+    </view>
     <view class="button-sp-area two-btn-wrap">
       <button type="primary" bindtap="commitSubmit">提交</button>
       <button data-save="true" bindtap="commitSubmit">驳回</button>
     </view>
   </view>
 
-  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}"></van-popup>
+  <van-popup custom-class="add-item-popup" show="{{ show }}" position="right" overlay="{{ true }}">
+    <van-search
+            value="{{ keyword }}"
+            placeholder="请输入搜索关键词"
+            use-action-slot>
+      <view slot="action" bind:tap="onSearch">搜索</view>
+    </van-search>
+    <van-row custom-class="accident-detail-table-header popup">
+      <van-col span="6">名称</van-col>
+      <van-col span="6">自付比例%</van-col>
+      <van-col span="6">金额</van-col>
+      <van-col span="6">操作</van-col>
+    </van-row>
+    <van-row custom-class="accident-detail-table-body">
+      <van-col span="6">
+        <text>阿莫西林</text>
+      </van-col>
+      <van-col span="6">
+        <text>10</text>
+      </van-col>
+      <van-col span="6">
+        <text>20</text>
+      </van-col>
+      <van-col span="6">
+        <text>追加</text> | <text>移除</text>
+      </van-col>
+    </van-row>
+    <view class="button-sp-area two-btn-wrap">
+      <button type="primary" bindtap="addItemSubmit">确定追加</button>
+      <button data-cancel="true" bindtap="addItemSubmit">取消</button>
+    </view>
+  </van-popup>
 </view>

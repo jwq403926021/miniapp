@@ -9,7 +9,9 @@
   min-width: 100px!important;
   max-width: 100px!important;
 }
-
+.accident-detail-table-header.popup{
+  margin-top: 10px;
+}
 .accident-detail-table-header{
   margin-left: 15px;
   margin-right: 15px;
@@ -40,6 +42,10 @@
   line-height: 30px;
   height: 30px;
 }
+.accident-detail-table-body .addtext{
+  background: #016eff;
+  color: #fff;
+}
 .accident-input-cell-group .van-cell{
   padding: 5px 15px;
 }
@@ -49,4 +55,17 @@
 
 .mtb10{
   margin: 10px 0;
+}
+
+.add-item-popup{
+  width: 100%;
+  height: 100%;
+}
+
+.totalPrice{
+  text-align: right;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-weight: bold;
 }

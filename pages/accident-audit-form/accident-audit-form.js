@@ -13,10 +13,27 @@ Page({
     status: '',
     statusMap: {},
     taskData: {},
-    activeNames: []//['0','1','2']
+    activeNames: [],//['0','1','2']
+    detailListArr: [
+      // {'name':'1', 'percent': '10', 'price': '20'},
+      // {'name':'1', 'percent': '10', 'price': '20'}
+    ]
   },
   onLoad: function (routeParams ) {
 
+  },
+  addItemSubmit (event) {
+    let isCancel = event.currentTarget.dataset.cancel+'';
+    if (isCancel) {
+      this.setData({ show: false })
+      return false
+    }
+    this.setData({ show: false })
+  },
+  addNewItem (event) {
+    this.setData({
+      show: true
+    })
   },
   onChange(event) {
     this.setData({

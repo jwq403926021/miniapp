@@ -209,6 +209,13 @@ textarea[disabled]{
     vertical-align:middle;
 }
 
+.primaryColor{
+    color:#016eff;
+}
+.deleteColor{
+    color: #e61311;
+}
+
 .no-image{
     font-size: 14px;
     text-align: center;
