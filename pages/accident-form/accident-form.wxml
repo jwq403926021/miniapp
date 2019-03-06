@@ -44,6 +44,21 @@
         </view>
       </view>
 
+      <!-- ## 客服 处理工单字段start ## -->
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">派送</view>
+        </view>
+        <view class="weui-cell__bd">
+          <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
+                           bind:change="onAssignMethodChange">
+            <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
+            <van-radio custom-class="fl mr5" name="1">市负责人</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+      <!-- ## 客服 处理工单字段end ## -->
+
       <!-- ## 查勘员 查看处理工单字段start ## -->
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
