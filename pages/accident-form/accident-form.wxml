@@ -1,56 +1,41 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-cells__title">管道疏通工单</view>
+    <view class="weui-cells__title">意外险工单</view>
     <view class="weui-cells weui-cells_after-title">
 
-      <block wx:if="{{id != null}}">
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
-          <view class="weui-cell__hd">
-            <view class="weui-label">工单号</view>
-          </view>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{orderId}}</text>
-          </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">报案号</view>
         </view>
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
-          <view class="weui-cell__hd">
-            <view class="weui-label">工单状态</view>
-          </view>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{statusMap[status]}}</text>
-          </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="报案号"/>
         </view>
-      </block>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">报案人姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="报案人姓名"/>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
+        </view>
+      </view>
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">事故区域</view>
-        </view>
-        <view class="weui-cell__bd">
-          <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
-            <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{role != '1' || (id != null && status != '12')}}">
-            <text class="weui-input readonly">{{regionLabel || '-'}}</text>
-          </view>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">客户姓名</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customName'
-                 value="{{taskData.customName}}" placeholder="客户姓名"/>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">客户手机</view>
+          <view class="weui-label">报案人手机</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
-                 value="{{taskData.customMobile}}" placeholder="请输入客户手机"/>
+                 value="{{taskData.customMobile}}" placeholder="请输入报案人手机"/>
         </view>
         <view class="weui-cell__ft" wx:if="{{id != null && taskData.customMobile}}">
           <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">
@@ -58,14 +43,113 @@
           </view>
         </view>
       </view>
+
+      <!-- ## 查勘员 查看处理工单字段start ## -->
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者身份证号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">审核人电话</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+        </view>
+        <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
+          <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+            <van-icon name="phone"></van-icon>
+          </view>
+        </view>
+      </view>
+      <!-- ## 查勘员 查看处理工单字段 end ## -->
+
+      <!-- # 客户及汇事达市级负责人处理工单字段 start # -->
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">救治方式</view>
+        </view>
+        <view class="weui-cell__bd">
+          <van-checkbox-group value="{{ result }}" custom-class="weui-input vertical" bind:change="onChange111">
+            <van-checkbox custom-class="fl mr5" name="0">门急诊</van-checkbox>
+            <van-checkbox custom-class="fl mr5" name="1">住院</van-checkbox>
+          </van-checkbox-group>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">结费方式</view>
+        </view>
+        <view class="weui-cell__bd">
+          <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
+                           bind:change="onAssignMethodChange">
+            <van-radio custom-class="fl mr5" name="0">医保</van-radio>
+            <van-radio custom-class="fl mr5" name="1">自费</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">医疗费合计</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="医疗费合计"/>
+        </view>
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
+        <!--</view>-->
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">医保合计</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="医保合计"/>
+        </view>
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
+        <!--</view>-->
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">自费合计</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="自费合计"/>
+        </view>
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
+        <!--</view>-->
+      </view>
+      <!-- # 客户及汇事达市级负责人处理工单字段 end # -->
     </view>
 
     <view class="weui-cells__title">报案信息</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
+        <view class="weui-cell__bd">
           <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
-                    value="{{taskData.information}}" disabled="{{role != '1' || (id != null && status != '12')}}" placeholder="请输入报案信息" style="height: 7em"/>
+                    value="{{taskData.information}}" placeholder="请输入报案信息" style="height: 7em"/>
         </view>
         <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
           {{taskData.information || '-'}}
@@ -73,8 +157,80 @@
       </view>
     </view>
 
+    <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 start ## -->
+    <view class="weui-cells__title">身份资料</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderInformationFiles">
+                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && status != '12'}}">
+                  无图片
+                </view>
+                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                    <van-icon wx:if="{{(id == null || status == '12') && role == '1'}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '12') && role == '1'}}">
+                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">医疗单证</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderInformationFiles">
+                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && status != '12'}}">
+                  无图片
+                </view>
+                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                    <van-icon wx:if="{{(id == null || status == '12') && role == '1'}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '12') && role == '1'}}">
+                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          *医疗费收据（必须在原件上写明“已向人保理赔”字样）、医疗费明细、住院记录或出院小结
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">驳回建议</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
+                    value="{{taskData.information}}" placeholder="请输入驳回建议" style="height: 7em"/>
+        </view>
+        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
+          {{taskData.information || '-'}}
+        </view>
+      </view>
+    </view>
+    <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 end ## -->
+
     <!-- upload start-->
-    <view class="weui-cells__title">报案信息图片</view>
+    <view class="weui-cells__title">保单抄件截图</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
@@ -101,105 +257,16 @@
     </view>
     <!-- upload end-->
 
-    <block wx:if="{{status == '13' || status == '11'}}">
-      <view class="weui-cells__title">现场信息</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd" wx:if="{{id != null && status == '13' && role == 20}}">
-            <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
-                      value="{{taskData.live}}" placeholder="请输入现场信息" style="height: 7em"/>
-          </view>
-          <view class="weui-cell__bd" style="min-height: 7em;" wx:if="{{id != null && status == '11'}}">
-            {{taskData.live || '-'}}
-          </view>
-        </view>
-      </view>
-
-      <view class="weui-cells__title">收款及现场图片</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <view class="weui-uploader">
-              <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderLiveFiles">
-                  <view class="no-image" wx:if="{{liveImageFiles.length == 0 && status != '13'}}">
-                    无图片
-                  </view>
-                  <block wx:for="{{liveImageFiles}}" wx:key="{{index}}">
-                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewLiveImage" id="{{item.path}}">
-                      <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                      <van-icon wx:if="{{status == '13' && role == 20}}" catchtap="removeLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                    </view>
-                  </block>
-                </view>
-                <view class="weui-uploader__input-box" wx:if="{{status == '13' && role == 20}}">
-                  <view class="weui-uploader__input" bindtap="chooseLiveImage"></view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <view class="weui-cells__title"></view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">收款金额</view>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{status == '13' && role == 20}}">
-            <input class="weui-input" bindinput="inputgetName" data-name='taskData.offer'
-                   value="{{taskData.offer}}" placeholder="收款金额"/>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{status == '11'}}">
-            <text class="weui-input readonly">{{(taskData.offer == null || taskData.offer == '') ? '-' : taskData.offer}}</text>
-          </view>
-        </view>
-      </view>
-
-    </block>
-
-    <block wx:if="{{id != null && status != '12'}}">
-      <view class="weui-cells__title"></view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
-          <view class="weui-cell__hd">
-            <view class="weui-label">查勘员手机</view>
-          </view>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{taskData.insurerUserMobile || '-'}}</text>
-          </view>
-          <view class="weui-cell__ft" wx:if="{{taskData.insurerUserMobile}}">
-            <view class="field-right-btn" data-phone="{{taskData.insurerUserMobile}}" bindtap="dialPhone">
-              <van-icon name="phone"></van-icon>
-            </view>
-          </view>
-        </view>
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
-          <view class="weui-cell__hd">
-            <view class="weui-label">疏通负责人手机</view>
-          </view>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{taskData.dredgeUserMobile || '-'}}</text>
-          </view>
-          <view class="weui-cell__ft" wx:if="{{taskData.dredgeUserMobile}}">
-            <view class="field-right-btn" data-phone="{{taskData.dredgeUserMobile}}" bindtap="dialPhone">
-              <van-icon name="phone"></van-icon>
-            </view>
-          </view>
-        </view>
-      </view>
-    </block>
-
-    <view class="button-sp-area two-btn-wrap" wx:if="{{(id == null || status == '12') && role == '1'}}">
-      <button type="primary" bindtap="commitSubmit">提交</button><!-- 新建 提交 -->
-      <button data-save="true" bindtap="commitSubmit">暂存</button>
+    <view class="button-sp-area two-btn-wrap"> <!-- 查勘员新建 -->
+      <button type="primary" bindtap="">提交</button>
+      <button data-save="true" bindtap="">暂存</button>
     </view>
-    <view class="button-sp-area" wx:if="{{id != null && status == '1' && role == '20'}}">
-      <button type="primary" bindtap="managerSubmit">确认</button><!-- 负责人 确认 -->
+    <view class="button-sp-area two-btn-wrap"> <!-- 查勘员处理 -->
+      <button type="primary" bindtap="">通过</button>
+      <button data-save="true" bindtap="">驳回</button>
     </view>
-    <view class="button-sp-area" wx:if="{{id != null && status == '13'}}">
-      <button type="primary" bindtap="completeSubmit">提交</button><!-- 办结 提交 -->
+    <view class="button-sp-area"> <!-- 客户 | 市负责人 处理工单 -->
+      <button type="primary" bindtap="">提交</button>
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
       <button type="primary" bindtap="downloadImages">下载工单图片</button>

@@ -37,7 +37,12 @@ Page({
   },
   goToAccident () {
     wx.navigateTo({
-      url: '../accident-audit-form/accident-audit-form' //TODO: TEMP
+      url: '../accident-form/accident-form'
+    })
+  },
+  goToAccidentDemo () {
+    wx.navigateTo({
+      url: '../accident-audit-form/accident-audit-form'
     })
   },
   onShow () {
