@@ -120,11 +120,11 @@
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">医疗费合计</view>
+          <view class="weui-label">门急诊合计</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                 value="{{taskData.customerName}}" placeholder="医疗费合计"/>
+                 value="{{taskData.customerName}}" placeholder="门急诊合计"/>
         </view>
         <!--<view class="weui-cell__bd">-->
           <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
@@ -133,11 +133,11 @@
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">医保合计</view>
+          <view class="weui-label">住院医疗合计</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                 value="{{taskData.customerName}}" placeholder="医保合计"/>
+                 value="{{taskData.customerName}}" placeholder="住院医疗合计"/>
         </view>
         <!--<view class="weui-cell__bd">-->
           <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
@@ -146,15 +146,15 @@
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">自费合计</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                 value="{{taskData.customerName}}" placeholder="自费合计"/>
+          <view class="weui-label">总合计</view>
         </view>
         <!--<view class="weui-cell__bd">-->
-          <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'-->
+                 <!--value="{{taskData.customerName}}" placeholder="自费合计"/>-->
         <!--</view>-->
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
+        </view>
       </view>
       <!-- # 客户及汇事达市级负责人处理工单字段 end # -->
     </view>
