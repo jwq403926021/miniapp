@@ -399,7 +399,7 @@
             <button type="primary" bindtap="consultAgree">协商同意提交</button> <!--协商同意 完善 -->
         </view>
         <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
-            <button type="primary" bindtap="downloadImages">下载工单图片</button>
+            <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
     </view>
     <van-popup
