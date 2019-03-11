@@ -59,6 +59,12 @@ Page({
       show: true
     })
   },
+  addCustomNewItem () {
+    let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': ''}]
+    this.setData({
+      detailListArr: _list
+    })
+  },
   onChange(event) {
     this.setData({
       activeNames: event.detail

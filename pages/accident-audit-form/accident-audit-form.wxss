@@ -47,6 +47,7 @@
   color: #fff;
   text-align: center;
   line-height: 30px;
+  box-sizing: border-box;
 }
 .accident-input-cell-group .van-cell{
   padding: 5px 15px;

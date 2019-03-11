@@ -187,8 +187,9 @@
                 删除
               </van-col>
             </van-row>
-            <view class="accident-detail-table-body addtext" span="24" bindtap="addNewItem">
-              添加 +
+            <view class="accident-detail-table-body" span="24">
+              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" bindtap="addCustomNewItem">自定义 +</view>
+              <view class="addtext" style="width: 50%; float: right;" bindtap="addNewItem">添加 +</view>
             </view>
           </view>
 

@@ -34,8 +34,9 @@ Page({
       "offer": "",
       "live": "",
       "insurerUserMobile": "",
-      "dredgeUserMobile": ""
+      "dredgeUserMobile": "",
     },
+    video: [],
     informationImageFiles: [],
     liveImageFiles: []
   },
@@ -223,6 +224,20 @@ Page({
     if (id) {
       common.deleteImage(id)
     }
+  },
+  chooseVideo: function (e) {
+    var that = this;
+    wx.chooseVideo({
+      sourceType: ['album', 'camera'],
+      compressed: true,
+      // maxDuration: 10,
+      camera: 'back',
+      success: res => {
+        console.log(res);
+        const video = res.tempFilePath;
+        this.setData({video})
+      }
+    })
   },
   chooseInfoImage: function (e) {
     var that = this;
@@ -510,6 +525,25 @@ Page({
           duration: 1000
         })
       }
+    })
+  },
+  uploadVideo () {
+    var that = this
+    console.log(that.data.video, '???')
+    wx.uploadFile({
+      url: 'https://aplusprice.xyz/aprice/app/attachments/upload',
+      filePath: that.data.video,
+      name: `files`,
+      header: {
+        "Content-Type": "multipart/form-data",
+        'token': wx.getStorageSync('token')
+      },
+      formData: {
+        'flowId': that.data.orderId
+      },
+      success:function(e){},
+      fail:function(e){},
+      complete:function(e){}
     })
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {

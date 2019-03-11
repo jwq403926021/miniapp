@@ -244,6 +244,29 @@
     </view>
     <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 end ## -->
 
+    <view class="weui-cells__title">视频上传</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <!--<view class="weui-uploader__files" id="uploaderInformationFiles">-->
+                <!--<block wx:for="{{informationImageFiles}}" wx:key="{{index}}">-->
+                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">-->
+                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                    <!--<van-icon data-id="{{item.id}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+                  <!--</view>-->
+                <!--</block>-->
+              <!--</view>-->
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseVideo"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
     <!-- upload start-->
     <view class="weui-cells__title">保单抄件截图</view>
     <view class="weui-cells weui-cells_after-title">
@@ -272,6 +295,9 @@
     </view>
     <!-- upload end-->
 
+    <view class="button-sp-area">
+      <button type="primary" bindtap="uploadVideo">上传视频测试</button>
+    </view>
     <view class="button-sp-area two-btn-wrap"> <!-- 查勘员新建 -->
       <button type="primary" bindtap="">提交</button>
       <button data-save="true" bindtap="">暂存</button>
