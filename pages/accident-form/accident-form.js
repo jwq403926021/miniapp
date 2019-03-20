@@ -28,17 +28,13 @@ Page({
       "provinceCode": "",
       "areaCode": "",
       "cityCode": "",
+      "reportNumber": '',
       "customMobile": '',
       "customName": "",
-      "information": "",
-      "offer": "",
-      "live": "",
-      "insurerUserMobile": "",
-      "dredgeUserMobile": "",
+      "investigatorText": ""
     },
-    video: [],
-    informationImageFiles: [],
-    liveImageFiles: []
+    // video: [],
+    informationImageFiles: []
   },
   onLoad: function (routeParams ) {
     console.log('开锁 工单号：->', routeParams)
@@ -67,33 +63,24 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
-      let liveImageFiles = []
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             informationImageFiles.push(item)
             break
-          case 10:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
-            liveImageFiles.push(item)
-            break
         }
       })
       _this.setData({
         'informationImageFiles': informationImageFiles,
-        'liveImageFiles': liveImageFiles,
         'status': data.status,
         'taskData.areaCode': data.areaCode,
         'taskData.cityCode': data.cityCode,
         'taskData.provinceCode': data.provinceCode,
         "taskData.customMobile": data.customMobile,
+        "taskData.reportNumber": data.reportNumber,
         "taskData.customName": data.customName,
-        "taskData.information": data.information,
-        "taskData.offer": data.offer,
-        "taskData.live": data.live,
-        "taskData.insurerUserMobile": data.insurerUserMobile,
-        "taskData.dredgeUserMobile": data.dredgeUserMobile
+        "taskData.investigatorText": data.investigatorText
       })
       _this.getRegionLabel()
     })
@@ -225,20 +212,20 @@ Page({
       common.deleteImage(id)
     }
   },
-  chooseVideo: function (e) {
-    var that = this;
-    wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      compressed: true,
-      // maxDuration: 10,
-      camera: 'back',
-      success: res => {
-        console.log(res);
-        const video = res.tempFilePath;
-        this.setData({video})
-      }
-    })
-  },
+  // chooseVideo: function (e) {
+  //   var that = this;
+  //   wx.chooseVideo({
+  //     sourceType: ['album', 'camera'],
+  //     compressed: true,
+  //     // maxDuration: 10,
+  //     camera: 'back',
+  //     success: res => {
+  //       console.log(res);
+  //       const video = res.tempFilePath;
+  //       this.setData({video})
+  //     }
+  //   })
+  // },
   chooseInfoImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -267,70 +254,22 @@ Page({
       }
     })
   },
-  previewLiveImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.liveImageFiles.map(item => {return item.path})
-    })
-  },
-  removeLiveImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    _this.data.liveImageFiles.splice(index, 1)
-    this.setData({
-      liveImageFiles: _this.data.liveImageFiles
-    })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
-  },
-  chooseLiveImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.liveImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '现场图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            liveImageFiles: list
-          });
-        }
-      }
-    })
-  },
   commitSubmit (e) {
     let data = this.data.taskData
     let _this = this
     let isSave = e.currentTarget.dataset.save
     let taskData = {
       "customMobile": data.customMobile,
+      "reportNumber": data.reportNumber,
       "customName": data.customName,
-      "information": data.information,
-      "areaCode": data.areaCode,
-      "cityCode": data.cityCode,
-      "provinceCode": data.provinceCode
+      "investigatorText": data.investigatorText,
+      "country": data.areaCode,
+      "city": data.cityCode,
+      "province": data.provinceCode,
+      "active": isSave ? 'save' : 'submit'
     }
     if (this.data.id) {
-      taskData.id = this.data.id
-      taskData.orderId = this.data.orderId
-    }
-    if (this.data.status == '12'){ // 暂存 二次点击
-      taskData.status = '12'
+      taskData.orderID = this.data.orderId
     }
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
@@ -339,27 +278,17 @@ Page({
       }
     })
 
-    if (taskData.customName == '') {
+    if (taskData.investigatorText == '') {
       wx.showToast({
         mask: true,
-        title: '请填写客户姓名',
+        title: '请填写勘察员备注',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '客户手机和报案图片必须填写一项',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-
-    if (taskData.customMobile) {
+    if (taskData.customMobile != '') {
       let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
       if (!isVaidcustomerPhone) {
         return
@@ -371,7 +300,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/dredge/save' : '/app/dredge/commit',
+      path: '/app/accidentInsurance/orders',
       method: 'POST',
       data: taskData
     }, function (err, res) {
@@ -410,142 +339,25 @@ Page({
       }
     })
   },
-  managerSubmit () {
-    let _this = this
-    let taskData = {
-      'id': this.data.id
-    }
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: '/app/dredge/confirm',
-      method: 'PUT',
-      data: taskData
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  completeSubmit () {
-    let data = this.data.taskData
-    let _this = this
-    let taskData = {
-      "customMobile": data.customMobile,
-      "customName": data.customName,
-      "information": data.information,
-      "areaCode": data.areaCode,
-      "cityCode": data.cityCode,
-      "provinceCode": data.provinceCode,
-      'id': this.data.id,
-      'offer': data.offer,
-      'live': data.live
-    }
-
-    let liveImageFiles = []
-    _this.data.liveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        liveImageFiles.push({path: item.path, type: 10})
-      }
-    })
-
-    if (liveImageFiles.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '请上传收款及现场照片',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-
-    if (taskData.offer == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写收款金额',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: '/app/dredge/finish',
-      method: 'PUT',
-      data: taskData
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = [...liveImageFiles]
-        console.log('Upload Files:', imgPaths)
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  uploadVideo () {
-    var that = this
-    console.log(that.data.video, '???')
-    wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/attachments/upload',
-      filePath: that.data.video,
-      name: `files`,
-      header: {
-        "Content-Type": "multipart/form-data",
-        'token': wx.getStorageSync('token')
-      },
-      formData: {
-        'flowId': that.data.orderId
-      },
-      success:function(e){},
-      fail:function(e){},
-      complete:function(e){}
-    })
-  },
+  // uploadVideo () {
+  //   var that = this
+  //   console.log(that.data.video, '???')
+  //   wx.uploadFile({
+  //     url: 'https://aplusprice.xyz/aprice/app/attachments/upload',
+  //     filePath: that.data.video,
+  //     name: `files`,
+  //     header: {
+  //       "Content-Type": "multipart/form-data",
+  //       'token': wx.getStorageSync('token')
+  //     },
+  //     formData: {
+  //       'flowId': that.data.orderId
+  //     },
+  //     success:function(e){},
+  //     fail:function(e){},
+  //     complete:function(e){}
+  //   })
+  // },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
     console.log('upload flowID:', this.data.id)
