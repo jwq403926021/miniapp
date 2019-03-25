@@ -115,7 +115,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/dredge/list',
+      path: '/app/accidentInsurance/orders?page=1&size=9999',
       method: 'GET',
       data: filter
     }, function (err, res) {

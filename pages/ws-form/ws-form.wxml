@@ -171,7 +171,7 @@
                               value="{{taskData.live}}" disabled="{{id !== null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
-                    {{taskData.information || '-'}}
+                    {{taskData.live || '-'}}
                 </view>
             </view>
         </view>
