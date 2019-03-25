@@ -3,14 +3,33 @@
     <view class="weui-cells__title">意外险工单</view>
     <view class="weui-cells weui-cells_after-title">
 
+      <block wx:if="{{id != null}}">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">工单号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{id}}</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">工单状态</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{statusMap[status]}}</text>
+          </view>
+        </view>
+      </block>
+
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
           <view class="weui-label">区域</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 29) && role == 1}}">
+        <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 20 || taskData.status == 29) && role == 1}}">
           <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 29}}">
+        <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 20 && taskData.status != 29}}">
           <text class="weui-input readonly">{{regionLabel || '-'}}</text>
         </view>
       </view>
@@ -32,11 +51,11 @@
         <view class="weui-cell__hd">
           <view class="weui-label">报案人姓名</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29)}}">
+        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                  value="{{taskData.customerName}}" placeholder="报案人姓名"/>
         </view>
-        <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29)}}">
+        <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
           <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
         </view>
       </view>
@@ -45,11 +64,11 @@
         <view class="weui-cell__hd">
           <view class="weui-label">报案人手机</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
-                 value="{{taskData.customMobile}}" placeholder="请输入报案人手机"/>
+        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
+                 value="{{taskData.customerPhone}}" placeholder="请输入报案人手机"/>
         </view>
-        <block wx:if="{{ id != null && !(role == 1 && status == 29)}}">
+        <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
           <view class="weui-cell__bd">
             <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
           </view>
@@ -69,8 +88,8 @@
         <view class="weui-cell__bd">
           <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
                            bind:change="onAssignMethodChange">
-            <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
-            <van-radio custom-class="fl mr5" name="1">市负责人</van-radio>
+            <van-radio custom-class="fl mr5" name="0">审核人员</van-radio>
+            <van-radio custom-class="fl mr5" name="1">被保险人</van-radio>
           </van-radio-group>
         </view>
       </view>
@@ -180,14 +199,14 @@
       <!-- # 客户处理工单字段 end # -->
     </view>
 
-    <view class="weui-cells__title">勘察员备注</view>
+    <view class="weui-cells__title">查勘员备注</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
-        <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
+        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
           <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                    value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 29}}" placeholder="请输入勘察员备注" style="height: 7em"/>
+                    value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 20 && status != 29}}" placeholder="请输入查勘员备注" style="height: 7em"/>
         </view>
-        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '29')}}">
+        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
           {{taskData.investigatorText || '-'}}
         </view>
       </view>
@@ -321,8 +340,8 @@
       <button type="primary" bindtap="">通过</button>
       <button data-save="true" bindtap="">驳回</button>
     </view>
-    <view class="button-sp-area" wx:if="{{role == 15 && status == 30}}"> <!-- 客户 处理工单 -->
-      <button type="primary" bindtap="">提交</button>
+    <view class="button-sp-area" wx:if="{{role == 8 && status == 20}}"> <!-- 客户 处理工单 -->
+      <button type="primary" bindtap="servicerCommit">提交</button>
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
       <button type="primary" bindtap="downloadImages">下载工单图片</button>

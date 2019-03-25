@@ -17,19 +17,23 @@ Page({
     repairPlantLabel: '',
     repairPlantList: [],
     status: '',
+    assignMethod: '0',
     statusMap: {
-      '12': '暂存',
-      '1': '查勘员已派送',
-      '13': '负责人已确认',
-      '11': '已办结',
-      '99': '处理中'
+      '29': '暂存',
+      '20': '待客服人员处理',
+      '30': '待被保险人完善',
+      '31': '待审核人员处理',
+      '32': '审核人员已处理',
+      '33': '查勘员已驳回',
+      '34': '查勘员已处理',
+      '11': '已办结'
     },
     taskData: {
       "provinceCode": "",
       "areaCode": "",
       "cityCode": "",
       "reportNumber": '',
-      "customMobile": '',
+      "customerPhone": '',
       "customName": "",
       "investigatorText": ""
     },
@@ -43,8 +47,8 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        orderId: routeParams.orderId,
-        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
+        // orderId: routeParams.orderId,
+        role: 8//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
       })
       this.initDataById(routeParams.id)
     }
@@ -52,11 +56,8 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: '/app/dredge/info',
-      method: 'GET',
-      data: {
-        id: id
-      }
+      path: `/app/accidentInsurance/orders/${id}`,
+      method: 'GET'
     }, function (err, res) {
       let data = res.data
       console.log('##', data)
@@ -74,12 +75,12 @@ Page({
       _this.setData({
         'informationImageFiles': informationImageFiles,
         'status': data.status,
-        'taskData.areaCode': data.areaCode,
-        'taskData.cityCode': data.cityCode,
-        'taskData.provinceCode': data.provinceCode,
-        "taskData.customMobile": data.customMobile,
+        'taskData.areaCode': data.country,
+        'taskData.cityCode': data.city,
+        'taskData.provinceCode': data.province,
+        "taskData.customerPhone": data.customerPhone,
         "taskData.reportNumber": data.reportNumber,
-        "taskData.customName": data.customName,
+        "taskData.customName": data.customerName,
         "taskData.investigatorText": data.investigatorText
       })
       _this.getRegionLabel()
@@ -259,7 +260,7 @@ Page({
     let _this = this
     let isSave = e.currentTarget.dataset.save
     let taskData = {
-      "customMobile": data.customMobile,
+      "customerPhone": data.customerPhone,
       "reportNumber": data.reportNumber,
       "customName": data.customName,
       "investigatorText": data.investigatorText,
@@ -281,15 +282,15 @@ Page({
     if (taskData.investigatorText == '') {
       wx.showToast({
         mask: true,
-        title: '请填写勘察员备注',
+        title: '请填写查勘员备注',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    if (taskData.customMobile != '') {
-      let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
+    if (taskData.customerPhone != '') {
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
       if (!isVaidcustomerPhone) {
         return
       }
@@ -333,6 +334,71 @@ Page({
         wx.showToast({
           mask: true,
           title: '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  servicerCommit () {
+    let _this = this
+    let active
+    if (_this.data.assignMethod === '0') {
+      active = 'examine'
+    } else if (_this.data.assignMethod === '1') {
+      active = 'advice'
+    }
+    let taskData = {
+      orderId: _this.data.id,
+      active: active,
+      province: _this.data.taskData.provinceId,
+      city: _this.data.taskData.cityId,
+      country: _this.data.taskData.countryId,
+      customerName: _this.data.taskData.customerName,
+      customerPhone: _this.data.taskData.customerPhone,
+      investigatorText: _this.data.taskData.investigatorText
+    }
+    if (taskData.customerName == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+    console.log(isVaidcustomerPhone, taskData.customerPhone)
+    if (!isVaidcustomerPhone) {
+      return
+    }
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/accidentInsurance/customerservice/orders`,
+      method: 'PUT',
+      data: taskData
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
           icon: 'none',
           duration: 1000
         })
@@ -409,6 +475,11 @@ Page({
       }
     })
   },
+  onAssignMethodChange (event) {
+    this.setData({
+      'assignMethod': event.detail
+    });
+  },
   checkPhone (str, msg){
     if(!(/^1[345789]\d{9}$/.test(str))){
       wx.showToast({
@@ -424,15 +495,15 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let length = pages.filter((item) => {
-      return item.route == 'pages/my-list-pipe/my-list-pipe'
+      return item.route == 'pages/my-list-accident/my-list-accident'
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-pipe/my-list-pipe'
+        url: '../my-list-pipe/my-list-accident'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-pipe/my-list-pipe'
+        url: '../my-list-pipe/my-list-accident'
       })
     }
   },

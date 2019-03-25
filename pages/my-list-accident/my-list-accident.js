@@ -14,24 +14,43 @@ Page({
     height: '',
     searchKeyword: '',
     statusMap: {
-      '12': '暂存',
-      '1': '查勘员已派送',
-      '13': '负责人已确认',
-      '11': '已办结',
-      '99': '处理中'
+      '29': '暂存',
+      '20': '待客服人员处理',
+      '30': '待被保险人完善',
+      '31': '待审核人员处理',
+      '32': '审核人员已处理',
+      '33': '查勘员已驳回',
+      '34': '查勘员已处理',
+      '11': '已办结'
     },
     statusList: [
       {
-        id: '12',
+        id: '29',
         name: '暂存'
       },
       {
-        id: '1',
-        name: '查勘员已派送'
+        id: '20',
+        name: '待客服人员处理'
       },
       {
-        id: '13',
-        name: '负责人已确认'
+        id: '30',
+        name: '待被保险人完善'
+      },
+      {
+        id: '31',
+        name: '已办结'
+      },
+      {
+        id: '32',
+        name: '审核人员已处理'
+      },
+      {
+        id: '33',
+        name: '查勘员已驳回'
+      },
+      {
+        id: '34',
+        name: '查勘员已处理'
       },
       {
         id: '11',
@@ -82,7 +101,7 @@ Page({
   },
   goToHandleTask (event) {
     wx.navigateTo({
-      url: '../pipe-form/pipe-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
+      url: '../accident-form/accident-form?id=' + event.currentTarget.dataset.orderid
     })
   },
   onCancel () {
@@ -122,7 +141,7 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       _this.setData({
-        dataList: res.data
+        dataList: res.data.records
       })
     })
   },
