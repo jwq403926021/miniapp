@@ -18,6 +18,8 @@ Page({
     repairPlantList: [],
     status: '',
     assignMethod: '0',
+    rescueType: ['0', '1'],
+    payType: '0',
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -26,6 +28,7 @@ Page({
       '32': '审核人员已处理',
       '33': '查勘员已驳回',
       '34': '查勘员已处理',
+      '35': '待被审核人完善',
       '11': '已办结'
     },
     taskData: {
@@ -34,11 +37,19 @@ Page({
       "cityCode": "",
       "reportNumber": '',
       "customerPhone": '',
-      "customName": "",
-      "investigatorText": ""
+      "customerName": "",
+      "investigatorText": "",
+      "rescueAmount": "",
+      "insuranceAmount": "",
+      "selfAmount": "",
+      'clientName': "",
+      'clientIdNum': ""
     },
     // video: [],
-    informationImageFiles: []
+    informationImageFiles: [],
+    idImageFrontImageFiles: [],
+    idImageBackImageFiles: [],
+    receiptImageImageFiles: []
   },
   onLoad: function (routeParams ) {
     console.log('开锁 工单号：->', routeParams)
@@ -47,8 +58,8 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        // orderId: routeParams.orderId,
-        role: 8//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
+        orderId: routeParams.id,
+        role: 15//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
       })
       this.initDataById(routeParams.id)
     }
@@ -64,24 +75,49 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
+      let idImageFrontImageFiles = []
+      let idImageBackImageFiles = []
+      let receiptImageImageFiles = []
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             informationImageFiles.push(item)
             break
+          case 10:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            idImageFrontImageFiles.push(item)
+            break
+          case 12:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            idImageBackImageFiles.push(item)
+            break
+          case 13:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            receiptImageImageFiles.push(item)
+            break
         }
       })
       _this.setData({
         'informationImageFiles': informationImageFiles,
+        'idImageFrontImageFiles': idImageFrontImageFiles,
+        'idImageBackImageFiles': idImageBackImageFiles,
+        'receiptImageImageFiles': receiptImageImageFiles,
         'status': data.status,
         'taskData.areaCode': data.country,
         'taskData.cityCode': data.city,
         'taskData.provinceCode': data.province,
         "taskData.customerPhone": data.customerPhone,
         "taskData.reportNumber": data.reportNumber,
-        "taskData.customName": data.customerName,
-        "taskData.investigatorText": data.investigatorText
+        "taskData.customerName": data.customerName,
+        "taskData.investigatorText": data.investigatorText,
+        "taskData.rescueAmount": data.emergencyMoney,
+        "taskData.insuranceAmount": data.hospitalMoney,
+        "taskData.selfAmount": data.medicalMoney,
+        'taskData.clientName': data.woundName,
+        'taskData.clientIdNum': data.woundCard,
+        'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
+        'payType': data.moneyMethod || '0'
       })
       _this.getRegionLabel()
     })
@@ -159,6 +195,15 @@ Page({
       nameMap[name] = e.detail.value
     }
     this.setData(nameMap)
+
+    if (name == 'taskData.rescueAmount' || name == 'taskData.insuranceAmount') {
+      this.calculateSelfAmount()
+    }
+  },
+  calculateSelfAmount () {
+    this.setData({
+      'taskData.selfAmount': parseFloat(this.data.taskData.rescueAmount || 0) + parseFloat(this.data.taskData.insuranceAmount || 0)
+    })
   },
   dialPhone (e) {
     let phone = e.currentTarget.dataset.phone+'';
@@ -201,6 +246,24 @@ Page({
       urls: this.data.informationImageFiles.map(item => {return item.path})
     })
   },
+  previewidImageFrontImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.idImageFrontImageFiles.map(item => {return item.path})
+    })
+  },
+  previewidImageBackImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.idImageBackImageFiles.map(item => {return item.path})
+    })
+  },
+  previewreceiptImageImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.receiptImageImageFiles.map(item => {return item.path})
+    })
+  },
   removeinformationImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
@@ -213,20 +276,42 @@ Page({
       common.deleteImage(id)
     }
   },
-  // chooseVideo: function (e) {
-  //   var that = this;
-  //   wx.chooseVideo({
-  //     sourceType: ['album', 'camera'],
-  //     compressed: true,
-  //     // maxDuration: 10,
-  //     camera: 'back',
-  //     success: res => {
-  //       console.log(res);
-  //       const video = res.tempFilePath;
-  //       this.setData({video})
-  //     }
-  //   })
-  // },
+  removeidImageFrontImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.idImageFrontImageFiles.splice(index, 1)
+    this.setData({
+      idImageFrontImageFiles: _this.data.idImageFrontImageFiles
+    })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
+  },
+  removeidImageBackImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.idImageBackImageFiles.splice(index, 1)
+    this.setData({
+      idImageBackImageFiles: _this.data.idImageBackImageFiles
+    })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
+  },
+  removereceiptImageImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.receiptImageImageFiles.splice(index, 1)
+    this.setData({
+      receiptImageImageFiles: _this.data.receiptImageImageFiles
+    })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
+  },
   chooseInfoImage: function (e) {
     var that = this;
     wx.chooseImage({
@@ -240,18 +325,105 @@ Page({
           })
         })
         let list = that.data.informationImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '报案图片不能超过9个',
-            icon: 'none',
-            duration: 2000
+        that.setData({
+          informationImageFiles: list
+        });
+      }
+    })
+  },
+  chooseidImageFrontImageFiles: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      count: 1,
+      success: function (res) {
+        wx.showLoading({
+          mask: true,
+          title: '识别中'
+        })
+        wx.uploadFile({
+          url: 'https://aplusprice.xyz/aprice/app/image/uploadUserCard',
+          filePath: res.tempFilePaths[0],
+          name: `files`,
+          header: {
+            "Content-Type": "multipart/form-data",
+            'token': wx.getStorageSync('token')
+          },
+          formData: {
+            'flowId': that.data.orderId,
+            'type': 10
+          },
+          success:function(e){
+            let response = JSON.parse(e.data)
+            wx.hideLoading()
+            if (response.data == null) {
+              wx.showToast({
+                mask: true,
+                title: '图片无法识别请重新上传',
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              that.setData({
+                'taskData.clientName': response.data.name,
+                'taskData.clientIdNum': response.data.cardNumber
+              })
+            }
+          },
+          fail:function(e){},
+          complete:function(e){}
+        })
+
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
           })
-        } else {
-          that.setData({
-            informationImageFiles: list
-          });
-        }
+        })
+        let list = that.data.idImageFrontImageFiles.concat(tempList)
+        that.setData({
+          idImageFrontImageFiles: list
+        });
+      }
+    })
+  },
+  chooseidImageBackImageFiles: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      count: 1,
+      success: function (res) {
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.idImageBackImageFiles.concat(tempList)
+        that.setData({
+          idImageBackImageFiles: list
+        });
+      }
+    })
+  },
+  choosereceiptImageImageFiles: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.receiptImageImageFiles.concat(tempList)
+        that.setData({
+          receiptImageImageFiles: list
+        });
       }
     })
   },
@@ -262,7 +434,7 @@ Page({
     let taskData = {
       "customerPhone": data.customerPhone,
       "reportNumber": data.reportNumber,
-      "customName": data.customName,
+      "customerName": data.customerName,
       "investigatorText": data.investigatorText,
       "country": data.areaCode,
       "city": data.cityCode,
@@ -310,7 +482,7 @@ Page({
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
         _this.setData({
-          'orderId': res.orderId
+          'orderId': res.data.flowId
         })
         let count = 0
         let successUp = 0
@@ -405,6 +577,168 @@ Page({
       }
     })
   },
+  clientCommit () {
+    let data = this.data.taskData
+    let _this = this
+    let taskData = {
+      rescueType: _this.data.rescueType,
+      payType: _this.data.payType,
+      clientName: data.clientName,
+      clientIdNum: data.clientIdNum,
+      rescueAmount: data.rescueAmount,
+      insuranceAmount: data.insuranceAmount,
+      selfAmount: data.selfAmount,
+      city: data.cityCode,
+      orderId: _this.data.id
+    }
+
+    let idImageBackImageFiles = []
+    _this.data.idImageBackImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        idImageBackImageFiles.push({path: item.path, type: 12})
+      }
+    })
+    let receiptImageImageFiles = []
+    _this.data.receiptImageImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        receiptImageImageFiles.push({path: item.path, type: 13})
+      }
+    })
+
+    if (data.clientIdNum == '' || data.clientIdNum == null) {
+      wx.showToast({
+        mask: true,
+        title: '请上传身份证正面',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (idImageBackImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '请上传身份证反面',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (receiptImageImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '请上传医疗单证',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    console.log('!@#!@#!@#', _this.data, _this.data.rescueType)
+    if (_this.data.rescueType.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '请填写救治方式',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (_this.data.payType == '' || _this.data.payType == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写结费方式',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (data.rescueAmount == '' || data.rescueAmount == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写门急诊合计',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (data.insuranceAmount == '' || data.insuranceAmount == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写住院医疗合计',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (data.selfAmount == '' || data.selfAmount == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写医疗费合计',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/accidentInsurance/customer/orders',
+      method: 'PUT',
+      data: taskData
+    }, function (err, res) {
+      console.log('工单新建：', res)
+      if (res.code == 0) {
+        let imgPaths = [...idImageBackImageFiles, ...receiptImageImageFiles]
+        console.log('Upload Files:', imgPaths)
+        _this.setData({
+          'orderId': _this.data.id
+        })
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+
+  },
+  // chooseVideo: function (e) {
+  //   var that = this;
+  //   wx.chooseVideo({
+  //     sourceType: ['album', 'camera'],
+  //     compressed: true,
+  //     // maxDuration: 10,
+  //     camera: 'back',
+  //     success: res => {
+  //       console.log(res);
+  //       const video = res.tempFilePath;
+  //       this.setData({video})
+  //     }
+  //   })
+  // },
   // uploadVideo () {
   //   var that = this
   //   console.log(that.data.video, '???')
@@ -480,6 +814,19 @@ Page({
       'assignMethod': event.detail
     });
   },
+  onRescueTypeChange (event) {
+    this.setData({
+      'rescueType': event.detail
+    });
+  },
+  onPayTypeChange (event) {
+    this.setData({
+      'payType': event.detail,
+      "taskData.rescueAmount": "",
+      "taskData.insuranceAmount": "",
+      "taskData.selfAmount": ""
+    });
+  },
   checkPhone (str, msg){
     if(!(/^1[345789]\d{9}$/.test(str))){
       wx.showToast({
@@ -499,11 +846,11 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-pipe/my-list-accident'
+        url: '../my-list-accident/my-list-accident'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-pipe/my-list-accident'
+        url: '../my-list-accident/my-list-accident'
       })
     }
   },
