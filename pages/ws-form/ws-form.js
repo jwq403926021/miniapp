@@ -718,10 +718,11 @@ Page({
       }
     }
 
-    if (taskData.damagedPhone == '' && taskData.customerPhone == '' && informationImageFiles.length == 0){
+    // && informationImageFiles.length == 0 、报案图片任选一项
+    if (taskData.damagedPhone == '' && taskData.customerPhone == ''){
       wx.showToast({
         mask: true,
-        title: '请填写客户手机、受损人手机、报案图片任选一项',
+        title: '请填写客户手机、受损人手机',
         icon: 'none',
         duration: 2000
       })

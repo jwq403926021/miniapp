@@ -124,46 +124,46 @@
                 </view>
             </view>
         </view>
-        <view class="weui-cells__title">报案信息</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
-                              value="{{taskData.information}}" disabled="{{id != null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
-                    {{taskData.information || '-'}}
-                </view>
-            </view>
-        </view>
+        <!--<view class="weui-cells__title">报案信息</view>-->
+        <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell">-->
+                <!--<view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">-->
+                    <!--<textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'-->
+                              <!--value="{{taskData.information}}" disabled="{{id != null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 7em"/>-->
+                <!--</view>-->
+                <!--<view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">-->
+                    <!--{{taskData.information || '-'}}-->
+                <!--</view>-->
+            <!--</view>-->
+        <!--</view>-->
         <!-- upload start-->
-        <view class="weui-cells__title">报案信息图片</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
-                            <view class="weui-uploader__files" id="uploaderInformationFiles">
-                                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && taskData.status != 2 && taskData.status != 12}}">
-                                    无图片
-                                </view>
-                                <block wx:for="{{informationImageFiles}}"wx:key="{{index}}">
-                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                                    </view>
-                                </block>
-                            </view>
-                            <view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}"> <!-- TODO: 待查勘员完善工单 2 也可以编辑-->
-                                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-        </view>
+        <!--<view class="weui-cells__title">报案信息图片</view>-->
+        <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell">-->
+                <!--<view class="weui-cell__bd">-->
+                    <!--<view class="weui-uploader">-->
+                        <!--<view class="weui-uploader__bd">-->
+                            <!--<view class="weui-uploader__files" id="uploaderInformationFiles">-->
+                                <!--<view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && taskData.status != 2 && taskData.status != 12}}">-->
+                                    <!--无图片-->
+                                <!--</view>-->
+                                <!--<block wx:for="{{informationImageFiles}}"wx:key="{{index}}">-->
+                                    <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">-->
+                                        <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                                        <!--<van-icon wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+                                    <!--</view>-->
+                                <!--</block>-->
+                            <!--</view>-->
+                            <!--<view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}"> &lt;!&ndash; TODO: 待查勘员完善工单 2 也可以编辑&ndash;&gt;-->
+                                <!--<view class="weui-uploader__input" bindtap="chooseInfoImage"></view>-->
+                            <!--</view>-->
+                        <!--</view>-->
+                    <!--</view>-->
+                <!--</view>-->
+            <!--</view>-->
+        <!--</view>-->
         <!-- upload end-->
-        <view class="weui-cells__title">现场信息</view>
+        <view class="weui-cells__title">案件备注</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
@@ -176,7 +176,7 @@
             </view>
         </view>
         <!-- upload start-->
-        <view class="weui-cells__title">现场信息图片</view>
+        <view class="weui-cells__title">案件图片</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
