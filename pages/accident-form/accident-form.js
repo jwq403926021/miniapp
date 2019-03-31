@@ -59,7 +59,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: 15//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
+        role: 24//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
       })
       this.initDataById(routeParams.id)
     }
@@ -577,7 +577,10 @@ Page({
       }
     })
   },
-  clientCommit () {
+  examineCommit () {
+    this.clientCommit('/app/accidentInsurance/examine/improve/orders')
+  },
+  clientCommit (url) {
     let data = this.data.taskData
     let _this = this
     let taskData = {
@@ -685,7 +688,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/accidentInsurance/customer/orders',
+      path: url || '/app/accidentInsurance/customer/orders',
       method: 'PUT',
       data: taskData
     }, function (err, res) {

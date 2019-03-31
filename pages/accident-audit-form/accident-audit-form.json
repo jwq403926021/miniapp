@@ -8,6 +8,8 @@
     "van-col": "../../asset/vant/col/index",
     "van-cell-group": "../../asset/vant/cell-group/index",
     "van-field": "../../asset/vant/field/index",
-    "van-search": "../../asset/vant/search/index"
+    "van-search": "../../asset/vant/search/index",
+    "van-icon": "../../asset/vant/icon/index",
+    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
   }
 }

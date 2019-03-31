@@ -5,36 +5,44 @@
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">报案号</view>
+          <view class="weui-label">工单号</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+          <text class="weui-input readonly">{{id}}</text>
         </view>
       </view>
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">被保险人姓名</view>
+          <view class="weui-label">工单状态</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+          <text class="weui-input readonly">{{statusMap[status]}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">区域</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{regionLabel || '-'}}</text>
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">伤者姓名</view>
+          <view class="weui-label">报案号</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+          <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">伤者身份证号</view>
+          <view class="weui-label">报案人电话</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
         </view>
       </view>
 
@@ -57,7 +65,7 @@
           <view class="weui-label">查勘员姓名</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+          <text class="weui-input readonly">{{taskData.investigatorName || '-'}}</text>
         </view>
       </view>
 
@@ -66,12 +74,59 @@
           <view class="weui-label">查勘员电话</view>
         </view>
         <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+          <text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>
         </view>
-        <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
-          <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+        <view class="weui-cell__ft" wx:if="{{taskData.investigatorPhone}}">
+          <view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">
             <van-icon name="phone"></van-icon>
           </view>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">救治方式</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{rescueType.indexOf(0) != -1 ? '门急诊' : ''}} {{rescueType.indexOf(1) != -1 ? '住院' : ''}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">结费方式</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{['医保', '自费'][payType] || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">被保险人姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.insurantName'
+                 value="{{taskData.insurantName}}" placeholder="请输入被保险人姓名"/>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredName'
+                 value="{{taskData.injuredName}}" placeholder="请输入伤者姓名"/>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">伤者身份证号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'
+                 value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>
         </view>
       </view>
 
@@ -79,33 +134,52 @@
         <view class="weui-cell__hd">
           <view class="weui-label">保险期间</view>
         </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+        <view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">
+          <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>
+        </view>
+        <view data-type="1" bindtap="openDatePicker" class="weui-cell__bd">
+          <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '结束日期'}}</text>
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">上次总核损金额</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
-        </view>
-      </view>
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">上次总核损金额</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
     </view>
 
-    <view class="weui-cells__title">身份资料</view>
+    <view class="weui-cells__title">身份证（正面）</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderInformationFiles">
-                <view class="no-image">
-                  无图片
-                </view>
-                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+              <view class="weui-uploader__files" id="idImageFrontImageFiles">
+                <block wx:for="{{idImageFrontImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cells__title">身份证（反面）</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="idImageBackImageFiles">
+                <block wx:for="{{idImageBackImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
                 </block>
@@ -122,15 +196,16 @@
         <view class="weui-cell__bd">
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderInformationFiles">
-                <view class="no-image">
-                  无图片
-                </view>
-                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+              <view class="weui-uploader__files" id="receiptImageImageFiles">
+                <block wx:for="{{receiptImageImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                    <van-icon catchtap="removereceiptImageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                   </view>
                 </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>
               </view>
             </view>
           </view>
@@ -226,11 +301,24 @@
     <view class="totalPrice">
       总理算金额：888
     </view>
-    <view class="button-sp-area two-btn-wrap">
+    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}">
       <button type="primary" bindtap="commitSubmit">提交</button>
       <button data-save="true" bindtap="commitSubmit">驳回</button>
     </view>
+    <view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
+      <button type="primary" bindtap="commitSubmit">提交</button>
+    </view>
   </view>
+
+  <van-popup show="{{ datePickerShow }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker
+            type="date"
+            value="{{ currentDate }}"
+            bind:confirm="onDatePickerConfirm"
+            bind:cancel="onDatePickerCancel"
+    />
+  </van-popup>
+
 
   <van-popup custom-class="add-item-popup" show="{{ show }}" position="right" overlay="{{ true }}">
     <van-search

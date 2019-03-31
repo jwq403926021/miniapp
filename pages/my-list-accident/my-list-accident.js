@@ -105,6 +105,18 @@ Page({
 
   },
   goToHandleTask (event) {
+    let role = 24 // app.globalData.currentRegisterInfo.role
+    let status = event.currentTarget.dataset.status
+    if (
+      status == 31 || status == 32 || status == 33 || status == 34 || status == 11
+      // (role == 24 && (event.currentTarget.dataset.status == 31 || event.currentTarget.dataset.status == 33)) // 审核人员处理  跳转到审核页面
+      // ||
+      // (role == 1 && (event.currentTarget.dataset.status == 32)) // 查勘员 通过 驳回 处理  跳转到审核页面
+    ) {
+      wx.navigateTo({
+        url: '../accident-audit-form/accident-audit-form?id=' + event.currentTarget.dataset.orderid
+      })
+    }
     wx.navigateTo({
       url: '../accident-form/accident-form?id=' + event.currentTarget.dataset.orderid
     })

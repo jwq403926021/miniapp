@@ -40,11 +40,6 @@ Page({
       url: '../accident-form/accident-form'
     })
   },
-  goToAccidentDemo () {
-    wx.navigateTo({
-      url: '../accident-audit-form/accident-audit-form'
-    })
-  },
   onShow () {
     var value = wx.getStorageSync('status')
     if(value == 2 || value == '') {

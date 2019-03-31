@@ -137,21 +137,21 @@
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">救治方式</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{role == 15 && status == 30}}">
+          <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
             <van-checkbox-group value="{{ rescueType }}" custom-class="weui-input vertical" bind:change="onRescueTypeChange">
               <van-checkbox custom-class="fl mr5" name="0">门急诊</van-checkbox>
               <van-checkbox custom-class="fl mr5" name="1">住院</van-checkbox>
             </van-checkbox-group>
           </view>
           <view class="weui-cell__bd"  wx:else>
-            <text class="weui-input readonly">{{taskData.rescueType}}</text>
+            <text class="weui-input readonly">{{rescueType.indexOf(0) != -1 ? '门急诊' : ''}} {{rescueType.indexOf(1) != -1 ? '住院' : ''}}</text>
           </view>
         </view>
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">结费方式</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{role == 15 && status == 30}}">
+          <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
             <van-radio-group value="{{ payType }}" custom-class="weui-input vertical"
                              bind:change="onPayTypeChange">
               <van-radio custom-class="fl mr5" name="0">医保</van-radio>
@@ -159,7 +159,7 @@
             </van-radio-group>
           </view>
           <view class="weui-cell__bd"  wx:else>
-            <text class="weui-input readonly">{{['医保', '自费'][taskData.payType] || '-'}}</text>
+            <text class="weui-input readonly">{{['医保', '自费'][payType] || '-'}}</text>
           </view>
         </view>
 
@@ -167,7 +167,7 @@
           <view class="weui-cell__hd">
             <view class="weui-label">门急诊合计</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{role == 15 && status == 30}}">
+          <view class="weui-cell__bd" wx:if="{{((role == 15 && status == 30) || (role == 24 && status == 35)) || (role == 24 && status == 35)}}">
             <input class="weui-input" bindinput="inputgetName" data-name='taskData.rescueAmount'
                    value="{{taskData.rescueAmount}}" placeholder="门急诊合计"/>
           </view>
@@ -180,7 +180,7 @@
           <view class="weui-cell__hd">
             <view class="weui-label">住院医疗合计</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{role == 15 && status == 30}}">
+          <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
             <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceAmount'
                    value="{{taskData.insuranceAmount}}" placeholder="住院医疗合计"/>
           </view>
@@ -193,7 +193,7 @@
           <view class="weui-cell__hd">
             <view class="weui-label">医疗费合计</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{role == 15 && status == 30}}">
+          <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
             <input class="weui-input" bindinput="inputgetName" data-name='taskData.selfAmount' disabled="{{payType != 1}}"
                    value="{{taskData.selfAmount}}" placeholder="自费合计"/>
           </view>
@@ -227,17 +227,17 @@
             <view class="weui-uploader">
               <view class="weui-uploader__bd">
                 <view class="weui-uploader__files" id="idImageFrontImageFiles">
-                  <view class="no-image" wx:if="{{idImageFrontImageFiles.length == 0 && id != null && status != '30'}}">
+                  <view class="no-image" wx:if="{{idImageFrontImageFiles.length == 0&& id != null && status != '30'&& status != '35'}}">
                     无图片
                   </view>
                   <block wx:for="{{idImageFrontImageFiles}}" wx:key="{{index}}">
                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">
                       <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                      <van-icon wx:if="{{(id == null || status == '30') && role == '15'}}" catchtap="removeidImageFrontImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                      <van-icon wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}" catchtap="removeidImageFrontImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                     </view>
                   </block>
                 </view>
-                <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '30') && role == '15' && (taskData.clientIdNum == '' || taskData.clientIdNum == null)}}">
+                <view class="weui-uploader__input-box" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35) && (taskData.clientIdNum == '' || taskData.clientIdNum == null)}}">
                   <view class="weui-uploader__input" bindtap="chooseidImageFrontImageFiles"></view>
                 </view>
               </view>
@@ -253,17 +253,17 @@
             <view class="weui-uploader">
               <view class="weui-uploader__bd">
                 <view class="weui-uploader__files" id="idImageBackImageFiles">
-                  <view class="no-image" wx:if="{{idImageBackImageFiles.length == 0 && id != null && status != '30'}}">
+                  <view class="no-image" wx:if="{{idImageBackImageFiles.length == 0&& id != null && status != '30'&& status != '35'}}">
                     无图片
                   </view>
                   <block wx:for="{{idImageBackImageFiles}}" wx:key="{{index}}">
                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">
                       <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                      <van-icon wx:if="{{(id == null || status == '30') && role == '15'}}" catchtap="removeidImageBackImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                      <van-icon wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}" catchtap="removeidImageBackImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                     </view>
                   </block>
                 </view>
-                <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '30') && role == '15'}}">
+                <view class="weui-uploader__input-box" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
                   <view class="weui-uploader__input" bindtap="chooseidImageBackImageFiles"></view>
                 </view>
               </view>
@@ -279,17 +279,17 @@
             <view class="weui-uploader">
               <view class="weui-uploader__bd">
                 <view class="weui-uploader__files" id="receiptImageImageFiles">
-                  <view class="no-image" wx:if="{{receiptImageImageFiles.length == 0 && id != null && status != '30'}}">
+                  <view class="no-image" wx:if="{{receiptImageImageFiles.length == 0&& id != null && status != '30'&& status != '35'}}">
                     无图片
                   </view>
                   <block wx:for="{{receiptImageImageFiles}}" wx:key="{{index}}">
                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">
                       <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                      <van-icon wx:if="{{(id == null || status == '30') && role == '15'}}" catchtap="removereceiptImageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                      <van-icon wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}" catchtap="removereceiptImageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                     </view>
                   </block>
                 </view>
-                <view class="weui-uploader__input-box" wx:if="{{(id == null || status == '30') && role == '15'}}">
+                <view class="weui-uploader__input-box" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35)}}">
                   <view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>
                 </view>
               </view>
@@ -378,6 +378,9 @@
     </view>
     <view class="button-sp-area" wx:if="{{role == 15 && status == 30}}"> <!-- 被保险人 完善工单 -->
       <button type="primary" bindtap="clientCommit">提交</button>
+    </view>
+    <view class="button-sp-area" wx:if="{{role == 24 && status == 35}}"> <!-- 审核人 完善工单 -->
+      <button type="primary" bindtap="examineCommit">提交</button>
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
       <button type="primary" bindtap="downloadImages">下载工单图片</button>
