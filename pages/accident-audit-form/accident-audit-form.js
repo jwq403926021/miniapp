@@ -180,21 +180,21 @@ Page({
         'taskData.outpatientPercent': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientPercent : 0,
         'taskData.outpatientSelfPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientSelfPrice : 0,
         'taskData.outpatientComputedPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientComputedPrice : 0,
-        'detailListArr': data.medicOutList,
+        'detailListArr': data.medicOutList || [],
 
         'taskData.inpatientLimitedNum': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientLimitedNum : 0,
         'taskData.inpatientDeductible': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientDeductible : 0,
         'taskData.inpatientPercent': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientPercent : 0,
         'taskData.inpatientSelfPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientSelfPrice : 0,
         'taskData.inpatientComputedPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientComputedPrice : 0,
-        'detailListArr2': data.medicInList,
+        'detailListArr2': data.medicInList || [],
 
         'taskData.days': data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.days : 0,
         'taskData.deductibleDays':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.deductibleDays : 0,
         'taskData.pricePerDay':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.pricePerDay : 0,
         'taskData.allowance':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.allowance : 0,
 
-        'taskData.totalAmount': data.offerMoney
+        'taskData.totalAmount': data.offerMoney || 0
       })
       _this.getRegionLabel()
     })
@@ -225,12 +225,23 @@ Page({
     this.initMedicine()
   },
   nextMedicinePage () {
-    let page = this.data.medicinePage - 1
+    let page = this.data.medicinePage + 1
     if (page > this.data.medicineTotalPage) {
       page = this.data.medicineTotalPage
     }
     this.setData({
       medicinePage: page
+    })
+    this.initMedicine()
+  },
+  medicineKeywordChange (data) {
+    this.setData({
+      medicineKeyword: data.detail
+    })
+  },
+  onSearch () {
+    this.setData({
+      medicinePage: 1
     })
     this.initMedicine()
   },
@@ -288,14 +299,18 @@ Page({
     if (isCancel) {
       this.setData({
         show: false,
-        tempDetailList: []
+        tempDetailList: [],
+        medicineKeyword: '',
+        medicinePage: ''
       })
       return false
     }
     this.setData({
       show: false,
       detailListArr: _list,
-      tempDetailList: []
+      tempDetailList: [],
+      medicineKeyword: '',
+      medicinePage: ''
     })
     this.calculateMoney()
   },

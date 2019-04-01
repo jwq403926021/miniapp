@@ -457,10 +457,11 @@
   </van-popup>
 
 
-  <van-popup custom-class="add-item-popup" show="{{ show }}" position="bottom" overlay="{{ true }}">
+  <van-popup custom-class="add-item-popup" show="{{ show }}" position="bottom" overlay="{{ true }}" close-on-click-overlay="{{ false }}">
     <van-search
-            value="{{ keyword }}"
+            value="{{ medicineKeyword }}"
             placeholder="请输入搜索关键词"
+            bind:change="medicineKeywordChange"
             use-action-slot>
       <view slot="action" bind:tap="onSearch">搜索</view>
     </van-search>
@@ -488,13 +489,13 @@
       </van-col>
     </van-row>
     <van-row>
-      <van-col span="5" style="text-align: center; line-height: 24px; color:#016eff;">
+      <van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">
         <text bindtap="prevMedicinePage">上一页</text>
       </van-col>
-      <van-col span="14" style="text-align: center; line-height: 24px;">
+      <van-col span="14" style="text-align: center; line-height: 30px;">
         第{{medicinePage}}页 | 共{{medicineTotalPage}}页
       </van-col>
-      <van-col span="5" style="text-align: center; line-height: 24px; color:#016eff;">
+      <van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">
         <text bindtap="nextMedicinePage">下一页</text>
       </van-col>
     </van-row>
