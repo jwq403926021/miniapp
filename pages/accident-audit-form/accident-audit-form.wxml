@@ -204,7 +204,7 @@
                   </view>
                 </block>
               </view>
-              <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input-box" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
                 <view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>
               </view>
             </view>
@@ -270,7 +270,7 @@
                 删除
               </van-col>
             </van-row>
-            <view class="accident-detail-table-body" span="24">
+            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24}}">
               <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" bindtap="addCustomNewItem">自定义 +</view>
               <view class="addtext" style="width: 50%; float: right;" bindtap="addNewItem">添加 +</view>
             </view>
@@ -359,7 +359,7 @@
                 删除
               </van-col>
             </van-row>
-            <view class="accident-detail-table-body" span="24">
+            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24}}">
               <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" bindtap="addCustomNewItem">自定义 +</view>
               <view class="addtext" style="width: 50%; float: right;" bindtap="addNewItem">添加 +</view>
             </view>
@@ -438,13 +438,15 @@
     <view class="totalPrice">
       总理算金额：{{taskData.totalAmount}}
     </view>
-    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}">
+
+    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}"><!-- 查勘员处理 -->
       <button type="primary" bindtap="commitSubmit">提交</button>
-      <button data-save="true" bindtap="commitSubmit">驳回</button>
+      <button bindtap="commitSubmit">驳回</button>
     </view>
-    <view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
+    <view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}"><!-- 审核人 处理 -->
       <button type="primary" bindtap="commitSubmit">提交</button>
     </view>
+
   </view>
 
   <van-popup show="{{ datePickerShow }}" position="bottom" overlay="{{ true }}">
