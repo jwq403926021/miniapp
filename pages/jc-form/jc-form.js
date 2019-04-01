@@ -53,7 +53,8 @@ Page({
     damageImageFiles: [],
     caleImageFiles: [],
     authorityImageFiles: [],
-    informationImageFiles: []
+    informationImageFiles: [],
+    completeImageFiles: []
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -61,7 +62,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
       })
       this.initDataById(routeParams.id)
     }
@@ -114,6 +115,7 @@ Page({
       let authorityImageFiles = []
       let damageImageFiles = []
       let caleImageFiles = []
+      let completeImageFiles = []
       let familyImages = {
         house: [],// 房屋及装修 2001
         electrical: [],// 家电及文体用品 2002
@@ -140,6 +142,10 @@ Page({
           case 5:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             authorityImageFiles.push(item)
+            break
+          case 6:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            completeImageFiles.push(item)
             break
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -214,6 +220,7 @@ Page({
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
         damageImageFiles: damageImageFiles,
+        completeImageFiles: completeImageFiles,
         region: data.areaCountryId + ''
       })
       _this.getRegionLabel()
@@ -338,6 +345,52 @@ Page({
     _this.data.informationImageFiles.splice(index, 1)
     this.setData({
       informationImageFiles: _this.data.informationImageFiles
+    })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
+  },
+  choosecompleteImageFiles: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.completeImageFiles.concat(tempList)
+        if (res.tempFilePaths.length > 9) {
+          wx.showToast({
+            mask: true,
+            title: '施工完成图片不能超过9个',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          that.setData({
+            completeImageFiles: list
+          });
+        }
+      }
+    })
+  },
+  previewcompleteImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.completeImageFiles.map(item => {return item.path})
+    })
+  },
+  removecompleteImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.completeImageFiles.splice(index, 1)
+    this.setData({
+      completeImageFiles: _this.data.completeImageFiles
     })
     let id = e.currentTarget.dataset.id;
     if (id) {
@@ -605,6 +658,22 @@ Page({
         })
       }
     })
+  },
+  completeCommit () {
+    let _this = this
+    let completeImageFiles = []
+    _this.data.completeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        completeImageFiles.push({path: item.path, type: 6})
+      }
+    })
+
+    // _this.id = res.data.flowId || _this.data.id
+    let imgPaths = [...completeImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
   },
   lossCommit (e) {
     let _this = this
