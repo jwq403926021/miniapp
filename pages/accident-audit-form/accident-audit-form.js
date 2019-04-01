@@ -10,7 +10,9 @@ Page({
     id: null,
     role: 1,
     show: false,
-
+    medicinePage: 1,
+    medicineTotalPage: 1,
+    medicineKeyword: '',
     areaList: [],
     region: '',
     regionLabel: '',
@@ -44,7 +46,26 @@ Page({
       'investigatorPhone': '',
       'insurantName': '',
       'injuredName': '',
-      'injuredId': ''
+      'injuredId': '',
+
+      'outpatientLimitedNum': 0,
+      'outpatientDeductible': 0,
+      'outpatientPercent': 0,
+      'outpatientSelfPrice': 0,
+      'outpatientComputedPrice': 0,
+
+      'inpatientLimitedNum': 0,
+      'inpatientDeductible': 0,
+      'inpatientPercent': 0,
+      'inpatientSelfPrice': 0,
+      'inpatientComputedPrice': 0,
+
+      'days': 0,
+      'deductibleDays': 0,
+      'pricePerDay': 0,
+      'allowance': 0,
+
+      'totalAmount': 0
     },
     datePickerType: '',
     insuranceBegin: '',
@@ -59,10 +80,12 @@ Page({
     payType: '',
     activeNames: ['0','1','2'],
     detailListArr: [],
+    detailListArr2: [],
     tempDetailList: []
   },
   onLoad: function (routeParams ) {
     this.initArea()
+    this.initMedicine()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
@@ -71,6 +94,24 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  previewidImageFrontImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.idImageFrontImageFiles.map(item => {return item.path})
+    })
+  },
+  previewidImageBackImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.idImageBackImageFiles.map(item => {return item.path})
+    })
+  },
+  previewreceiptImageImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.receiptImageImageFiles.map(item => {return item.path})
+    })
   },
   initDataById (id) {
     let _this = this
@@ -117,9 +158,9 @@ Page({
         "taskData.reportNumber": data.reportNumber,
         "taskData.customerName": data.customerName,
         "taskData.investigatorText": data.investigatorText,
-        "taskData.rescueAmount": data.emergencyMoney,
-        "taskData.insuranceAmount": data.hospitalMoney,
-        "taskData.selfAmount": data.medicalMoney,
+        "taskData.rescueAmount": data.emergencyMoney || 0,
+        "taskData.insuranceAmount": data.hospitalMoney || 0,
+        "taskData.selfAmount": data.medicalMoney || 0,
         'taskData.clientName': data.woundName,
         'taskData.clientIdNum': data.woundCard,
         'taskData.investigatorName': data.investigatorName,
@@ -132,7 +173,28 @@ Page({
         insuranceBeginLabel:  data.insuranceBegin ? new Date(data.insuranceBegin).toLocaleDateString() : '',
         insuranceEndLabel:  data.insuranceEnd ? new Date(data.insuranceEnd).toLocaleDateString() : '',
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
-        'payType': data.moneyMethod || '0'
+        'payType': data.moneyMethod || '0',
+
+        'taskData.outpatientLimitedNum': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientLimitedNum : 0,
+        'taskData.outpatientDeductible': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientDeductible : 0,
+        'taskData.outpatientPercent': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientPercent : 0,
+        'taskData.outpatientSelfPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientSelfPrice : 0,
+        'taskData.outpatientComputedPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientComputedPrice : 0,
+        'detailListArr': data.medicOutList,
+
+        'taskData.inpatientLimitedNum': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientLimitedNum : 0,
+        'taskData.inpatientDeductible': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientDeductible : 0,
+        'taskData.inpatientPercent': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientPercent : 0,
+        'taskData.inpatientSelfPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientSelfPrice : 0,
+        'taskData.inpatientComputedPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientComputedPrice : 0,
+        'detailListArr2': data.medicInList,
+
+        'taskData.days': data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.days : 0,
+        'taskData.deductibleDays':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.deductibleDays : 0,
+        'taskData.pricePerDay':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.pricePerDay : 0,
+        'taskData.allowance':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.allowance : 0,
+
+        'taskData.totalAmount': data.offerMoney
       })
       _this.getRegionLabel()
     })
@@ -150,6 +212,45 @@ Page({
         areaList: res.DATA.DATA
       })
       _this.getRegionLabel()
+    })
+  },
+  prevMedicinePage () {
+    let page = this.data.medicinePage - 1
+    if (page < 1) {
+      page = 1
+    }
+    this.setData({
+      medicinePage: page
+    })
+    this.initMedicine()
+  },
+  nextMedicinePage () {
+    let page = this.data.medicinePage - 1
+    if (page > this.data.medicineTotalPage) {
+      page = this.data.medicineTotalPage
+    }
+    this.setData({
+      medicinePage: page
+    })
+    this.initMedicine()
+  },
+  initMedicine () {
+    let _this = this
+    let page = this.data.medicinePage || 1
+    let keyword = this.data.medicineKeyword || ''
+    util.request({
+      path: '/app/businessmedicine/list',
+      method: 'GET',
+      data: {
+        limit: 10,
+        page: page,
+        name: keyword
+      }
+    }, function (err, res) {
+      _this.setData({
+        detailListArr: data.page.records,
+        medicineTotalPage: Math.ceil(data.page.total/10)
+      })
     })
   },
   getRegionLabel () {
@@ -176,7 +277,7 @@ Page({
   },
   addItemToTempList () {
     let _list = this.data.tempDetailList
-    _list.push({'name':'1', 'percent': '10', 'price': '20'})
+    _list.push({'name':'1', 'percent': '10', 'price': '20', isCustom: false})
     this.setData({
       ['tempDetailList']: _list
     })
@@ -196,6 +297,7 @@ Page({
       detailListArr: _list,
       tempDetailList: []
     })
+    this.calculateMoney()
   },
   addNewItem (event) {
     this.setData({
@@ -203,7 +305,7 @@ Page({
     })
   },
   addCustomNewItem () {
-    let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': ''}]
+    let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': '', 'isCustom': true}]
     this.setData({
       detailListArr: _list
     })
@@ -259,5 +361,118 @@ Page({
     this.setData({
       datePickerShow: false
     })
+  },
+  inputgetName(e) {
+    let name = e.currentTarget.dataset.name;
+    let nameMap = {}
+    if (name.indexOf('.')) {
+      let nameList = name.split('.')
+      if (this.data[nameList[0]]) {
+        nameMap[nameList[0]] = this.data[nameList[0]]
+      } else {
+        nameMap[nameList[0]] = {}
+      }
+      nameMap[nameList[0]][nameList[1]] = e.detail.value
+    } else {
+      nameMap[name] = e.detail.value
+    }
+    this.setData(nameMap)
+  },
+  bindDataAndCalculate(e) {
+    let name = e.currentTarget.dataset.name;
+    let arrayname = e.currentTarget.dataset.arrayname;
+    let index = e.currentTarget.dataset.itemindex;
+    let nameMap = {}
+    if (arrayname) {
+      nameMap[`${arrayname}[${index}].${name}`] = e.detail.value
+    } else {
+      if (name.indexOf('.')) {
+        let nameList = name.split('.')
+        if (this.data[nameList[0]]) {
+          nameMap[nameList[0]] = this.data[nameList[0]]
+        } else {
+          nameMap[nameList[0]] = {}
+        }
+        nameMap[nameList[0]][nameList[1]] = e.detail.value
+      } else {
+        nameMap[name] = e.detail.value
+      }
+    }
+    this.setData(nameMap)
+    this.calculateMoney()
+  },
+  calculateMoney () {
+    console.log('calculateMoney!!', this.data)
+    this.outpatientSelfPrice()
+    this.outpatientComputedPrice()
+    this.inpatientSelfPrice()
+    this.inpatientComputedPrice()
+  },
+  totalAmount () {
+    let data = this.data.taskData
+    return (parseFloat(data.outpatientComputedPrice) || 0) + (parseFloat(data.inpatientComputedPrice) || 0) + (parseFloat(data.allowance) || 0)
+  },
+  allowance () {
+    let data = this.data.taskData
+    let days = (data.days - data.deductibleDays) >= 0 ? (data.days - data.deductibleDays) : 0
+    this.setData({
+      'taskData.allowance': days * this.pricePerDay
+    })
+  },
+  outpatientSelfPrice () {
+    let list = this.data.detailListArr
+    let result = 0
+    list.forEach(item => {
+      result += parseFloat(item.price || 0)
+    })
+    this.setData({
+      'taskData.outpatientSelfPrice': result
+    })
+  },
+  inpatientSelfPrice () {
+    let list = this.data.detailListArr2
+    let result = 0
+    list.forEach(item => {
+      result += parseFloat(item.price || 0)
+    })
+    this.setData({
+      'taskData.inpatientSelfPrice': result
+    })
+  },
+  outpatientComputedPrice () {
+    let data = this.data.taskData
+    let outpatientSelfPrice = parseFloat(data.outpatientSelfPrice)
+    let outpatientDeductible = parseFloat(data.outpatientDeductible)
+    let outpatientPercent = data.outpatientPercent
+    let outpatientLimitedNum = parseFloat(data.outpatientLimitedNum)
+    let temp = (outpatientSelfPrice - outpatientDeductible) * outpatientPercent
+    temp = temp >= 0 ? temp : 0
+    if (temp >= outpatientLimitedNum) {
+      this.setData({
+        'taskData.outpatientComputedPrice': outpatientLimitedNum
+      })
+    } else {
+      this.setData({
+        'taskData.outpatientComputedPrice': temp.toFixed(2)
+      })
+    }
+  },
+  inpatientComputedPrice () {
+    let data = this.data.taskData
+    let inpatientSelfPrice = parseFloat(data.inpatientSelfPrice)
+    let inpatientDeductible = parseFloat(data.inpatientDeductible)
+    let inpatientPercent = data.inpatientPercent
+    let inpatientLimitedNum = parseFloat(data.inpatientLimitedNum)
+    let temp = (inpatientSelfPrice - inpatientDeductible) * inpatientPercent
+    temp = temp >= 0 ? temp : 0
+    if (temp >= inpatientLimitedNum) {
+      this.setData({
+        'taskData.inpatientComputedPrice': inpatientLimitedNum
+      })
+    } else {
+      this.setData({
+        'taskData.inpatientComputedPrice': temp.toFixed(2)
+      })
+    }
   }
 })

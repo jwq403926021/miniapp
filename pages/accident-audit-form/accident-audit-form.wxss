@@ -19,6 +19,7 @@
   border-right: 1px solid #ccc;
 }
 .accident-detail-table-body {
+  height: 30px;
   margin-left: 15px;
   margin-right: 15px;
   border-left: 1px solid #ccc;
@@ -62,7 +63,7 @@
 
 .add-item-popup{
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 .totalPrice{

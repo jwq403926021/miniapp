@@ -10,6 +10,7 @@
     "van-field": "../../asset/vant/field/index",
     "van-search": "../../asset/vant/search/index",
     "van-icon": "../../asset/vant/icon/index",
-    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
+    "van-datetime-picker": "../../asset/vant/datetime-picker/index",
+    "van-stepper": "../../asset/vant/stepper/index"
   }
 }
