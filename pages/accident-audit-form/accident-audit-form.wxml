@@ -142,15 +142,30 @@
         </view>
       </view>
 
-      <!--<view class="weui-cell weui-cell_input">-->
-        <!--<view class="weui-cell__hd">-->
-          <!--<view class="weui-label">上次总核损金额</view>-->
-        <!--</view>-->
-        <!--<view class="weui-cell__bd">-->
-          <!--<text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>-->
-        <!--</view>-->
-      <!--</view>-->
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">保险期间限额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{taskData.amountSum || '-'}}</text>
+        </view>
+      </view>
     </view>
+
+    <block wx:if="{{role == 1 && status == 32}}">
+      <view class="weui-cells__title">驳回建议</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" wx:if="{{role == 1}}">
+                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.rejectText'
+                              value="{{taskData.rejectText}}" placeholder="请输入文本" style="height: 7em"/>
+          </view>
+          <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+            {{taskData.rejectText || '-'}}
+          </view>
+        </view>
+      </view>
+    </block>
 
     <view class="weui-cells__title">身份证（正面）</view>
     <view class="weui-cells weui-cells_after-title">
@@ -200,7 +215,7 @@
                 <block wx:for="{{receiptImageImageFiles}}" wx:key="{{index}}">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                    <van-icon catchtap="removereceiptImageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                    <van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                   </view>
                 </block>
               </view>
@@ -216,7 +231,7 @@
     <view class="weui-cells__title">审核信息</view>
     <view class="weui-cells weui-cells_after-title">
       <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-        <van-collapse-item title="门急诊医疗费核损" name="0">
+        <van-collapse-item title="门急诊医疗费核损" wx:if="{{rescueType.indexOf(0) != -1}}" name="0">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
@@ -266,13 +281,14 @@
               <van-col span="6">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col data-itemindex="{{index}}" bindtap="removeItem" custom-class="deleteColor" span="6">
-                删除
+              <van-col span="6">
+                <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="0" bindtap="removeItem">删除</text>
+                <text wx:else>-</text>
               </van-col>
             </van-row>
-            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24}}">
-              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" bindtap="addCustomNewItem">自定义 +</view>
-              <view class="addtext" style="width: 50%; float: right;" bindtap="addNewItem">添加 +</view>
+            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">
+              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="0" bindtap="addCustomNewItem">自定义 +</view>
+              <view class="addtext" style="width: 50%; float: right;" data-type="0" bindtap="addNewItem">添加 +</view>
             </view>
           </view>
           <view class="weui-cells weui-cells_after-title">
@@ -305,7 +321,7 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="住院医疗费核损" name="1">
+        <van-collapse-item title="住院医疗费核损" wx:if="{{rescueType.indexOf(1) != -1}}" name="1">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
@@ -355,13 +371,14 @@
               <van-col span="6">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col data-itemindex="{{index}}" bindtap="removeItem" custom-class="deleteColor" span="6">
-                删除
+              <van-col custom-class="deleteColor" span="6">
+                <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="1" bindtap="removeItem">删除</text>
+                <text wx:else>-</text>
               </van-col>
             </van-row>
-            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24}}">
-              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" bindtap="addCustomNewItem">自定义 +</view>
-              <view class="addtext" style="width: 50%; float: right;" bindtap="addNewItem">添加 +</view>
+            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">
+              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="1" bindtap="addCustomNewItem">自定义 +</view>
+              <view class="addtext" style="width: 50%; float: right;" data-type="1" bindtap="addNewItem">添加 +</view>
             </view>
           </view>
           <view class="weui-cells weui-cells_after-title">
@@ -394,7 +411,7 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="住院津贴" name="2">
+        <van-collapse-item title="住院津贴" wx:if="{{rescueType.indexOf(1) != -1}}" name="2">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
@@ -440,8 +457,8 @@
     </view>
 
     <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}"><!-- 查勘员处理 -->
-      <button type="primary" bindtap="commitSubmit">提交</button>
-      <button bindtap="commitSubmit">驳回</button>
+      <button type="primary" data-type="1" bindtap="suvaryCommit">提交</button>
+      <button data-type="0" bindtap="suvaryCommit">驳回</button>
     </view>
     <view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}"><!-- 审核人 处理 -->
       <button type="primary" bindtap="commitSubmit">提交</button>
@@ -471,23 +488,23 @@
       已追加项目数量：{{tempDetailList.length}}个
     </view>
     <van-row custom-class="accident-detail-table-header">
-      <van-col span="6">名称</van-col>
-      <van-col span="6">自付比例%</van-col>
-      <van-col span="6">金额</van-col>
-      <van-col span="6">操作</van-col>
+      <van-col span="10">名称</van-col>
+      <van-col span="5">自付比例</van-col>
+      <van-col span="5">类别</van-col>
+      <van-col span="4">操作</van-col>
     </van-row>
-    <van-row custom-class="accident-detail-table-body">
-      <van-col span="6">
-        <text>阿莫西林</text>
+    <van-row custom-class="accident-detail-table-body" wx:for="{{medicineList}}" wx:key="{{index}}">
+      <van-col span="10">
+        <text>{{item.name}}</text>
       </van-col>
-      <van-col span="6">
-        <text>10</text>
+      <van-col span="5">
+        <text>{{item.percent}}</text>
       </van-col>
-      <van-col span="6">
-        <text>20</text>
+      <van-col span="5">
+        <text>{{item.type}} {{item.form}}</text>
       </van-col>
-      <van-col span="6">
-        <text class="primaryColor" bindtap="addItemToTempList">追加</text>
+      <van-col span="4">
+        <text class="primaryColor" data-itemindex="{{index}}" bindtap="addItemToTempList">追加</text>
       </van-col>
     </van-row>
     <van-row>

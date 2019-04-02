@@ -39,6 +39,14 @@
   border-bottom: 1px solid #ccc;
   line-height: 30px;
 }
+.accident-detail-table-body .van-col text{
+  width: 100%;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  height: 30px;
+}
 .accident-detail-table-body .van-col input{
   line-height: 30px;
   height: 30px;
