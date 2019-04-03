@@ -714,7 +714,11 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                _this.goToList()
+                if (url) {
+                  _this.goToAudit()
+                } else {
+                  _this.goToList()
+                }
               }, 1000)
             }
           })
@@ -843,6 +847,11 @@ Page({
       return false
     }
     return true
+  },
+  goToAudit () {
+    wx.redirectTo({
+      url: '../accident-audit-form/accident-audit-form?id=' + this.data.orderId
+    })
   },
   goToList () {
     let pages = getCurrentPages()
