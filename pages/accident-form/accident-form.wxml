@@ -369,10 +369,6 @@
       <button type="primary" bindtap="commitSubmit">提交</button>
       <button data-save="true" bindtap="commitSubmit">暂存</button>
     </view>
-    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}"> <!-- 查勘员处理 -->
-      <button type="primary" bindtap="">通过</button>
-      <button data-save="true" bindtap="">驳回</button>
-    </view>
     <view class="button-sp-area" wx:if="{{role == 8 && status == 20}}"> <!-- 客户 处理工单 -->
       <button type="primary" bindtap="servicerCommit">提交</button>
     </view>
