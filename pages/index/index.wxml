@@ -32,7 +32,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToAccident" wx:if="{{role == 1}}">
       <view>
-        <text class="iconfont icon-qiche301 myicon"></text>
+        <text class="iconfont icon-accident myicon"></text>
       </view>
       <view>
         意外险
