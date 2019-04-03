@@ -43,7 +43,8 @@ Page({
       "insuranceAmount": "",
       "selfAmount": "",
       'clientName': "",
-      'clientIdNum': ""
+      'clientIdNum': "",
+      'rejectText': ""
     },
     // video: [],
     informationImageFiles: [],
@@ -116,6 +117,7 @@ Page({
         "taskData.selfAmount": data.medicalMoney,
         'taskData.clientName': data.woundName,
         'taskData.clientIdNum': data.woundCard,
+        'taskData.rejectText': data.rejectText,
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
         'payType': data.moneyMethod || '0'
       })

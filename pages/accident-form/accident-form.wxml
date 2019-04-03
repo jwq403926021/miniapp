@@ -306,18 +306,16 @@
     </block>
     <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 end ## -->
 
-    <!--<view class="weui-cells__title">驳回建议</view>-->
-    <!--<view class="weui-cells weui-cells_after-title">-->
-      <!--<view class="weui-cell">-->
-        <!--<view class="weui-cell__bd">-->
-            <!--<textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'-->
-                      <!--value="{{taskData.information}}" placeholder="请输入驳回建议" style="height: 7em"/>-->
-        <!--</view>-->
-        <!--<view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">-->
-          <!--{{taskData.information || '-'}}-->
-        <!--</view>-->
-      <!--</view>-->
-    <!--</view>-->
+    <block wx:if="{{taskData.rejectText != null && taskData.rejectText != '' && status == 33}}">
+      <view class="weui-cells__title">驳回建议</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+            {{taskData.rejectText || '-'}}
+          </view>
+        </view>
+      </view>
+    </block>
 
     <!--<view class="weui-cells__title">视频上传</view>-->
     <!--<view class="weui-cells weui-cells_after-title">-->
