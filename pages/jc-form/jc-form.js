@@ -535,7 +535,7 @@ Page({
       common.deleteImage(id)
     }
   },
-  uploadOneByOne (imgPaths,successUp, failUp, count, length) {
+  uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     var that = this
     console.log('upload flowID:', this.id, '????',this.data.id)
     let formData = {
@@ -570,6 +570,7 @@ Page({
         count++;//下一张
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
+          callback()
           wx.showToast({
             mask: true,
             title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
@@ -585,7 +586,7 @@ Page({
           })
         }else{
           //递归调用，上传下一张
-          that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
+          that.uploadOneByOne(imgPaths, successUp, failUp, count, length, callback);
           console.log('正在上传第' + count + '张');
         }
       }
@@ -659,6 +660,22 @@ Page({
       }
     })
   },
+  endWork () {
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    let _this = this
+    util.request({
+      path: `/app/family/workEnd`,
+      method: 'GET',
+      data: {
+        flowId: _this.data.id
+      }
+    }, function (err, res) {
+
+    })
+  },
   completeCommit () {
     let _this = this
     let completeImageFiles = []
@@ -667,13 +684,11 @@ Page({
         completeImageFiles.push({path: item.path, type: 6})
       }
     })
-
-    // _this.id = res.data.flowId || _this.data.id
     let imgPaths = [...completeImageFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
-    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length, _this.endWork)
   },
   lossCommit (e) {
     let _this = this
