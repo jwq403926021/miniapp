@@ -307,6 +307,34 @@
                 </view>
             </block>
 
+            <view class="weui-cells__title">施工完成</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploadercaleFiles">
+                                        <view class="no-image" wx:if="{{completeImageFiles.length == 0 && id != null && status != 29 && role != 12}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{completeImageFiles}}" wx:key="{{index}}">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewcompleteImageFiles" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removecompleteImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="choosecompleteImageFiles"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
             <block wx:if="{{status == 51 || status == 52 || status == 11}}">
                 <view class="weui-cells__title">定损备注</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -398,6 +426,11 @@
         <view class="button-sp-area" wx:if="{{role == 12 && status == 42}}">
             <button type="primary" bindtap="consultAgree">协商同意提交</button> <!--协商同意 完善 -->
         </view>
+
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && status != 29}}">
+            <button type="primary" bindtap="completeCommit">施工完成提交</button> <!--协商同意 完善 -->
+        </view>
+
         <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
