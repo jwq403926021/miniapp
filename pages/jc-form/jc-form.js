@@ -570,7 +570,9 @@ Page({
         count++;//下一张
         if(count == length){
           console.log('上传成功' + successUp + ',' + '失败' + failUp);
-          callback()
+          if (callback) {
+            callback()
+          }
           wx.showToast({
             mask: true,
             title: length == successUp ? '提交成功' : `图片上传失败:${failUp}`,
