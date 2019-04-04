@@ -343,7 +343,7 @@ Page({
         let tempFilesSize = res.tempFiles[0].size
         if (tempFilesSize > 10000000) {    //图片大于2M，弹出一个提示框
           wx.showToast({
-            title: '上传图片不能大于10M!',
+            title: '身份证正面图片不能大于10M',
             icon: 'none'
           })
           return false
