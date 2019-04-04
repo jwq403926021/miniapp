@@ -107,15 +107,15 @@ Page({
   goToHandleTask (event) {
     let role = app.globalData.currentRegisterInfo.role
     let status = event.currentTarget.dataset.status
-    // if (status == 31 || status == 32 || status == 33 || status == 34 || status == 11 && role != 15) {
-    //   wx.navigateTo({
-    //     url: '../accident-audit-form/accident-audit-form?id=' + event.currentTarget.dataset.orderid
-    //   })
-    // } else {
+    if (status == 31 || status == 32 || status == 33 || status == 34 || status == 11 && role != 15) {
+      wx.navigateTo({
+        url: '../accident-audit-form/accident-audit-form?id=' + event.currentTarget.dataset.orderid
+      })
+    } else {
       wx.navigateTo({
         url: '../accident-form/accident-form?id=' + event.currentTarget.dataset.orderid
       })
-    // }
+    }
   },
   onCancel () {
     this.setData({
