@@ -645,7 +645,6 @@ Page({
       })
       return
     }
-    console.log('!@#!@#!@#', _this.data, _this.data.rescueType)
     if (_this.data.rescueType.length == 0) {
       wx.showToast({
         mask: true,
@@ -698,7 +697,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: url || '/app/accidentInsurance/customer/orders',
+      path: url.type ? '/app/accidentInsurance/customer/orders' : url ,
       method: 'PUT',
       data: taskData
     }, function (err, res) {

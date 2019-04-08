@@ -696,7 +696,7 @@ Page({
     // if (taskData.totalAmount > parseFloat(taskData.amountSum)) {
     //   wx.showToast({
     //     mask: true,
-    //     title: '理算总额不能超过保险期间限额',
+    //     title: '理算总额不能超过累计赔款金额',
     //     icon: 'none',
     //     duration: 1500
     //   })

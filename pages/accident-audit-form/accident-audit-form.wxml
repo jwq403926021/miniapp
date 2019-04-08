@@ -144,7 +144,7 @@
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">保险期间限额</view>
+          <view class="weui-label">累计赔款金额</view>
         </view>
         <view class="weui-cell__bd">
           <text class="weui-input readonly">{{taskData.amountSum || '-'}}</text>
