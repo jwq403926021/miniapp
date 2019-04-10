@@ -38,6 +38,10 @@ Page({
       "reportNumber": '',
       "customerPhone": '',
       "customerName": "",
+      "examineName": '',
+      "examinePhone": '',
+      "woundName": '',
+      "woundCard": '',
       "investigatorText": "",
       "rescueAmount": "",
       "insuranceAmount": "",
@@ -118,6 +122,10 @@ Page({
         'taskData.clientName': data.woundName,
         'taskData.clientIdNum': data.woundCard,
         'taskData.rejectText': data.rejectText,
+        'taskData.examineName': data.examineName,
+        'taskData.examinePhone': data.examinePhone,
+        'taskData.woundName': data.woundName,
+        'taskData.woundCard': data.woundCard,
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
         'payType': data.moneyMethod || '0'
       })
