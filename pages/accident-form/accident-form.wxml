@@ -96,7 +96,7 @@
       <!-- ## 客服 处理工单字段end ## -->
 
       <!-- ## 查勘员 查看处理工单字段start ## -->
-      <block wx:if="{{status == 31 || status == 32 || status == 33 || status == 34}}">
+      <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35 || status == 11}}">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">伤者姓名</view>
@@ -137,11 +137,6 @@
             </view>
           </view>
         </view>
-      </block>
-      <!-- ## 查勘员 查看处理工单字段 end ## -->
-
-      <!-- # 客户处理工单字段 start # -->
-      <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35 || status == 11}}">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">救治方式</view>
@@ -214,18 +209,20 @@
       <!-- # 客户处理工单字段 end # -->
     </view>
 
-    <view class="weui-cells__title">查勘员备注</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
+    <block wx:if="{{role != 15}}">
+      <view class="weui-cells__title">查勘员备注</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
           <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
                     value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 20 && status != 29}}" placeholder="请输入查勘员备注" style="height: 7em"/>
-        </view>
-        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
-          {{taskData.investigatorText || '-'}}
+          </view>
+          <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
+            {{taskData.investigatorText || '-'}}
+          </view>
         </view>
       </view>
-    </view>
+    </block>
 
     <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 start ## -->
     <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35 || status == 11}}">

@@ -94,7 +94,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: 24 //app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }

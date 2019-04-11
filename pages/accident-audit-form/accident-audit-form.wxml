@@ -104,9 +104,12 @@
         <view class="weui-cell__hd">
           <view class="weui-label">被保险人姓名</view>
         </view>
-        <view class="weui-cell__bd">
+        <view class="weui-cell__bd" wx:if="{{role == 24}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.insurantName'
                  value="{{taskData.insurantName}}" placeholder="请输入被保险人姓名"/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <text class="weui-input readonly">{{taskData.insurantName || '-'}}</text>
         </view>
       </view>
 
@@ -114,9 +117,12 @@
         <view class="weui-cell__hd">
           <view class="weui-label">伤者姓名</view>
         </view>
-        <view class="weui-cell__bd">
+        <view class="weui-cell__bd" wx:if="{{role == 24}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredName'
                  value="{{taskData.injuredName}}" placeholder="请输入伤者姓名"/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <text class="weui-input readonly">{{taskData.injuredName || '-'}}</text>
         </view>
       </view>
 
@@ -124,9 +130,12 @@
         <view class="weui-cell__hd">
           <view class="weui-label">伤者身份证号</view>
         </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'
+        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+          <input class="weui-input" bindinput="injuredId" data-name='taskData.injuredId'
                  value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <text class="weui-input readonly">{{taskData.injuredId || '-'}}</text>
         </view>
       </view>
 
@@ -134,12 +143,22 @@
         <view class="weui-cell__hd">
           <view class="weui-label">保险期间</view>
         </view>
-        <view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">
-          <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>
-        </view>
-        <view data-type="1" bindtap="openDatePicker" class="weui-cell__bd">
-          <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '结束日期'}}</text>
-        </view>
+        <block wx:if="{{role == 24}}">
+          <view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">
+            <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>
+          </view>
+          <view data-type="1" bindtap="openDatePicker" class="weui-cell__bd">
+            <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '结束日期'}}</text>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '-'}}</text>
+          </view>
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '-'}}</text>
+          </view>
+        </block>
       </view>
 
       <view class="weui-cell weui-cell_input">
