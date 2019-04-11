@@ -96,7 +96,7 @@
       <!-- ## 客服 处理工单字段end ## -->
 
       <!-- ## 查勘员 查看处理工单字段start ## -->
-      <block wx:if="{{status == 32 || status == 33 || status == 34}}">
+      <block wx:if="{{status == 31 || status == 32 || status == 33 || status == 34}}">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">伤者姓名</view>
@@ -141,7 +141,7 @@
       <!-- ## 查勘员 查看处理工单字段 end ## -->
 
       <!-- # 客户处理工单字段 start # -->
-      <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35}}">
+      <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35 || status == 11}}">
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">救治方式</view>
@@ -228,7 +228,7 @@
     </view>
 
     <!-- ## 查勘员 查看处理工单字段 | 客户及汇事达市级负责人处理工单字段 start ## -->
-    <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35}}">
+    <block wx:if="{{status == 30 || status == 31 || status == 32 || status == 33 || status == 34 || status == 35 || status == 11}}">
       <view class="weui-cells__title">身份证（正面）</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
