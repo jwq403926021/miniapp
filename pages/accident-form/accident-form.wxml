@@ -246,7 +246,7 @@
                     </view>
                   </block>
                 </view>
-                <view class="weui-uploader__input-box" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35) && (taskData.bankName == '' || taskData.bankNum == null)}}">
+                <view class="weui-uploader__input-box" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35) && (taskData.bankNum == '' || taskData.bankNum == null)}}">
                   <view class="weui-uploader__input" bindtap="choosebankImageFiles"></view>
                 </view>
               </view>
