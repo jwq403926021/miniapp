@@ -48,9 +48,12 @@ Page({
       "selfAmount": "",
       'clientName': "",
       'clientIdNum': "",
-      'rejectText': ""
+      'rejectText': "",
+      'bankName': "",
+      'bankNum': "",
     },
     // video: [],
+    bankImageFiles: [],
     informationImageFiles: [],
     idImageFrontImageFiles: [],
     idImageBackImageFiles: [],
@@ -79,6 +82,7 @@ Page({
       console.log('##', data)
       _this.sourceData = data
       _this.sourceImage = res.image
+      let bankImageFiles = []
       let informationImageFiles = []
       let idImageFrontImageFiles = []
       let idImageBackImageFiles = []
@@ -101,9 +105,14 @@ Page({
             item.path = `https://aplusprice.xyz/file/${item.path}`
             receiptImageImageFiles.push(item)
             break
+          case 15:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            bankImageFiles.push(item)
+            break
         }
       })
       _this.setData({
+        'bankImageFiles': bankImageFiles,
         'informationImageFiles': informationImageFiles,
         'idImageFrontImageFiles': idImageFrontImageFiles,
         'idImageBackImageFiles': idImageBackImageFiles,
@@ -126,6 +135,8 @@ Page({
         'taskData.examinePhone': data.examinePhone,
         'taskData.woundName': data.woundName,
         'taskData.woundCard': data.woundCard,
+        'taskData.bankName': data.bankName,
+        'taskData.bankNum': data.bankNum,
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
         'payType': data.moneyMethod || '0'
       })
@@ -250,6 +261,12 @@ Page({
     }
     return true
   },
+  previewbankImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.bankImageFiles.map(item => {return item.path})
+    })
+  },
   previewInfoImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id,
@@ -273,6 +290,18 @@ Page({
       current: e.currentTarget.id,
       urls: this.data.receiptImageImageFiles.map(item => {return item.path})
     })
+  },
+  removebankImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    _this.data.bankImageFiles.splice(index, 1)
+    this.setData({
+      bankImageFiles: _this.data.bankImageFiles
+    })
+    let id = e.currentTarget.dataset.id;
+    if (id) {
+      common.deleteImage(id)
+    }
   },
   removeinformationImageFiles (e) {
     let index = e.currentTarget.dataset.index;
@@ -337,6 +366,71 @@ Page({
         let list = that.data.informationImageFiles.concat(tempList)
         that.setData({
           informationImageFiles: list
+        });
+      }
+    })
+  },
+  choosebankImageFiles: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      count: 1,
+      success: function (res) {
+        let tempFilesSize = res.tempFiles[0].size
+        if (tempFilesSize > 10000000) {    //图片大于2M，弹出一个提示框
+          wx.showToast({
+            title: '银行卡图片不能大于10M',
+            icon: 'none'
+          })
+          return false
+        }
+        wx.showLoading({
+          mask: true,
+          title: '识别中'
+        })
+        wx.uploadFile({
+          url: 'https://aplusprice.xyz/aprice/app/image/uploadBankCard',
+          filePath: res.tempFilePaths[0],
+          name: `files`,
+          header: {
+            "Content-Type": "multipart/form-data",
+            'token': wx.getStorageSync('token')
+          },
+          formData: {
+            'flowId': that.data.orderId,
+            'type': 15
+          },
+          success:function(e){
+            let response = JSON.parse(e.data)
+            wx.hideLoading()
+            if (response.data == null) {
+              wx.showToast({
+                mask: true,
+                title: '图片无法识别请重新上传',
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              that.setData({
+                'taskData.bankName': response.data.name,
+                'taskData.bankNum': response.data.cardNumber
+              })
+            }
+          },
+          fail:function(e){},
+          complete:function(e){}
+        })
+
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data.bankImageFiles.concat(tempList)
+        that.setData({
+          bankImageFiles: list
         });
       }
     })
@@ -606,6 +700,8 @@ Page({
       payType: _this.data.payType,
       clientName: data.clientName,
       clientIdNum: data.clientIdNum,
+      bankName: data.bankName,
+      bankNum: data.bankNum,
       rescueAmount: data.rescueAmount,
       insuranceAmount: data.insuranceAmount,
       selfAmount: data.selfAmount,
@@ -630,6 +726,15 @@ Page({
       wx.showToast({
         mask: true,
         title: '请上传身份证正面',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (data.bankNum == '' || data.bankName == null) {
+      wx.showToast({
+        mask: true,
+        title: '请上传银行卡',
         icon: 'none',
         duration: 2000
       })

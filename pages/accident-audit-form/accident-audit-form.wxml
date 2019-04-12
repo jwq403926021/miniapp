@@ -186,6 +186,25 @@
       </view>
     </block>
 
+    <view class="weui-cells__title">银行卡</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="bankImageFiles">
+                <block wx:for="{{bankImageFiles}}" wx:key="{{index}}">
+                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">
+                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
     <view class="weui-cells__title">身份证（正面）</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">

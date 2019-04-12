@@ -76,6 +76,7 @@ Page({
     insuranceEnd: '',
     insuranceEndLabel: '',
     informationImageFiles: [],
+    bankImageFiles: [],
     idImageFrontImageFiles: [],
     idImageBackImageFiles: [],
     receiptImageImageFiles: [],
@@ -98,6 +99,12 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  previewbankImageFiles: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.bankImageFiles.map(item => {return item.path})
+    })
   },
   previewidImageFrontImageFiles: function (e) {
     wx.previewImage({
@@ -159,6 +166,7 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
+      let bankImageFiles = []
       let idImageFrontImageFiles = []
       let idImageBackImageFiles = []
       let receiptImageImageFiles = []
@@ -180,11 +188,16 @@ Page({
             item.path = `https://aplusprice.xyz/file/${item.path}`
             receiptImageImageFiles.push(item)
             break
+          case 15:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            bankImageFiles.push(item)
+            break
         }
       })
       console.log('12313', data)
       _this.setData({
         'informationImageFiles': informationImageFiles,
+        'bankImageFiles': bankImageFiles,
         'idImageFrontImageFiles': idImageFrontImageFiles,
         'idImageBackImageFiles': idImageBackImageFiles,
         'receiptImageImageFiles': receiptImageImageFiles,
