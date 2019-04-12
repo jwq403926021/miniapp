@@ -731,7 +731,7 @@ Page({
       })
       return
     }
-    if (data.bankNum == '' || data.bankName == null) {
+    if (data.bankNum == '' || data.bankNum == null) {
       wx.showToast({
         mask: true,
         title: '请上传银行卡',
