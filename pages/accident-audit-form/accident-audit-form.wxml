@@ -131,11 +131,37 @@
           <view class="weui-label">伤者身份证号</view>
         </view>
         <view class="weui-cell__bd" wx:if="{{role == 24}}">
-          <input class="weui-input" bindinput="injuredId" data-name='taskData.injuredId'
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'
                  value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>
         </view>
         <view class="weui-cell__bd" wx:else>
           <text class="weui-input readonly">{{taskData.injuredId || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">开户行</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankName'
+                 value="{{taskData.bankName}}" placeholder="请输入开户行"/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <text class="weui-input readonly">{{taskData.bankName || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">银行卡号</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankNum'
+                 value="{{taskData.bankNum}}" placeholder="请输入银行卡号"/>
+        </view>
+        <view class="weui-cell__bd" wx:else>
+          <text class="weui-input readonly">{{taskData.bankNum || '-'}}</text>
         </view>
       </view>
 

@@ -47,6 +47,8 @@ Page({
       'insurantName': '',
       'injuredName': '',
       'injuredId': '',
+      'bankName': '',
+      'bankNum': '',
 
       'outpatientLimitedNum': 0,
       'outpatientDeductible': 0,
@@ -216,6 +218,8 @@ Page({
         'taskData.insurantName': data.insurantName,
         'taskData.injuredName': data.woundName,
         'taskData.injuredId': data.woundCard,
+        'taskData.bankNum': data.bankNum,
+        'taskData.bankName': data.bankName,
         'insuranceBegin': data.insuranceBegin ? new Date(data.insuranceBegin).getTime() : '',
         'insuranceEnd': data.insuranceEnd ? new Date(data.insuranceEnd).getTime() : '',
         insuranceBeginLabel:  data.insuranceBegin ? new Date(data.insuranceBegin).toLocaleDateString() : '',
