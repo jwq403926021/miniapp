@@ -48,7 +48,9 @@ Page({
       "offerText": '',
       "losserText": '',
       "offerPrice": '',
-      "finishCase": ''
+      "finishCase": '',
+      "thirdName": '',
+      "thirdPhone": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
@@ -216,6 +218,8 @@ Page({
         "taskData.offerText": data.offerText || '',
         "taskData.losserText": data.losserText || '',
         "taskData.offerPrice": data.offerPrice || '',
+        "taskData.thirdName": data.thirdName || '',
+        "taskData.thirdPhone": data.thirdPhone || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
@@ -1107,6 +1111,8 @@ Page({
         "bankTransactionId": _this.data.taskData.bankTransactionId,
         "constructionMethod": _this.data.taskData.constructionMethod,
         "deposit": _this.data.taskData.deposit,
+        "thirdName": _this.data.taskData.thirdName,
+        "thirdPhone": _this.data.taskData.thirdPhone,
         flowId: _this.data.flowId
       }
     }, function (err, res) {
