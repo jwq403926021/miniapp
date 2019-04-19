@@ -233,10 +233,10 @@ Page({
   initArea () {
     let _this = this
     _this.setData({
-      region: app.globalData.currentRegisterInfo.townCode,
-      'taskData.countryId': app.globalData.currentRegisterInfo.townCode,
-      'taskData.cityId': app.globalData.currentRegisterInfo.cityCode,
-      'taskData.provinceId': app.globalData.currentRegisterInfo.provinceCode
+      region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
+      'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
+      'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
+      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
     })
     util.request({
       path: '/sys/area/list',
@@ -1515,6 +1515,7 @@ Page({
   checkUploadImages (familyImages, flag) {
     let clientIndexArr = []
     let familyImagesList = []
+    // Require-->: ['certificate','identification']
     let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'bank', 'source']
     let excludeThird = ['house', 'electrical', 'cloths', 'furniture', 'overall', 'certificate', 'identification', 'bank', 'register', 'source']
     for(let key in familyImages) {
