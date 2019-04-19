@@ -26,10 +26,10 @@
                     <view class="weui-label">事故区域</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
+                    <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) || (role == 8 && status == 52) }}">
                         <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
+                    <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) && !(role == 8 && status == 52) }}">
                         <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                     </view>
                 </view>
