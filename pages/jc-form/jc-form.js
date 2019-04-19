@@ -1526,7 +1526,7 @@ Page({
         }
       })
     }
-    if (flag) {
+    if (flag) { // flag true 无需校验 直接返回
       return {
         flag: true,
         data: familyImagesList
@@ -1550,6 +1550,10 @@ Page({
           }
         }
         let _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
+        if (key == 'identification' && clientIndexArr[i] == 0 && _arr.length != 2) {
+          str = `客户身份证图片须传2张`
+          break
+        }
         if (!_arr.length) {
           str = `${clientIndexArr[i] == 0 ? '客户' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
           break
