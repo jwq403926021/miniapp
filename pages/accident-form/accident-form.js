@@ -13,9 +13,31 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    showCompany: false,
+    regionCompany: '',
+    regionCompanyLabel: '',
+
     repairPlantValue: '',
     repairPlantLabel: '',
     repairPlantList: [],
+
+    companyCategory: '0',
+    companyCategoryLabel: '保险公司',
+    // companyCategoryList: [],
+
+    companySubCategory: '',
+    companySubCategoryLabel: '',
+    companySubCategoryList: [],
+
+    companyName: '',
+    companyNameLabel: '',
+    companyNameList: [],
+
+    companyLevel: '',
+    companyLevelLabel: '',
+    companyLevelList: ['省级', '市级', '区级'],
+
+
     status: '',
     assignMethod: '0',
     rescueType: ['0', '1'],
@@ -32,6 +54,14 @@ Page({
       '11': '已办结'
     },
     taskData: {
+      "companyNameCode": "",
+      "companyName": "",
+      "companyType": "2", // 默认 查勘员 的公司类别 为 2 保险公司
+      'insurance': '', // 保险 子类别
+      'areaCodeCompany': '',
+      'cityCodeCompany': '',
+      'provinceCodeCompany': '',
+
       "provinceCode": "",
       "areaCode": "",
       "cityCode": "",
@@ -42,6 +72,8 @@ Page({
       "examinePhone": '',
       "woundName": '',
       "woundCard": '',
+      'sex': '',
+      'age': '',
       "investigatorText": "",
       "rescueAmount": "",
       "insuranceAmount": "",
@@ -63,13 +95,18 @@ Page({
     console.log('开锁 工单号：->', routeParams)
     console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     this.initArea()
+    this.initCompanySubCategory()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1 //app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
       this.initDataById(routeParams.id)
+    } else {
+      this.setData({
+        role: 15//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+      })
     }
   },
   initDataById (id) {
@@ -135,6 +172,8 @@ Page({
         'taskData.examinePhone': data.examinePhone,
         'taskData.woundName': data.woundName,
         'taskData.woundCard': data.woundCard,
+        'taskData.sex': data.sex||'',
+        'taskData.age': data.age||'',
         'taskData.bankName': data.bankName,
         'taskData.bankNum': data.bankNum,
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
@@ -199,6 +238,31 @@ Page({
   onCancel() {
     this.setData({
       show: false
+    })
+  },
+  openCompanyLocation() {
+    this.setData({
+      showCompany: !this.showCompany
+    })
+  },
+  onCompanyConfirm(data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+
+    this.setData({
+      showCompany: false,
+      regionCompany: data.detail.values[2].code,
+      regionCompanyLabel: strArr.join(','),
+      'taskData.areaCodeCompany': data.detail.values[2].code,
+      'taskData.cityCodeCompany': data.detail.values[1].code,
+      'taskData.provinceCodeCompany': data.detail.values[0].code,
+    })
+  },
+  onCompanyCancel() {
+    this.setData({
+      showCompany: false
     })
   },
   inputgetName(e) {
@@ -413,8 +477,8 @@ Page({
               })
             } else {
               that.setData({
-                'taskData.bankName': response.data.name,
-                'taskData.bankNum': response.data.cardNumber
+                'taskData.bankName': response.data.bankName,
+                'taskData.bankNum': response.data.bankNum
               })
             }
           },
@@ -478,6 +542,8 @@ Page({
               })
             } else {
               that.setData({
+                'taskData.sex': response.data.sex,
+                'taskData.age': response.data.age,
                 'taskData.clientName': response.data.name,
                 'taskData.clientIdNum': response.data.cardNumber
               })
@@ -624,6 +690,9 @@ Page({
       }
     })
   },
+  insuredSubmit () {
+    console.log(this.data.taskData,' ####')
+  },
   servicerCommit () {
     let _this = this
     let active
@@ -698,6 +767,8 @@ Page({
     let taskData = {
       rescueType: _this.data.rescueType,
       payType: _this.data.payType,
+      sex: data.sex,
+      age: data.age,
       clientName: data.clientName,
       clientIdNum: data.clientIdNum,
       bankName: data.bankName,
@@ -987,6 +1058,85 @@ Page({
         url: '../my-list-accident/my-list-accident'
       })
     }
+  },
+  initCompanySubCategory () {
+    let _this = this
+    util.request({
+      path: '/sys/industryInsurance/all',
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companySubSourceData = res.data
+        _this.setData({
+          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
+        })
+      }
+    })
+  },
+  companySubCategoryChange (data) {
+    this.setData({
+      'taskData.insurance': this.companySubSourceData[data.detail.value].id,
+      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name,
+      companySubCategory: data.detail.value,
+      'taskData.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
+    })
+    this.initCompanyName()
+  },
+  checkCompanyNameList () {
+    if (this.data.companyNameList.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '没有可用单位名称',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  initCompanyName () {
+    let _this = this
+    let data = {
+      industryCode: this.data.taskData.companyType,
+      cityCode:this.data.taskData.cityCodeCompany,
+      provinceCode:this.data.taskData.provinceCodeCompany,
+      areaCode:this.data.taskData.areaCodeCompany,
+      organization:this.data.companyLevel
+    }
+    if (this.data.taskData.companyType == 2) {
+      data.insurance = this.data.taskData.insurance
+    }
+    util.request({
+      path: '/sys/company/list',
+      method: 'GET',
+      data: data
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companyNameSourceData = res.data
+        _this.setData({
+          'companyNameList': _this.companyNameSourceData.map(item => { return item.companyName })
+        })
+      }
+    })
+  },
+  companyNameChange (data) {
+    if (this.companyNameSourceData.length > 0) {
+      this.setData({
+        'taskData.companyNameCode': this.companyNameSourceData[data.detail.value].id,
+        companyNameLabel: this.companyNameSourceData[data.detail.value].companyName,
+        companyName: data.detail.value
+      })
+    }
+  },
+  companyLevelChange (data) {
+    this.setData({
+      companyLevel: data.detail.value,
+      companyLevelLabel: this.data.companyLevelList[data.detail.value],
+      'taskData.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
+    })
+    this.initCompanyName()
   },
   downloadImages () {
     let urls = this.sourceImage.map(item => {
