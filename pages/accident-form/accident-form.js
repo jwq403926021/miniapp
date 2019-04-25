@@ -166,6 +166,8 @@ Page({
             break
         }
       })
+      let dd = new Date(data.insuranceTime)
+
       _this.setData({
         'bankImageFiles': bankImageFiles,
         'informationImageFiles': informationImageFiles,
@@ -200,6 +202,8 @@ Page({
         'taskData.insuranceText': data.insuranceText || '',
         'taskData.companyId': data.companyId || '',
         'taskData.companyName': data.companyName || '',
+        'timepickerValue': data.insuranceTime,
+        'timepickerLabel': data.insuranceTime ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : ''
       })
       _this.getRegionLabel()
     })
@@ -731,13 +735,13 @@ Page({
       }
     })
   },
-  insuredSubmit () {
-    console.log(this.data.taskData,' ####')
+  insuredSubmit (e) {
     // /app/accidentInsurance/personOrders
+    let isSave = e.currentTarget.dataset.save
     let data = this.data.taskData
     let _this = this
     let taskData = {
-      active: '', // 暂存工单：save, 提交工单:submit
+      "active": isSave ? 'save' : 'submit',
       reportNumber: data.reportNumber,
       rescueType: _this.data.rescueType,
       payType: _this.data.payType,
@@ -753,16 +757,17 @@ Page({
       city: data.cityCode,
       country: data.areaCode,
       province: data.provinceCode,
-      orderId: _this.data.id,
+      orderId: _this.data.id || _this.data.tempOrderId,
       areaCodeCompany: data.areaCodeCompany,
       cityCodeCompany: data.cityCodeCompany,
       provinceCodeCompany: data.provinceCodeCompany,
-      insuranceTime: '',
+      insuranceTime: _this.data.timepickerValue,
       insuracneAddress: data.insuracneAddress,
       insuranceText: data.insuranceText,
-      companyId: data.companyId,
-      companyName: data.companyName
+      companyId: data.companyNameCode,
+      companyName: _this.data.companyNameLabel
     }
+    console.log(taskData, '!!!')
     /*
     private String companyCategory;
     private String companyLevel;
@@ -770,8 +775,6 @@ Page({
     private String companyProvince;
     private String companyCity;
     private String companyRegion;
-
-    private Date insuranceTime;
     */
   },
   servicerCommit () {

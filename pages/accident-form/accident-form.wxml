@@ -36,7 +36,7 @@
 
       <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29)}}">
         <view class="weui-cell__bd">
-          <textarea wx:if="{{!show && !showCompany}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuracneAddress'
+          <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuracneAddress'
                     value="{{taskData.insuracneAddress}}" disabled="{{role !== 15 && id !== null && status == 29}}" placeholder="详细地址" style="height: 4em"/>
         </view>
         <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role !== 15 && id !== null && status == 29}}">
@@ -150,12 +150,9 @@
         <view class="weui-cells__title">出险经过</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
-            <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
-          <textarea wx:if="{{!show && !showCompany}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                    value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 20 && status != 29}}" placeholder="请输入查勘员备注" style="height: 7em"/>
-            </view>
-            <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
-              {{taskData.investigatorText || '-'}}
+            <view class="weui-cell__bd">
+          <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceText'
+                    value="{{taskData.insuranceText}}" placeholder="请输入查勘员备注" style="height: 7em"/>
             </view>
           </view>
           <view class="weui-cell weui-cell_select">
@@ -311,7 +308,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
-          <textarea wx:if="{{!show && !showCompany}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+          <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
                     value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 20 && status != 29}}" placeholder="请输入查勘员备注" style="height: 7em"/>
           </view>
           <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
