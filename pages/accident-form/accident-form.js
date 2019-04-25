@@ -104,6 +104,17 @@ Page({
       })
       this.initDataById(routeParams.id)
     } else {
+      if (app.globalData.currentRegisterInfo == 15 || true) {
+        util.request({
+          path: `/app/accidentInsurance/getOrderId?type=06`,
+          method: 'POST'
+        }, function (err, res) {
+          this.setData({
+            id: res.orderId,
+            orderId: res.orderId
+          })
+        })
+      }
       this.setData({
         role: 15//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
@@ -692,6 +703,24 @@ Page({
   },
   insuredSubmit () {
     console.log(this.data.taskData,' ####')
+    // /app/accidentInsurance/personOrders
+    let data = this.data.taskData
+    let _this = this
+    let taskData = {
+      rescueType: _this.data.rescueType,
+      payType: _this.data.payType,
+      sex: data.sex,
+      age: data.age,
+      clientName: data.clientName,
+      clientIdNum: data.clientIdNum,
+      bankName: data.bankName,
+      bankNum: data.bankNum,
+      rescueAmount: data.rescueAmount,
+      insuranceAmount: data.insuranceAmount,
+      selfAmount: data.selfAmount,
+      city: data.cityCode,
+      orderId: _this.data.id
+    }
   },
   servicerCommit () {
     let _this = this
