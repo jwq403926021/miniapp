@@ -6,6 +6,7 @@
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-icon": "../../asset/vant/icon/index",
     "van-checkbox": "../../asset/vant/checkbox/index",
-    "van-checkbox-group": "../../asset/vant/checkbox-group/index"
+    "van-checkbox-group": "../../asset/vant/checkbox-group/index",
+    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
   }
 }

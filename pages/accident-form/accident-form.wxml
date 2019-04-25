@@ -146,6 +146,29 @@
         </view>
       </block>
 
+      <block wx:if="{{role == 15 && (id == null || status == 29)}}">
+        <view class="weui-cells__title">出险经过</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+            <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
+          <textarea wx:if="{{!show && !showCompany}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                    value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 20 && status != 29}}" placeholder="请输入查勘员备注" style="height: 7em"/>
+            </view>
+            <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
+              {{taskData.investigatorText || '-'}}
+            </view>
+          </view>
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+              <view class="weui-label">出险时间</view>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="picker weui-select weui-select_in-select-after" bindtap="openTimePicker">{{timepickerLabel ? timepickerLabel : '请选择出险时间'}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
       <!-- ## 客服 处理工单字段start ## -->
       <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 20}}">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -495,5 +518,8 @@
   </van-popup>
   <van-popup show="{{ showCompany }}" position="bottom" overlay="{{ true }}">
     <van-area area-list="{{ areaList }}" value="{{ regionCompany }}" bind:confirm="onCompanyConfirm" bind:cancel="onCompanyCancel"/>
+  </van-popup>
+  <van-popup show="{{ showTime }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker type="datetime" value="{{ timepickerValue }}" bind:confirm="onTimeConfirm" bind:cancel="onTimeCancel"/>
   </van-popup>
 </view>

@@ -9,11 +9,13 @@ Page({
     orderId: null,
     id: null,
     role: 1,
+    tempOrderId: null,
     show: false,
     areaList: {},
     region: '',
     regionLabel: '',
     showCompany: false,
+    showTime: false,
     regionCompany: '',
     regionCompanyLabel: '',
 
@@ -36,7 +38,6 @@ Page({
     companyLevel: '',
     companyLevelLabel: '',
     companyLevelList: ['省级', '市级', '区级'],
-
 
     status: '',
     assignMethod: '0',
@@ -83,17 +84,24 @@ Page({
       'rejectText': "",
       'bankName': "",
       'bankNum': "",
+      'insuracneAddress': '',
+      'insuranceText': '',
+      'companyId': '',
+      'companyName': ''
     },
     // video: [],
     bankImageFiles: [],
     informationImageFiles: [],
     idImageFrontImageFiles: [],
     idImageBackImageFiles: [],
-    receiptImageImageFiles: []
+    receiptImageImageFiles: [],
+    timepickerValue: new Date().getTime(),
+    timepickerLabel: ''
   },
   onLoad: function (routeParams ) {
     console.log('开锁 工单号：->', routeParams)
     console.log('当前用户信息->', app.globalData.currentRegisterInfo)
+    let _this = this
     this.initArea()
     this.initCompanySubCategory()
     if (routeParams && routeParams.id) {
@@ -109,9 +117,8 @@ Page({
           path: `/app/accidentInsurance/getOrderId?type=06`,
           method: 'POST'
         }, function (err, res) {
-          this.setData({
-            id: res.orderId,
-            orderId: res.orderId
+          _this.setData({
+            tempOrderId: res.orderId
           })
         })
       }
@@ -188,7 +195,11 @@ Page({
         'taskData.bankName': data.bankName,
         'taskData.bankNum': data.bankNum,
         'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
-        'payType': data.moneyMethod || '0'
+        'payType': data.moneyMethod || '0',
+        'taskData.insuracneAddress': data.insuracneAddress || '',
+        'taskData.insuranceText': data.insuranceText || '',
+        'taskData.companyId': data.companyId || '',
+        'taskData.companyName': data.companyName || '',
       })
       _this.getRegionLabel()
     })
@@ -274,6 +285,25 @@ Page({
   onCompanyCancel() {
     this.setData({
       showCompany: false
+    })
+  },
+  openTimePicker() {
+    this.setData({
+      showTime: !this.showTime
+    })
+  },
+  onTimeConfirm(data) {
+    console.log('onTimeConfirm', data.detail)
+    let d = new Date(data.detail)
+    this.setData({
+      showTime: false,
+      timepickerValue: data.detail,
+      timepickerLabel: d.toLocaleDateString() + '  ' + d.getHours() + ':' + d.getMinutes(),
+    })
+  },
+  onTimeCancel() {
+    this.setData({
+      showTime: false
     })
   },
   inputgetName(e) {
@@ -473,7 +503,7 @@ Page({
             'token': wx.getStorageSync('token')
           },
           formData: {
-            'flowId': that.data.orderId,
+            'flowId': that.data.orderId || that.data.tempOrderId,
             'type': 15
           },
           success:function(e){
@@ -538,7 +568,7 @@ Page({
             'token': wx.getStorageSync('token')
           },
           formData: {
-            'flowId': that.data.orderId,
+            'flowId': that.data.orderId || that.data.tempOrderId,
             'type': 10
           },
           success:function(e){
@@ -707,6 +737,8 @@ Page({
     let data = this.data.taskData
     let _this = this
     let taskData = {
+      active: '', // 暂存工单：save, 提交工单:submit
+      reportNumber: data.reportNumber,
       rescueType: _this.data.rescueType,
       payType: _this.data.payType,
       sex: data.sex,
@@ -719,8 +751,28 @@ Page({
       insuranceAmount: data.insuranceAmount,
       selfAmount: data.selfAmount,
       city: data.cityCode,
-      orderId: _this.data.id
+      country: data.areaCode,
+      province: data.provinceCode,
+      orderId: _this.data.id,
+      areaCodeCompany: data.areaCodeCompany,
+      cityCodeCompany: data.cityCodeCompany,
+      provinceCodeCompany: data.provinceCodeCompany,
+      insuranceTime: '',
+      insuracneAddress: data.insuracneAddress,
+      insuranceText: data.insuranceText,
+      companyId: data.companyId,
+      companyName: data.companyName
     }
+    /*
+    private String companyCategory;
+    private String companyLevel;
+    private String companyType;
+    private String companyProvince;
+    private String companyCity;
+    private String companyRegion;
+
+    private Date insuranceTime;
+    */
   },
   servicerCommit () {
     let _this = this
