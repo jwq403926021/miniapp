@@ -85,9 +85,7 @@ Page({
       'bankName': "",
       'bankNum': "",
       'insuracneAddress': '',
-      'insuranceText': '',
-      'companyId': '',
-      'companyName': ''
+      'insuranceText': ''
     },
     // video: [],
     bankImageFiles: [],
@@ -200,7 +198,7 @@ Page({
         'payType': data.moneyMethod || '0',
         'taskData.insuracneAddress': data.insuracneAddress || '',
         'taskData.insuranceText': data.insuranceText || '',
-        'taskData.companyId': data.companyId || '',
+        'taskData.companyNameCode': data.companyNameCode || '',
         'taskData.companyName': data.companyName || '',
         'timepickerValue': data.insuranceTime,
         'timepickerLabel': data.insuranceTime ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : ''
@@ -764,18 +762,14 @@ Page({
       insuranceTime: _this.data.timepickerValue,
       insuracneAddress: data.insuracneAddress,
       insuranceText: data.insuranceText,
-      companyId: data.companyNameCode,
-      companyName: _this.data.companyNameLabel
+      companyNameCode: data.companyNameCode,
+      companyName: _this.data.companyNameLabel,
+      companyType: data.companyType,
+      insurance: data.insurance,
+      companyLevel: _this.data.companyLevel,
+      companyCategory: _this.data.companyCategory
     }
     console.log(taskData, '!!!')
-    /*
-    private String companyCategory;
-    private String companyLevel;
-    private String companyType;
-    private String companyProvince;
-    private String companyCity;
-    private String companyRegion;
-    */
   },
   servicerCommit () {
     let _this = this

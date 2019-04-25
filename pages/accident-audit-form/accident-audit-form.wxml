@@ -328,9 +328,10 @@
           <view class="mtb10">
             <van-row custom-class="accident-detail-table-header">
               <van-col span="6">名称</van-col>
-              <van-col span="6">自付比例</van-col>
-              <van-col span="6">金额</van-col>
-              <van-col span="6">操作</van-col>
+              <van-col span="5">自付比例</van-col>
+              <van-col span="5">金额</van-col>
+              <van-col span="5">核损金额</van-col>
+              <van-col span="3">操作</van-col>
             </van-row>
             <van-row wx:if="{{detailListArr.length == 0}}" custom-class="accident-detail-table-body">
               <van-col span="24">无数据</van-col>
@@ -339,13 +340,16 @@
               <van-col span="6">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
               </van-col>
-              <van-col span="6">
+              <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>
               </van-col>
-              <van-col span="6">
+              <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col span="6">
+              <van-col span="5">
+                <input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>
+              </van-col>
+              <van-col span="3">
                 <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="0" bindtap="removeItem">删除</text>
                 <text wx:else>-</text>
               </van-col>
@@ -358,11 +362,20 @@
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
-                <view class="weui-label">门急诊自费总额</view>
+                <view class="weui-label">门急诊核损总额</view>
               </view>
               <view class="weui-cell__bd">
                 <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientSelfPrice' disabled
-                       value="{{taskData.outpatientSelfPrice}}" placeholder="请输入门急诊自费总额"/>
+                       value="{{taskData.outpatientSelfPrice}}" placeholder="请输入门急诊核损总额"/>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">门急诊自费总额</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientAmount' disabled
+                       value="{{taskData.outpatientAmount}}" placeholder="请输入门急诊自费总额"/>
               </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -418,9 +431,10 @@
           <view class="mtb10">
             <van-row custom-class="accident-detail-table-header">
               <van-col span="6">名称</van-col>
-              <van-col span="6">自付比例</van-col>
-              <van-col span="6">金额</van-col>
-              <van-col span="6">操作</van-col>
+              <van-col span="5">自付比例</van-col>
+              <van-col span="5">金额</van-col>
+              <van-col span="5">核损金额</van-col>
+              <van-col span="3">操作</van-col>
             </van-row>
             <van-row wx:if="{{detailListArr2.length == 0}}" custom-class="accident-detail-table-body">
               <van-col span="24">无数据</van-col>
@@ -429,13 +443,16 @@
               <van-col span="6">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
               </van-col>
-              <van-col span="6">
+              <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>
               </van-col>
-              <van-col span="6">
+              <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
               </van-col>
-              <van-col custom-class="deleteColor" span="6">
+              <van-col span="5">
+                <input data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>
+              </van-col>
+              <van-col custom-class="deleteColor" span="3">
                 <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="1" bindtap="removeItem">删除</text>
                 <text wx:else>-</text>
               </van-col>
@@ -448,11 +465,20 @@
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
-                <view class="weui-label">住院自费损总额</view>
+                <view class="weui-label">住院核损总额</view>
               </view>
               <view class="weui-cell__bd">
                 <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientSelfPrice' disabled
-                       value="{{taskData.inpatientSelfPrice}}" placeholder="请输入住院自费损总额"/>
+                       value="{{taskData.inpatientSelfPrice}}" placeholder="请输入住院核损总额"/>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">住院自费总额</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientAmount' disabled
+                       value="{{taskData.inpatientAmount}}" placeholder="请输入住院自费总额"/>
               </view>
             </view>
             <view class="weui-cell weui-cell_input">

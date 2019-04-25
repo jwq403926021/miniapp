@@ -53,12 +53,14 @@ Page({
       'outpatientLimitedNum': 0,
       'outpatientDeductible': 0,
       'outpatientPercent': 0,
+      'outpatientAmount': 0,
       'outpatientSelfPrice': 0,
       'outpatientComputedPrice': 0,
 
       'inpatientLimitedNum': 0,
       'inpatientDeductible': 0,
       'inpatientPercent': 0,
+      'inpatientAmount': 0,
       'inpatientSelfPrice': 0,
       'inpatientComputedPrice': 0,
 
@@ -230,6 +232,7 @@ Page({
         'taskData.outpatientLimitedNum': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientLimitedNum || 0 : 0,
         'taskData.outpatientDeductible': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientDeductible || 0 : 0,
         'taskData.outpatientPercent': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientPercent || 0 : 0,
+        'taskData.outpatientAmount': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientAmount || 0 : 0,
         'taskData.outpatientSelfPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientSelfPrice || 0 : 0,
         'taskData.outpatientComputedPrice': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientComputedPrice || 0 : 0,
         'detailListArr': data.medicOutList || [],
@@ -237,6 +240,7 @@ Page({
         'taskData.inpatientLimitedNum': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientLimitedNum || 0 : 0,
         'taskData.inpatientDeductible': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientDeductible || 0 : 0,
         'taskData.inpatientPercent': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientPercent || 0 : 0,
+        'taskData.inpatientAmount': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientAmount || 0 : 0,
         'taskData.inpatientSelfPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientSelfPrice || 0 : 0,
         'taskData.inpatientComputedPrice': data.businessPatientInEntity ? data.businessPatientInEntity.inpatientComputedPrice || 0 : 0,
         'detailListArr2': data.medicInList || [],
@@ -400,12 +404,12 @@ Page({
   addCustomNewItem (event) {
     let type = event.currentTarget.dataset.type;
     if (type == '0') {
-      let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': '', 'isCustom': true}]
+      let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'isCustom': true}]
       this.setData({
         detailListArr: _list
       })
     } else {
-      let _list = [...this.data.detailListArr2, {'name':'', 'percent': '', 'price': '', 'isCustom': true}]
+      let _list = [...this.data.detailListArr2, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'isCustom': true}]
       this.setData({
         detailListArr2: _list
       })
@@ -485,7 +489,11 @@ Page({
     let index = e.currentTarget.dataset.itemindex;
     let nameMap = {}
     if (arrayname) {
+      let percent = parseFloat(name == 'percent' ? e.detail.value : this.data[arrayname][index].percent)
+      let price = name == 'price' ? e.detail.value : this.data[arrayname][index].price
       nameMap[`${arrayname}[${index}].${name}`] = e.detail.value
+      nameMap[`${arrayname}[${index}].confirmprice`] = price * (percent == 0 ? 0 : (1 - percent))
+      // nameMap[`${arrayname}[${index}].confirmprice`] = price * (percent || 1)
     } else {
       if (name.indexOf('.')) {
         let nameList = name.split('.')
@@ -528,21 +536,27 @@ Page({
   outpatientSelfPrice () {
     let list = this.data.detailListArr
     let result = 0
+    let amount = 0
     list.forEach(item => {
-      result += parseFloat(item.price || 0)
+      amount += parseFloat(item.price || 0)
+      result += parseFloat(item.confirmprice || 0)
     })
     this.setData({
-      'taskData.outpatientSelfPrice': result
+      'taskData.outpatientAmount': (amount - result).toFixed(2),
+      'taskData.outpatientSelfPrice': result.toFixed(2)
     })
   },
   inpatientSelfPrice () {
     let list = this.data.detailListArr2
+    let amount = 0
     let result = 0
     list.forEach(item => {
-      result += parseFloat(item.price || 0)
+      amount += parseFloat(item.price || 0)
+      result += parseFloat(item.confirmprice || 0)
     })
     this.setData({
-      'taskData.inpatientSelfPrice': result
+      'taskData.inpatientAmount': (amount - result).toFixed(2),
+      'taskData.inpatientSelfPrice': result.toFixed(2)
     })
   },
   outpatientComputedPrice () {
@@ -693,6 +707,7 @@ Page({
       outpatientSelfPrice: taskData.outpatientSelfPrice, // 门急诊自费核损总额
       rescueAmount: taskData.rescueAmount, // 门急诊医疗费总额
       outpatientComputedPrice: taskData.outpatientComputedPrice, // 门急诊医疗费理算金额
+      outpatientAmount: taskData.outpatientAmount,
 
       inpatientLimitedNum: taskData.inpatientLimitedNum, // 住院限额
       inpatientDeductible: taskData.inpatientDeductible, // 住院免赔额
@@ -701,6 +716,7 @@ Page({
       inpatientSelfPrice: taskData.inpatientSelfPrice, // 住院自费核损总额
       insuranceAmount: taskData.insuranceAmount, // 住院医疗费总额
       inpatientComputedPrice: taskData.inpatientComputedPrice, // 住院医疗费理算金额
+      inpatientAmount: taskData.inpatientAmount,
 
       days: taskData.days, // 住院津贴 天数
       deductibleDays: taskData.deductibleDays, // 住院津贴 免赔天数
