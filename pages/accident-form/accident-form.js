@@ -67,6 +67,7 @@ Page({
       "areaCode": "",
       "cityCode": "",
       "reportNumber": '',
+      "insuranceNum": '',
       "customerPhone": '',
       "customerName": "",
       "examineName": '',
@@ -84,7 +85,7 @@ Page({
       'rejectText': "",
       'bankName': "",
       'bankNum': "",
-      'insuracneAddress': '',
+      'insuranceAddress': '',
       'insuranceText': ''
     },
     // video: [],
@@ -106,7 +107,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+        role: 24//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
       this.initDataById(routeParams.id)
     } else {
@@ -164,7 +165,7 @@ Page({
             break
         }
       })
-      let dd = new Date(data.insuranceTime)
+      let dd = new Date(parseInt(data.insuranceTimestamp))
 
       _this.setData({
         'bankImageFiles': bankImageFiles,
@@ -178,6 +179,7 @@ Page({
         'taskData.provinceCode': data.province,
         "taskData.customerPhone": data.customerPhone,
         "taskData.reportNumber": data.reportNumber,
+        "taskData.insuranceNum": data.insuranceNum,
         "taskData.customerName": data.customerName,
         "taskData.investigatorText": data.investigatorText,
         "taskData.rescueAmount": data.emergencyMoney,
@@ -194,14 +196,24 @@ Page({
         'taskData.age': data.age||'',
         'taskData.bankName': data.bankName,
         'taskData.bankNum': data.bankNum,
-        'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
+        'rescueType': data.cureMethod ? JSON.parse(data.cureMethod).map(item => item+'') : ['0', '1'],
         'payType': data.moneyMethod || '0',
-        'taskData.insuracneAddress': data.insuracneAddress || '',
+        'taskData.insuranceAddress': data.insuranceAddress || '',
         'taskData.insuranceText': data.insuranceText || '',
-        'taskData.companyNameCode': data.companyNameCode || '',
-        'taskData.companyName': data.companyName || '',
-        'timepickerValue': data.insuranceTime,
-        'timepickerLabel': data.insuranceTime ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : ''
+        'timepickerValue': data.insuranceTimestamp,
+        'timepickerLabel': data.insuranceTimestamp ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : '',
+        'taskData.companyNameCode': data.sysCompanyEntity ? data.sysCompanyEntity.companyCode : '',
+        'taskData.companyName': data.sysCompanyEntity ? data.sysCompanyEntity.companyName : '',
+        companyCategory: data.sysCompanyEntity ? data.sysCompanyEntity.companyType : '',
+        companyCategoryLabel: data.sysCompanyEntity ? data.sysCompanyEntity.companyTypeName : '',
+        companySubCategory: data.sysCompanyEntity ? data.sysCompanyEntity.insuranceId : '',
+        companySubCategoryLabel: data.sysCompanyEntity ? data.sysCompanyEntity.insuranceName : '',
+        companyName: data.sysCompanyEntity ? data.sysCompanyEntity.companyName : '',
+        companyNameLabel: data.sysCompanyEntity ? data.sysCompanyEntity.companyName : '',
+        'regionCompany': data.sysCompanyEntity ? data.sysCompanyEntity.areaCode : '',
+        'taskData.areaCodeCompany': data.sysCompanyEntity ? data.sysCompanyEntity.areaCode : '',
+        'taskData.cityCodeCompany': data.sysCompanyEntity ? data.sysCompanyEntity.cityCode : '',
+        'taskData.provinceCodeCompany': data.sysCompanyEntity ? data.sysCompanyEntity.provinceCode : '',
       })
       _this.getRegionLabel()
     })
@@ -227,6 +239,7 @@ Page({
   },
   getRegionLabel () {
     let arr = []
+    let arr2 = []
     if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
       let provinceCode = this.data.region.slice(0,2) + '0000'
       let cityCode = this.data.region.slice(0,4) + '00'
@@ -235,8 +248,17 @@ Page({
       arr.push(this.data.areaList['city_list'][cityCode])
       arr.push(this.data.areaList['county_list'][townCode])
     }
+    if (this.data.regionCompany && this.data.areaList.hasOwnProperty('province_list')) {
+      let provinceCode2 = this.data.regionCompany.slice(0,2) + '0000'
+      let cityCode2 = this.data.regionCompany.slice(0,4) + '00'
+      let townCode2 = this.data.regionCompany
+      arr2.push(this.data.areaList['province_list'][provinceCode2])
+      arr2.push(this.data.areaList['city_list'][cityCode2])
+      arr2.push(this.data.areaList['county_list'][townCode2])
+    }
     this.setData({
-      regionLabel: arr.length ? arr.join(',') : ''
+      regionLabel: arr.length ? arr.join(',') : '',
+      regionCompanyLabel: arr2.length ? arr2.join(',') : '',
     })
   },
   openLocation() {
@@ -663,7 +685,7 @@ Page({
       "active": isSave ? 'save' : 'submit'
     }
     if (this.data.id) {
-      taskData.orderID = this.data.orderId
+      taskData.orderId = this.data.orderId
     }
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
@@ -734,13 +756,12 @@ Page({
     })
   },
   insuredSubmit (e) {
-    // /app/accidentInsurance/personOrders
     let isSave = e.currentTarget.dataset.save
     let data = this.data.taskData
     let _this = this
     let taskData = {
       "active": isSave ? 'save' : 'submit',
-      reportNumber: data.reportNumber,
+      insuranceNum: data.insuranceNum,
       rescueType: _this.data.rescueType,
       payType: _this.data.payType,
       sex: data.sex,
@@ -760,7 +781,7 @@ Page({
       cityCodeCompany: data.cityCodeCompany,
       provinceCodeCompany: data.provinceCodeCompany,
       insuranceTime: _this.data.timepickerValue,
-      insuracneAddress: data.insuracneAddress,
+      insuranceAddress: data.insuranceAddress,
       insuranceText: data.insuranceText,
       companyNameCode: data.companyNameCode,
       companyName: _this.data.companyNameLabel,
@@ -769,7 +790,100 @@ Page({
       companyLevel: _this.data.companyLevel,
       companyCategory: _this.data.companyCategory
     }
-    console.log(taskData, '!!!')
+
+    if (taskData.insuranceNum == '' || taskData.insuranceNum == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报案号',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (taskData.insuranceTime == '' || taskData.insuranceTime == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写出险时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (taskData.insuranceText == '' || taskData.insuranceText == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写出险经过',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    let informationImageFiles = []
+    _this.data.informationImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        informationImageFiles.push({path: item.path, type: 1})
+      }
+    })
+    let idImageBackImageFiles = []
+    _this.data.idImageBackImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        idImageBackImageFiles.push({path: item.path, type: 12})
+      }
+    })
+    let receiptImageImageFiles = []
+    _this.data.receiptImageImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        receiptImageImageFiles.push({path: item.path, type: 13})
+      }
+    })
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/accidentInsurance/personOrders` ,
+      method: 'POST',
+      data: taskData
+    }, function (err, res) {
+      console.log('工单新建：', res)
+      if (res.code == 0) {
+        let imgPaths = [...informationImageFiles, ...idImageBackImageFiles, ...receiptImageImageFiles]
+        console.log('Upload Files:', imgPaths)
+        _this.setData({
+          'orderId': _this.data.id
+        })
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                if (url) {
+                  _this.goToAudit()
+                } else {
+                  _this.goToList()
+                }
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   servicerCommit () {
     let _this = this
@@ -855,7 +969,8 @@ Page({
       insuranceAmount: data.insuranceAmount,
       selfAmount: data.selfAmount,
       city: data.cityCode,
-      orderId: _this.data.id
+      orderId: _this.data.id,
+      reportNumber: data.reportNumber
     }
 
     let idImageBackImageFiles = []
@@ -1048,7 +1163,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.data.orderId,
+        'flowId': that.data.orderId || that.data.tempOrderId,
         'type': imgPaths[count].type
       },
       success:function(e){

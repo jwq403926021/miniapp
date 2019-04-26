@@ -208,6 +208,7 @@ Page({
         'status': data.status,
         "taskData.customerPhone": data.customerPhone,
         "taskData.reportNumber": data.reportNumber,
+        "taskData.insuranceNum": data.insuranceNum,
         "taskData.customerName": data.customerName,
         "taskData.investigatorText": data.investigatorText,
         "taskData.rescueAmount": data.emergencyMoney || 0,
@@ -226,7 +227,7 @@ Page({
         'insuranceEnd': data.insuranceEnd ? new Date(data.insuranceEnd).getTime() : '',
         insuranceBeginLabel:  data.insuranceBegin ? new Date(data.insuranceBegin).toLocaleDateString() : '',
         insuranceEndLabel:  data.insuranceEnd ? new Date(data.insuranceEnd).toLocaleDateString() : '',
-        'rescueType': data.cureMethod ? JSON.stringify(data.cureMethod) : ['0', '1'],
+        'rescueType': data.cureMethod ? JSON.parse(data.cureMethod).map(item => item+'') : ['0', '1'],
         'payType': data.moneyMethod || '0',
 
         'taskData.outpatientLimitedNum': data.businessPatientOutEntity ? data.businessPatientOutEntity.outpatientLimitedNum || 0 : 0,
@@ -692,7 +693,7 @@ Page({
     let taskData = this.data.taskData
     let data = {
       orderId: this.data.orderId,
-
+      insuranceNum: taskData.insuranceNum,
       insurantName: taskData.insurantName, // 被保险人姓名
       injuredName: taskData.injuredName, // 伤者姓名
       injuredId: taskData.injuredId, // 伤者身份证号

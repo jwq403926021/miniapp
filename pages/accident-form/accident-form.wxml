@@ -26,50 +26,37 @@
         <view class="weui-cell__hd">
           <view class="weui-label">事故区域</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{((id == null || taskData.status == 20 || taskData.status == 29) && role == 1) || ((id == null || taskData.status == 29) && role == 15)}}">
+        <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
           <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 20 && taskData.status != 29}}">
+        <view class="weui-cell__bd" wx:else>
           <text class="weui-input readonly">{{regionLabel || '-'}}</text>
         </view>
       </view>
 
-      <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29)}}">
+      <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29) || (taskData.insuranceText != '' && taskData.insuranceText != null)}}">
         <view class="weui-cell__bd">
-          <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuracneAddress'
-                    value="{{taskData.insuracneAddress}}" disabled="{{role !== 15 && id !== null && status == 29}}" placeholder="详细地址" style="height: 4em"/>
+          <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceAddress'
+                    value="{{taskData.insuranceAddress}}" disabled="{{role !== 15 && id !== null && status == 29}}" placeholder="详细地址" style="height: 4em"/>
         </view>
         <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role !== 15 && id !== null && status == 29}}">
-          {{taskData.insuracneAddress || '-'}}
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">报案号</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
-                 value="{{taskData.reportNumber}}" placeholder="报案号"/>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29)}}">
-          <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role == 15 && (id == null || status == 29)}}">
-        <view class="weui-cell__hd">
-          <view class="weui-label">保险公司区域</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{((id == null || taskData.status == 20 || taskData.status == 29) && role == 1) || ((id == null || taskData.status == 29) && role == 15)}}">
-          <view class="picker weui-select weui-select_in-select-after" bindtap="openCompanyLocation">{{regionCompanyLabel ? regionCompanyLabel : '请填写地址'}}</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 20 && taskData.status != 29}}">
-          <text class="weui-input readonly">{{regionCompanyLabel || '-'}}</text>
+          {{taskData.insuranceAddress || '-'}}
         </view>
       </view>
 
       <block wx:if="{{!(role == 15 && (id == null || status == 29))}}">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">报案号</view>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29)}}">
+            <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                   value="{{taskData.reportNumber}}" placeholder="报案号"/>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29)}}">
+            <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+          </view>
+        </view>
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">报案人姓名</view>
@@ -104,7 +91,29 @@
         </view>
       </block>
 
-      <block wx:if="{{role == 15 && (id == null || status == 29)}}">
+      <block wx:if="{{role == 15 && (id == null || status == 29) || (taskData.insuranceText != '' && taskData.insuranceText != null)}}">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">保单号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum'
+                   value="{{taskData.insuranceNum}}" placeholder="保单号"/>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">保险公司区域</view>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{((id == null || status == 29) && role == 15) || (role == 24 && status == 35)}}">
+            <view class="picker weui-select weui-select_in-select-after" bindtap="openCompanyLocation">{{regionCompanyLabel ? regionCompanyLabel : '请填写地址'}}</view>
+          </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{regionCompanyLabel || '-'}}</text>
+          </view>
+        </view>
+
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">保险公司级别</view>
@@ -144,9 +153,6 @@
             </picker>
           </view>
         </view>
-      </block>
-
-      <block wx:if="{{role == 15 && (id == null || status == 29)}}">
         <view class="weui-cells__title">出险经过</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
