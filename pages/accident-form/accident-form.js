@@ -969,8 +969,23 @@ Page({
       insuranceAmount: data.insuranceAmount,
       selfAmount: data.selfAmount,
       city: data.cityCode,
+      country: data.areaCode,
+      province: data.provinceCode,
       orderId: _this.data.id,
-      reportNumber: data.reportNumber
+      reportNumber: data.reportNumber,
+      // insuranceNum: data.insuranceNum,
+      // areaCodeCompany: data.areaCodeCompany,
+      // cityCodeCompany: data.cityCodeCompany,
+      // provinceCodeCompany: data.provinceCodeCompany,
+      // insuranceTime: _this.data.timepickerValue,
+      // insuranceAddress: data.insuranceAddress,
+      // insuranceText: data.insuranceText,
+      // companyNameCode: data.companyNameCode,
+      // companyName: _this.data.companyNameLabel,
+      // companyType: data.companyType,
+      // insurance: data.insurance,
+      // companyLevel: _this.data.companyLevel,
+      // companyCategory: _this.data.companyCategory
     }
 
     let idImageBackImageFiles = []
