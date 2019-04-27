@@ -107,7 +107,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: 24//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
       this.initDataById(routeParams.id)
     } else {
@@ -122,7 +122,7 @@ Page({
         })
       }
       this.setData({
-        role: 15//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
     }
   },
