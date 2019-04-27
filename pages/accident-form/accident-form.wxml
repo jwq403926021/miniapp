@@ -35,11 +35,11 @@
       </view>
 
       <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29) || (taskData.insuranceText != '' && taskData.insuranceText != null)}}">
-        <view class="weui-cell__bd">
+        <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
           <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceAddress'
                     value="{{taskData.insuranceAddress}}" disabled="{{role !== 15 && id !== null && status == 29}}" placeholder="详细地址" style="height: 4em"/>
         </view>
-        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role !== 15 && id !== null && status == 29}}">
+        <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:else>
           {{taskData.insuranceAddress || '-'}}
         </view>
       </view>
@@ -96,9 +96,12 @@
           <view class="weui-cell__hd">
             <view class="weui-label">保单号</view>
           </view>
-          <view class="weui-cell__bd">
+          <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
             <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum'
                    value="{{taskData.insuranceNum}}" placeholder="保单号"/>
+          </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{taskData.insuranceNum || '-'}}</text>
           </view>
         </view>
 
@@ -106,7 +109,7 @@
           <view class="weui-cell__hd">
             <view class="weui-label">保险公司区域</view>
           </view>
-          <view class="weui-cell__bd" wx:if="{{((id == null || status == 29) && role == 15) || (role == 24 && status == 35)}}">
+          <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
             <view class="picker weui-select weui-select_in-select-after" bindtap="openCompanyLocation">{{regionCompanyLabel ? regionCompanyLabel : '请填写地址'}}</view>
           </view>
           <view class="weui-cell__bd" wx:else>
@@ -118,7 +121,7 @@
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">保险公司级别</view>
           </view>
-          <view class="weui-cell__bd">
+          <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
             <picker bindchange="companyLevelChange" value="{{companyLevel}}"
                     range="{{companyLevelList}}">
               <view class="picker weui-select weui-select_in-select-after">
@@ -126,12 +129,15 @@
               </view>
             </picker>
           </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{companyLevelLabel || '-'}}</text>
+          </view>
         </view>
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">保险公司子类</view>
           </view>
-          <view class="weui-cell__bd">
+          <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
             <picker bindchange="companySubCategoryChange" value="{{companySubCategory}}"
                     range="{{companySubCategoryList}}">
               <view class="picker weui-select weui-select_in-select-after">
@@ -139,12 +145,15 @@
               </view>
             </picker>
           </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{companySubCategoryLabel || '-'}}</text>
+          </view>
         </view>
         <view class="weui-cell weui-cell_select">
           <view class="weui-cell__hd weui-cell__hd_in-select-after">
             <view class="weui-label">保险公司名称</view>
           </view>
-          <view class="weui-cell__bd" bindtap="checkCompanyNameList">
+          <view class="weui-cell__bd" bindtap="checkCompanyNameList" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
             <picker bindchange="companyNameChange" value="{{companyName}}"
                     range="{{companyNameList}}">
               <view class="picker weui-select weui-select_in-select-after {{companyNameLabel?'companyNameWrap':'companyNameWrap2'}}">
@@ -152,21 +161,30 @@
               </view>
             </picker>
           </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{companyNameLabel || '-'}}</text>
+          </view>
         </view>
         <view class="weui-cells__title">出险经过</view>
         <view class="weui-cells weui-cells_after-title">
           <view class="weui-cell">
-            <view class="weui-cell__bd">
+            <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
           <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceText'
                     value="{{taskData.insuranceText}}" placeholder="请输入查勘员备注" style="height: 7em"/>
+            </view>
+            <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:else>
+              {{taskData.insuranceText || '-'}}
             </view>
           </view>
           <view class="weui-cell weui-cell_select">
             <view class="weui-cell__hd weui-cell__hd_in-select-after">
               <view class="weui-label">出险时间</view>
             </view>
-            <view class="weui-cell__bd">
+            <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
               <view class="picker weui-select weui-select_in-select-after" bindtap="openTimePicker">{{timepickerLabel ? timepickerLabel : '请选择出险时间'}}</view>
+            </view>
+            <view class="weui-cell__bd" wx:else>
+              <text class="weui-input readonly">{{timepickerLabel || '-'}}</text>
             </view>
           </view>
         </view>

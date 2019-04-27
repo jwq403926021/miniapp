@@ -200,7 +200,7 @@ Page({
         'payType': data.moneyMethod || '0',
         'taskData.insuranceAddress': data.insuranceAddress || '',
         'taskData.insuranceText': data.insuranceText || '',
-        'timepickerValue': data.insuranceTimestamp,
+        'timepickerValue': parseInt(data.insuranceTimestamp),
         'timepickerLabel': data.insuranceTimestamp ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : '',
         'taskData.companyNameCode': data.sysCompanyEntity ? data.sysCompanyEntity.companyCode : '',
         'taskData.companyName': data.sysCompanyEntity ? data.sysCompanyEntity.companyName : '',
@@ -973,19 +973,19 @@ Page({
       province: data.provinceCode,
       orderId: _this.data.id,
       reportNumber: data.reportNumber,
-      // insuranceNum: data.insuranceNum,
-      // areaCodeCompany: data.areaCodeCompany,
-      // cityCodeCompany: data.cityCodeCompany,
-      // provinceCodeCompany: data.provinceCodeCompany,
-      // insuranceTime: _this.data.timepickerValue,
-      // insuranceAddress: data.insuranceAddress,
-      // insuranceText: data.insuranceText,
-      // companyNameCode: data.companyNameCode,
-      // companyName: _this.data.companyNameLabel,
-      // companyType: data.companyType,
-      // insurance: data.insurance,
-      // companyLevel: _this.data.companyLevel,
-      // companyCategory: _this.data.companyCategory
+      insuranceNum: data.insuranceNum,
+      areaCodeCompany: data.areaCodeCompany,
+      cityCodeCompany: data.cityCodeCompany,
+      provinceCodeCompany: data.provinceCodeCompany,
+      insuranceTime: _this.data.timepickerValue,
+      insuranceAddress: data.insuranceAddress,
+      insuranceText: data.insuranceText,
+      companyNameCode: data.companyNameCode,
+      companyName: _this.data.companyNameLabel,
+      companyType: data.companyType,
+      insurance: data.insurance,
+      companyLevel: _this.data.companyLevel,
+      companyCategory: _this.data.companyCategory
     }
 
     let idImageBackImageFiles = []
@@ -1000,7 +1000,6 @@ Page({
         receiptImageImageFiles.push({path: item.path, type: 13})
       }
     })
-
     if (data.clientIdNum == '' || data.clientIdNum == null) {
       wx.showToast({
         mask: true,
@@ -1019,7 +1018,7 @@ Page({
       })
       return
     }
-    if (idImageBackImageFiles.length == 0) {
+    if (_this.data.idImageBackImageFiles.length == 0) {
       wx.showToast({
         mask: true,
         title: '请上传身份证反面',
@@ -1028,7 +1027,7 @@ Page({
       })
       return
     }
-    if (receiptImageImageFiles.length == 0) {
+    if (_this.data.receiptImageImageFiles.length == 0) {
       wx.showToast({
         mask: true,
         title: '请上传医疗单证',
@@ -1082,8 +1081,6 @@ Page({
       })
       return
     }
-
-
     wx.showLoading({
       mask: true,
       title: '提交中'
