@@ -158,7 +158,7 @@
           <view class="weui-cell">
             <view class="weui-cell__bd">
           <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceText'
-                    value="{{taskData.insuranceText}}" placeholder="请输入查勘员备注" style="height: 7em"/>
+                    value="{{taskData.insuranceText}}" placeholder="请输入出险经过" style="height: 7em"/>
             </view>
           </view>
           <view class="weui-cell weui-cell_select">
