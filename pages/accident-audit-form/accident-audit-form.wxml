@@ -104,7 +104,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">被保险人姓名</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.insurantName'
                  value="{{taskData.insurantName}}" placeholder="请输入被保险人姓名"/>
         </view>
@@ -117,7 +117,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">伤者姓名</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredName'
                  value="{{taskData.injuredName}}" placeholder="请输入伤者姓名"/>
         </view>
@@ -130,7 +130,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">伤者身份证号</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'
                  value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>
         </view>
@@ -143,7 +143,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">开户行</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankName'
                  value="{{taskData.bankName}}" placeholder="请输入开户行"/>
         </view>
@@ -156,7 +156,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">银行卡号</view>
         </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24}}">
+        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankNum'
                  value="{{taskData.bankNum}}" placeholder="请输入银行卡号"/>
         </view>
@@ -169,7 +169,7 @@
         <view class="weui-cell__hd">
           <view class="weui-label">保险期间</view>
         </view>
-        <block wx:if="{{role == 24}}">
+        <block wx:if="{{role == 24 && (status == 31 || status == 33)}}">
           <view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">
             <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>
           </view>
@@ -202,7 +202,7 @@
             <view class="weui-label">保单号</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum'
+            <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum' disabled="{{!(role == 24 && (status == 31 || status == 33))}}"
                    value="{{taskData.insuranceNum}}" placeholder="保单号"/>
           </view>
         </view>
