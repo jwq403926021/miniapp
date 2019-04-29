@@ -33,6 +33,7 @@ Page({
       '11': '已办结'
     },
     taskData: {
+      'insuranceNum': '',
       "customerPhone": '',
       "reportNumber": '',
       "customerName": '',
@@ -90,7 +91,10 @@ Page({
     detailListArr: [],
     detailListArr2: [],
     tempDetailList: [],
-    currentActiveType: '0'
+    currentActiveType: '0',
+    companyNameLabel: '',
+    insuranceText: '',
+    'timepickerLabel': ''
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -198,8 +202,9 @@ Page({
             break
         }
       })
-      console.log('12313', data)
+      let dd = new Date(parseInt(data.insuranceTimestamp))
       _this.setData({
+        'insuranceText': data.insuranceText || '',
         'informationImageFiles': informationImageFiles,
         'bankImageFiles': bankImageFiles,
         'idImageFrontImageFiles': idImageFrontImageFiles,
@@ -223,6 +228,8 @@ Page({
         'taskData.injuredId': data.woundCard,
         'taskData.bankNum': data.bankNum,
         'taskData.bankName': data.bankName,
+        companyNameLabel: data.sysCompanyEntity ? data.sysCompanyEntity.companyName : '',
+        'timepickerLabel': data.insuranceTimestamp ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : '',
         'insuranceBegin': data.insuranceBegin ? new Date(data.insuranceBegin).getTime() : '',
         'insuranceEnd': data.insuranceEnd ? new Date(data.insuranceEnd).getTime() : '',
         insuranceBeginLabel:  data.insuranceBegin ? new Date(data.insuranceBegin).toLocaleDateString() : '',
@@ -562,7 +569,7 @@ Page({
   },
   outpatientComputedPrice () {
     let data = this.data.taskData
-    let outpatientSelfPrice = parseFloat(data.outpatientSelfPrice)
+    let outpatientSelfPrice = parseFloat(data.outpatientAmount) // outpatientSelfPrice
     let outpatientDeductible = parseFloat(data.outpatientDeductible)
     let outpatientPercent = data.outpatientPercent
     let outpatientLimitedNum = parseFloat(data.outpatientLimitedNum)
@@ -580,7 +587,7 @@ Page({
   },
   inpatientComputedPrice () {
     let data = this.data.taskData
-    let inpatientSelfPrice = parseFloat(data.inpatientSelfPrice)
+    let inpatientSelfPrice = parseFloat(data.inpatientAmount) // inpatientSelfPrice
     let inpatientDeductible = parseFloat(data.inpatientDeductible)
     let inpatientPercent = data.inpatientPercent
     let inpatientLimitedNum = parseFloat(data.inpatientLimitedNum)

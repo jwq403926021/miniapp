@@ -161,7 +161,7 @@
               </view>
             </picker>
           </view>
-          <view class="weui-cell__bd" wx:else>
+          <view class="weui-cell__bd companyNameWrap" wx:else>
             <text class="weui-input readonly">{{companyNameLabel || '-'}}</text>
           </view>
         </view>
