@@ -34,7 +34,7 @@
         </view>
       </view>
 
-      <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29) || (taskData.insuranceText != '' && taskData.insuranceText != null)}}">
+      <view class="weui-cell" wx:if="{{role == 15 && (id == null || status == 29) || isEditInurancedOrder}}">
         <view class="weui-cell__bd" wx:if="{{((id == null || status == 20 || status == 29) && role == 1) || ((id == null || status == 29) && role == 15) || (status == 35 && role == 24)}}">
           <textarea wx:if="{{!show && !showCompany && !showTime}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.insuranceAddress'
                     value="{{taskData.insuranceAddress}}" disabled="{{role !== 15 && id !== null && status == 29}}" placeholder="详细地址" style="height: 4em"/>
@@ -91,7 +91,7 @@
         </view>
       </block>
 
-      <block wx:if="{{role == 15 && (id == null || status == 29) || (taskData.insuranceText != '' && taskData.insuranceText != null)}}">
+      <block wx:if="{{role == 15 && (id == null || status == 29) || isEditInurancedOrder}}">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">保单号</view>

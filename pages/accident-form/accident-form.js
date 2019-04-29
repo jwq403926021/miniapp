@@ -6,6 +6,7 @@ const app = getApp()
 
 Page({
   data: {
+    isEditInurancedOrder: false,
     orderId: null,
     id: null,
     role: 1,
@@ -107,7 +108,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+        role: 24//app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
       this.initDataById(routeParams.id)
     } else {
@@ -200,6 +201,7 @@ Page({
         'payType': data.moneyMethod || '0',
         'taskData.insuranceAddress': data.insuranceAddress || '',
         'taskData.insuranceText': data.insuranceText || '',
+        isEditInurancedOrder: data.insuranceText !== '' && data.insuranceText !== null,
         'timepickerValue': parseInt(data.insuranceTimestamp),
         'timepickerLabel': data.insuranceTimestamp ? (dd.toLocaleDateString() + '  ' + dd.getHours() + ':' + dd.getMinutes()) : '',
         'taskData.companyNameCode': data.sysCompanyEntity ? data.sysCompanyEntity.companyCode : '',
@@ -304,6 +306,9 @@ Page({
       'taskData.areaCodeCompany': data.detail.values[2].code,
       'taskData.cityCodeCompany': data.detail.values[1].code,
       'taskData.provinceCodeCompany': data.detail.values[0].code,
+      'taskData.companyNameCode': '',
+      companyNameLabel: '',
+      companyName: ''
     })
   },
   onCompanyCancel() {
@@ -794,7 +799,7 @@ Page({
     if (taskData.insuranceNum == '' || taskData.insuranceNum == null) {
       wx.showToast({
         mask: true,
-        title: '请填写报案号',
+        title: '请填写保单号',
         icon: 'none',
         duration: 2000
       })
@@ -1081,6 +1086,37 @@ Page({
       })
       return
     }
+
+    if (this.data.isEditInurancedOrder) {
+      if (taskData.insuranceNum == '' || taskData.insuranceNum == null) {
+        wx.showToast({
+          mask: true,
+          title: '请填写保单号',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (taskData.insuranceTime == '' || taskData.insuranceTime == null) {
+        wx.showToast({
+          mask: true,
+          title: '请填写出险时间',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (taskData.insuranceText == '' || taskData.insuranceText == null) {
+        wx.showToast({
+          mask: true,
+          title: '请填写出险经过',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+    }
+
     wx.showLoading({
       mask: true,
       title: '提交中'
