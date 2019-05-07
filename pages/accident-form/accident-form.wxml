@@ -91,7 +91,7 @@
         </view>
       </block>
 
-      <block wx:if="{{role == 15 && (id == null || status == 29) || isEditInurancedOrder}}">
+      <block wx:if="{{(role == 15 && (id == null || status == 29)) || isEditInurancedOrder}}">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">保单号</view>

@@ -196,7 +196,7 @@
         </view>
       </view>
 
-      <block wx:if="{{insuranceText != '' || insuranceText != null}}">
+      <block wx:if="{{insuranceText != '' && insuranceText != null}}">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">保单号</view>
@@ -214,22 +214,22 @@
             <text class="weui-input readonly">{{companyNameLabel || '-'}}</text>
           </view>
         </view>
-        <view class="weui-cells__title">出险经过</view>
-        <view class="weui-cells weui-cells_after-title">
-          <view class="weui-cell">
-            <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;">
-              {{insuranceText || '-'}}
-            </view>
-          </view>
           <view class="weui-cell weui-cell_select">
-            <view class="weui-cell__hd weui-cell__hd_in-select-after">
-              <view class="weui-label">出险时间</view>
-            </view>
-            <view class="weui-cell__bd">
-              <text class="weui-input readonly">{{timepickerLabel || '-'}}</text>
-            </view>
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                  <view class="weui-label">出险时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                  <text class="weui-input readonly">{{timepickerLabel || '-'}}</text>
+              </view>
           </view>
-        </view>
+          <view class="weui-cells__title">出险经过</view>
+          <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell">
+                  <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;">
+                      {{insuranceText || '-'}}
+                  </view>
+              </view>
+          </view>
       </block>
     </view>
 
