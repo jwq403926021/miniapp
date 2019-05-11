@@ -83,11 +83,11 @@ Page({
       method: 'GET',
       data: {
         flowId: id,
-        workEndStatus: workEndStatus
+        workStatus: workEndStatus
       }
     }, function (err, res) {
       wx.hideLoading()
-      _this.data.dataList[index].workEndStatus = workEndStatus
+      _this.data.dataList[index].workStatus = workEndStatus
       _this.setData({
         dataList: _this.data.dataList
       })

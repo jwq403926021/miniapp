@@ -111,12 +111,12 @@ Page({
       method: 'GET',
       data: {
         flowId: id,
-        workEndStatus: workEndStatus
+        workStatus: workEndStatus
       }
     }, function (err, res) {
       wx.hideLoading()
       _this.setData({
-        'taskData.workEndStatus': workEndStatus
+        'taskData.workStatus': workEndStatus
       })
     })
   },
