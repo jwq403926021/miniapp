@@ -26,7 +26,11 @@
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.flowId}}" data-id="{{item.flowId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.flowId}}<view data-index='{{index}}' data-id="{{item.flowId}}" data-finishcase="{{item.finishCase}}" catchtap="setFinishCase" class="{{item.finishCase == 1 ? 'finished' : 'not-finish'}}"></view></view>
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          工单号：{{item.flowId}}
+          <view data-index='{{index}}' data-id="{{item.flowId}}" data-finishcase="{{item.finishCase}}" catchtap="setFinishCase" class="{{item.finishCase == 1 ? 'finished' : 'not-finish'}}"></view>
+          <view data-index='{{index}}' data-id="{{item.flowId}}" data-workendstatus="{{item.workStatus}}" catchtap="setworkEndStatus" class="{{item.workStatus == 1 ? 'workfinished' : 'worknot-finish'}}"></view>
+        </view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
           <view>客户：{{item.customerName || '-'}}</view>

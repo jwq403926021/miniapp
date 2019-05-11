@@ -66,6 +66,33 @@ Page({
       })
     })
   },
+  setworkEndStatus (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const workEndStatus = event.currentTarget.dataset.workendstatus == 1 ? 0 : 1;
+    const index = event.currentTarget.dataset.index;
+    if (this.data.role != 12) {
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/family/workEndStatus',
+      method: 'GET',
+      data: {
+        flowId: id,
+        workEndStatus: workEndStatus
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.data.dataList[index].workEndStatus = workEndStatus
+      _this.setData({
+        dataList: _this.data.dataList
+      })
+    })
+  },
   onPullDownRefresh () {
     this.getInitData()
   },

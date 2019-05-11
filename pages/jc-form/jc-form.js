@@ -49,6 +49,7 @@ Page({
       "losserText": '',
       "offerPrice": '',
       "finishCase": '',
+      "workStatus": '',
       "thirdName": '',
       "thirdPhone": ''
     },
@@ -91,6 +92,31 @@ Page({
       wx.hideLoading()
       _this.setData({
         'taskData.finishCase': finishcase
+      })
+    })
+  },
+  setworkEndStatus (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const workEndStatus = event.currentTarget.dataset.workendstatus == 1 ? 0 : 1;
+    if (this.data.role != 12) {
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/family/workEndStatus',
+      method: 'GET',
+      data: {
+        flowId: id,
+        workEndStatus: workEndStatus
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.setData({
+        'taskData.workEndStatus': workEndStatus
       })
     })
   },
@@ -201,6 +227,7 @@ Page({
         'flowId': data.flowId,
         'status': data.status,
         'taskData.finishCase': data.finishCase,
+        'taskData.workStatus': data.workStatus,
         'taskData.countryId': data.areaCountryId,
         'taskData.cityId': data.areaCityId,
         'taskData.provinceId': data.areaProvinceId,
