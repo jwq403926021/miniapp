@@ -13,14 +13,18 @@ Page({
     typeFilter: '0',
     isShowDateFilter: false,
     isShowFinishCaseFilter: false,
+    isShowWorkStatusFilter: false,
     dateFilter: '0',
-    finishCaseFilter: '0',
+    finishCaseFilter: '',
+    workStatusFilter: '',
     dataList: [],
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     finishCaseFilterArr: ['未结案', '已结案'],
+    workStatusFilterArr: ['未施工', '已施工'],
     height: '',
     searchKeyword: '',
     searchFlowId: '',
+    searchCustomerPhone: '',
     role: 1,
     statusMap: {
       '29': '暂存',
@@ -116,6 +120,11 @@ Page({
       isShowFinishCaseFilter: true
     });
   },
+  openFilterWorkStatusPop () {
+    this.setData({
+      isShowWorkStatusFilter: true
+    });
+  },
   statusFilterChange (data) {
     console.log('statusFilterChange::', data)
   },
@@ -157,6 +166,14 @@ Page({
     });
     this.getInitData()
   },
+  workStatusFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    this.setData({
+      workStatusFilter: value,
+      isShowWorkStatusFilter: false
+    });
+    this.getInitData()
+  },
   searchKeywordChange (data) {
     this.setData({
       searchKeyword: data.detail
@@ -165,6 +182,11 @@ Page({
   searchFlowIdChange (data) {
     this.setData({
       searchFlowId: data.detail
+    })
+  },
+  searchWorkStatusChange (data) {
+    this.setData({
+      searchCustomerPhone: data.detail
     })
   },
   getInitData () {
@@ -200,11 +222,17 @@ Page({
     if (this.data.finishCaseFilter) {
       filter.finish = this.data.finishCaseFilter
     }
+    if (this.data.workStatusFilter) {
+      filter.workStatus = this.data.workStatusFilter
+    }
     if (this.data.searchKeyword) {
       filter.customerName = this.data.searchKeyword
     }
     if (this.data.searchFlowId) {
       filter.flowId = this.data.searchFlowId
+    }
+    if (this.data.searchCustomerPhone) {
+      filter.customerPhone = this.data.searchCustomerPhone
     }
     if (start && end) {
       filter.start = start
@@ -269,6 +297,7 @@ Page({
     this.setData({
       isShowDateFilter:false,
       isShowFinishCaseFilter:false,
+      isShowWorkStatusFilter:false,
       isShowTypeFilter:false,
       isShowStatusFilter:false
     })
