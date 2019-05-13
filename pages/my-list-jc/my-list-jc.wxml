@@ -21,7 +21,7 @@
               bind:change="searchFlowIdChange">
       </van-search>
       <view class="field filterDropdown">
-        <view class="caret" bind:tap="openFilterWorkStatusPop">{{workStatusFilter ? workStatusFilterArr[workStatusFilter] : '是否施工完成'}}</view>
+        <view class="caret" bind:tap="openFilterWorkStatusPop">{{workStatusFilter ? workStatusFilterArr[workStatusFilter] : '是否施工'}}</view>
       </view>
       <van-search
               value="{{ searchCustomerPhone }}"
