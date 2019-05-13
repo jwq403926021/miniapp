@@ -21,7 +21,7 @@
               bind:change="searchFlowIdChange">
       </van-search>
       <view class="field filterDropdown">
-        <view class="caret" bind:tap="openFilterWorkStatusPop">{{workStatusFilter ? workStatusFilterArr[workStatusFilter] : '是否施工'}}</view>
+        <view class="caret" bind:tap="openFilterWorkStatusPop">{{workStatusFilter ? workStatusFilterArr[workStatusFilter] : '是否施工完成'}}</view>
       </view>
       <van-search
               value="{{ searchCustomerPhone }}"
@@ -123,10 +123,10 @@
         <van-cell title="全部" clickable data-name="" bind:click="workStatusFilterItemClick">
           <van-radio name="" />
         </van-cell>
-        <van-cell title="未结案" clickable data-name="0" bind:click="workStatusFilterItemClick">
+        <van-cell title="未施工" clickable data-name="0" bind:click="workStatusFilterItemClick">
           <van-radio name="0" />
         </van-cell>
-        <van-cell title="已结案" clickable data-name="1" bind:click="workStatusFilterItemClick">
+        <van-cell title="已施工" clickable data-name="1" bind:click="workStatusFilterItemClick">
           <van-radio name="1" />
         </van-cell>
       </van-cell-group>
