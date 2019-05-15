@@ -257,7 +257,7 @@
                             <view class="weui-label">三者姓名</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42)}}">
-                            <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.thirdName'
+                            <input class="weui-input" bindinput="inputgetName" data-name='taskData.thirdName'
                                    value="{{taskData.thirdName}}" placeholder="请输入三者姓名"/>
                         </view>
                         <view class="weui-cell__bd" wx:else>
