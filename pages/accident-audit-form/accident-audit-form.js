@@ -66,6 +66,7 @@ Page({
       'inpatientComputedPrice': 0,
 
       'days': 0,
+      'limitPriceDay': 0,
       'deductibleDays': 0,
       'pricePerDay': 0,
       'allowance': 0,
@@ -218,6 +219,7 @@ Page({
         "taskData.investigatorText": data.investigatorText,
         "taskData.rescueAmount": data.emergencyMoney || 0,
         "taskData.insuranceAmount": data.hospitalMoney || 0,
+        "taskData.insuranceAlreadyPay": data.insuranceAlreadyPay || 0,
         "taskData.selfAmount": data.medicalMoney || 0,
         'taskData.clientName': data.woundName,
         'taskData.clientIdNum': data.woundCard,
@@ -254,6 +256,7 @@ Page({
         'detailListArr2': data.medicInList || [],
 
         'taskData.days': data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.days || 0 : 0,
+        'taskData.limitPriceDay': data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.limitPriceDay || 0 : 0,
         'taskData.deductibleDays':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.deductibleDays || 0 : 0,
         'taskData.pricePerDay':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.pricePerDay || 0 : 0,
         'taskData.allowance':  data.businessHospitalBenefitEntity ? data.businessHospitalBenefitEntity.allowance || 0 : 0,
@@ -412,12 +415,12 @@ Page({
   addCustomNewItem (event) {
     let type = event.currentTarget.dataset.type;
     if (type == '0') {
-      let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'isCustom': true}]
+      let _list = [...this.data.detailListArr, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'ownprice': '', 'isCustom': true}]
       this.setData({
         detailListArr: _list
       })
     } else {
-      let _list = [...this.data.detailListArr2, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'isCustom': true}]
+      let _list = [...this.data.detailListArr2, {'name':'', 'percent': '', 'price': '', 'confirmprice': '', 'ownprice': '', 'isCustom': true}]
       this.setData({
         detailListArr2: _list
       })
@@ -500,7 +503,9 @@ Page({
       let percent = parseFloat(name == 'percent' ? e.detail.value : this.data[arrayname][index].percent)
       let price = name == 'price' ? e.detail.value : this.data[arrayname][index].price
       nameMap[`${arrayname}[${index}].${name}`] = e.detail.value
-      nameMap[`${arrayname}[${index}].confirmprice`] = price * (percent == 0 ? 0 : (1 - percent))
+      let temp = price * (percent == 0 ? 0 : (1 - percent))
+      nameMap[`${arrayname}[${index}].confirmprice`] = temp.toFixed(2)
+      nameMap[`${arrayname}[${index}].ownprice`] = (price - temp).toFixed(2)
       // nameMap[`${arrayname}[${index}].confirmprice`] = price * (percent || 1)
     } else {
       if (name.indexOf('.')) {
@@ -537,8 +542,14 @@ Page({
   allowance () {
     let data = this.data.taskData
     let days = (data.days - data.deductibleDays) >= 0 ? (data.days - data.deductibleDays) : 0
+    let result = 0
+    if (days * data.pricePerDay >= data.limitPriceDay) {
+      result = data.limitPriceDay
+    } else {
+      result = days * data.pricePerDay
+    }
     this.setData({
-      'taskData.allowance': days * data.pricePerDay
+      'taskData.allowance': result
     })
   },
   outpatientSelfPrice () {
@@ -549,9 +560,10 @@ Page({
       amount += parseFloat(item.price || 0)
       result += parseFloat(item.confirmprice || 0)
     })
+
     this.setData({
       'taskData.outpatientAmount': (amount - result).toFixed(2),
-      'taskData.outpatientSelfPrice': result.toFixed(2)
+      'taskData.outpatientSelfPrice': (this.data.taskData.rescueAmount - amount - result).toFixed(2)
     })
   },
   inpatientSelfPrice () {
@@ -562,14 +574,21 @@ Page({
       amount += parseFloat(item.price || 0)
       result += parseFloat(item.confirmprice || 0)
     })
+    let inpatientSelfPrice = 0
+    if (this.data.payType === 0) { // 0 医保 1 自费
+      inpatientSelfPrice = this.data.taskData.insuranceAmount - this.data.taskData.insuranceAlreadyPay - amount - result
+    } else {
+      inpatientSelfPrice = this.data.taskData.insuranceAmount - amount - result
+    }
+
     this.setData({
       'taskData.inpatientAmount': (amount - result).toFixed(2),
-      'taskData.inpatientSelfPrice': result.toFixed(2)
+      'taskData.inpatientSelfPrice': inpatientSelfPrice.toFixed(2)
     })
   },
   outpatientComputedPrice () {
     let data = this.data.taskData
-    let outpatientSelfPrice = parseFloat(data.outpatientAmount) // outpatientSelfPrice
+    let outpatientSelfPrice = parseFloat(data.outpatientSelfPrice)
     let outpatientDeductible = parseFloat(data.outpatientDeductible)
     let outpatientPercent = data.outpatientPercent
     let outpatientLimitedNum = parseFloat(data.outpatientLimitedNum)
@@ -587,7 +606,7 @@ Page({
   },
   inpatientComputedPrice () {
     let data = this.data.taskData
-    let inpatientSelfPrice = parseFloat(data.inpatientAmount) // inpatientSelfPrice
+    let inpatientSelfPrice = parseFloat(data.inpatientSelfPrice)
     let inpatientDeductible = parseFloat(data.inpatientDeductible)
     let inpatientPercent = data.inpatientPercent
     let inpatientLimitedNum = parseFloat(data.inpatientLimitedNum)
@@ -699,6 +718,9 @@ Page({
     let endDate = this.data.insuranceEnd ? new Date(this.data.insuranceEnd) : new Date()
     let taskData = this.data.taskData
     let data = {
+      rescueType: this.data.rescueType,
+      payType: this.data.payType,
+
       orderId: this.data.orderId,
       insuranceNum: taskData.insuranceNum,
       insurantName: taskData.insurantName, // 被保险人姓名
@@ -728,6 +750,7 @@ Page({
 
       days: taskData.days, // 住院津贴 天数
       deductibleDays: taskData.deductibleDays, // 住院津贴 免赔天数
+      limitPriceDay: taskData.limitPriceDay,
       pricePerDay: taskData.pricePerDay, // 住院津贴 每天钱数
       allowance: taskData.allowance, // 住院津贴 总额
 
@@ -789,5 +812,15 @@ Page({
         })
       }
     })
-  }
+  },
+  onRescueTypeChange (event) {
+    this.setData({
+      'rescueType': event.detail
+    });
+  },
+  onPayTypeChange (event) {
+    this.setData({
+      'payType': event.detail
+    });
+  },
 })

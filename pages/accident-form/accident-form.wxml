@@ -283,7 +283,7 @@
         </view>
 
         <block wx:if="{{role != 15 || (role == 15 && status == 30) || (role == 15 && (id == null || status == 29))}}">
-          <view class="weui-cell weui-cell_input" wx:if="{{payType != 1}}">
+          <view class="weui-cell weui-cell_input" wx:if="{{rescueType.indexOf(0) != -1}}">
             <view class="weui-cell__hd">
               <view class="weui-label">门急诊合计</view>
             </view>
@@ -296,7 +296,7 @@
             </view>
           </view>
 
-          <view class="weui-cell weui-cell_input" wx:if="{{payType != 1}}">
+          <view class="weui-cell weui-cell_input" wx:if="{{rescueType.indexOf(1) != -1}}">
             <view class="weui-cell__hd">
               <view class="weui-label">住院医疗合计</view>
             </view>
@@ -309,15 +309,24 @@
             </view>
           </view>
 
-          <view class="weui-cell weui-cell_input">
+          <view class="weui-cell weui-cell_input" wx:if="{{payType == 0}}">
+            <view class="weui-cell__hd">
+              <view class="weui-label">医保已支付</view>
+            </view>
+            <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35) || (role == 15 && (id == null || status == 29))}}">
+              <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceAlreadyPay'
+                     value="{{taskData.insuranceAlreadyPay}}" placeholder="医保已支付"/>
+            </view>
+            <view class="weui-cell__bd" wx:else>
+              <text class="weui-input readonly">{{taskData.insuranceAlreadyPay || '-'}}</text>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input" wx:if="{{ rescueType.length != 0 }}">
             <view class="weui-cell__hd">
               <view class="weui-label">医疗费合计</view>
             </view>
-            <view class="weui-cell__bd" wx:if="{{(role == 15 && status == 30) || (role == 24 && status == 35) || (role == 15 && (id == null || status == 29))}}">
-              <input class="weui-input" bindinput="inputgetName" data-name='taskData.selfAmount' disabled="{{payType != 1}}"
-                     value="{{taskData.selfAmount}}" placeholder="自费合计"/>
-            </view>
-            <view class="weui-cell__bd" wx:else>
+            <view class="weui-cell__bd">
               <text class="weui-input readonly">{{taskData.selfAmount || '-'}}</text>
             </view>
           </view>

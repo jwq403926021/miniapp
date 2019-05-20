@@ -11,6 +11,10 @@
     "van-search": "../../asset/vant/search/index",
     "van-icon": "../../asset/vant/icon/index",
     "van-datetime-picker": "../../asset/vant/datetime-picker/index",
-    "van-stepper": "../../asset/vant/stepper/index"
+    "van-stepper": "../../asset/vant/stepper/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index",
+    "van-checkbox": "../../asset/vant/checkbox/index",
+    "van-checkbox-group": "../../asset/vant/checkbox-group/index"
   }
 }
