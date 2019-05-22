@@ -563,7 +563,7 @@ Page({
 
     this.setData({
       'taskData.outpatientAmount': (amount - result).toFixed(2),
-      'taskData.outpatientSelfPrice': (this.data.taskData.rescueAmount - amount - result).toFixed(2)
+      'taskData.outpatientSelfPrice': (this.data.taskData.rescueAmount - (amount - result)).toFixed(2)
     })
   },
   inpatientSelfPrice () {
@@ -576,9 +576,9 @@ Page({
     })
     let inpatientSelfPrice = 0
     if (this.data.payType === 0) { // 0 医保 1 自费
-      inpatientSelfPrice = this.data.taskData.insuranceAmount - this.data.taskData.insuranceAlreadyPay - amount - result
+      inpatientSelfPrice = this.data.taskData.insuranceAmount - this.data.taskData.insuranceAlreadyPay - (amount - result)
     } else {
-      inpatientSelfPrice = this.data.taskData.insuranceAmount - amount - result
+      inpatientSelfPrice = this.data.taskData.insuranceAmount - (amount - result)
     }
 
     this.setData({
@@ -722,6 +722,8 @@ Page({
       payType: this.data.payType,
 
       orderId: this.data.orderId,
+      bankName: taskData.bankName,
+      bankNum: taskData.bankNum,
       insuranceNum: taskData.insuranceNum,
       insurantName: taskData.insurantName, // 被保险人姓名
       injuredName: taskData.injuredName, // 伤者姓名
