@@ -521,6 +521,15 @@
             </view>
           </view>
           <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input" wx:if="{{payType == 0}}">
+              <view class="weui-cell__hd">
+                <view class="weui-label">医保已支付</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input class="weui-input" disabled bindinput="bindDataAndCalculate" data-name='taskData.insuranceAlreadyPay'
+                       value="{{taskData.insuranceAlreadyPay}}" placeholder="医保已支付"/>
+              </view>
+            </view>
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
                 <view class="weui-label">住院总额</view>
