@@ -725,10 +725,18 @@ Page({
   },
   lossCommit (e) {
     let _this = this
-    let isReject = e.currentTarget.dataset.reject
+    let type = e.currentTarget.dataset.type
+    let active
+    if (type == '0') {
+      active = 'finish'
+    } else if (type == '1') {
+      active = 'reject'
+    } else {
+      active = 'save'
+    }
     let data = {
       flowId: _this.data.flowId,
-      active: isReject ? 'reject' : 'finish',
+      active: active,
       losserText: _this.data.taskData.losserText,
       offerPrice: _this.data.taskData.offerPrice,
       investigatorId: _this.data.taskData.investigatorId,
@@ -755,7 +763,7 @@ Page({
       })
       return false
     }
-    if (isReject) {
+    if (type == '1') {
       if (_this.data.taskData.losserText == '' || _this.data.taskData.losserText == null){
         wx.showToast({
           mask: true,
