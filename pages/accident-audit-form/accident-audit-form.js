@@ -562,8 +562,9 @@ Page({
     })
 
     this.setData({
+      'taskData.rescueAmount': amount.toFixed(2),
       'taskData.outpatientAmount': (amount - result).toFixed(2),
-      'taskData.outpatientSelfPrice': (this.data.taskData.rescueAmount - (amount - result)).toFixed(2)
+      'taskData.outpatientSelfPrice': (amount - (amount - result)).toFixed(2)
     })
   },
   inpatientSelfPrice () {
@@ -576,12 +577,13 @@ Page({
     })
     let inpatientSelfPrice = 0
     if (this.data.payType === 0) { // 0 医保 1 自费
-      inpatientSelfPrice = this.data.taskData.insuranceAmount - this.data.taskData.insuranceAlreadyPay - (amount - result)
+      inpatientSelfPrice = amount - this.data.taskData.insuranceAlreadyPay - (amount - result)
     } else {
-      inpatientSelfPrice = this.data.taskData.insuranceAmount - (amount - result)
+      inpatientSelfPrice = amount - (amount - result)
     }
 
     this.setData({
+      'taskData.insuranceAmount': amount.toFixed(2),
       'taskData.inpatientAmount': (amount - result).toFixed(2),
       'taskData.inpatientSelfPrice': inpatientSelfPrice.toFixed(2)
     })
