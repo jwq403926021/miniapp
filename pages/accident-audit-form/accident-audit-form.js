@@ -503,7 +503,7 @@ Page({
       let percent = parseFloat(name == 'percent' ? e.detail.value : this.data[arrayname][index].percent)
       let price = name == 'price' ? e.detail.value : this.data[arrayname][index].price
       nameMap[`${arrayname}[${index}].${name}`] = e.detail.value
-      let temp = price * (percent == 0 ? 0 : (1 - percent))
+      let temp = price * (percent == 0 ? 1 : (1 - percent))
       nameMap[`${arrayname}[${index}].confirmprice`] = temp.toFixed(2)
       nameMap[`${arrayname}[${index}].ownprice`] = (price - temp).toFixed(2)
       // nameMap[`${arrayname}[${index}].confirmprice`] = price * (percent || 1)
