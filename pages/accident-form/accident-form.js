@@ -113,7 +113,7 @@ Page({
       })
       this.initDataById(routeParams.id)
     } else {
-      if (app.globalData.currentRegisterInfo == 15 || true) {
+      if (app.globalData.currentRegisterInfo == 15) {
         util.request({
           path: `/app/accidentInsurance/getOrderId?type=06`,
           method: 'POST'
@@ -124,6 +124,8 @@ Page({
         })
       }
       this.setData({
+        'taskData.customerName': app.globalData.currentRegisterInfo.nickName,
+        'taskData.customerPhone': app.globalData.currentRegisterInfo.mobile,
         role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
       })
     }
@@ -768,6 +770,8 @@ Page({
     let _this = this
     let taskData = {
       "active": isSave ? 'save' : 'submit',
+      customerPhone: data.customerPhone,
+      customerName: data.customerName,
       insuranceNum: data.insuranceNum,
       rescueType: _this.data.rescueType,
       payType: _this.data.payType,
@@ -797,6 +801,13 @@ Page({
       insurance: data.insurance,
       companyLevel: _this.data.companyLevel,
       companyCategory: _this.data.companyCategory
+    }
+
+    if (taskData.customerPhone != '') {
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+      if (!isVaidcustomerPhone) {
+        return
+      }
     }
 
     if (taskData.insuranceNum == '' || taskData.insuranceNum == null) {

@@ -57,39 +57,40 @@
             <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
           </view>
         </view>
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">报案人姓名</view>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
-            <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                   value="{{taskData.customerName}}" placeholder="报案人姓名"/>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
-            <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
-          </view>
-        </view>
-
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
-          <view class="weui-cell__hd">
-            <view class="weui-label">报案人手机</view>
-          </view>
-          <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
-            <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                   value="{{taskData.customerPhone}}" placeholder="请输入报案人手机"/>
-          </view>
-          <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
-            <view class="weui-cell__bd">
-              <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
-            </view>
-            <view wx:if="{{taskData.customerPhone}}" class="weui-cell__ft">
-              <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
-                <van-icon name="phone"></van-icon>
-              </view>
-            </view>
-          </block>
-        </view>
       </block>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">报案人姓名</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                 value="{{taskData.customerName}}" placeholder="报案人姓名"/>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
+          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">报案人手机</view>
+        </view>
+        <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20)}}">
+          <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
+                 value="{{taskData.customerPhone}}" placeholder="请输入报案人手机"/>
+        </view>
+        <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20)}}">
+          <view class="weui-cell__bd">
+            <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+          </view>
+          <view wx:if="{{taskData.customerPhone}}" class="weui-cell__ft">
+            <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+              <van-icon name="phone"></van-icon>
+            </view>
+          </view>
+        </block>
+      </view>
 
       <block wx:if="{{(role == 15 && (id == null || status == 29)) || isEditInurancedOrder}}">
         <view class="weui-cell weui-cell_input">
