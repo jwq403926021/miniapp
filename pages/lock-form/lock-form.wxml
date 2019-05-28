@@ -64,7 +64,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd" wx:if="{{(id == null || status == '12') && role == '1'}}">
-          <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
+          <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
                     value="{{taskData.information}}" disabled="{{role != '1' || (id != null && status != '12')}}" placeholder="请输入报案信息" style="height: 7em"/>
         </view>
         <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;" wx:if="{{role != '1' || (id != null && status != '12')}}">
@@ -106,7 +106,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
           <view class="weui-cell__bd" wx:if="{{id != null && status == '13' && role == 19}}">
-            <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
+            <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
                       value="{{taskData.live}}" placeholder="请输入现场信息" style="height: 7em"/>
           </view>
           <view class="weui-cell__bd" style="min-height: 7em;" wx:if="{{id != null && status == '11'}}">

@@ -128,7 +128,7 @@
         <!--<view class="weui-cells weui-cells_after-title">-->
             <!--<view class="weui-cell">-->
                 <!--<view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">-->
-                    <!--<textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'-->
+                    <!--<textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'-->
                               <!--value="{{taskData.information}}" disabled="{{id != null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 7em"/>-->
                 <!--</view>-->
                 <!--<view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">-->
@@ -167,7 +167,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.live'
                               value="{{taskData.live}}" disabled="{{id !== null && taskData.status != 2 && taskData.status != 12}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">

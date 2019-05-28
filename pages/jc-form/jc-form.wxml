@@ -85,7 +85,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(id == null || status == 29) && role == 1}}">
-                    <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
                               value="{{taskData.investigatorText}}" disabled="{{id !== null && status != 29}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{id != null && status != 29}}">
@@ -372,7 +372,7 @@
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
                         <view class="weui-cell__bd" wx:if="{{status == 51 && role == 23}}">
-                            <textarea wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.losserText'
+                            <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.losserText'
                                       value="{{taskData.losserText}}" placeholder="请输入文本" style="height: 7em"/>
                         </view>
                         <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
