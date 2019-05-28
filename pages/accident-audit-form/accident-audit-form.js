@@ -95,7 +95,11 @@ Page({
     currentActiveType: '0',
     companyNameLabel: '',
     insuranceText: '',
-    'timepickerLabel': ''
+    'timepickerLabel': '',
+    "rescueAmount": '',
+    "insuranceAmount": '',
+    "insuranceAlreadyPay": '',
+    'isCustomerCreate': ''
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -212,14 +216,22 @@ Page({
         'idImageBackImageFiles': idImageBackImageFiles,
         'receiptImageImageFiles': receiptImageImageFiles,
         'status': data.status,
+
+        'isCustomerCreate': (data.insuranceNum !== '' && data.insuranceNum !== null && data.status != 29) ? '是' : '否',
+
         "taskData.customerPhone": data.customerPhone,
         "taskData.reportNumber": data.reportNumber,
         "taskData.insuranceNum": data.insuranceNum,
         "taskData.customerName": data.customerName,
         "taskData.investigatorText": data.investigatorText,
-        "taskData.rescueAmount": data.emergencyMoney || 0,
-        "taskData.insuranceAmount": data.hospitalMoney || 0,
-        "taskData.insuranceAlreadyPay": data.insuranceAlreadyPay || 0,
+
+        "rescueAmount": data.emergencyMoney,
+        "insuranceAmount": data.hospitalMoney,
+        "insuranceAlreadyPay": data.insuranceAlreadyPay,
+        "taskData.rescueAmount": data.handledEmergencyMoney || data.emergencyMoney || 0,
+        "taskData.insuranceAmount": data.handledHospitalMoney || data.hospitalMoney || 0,
+        "taskData.insuranceAlreadyPay": data.handledInsuranceAlreadyPay || data.insuranceAlreadyPay || 0,
+
         "taskData.selfAmount": data.medicalMoney || 0,
         'taskData.clientName': data.woundName,
         'taskData.clientIdNum': data.woundCard,
@@ -751,6 +763,7 @@ Page({
       insuranceAmount: taskData.insuranceAmount, // 住院医疗费总额
       inpatientComputedPrice: taskData.inpatientComputedPrice, // 住院医疗费理算金额
       inpatientAmount: taskData.inpatientAmount,
+      insuranceAlreadyPay: taskData.insuranceAlreadyPay,
 
       days: taskData.days, // 住院津贴 天数
       deductibleDays: taskData.deductibleDays, // 住院津贴 免赔天数

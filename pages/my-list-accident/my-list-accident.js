@@ -153,6 +153,13 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
+      res.data.records.forEach(item => {
+        if (item.insuranceNum != '' && item.insuranceNum != null && item.status != 29) {
+          item.isCustomerCreate = '是'
+        } else {
+          item.isCustomerCreate = '否'
+        }
+      })
       _this.setData({
         dataList: res.data.records
       })
