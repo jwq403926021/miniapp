@@ -311,7 +311,7 @@ textarea[disabled]{
     background-size: 100%;
 }
 .finishcase-in-detail{
-    margin: 10px;
+    margin: 10px 5px;
 }
 .searchBtn{
     color: #016eff;
