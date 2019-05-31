@@ -885,11 +885,7 @@ Page({
             duration: 1000,
             success () {
               setTimeout(() => {
-                if (url) {
-                  _this.goToAudit()
-                } else {
-                  _this.goToList()
-                }
+                _this.goToList()
               }, 1000)
             }
           })
