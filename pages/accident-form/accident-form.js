@@ -113,7 +113,7 @@ Page({
       })
       this.initDataById(routeParams.id)
     } else {
-      if (app.globalData.currentRegisterInfo == 15) {
+      if (app.globalData.currentRegisterInfo.role == 15) {
         util.request({
           path: `/app/accidentInsurance/getOrderId?type=06`,
           method: 'POST'
