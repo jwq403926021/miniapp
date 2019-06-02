@@ -280,7 +280,22 @@
       </block>
     </view>
 
-    <block wx:if="{{role == 1 && status == 32}}">
+    <block wx:if="{{role == 25 && status == 32}}">
+      <view class="weui-cells__title">负责人建议</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__bd" wx:if="{{role == 1}}">
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.managerText'
+                              value="{{taskData.managerText}}" placeholder="请输入文本" style="height: 7em"/>
+          </view>
+          <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+            {{taskData.managerText || '-'}}
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{role == 1 && status == 36}}">
       <view class="weui-cells__title">驳回建议</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
@@ -655,7 +670,11 @@
       总理算金额：{{taskData.totalAmount}}
     </view>
 
-    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 32}}"><!-- 查勘员处理 -->
+    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 25 && status == 32}}"><!-- 负责人处理 -->
+      <button type="primary" data-type="1" bindtap="managerCommit">提交</button>
+      <button data-type="0" bindtap="managerCommit">驳回</button>
+    </view>
+    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 36}}"><!-- 查勘员处理 -->
       <button type="primary" data-type="1" bindtap="suvaryCommit">提交</button>
       <button data-type="0" bindtap="suvaryCommit">驳回</button>
     </view>

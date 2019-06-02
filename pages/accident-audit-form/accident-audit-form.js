@@ -75,7 +75,8 @@ Page({
 
       'totalAmount': 0,
 
-      'rejectText': ''
+      'rejectText': '',
+      'managerText': ''
     },
     datePickerType: '',
     insuranceBegin: '',
@@ -276,7 +277,8 @@ Page({
         'taskData.amountSum':  data.amountSum || 0,
 
         'taskData.totalAmount': data.offerMoney || 0,
-        'taskData.rejectText': data.rejectText
+        'taskData.rejectText': data.rejectText,
+        'taskData.managerText': data.managerText
       })
       _this.getRegionLabel()
     })
@@ -702,6 +704,29 @@ Page({
         }
       }
     })
+  },
+  managerCommit (e) {
+    // let _this = this
+    // let url = e.currentTarget.dataset.type == '0' ? '/app/accidentInsurance/survey/reject/orders' : '/app/accidentInsurance/survey/agree/orders'
+    // let data = {
+    //   orderId: _this.data.orderId
+    // }
+    // data.managerText = _this.data.taskData.managerText
+
+    // wx.showLoading({
+    //   mask: true,
+    //   title: '提交中'
+    // })
+    // util.request({
+    //   path: url,
+    //   method: 'PUT',
+    //   data: data
+    // }, function (err, res) {
+    //   wx.hideLoading()
+    //   if (res.code == 0) {
+    //     _this.goToList()
+    //   }
+    // })
   },
   suvaryCommit (e) {
     let _this = this
