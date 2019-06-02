@@ -549,7 +549,7 @@ Page({
   },
   totalAmount () {
     let data = this.data.taskData
-    let result = (parseFloat(data.outpatientComputedPrice) || 0) + (parseFloat(data.inpatientComputedPrice) || 0) + (parseFloat(data.allowance) || 0)
+    let result = ((parseFloat(data.outpatientComputedPrice) || 0) + (parseFloat(data.inpatientComputedPrice) || 0) + (parseFloat(data.allowance) || 0)).toFixed(2)
     this.setData({
       'taskData.totalAmount': result
     })
