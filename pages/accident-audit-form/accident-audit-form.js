@@ -706,27 +706,27 @@ Page({
     })
   },
   managerCommit (e) {
-    // let _this = this
-    // let url = e.currentTarget.dataset.type == '0' ? '/app/accidentInsurance/survey/reject/orders' : '/app/accidentInsurance/survey/agree/orders'
-    // let data = {
-    //   orderId: _this.data.orderId
-    // }
-    // data.managerText = _this.data.taskData.managerText
-
-    // wx.showLoading({
-    //   mask: true,
-    //   title: '提交中'
-    // })
-    // util.request({
-    //   path: url,
-    //   method: 'PUT',
-    //   data: data
-    // }, function (err, res) {
-    //   wx.hideLoading()
-    //   if (res.code == 0) {
-    //     _this.goToList()
-    //   }
-    // })
+    let _this = this
+    let status = e.currentTarget.dataset.type == '0' ? 31 : 36
+    let data = {
+      orderId: _this.data.orderId,
+      managerText: _this.data.taskData.managerText,
+      status: status
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/accidentInsurance/manager/orders',
+      method: 'PUT',
+      data: data
+    }, function (err, res) {
+      wx.hideLoading()
+      if (res.code == 0) {
+        _this.goToList()
+      }
+    })
   },
   suvaryCommit (e) {
     let _this = this
