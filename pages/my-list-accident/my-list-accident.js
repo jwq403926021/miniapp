@@ -112,7 +112,7 @@ Page({
   goToHandleTask (event) {
     let role = app.globalData.currentRegisterInfo.role
     let status = event.currentTarget.dataset.status
-    if ((status == 31 || status == 32 || status == 33 || status == 34 || status == 11) && role != 15) {
+    if ((status == 31 || status == 32 || status == 33 || status == 34 || status == 36 || status == 11) && role != 15) {
       wx.navigateTo({
         url: '../accident-audit-form/accident-audit-form?id=' + event.currentTarget.dataset.orderid
       })
