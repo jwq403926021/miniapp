@@ -109,8 +109,7 @@ Page({
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
-        orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+        orderId: routeParams.id
       })
       this.initDataById(routeParams.id)
     } else {
@@ -120,16 +119,16 @@ Page({
           method: 'POST'
         }, function (err, res) {
           _this.setData({
-            tempOrderId: res.orderId
+            tempOrderId: res.orderId,
+            'taskData.customerName': app.globalData.currentRegisterInfo.nickName,
+            'taskData.customerPhone': app.globalData.currentRegisterInfo.mobile,
           })
         })
       }
-      this.setData({
-        'taskData.customerName': app.globalData.currentRegisterInfo.nickName,
-        'taskData.customerPhone': app.globalData.currentRegisterInfo.mobile,
-        role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
-      })
     }
+    this.setData({
+      role: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.role : 1
+    })
   },
   initDataById (id) {
     let _this = this
