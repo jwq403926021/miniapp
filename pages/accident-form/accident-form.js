@@ -713,6 +713,26 @@ Page({
       return
     }
 
+    if (taskData.customerName == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写报案人姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.customerPhone == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写报案人手机',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
     if (taskData.customerPhone != '') {
       let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
       if (!isVaidcustomerPhone) {
