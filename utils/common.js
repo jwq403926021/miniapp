@@ -5,7 +5,6 @@ function deleteImage(id) {
     path: '/app/image?id='+id,
     method: 'DELETE'
   }, function (err, res) {
-    console.log(res, '???')
   })
 }
 
@@ -21,33 +20,33 @@ function downloadSaveFile(obj) {
     id = url;
   }
 
-  wx.downloadFile({
-    url: obj.url,
-    success: function (res) {
-      console.log('downloadFile:', res)
-      wx.saveImageToPhotosAlbum({
-        filePath: res.tempFilePath,
-        success: function (result) {
-          console.log('saveImageToPhotosAlbum:', result)
-          result.id = id;
-          if (success) {
-            success(result);
+  if (obj.url) {
+    wx.downloadFile({
+      url: obj.url,
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (result) {
+            result.id = id;
+            if (success) {
+              success(result);
+            }
+          },
+          fail: function (e) {
+            if (fail) {
+              fail(e);
+            }
           }
-        },
-        fail: function (e) {
-          if (fail) {
-            fail(e);
-          }
-        }
-      })
+        })
 
-    },
-    fail: function (e) {
-      if (fail) {
-        fail(e);
+      },
+      fail: function (e) {
+        if (fail) {
+          fail(e);
+        }
       }
-    }
-  })
+    })
+  }
 }
 
 function downloadSaveFiles(obj) {
@@ -71,16 +70,13 @@ function downloadSaveFiles(obj) {
   }
 
   for (let i = 0; i < urlsLength; i++) {
+    console.log(app.globalData.currentRegisterInfo.role, '??', urls[i])
     downloadSaveFile({
       url: urls[i],
       success: function (res) {
         successNum+=1
 
-        console.log('success', res, i)
-        console.log(successNum, failNum, urlsLength)
-
         if ((successNum + failNum) == urlsLength) {
-          console.log('Finish download')
           wx.showLoading({
             mask: true,
             title: '保存成功',
@@ -91,12 +87,7 @@ function downloadSaveFiles(obj) {
       },
       fail: function (e) {
         failNum+=1
-
-        console.log('fail', e, i)
-        console.log(successNum, failNum, urlsLength)
-
         if ((successNum + failNum) == urlsLength) {
-          console.log('Finish download')
           wx.showLoading({
             mask: true,
             title: '保存成功',

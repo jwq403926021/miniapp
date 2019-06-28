@@ -65,7 +65,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: 1 //app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
       })
       this.initDataById(routeParams.id)
     }
@@ -1619,11 +1619,13 @@ Page({
     // }
   },
   downloadImages () {
-    let urls = this.sourceImage.map(item => {
+    let urls = []
+    this.sourceImage.map(item => {
       if (!((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4 )) {
-        return item.path
+        urls.push(item.path)
       }
     })
+    console.log(urls, '?')
     common.downloadImages({
       urls: urls
     })

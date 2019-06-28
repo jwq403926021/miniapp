@@ -678,11 +678,13 @@ Page({
     }
   },
   downloadImages () {
-    let urls = this.sourceImage.map(item => {
+    let urls = []
+    this.sourceImage.map(item => {
       if (!((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4 )) {
-        return item.path
+        urls.push(item.path)
       }
     })
+    console.log(urls, '?')
     common.downloadImages({
       urls: urls
     })
