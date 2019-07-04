@@ -105,7 +105,6 @@ Page({
   },
   onLoad: function (routeParams) {
     this.initArea()
-    this.initMedicine()
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,
@@ -211,6 +210,9 @@ Page({
       })
       let dd = new Date(parseInt(data.insuranceTimestamp))
       _this.setData({
+        'cityCode': data.city,
+        'cityCodeCompany': data.sysCompanyEntity ? data.sysCompanyEntity.cityCode : '',
+
         'insuranceText': data.insuranceText || '',
         'informationImageFiles': informationImageFiles,
         'bankImageFiles': bankImageFiles,
@@ -279,6 +281,8 @@ Page({
         'taskData.totalAmount': data.offerMoney || 0,
         'taskData.rejectText': data.rejectText,
         'taskData.managerText': data.managerText
+      }, () => {
+        _this.initMedicine()
       })
       _this.getRegionLabel()
     })
@@ -333,13 +337,22 @@ Page({
     let _this = this
     let page = this.data.medicinePage || 1
     let keyword = this.data.medicineKeyword || ''
+    let citycode = ''
+
+    if (this.data.isCustomerCreate === '是') {
+      citycode = this.data.cityCodeCompany
+    } else {
+      citycode = this.data.cityCode
+    }
+
     util.request({
       path: '/app/businessmedicine/list',
       method: 'GET',
       data: {
         limit: 10,
         page: page,
-        name: keyword
+        name: keyword,
+        citycode: citycode
       }
     }, function (err, res) {
       _this.setData({
