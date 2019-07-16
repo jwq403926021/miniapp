@@ -9,6 +9,7 @@
     "pages/lock-form/lock-form",
     "pages/pipe-form/pipe-form",
     "pages/ws-form/ws-form",
+    "pages/ws-offer/ws-offer",
     "pages/accident-form/accident-form",
     "pages/accident-audit-form/accident-audit-form",
     "pages/feedback-form/feedback-form",

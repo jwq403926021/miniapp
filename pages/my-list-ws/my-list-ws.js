@@ -129,6 +129,11 @@ Page({
   getMore () {
 
   },
+  goToOffer (event) {
+    wx.navigateTo({
+      url: '../ws-offer/ws-offer?id=' + 20190712152504000101 // event.currentTarget.dataset.id
+    })
+  },
   goToHandleTask (event) {
     wx.navigateTo({
       url: '../ws-form/ws-form?id=' + event.currentTarget.dataset.id
