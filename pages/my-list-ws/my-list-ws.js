@@ -131,7 +131,7 @@ Page({
   },
   goToOffer (event) {
     wx.navigateTo({
-      url: '../ws-offer/ws-offer?id=' + 20190712152504000101 // event.currentTarget.dataset.id
+      url: '../ws-offer/ws-offer?id=' + event.currentTarget.dataset.id
     })
   },
   goToHandleTask (event) {
