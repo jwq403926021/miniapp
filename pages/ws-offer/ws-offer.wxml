@@ -13,10 +13,48 @@
         </view>
 
         <view class="weui-cells__title">报价信息</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view>
-                123
+        <view class="weui-cells_after-title">
+            <view class="offer-total">
+                报价合计：{{total}}
             </view>
+            <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
+                <van-collapse-item wx:for="{{data}}" wx:key="{{index}}" title="大类：{{item.category}} 大类金额：{{item.categoryTotalPrice}}" name="{{index + ''}}">
+                    <van-row custom-class="accident-detail-table-header">
+                        <van-col span="6">项目</van-col>
+                        <van-col span="4">数量</van-col>
+                        <van-col span="4">单位</van-col>
+                        <van-col span="4">单价</van-col>
+                        <van-col span="6">合价</van-col>
+                    </van-row>
+                    <view wx:for="{{item.subCategory}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="{{subItem.id}}">
+                        <van-row custom-class="accident-detail-table-body">
+                            <van-col span="6">
+                                {{subItem.name}}
+                            </van-col>
+                            <van-col span="4">
+                                {{subItem.amount}}
+                            </van-col>
+                            <van-col span="4">
+                                {{subItem.unit}}
+                            </van-col>
+                            <van-col span="4">
+                                {{subItem.price}}
+                            </van-col>
+                            <van-col span="6">
+                                {{subItem.combinedPrice}}
+                            </van-col>
+                        </van-row>
+                        <van-row custom-class="accident-detail-table-body remark-row">
+                            <van-col span="6">
+                                项目备注:
+                            </van-col>
+                            <van-col custom-class="align-left" span="18">
+                                {{subItem.remark || '-'}}
+                            </van-col>
+                        </van-row>
+                    </view>
+                </van-collapse-item>
+            </van-collapse>
         </view>
     </view>
 </view>

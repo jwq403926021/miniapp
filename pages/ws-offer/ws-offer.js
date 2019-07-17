@@ -20,7 +20,10 @@ Page({
       '10': '已报价',
       '11': '已办结',
       '12': '暂存'
-    }
+    },
+    activeNames: ['0'],
+    data: [],
+    total: 0
   },
   onLoad: function (routeParams) {
     console.log('工单号：->', routeParams)
@@ -33,6 +36,11 @@ Page({
       this.initDataById(routeParams.id)
     }
   },
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail
+    });
+  },
   initDataById (id) {
     let _this = this
     util.request({
@@ -43,9 +51,13 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
-      console.log(data, '#')
+      let total = 0
+      data.forEach(item => {
+        total += parseFloat(item.categoryTotalPrice)
+      })
       _this.setData({
-
+        data: data,
+        total : total.toFixed(2)
       })
     })
   }
