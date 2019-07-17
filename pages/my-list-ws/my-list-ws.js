@@ -30,7 +30,8 @@ Page({
       '10': '已报价',
       '11': '已办结',
       '12': '暂存'
-    }
+    },
+    role: 1
   },
   onPullDownRefresh () {
     this.getInitData()
@@ -118,6 +119,9 @@ Page({
   },
   onLoad: function () {
     let _this = this
+    _this.setData({
+      role: app.globalData.currentRegisterInfo.role
+    })
     wx.getSystemInfo({
       success: function (res) {
         _this.setData({
