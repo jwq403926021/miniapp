@@ -30,7 +30,7 @@
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
     </view>
-    <view wx:if="{{item.offer > 0 && !(role == 10 || role == 11 || role == 12)}}"- class="weui-panel__ft" data-id="{{item.damageId}}" bindtap="goToOffer">
+    <view wx:if="{{item.offer > 0 && !(role == 10 || role == 11 || role == 12)}}" class="weui-panel__ft" data-id="{{item.damageId}}" bindtap="goToOffer">
       <view class="weui-cell weui-cell_access weui-cell_link">
         <view class="weui-cell__bd">查看报价</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>

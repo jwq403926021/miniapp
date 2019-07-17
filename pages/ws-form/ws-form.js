@@ -1150,6 +1150,11 @@ Page({
     common.downloadImages({
       urls: urls
     })
+  },
+  goToOffer (event) {
+    wx.navigateTo({
+      url: '../ws-offer/ws-offer?id=' + event.currentTarget.dataset.id
+    })
   }
 })
 
