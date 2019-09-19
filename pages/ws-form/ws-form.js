@@ -55,6 +55,7 @@ Page({
       workerPhone: '',
       workType: 0,
       budgetPreliminary: '', // 初步估损金额
+      damageMoney: '', // 报损金额
       handlingType: 0,
       deposit: '',
       trasactionId: '',
@@ -155,6 +156,7 @@ Page({
         "taskData.workerPhone": data.workerPhone,
         "taskData.workType": data.workType,
         "taskData.budgetPreliminary": data.budgetPreliminary,
+        "taskData.damageMoney": data.damageMoney,
         'taskData.handlingType': data.handlingType,
         'taskData.deposit': data.deposit,
         'taskData.trasactionId': data.trasactionId,
@@ -824,6 +826,7 @@ Page({
       workerPhone: data.workerPhone,
       workType: data.workType,
       budgetPreliminary: data.budgetPreliminary, // 初步估损金额
+      damageMoney: data.damageMoney, // 报损金额
       handlingType: data.handlingType,
       deposit: data.deposit,
       trasactionId: data.trasactionId,
@@ -943,6 +946,7 @@ Page({
       workerPhone: data.workerPhone,
       workType: data.workType,
       budgetPreliminary: data.budgetPreliminary, // 初步估损金额
+      damageMoney: data.damageMoney, // 报损金额
       handlingType: data.handlingType,
       deposit: data.deposit,
       trasactionId: data.trasactionId,
@@ -1025,6 +1029,7 @@ Page({
       workerPhone: data.workerPhone,
       workType: data.workType,
       budgetPreliminary: data.budgetPreliminary, // 初步估损金额
+      damageMoney: data.damageMoney, // 报损金额
       handlingType: data.handlingType,
       deposit: data.deposit,
       trasactionId: data.trasactionId,
