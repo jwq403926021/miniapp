@@ -27,7 +27,7 @@ Page({
       '3': '查勘员已完善',
       '4': '待区域负责人线下报价',
       '5': '待报价中心报价',
-      '6': '施工人员去现场',
+      '6': '施工人员施工',
       '7': '施工中',
       '8': '计算书已上传',
       '9': '报价中心驳回',
@@ -861,16 +861,17 @@ Page({
   workImproveWS () {
     let _this = this
     let data = this.data.taskData
-    if(_this.data.workLiveImageFiles.length == 0){
-      wx.showToast({
-        mask: true,
-        title: '请上传现场信息图片（施工方）',
-        icon: 'none',
-        duration: 1000
-      })
-      return
+    if (data.workType == 1) {
+      if(_this.data.workLiveImageFiles.length == 0){
+        wx.showToast({
+          mask: true,
+          title: '请上传现场信息图片（施工方）',
+          icon: 'none',
+          duration: 1000
+        })
+        return
+      }
     }
-
     if (data.handlingType == '0') {
       if (data.deposit == '' || data.deposit == null){
         wx.showToast({

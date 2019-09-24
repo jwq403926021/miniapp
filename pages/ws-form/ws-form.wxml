@@ -271,11 +271,11 @@
                         <van-radio-group value="{{ taskData.workType }}" custom-class="weui-input vertical"
                                          bind:change="onworkTypeChange">
                             <van-radio custom-class="fl mr5" name="0">咨询</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">去现场</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">施工</van-radio>
                         </van-radio-group>
                     </view>
                     <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{taskData.workType ? ['咨询', '去现场'][taskData.workType] : '-'}}</text>
+                        <text class="weui-input readonly">{{taskData.workType ? ['咨询', '施工'][taskData.workType] : '-'}}</text>
                     </view>
                 </view>
 
@@ -559,7 +559,7 @@
         </view>
         <view class="button-sp-area" wx:if="{{role == 6 && id != null && (taskData.status == 2 || taskData.status == 3 || taskData.status == 4)}}">
             <button type="primary" wx:if="{{taskData.status == 4}}" bindtap="companyManagerChangeStatusToOffed">已线下报价 提交</button><!-- 公司市负责人 变更状态[区域负责人已线下报价] 提交 -->
-            <button type="primary" style="margin-top: 10px;" bindtap="companyManagerChangeStatusToLive">去现场 提交</button><!-- 公司市负责人 变更状态 提交 -->
+            <button type="primary" style="margin-top: 10px;" bindtap="companyManagerChangeStatusToLive">施工 提交</button><!-- 公司市负责人 变更状态 提交 -->
         </view>
         <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>

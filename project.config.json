@@ -40,9 +40,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "1111",
-					"pathName": "pages/jc-form/jc-form",
-					"query": "id=20190626215741000102",
+					"name": "测试",
+					"pathName": "pages/ws-form/ws-form",
+					"query": "id=20190912104635000101",
 					"scene": null
 				}
 			]
