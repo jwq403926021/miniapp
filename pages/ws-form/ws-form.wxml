@@ -279,6 +279,19 @@
                     </view>
                 </view>
 
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报损金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{role == 12 && (taskData.status == 1 || taskData.status == 3 || taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 9 || taskData.status == 10)}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.damageMoney'
+                               value="{{taskData.damageMoney}}"  placeholder="报损金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.damageMoney == null || taskData.damageMoney == '') ? '-' : taskData.damageMoney}}</text>
+                    </view>
+                </view>
+
                 <!--当 选择 咨询  并且 查勘员现场图片不为空 才可以看到初步估损金额 -->
                 <view class="weui-cell weui-cell_input weui-cell_vcode"  wx:if="{{taskData.workType == 0 && liveImageFiles.length > 0}}">
                     <view class="weui-cell__hd">
@@ -291,19 +304,6 @@
                     </view>
                     <view class="weui-cell__bd" wx:else>
                         <text class="weui-input readonly">{{(taskData.budgetPreliminary == null || taskData.budgetPreliminary == '') ? '-' : taskData.budgetPreliminary}}</text>
-                    </view>
-                </view>
-
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">报损金额</view>
-                    </view>
-                    <view class="weui-cell__bd" wx:if="{{role == 12 && (taskData.status == 1 || taskData.status == 3 || taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 9 || taskData.status == 10)}}">
-                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.damageMoney'
-                               value="{{taskData.damageMoney}}"  placeholder="报损金额"/>
-                    </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{(taskData.damageMoney == null || taskData.damageMoney == '') ? '-' : taskData.damageMoney}}</text>
                     </view>
                 </view>
 
