@@ -74,6 +74,14 @@
                     </van-radio-group>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{registeInfo.role == 1}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">查勘币</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{registeInfo.coinCount}}</text>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{isModifyPhone}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">手机号</view>

@@ -46,6 +46,7 @@ Page({
       "provinceCode": "",
       "role": '1',
       "townCode": "",
+      "coinCount": ''
       // "city": "",
       // "province": "",
       // "town": ""
@@ -108,7 +109,8 @@ Page({
                   "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
                   "registeInfo.role": currentData ? (currentData.role + '') : '',
                   "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
-                  "registeInfo.townCode": currentData ? currentData.townCode : ''
+                  "registeInfo.townCode": currentData ? currentData.townCode : '',
+                  "registeInfo.coinCount": currentData ? currentData.coinCount : ''
                 })
               }
             }
