@@ -76,7 +76,7 @@
             </view>
             <view class="weui-cell weui-cell_select" wx:if="{{registeInfo.role == 1}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">查勘币</view>
+                    <view class="weui-label" style="vertical-align: middle">查勘币 <image style="height: 18px; width: 18px; vertical-align: middle;" src="../../asset/image/coin.png" mode="cover"></image></view>
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input readonly">{{registeInfo.coinCount}}</text>
