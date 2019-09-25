@@ -80,7 +80,7 @@
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input readonly">{{registeInfo.coinCount}}</text>
-                    <image style="height: 18px; width: 18px; vertical-align: middle;" src="../../asset/image/coin.png" mode="cover"></image>
+                    <image style="height: 18px; width: 18px; vertical-align: middle; margin-left: 30px" src="../../asset/image/coin.png" mode="cover"></image>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{isModifyPhone}}">
