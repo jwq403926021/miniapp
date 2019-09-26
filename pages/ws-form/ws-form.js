@@ -861,17 +861,17 @@ Page({
   workImproveWS () {
     let _this = this
     let data = this.data.taskData
-    if (data.workType == 1) {
-      if(_this.data.workLiveImageFiles.length == 0){
-        wx.showToast({
-          mask: true,
-          title: '请上传现场信息图片（施工方）',
-          icon: 'none',
-          duration: 1000
-        })
-        return
-      }
-    }
+    // if (data.workType == 1) {
+    //   if(_this.data.workLiveImageFiles.length == 0){
+    //     wx.showToast({
+    //       mask: true,
+    //       title: '请上传现场信息图片（施工方）',
+    //       icon: 'none',
+    //       duration: 1000
+    //     })
+    //     return
+    //   }
+    // }
     if (data.handlingType == '0') {
       if (data.deposit == '' || data.deposit == null){
         wx.showToast({
