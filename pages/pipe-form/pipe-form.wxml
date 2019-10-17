@@ -155,6 +155,22 @@
             <text class="weui-input readonly">{{(taskData.offer == null || taskData.offer == '') ? '-' : taskData.offer}}</text>
           </view>
         </view>
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">处理方式</view>
+          </view>
+          <view class="weui-cell__bd" wx:if="{{status == '13' && role == 20}}">
+            <van-radio-group value="{{ taskData.method }}" custom-class="weui-input vertical"
+                             bind:change="onmethodChange">
+              <van-radio custom-class="fl mr5" name="1">施工</van-radio>
+              <van-radio custom-class="fl mr5" name="2">赔付</van-radio>
+            </van-radio-group>
+          </view>
+          <view class="weui-cell__bd" wx:else>
+            <text class="weui-input readonly">{{taskData.method == 1 ? '施工' : '赔付'}}</text>
+          </view>
+        </view>
       </view>
 
     </block>
@@ -198,7 +214,7 @@
     <view class="button-sp-area" wx:if="{{id != null && status == '1' && role == '20'}}">
       <button type="primary" bindtap="managerSubmit">确认</button><!-- 负责人 确认 -->
     </view>
-    <view class="button-sp-area" wx:if="{{id != null && status == '13'}}">
+    <view class="button-sp-area" wx:if="{{id != null && status == '13' && role == '20'}}">
       <button type="primary" bindtap="completeSubmit">提交</button><!-- 办结 提交 -->
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status != 29}}">

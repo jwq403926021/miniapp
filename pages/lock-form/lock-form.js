@@ -33,7 +33,8 @@ Page({
       "offer": "",
       "live": "",
       "insurerUserMobile": "",
-      "lockUserMobile": ""
+      "lockUserMobile": "",
+      "method": '1'
     },
     informationImageFiles: [],
     liveImageFiles: []
@@ -91,7 +92,8 @@ Page({
         "taskData.offer": data.offer,
         "taskData.live": data.live,
         "taskData.insurerUserMobile": data.insurerUserMobile,
-        "taskData.lockUserMobile": data.lockUserMobile
+        "taskData.lockUserMobile": data.lockUserMobile,
+        "taskData.method": data.method || '1'
       })
       _this.getRegionLabel()
     })
@@ -176,9 +178,9 @@ Page({
       phoneNumber: phone
     })
   },
-  onTypeChange (event) {
+  onmethodChange (event) {
     this.setData({
-      'taskData.type': event.detail
+      'taskData.method': event.detail
     });
   },
   isLicenseNo(str){
@@ -442,7 +444,8 @@ Page({
       "provinceCode": data.provinceCode,
       'id': this.data.id,
       'offer': data.offer,
-      'live': data.live
+      'live': data.live,
+      'method': data.method
     }
 
     let liveImageFiles = []
