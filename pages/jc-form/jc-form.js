@@ -60,8 +60,8 @@ Page({
     completeImageFiles: []
   },
   onLoad: function (routeParams) {
+    this.initArea()
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
-      this.initArea()
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,

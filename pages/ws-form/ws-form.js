@@ -65,10 +65,8 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    console.log('工单号：->', routeParams)
-    console.log('????', app.globalData.currentRegisterInfo)
     this.initArea()
-    if (routeParams && routeParams.id) {
+    if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         id: routeParams.id,
         role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role //app.globalData.currentRegisterInfo.role// 1 查勘员 | 12 施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 | TODO::: app.globalData.currentRegisterInfo.role
