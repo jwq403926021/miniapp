@@ -1,9 +1,9 @@
 var util = require('./utils/util.js')
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function (data) {
     // this.globalData.logining = true
-    this.login()
+    this.login(data.query)
   },
   onShow (obj) {
     let _this = this
@@ -26,7 +26,7 @@ App({
       page.onLoad()
     }
   },
-  login () {
+  login (routerParams) {
     let _this = this
 
     if (wx.canIUse('getUpdateManager')) { // 基础库 1.9.90 开始支持，低版本需做兼容处理
@@ -94,7 +94,7 @@ App({
                 var page = getCurrentPages().pop();
                 if (page == undefined || page == null) return;
                 // if (page.route == 'pages/index/index') {
-                page.onLoad();
+                page.onLoad(routerParams);
                 // }
                 // wx.switchTab({
                 //   url: '../index/index',
