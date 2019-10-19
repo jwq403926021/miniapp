@@ -110,7 +110,7 @@ Page({
                   "registeInfo.role": currentData ? (currentData.role + '') : '',
                   "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
                   "registeInfo.townCode": currentData ? currentData.townCode : '',
-                  "registeInfo.coinCount": currentData ? currentData.coinCount : ''
+                  "registeInfo.coinCount": currentData ? currentData.coinCount : '0'
                 })
               }
             }
