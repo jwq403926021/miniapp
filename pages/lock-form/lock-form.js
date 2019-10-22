@@ -229,7 +229,7 @@ Page({
   chooseInfoImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
@@ -275,7 +275,7 @@ Page({
   chooseLiveImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []

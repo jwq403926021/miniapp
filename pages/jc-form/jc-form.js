@@ -339,7 +339,7 @@ Page({
   chooseInfoImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
@@ -385,7 +385,7 @@ Page({
   choosecompleteImageFiles: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
@@ -437,7 +437,7 @@ Page({
   chooseAuthorityImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
@@ -483,7 +483,7 @@ Page({
   chooseCaleImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
@@ -529,7 +529,7 @@ Page({
   chooseDamageImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []

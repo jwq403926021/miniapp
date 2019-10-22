@@ -85,7 +85,7 @@ Page({
     let imageTypeNumber = _this.getImageTypeNumber(imageTypeStr);
     console.log('imageTypeStr:', imageTypeStr, 'imageTypeNumber:', imageTypeNumber, _this.data.familyImages[imageTypeStr])
     wx.chooseImage({
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
         let tempList = []
