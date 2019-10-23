@@ -293,7 +293,7 @@
                 </view>
 
                 <!--当 选择 咨询  并且 查勘员现场图片不为空 才可以看到初步估损金额 -->
-                <view class="weui-cell weui-cell_input weui-cell_vcode"  wx:if="{{taskData.workType == 0 && liveImageFiles.length > 0}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode"  wx:if="{{taskData.workType == 0 && liveImageFiles.length > 0 && role !== 1}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">初步估损金额</view>
                     </view>
