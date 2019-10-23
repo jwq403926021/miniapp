@@ -816,6 +816,15 @@ Page({
       })
       return
     }
+    if (data.damageMoney == '' || data.damageMoney == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报损金额',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
     let params = {
       id: this.data.modifyId,
       damageId: this.data.id,
@@ -910,6 +919,15 @@ Page({
         })
         return
       }
+    }
+    if (data.damageMoney == '' || data.damageMoney == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报损金额',
+        icon: 'none',
+        duration: 1000
+      })
+      return
     }
 
     let workLiveImageFiles = []
@@ -1015,6 +1033,15 @@ Page({
       wx.showToast({
         mask: true,
         title: '请填写初步估损金额',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    if (data.damageMoney == '' || data.damageMoney == null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报损金额',
         icon: 'none',
         duration: 1000
       })
