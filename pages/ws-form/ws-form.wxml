@@ -330,11 +330,11 @@
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewWorkLiveImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <!--Todo :: 工单驳回后的状态也可以修改-->
-                                            <van-icon wx:if="{{(taskData.status == 6 || taskData.status == 9) && role == 12}}" catchtap="removeWorkLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon wx:if="{{role == 12}}" catchtap="removeWorkLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
-                                <view class="weui-uploader__input-box" wx:if="{{(taskData.status == 6 || taskData.status == 9) && role == 12}}">
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
                                     <view class="weui-uploader__input" bindtap="chooseWorkLiveImage"></view>
                                 </view>
                             </view>
@@ -430,11 +430,11 @@
                                         <block wx:for="{{authorityImageFiles}}"wx:key="{{index}}">
                                             <view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item.path}}">
                                                 <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6 ||taskData.status == 7 || taskData.status == 10 || taskData.status == 11)}}" catchtap="removeAuthorityImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                                <van-icon wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7|| taskData.status == 10 || taskData.status == 11)}}" catchtap="removeAuthorityImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                             </view>
                                         </block>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6 ||taskData.status == 7 || taskData.status == 10 || taskData.status == 11)}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 10 || taskData.status == 11)}}">
                                         <view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>
                                     </view>
                                 </view>
@@ -558,12 +558,18 @@
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 1}}">
             <button type="primary" bindtap="workHandleWS">提交</button><!-- 施工 提交 -->
+            <button wx:if="{{taskData.workType == 1}}" data-save="true" bindtap="workHandleWS">暂存</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && id != null && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 9 || taskData.status == 10)}}">
             <button type="primary" bindtap="workImproveWS">提交</button><!-- 施工 完善 提交-->
+            <button wx:if="{{taskData.workType == 1}}" data-save="true" bindtap="workImproveWS">暂存</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 3}}">
             <button type="primary" bindtap="workHandleNoImageAsk">提交</button><!-- 施工 无图片 咨询 最后一步 提交 -->
+            <button wx:if="{{taskData.workType == 1}}" data-save="true" bindtap="workHandleNoImageAsk">暂存</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && id != null && taskData.status == 11}}">
+            <button type="primary" bindtap="uploadImage">上传追加照片</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 6 && id != null && (taskData.status == 2 || taskData.status == 3 || taskData.status == 4)}}">
             <button type="primary" wx:if="{{taskData.status == 4}}" bindtap="companyManagerChangeStatusToOffed">已线下报价 提交</button><!-- 公司市负责人 变更状态[区域负责人已线下报价] 提交 -->

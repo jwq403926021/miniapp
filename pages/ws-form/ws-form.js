@@ -659,6 +659,33 @@ Page({
       phoneNumber: phone
     })
   },
+  uploadImage () {
+    let _this = this
+    let workLiveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    let authorityImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item.path, type: 5})
+      }
+    })
+
+    let imgPaths = [...workLiveImageFiles]
+    if (this.taskData.handlingType == '1') {
+      imgPaths.push(...authorityImageFiles)
+    }
+    console.log('Upload Files:', imgPaths)
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
   submitWS (e) {
     let data = this.data.taskData
     let _this = this
@@ -806,9 +833,10 @@ Page({
       })
     }
   },
-  workHandleWS () {
+  workHandleWS (e) {
     let _this = this
     let data = this.data.taskData
+    let isSave = e.currentTarget.dataset.save
     if (data.workType == '' || data.workType == null) {
       wx.showToast({
         mask: true,
@@ -827,6 +855,19 @@ Page({
       })
       return
     }
+
+    let workLiveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    let authorityImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item.path, type: 5})
+      }
+    })
     let params = {
       id: this.data.modifyId,
       damageId: this.data.id,
@@ -842,7 +883,8 @@ Page({
       trasactionId: data.trasactionId,
       offer: data.offer,
       bidder: data.bidder,
-      offerRemark: data.offerRemark
+      offerRemark: data.offerRemark,
+      isTempSave: isSave || false
     }
     wx.showLoading({
       mask: true,
@@ -854,7 +896,26 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        _this.goToList()
+        let imgPaths = [...workLiveImageFiles, ...authorityImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           mask: true,
@@ -868,9 +929,11 @@ Page({
   modifyWS () {
     this.submitWS()
   },
-  workImproveWS () {
+  workImproveWS (e) {
     let _this = this
     let data = this.data.taskData
+    let isSave = e.currentTarget.dataset.save
+
     // if (data.workType == 1) {
     //   if(_this.data.workLiveImageFiles.length == 0){
     //     wx.showToast({
@@ -972,7 +1035,8 @@ Page({
       trasactionId: data.trasactionId,
       offer: data.offer,
       bidder: data.bidder,
-      offerRemark: data.offerRemark
+      offerRemark: data.offerRemark,
+      isTempSave: isSave || false
     }
 
     if (_this.data.workLiveImageFiles.length) {
@@ -1028,9 +1092,11 @@ Page({
       }
     })
   },
-  workHandleNoImageAsk () {
+  workHandleNoImageAsk (e) {
     let _this = this
     let data = this.data.taskData
+    let isSave = e.currentTarget.dataset.save
+
     if (data.budgetPreliminary == '' || data.budgetPreliminary == null){
       wx.showToast({
         mask: true,
@@ -1049,6 +1115,18 @@ Page({
       })
       return
     }
+    let workLiveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    let authorityImageFiles = []
+    _this.data.authorityImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        authorityImageFiles.push({path: item.path, type: 5})
+      }
+    })
     let params = {
       id: this.data.modifyId,
       damageId: this.data.id,
@@ -1064,7 +1142,8 @@ Page({
       trasactionId: data.trasactionId,
       offer: data.offer,
       bidder: data.bidder,
-      offerRemark: data.offerRemark
+      offerRemark: data.offerRemark,
+      isTempSave: isSave || false
     }
     wx.showLoading({
       mask: true,
@@ -1076,7 +1155,26 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        _this.goToList()
+        let imgPaths = [...workLiveImageFiles, ...authorityImageFiles]
+        console.log('Upload Files:', imgPaths)
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           mask: true,
