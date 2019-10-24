@@ -61,7 +61,8 @@ Page({
       trasactionId: '',
       offer: '',
       bidder: '',
-      offerRemark: ''
+      offerRemark: '',
+      companyName: ''
     }
   },
   onLoad: function (routeParams) {
@@ -160,7 +161,8 @@ Page({
         'taskData.trasactionId': data.trasactionId,
         'taskData.offer': data.offer,
         'taskData.bidder': data.bidder,
-        'taskData.offerRemark': data.offerRemark
+        'taskData.offerRemark': data.offerRemark,
+        'taskData.companyName': data.companyName
       })
       _this.initReassignList()
       _this.getRegionLabel()
