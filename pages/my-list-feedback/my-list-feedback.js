@@ -78,7 +78,7 @@ Page({
       method: 'GET',
       data: {
         page: 1,
-        size: 1000
+        size: 100
       }
     }, function (err, res) {
       wx.hideLoading()

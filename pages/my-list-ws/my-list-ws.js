@@ -92,7 +92,7 @@ Page({
     let _this = this
     let filter = {
       page: 1,
-      size: 1000,
+      size: 100,
       datetime: this.data.dateFilter
     }
     if (this.data.statusFilter != '-1') {
