@@ -884,7 +884,7 @@ Page({
       offer: data.offer,
       bidder: data.bidder,
       offerRemark: data.offerRemark,
-      isTempSave: isSave || false
+      isTempSave: isSave ? 'save' : 'commit'
     }
     wx.showLoading({
       mask: true,
@@ -1036,7 +1036,7 @@ Page({
       offer: data.offer,
       bidder: data.bidder,
       offerRemark: data.offerRemark,
-      isTempSave: isSave || false
+      isTempSave: isSave ? 'save' : 'commit'
     }
 
     if (_this.data.workLiveImageFiles.length) {
@@ -1143,7 +1143,7 @@ Page({
       offer: data.offer,
       bidder: data.bidder,
       offerRemark: data.offerRemark,
-      isTempSave: isSave || false
+      isTempSave: isSave ? 'save' : 'commit'
     }
     wx.showLoading({
       mask: true,
