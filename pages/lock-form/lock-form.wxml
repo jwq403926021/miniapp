@@ -178,7 +178,7 @@
     <block wx:if="{{id != null && status != '12'}}">
       <view class="weui-cells__title"></view>
       <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != '19'}}">
           <view class="weui-cell__hd">
             <view class="weui-label">查勘员手机</view>
           </view>
