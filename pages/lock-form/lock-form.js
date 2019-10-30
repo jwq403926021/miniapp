@@ -326,25 +326,25 @@ Page({
       }
     })
 
-    if (taskData.customName == '') {
+    if (taskData.information == '') {
       wx.showToast({
         mask: true,
-        title: '请填写客户姓名',
+        title: '请填写报案信息',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
-      wx.showToast({
-        mask: true,
-        title: '客户手机和报案图片必须填写一项',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
+    // if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
+    //   wx.showToast({
+    //     mask: true,
+    //     title: '客户手机和报案图片必须填写一项',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return
+    // }
 
     if (taskData.customMobile) {
       let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的客户手机号')
@@ -455,6 +455,36 @@ Page({
         liveImageFiles.push({path: item.path, type: 9})
       }
     })
+
+    if (taskData.offer == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写收款金额',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.customName == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写客户姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.customMobile == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写客户手机',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
 
     if (liveImageFiles.length == 0) {
       wx.showToast({
