@@ -123,7 +123,7 @@
                     <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role == 12}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">保险公司</view>
                 </view>
