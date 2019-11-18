@@ -16,6 +16,8 @@ Page({
     dataList: [],
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
+    searchCarNumber: '',
+    searchOrderId: '',
     statusMap: {
       '-1': '状态不限',
       '1': '查勘员已派送',
@@ -66,7 +68,6 @@ Page({
       statusFilter: value,
       isShowStatusFilter: false
     });
-    this.getInitData()
   },
   typeFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
@@ -75,13 +76,22 @@ Page({
       isShowTypeFilter: false
     });
   },
+  searchCarNumberChange (data) {
+    this.setData({
+      searchCarNumber: data.detail
+    })
+  },
+  searchOrderIdChange (data) {
+    this.setData({
+      searchOrderId: data.detail
+    })
+  },
   dateFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
     this.setData({
       dateFilter: value,
       isShowDateFilter: false
     });
-    this.getInitData()
   },
   openLocation () {
     this.setData({
@@ -93,7 +103,9 @@ Page({
     let filter = {
       page: 1,
       size: 100,
-      datetime: this.data.dateFilter
+      datetime: this.data.dateFilter,
+      carNumber: this.data.searchCarNumber,
+      orderId: this.data.searchOrderId
     }
     if (this.data.statusFilter != '-1') {
       filter.status = this.data.statusFilter
