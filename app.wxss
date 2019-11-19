@@ -317,5 +317,8 @@ textarea[disabled]{
     color: #016eff;
 }
 .filterDropdown {
-    width: 75px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+
 }
