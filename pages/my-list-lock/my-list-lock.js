@@ -12,6 +12,7 @@ Page({
     searchStatusLabel: '不限',
     dataList: [],
     height: '',
+    role: 1,
     searchKeyword: '',
     statusMap: {
       '12': '暂存',
@@ -37,6 +38,33 @@ Page({
         id: '11',
         name: '已办结'
       }]
+  },
+  setFinishCase (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const finishcase = event.currentTarget.dataset.finishcase == 1 ? 0 : 1;
+    const index = event.currentTarget.dataset.index;
+    if (_this.data.role != 1) {
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/lock/finishCase',
+      method: 'GET',
+      data: {
+        flowId: id,
+        finishCase: finishcase
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.data.dataList[index].finishCase = finishcase
+      _this.setData({
+        dataList: _this.data.dataList
+      })
+    })
   },
   openFilterOne () {
     this.setData({
@@ -69,6 +97,9 @@ Page({
   },
   onLoad: function () {
     let _this = this
+    _this.setData({
+      role: app.globalData.currentRegisterInfo.role
+    })
     wx.getSystemInfo({
       success: function (res) {
         _this.setData({

@@ -35,7 +35,8 @@ Page({
       "live": "",
       "insurerUserMobile": "",
       "dredgeUserMobile": "",
-      "method": '1'
+      "method": '1',
+      "finishCase": ''
     },
     informationImageFiles: [],
     liveImageFiles: []
@@ -52,6 +53,31 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  setFinishCase (event) {
+    let _this = this
+    const id = event.currentTarget.dataset.id;
+    const finishcase = event.currentTarget.dataset.finishcase == 1 ? 0 : 1;
+    if (this.data.role != 1) {
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/dredge/finishCase',
+      method: 'GET',
+      data: {
+        flowId: id,
+        finishCase: finishcase
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.setData({
+        'taskData.finishCase': finishcase
+      })
+    })
   },
   initDataById (id) {
     let _this = this
@@ -94,7 +120,8 @@ Page({
         "taskData.live": data.live,
         "taskData.insurerUserMobile": data.insurerUserMobile,
         "taskData.dredgeUserMobile": data.dredgeUserMobile,
-        "taskData.method": data.method || '1'
+        "taskData.method": data.method || '1',
+        "taskData.finishCase": data.finishCase
       })
       _this.getRegionLabel()
     })
