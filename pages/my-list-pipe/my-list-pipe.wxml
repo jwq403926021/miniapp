@@ -24,7 +24,7 @@
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text">
           工单号：{{item.orderId}}
-          <view data-index='{{index}}' data-id="{{item.orderId}}" data-finishcase="{{item.finishCase}}" catchtap="setFinishCase" class="{{item.finishCase == 1 ? 'finished' : 'not-finish'}}"></view>
+          <view data-index='{{index}}' data-id="{{item.id}}" data-finishcase="{{item.finishCase}}" catchtap="setFinishCase" class="{{item.finishCase == 1 ? 'finished' : 'not-finish'}}"></view>
         </view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>

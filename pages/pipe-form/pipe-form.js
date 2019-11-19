@@ -47,7 +47,6 @@ Page({
     this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({
-        id: routeParams.id,
         orderId: routeParams.orderId,
         role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 20
       })
@@ -110,6 +109,7 @@ Page({
         'informationImageFiles': informationImageFiles,
         'liveImageFiles': liveImageFiles,
         'status': data.status,
+        'id': data.id,
         'taskData.areaCode': data.areaCode,
         'taskData.cityCode': data.cityCode,
         'taskData.provinceCode': data.provinceCode,
@@ -340,8 +340,8 @@ Page({
       "cityCode": data.cityCode,
       "provinceCode": data.provinceCode
     }
-    if (this.data.id) {
-      taskData.id = this.data.id
+    if (this.data.orderId) {
+      taskData.id = this.data.orderId
       taskData.orderId = this.data.orderId
     }
     if (this.data.status == '12'){ // 暂存 二次点击
@@ -428,7 +428,7 @@ Page({
   managerSubmit () {
     let _this = this
     let taskData = {
-      'id': this.data.id
+      'id': this.data.orderId
     }
     wx.showLoading({
       mask: true,
@@ -471,7 +471,7 @@ Page({
       "areaCode": data.areaCode,
       "cityCode": data.cityCode,
       "provinceCode": data.provinceCode,
-      'id': this.data.id,
+      'id': this.data.orderId,
       'offer': data.offer,
       'live': data.live,
       'method': data.method
@@ -566,7 +566,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.data.id)
+    console.log('upload flowID:', this.data.orderId)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
