@@ -995,6 +995,12 @@ Page({
       return
     }
 
+    let liveImageFiles = []
+    _this.data.liveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 2})
+      }
+    })
     let workLiveImageFiles = []
     _this.data.workLiveImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -1062,7 +1068,7 @@ Page({
       data: params
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles, ...caleImageFiles]
+        let imgPaths = [...liveImageFiles, ...workLiveImageFiles, ...damageImageFiles, ...authorityImageFiles, ...caleImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0

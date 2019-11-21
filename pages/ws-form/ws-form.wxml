@@ -191,17 +191,17 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderLiveFiles">
-                                <view class="no-image" wx:if="{{liveImageFiles.length == 0 && id != null && taskData.status != 2 && taskData.status != 12}}">
+                                <view class="no-image" wx:if="{{liveImageFiles.length == 0 && id != null && taskData.status != 2  && taskData.status != 6 && taskData.status != 12}}">
                                     无图片
                                 </view>
                                 <block wx:for="{{liveImageFiles}}"wx:key="{{index}}">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImageForliveImageFiles" id="{{item.path}}">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}" catchtap="removeliveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{(id == null || taskData.status == 2 || taskData.status == 6 || taskData.status == 12) && role == 1}}" catchtap="removeliveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                            <view class="weui-uploader__input-box" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 6 || taskData.status == 12) && role == 1}}">
                                 <view class="weui-uploader__input" bindtap="chooseImageForliveImageFiles"></view>
                             </view>
                         </view>
