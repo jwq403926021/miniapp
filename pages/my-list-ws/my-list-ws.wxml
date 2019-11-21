@@ -78,7 +78,7 @@
         <van-cell title="待报价中心报价" clickable data-name="5" bind:click="statusFilterItemClick">
           <van-radio name="5" />
         </van-cell>
-        <van-cell title="施工人员去现场" clickable data-name="6" bind:click="statusFilterItemClick">
+        <van-cell title="施工人员施工" clickable data-name="6" bind:click="statusFilterItemClick">
           <van-radio name="6" />
         </van-cell>
         <van-cell title="施工中" clickable data-name="7" bind:click="statusFilterItemClick">
@@ -123,7 +123,7 @@
         <!--<van-cell title="待报价中心报价" clickable data-name="5" bind:click="typeFilterItemClick">-->
           <!--<van-radio name="5" />-->
         <!--</van-cell>-->
-        <!--<van-cell title="施工人员去现场" clickable data-name="6" bind:click="typeFilterItemClick">-->
+        <!--<van-cell title="施工人员施工" clickable data-name="6" bind:click="typeFilterItemClick">-->
           <!--<van-radio name="6" />-->
         <!--</van-cell>-->
         <!--<van-cell title="施工中" clickable data-name="7" bind:click="typeFilterItemClick">-->
