@@ -451,7 +451,7 @@ Page({
     let _this = this
     _this.data.workLiveImageFiles.splice(index, 1)
     this.setData({
-      liveImageFiles: _this.data.workLiveImageFiles
+      workLiveImageFiles: _this.data.workLiveImageFiles
     })
     let id = e.currentTarget.dataset.id;
     if (id) {
