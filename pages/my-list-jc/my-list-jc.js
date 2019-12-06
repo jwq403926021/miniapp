@@ -189,6 +189,11 @@ Page({
       searchCustomerPhone: data.detail
     })
   },
+  goToOffer () {
+    wx.navigateTo({
+      url: '../jc-offer/jc-offer?id=' + event.currentTarget.dataset.id
+    })
+  },
   getInitData () {
     let _this = this
     let todayDate = +new Date()

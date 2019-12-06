@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/index/index", 
+    "pages/index/index",
     "pages/register/register",
     "pages/cx-form/cx-form",
     "pages/jc-form/jc-form",
@@ -9,6 +9,7 @@
     "pages/lock-form/lock-form",
     "pages/pipe-form/pipe-form",
     "pages/ws-form/ws-form",
+    "pages/jc-offer/jc-offer",
     "pages/ws-offer/ws-offer",
     "pages/accident-form/accident-form",
     "pages/accident-audit-form/accident-audit-form",

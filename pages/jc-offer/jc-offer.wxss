@@ -1,0 +1,44 @@
+.border-bottom{
+  border-bottom: 1px solid #ccc
+}
+.accident-collapse .van-collapse-item__title--expanded {
+  font-weight: bold;
+}
+.accident-collapse .van-collapse-item__content{
+  padding: 5px;
+}
+.accident-collapse .van-collapse-item__content .van-cell__title,.van-cell__value{
+  font-size: 13px!important;
+}
+.accident-collapse .van-collapse-item__content .van-cell__title{
+  width: 100px!important;
+  min-width: 100px!important;
+  max-width: 100px!important;
+}
+.accident-detail-table-header{
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+.accident-detail-table-body {
+}
+.accident-detail-table-header .van-col {
+  text-align: center;
+  font-size: 14px;
+  color: #4e4d50;
+  line-height: 36px;
+}
+.accident-detail-table-body .van-col{
+  text-align: center;
+  line-height: 24px;
+}
+.remark-row{
+  border-bottom: 1px solid #ccc
+}
+.offer-total{
+  font-weight: bold;
+  text-align: right;
+  line-height: 30px;
+}
+.align-left{
+  text-align: left!important;
+}
