@@ -84,7 +84,7 @@ Page({
       _this.setData({
         data: data,
         total : total.toFixed(2),
-        assistMoney: data[0].assistMoney,
+        assistMoney: data[0] ? data[0].assistMoney : 0,
         num1: num1.toFixed(2), //支付平台金额
         num2: num2.toFixed(2), //支付被保险人金额
         num3: num3.toFixed(2), //水渍险合计

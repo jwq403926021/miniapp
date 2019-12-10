@@ -189,7 +189,7 @@ Page({
       searchCustomerPhone: data.detail
     })
   },
-  goToOffer () {
+  goToOffer (event) {
     wx.navigateTo({
       url: '../jc-offer/jc-offer?id=' + event.currentTarget.dataset.id
     })
