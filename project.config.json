@@ -41,8 +41,8 @@
 				{
 					"id": 0,
 					"name": "测试",
-					"pathName": "pages/jc-form/jc-form",
-					"query": "id=20190312133334000102",
+					"pathName": "pages/jc-offer/jc-offer",
+					"query": "id=20191101150318000102",
 					"scene": null
 				}
 			]

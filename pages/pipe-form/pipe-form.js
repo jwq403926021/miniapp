@@ -245,14 +245,25 @@ Page({
   removeinformationImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.informationImageFiles.splice(index, 1)
-    this.setData({
-      informationImageFiles: _this.data.informationImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.informationImageFiles.splice(index, 1)
+          _this.setData({
+            informationImageFiles: _this.data.informationImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   chooseInfoImage: function (e) {
     var that = this;
@@ -291,14 +302,25 @@ Page({
   removeLiveImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.liveImageFiles.splice(index, 1)
-    this.setData({
-      liveImageFiles: _this.data.liveImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.liveImageFiles.splice(index, 1)
+          _this.setData({
+            liveImageFiles: _this.data.liveImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   chooseLiveImage: function (e) {
     var that = this;

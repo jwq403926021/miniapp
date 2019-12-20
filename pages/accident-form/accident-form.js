@@ -433,62 +433,115 @@ Page({
   removebankImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.bankImageFiles.splice(index, 1)
-    this.setData({
-      bankImageFiles: _this.data.bankImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.bankImageFiles.splice(index, 1)
+          _this.setData({
+            bankImageFiles: _this.data.bankImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   removeinformationImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.informationImageFiles.splice(index, 1)
-    this.setData({
-      informationImageFiles: _this.data.informationImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.informationImageFiles.splice(index, 1)
+          _this.setData({
+            informationImageFiles: _this.data.informationImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
   },
   removeidImageFrontImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.idImageFrontImageFiles.splice(index, 1)
-    this.setData({
-      idImageFrontImageFiles: _this.data.idImageFrontImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.idImageFrontImageFiles.splice(index, 1)
+          _this.setData({
+            idImageFrontImageFiles: _this.data.idImageFrontImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
   },
   removeidImageBackImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.idImageBackImageFiles.splice(index, 1)
-    this.setData({
-      idImageBackImageFiles: _this.data.idImageBackImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.idImageBackImageFiles.splice(index, 1)
+          _this.setData({
+            idImageBackImageFiles: _this.data.idImageBackImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   removereceiptImageImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.receiptImageImageFiles.splice(index, 1)
-    this.setData({
-      receiptImageImageFiles: _this.data.receiptImageImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.receiptImageImageFiles.splice(index, 1)
+          _this.setData({
+            receiptImageImageFiles: _this.data.receiptImageImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   chooseInfoImage: function (e) {
     var that = this;

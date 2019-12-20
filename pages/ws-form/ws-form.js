@@ -363,14 +363,24 @@ Page({
   removeinformationImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.informationImageFiles.splice(index, 1)
-    this.setData({
-      informationImageFiles: _this.data.informationImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.informationImageFiles.splice(index, 1)
+          _this.setData({
+            informationImageFiles: _this.data.informationImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
   },
   chooseImageForliveImageFiles: function (e) {
     var that = this;
@@ -409,14 +419,24 @@ Page({
   removeliveImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.liveImageFiles.splice(index, 1)
-    this.setData({
-      liveImageFiles: _this.data.liveImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.liveImageFiles.splice(index, 1)
+          _this.setData({
+            liveImageFiles: _this.data.liveImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
   },
   chooseWorkLiveImage: function (e) {
     var that = this;
@@ -449,14 +469,25 @@ Page({
   removeWorkLiveImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.workLiveImageFiles.splice(index, 1)
-    this.setData({
-      workLiveImageFiles: _this.data.workLiveImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.workLiveImageFiles.splice(index, 1)
+          _this.setData({
+            workLiveImageFiles: _this.data.workLiveImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   previewWorkLiveImage: function (e) {
     wx.previewImage({
@@ -501,14 +532,25 @@ Page({
   removeDamageImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.damageImageFiles.splice(index, 1)
-    this.setData({
-      damageImageFiles: _this.data.damageImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.damageImageFiles.splice(index, 1)
+          _this.setData({
+            damageImageFiles: _this.data.damageImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   previewAuthorityImage: function (e) {
     wx.previewImage({
@@ -547,14 +589,24 @@ Page({
   removeCaleImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.caleImageFiles.splice(index, 1)
-    this.setData({
-      caleImageFiles: _this.data.caleImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.caleImageFiles.splice(index, 1)
+          _this.setData({
+            caleImageFiles: _this.data.caleImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
   },
   previewCaleImage: function (e) {
     wx.previewImage({
@@ -578,7 +630,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '保险计算书图片不能超过9个',
+            title: '案件照片不能超过9个',
             icon: 'none',
             duration: 2000
           })
@@ -593,14 +645,25 @@ Page({
   removeAuthorityImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.authorityImageFiles.splice(index, 1)
-    this.setData({
-      authorityImageFiles: _this.data.authorityImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.authorityImageFiles.splice(index, 1)
+          _this.setData({
+            authorityImageFiles: _this.data.authorityImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this

@@ -502,7 +502,7 @@
         <!--</view>-->
 
         <block wx:if="{{taskData.status == 10}}">
-            <view class="weui-cells__title">保险计算书</view>
+            <view class="weui-cells__title">案件照片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">

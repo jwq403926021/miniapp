@@ -125,18 +125,29 @@ Page({
   },
   removeImageFiles (e) {
     let _this = this
-    let index = e.currentTarget.dataset.index;
-    let imageTypeStr = e.currentTarget.dataset.imagetype
-    this.data.familyImages[imageTypeStr].splice(index, 1)
-    this.setData({
-      [`familyImages.${imageTypeStr}`]: _this.data.familyImages[imageTypeStr]
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          let index = e.currentTarget.dataset.index;
+          let imageTypeStr = e.currentTarget.dataset.imagetype
+          _this.data.familyImages[imageTypeStr].splice(index, 1)
+          _this.setData({
+            [`familyImages.${imageTypeStr}`]: _this.data.familyImages[imageTypeStr]
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+          console.log('after remove image', _this.data.familyImages)
+          wx.setStorageSync('familyImages', _this.data.familyImages)
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
-    console.log('after remove image', _this.data.familyImages)
-    wx.setStorageSync('familyImages', _this.data.familyImages)
+
   },
   back () {
     wx.navigateBack({

@@ -141,14 +141,25 @@ Page({
   removereceiptImageImageFiles (e) {
     let index = e.currentTarget.dataset.index;
     let _this = this
-    _this.data.receiptImageImageFiles.splice(index, 1)
-    this.setData({
-      receiptImageImageFiles: _this.data.receiptImageImageFiles
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data.receiptImageImageFiles.splice(index, 1)
+          _this.setData({
+            receiptImageImageFiles: _this.data.receiptImageImageFiles
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
-    let id = e.currentTarget.dataset.id;
-    if (id) {
-      common.deleteImage(id)
-    }
+
   },
   choosereceiptImageImageFiles: function (e) {
     var that = this;
