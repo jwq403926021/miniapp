@@ -318,7 +318,7 @@
             </view>
         </block>
 
-        <block wx:if="{{id != null && taskData.workType == 1 && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 8 || taskData.status == 9 || taskData.status == 10 || taskData.status == 11)}}">
+        <block wx:if="{{id != null && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 8 || taskData.status == 9 || taskData.status == 10 || taskData.status == 11)}}">
             <view class="weui-cells__title">现场信息图片（施工方）</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -344,7 +344,7 @@
             </view>
         </block>
 
-        <block wx:if="{{id != null && (role != 1 && role != 2 && role != 3 && role != 4) && taskData.workType == 1 && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 8 || taskData.status == 9 || taskData.status == 10 || taskData.status == 11)}}">
+        <block wx:if="{{id != null && (role != 1 && role != 2 && role != 3 && role != 4) && (taskData.status == 5 || taskData.status == 6 || taskData.status == 7 || taskData.status == 8 || taskData.status == 9 || taskData.status == 10 || taskData.status == 11)}}">
             <view class="weui-cells__title">损失清单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
