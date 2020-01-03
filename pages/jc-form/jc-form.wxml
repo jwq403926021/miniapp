@@ -66,19 +66,37 @@
                     </view>
                 </block>
             </view>
-            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && (status == 20 || status == 52)}}">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">派送</view>
+
+            <block wx:if="{{role == 8 && (status == 20 || status == 52)}}">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">派送</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
+                                         bind:change="onAssignMethodChange">
+                            <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
+                            <van-radio wx-if="{{status != 52}}" custom-class="fl mr5" name="2">定损员</van-radio>
+                        </van-radio-group>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
-                                     bind:change="onAssignMethodChange">
-                        <van-radio custom-class="fl mr5" name="0">被保险人</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
-                        <van-radio wx-if="{{status != 52}}" custom-class="fl mr5" name="2">定损员</van-radio>
-                    </van-radio-group>
+                <view class="weui-cells weui-cells_after-title" wx:if="{{assignMethod == 2}}">
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">定损员</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="losserChange" value="{{losserId}}"
+                                    range="{{losserList}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{losserLabel || '请选择施工人员'}}
+                                </view>
+                            </picker>
+                        </view>
+                    </view>
                 </view>
-            </view>
+            </block>
         </view>
 
         <view class="weui-cells__title">查勘员备注</view>

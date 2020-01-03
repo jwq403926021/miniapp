@@ -14,6 +14,9 @@ Page({
     regionLabel: '',
     status: '',
     assignMethod: '0',
+    looserList: [],
+    losserValue: '',
+    losserLabel: '',
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -69,6 +72,12 @@ Page({
       })
       this.initDataById(routeParams.id)
     }
+  },
+  losserChange (event) {
+    this.setData({
+      'losserValue': event.detail.value,
+      'losserLabel': this.losserListSource[event.detail.value].name
+    })
   },
   setFinishCase (event) {
     let _this = this
@@ -255,6 +264,24 @@ Page({
         region: data.areaCountryId + ''
       })
       _this.getRegionLabel()
+      _this.getLosserList()
+    })
+  },
+  getLosserList () {
+    let _this = this
+    util.request({
+      path: `/app/family/getLosserByCity?city=${_this.data.taskData.cityId}`,
+      method: 'GET'
+    }, function (err, res) {
+      _this.losserListSource = res.data
+      let losserList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      _this.setData({
+        'losserList': losserList,
+        'losserValue': 0,
+        'losserLabel': _this.losserListSource[0].name
+      })
     })
   },
   initArea () {
@@ -918,6 +945,9 @@ Page({
       countryId: _this.data.taskData.countryId,
       customerName: _this.data.taskData.customerName,
       customerPhone: _this.data.taskData.customerPhone
+    }
+    if (active === 'loss') {
+      taskData.losserId = _this.losserListSource[_this.data.losserValue]['user_id']
     }
     if (taskData.customerName == '') {
       wx.showToast({
