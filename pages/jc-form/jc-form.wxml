@@ -90,7 +90,7 @@
                             <picker bindchange="losserChange" value="{{losserId}}"
                                     range="{{losserList}}">
                                 <view class="picker weui-select weui-select_in-select-after">
-                                    {{losserLabel || '请选择施工人员'}}
+                                    {{losserLabel || '请选择定损员'}}
                                 </view>
                             </picker>
                         </view>
