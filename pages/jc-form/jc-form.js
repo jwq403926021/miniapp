@@ -54,7 +54,9 @@ Page({
       "finishCase": '',
       "workStatus": '',
       "thirdName": '',
-      "thirdPhone": ''
+      "thirdPhone": '',
+      "losserName": '',
+      "losserPhone": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
@@ -256,6 +258,8 @@ Page({
         "taskData.offerPrice": data.offerPrice || '',
         "taskData.thirdName": data.thirdName || '',
         "taskData.thirdPhone": data.thirdPhone || '',
+        "taskData.losserName": data.losserName || '',
+        "taskData.losserPhone": data.losserPhone || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,

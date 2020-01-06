@@ -97,6 +97,24 @@
                     </view>
                 </view>
             </block>
+            <view class="weui-cells weui-cells_after-title" wx:else>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">定损员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.losserName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">定损员电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.losserPhone || '-'}}</text>
+                    </view>
+                </view>
+            </view>
         </view>
 
         <view class="weui-cells__title">查勘员备注</view>
