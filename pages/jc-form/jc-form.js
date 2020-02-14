@@ -1346,35 +1346,35 @@ Page({
     //   return false
     // }
 
-    if (_this.data.taskData.constructionMethod == 1) {
-      if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
-        wx.showToast({
-          mask: true,
-          title: '押金金额不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
-        wx.showToast({
-          mask: true,
-          title: '银行交易单号不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      // if (authorityImageFiles.length == 0) {
-      //   wx.showToast({
-      //     mask: true,
-      //     title: '押金图片不能为空',
-      //     icon: 'none',
-      //     duration: 1000
-      //   })
-      //   return false
-      // }
-    }
+    // if (_this.data.taskData.constructionMethod == 1) {
+    //   if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
+    //     wx.showToast({
+    //       mask: true,
+    //       title: '押金金额不能为空',
+    //       icon: 'none',
+    //       duration: 1000
+    //     })
+    //     return false
+    //   }
+    //   if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
+    //     wx.showToast({
+    //       mask: true,
+    //       title: '银行交易单号不能为空',
+    //       icon: 'none',
+    //       duration: 1000
+    //     })
+    //     return false
+    //   }
+    //   // if (authorityImageFiles.length == 0) {
+    //   //   wx.showToast({
+    //   //     mask: true,
+    //   //     title: '押金图片不能为空',
+    //   //     icon: 'none',
+    //   //     duration: 1000
+    //   //   })
+    //   //   return false
+    //   // }
+    // }
 
     // if (caleImageFiles.length == 0) {
     //   wx.showToast({

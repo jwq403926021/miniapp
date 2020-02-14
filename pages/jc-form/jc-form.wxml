@@ -263,31 +263,31 @@
                             <text class="weui-input readonly">{{['施救', '施工'][taskData.constructionMethod] || '-'}}</text>
                         </view>
                     </view>
-                    <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.constructionMethod == 1}}">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">押金金额</view>
-                        </view>
-                        <view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42)}}">
-                            <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'
-                                   value="{{taskData.deposit}}" placeholder="请输入押金金额"/>
-                        </view>
-                        <view class="weui-cell__bd" wx:else>
-                            <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
-                        </view>
+                    <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.constructionMethod == 1}}">-->
+                        <!--<view class="weui-cell__hd">-->
+                            <!--<view class="weui-label">押金金额</view>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42)}}">-->
+                            <!--<input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'-->
+                                   <!--value="{{taskData.deposit}}" placeholder="请输入押金金额"/>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd" wx:else>-->
+                            <!--<text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>-->
+                        <!--</view>-->
 
-                    </view>
-                    <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.constructionMethod == 1}}">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">银行交易单号</view>
-                        </view>
-                        <view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42)}}">
-                            <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.bankTransactionId'
-                                   value="{{taskData.bankTransactionId}}" placeholder="请输入银行交易单号"/>
-                        </view>
-                        <view class="weui-cell__bd" wx:else>
-                            <text class="weui-input readonly">{{taskData.bankTransactionId || '-'}}</text>
-                        </view>
-                    </view>
+                    <!--</view>-->
+                    <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.constructionMethod == 1}}">-->
+                        <!--<view class="weui-cell__hd">-->
+                            <!--<view class="weui-label">银行交易单号</view>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42)}}">-->
+                            <!--<input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.bankTransactionId'-->
+                                   <!--value="{{taskData.bankTransactionId}}" placeholder="请输入银行交易单号"/>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd" wx:else>-->
+                            <!--<text class="weui-input readonly">{{taskData.bankTransactionId || '-'}}</text>-->
+                        <!--</view>-->
+                    <!--</view>-->
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">三者姓名</view>
@@ -321,30 +321,30 @@
                     </view>
                 </view>
 
-                <block wx:if="{{taskData.constructionMethod == 1}}">
-                    <view class="weui-cells__title">押金</view>
-                    <view class="weui-cells weui-cells_after-title">
-                        <view class="weui-cell">
-                            <view class="weui-cell__bd">
-                                <view class="weui-uploader">
-                                    <view class="weui-uploader__bd">
-                                        <view class="weui-uploader__files" id="uploaderauthorityFiles">
-                                            <block wx:for="{{authorityImageFiles}}" wx:key="{{index}}">
-                                                <view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item.path}}">
-                                                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                    <van-icon wx:if="{{role == 12 && (status == 40 || status == 42)}}" catchtap="removeAuthorityImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                                                </view>
-                                            </block>
-                                        </view>
-                                        <view class="weui-uploader__input-box" wx:if="{{role == 12 && (status == 40 || status == 42)}}">
-                                            <view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
-                        </view>
-                    </view>
-                </block>
+                <!--<block wx:if="{{taskData.constructionMethod == 1}}">-->
+                    <!--<view class="weui-cells__title">押金图片</view>-->
+                    <!--<view class="weui-cells weui-cells_after-title">-->
+                        <!--<view class="weui-cell">-->
+                            <!--<view class="weui-cell__bd">-->
+                                <!--<view class="weui-uploader">-->
+                                    <!--<view class="weui-uploader__bd">-->
+                                        <!--<view class="weui-uploader__files" id="uploaderauthorityFiles">-->
+                                            <!--<block wx:for="{{authorityImageFiles}}" wx:key="{{index}}">-->
+                                                <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewAuthorityImage" id="{{item.path}}">-->
+                                                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                                                    <!--<van-icon wx:if="{{role == 12 && (status == 40 || status == 42)}}" catchtap="removeAuthorityImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+                                                <!--</view>-->
+                                            <!--</block>-->
+                                        <!--</view>-->
+                                        <!--<view class="weui-uploader__input-box" wx:if="{{role == 12 && (status == 40 || status == 42)}}">-->
+                                            <!--<view class="weui-uploader__input" bindtap="chooseAuthorityImage"></view>-->
+                                        <!--</view>-->
+                                    <!--</view>-->
+                                <!--</view>-->
+                            <!--</view>-->
+                        <!--</view>-->
+                    <!--</view>-->
+                <!--</block>-->
 
                 <view class="weui-cells__title">保险计算书</view>
                 <view class="weui-cells weui-cells_after-title">
