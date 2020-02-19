@@ -1146,6 +1146,12 @@ Page({
     let authorityImageFiles = []
     let caleImageFiles = []
     let damageImageFiles = []
+    let completeImageFiles = []
+    _this.data.completeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        completeImageFiles.push({path: item.path, type: 6})
+      }
+    })
     _this.data.authorityImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         authorityImageFiles.push({path: item.path, type: 5})
@@ -1242,7 +1248,7 @@ Page({
     }, function (err, res) {
       console.log('被保险人完善 结果：', res)
       if (res.code == 0) {
-        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles]
+        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles, ...completeImageFiles]
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
