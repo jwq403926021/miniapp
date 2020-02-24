@@ -14,6 +14,11 @@ Page({
       url: '../my-list-ws/my-list-ws'
     })
   },
+  goToNewWsList: function () {
+    wx.navigateTo({
+      url: '../new-my-list-ws/new-my-list-ws'
+    })
+  },
   goToJcList: function () {
     wx.navigateTo({
       url: '../my-list-jc/my-list-jc'

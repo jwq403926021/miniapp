@@ -10,6 +10,11 @@ Page({
       url: '../ws-form/ws-form'
     })
   },
+  goToNewWsForm: function() {
+    wx.navigateTo({
+      url: '../new-ws-form/new-ws-form'
+    })
+  },
   goToJcForm: function () {
     wx.navigateTo({
       url: '../jc-form/jc-form'
