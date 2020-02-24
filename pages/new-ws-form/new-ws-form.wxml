@@ -226,7 +226,7 @@
             <view class="weui-cells">
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">处理方式</view>
+                        <view class="weui-label">施工方式</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{taskData.status == 13 && role == 12}}">
                         <van-radio-group value="{{ taskData.workType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="workType">
@@ -241,7 +241,7 @@
 
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">施工方式</view>
+                        <view class="weui-label">处理方式</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{taskData.status == 13 && role == 12}}">
                         <van-radio-group value="{{ taskData.handlingType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="handlingType">
