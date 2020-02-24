@@ -302,11 +302,11 @@
                         <view class="weui-label">垫付</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{taskData.status == 13 && role == 12}}">
-                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'
-                               value="{{taskData.deposit}}" placeholder="垫付金额"/>
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.prepay'
+                               value="{{taskData.prepay}}" placeholder="垫付金额"/>
                     </view>
                     <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
+                        <text class="weui-input readonly">{{(taskData.prepay == null || taskData.prepay == '') ? '-' : taskData.prepay}}</text>
                     </view>
                 </view>
 
@@ -367,7 +367,7 @@
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
-                        <text style="height: 7em" class="weui-input readonly">{{taskData.offerRemark || '-'}}</text>
+                        <text style="height: 7em" class="weui-input readonly">{{taskData.commentToSurvey || '-'}}</text>
                     </view>
                 </view>
             </view>
@@ -376,7 +376,7 @@
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
-                        <text style="height: 7em" class="weui-input readonly">{{taskData.offerRemark || '-'}}</text>
+                        <text style="height: 7em" class="weui-input readonly">{{taskData.commentToOffer || '-'}}</text>
                     </view>
                 </view>
             </view>

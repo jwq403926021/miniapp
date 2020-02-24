@@ -50,8 +50,10 @@ Page({
       isAcceptance: 0,
       isAgree: 0,
       deposit: '',
-      bidder: '',
+      prepay: '',
       offerRemark: '',
+      commentToSurvey: '',
+      commentToOffer: '',
       companyName: ''
     }
   },
@@ -116,7 +118,7 @@ Page({
         "taskData.damageMoney": data.damageMoney,
         'taskData.handlingType': data.handlingType,
         'taskData.deposit': data.deposit,
-        'taskData.bidder': data.bidder,
+        'taskData.prepay': data.prepay,
         'taskData.offerRemark': data.offerRemark,
         'taskData.companyName': data.companyName
       })
@@ -558,7 +560,7 @@ Page({
       damageMoney: data.damageMoney,
       handlingType: data.handlingType,
       deposit: data.deposit,
-      bidder: data.bidder,
+      prepay: data.prepay,
       offerRemark: data.offerRemark,
       isTempSave: isSave ? 'save' : 'commit'
     }
