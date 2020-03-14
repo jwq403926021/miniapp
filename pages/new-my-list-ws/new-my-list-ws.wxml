@@ -2,7 +2,7 @@
   <view class="filter-wrap clearfix" style="background: #f2f2f2">
     <view style="float: left; width: 85%;">
       <view class="field filterDropdown">
-        <view class="caret" bind:tap="openFilterStatusPop">{{statusMap[statusFilter]}}</view>
+        <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
       </view>
       <van-search
               value="{{ searchCarNumber }}"
@@ -22,10 +22,10 @@
     </view>
     <view class="searchBtn" style="line-height: 90px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
   </view>
-  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.damageId}}" bindtap="goToHandleTask">
+  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.orderId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>
+        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.orderId}}</view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
           <view>客户：{{item.customerUser || '-'}}</view>

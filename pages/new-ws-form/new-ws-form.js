@@ -5,7 +5,7 @@ const app = getApp()
 
 Page({
   data: {
-    id: null,
+    orderId: null,
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
@@ -13,7 +13,6 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
-    modifyId: null,
     workerList: [],
     workerValue: '',
     workerLabel: '',
@@ -38,7 +37,7 @@ Page({
       customerUser: '',
       customerPhone: '',
       plateNumber: '',
-      live: '',
+      information: '',
       surveyUser: '',
       surveyPhone: '',
       workerUser: '',
@@ -61,7 +60,7 @@ Page({
     this.initArea()
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
-        id: routeParams.id,
+        orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
@@ -70,10 +69,10 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: '/app/damage/damageDetail',
+      path: '/app/businessdamagenew/damageDetail',
       method: 'GET',
       data: {
-        damageId: id
+        orderId: id
       }
     }, function (err, res) {
       let data = res.data
@@ -95,7 +94,7 @@ Page({
         }
       })
       _this.setData({
-        modifyId: data.id,
+        orderId: data.orderId,
         region: data.area,
         liveImageFiles: liveImageFiles,
         workLiveImageFiles: workLiveImageFiles,
@@ -108,7 +107,6 @@ Page({
         'taskData.customerPhone': data.customerPhone,
         'taskData.plateNumber': data.plateNumber,
         'taskData.information': data.information,
-        'taskData.live': data.live,
         "taskData.surveyUser": data.surveyUser,
         "taskData.surveyPhone": data.surveyPhone,
         "taskData.workerUser": data.workerUser,
@@ -326,7 +324,7 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.data.id)
+    console.log('upload flowID:', this.data.orderId)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload',
       filePath: imgPaths[count].path,
@@ -336,7 +334,7 @@ Page({
         'token': wx.getStorageSync('token')
       },
       formData: {
-        'flowId': that.id || that.data.id,
+        'flowId': that.data.orderId,
         'type': imgPaths[count].type
       },
       success:function(e){
@@ -414,8 +412,10 @@ Page({
       customerUser: data.customerUser,
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
-      information: data.information,
-      live: data.live
+      information: data.information
+    }
+    if (this.data.orderId) {
+      taskData.orderId = _this.data.orderId
     }
 
     let liveImageFiles = []
@@ -424,12 +424,6 @@ Page({
         liveImageFiles.push({path: item.path, type: 2})
       }
     })
-
-    if (this.data.modifyId) {
-      taskData.id = _this.data.modifyId
-      taskData.liveImage = liveImageFiles.length > 0 ? 1 : 0
-      taskData.damageId = _this.data.id
-    }
 
     if (taskData.customerPhone != ''){
       let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
@@ -455,27 +449,27 @@ Page({
       return
     }
 
-    if (taskData.insuranceType == '1') {
+    if (taskData.plateNumber) {
       let flag = this.isLicenseNo(taskData.plateNumber)
       if (!flag) {
         return
       }
     }
 
-    console.log('工单新建 改善参数：', taskData)
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/damage/saveBySurvey' : '/app/damage/addBySurvey',
+      path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/surveyCommit',
       method: 'POST',
       data: taskData
     }, function (err, res) {
-      console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
+        _this.setData({
+          orderId: res.data.flowId
+        })
         let imgPaths = [...liveImageFiles]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -507,15 +501,15 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let length = pages.filter((item) => {
-      return item.route == 'pages/my-list-ws/my-list-ws'
+      return item.route == 'pages/new-my-list-ws/new-my-list-ws'
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-ws/my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-ws/my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws'
       })
     }
   },
@@ -549,8 +543,7 @@ Page({
       }
     })
     let params = {
-      id: this.data.modifyId,
-      damageId: this.data.id,
+      id: this.data.orderId,
       surveyUser: data.surveyUser,
       surveyPhone: data.surveyPhone,
       workerUser: data.workerUser,
@@ -626,7 +619,7 @@ Page({
       path: '/app/damage/reassignment',
       method: 'POST',
       data: {
-        damageId: this.data.id,
+        orderId: this.data.orderId,
         workerId: this.workListSource[this.data.workerValue].userId,
         workerPhone: this.workListSource[this.data.workerValue].mobile
       }
