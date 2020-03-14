@@ -59,7 +59,7 @@
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
-                        <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
+                        <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" data-worker="1" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
@@ -90,7 +90,7 @@
                         <text class="weui-input readonly">{{taskData.damagedPhone || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft" wx:if="{{taskData.damagedPhone}}">
-                        <view class="field-right-btn" data-phone="{{taskData.damagedPhone}}" bindtap="dialPhone">
+                        <view class="field-right-btn" data-phone="{{taskData.damagedPhone}}" data-worker="1" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
@@ -432,4 +432,9 @@
     >
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
     </van-popup>
+    <van-dialog
+        message="请拨打客户电话或者受损人电话。"
+        title="提醒"
+        show="{{ showWorkerHit }}"
+    ></van-dialog>
 </view>

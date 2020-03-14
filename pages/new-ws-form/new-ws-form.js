@@ -10,6 +10,7 @@ Page({
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
     show: false,
+    showWorkerHit: false,
     areaList: {},
     region: '',
     regionLabel: '',
@@ -30,7 +31,6 @@ Page({
       provinceCode: '',
       cityCode: '',
       townCode: '',
-      area: '',
       insuranceType: '1',
       damagedUser: '',
       damagedPhone: '',
@@ -61,7 +61,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role
+        role: 12 // app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -76,6 +76,13 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
+
+      if (data.status == 20 && _this.data.role == 12) {
+        _this.setData({
+          showWorkerHit: true
+        })
+      }
+
       _this.sourceData = data
       _this.sourceImage = res.Image
       let liveImageFiles = []
@@ -95,11 +102,11 @@ Page({
       })
       _this.setData({
         orderId: data.orderId,
-        region: data.area,
+        region: data.townCode,
         liveImageFiles: liveImageFiles,
         workLiveImageFiles: workLiveImageFiles,
+        'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
-        'taskData.area': data.area,
         'taskData.insuranceType': data.insuranceType,
         'taskData.damagedUser': data.damagedUser,
         'taskData.damagedPhone': data.damagedPhone || '',
@@ -165,7 +172,6 @@ Page({
     let _this = this
     _this.setData({
       region: app.globalData.currentRegisterInfo.townCode,
-      'taskData.area': app.globalData.currentRegisterInfo.townCode,
       'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
       'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
       'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
@@ -234,7 +240,6 @@ Page({
       show: false,
       region: data.detail.values[2].code,
       regionLabel: strArr.join(','),
-      'taskData.area': data.detail.values[2].code,
       'taskData.townCode': data.detail.values[2].code,
       'taskData.cityCode': data.detail.values[1].code,
       'taskData.provinceCode': data.detail.values[0].code,
@@ -374,7 +379,32 @@ Page({
     })
   },
   dialPhone (e) {
+    let _this = this
     let phone = e.currentTarget.dataset.phone+'';
+    let worker = e.currentTarget.dataset.worker+'';
+
+    if (worker && this.data.taskData.status == 20 && this.data.role == 12) {
+      util.request({
+        path: '/app/businessdamagenew/contanctCustomer',
+        method: 'GET',
+        data: {
+          orderId: _this.data.orderId,
+          surveyId: _this.data.taskData.surveyId
+        }
+      }, function (err, res) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      })
+    }
     wx.makePhoneCall({
       phoneNumber: phone
     })
@@ -405,7 +435,6 @@ Page({
       provinceCode: data.provinceCode,
       cityCode: data.cityCode,
       townCode: data.townCode,
-      area: data.area,
       insuranceType: data.insuranceType,
       damagedUser: data.damagedUser,
       damagedPhone: data.damagedPhone,
