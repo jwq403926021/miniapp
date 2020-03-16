@@ -26,7 +26,7 @@ Page({
         id: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
       })
-      this.initDataById(routeParams.id)
+      this.init(routeParams.id)
     }
   },
   onChange(event) {
@@ -34,19 +34,77 @@ Page({
       activeNames: event.detail
     });
   },
-  initDataById (id) {
+  formatAreaOptions (sourceData) {
+    let provinceArr = []
+    for (let key in sourceData.province_list) {
+      provinceArr.push({
+        value: key,
+        label: sourceData.province_list[key],
+        children: []
+      })
+    }
+    let cityArr = []
+    for (let key in sourceData.city_list) {
+      cityArr.push({
+        value: key,
+        label: sourceData.city_list[key]
+      })
+    }
+
+    for (let i = 0; i < provinceArr.length; i++) {
+      let provinceCode = provinceArr[i].value.slice(0, 2)
+      for (let j = 0; j < cityArr.length; j++) {
+        if (provinceCode === cityArr[j].value.slice(0, 2)) {
+          provinceArr[i].children.push(cityArr[j])
+        }
+      }
+    }
+    return provinceArr
+  },
+  init () {
     let _this = this
     util.request({
-      path: `/app/price/priceList`,
+      path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
       data: {
-        damageId: id
+        insureType: '1'
       }
     }, function (err, res) {
-      let data = res.data
       _this.setData({
-        data: data
+        categoryoptions: res.data
       })
+    })
+
+    util.request({
+      path: `/app/businessprojecttype/getProjectType`,
+      method: 'GET'
+    }, function (err, res) {
+      _this.setData({
+        projectList: res.data
+      })
+    })
+
+    util.request({
+      path: `/sys/area/list`,
+      method: 'GET'
+    }, function (err, res) {
+      _this.setData({
+        areaList: res.DATA.DATA,
+        options: _this.formatAreaOptions(res.DATA.DATA)
+      })
+      _this.loadData()
+    })
+  },
+  loadData () {
+    let _this = this
+    util.request({
+      path: `/app/businessdamagenew/damagePriceDetail`,
+      method: 'GET',
+      data: {
+        id: _this.data.orderId
+      }
+    }, function (err, res) {
+      console.log(res)
     })
   }
 })

@@ -8,7 +8,7 @@
                     <view class="weui-label">工单号</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{id}}</text>
+                    <text class="weui-input readonly">{{orderId}}</text>
                 </view>
             </view>
         </view>
