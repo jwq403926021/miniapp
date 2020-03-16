@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/register/register",
     "pages/cx-form/cx-form",
@@ -25,10 +25,10 @@
     "pages/my-list-pipe/my-list-pipe",
     "pages/my-list-accident/my-list-accident"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#016eff",
-    "navigationBarTextStyle":"white",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "汇报价"
   },
   "tabBar": {
@@ -54,5 +54,6 @@
         "text": "我的信息"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
