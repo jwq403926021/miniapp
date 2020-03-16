@@ -1,7 +1,7 @@
 <view class="page">
     <view class="page__bd">
 <!--        <image style="z-index: 100; width: 200px; height: 153px; position: absolute; right:50%; top:10px;transform:translateX(50%);" src="../../asset/image/seal.png" mode="cover"></image>-->
-        <view class="weui-cells__title">物损工单</view>
+        <view class="weui-cells__title">新物损工单报价</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
@@ -15,47 +15,47 @@
 
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
-            <view class="offer-total">
-                报价合计：{{123}}
-            </view>
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-                <van-collapse-item wx:for="{{data}}" wx:key="{{index}}" title="大类：{{item.category}} 大类金额：{{item.categoryTotalPrice}}" name="{{index + ''}}">
-                    <van-row custom-class="accident-detail-table-header">
-                        <van-col span="6">项目</van-col>
-                        <van-col span="4">数量</van-col>
-                        <van-col span="4">单位</van-col>
-                        <van-col span="4">单价</van-col>
-                        <van-col span="6">合价</van-col>
-                    </van-row>
-                    <view wx:for="{{item.subCategory}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="{{subItem.id}}">
-                        <van-row custom-class="accident-detail-table-body">
-                            <van-col span="6">
-                                {{subItem.name}}
-                            </van-col>
-                            <van-col span="4">
-                                {{subItem.amount}}
-                            </van-col>
-                            <van-col span="4">
-                                {{subItem.unit}}
-                            </van-col>
-                            <van-col span="4">
-                                {{subItem.price}}
-                            </van-col>
-                            <van-col span="6">
-                                {{subItem.combinedPrice}}
-                            </van-col>
-                        </van-row>
-                        <van-row custom-class="accident-detail-table-body remark-row">
-                            <van-col span="6">
-                                项目备注:
-                            </van-col>
-                            <van-col custom-class="align-left" span="18">
-                                {{subItem.remark || '-'}}
-                            </van-col>
-                        </van-row>
+                <van-collapse-item title="报价列表" name="0">
+                    <view style="text-align: right;">
+                        <van-button type="primary" size="small" style="margin: 0 10px">追加报价</van-button>
+                        <view style="display: inline-flex; align-items: center;">
+                            是否含税<van-switch style="margin-left: 10px; padding-top: 5px;" size="18px" checked="{{ hasTax }}" bind:change="onSwitchChange" />
+                        </view>
+                    </view>
+                    <view>
+                        listlistlist
                     </view>
                 </van-collapse-item>
+                <van-collapse-item title="残值" name="1">
+                    残值
+                </van-collapse-item>
+                <van-collapse-item wx:if="{{hasTax}}" title="税金" name="2">
+                    税金
+                </van-collapse-item>
             </van-collapse>
+        </view>
+
+        <view class="weui-cells__title">施工人员留言</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                    {{commentToOffer || '-'}}
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">报价人员留言</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='offerRemark'
+                              value="{{offerRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                </view>
+                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                    {{offerRemark || '-'}}
+                </view>
+            </view>
         </view>
     </view>
 </view>

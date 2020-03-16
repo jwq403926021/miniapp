@@ -5,7 +5,7 @@ const app = getApp()
 
 Page({
   data: {
-    id: null,
+    orderId: null,
     role: 1,
     statusMap: {
       '11': '已办结',
@@ -17,22 +17,46 @@ Page({
       '50': '已报价',
     },
     activeNames: ['0'],
-    data: [],
-    total: 0
+    hasTax: true,
+    commentToOffer: '',
+    offerRemark: ''
   },
   onLoad: function (routeParams) {
-    if (routeParams && routeParams.id) {
-      this.setData({
-        id: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role
-      })
-      this.init(routeParams.id)
-    }
+    try {
+      if (routeParams && routeParams.id) {
+        this.setData({
+          orderId: routeParams.id,
+          role: app.globalData.currentRegisterInfo.role
+        })
+        this.init(routeParams.id)
+      }
+    } catch (e) {}
   },
-  onChange(event) {
+  onChange (event) {
     this.setData({
       activeNames: event.detail
     });
+  },
+  onSwitchChange (event) {
+    this.setData({
+      hasTax: event.detail
+    })
+  },
+  inputgetName (e) {
+    let name = e.currentTarget.dataset.name;
+    let nameMap = {}
+    if (name.indexOf('.')) {
+      let nameList = name.split('.')
+      if (this.data[nameList[0]]) {
+        nameMap[nameList[0]] = this.data[nameList[0]]
+      } else {
+        nameMap[nameList[0]] = {}
+      }
+      nameMap[nameList[0]][nameList[1]] = e.detail.value
+    } else {
+      nameMap[name] = e.detail.value
+    }
+    this.setData(nameMap)
   },
   formatAreaOptions (sourceData) {
     let provinceArr = []
