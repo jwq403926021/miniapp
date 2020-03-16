@@ -155,7 +155,7 @@
                                 <view class="no-image" wx:if="{{liveImageFiles.length == 0 && orderId != null && taskData.status != 12}}">
                                     无图片
                                 </view>
-                                <block wx:for="{{liveImageFiles}}"wx:key="{{index}}">
+                                <block wx:for="{{liveImageFiles}}" wx:key="{{index}}">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="liveImageFiles" id="{{item.path}}">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                         <van-icon wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -347,7 +347,7 @@
                                     <view class="no-image" wx:if="{{workLiveImageFiles.length == 0 && orderId != null && taskData.status != 12}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{workLiveImageFiles}}"wx:key="{{index}}">
+                                    <block wx:for="{{workLiveImageFiles}}" wx:key="{{index}}">
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workLiveImageFiles" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                                             <van-icon wx:if="{{taskData.status == 13 && role == 12}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
