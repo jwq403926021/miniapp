@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.3",
+	"libVersion": "2.5.2",
 	"appid": "wxc9cdcd3084bb6aee",
 	"projectname": "hbj",
 	"debugOptions": {
@@ -37,14 +37,18 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "测试",
-					"pathName": "pages/jc-offer/jc-offer",
-					"query": "id=20191101150318000102",
+					"name": "pages/new-ws-offer/new-ws-offer",
+					"pathName": "pages/new-ws-offer/new-ws-offer",
+					"query": "id=20200314153751000107",
 					"scene": null
 				}
 			]
