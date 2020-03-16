@@ -9,6 +9,7 @@ Page({
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
+    workVideo: [], // 视频(施工方)
     show: false,
     showWorkerHit: false,
     areaList: {},
@@ -42,12 +43,12 @@ Page({
       surveyPhone: '',
       workerUser: '',
       workerPhone: '',
-      workType: 0,
+      workType: '0',
       budgetPreliminary: '', // 初步估损金额
       damageMoney: '', // 受损方索赔金额
-      handlingType: 0,
-      isAcceptance: 0,
-      isAgree: 0,
+      handlingType: '0',
+      isAcceptance: '0',
+      isAgree: '0',
       deposit: '',
       prepay: '',
       offerRemark: '',
@@ -85,8 +86,10 @@ Page({
 
       _this.sourceData = data
       _this.sourceImage = res.Image
+      _this.sourceAttachment = res.attachment
       let liveImageFiles = []
       let workLiveImageFiles = []
+      let workVideo = []
 
       _this.sourceImage.forEach(item => {
         switch (item.type) {
@@ -100,11 +103,18 @@ Page({
             break
         }
       })
+      _this.sourceAttachment.forEach(item => {
+        if (item.type) {
+          item.path = `https://aplusprice.xyz/file/${item.path}`
+          workVideo.push(item)
+        }
+      })
       _this.setData({
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
         workLiveImageFiles: workLiveImageFiles,
+        workVideo: workVideo,
         'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
         'taskData.insuranceType': data.insuranceType,
@@ -125,7 +135,11 @@ Page({
         'taskData.deposit': data.deposit,
         'taskData.prepay': data.prepay,
         'taskData.offerRemark': data.offerRemark,
-        'taskData.companyName': data.companyName
+        'taskData.companyName': data.companyName,
+        'taskData.cityManager': data.cityManager,
+        'taskData.workerId': data.workerId,
+        'taskData.commentToSurvey': data.commentToSurvey,
+        'taskData.commentToOffer': data.commentToOffer,
       })
       _this.initReassignList()
       _this.getRegionLabel()
@@ -169,40 +183,46 @@ Page({
     return true
   },
   initArea () {
-    let _this = this
-    _this.setData({
-      region: app.globalData.currentRegisterInfo.townCode,
-      'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
-      'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
-      'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
-    })
-    util.request({
-      path: '/sys/area/list',
-      method: 'GET'
-    }, function (err, res) {
+    try {
+      let _this = this
+      console.log(app.globalData.currentRegisterInfo, app.globalData)
       _this.setData({
-        areaList: res.DATA.DATA
+        region: app.globalData.currentRegisterInfo.townCode,
+        'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
+        'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
+        'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
       })
-      _this.getRegionLabel()
-    })
+      util.request({
+        path: '/sys/area/list',
+        method: 'GET'
+      }, function (err, res) {
+        _this.setData({
+          areaList: res.DATA.DATA
+        })
+        _this.getRegionLabel()
+      })
+    } catch (e) {
+
+    }
   },
   initReassignList () {
     let _this = this
     util.request({
-      path: '/app/damage/getPersonList',
+      path: '/app/businessdamagenew/getSameUnitWorker',
       method: 'GET',
       data: {
-        role: 12,
-        townCode: (this.data.region.slice(0,4) + '00')
+        workerId: this.data.taskData.workerId
       }
     }, function (err, res) {
-      _this.workListSource = res.data
-      let workerList = res.data ? res.data.map(item => {
-        return item.name
-      }) : []
-      _this.setData({
-        'workerList': workerList
-      })
+      if (res) {
+        _this.workListSource = res.data
+        let workerList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'workerList': workerList
+        })
+      }
     })
   },
   workerChange (event) {
@@ -277,6 +297,29 @@ Page({
       [key]: event.detail
     });
   },
+  chooseVideo: function (e) {
+    let key = e.currentTarget.dataset.name
+    var that = this;
+    wx.chooseVideo({
+      sourceType: ['album','camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success: function (res) {
+        let tempList = []
+        tempList.push({
+          "path": res.tempFilePath, "id": 66, "thumbTempFilePath": res.thumbTempFilePath
+        })
+        let list = that.data[key].concat(tempList)
+        that.setData({
+          [key]: list
+        })
+        console.log(list, key)
+      }
+    })
+  },
+  previewVideo: function (e) {
+    let key = e.currentTarget.dataset.name
+  },
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name
     var that = this;
@@ -331,7 +374,7 @@ Page({
     var that = this
     console.log('upload flowID:', this.data.orderId)
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload',
+      url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload',
       filePath: imgPaths[count].path,
       name: `files`,
       header: {
@@ -408,24 +451,6 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone
     })
-  },
-  uploadImage () {
-    let _this = this
-    let workLiveImageFiles = []
-    _this.data.workLiveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        workLiveImageFiles.push({path: item.path, type: 3})
-      }
-    })
-
-    let imgPaths = [...workLiveImageFiles]
-    console.log('Upload Files:', imgPaths)
-    let count = 0
-    let successUp = 0
-    let failUp = 0
-    if (imgPaths.length) {
-      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-    }
   },
   submitWS (e) {
     let data = this.data.taskData
@@ -546,57 +571,81 @@ Page({
     let _this = this
     let data = this.data.taskData
     let isSave = e.currentTarget.dataset.save
-    if (data.workType == '' || data.workType == null) {
-      wx.showToast({
-        mask: true,
-        title: '请选择处理方式',
-        icon: 'none',
-        duration: 1000
-      })
-      return
-    }
-    if (data.damageMoney == '' || data.damageMoney == null) {
-      wx.showToast({
-        mask: true,
-        title: '请填写报损金额',
-        icon: 'none',
-        duration: 1000
-      })
-      return
-    }
-
     let workLiveImageFiles = []
+    let workLiveImageAlreadyFiles = []
+    let workVideo = []
+    let workVideoAlreadyFiles = []
     _this.data.workLiveImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         workLiveImageFiles.push({path: item.path, type: 3})
+      } else {
+        workLiveImageAlreadyFiles.push(item)
       }
     })
-    let params = {
-      id: this.data.orderId,
-      surveyUser: data.surveyUser,
-      surveyPhone: data.surveyPhone,
-      workerUser: data.workerUser,
-      workerPhone: data.workerPhone,
-      workType: data.workType,
-      budgetPreliminary: data.budgetPreliminary,
-      damageMoney: data.damageMoney,
-      handlingType: data.handlingType,
-      deposit: data.deposit,
-      prepay: data.prepay,
-      offerRemark: data.offerRemark,
-      isTempSave: isSave ? 'save' : 'commit'
-    }
+    _this.data.workVideo.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workVideo.push({path: item.path, type: 66})
+      } else {
+        workVideoAlreadyFiles.push(item)
+      }
+    })
+    let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
+    let url = isSave ? `/app/businessdamagenew/workerSave` : `/app/businessdamagenew/workerCommit`
+    let {
+      provinceCode,
+      cityCode,
+      townCode,
+      damagedUser,
+      damagedPhone,
+      customerUser,
+      customerPhone,
+      plateNumber,
+      insuranceType,
+      commentToSurvey,
+      handlingType,
+      budgetPreliminary,
+      workType,
+      deposit,
+      prepay,
+      commentToOffer,
+      offerRemark,
+      damageMoney,
+      isAcceptance,
+      isAgree
+    } = this.data.taskData
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: '/app/damage/addByWorker',
+      path: url,
       method: 'POST',
-      data: params
+      data: {
+        orderId: this.data.orderId,
+        provinceCode,
+        cityCode,
+        townCode,
+        damagedUser,
+        damagedPhone,
+        customerUser,
+        customerPhone,
+        plateNumber,
+        insuranceType,
+        commentToSurvey,
+        handlingType,
+        budgetPreliminary,
+        workType,
+        deposit,
+        prepay,
+        commentToOffer,
+        offerRemark,
+        damageMoney,
+        isAcceptance,
+        isAgree
+      }
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles]
+        let imgPaths = [...workLiveImageFiles, ...workVideo]
         console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
@@ -626,31 +675,24 @@ Page({
       }
     })
   },
-  modifyWS () {
-    this.submitWS()
-  },
-  cooperaterManagerAssign () {
+  financeSubmit (e) {
     let _this = this
-    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
-      wx.showToast({
-        mask: true,
-        title: '请选择改派人员',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
+    let data = this.data.taskData
+    let isSave = e.currentTarget.dataset.save
+  },
+  workerSubmitComment () {
+    let _this = this
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: '/app/damage/reassignment',
+      path: '/app/businessdamagenew/workerMessage',
       method: 'POST',
       data: {
         orderId: this.data.orderId,
-        workerId: this.workListSource[this.data.workerValue].userId,
-        workerPhone: this.workListSource[this.data.workerValue].mobile
+        commentToSurvey: this.data.taskData.commentToSurvey,
+        commentToOffer: this.data.taskData.commentToOffer
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -664,6 +706,46 @@ Page({
         })
       }
     })
+  },
+  assignToOther () {
+    let _this = this
+    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
+      wx.showToast({
+        mask: true,
+        title: '请选择转办人员',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/changeWorker',
+      method: 'POST',
+      data: {
+        orderId: this.data.orderId,
+        information: this.data.taskData.information,
+        userId: this.data.workerValue,
+        cityManager: this.data.taskData.cityManager
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  modifyWS () {
+    this.submitWS()
   },
   downloadImages () {
     let urls = []
