@@ -433,6 +433,14 @@
             </block>
         </block>
 
+        <view class="weui-cells weui-cells_after-title" wx:if="{{taskData.status != null && taskData.status != 20}}">
+            <view class="weui-cell">
+                <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
+                    报价信息
+                </button>
+            </view>
+        </view>
+
         <block wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20)}}">
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_select">

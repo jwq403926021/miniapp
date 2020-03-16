@@ -760,5 +760,10 @@ Page({
     wx.navigateTo({
       url: '../new-ws-offer/new-ws-offer?id=' + event.currentTarget.dataset.id
     })
+  },
+  bindTapToOffer (event) {
+    wx.navigateTo({
+      url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+    })
   }
 })
