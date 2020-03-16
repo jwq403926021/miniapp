@@ -97,7 +97,6 @@ Page({
     let filter = {
       page: 1,
       size: 100,
-      datetime: this.data.dateFilter,
       carNumber: this.data.searchCarNumber,
       orderId: this.data.searchOrderId
     }
@@ -109,14 +108,14 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/damage/damageList',
+      path: '/app/businessdamagenew/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
       _this.setData({
-        dataList: res.data
+        dataList: res.data.records
       })
     })
   },
