@@ -11,21 +11,127 @@
                     <text class="weui-input readonly">{{orderId}}</text>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">区域</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">是否含税</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
+                    <van-switch style="margin-top: 20px;" size="18px" checked="{{ hasTax }}" bind:change="onSwitchChange" />
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{hasTax}}</text>
+                </view>
+            </view>
         </view>
 
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
                 <van-collapse-item title="报价列表" name="0">
-                    <view style="text-align: right;">
-                        <van-button type="primary" size="small" style="margin: 0 10px">追加报价</van-button>
-                        <view style="display: inline-flex; align-items: center;">
-                            是否含税<van-switch style="margin-left: 10px; padding-top: 5px;" size="18px" checked="{{ hasTax }}" bind:change="onSwitchChange" />
+                    <view class="mb10 offerListRow" wx:for="{{offerList}}" wx:key="{{index}}" >
+                        <van-row>
+                            <van-col span="12">大类: {{item.mainName}}</van-col>
+                            <van-col span="12">小类: {{item.childName}}</van-col>
+                        </van-row>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">类型</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!item.childName == '其它' || !isAllowEdit}}">
+                                <text class="weui-input readonly">{{item.projectName || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd h28" bindtap="openProjectSheet" data-name="projectId" data-index="{{index}}" wx:else>
+                                {{item.projectName}}
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">名称</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!item.childName == '其它' || !isAllowEdit}}">
+                                <text class="weui-input readonly">{{item.name || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd" wx:else>
+                                <input class="weui-input" bindinput="inputgetName" data-name='name' data-index="{{index}}"
+                                       value="{{item.name}}" placeholder="请输入名称"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">单位</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!item.childName == '其它' || !isAllowEdit}}">
+                                <text class="weui-input readonly">{{item.unit || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd" wx:else>
+                                <input class="weui-input" bindinput="inputgetName" data-name='unit' data-index="{{index}}"
+                                       value="{{item.unit}}" placeholder="请输入单位"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">单价</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.childName == '其它' || (item.remark && role == 13 && status == 41))}}">
+                                <text class="weui-input readonly">{{item.price || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd" wx:else>
+                                <input class="weui-input" bindinput="inputgetName" data-name='price' data-index="{{index}}"
+                                       value="{{item.price}}" placeholder="请输入单价"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">数量</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.childName == '其它' || (item.remark && role == 13 && status == 41))}}">
+                                <text class="weui-input readonly">{{item.num || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd" wx:else>
+                                <input class="weui-input" bindinput="inputgetName" data-name='num' data-index="{{index}}"
+                                       value="{{item.num}}" placeholder="请输入数量"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">处理方式</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
+                                <text class="weui-input readonly">{{item.handleType || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd h28" bindtap="openHandleTypeSheet" data-name='handleType' data-index="{{index}}" wx:else>
+                                {{item.handleType}}
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">备注</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" bindinput="inputgetName" data-name='remark'
+                                       value="{{item.remark}}" placeholder="请输入备注"/>
+                            </view>
+<!--                            <view class="weui-cell__bd">-->
+<!--                                <text class="weui-input readonly">{{item.remark || '-'}}</text>-->
+<!--                            </view>-->
+                        </view>
+                        <view style="text-align: right;">
+                            <van-button type="primary" size="small">追加残值</van-button>
+                            <van-button type="danger" size="small">删除</van-button>
                         </view>
                     </view>
-                    <view>
-                        listlistlist
-                    </view>
+                    <van-button block type="info" size="small" bindtap="openLibrary">追加报价 +</van-button>
                 </van-collapse-item>
                 <van-collapse-item title="残值" name="1">
                     残值
@@ -58,4 +164,30 @@
             </view>
         </view>
     </view>
+    <van-popup
+            show="{{ show }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
+    <van-action-sheet
+            data-name='project'
+            show="{{ showProjectSheet }}"
+            actions="{{ projectList }}"
+            bind:close="onClose"
+            bind:select="onSelect"
+    />
+    <van-action-sheet
+            data-name='handleType'
+            show="{{ showHandleTypeSheet }}"
+            actions="{{ handleTypeList }}"
+            bind:close="onClose"
+            bind:select="onSelect"
+    />
+    <van-popup show="{{ showLibrary }}">
+        <view class="wrapper">
+            123
+        </view>
+    </van-popup>
 </view>

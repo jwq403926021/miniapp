@@ -19,18 +19,150 @@ Page({
     activeNames: ['0'],
     hasTax: true,
     commentToOffer: '',
-    offerRemark: ''
+    offerRemark: '',
+    show: false,
+    areaList: {},
+    regionLabel: '',
+    region: '',
+    townCode: '',
+    cityCode: '',
+    provinceCode: '',
+    categoryoptions: [],
+    projectList: [],
+    handleTypeList: [{
+      id: 0,
+      name: '更换'
+    }, {
+      id: 1,
+      name: '维修'
+    }],
+    offerList: [{
+      id: 1,
+      mainName: 1,
+      mainId: 1,
+      childId: 1,
+      childName: 1,
+      projectName: 1,
+      projectId: 1,
+      minPrice: 1,
+      maxPrice: 1,
+      avgPrice: 1,
+      name: 1,
+      unit: 1,
+      price: 1,
+      num: 1,
+      handleType: 1,
+      remark: 1
+    }],
+    showProjectSheet: false,
+    showLibrary: false
+  },
+  initArea () {
+    try {
+      let _this = this
+      _this.setData({
+        region: app.globalData.currentRegisterInfo.townCode,
+        townCode: app.globalData.currentRegisterInfo.townCode,
+        cityCode: app.globalData.currentRegisterInfo.cityCode,
+        provinceCode: app.globalData.currentRegisterInfo.provinceCode
+      })
+      util.request({
+        path: '/sys/area/list',
+        method: 'GET'
+      }, function (err, res) {
+        _this.setData({
+          areaList: res.DATA.DATA
+        })
+        _this.getRegionLabel()
+      })
+    } catch (e) {
+
+    }
   },
   onLoad: function (routeParams) {
     try {
+      this.initArea()
       if (routeParams && routeParams.id) {
+        let role = 12 // app.globalData.currentRegisterInfo.role
         this.setData({
           orderId: routeParams.id,
-          role: app.globalData.currentRegisterInfo.role
+          status: routeParams.status,
+          role: role,
+          isAllowEdit: (role == 12 && (routeParams.status == 13 || routeParams.status == 43)) || (role == 13 && routeParams.status == 41)
         })
         this.init(routeParams.id)
       }
     } catch (e) {}
+  },
+  getRegionLabel () {
+    let arr = []
+    if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
+      let provinceCode = this.data.region.slice(0,2) + '0000'
+      let cityCode = this.data.region.slice(0,4) + '00'
+      let townCode = this.data.region
+      arr.push(this.data.areaList['province_list'][provinceCode])
+      arr.push(this.data.areaList['city_list'][cityCode])
+      arr.push(this.data.areaList['county_list'][townCode])
+    }
+    this.setData({
+      regionLabel: arr.length ? arr.join(',') : ''
+    })
+  },
+  openProjectSheet (e) {
+    this.setData({
+      operateIndex: e.currentTarget.dataset.index,
+      showProjectSheet: true
+    })
+  },
+  openHandleTypeSheet (e) {
+    this.setData({
+      operateIndex: e.currentTarget.dataset.index,
+      showHandleTypeSheet: true
+    })
+  },
+  onClose() {
+    this.setData({
+      showProjectSheet: false,
+      showHandleTypeSheet: false
+    });
+  },
+  onSelect(e) {
+    let name = e.currentTarget.dataset.name;
+    let index = this.data.operateIndex;
+    let target = e.currentTarget.dataset.target || 'offerList';
+    let nameMap = {}
+    if (name == 'project') {
+      nameMap[`${target}[${index}].projectId`] = e.detail.id
+      nameMap[`${target}[${index}].projectName`] = e.detail.name
+    } else {
+      nameMap[`${target}[${index}].handleType`] = e.detail.id
+    }
+    this.setData(nameMap)
+  },
+  openLocation() {
+    this.setData({
+      show: !this.show
+    })
+  },
+  onConfirm(data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+
+    this.setData({
+      show: false,
+      region: data.detail.values[2].code,
+      regionLabel: strArr.join(','),
+      townCode: data.detail.values[2].code,
+      cityCode: data.detail.values[1].code,
+      provinceCode: data.detail.values[0].code,
+    })
+  },
+  onCancel() {
+    this.setData({
+      show: false
+    })
   },
   onChange (event) {
     this.setData({
@@ -42,17 +174,18 @@ Page({
       hasTax: event.detail
     })
   },
+  openLibrary () {
+    this.setData({
+      showLibrary: true
+    })
+  },
   inputgetName (e) {
     let name = e.currentTarget.dataset.name;
+    let index = e.currentTarget.dataset.index;
+    let target = e.currentTarget.dataset.target || 'offerList';
     let nameMap = {}
-    if (name.indexOf('.')) {
-      let nameList = name.split('.')
-      if (this.data[nameList[0]]) {
-        nameMap[nameList[0]] = this.data[nameList[0]]
-      } else {
-        nameMap[nameList[0]] = {}
-      }
-      nameMap[nameList[0]][nameList[1]] = e.detail.value
+    if (e.currentTarget.dataset.hasOwnProperty('index')) {
+      nameMap[`${target}[${index}].${name}`] = e.detail.value
     } else {
       nameMap[name] = e.detail.value
     }
@@ -95,7 +228,7 @@ Page({
       }
     }, function (err, res) {
       _this.setData({
-        categoryoptions: res.data
+        categoryoptions: res.data || []
       })
     })
 
@@ -104,7 +237,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        projectList: res.data
+        projectList: res.data || [{name: '1ff', id: '1'}]
       })
     })
 

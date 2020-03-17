@@ -763,7 +763,7 @@ Page({
   },
   bindTapToOffer (event) {
     wx.navigateTo({
-      url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+      url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}&status=${this.data.taskData.status}`
     })
   }
 })
