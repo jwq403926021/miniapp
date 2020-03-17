@@ -52,7 +52,7 @@
                                 <text class="weui-input readonly">{{item.projectName || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd h28" bindtap="openProjectSheet" data-name="projectId" data-index="{{index}}" wx:else>
-                                {{item.projectName}}
+                                {{item.projectName || '请选择类型'}}
                             </view>
                         </view>
                         <view class="weui-cell weui-cell_input no-padding">
@@ -111,7 +111,7 @@
                                 <text class="weui-input readonly">{{item.handleType || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd h28" bindtap="openHandleTypeSheet" data-name='handleType' data-index="{{index}}" wx:else>
-                                {{item.handleType}}
+                                {{item.handleType !== '' ? handleTypeList[item.handleType].name : '请选择处理方式'}}
                             </view>
                         </view>
                         <view class="weui-cell weui-cell_input no-padding">

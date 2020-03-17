@@ -37,22 +37,22 @@ Page({
       name: '维修'
     }],
     offerList: [{
-      id: 1,
-      mainName: 1,
-      mainId: 1,
-      childId: 1,
-      childName: 1,
-      projectName: 1,
-      projectId: 1,
-      minPrice: 1,
-      maxPrice: 1,
-      avgPrice: 1,
-      name: 1,
-      unit: 1,
-      price: 1,
-      num: 1,
-      handleType: 1,
-      remark: 1
+      id: '',
+      mainName: '',
+      mainId: '',
+      childId: '',
+      childName: '',
+      projectName: '',
+      projectId: '',
+      minPrice: '',
+      maxPrice: '',
+      avgPrice: '',
+      name: '',
+      unit: '',
+      price: '',
+      num: '',
+      handleType: '',
+      remark: ''
     }],
     showProjectSheet: false,
     showLibrary: false,
@@ -150,6 +150,7 @@ Page({
       nameMap[`${target}[${index}].handleType`] = e.detail.id
     }
     this.setData(nameMap)
+    this.onClose()
   },
   openLocation() {
     this.setData({
@@ -239,8 +240,10 @@ Page({
         insureType: '1'
       }
     }, function (err, res) {
+      let data = res.data || []
+      _this.mainSource = data
       _this.setData({
-        categoryoptions: res.data || []
+        mainList: data.map(item => item.name)
       })
     })
 
@@ -249,7 +252,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        projectList: res.data || [{name: '1ff', id: '1'}]
+        projectList: res.data || []
       })
     })
 
@@ -280,10 +283,9 @@ Page({
     let value = e.currentTarget.dataset.value;
     let label = e.currentTarget.dataset.label;
     let source = e.currentTarget.dataset.source;
-    console.log(value, label, source, e.detail.value)
-    // let map = {}
-    // map[`library.${value}`] = this[source][e.detail.value].id
-    // map[`library.${label}`] = this[source][e.detail.value].name
-    // this.setData(map)
+    let map = {}
+    map[`library.${value}`] = this[source][e.detail.value].id
+    map[`library.${label}`] = this[source][e.detail.value].name
+    this.setData(map)
   }
 })
