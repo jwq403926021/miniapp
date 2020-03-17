@@ -55,7 +55,19 @@ Page({
       remark: 1
     }],
     showProjectSheet: false,
-    showLibrary: false
+    showLibrary: false,
+    mainList: ['1', '2', '3'],
+    library: {
+      insureType: 1,
+      status: 1,
+      name: '',
+      mainId: '',
+      mainName: '',
+      childId: '',
+      childName: '',
+      projectId: '',
+      projectName: ''
+    }
   },
   initArea () {
     try {
@@ -258,10 +270,20 @@ Page({
       path: `/app/businessdamagenew/damagePriceDetail`,
       method: 'GET',
       data: {
-        id: _this.data.orderId
+        orderId: _this.data.orderId
       }
     }, function (err, res) {
       console.log(res)
     })
+  },
+  pickerChange (e) {
+    let value = e.currentTarget.dataset.value;
+    let label = e.currentTarget.dataset.label;
+    let source = e.currentTarget.dataset.source;
+    console.log(value, label, source, e.detail.value)
+    // let map = {}
+    // map[`library.${value}`] = this[source][e.detail.value].id
+    // map[`library.${label}`] = this[source][e.detail.value].name
+    // this.setData(map)
   }
 })

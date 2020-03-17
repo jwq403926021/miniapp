@@ -21,4 +21,9 @@
   height: calc(100vh - 60px);
   width: calc(100vw - 60px);
   background: #fff;
+  padding: 5px 10px;
+}
+.libraryFilterRow .van-col{
+  line-height: 2em;
+  font-size: 14px;
 }

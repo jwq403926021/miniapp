@@ -187,7 +187,36 @@
     />
     <van-popup show="{{ showLibrary }}">
         <view class="wrapper">
-            123
+            <van-row custom-class="libraryFilterRow">
+                <van-col span="6">大类</van-col>
+                <van-col span="18">
+                    <picker bindchange="pickerChange" value="{{library.mainId}}" range="{{mainList}}" data-source="mainSource" data-value="mainId" data-label="mainName">
+                        {{ library.mainName || '请选择大类'}}
+                    </picker>
+                </van-col>
+            </van-row>
+            <van-row custom-class="libraryFilterRow">
+                <van-col span="6">小类</van-col>
+                <van-col span="18">
+                    <picker bindchange="pickerChange" value="{{library.mainId}}" range="{{mainList}}" data-source="mainSource" data-value="mainId" data-label="mainName">
+                        {{ library.mainName || '请选择小类'}}
+                    </picker>
+                </van-col>
+            </van-row>
+            <view style="margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
+                <van-button type="primary" size="small">过滤</van-button>
+                <van-button size="small" style="margin-left: 5px">重置</van-button>
+            </view>
+            <view style="padding: 5px 0;">
+                <view>
+                    <view>
+                        内容1
+                    </view>
+                    <view>
+                        <van-button type="info" size="small">追加</van-button>
+                    </view>
+                </view>
+            </view>
         </view>
     </van-popup>
 </view>
