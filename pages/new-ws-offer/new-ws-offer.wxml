@@ -216,7 +216,7 @@
                     </view>
                     <view class="weui-cell weui-cell_input no-padding offerListRow">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">金额</view>
+                            <view class="weui-label">税率</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                             <text class="weui-input readonly">{{taxRate || '-'}}</text>
@@ -232,6 +232,80 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{tax || '-'}}</text>
+                        </view>
+                    </view>
+                </van-collapse-item>
+                <van-collapse-item wx:if="{{role == 13}}" title="比价平台" name="3">
+                    <view class="row-item offerListRow" wx:for="{{compareList}}" wx:key="{{index}}">
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">企业</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <text class="weui-input readonly">{{item.companyName}}</text>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">系数</view>
+                            </view>
+                            <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
+                                <text class="weui-input readonly">{{rate || '-'}}</text>
+                            </view>
+                            <view class="weui-cell__bd" wx:else>
+                                <input class="weui-input" bindinput="inputgetName" data-name='rate' data-target="compareList" data-index="{{index}}"
+                                       value="{{item.rate}}" placeholder="请输入税率"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">报价合计</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <text class="weui-input readonly">{{item.offer}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </van-collapse-item>
+                <van-collapse-item wx:if="{{role == 13}}" title="查勘币" name="4">
+                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">数量</view>
+                        </view>
+                        <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
+                            <text class="weui-input readonly">{{coinNum || '-'}}</text>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <input class="weui-input" bindinput="inputgetName" data-name='coinNum'
+                                   value="{{coinNum}}" placeholder="请输入数量"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">比率</view>
+                        </view>
+                        <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
+                            <text class="weui-input readonly">{{coinRate || '-'}}</text>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <input class="weui-input" bindinput="inputgetName" data-name='coinRate'
+                                   value="{{coinRate}}" placeholder="请输入比率"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">查勘等级</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{coinLevel || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">注入</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{coinInsert || '-'}}</text>
                         </view>
                     </view>
                 </van-collapse-item>

@@ -2,7 +2,6 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
 const app = getApp()
-
 Page({
   data: {
     orderId: null,
@@ -61,15 +60,18 @@ Page({
     compareList: [{
       companyName: '企业1',
       id: 0,
-      rate: ''
+      rate: '',
+      offer: ''
     }, {
       companyName: '企业2',
       id: 1,
-      rate: ''
+      rate: '',
+      offer: ''
     }, {
       companyName: '企业3',
       id: 2,
-      rate: ''
+      rate: '',
+      offer: ''
     }],
     coinNum: '',
     coinRate: '',
@@ -317,7 +319,7 @@ Page({
         }),
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
-        compareList: res.compareList,
+        compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax ? '0' : '1'
       }
       _this.setData(result)
