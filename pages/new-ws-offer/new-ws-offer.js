@@ -582,5 +582,47 @@ Page({
         })
       }
     })
+  },
+  reject () {
+    let _this = this
+    if (this.data.offerRemark === '' || this.data.offerRemark == null) {
+      wx.showToast({
+        mask: true,
+        title: '报价意见不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/offerPriceReject',
+      method: 'POST',
+      data: {
+        orderId: _this.data.orderId,
+        offerRemark: _this.data.offerRemark,
+        workerId: _this.data.workerId,
+        customerUser: _this.data.customerUser
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   }
 })
