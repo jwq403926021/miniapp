@@ -238,24 +238,26 @@
             </van-collapse>
         </view>
 
-        <view class="weui-cells__title">施工人员留言</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{commentToOffer || '-'}}
+        <block wx:if="{{role == 13}}">
+            <view class="weui-cells__title">施工人员留言</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{commentToOffer || '-'}}
+                    </view>
                 </view>
             </view>
-        </view>
+        </block>
 
-        <view class="weui-cells__title">报价人员留言</view>
+        <view class="weui-cells__title">报价人员意见</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
-                <view class="weui-cell__bd">
+                <view wx:if="{{role != 13}}" class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                    {{offerRemark || '-'}}
+                </view>
+                <view wx:else class="weui-cell__bd">
                     <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='offerRemark'
                               value="{{offerRemark}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{offerRemark || '-'}}
                 </view>
             </view>
         </view>
