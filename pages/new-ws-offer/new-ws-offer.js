@@ -411,5 +411,10 @@ Page({
     this.setData({
       incompleteList: this.data.incompleteList
     })
+  },
+  back () {
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

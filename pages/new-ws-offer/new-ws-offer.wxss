@@ -29,3 +29,6 @@
   line-height: 2em;
   font-size: 14px;
 }
+.button-gap{
+  margin-bottom: 5px;
+}
