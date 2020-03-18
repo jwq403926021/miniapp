@@ -108,14 +108,12 @@ Page({
     try {
       this.initArea()
       if (routeParams && routeParams.id) {
-        let role = 12 // app.globalData.currentRegisterInfo.role
         this.setData({
           orderId: routeParams.id,
-          status: routeParams.status,
-          role: role,
-          isAllowEdit: (role == 12 && (routeParams.status == 13 || routeParams.status == 43)) || (role == 13 && routeParams.status == 41)
+          role: 12 // app.globalData.currentRegisterInfo.role
+        }, () => {
+          this.init(routeParams.id)
         })
-        this.init(routeParams.id)
       }
     } catch (e) {}
   },
@@ -301,6 +299,7 @@ Page({
         }
       })
       let result = {
+        isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
         region: data.townCode,
         offerList: res.offerList.filter(item => {
