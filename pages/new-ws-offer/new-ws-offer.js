@@ -71,7 +71,9 @@ Page({
     },
     tax: '',
     taxRate: '',
-    amountMoney: ''
+    amountMoney: '',
+    incompleteTotal: '',
+    offerListTotal: ''
   },
   initArea () {
     try {

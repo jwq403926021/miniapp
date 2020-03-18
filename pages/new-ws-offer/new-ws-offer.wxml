@@ -38,11 +38,11 @@
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-                <van-collapse-item title="报价列表" name="0">
+                <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
                     <view class="row-item offerListRow" wx:for="{{offerList}}" wx:key="{{index}}" >
                         <van-row>
-                            <van-col span="12">大类: {{item.mainName}}</van-col>
-                            <van-col span="12">小类: {{item.childName}}</van-col>
+                            <van-col span="12">大类: {{item.mainName || '-'}}</van-col>
+                            <van-col span="12">小类: {{item.childName || '-'}}</van-col>
                         </van-row>
                         <view class="weui-cell weui-cell_input no-padding">
                             <view class="weui-cell__hd">
@@ -119,7 +119,7 @@
                                 <view class="weui-label">备注</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" bindinput="inputgetName" data-name='remark'
+                                <input class="weui-input" bindinput="inputgetName" data-name='remark' data-index="{{index}}"
                                        value="{{item.remark}}" placeholder="请输入备注"/>
                             </view>
 <!--                            <view class="weui-cell__bd">-->
@@ -133,7 +133,7 @@
                     </view>
                     <van-button block type="info" size="small" bindtap="openLibrary">追加报价 +</van-button>
                 </van-collapse-item>
-                <van-collapse-item title="残值" name="1">
+                <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                     <view style="text-align: center;" wx:if="{{incompleteList.length == 0}}">无数据</view>
                     <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="{{index}}" >
                         <view class="weui-cell weui-cell_input no-padding">
@@ -144,7 +144,7 @@
                                 <text class="weui-input readonly">{{item.name || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <input class="weui-input" bindinput="inputgetName" data-name='name' data-index="{{index}}"
+                                <input class="weui-input" bindinput="inputgetName" data-name='name' data-target='incompleteList' data-index="{{index}}"
                                        value="{{item.name}}" placeholder="请输入名称"/>
                             </view>
                         </view>
@@ -156,7 +156,7 @@
                                 <text class="weui-input readonly">{{item.unit || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <input class="weui-input" bindinput="inputgetName" data-name='unit' data-index="{{index}}"
+                                <input class="weui-input" bindinput="inputgetName" data-name='unit' data-target='incompleteList' data-index="{{index}}"
                                        value="{{item.unit}}" placeholder="请输入单位"/>
                             </view>
                         </view>
@@ -168,7 +168,7 @@
                                 <text class="weui-input readonly">{{item.unitPrice || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <input class="weui-input" bindinput="inputgetName" data-name='unitPrice' data-index="{{index}}"
+                                <input class="weui-input" bindinput="inputgetName" data-name='unitPrice' data-target='incompleteList' data-index="{{index}}"
                                        value="{{item.unitPrice}}" placeholder="请输入单价"/>
                             </view>
                         </view>
@@ -180,7 +180,7 @@
                                 <text class="weui-input readonly">{{item.num || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <input class="weui-input" bindinput="inputgetName" data-name='num' data-index="{{index}}"
+                                <input class="weui-input" bindinput="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}"
                                        value="{{item.num}}" placeholder="请输入数量"/>
                             </view>
                         </view>
@@ -189,7 +189,7 @@
                                 <view class="weui-label">备注</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" bindinput="inputgetName" data-name='remark'
+                                <input class="weui-input" bindinput="inputgetName" data-name='remark' data-target='incompleteList' data-index="{{index}}"
                                        value="{{item.remark}}" placeholder="请输入备注"/>
                             </view>
                             <!--                            <view class="weui-cell__bd">-->
@@ -197,7 +197,7 @@
                             <!--                            </view>-->
                         </view>
                         <view style="text-align: right;">
-                            <van-button type="danger" size="small" bindtap="removeIncomplete">删除</van-button>
+                            <van-button type="danger" size="small" bindtap="removeIncomplete" data-index="{{index}}">删除</van-button>
                         </view>
                     </view>
                 </van-collapse-item>
