@@ -1,5 +1,7 @@
-.mb10{
-  margin-bottom: 10px;
+.row-item{
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
 }
 .no-padding{
   padding: 0!important;

@@ -54,6 +54,7 @@ Page({
       handleType: '',
       remark: ''
     }],
+    incompleteList: [],
     showProjectSheet: false,
     showLibrary: false,
     mainList: ['1', '2', '3'],
@@ -67,7 +68,10 @@ Page({
       childName: '',
       projectId: '',
       projectName: ''
-    }
+    },
+    tax: '',
+    taxRate: '',
+    amountMoney: ''
   },
   initArea () {
     try {
@@ -251,8 +255,11 @@ Page({
       path: `/app/businessprojecttype/getProjectType`,
       method: 'GET'
     }, function (err, res) {
+      let data = res.data || []
+      _this.projectSource = data
       _this.setData({
-        projectList: res.data || []
+        projectList: data,
+        projectPickerList: data.map(item => item.name)
       })
     })
 
@@ -277,6 +284,10 @@ Page({
       }
     }, function (err, res) {
       console.log(res)
+      _this.setData({
+        provinceCode: res.data.provinceCode,
+        cityCode: res.data.cityCode
+      })
     })
   },
   pickerChange (e) {
@@ -287,5 +298,118 @@ Page({
     map[`library.${value}`] = this[source][e.detail.value].id
     map[`library.${label}`] = this[source][e.detail.value].name
     this.setData(map)
+    if (value == 'mainId') {
+      this.changeParentCategory(this[source][e.detail.value].id)
+    }
+  },
+  changeParentCategory (value) {
+    let _this = this
+    this.setData({
+      'library.childId': '',
+      'library.childName': ''
+    })
+    util.request({
+      path: '/app/businesschildtype/getChildByMain',
+      method: 'GET',
+      data: {
+        mainId: value
+      }
+    }, function (err, res) {
+      let data = res.data || []
+      _this.childSource = data
+      _this.setData({
+        childList: data.map(item => item.name)
+      })
+    })
+  },
+  filter () {
+    let _this = this
+    util.request({
+      path: '/app/businessprice/list',
+      method: 'GET',
+      data: {
+        ..._this.data.library,
+        province: _this.data.provinceCode,
+        city: _this.data.cityCode,
+        page: 1,
+        limit: 20
+      }
+    }, function (err, res) {
+      console.log(res, '###')
+    })
+  },
+  resetFilter () {
+    this.setData({
+      library: {
+        insureType: 1,
+        status: 1,
+        name: '',
+        mainId: '',
+        mainName: '',
+        childId: '',
+        childName: '',
+        projectId: '',
+        projectName: ''
+      }
+    })
+  },
+  closeFilter () {
+    this.resetFilter()
+    this.setData({
+      showLibrary: false
+    })
+  },
+  addIncomplete (e) {
+    let index = e.currentTarget.dataset.index;
+    let {
+      id,
+      mainName,
+      mainId,
+      childId,
+      childName,
+      projectName,
+      projectId,
+      name,
+      unit,
+      price,
+      num = 1
+    } = this.data.offerList[index]
+    let arr = this.data.incompleteList
+    arr.push({
+      id,
+      mainName,
+      mainId,
+      childId,
+      childName,
+      projectName,
+      projectId,
+      name,
+      unit,
+      unitPrice: price,
+      num
+    })
+    this.setData({
+      incompleteList: arr
+    })
+    wx.showToast({
+      mask: true,
+      title: '追加成功',
+      icon: 'none',
+      duration: 1000
+    })
+  },
+  removeOfferList (e) {
+    let index = e.currentTarget.dataset.index;
+    this.data.offerList.splice(index, 1)
+    this.setData({
+      offerList: this.data.offerList
+    })
+  },
+  removeIncomplete (e) {
+    let index = e.currentTarget.dataset.index;
+    this.data.incompleteList.splice(index, 1)
+    this.setData({
+      incompleteList: this.data.incompleteList
+    })
   }
 })
