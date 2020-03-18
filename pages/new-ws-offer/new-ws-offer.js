@@ -176,6 +176,8 @@ Page({
 
     this.setData({
       show: false,
+      offerList: [],
+      incompleteList: [],
       region: data.detail.values[2].code,
       regionLabel: strArr.join(','),
       townCode: data.detail.values[2].code,
