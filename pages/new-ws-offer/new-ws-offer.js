@@ -36,24 +36,7 @@ Page({
       id: 1,
       name: '维修'
     }],
-    offerList: [{
-      id: '',
-      mainName: '',
-      mainId: '',
-      childId: '',
-      childName: '',
-      projectName: '',
-      projectId: '',
-      minPrice: '',
-      maxPrice: '',
-      avgPrice: '',
-      name: '',
-      unit: '',
-      price: '',
-      num: '',
-      handleType: '',
-      remark: ''
-    }],
+    offerList: [],
     incompleteList: [],
     showProjectSheet: false,
     showLibrary: false,
@@ -73,7 +56,29 @@ Page({
     taxRate: '',
     amountMoney: '',
     incompleteTotal: '',
-    offerListTotal: ''
+    offerListTotal: '',
+    offerResult: '',
+    compareList: [{
+      companyName: '企业1',
+      id: 0,
+      rate: ''
+    }, {
+      companyName: '企业2',
+      id: 1,
+      rate: ''
+    }, {
+      companyName: '企业3',
+      id: 2,
+      rate: ''
+    }],
+    coinNum: '',
+    coinRate: '',
+    coinLevel: '',
+    coinInsert: '',
+    workerId: '',
+    surveyId: '',
+    handlingType: '',
+    customerUser: ''
   },
   initArea () {
     try {
@@ -285,11 +290,37 @@ Page({
         orderId: _this.data.orderId
       }
     }, function (err, res) {
-      console.log(res)
-      _this.setData({
-        provinceCode: res.data.provinceCode,
-        cityCode: res.data.cityCode
+      let data = res.data
+      let taxData = res.taxList.filter(item => {
+        if (this.role === 12) {
+          return item.type === '1'
+        } else {
+          return item.type === '0'
+        }
       })
+      let result = {
+        ...data,
+        region: data.townCode,
+        offerList: res.offerList.filter(item => {
+          if (_this.role === 12) {
+            return item.offerType === '1'
+          } else {
+            return item.offerType === '0'
+          }
+        }),
+        incompleteList: res.incompleteList.filter(item => {
+          if (_this.role === 12) {
+            return item.type === '1'
+          } else {
+            return item.type === '0'
+          }
+        }),
+        taxRate: taxData[0] ? taxData[0].taxRate : 0,
+        amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
+        compareList: res.compareList,
+        hasTax: data.hasTax ? '0' : '1'
+      }
+      _this.setData(result)
     })
   },
   pickerChange (e) {
@@ -417,6 +448,138 @@ Page({
   back () {
     wx.navigateBack({
       delta: 1
+    })
+  },
+  submitOfferByWorker (e) {
+    let save = e.currentTarget.dataset.save
+    this.data.offerList.map(item => {
+      item.orderId = this.data.orderId
+      item.offerType = this.data.role == 12 ? 1 : 0
+    })
+    this.data.incompleteList.map(item => {
+      item.orderId = this.data.orderId
+      item.type = this.data.role == 12 ? 1 : 0
+    })
+    let params = {
+      orderId: this.data.orderId,
+      provinceCode: this.data.provinceCode,
+      cityCode: this.data.cityCode,
+      offerList: this.data.offerList, // 报价列表
+      incompleteList: this.data.incompleteList, // 残值列表
+      taxRate: this.data.taxRate, // 税率
+      amountMoney: this.data.amountMoney, // 税金额
+      tax: this.data.tax, // 税额
+      offerResult: this.data.offerResult, // 报价合计
+      offerListTotal: this.data.offerListTotal, // 报价列表合计
+      incompleteTotal: this.data.incompleteTotal, // 残值合计
+      hasTax: this.data.hasTax ? '1' : '0' // 是否有税
+    }
+    if (!this.offerList.length) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报价信息',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: save == 0 ? '/app/businessdamagenew/workerPriceSave' : '/app/businessdamagenew/workerPriceCommit',
+      method: 'POST',
+      data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  submitOfferByOffer (e) {
+    let save = e.currentTarget.dataset.save
+    this.data.offerList.map(item => {
+      item.orderId = this.data.orderId
+      item.offerType = this.data.role == 12 ? 1 : 0
+    })
+    this.data.incompleteList.map(item => {
+      item.orderId = this.data.orderId
+      item.type = this.data.role == 12 ? 1 : 0
+    })
+    this.data.compareList.map((item, index) => {
+      item.type = this.data.role == 12 ? 1 : 0
+      item.offer = item.rate * this.data.offerListTotal
+      item.orderId = this.data.orderId
+    })
+    let params = {
+      orderId: this.data.orderId,
+      provinceCode: this.data.provinceCode,
+      cityCode: this.data.cityCode,
+      offerList: this.data.offerList, // 报价列表
+      incompleteList: this.data.incompleteList, // 残值列表
+      taxRate: this.data.taxRate, // 税率
+      amountMoney: this.data.amountMoney, // 税金额
+      tax: this.data.tax, // 税额
+      offerResult: this.data.offerResult, // 报价合计
+      offerListTotal: this.data.offerListTotal, // 报价列表合计
+      incompleteTotal: this.data.incompleteTotal, // 残值合计
+      hasTax: this.data.hasTax ? '1' : '0', // 是否有税
+      compareList: this.data.compareList,
+      coinNum: this.data.coinNum,
+      coinRate: this.data.coinRate,
+      reward: this.data.coinInsert,
+      offerRemark: this.data.offerRemark,
+      customerUser: this.data.customerUser,
+      handlingType: this.data.handlingType,
+      workerId: this.data.workerId,
+      surveyId: this.data.surveyId
+    }
+    if (!this.offerList.length) {
+      wx.showToast({
+        mask: true,
+        title: '请填写报价信息',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: save == 0 ? '/app/businessdamagenew/offerPriceSave' : '/app/businessdamagenew/offerPriceCommit',
+      method: 'POST',
+      data: params
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
     })
   }
 })
