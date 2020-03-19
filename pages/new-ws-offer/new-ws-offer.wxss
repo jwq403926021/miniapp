@@ -16,6 +16,9 @@
   height: 2em;
   min-height: 2em;
 }
+.offerListRow input, .editable{
+  color: #000;
+}
 .h28 {
   line-height: 2em;
 }

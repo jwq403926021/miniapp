@@ -80,7 +80,8 @@ Page({
     workerId: '',
     surveyId: '',
     handlingType: '',
-    customerUser: ''
+    customerUser: '',
+    libraryDataList: []
   },
   initArea () {
     try {
@@ -215,7 +216,35 @@ Page({
     } else {
       nameMap[name] = e.detail.value
     }
-    this.setData(nameMap)
+    this.setData(nameMap, () => {
+      this.calculate()
+    })
+  },
+  calculate () {
+    let offerListTotal = 0
+    this.data.offerList.forEach(item => {
+      offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+    })
+    offerListTotal = parseFloat(offerListTotal.toFixed(2))
+
+    let incompleteTotal = 0
+    this.data.incompleteList.forEach(item => {
+      incompleteTotal += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+    })
+    incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
+
+    let tax = this.data.taxRate * this.data.amountMoney
+
+    let offerResult = this.data.hasTax ? Math.round((offerListTotal + incompleteTotal) * tax) : Math.round(offerListTotal + incompleteTotal)
+    let coinNum = offerListTotal - incompleteTotal
+
+    this.setData({
+      tax,
+      offerListTotal,
+      incompleteTotal,
+      offerResult,
+      coinNum
+    })
   },
   formatAreaOptions (sourceData) {
     let provinceArr = []
@@ -300,6 +329,7 @@ Page({
           return item.type === '0'
         }
       })
+      console.log(_this.data.role, data.status)
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
@@ -371,7 +401,58 @@ Page({
         limit: 20
       }
     }, function (err, res) {
-      console.log(res, '###')
+      res.page.records.forEach(i => {
+        i.disabled = _this.data.offerList.findIndex(item => i.id === item.id) != -1
+      })
+      _this.setData({
+        libraryDataList: res.page.records
+      })
+    })
+  },
+  addToOfferList (e) {
+    let index = e.currentTarget.dataset.index;
+    let {
+      id,
+      mainName,
+      mainId,
+      childId,
+      childName,
+      projectName,
+      projectId,
+      minPrice,
+      maxPrice,
+      avgPrice,
+      name,
+      unit,
+      price,
+      num = 1,
+      handleType = '1'
+    } = this.data.libraryDataList[index]
+    this.data.libraryDataList[index].disabled = true
+    let arr = [...this.data.offerList]
+    arr.push({
+      id,
+      mainName,
+      mainId,
+      childId,
+      childName,
+      projectName,
+      projectId,
+      minPrice,
+      maxPrice,
+      avgPrice,
+      name,
+      unit,
+      price: this.data.role == 12 ? 0 : price,
+      num,
+      remark: '',
+      handleType
+    })
+    this.setData({
+      libraryDataList: this.data.libraryDataList,
+      offerList: arr
+    }, () => {
+      this.calculate()
     })
   },
   resetFilter () {
@@ -386,7 +467,8 @@ Page({
         childName: '',
         projectId: '',
         projectName: ''
-      }
+      },
+      libraryDataList: []
     })
   },
   closeFilter () {
@@ -426,6 +508,8 @@ Page({
     })
     this.setData({
       incompleteList: arr
+    }, () => {
+      this.calculate()
     })
     wx.showToast({
       mask: true,
@@ -439,6 +523,8 @@ Page({
     this.data.offerList.splice(index, 1)
     this.setData({
       offerList: this.data.offerList
+    }, () => {
+      this.calculate()
     })
   },
   removeIncomplete (e) {
@@ -446,6 +532,8 @@ Page({
     this.data.incompleteList.splice(index, 1)
     this.setData({
       incompleteList: this.data.incompleteList
+    }, () => {
+      this.calculate()
     })
   },
   back () {
