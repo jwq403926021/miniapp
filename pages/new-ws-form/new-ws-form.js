@@ -54,7 +54,11 @@ Page({
       offerRemark: '',
       commentToSurvey: '',
       commentToOffer: '',
-      companyName: ''
+      companyName: '',
+      financeRemark: '',
+      manageMoney: '',
+      insurePay: '',
+      payWorker: '',
     }
   },
   onLoad: function (routeParams) {
@@ -62,9 +66,10 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: 12 // app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo.role
+      }, () => {
+        this.initDataById(routeParams.id)
       })
-      this.initDataById(routeParams.id)
     }
   },
   initDataById (id) {
@@ -140,8 +145,12 @@ Page({
         'taskData.workerId': data.workerId,
         'taskData.commentToSurvey': data.commentToSurvey,
         'taskData.commentToOffer': data.commentToOffer,
+        'taskData.financeRemark': data.financeRemark,
+        'taskData.manageMoney': data.manageMoney,
+        'taskData.insurePay': data.insurePay,
+        'taskData.payWorker': data.payWorker
       })
-      if (this.data.role == 12 && (data.status == 13 || data.status == 20)) {
+      if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
         _this.initReassignList()
       }
       _this.getRegionLabel()
@@ -681,6 +690,29 @@ Page({
     let _this = this
     let data = this.data.taskData
     let isSave = e.currentTarget.dataset.save
+    util.request({
+      path: isSave ? `/app/businessdamagenew/financeSave` : `/app/businessdamagenew/financeCommit`,
+      method: 'POST',
+      data: {
+        orderId: this.data.orderId,
+        financeRemark: this.data.taskData.financeRemark,
+        manageMoney: this.data.taskData.manageMoney,
+        insurePay: this.data.taskData.insurePay,
+        payWorker: this.data.taskData.payWorker,
+        cityManager: this.data.taskData.cityManager
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   workerSubmitComment () {
     let _this = this
@@ -730,7 +762,7 @@ Page({
       data: {
         orderId: this.data.orderId,
         information: this.data.taskData.information,
-        userId: this.data.workerValue,
+        userId: this.workListSource[this.data.workerValue].userId,
         cityManager: this.data.taskData.cityManager
       }
     }, function (err, res) {

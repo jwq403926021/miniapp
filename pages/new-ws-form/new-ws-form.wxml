@@ -441,19 +441,70 @@
             </view>
         </view>
 
-        <block wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20)}}">
+        <view class="weui-cells weui-cells_after-title" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20)}}">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">施工人员</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="workerChange" value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择施工人员'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+
+        <block wx:if="{{role == 22 && (taskData.status == 50 || taskData.status == 11)}}">
             <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">施工人员</view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">保险公司打款</view>
                     </view>
-                    <view class="weui-cell__bd">
-                        <picker bindchange="workerChange" value="{{workerValue}}"
-                                range="{{workerList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{workerLabel || '请选择施工人员'}}
-                            </view>
-                        </picker>
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.insurePay'
+                               value="{{taskData.insurePay}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.insurePay == null || taskData.insurePay == '') ? '-' : taskData.insurePay}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">管理费</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.manageMoney'
+                               value="{{taskData.manageMoney}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.manageMoney == null || taskData.manageMoney == '') ? '-' : taskData.manageMoney}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">打给施工方金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.payWorker'
+                               value="{{taskData.payWorker}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.payWorker == null || taskData.payWorker == '') ? '-' : taskData.payWorker}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__title">财务备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.financeRemark'
+                                  value="{{taskData.financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                        {{taskData.financeRemark || '-'}}
                     </view>
                 </view>
             </view>
