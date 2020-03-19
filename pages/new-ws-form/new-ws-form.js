@@ -141,7 +141,9 @@ Page({
         'taskData.commentToSurvey': data.commentToSurvey,
         'taskData.commentToOffer': data.commentToOffer,
       })
-      _this.initReassignList()
+      if (this.data.role == 12 && (data.status == 13 || data.status == 20)) {
+        _this.initReassignList()
+      }
       _this.getRegionLabel()
     })
   },

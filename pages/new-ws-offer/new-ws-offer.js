@@ -75,7 +75,7 @@ Page({
     }],
     coinNum: '',
     coinRate: '',
-    coinLevel: '',
+    coinLevel: 1,
     coinInsert: '',
     workerId: '',
     surveyId: '',
@@ -217,10 +217,10 @@ Page({
       nameMap[name] = e.detail.value
     }
     this.setData(nameMap, () => {
-      this.calculate()
+      this.calculate(name)
     })
   },
-  calculate () {
+  calculate (name) {
     let offerListTotal = 0
     this.data.offerList.forEach(item => {
       offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
@@ -236,14 +236,13 @@ Page({
     let tax = parseFloat(this.data.taxRate) * parseFloat(this.data.amountMoney)
 
     let offerResult = this.data.hasTax ? Math.round((offerListTotal + incompleteTotal) * tax) : Math.round(offerListTotal + incompleteTotal)
-    let coinNum = offerListTotal - incompleteTotal
+    let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? (offerListTotal - incompleteTotal) : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
       item.offer = offerListTotal * parseFloat(item.rate || 0)
       return item
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
-
     this.setData({
       coinInsert,
       tax,
@@ -283,6 +282,10 @@ Page({
   },
   init () {
     let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
@@ -321,10 +324,6 @@ Page({
     })
   },
   loadData () {
-    wx.showLoading({
-      mask: true,
-      title: '加载中'
-    })
     let _this = this
     util.request({
       path: `/app/businessdamagenew/damagePriceDetail`,
@@ -347,14 +346,14 @@ Page({
         ...data,
         region: data.townCode,
         offerList: res.offerList.filter(item => {
-          if (_this.role === 12) {
+          if (_this.data.role === 12) {
             return item.offerType === '1'
           } else {
             return item.offerType === '0'
           }
         }),
         incompleteList: res.incompleteList.filter(item => {
-          if (_this.role === 12) {
+          if (_this.data.role === 12) {
             return item.type === '1'
           } else {
             return item.type === '0'
@@ -363,12 +362,13 @@ Page({
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
-        hasTax: data.hasTax ? true : false
+        hasTax: data.hasTax ? true : false,
+        coinLevel: data.level || 1
       }
       _this.setData(result, () => {
         _this.calculate()
+        wx.hideLoading()
       })
-      wx.hideLoading()
     })
   },
   pickerChange (e) {
@@ -551,12 +551,13 @@ Page({
       this.calculate()
     })
   },
-  back () {
+  goBack () {
     wx.navigateBack({
       delta: 1
     })
   },
   submitOfferByWorker (e) {
+    let _this = this
     let save = e.currentTarget.dataset.save
     this.data.offerList.map(item => {
       item.orderId = this.data.orderId
@@ -603,7 +604,10 @@ Page({
           mask: true,
           title: '操作成功',
           icon: 'success',
-          duration: 1000
+          duration: 1000,
+          success () {
+            _this.goBack()
+          }
         })
       } else {
         wx.showToast({
@@ -616,6 +620,7 @@ Page({
     })
   },
   submitOfferByOffer (e) {
+    let _this = this
     let save = e.currentTarget.dataset.save
     this.data.offerList.map(item => {
       item.orderId = this.data.orderId
@@ -676,7 +681,10 @@ Page({
           mask: true,
           title: '操作成功',
           icon: 'success',
-          duration: 1000
+          duration: 1000,
+          success () {
+            _this.goBack()
+          }
         })
       } else {
         wx.showToast({
@@ -718,7 +726,10 @@ Page({
           mask: true,
           title: '操作成功',
           icon: 'success',
-          duration: 1000
+          duration: 1000,
+          success () {
+            _this.goBack()
+          }
         })
       } else {
         wx.showToast({

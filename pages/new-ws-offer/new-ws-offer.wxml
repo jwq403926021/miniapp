@@ -13,6 +13,14 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
+                    <view class="weui-label">工单状态</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{statusMap[status]}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
                     <view class="weui-label">区域</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
@@ -128,11 +136,11 @@
                                 <!--                            </view>-->
                             </view>
                             <view style="text-align: right;">
-                                <van-button type="primary" size="small" bindtap="addIncomplete" data-index="{{index}}">追加残值</van-button>
-                                <van-button type="danger" size="small" bindtap="removeOfferList" data-index="{{index}}">删除</van-button>
+                                <van-button wx:if="{{isAllowEdit}}" type="primary" size="small" bindtap="addIncomplete" data-index="{{index}}">追加残值</van-button>
+                                <van-button wx:if="{{isAllowEdit}}" type="danger" size="small" bindtap="removeOfferList" data-index="{{index}}">删除</van-button>
                             </view>
                         </view>
-                        <van-button block type="info" size="small" bindtap="openLibrary">追加报价 +</van-button>
+                        <van-button wx:if="{{isAllowEdit}}" block type="info" size="small" bindtap="openLibrary">追加报价 +</van-button>
                     </view>
                 </van-collapse-item>
                 <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
@@ -199,7 +207,7 @@
                             <!--                            </view>-->
                         </view>
                         <view style="text-align: right;">
-                            <van-button type="danger" size="small" bindtap="removeIncomplete" data-index="{{index}}">删除</van-button>
+                            <van-button wx:if="{{isAllowEdit}}" type="danger" size="small" bindtap="removeIncomplete" data-index="{{index}}">删除</van-button>
                         </view>
                     </view>
                 </van-collapse-item>
@@ -252,7 +260,7 @@
                                 <view class="weui-label">系数</view>
                             </view>
                             <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                                <text class="weui-input readonly">{{rate || '-'}}</text>
+                                <text class="weui-input readonly">{{item.rate || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
                                 <input placeholder-class="editable"class="weui-input" bindinput="inputgetName" data-name='rate' data-target="compareList" data-index="{{index}}"
