@@ -30,7 +30,7 @@
                     <van-switch style="margin-top: 20px;" size="18px" checked="{{ hasTax }}" bind:change="onSwitchChange" />
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{hasTax}}</text>
+                    <text class="weui-input readonly">{{hasTax == 1 || hasTax == true ? '是' : '否'}}</text>
                 </view>
             </view>
         </view>
@@ -447,7 +447,7 @@
                             <text class="weui-input readonly">{{item.unit}}</text>
                         </view>
                     </view>
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                    <view class="weui-cell weui-cell_input no-padding offerListRow" wx:if="{{role == 13}}">
                         <view class="weui-cell__hd">
                             <view class="weui-label">单价</view>
                         </view>

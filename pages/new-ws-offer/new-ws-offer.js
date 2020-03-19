@@ -111,7 +111,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: 13 // app.globalData.currentRegisterInfo.role
+          role: 12 // app.globalData.currentRegisterInfo.role
         }, () => {
           this.init(routeParams.id)
         })
@@ -238,10 +238,10 @@ Page({
     let offerResult = this.data.hasTax ? Math.round((offerListTotal + incompleteTotal) * tax) : Math.round(offerListTotal + incompleteTotal)
     let coinNum = offerListTotal - incompleteTotal
 
-    let compareList = this.data.compareList.forEach(item => {
-      item.offer = offerListTotal * parseFloat(item.rate)
+    let compareList = this.data.compareList.map(item => {
+      item.offer = offerListTotal * parseFloat(item.rate || 0)
+      return item
     })
-
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
 
     this.setData({
@@ -321,6 +321,10 @@ Page({
     })
   },
   loadData () {
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     let _this = this
     util.request({
       path: `/app/businessdamagenew/damagePriceDetail`,
@@ -331,7 +335,7 @@ Page({
     }, function (err, res) {
       let data = res.data
       let taxData = res.taxList.filter(item => {
-        if (this.role === 12) {
+        if (_this.data.role === 12) {
           return item.type === '1'
         } else {
           return item.type === '0'
@@ -359,9 +363,12 @@ Page({
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
-        hasTax: data.hasTax ? '0' : '1'
+        hasTax: data.hasTax ? true : false
       }
-      _this.setData(result)
+      _this.setData(result, () => {
+        _this.calculate()
+      })
+      wx.hideLoading()
     })
   },
   pickerChange (e) {
@@ -573,7 +580,7 @@ Page({
       incompleteTotal: this.data.incompleteTotal, // 残值合计
       hasTax: this.data.hasTax ? '1' : '0' // 是否有税
     }
-    if (!this.offerList.length) {
+    if (!this.data.offerList.length) {
       wx.showToast({
         mask: true,
         title: '请填写报价信息',
@@ -646,7 +653,7 @@ Page({
       workerId: this.data.workerId,
       surveyId: this.data.surveyId
     }
-    if (!this.offerList.length) {
+    if (!this.data.offerList.length) {
       wx.showToast({
         mask: true,
         title: '请填写报价信息',
