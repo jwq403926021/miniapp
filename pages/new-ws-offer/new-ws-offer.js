@@ -111,7 +111,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: 12 // app.globalData.currentRegisterInfo.role
+          role: 13 // app.globalData.currentRegisterInfo.role
         }, () => {
           this.init(routeParams.id)
         })
@@ -233,17 +233,25 @@ Page({
     })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
 
-    let tax = this.data.taxRate * this.data.amountMoney
+    let tax = parseFloat(this.data.taxRate) * parseFloat(this.data.amountMoney)
 
     let offerResult = this.data.hasTax ? Math.round((offerListTotal + incompleteTotal) * tax) : Math.round(offerListTotal + incompleteTotal)
     let coinNum = offerListTotal - incompleteTotal
 
+    let compareList = this.data.compareList.forEach(item => {
+      item.offer = offerListTotal * parseFloat(item.rate)
+    })
+
+    let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
+
     this.setData({
+      coinInsert,
       tax,
       offerListTotal,
       incompleteTotal,
       offerResult,
-      coinNum
+      coinNum,
+      compareList
     })
   },
   formatAreaOptions (sourceData) {
