@@ -59,7 +59,8 @@ Page({
       manageMoney: '',
       insurePay: '',
       payWorker: '',
-    }
+    },
+    activeVideo: ''
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -330,6 +331,16 @@ Page({
   },
   previewVideo: function (e) {
     let key = e.currentTarget.dataset.name
+    let id = e.currentTarget.id
+    // let src = this.data[key].map(item => {return item.path})
+    this.setData({
+      activeVideo: id
+    })
+  },
+  closePreviewVideo: function (e) {
+    this.setData({
+      activeVideo: ''
+    })
   },
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name

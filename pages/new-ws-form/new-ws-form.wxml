@@ -171,56 +171,56 @@
             </view>
         </view>
 
-        <block wx:if="{{orderId != null && taskData.status != 12 && role != 1 && role != 12}}">
-            <view class="weui-cells__title">查勘员信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.surveyUser || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员手机</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.surveyPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft" wx:if="{{taskData.surveyPhone}}">
-                        <view class="field-right-btn" data-phone="{{taskData.surveyPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cells__title">施工方信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">施工方姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.workerUser || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">施工方手机</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft" wx:if="{{taskData.workerPhone}}">
-                        <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </view>
-            </view>
-        </block>
+<!--        <block wx:if="{{orderId != null && taskData.status != 12 && role != 1 && role != 12}}">-->
+<!--            <view class="weui-cells__title">查勘员信息</view>-->
+<!--            <view class="weui-cells weui-cells_after-title">-->
+<!--                <view class="weui-cell weui-cell_input">-->
+<!--                    <view class="weui-cell__hd">-->
+<!--                        <view class="weui-label">查勘员姓名</view>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{taskData.surveyUser || '-'}}</text>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                    <view class="weui-cell__hd">-->
+<!--                        <view class="weui-label">查勘员手机</view>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{taskData.surveyPhone || '-'}}</text>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__ft" wx:if="{{taskData.surveyPhone}}">-->
+<!--                        <view class="field-right-btn" data-phone="{{taskData.surveyPhone}}" bindtap="dialPhone">-->
+<!--                            <van-icon name="phone"></van-icon>-->
+<!--                        </view>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--            </view>-->
+<!--            <view class="weui-cells__title">施工方信息</view>-->
+<!--            <view class="weui-cells weui-cells_after-title">-->
+<!--                <view class="weui-cell weui-cell_input">-->
+<!--                    <view class="weui-cell__hd">-->
+<!--                        <view class="weui-label">施工方姓名</view>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{taskData.workerUser || '-'}}</text>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                    <view class="weui-cell__hd">-->
+<!--                        <view class="weui-label">施工方手机</view>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>-->
+<!--                    </view>-->
+<!--                    <view class="weui-cell__ft" wx:if="{{taskData.workerPhone}}">-->
+<!--                        <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">-->
+<!--                            <van-icon name="phone"></van-icon>-->
+<!--                        </view>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--            </view>-->
+<!--        </block>-->
 
         <block wx:if="{{orderId != null && taskData.status != 12}}">
             <view class="weui-cells">
@@ -375,8 +375,8 @@
                                         无视频
                                     </view>
                                     <block wx:for="{{workVideo}}" wx:key="{{index}}">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workVideo" id="{{item.path}}">
-                                            <van-icon id="{{item.path}}" bindtap="previewImage" size="80px" name="video"></van-icon>
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewVideo" data-name="workVideo" id="{{item.path}}">
+                                            <van-icon id="{{item.path}}" bindtap="previewVideo" size="80px" data-name="workVideo" name="video"></van-icon>
 <!--                                            <image class="weui-uploader__img" src="{{item.thumbTempFilePath}}" mode="aspectFill"/>-->
 <!--                                            <van-icon wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
                                         </view>
@@ -388,6 +388,10 @@
                             </view>
                         </view>
                     </view>
+                </view>
+                <view wx:if="{{activeVideo}}" class="video-wrap">
+                    <video id="myVideo" src="{{activeVideo}}" controls></video>
+                    <button type="primary" bindtap="closePreviewVideo">关闭视频</button>
                 </view>
             </view>
 
