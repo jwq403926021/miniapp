@@ -377,8 +377,7 @@
                                     <block wx:for="{{workVideo}}" wx:key="{{index}}">
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewVideo" data-name="workVideo" id="{{item.path}}">
                                             <van-icon id="{{item.path}}" bindtap="previewVideo" size="80px" data-name="workVideo" name="video"></van-icon>
-<!--                                            <image class="weui-uploader__img" src="{{item.thumbTempFilePath}}" mode="aspectFill"/>-->
-<!--                                            <van-icon wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+                                            <van-icon wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}" catchtap="removeImage" data-name="workVideo" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
