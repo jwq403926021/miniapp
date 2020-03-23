@@ -10,6 +10,11 @@
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{orderId}}</text>
                     </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-content="{{orderId}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
+                    </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
@@ -59,6 +64,9 @@
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
+                        <view class="field-right-btn" data-content="{{taskData.customerPhone}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
                         <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" data-worker="1" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
@@ -90,6 +98,9 @@
                         <text class="weui-input readonly">{{taskData.damagedPhone || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft" wx:if="{{taskData.damagedPhone}}">
+                        <view class="field-right-btn" data-content="{{taskData.damagedPhone}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
                         <view class="field-right-btn" data-phone="{{taskData.damagedPhone}}" data-worker="1" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>

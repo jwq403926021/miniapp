@@ -440,6 +440,20 @@ Page({
       }
     })
   },
+  copy (e) {
+    let content = e.currentTarget.dataset.content+'';
+    wx.setClipboardData({
+      data: content,
+      success (res) {
+        wx.showToast({
+          mask: true,
+          title: '复制成功',
+          icon: 'success',
+          duration: 1000
+        })
+      }
+    })
+  },
   dialPhone (e) {
     let _this = this
     let phone = e.currentTarget.dataset.phone+'';

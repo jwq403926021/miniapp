@@ -205,7 +205,7 @@ textarea[disabled]{
 
 .field-right-btn {
     display:inline-block;
-    padding:0 1.5em;
+    padding:0 1em;
     line-height:2.58823529em;
     font-size:14px;
     color:#016eff;
