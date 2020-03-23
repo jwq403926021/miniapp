@@ -48,7 +48,7 @@
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
                 <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
                     <view>
-                        <view class="row-item offerListRow" wx:for="{{offerList}}" wx:key="{{index}}" >
+                        <view class="row-item offerListRow" wx:for="{{offerList}}" wx:key="index" >
                             <van-row>
                                 <van-col span="12">大类: {{item.mainName || '-'}}</van-col>
                                 <van-col span="12">小类: {{item.childName || '-'}}</van-col>
@@ -145,7 +145,7 @@
                 </van-collapse-item>
                 <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                     <view style="text-align: center;" wx:if="{{incompleteList.length == 0}}">无数据</view>
-                    <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="{{index}}" >
+                    <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
                         <view class="weui-cell weui-cell_input no-padding">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">名称</view>
@@ -246,7 +246,7 @@
                     </view>
                 </van-collapse-item>
                 <van-collapse-item wx:if="{{role == 13}}" title="比价平台" name="3">
-                    <view class="row-item offerListRow" wx:for="{{compareList}}" wx:key="{{index}}">
+                    <view class="row-item offerListRow" wx:for="{{compareList}}" wx:key="index">
                         <view class="weui-cell weui-cell_input no-padding offerListRow">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">企业</view>
@@ -414,7 +414,7 @@
                 <van-button size="small" style="margin-left: 5px" bindtap="closeFilter">关闭</van-button>
             </view>
             <view style="padding: 5px 0;">
-                <view class="row-item offerListRow" wx:for="{{libraryDataList}}" wx:key="{{index}}">
+                <view class="row-item offerListRow" wx:for="{{libraryDataList}}" wx:key="index">
                     <view class="weui-cell weui-cell_input no-padding offerListRow">
                         <view class="weui-cell__hd">
                             <view class="weui-label">大类</view>

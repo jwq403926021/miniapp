@@ -19,7 +19,7 @@
 
     </van-search>
   </view>
-  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-orderid="{{item.orderId}}" bindtap="goToHandleTask">
+  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.id}}" data-orderid="{{item.orderId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text">
@@ -46,7 +46,7 @@
         <van-cell title="不限" clickable data-name="-1" data-label="不限" bind:click="filterItemClick">
           <van-radio name="-1" />
         </van-cell>
-        <van-cell wx:for="{{statusList}}" wx:key="{{item.id}}" title="{{item.name}}" clickable data-name="{{item.id}}" data-label="{{item.name}}" bind:click="filterItemClick">
+        <van-cell wx:for="{{statusList}}" wx:key="id" title="{{item.name}}" clickable data-name="{{item.id}}" data-label="{{item.name}}" bind:click="filterItemClick">
           <van-radio name="{{item.id}}" />
         </van-cell>
       </van-cell-group>

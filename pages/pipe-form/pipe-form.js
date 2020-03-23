@@ -42,8 +42,6 @@ Page({
     liveImageFiles: []
   },
   onLoad: function (routeParams ) {
-    console.log('开锁 工单号：->', routeParams)
-    console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({
@@ -89,7 +87,6 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
-      console.log('##', data)
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
@@ -412,7 +409,6 @@ Page({
       method: 'POST',
       data: taskData
     }, function (err, res) {
-      console.log('工单新建：', res)
       if (res.code == 0) {
         let imgPaths = [...informationImageFiles]
         console.log('Upload Files:', imgPaths)
@@ -557,7 +553,6 @@ Page({
     }, function (err, res) {
       if (res.code == 0) {
         let imgPaths = [...liveImageFiles]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -588,7 +583,6 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.data.id)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
@@ -671,7 +665,6 @@ Page({
         urls.push(item.path)
       }
     })
-    console.log(urls, '?')
     common.downloadImages({
       urls: urls
     })

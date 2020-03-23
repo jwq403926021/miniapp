@@ -317,7 +317,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="bankImageFiles">
-                <block wx:for="{{bankImageFiles}}" wx:key="{{index}}">
+                <block wx:for="{{bankImageFiles}}" wx:key="index">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
@@ -336,7 +336,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="idImageFrontImageFiles">
-                <block wx:for="{{idImageFrontImageFiles}}" wx:key="{{index}}">
+                <block wx:for="{{idImageFrontImageFiles}}" wx:key="index">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
@@ -355,7 +355,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="idImageBackImageFiles">
-                <block wx:for="{{idImageBackImageFiles}}" wx:key="{{index}}">
+                <block wx:for="{{idImageBackImageFiles}}" wx:key="index">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                   </view>
@@ -374,7 +374,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="receiptImageImageFiles">
-                <block wx:for="{{receiptImageImageFiles}}" wx:key="{{index}}">
+                <block wx:for="{{receiptImageImageFiles}}" wx:key="index">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                     <van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -435,7 +435,7 @@
             <van-row wx:if="{{detailListArr.length == 0}}" custom-class="accident-detail-table-body">
               <van-col span="24">无数据</van-col>
             </van-row>
-            <van-row wx:if="{{detailListArr.length > 0}}" wx:for="{{detailListArr}}" wx:key="{{index}}" custom-class="accident-detail-table-body">
+            <van-row wx:if="{{detailListArr.length > 0}}" wx:for="{{detailListArr}}" wx:key="index" custom-class="accident-detail-table-body">
               <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
               </van-col>
@@ -542,7 +542,7 @@
             <van-row wx:if="{{detailListArr2.length == 0}}" custom-class="accident-detail-table-body">
               <van-col span="24">无数据</van-col>
             </van-row>
-            <van-row wx:if="{{detailListArr2.length > 0}}" wx:for="{{detailListArr2}}" wx:key="{{index}}" custom-class="accident-detail-table-body">
+            <van-row wx:if="{{detailListArr2.length > 0}}" wx:for="{{detailListArr2}}" wx:key="index" custom-class="accident-detail-table-body">
               <van-col span="5">
                 <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
               </van-col>
@@ -715,7 +715,7 @@
       <van-col span="5">类别</van-col>
       <van-col span="4">操作</van-col>
     </van-row>
-    <van-row custom-class="accident-detail-table-body" wx:for="{{medicineList}}" wx:key="{{index}}">
+    <van-row custom-class="accident-detail-table-body" wx:for="{{medicineList}}" wx:key="index">
       <van-col span="10">
         <text>{{item.name}}</text>
       </van-col>

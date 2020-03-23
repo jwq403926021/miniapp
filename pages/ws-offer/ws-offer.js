@@ -26,8 +26,6 @@ Page({
     total: 0
   },
   onLoad: function (routeParams) {
-    console.log('工单号：->', routeParams)
-    console.log('????', app.globalData.currentRegisterInfo)
     if (routeParams && routeParams.id) {
       this.setData({
         id: routeParams.id,

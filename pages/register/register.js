@@ -62,7 +62,6 @@ Page({
   onShow: function () {
     let value = wx.getStorageSync('status')
     let _isOurUser = (value == 2 || value == '') ? false : true
-    console.log('show-->',_isOurUser, value)
     this.setData({
       hasBindPhone: _isOurUser,
       isOurUser: _isOurUser,
@@ -74,7 +73,6 @@ Page({
     let _this = this
     let value = wx.getStorageSync('status')
     let _isOurUser = (value == 2 || value == '') ? false : true
-    console.log('load-->',_isOurUser, value)
     this.setData({
       hasBindPhone: _isOurUser,
       isOurUser: _isOurUser,
@@ -256,7 +254,6 @@ Page({
         "registeInfo.townCode": currentData ? currentData.townCode : ''
       })
     }
-    console.log('hasUserInfoAuth && hasBindPhone', this.data.hasUserInfoAuth,this.data.hasBindPhone)
   },
   submitRegiste() {
     let _this = this
@@ -505,7 +502,6 @@ Page({
       success(res) {
         wx.getClipboardData({
           success(res) {
-            console.log(res.data)
           }
         })
       }

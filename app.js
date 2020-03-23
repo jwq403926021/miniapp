@@ -89,7 +89,6 @@ App({
                 })
                 wx.hideTabBar()
               } else {
-                console.log('已注册，直接登录', res)
                 _this.globalData.currentRegisterInfo = res.userInfo
                 var page = getCurrentPages().pop();
                 if (page == undefined || page == null) return;

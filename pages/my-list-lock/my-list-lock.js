@@ -72,7 +72,6 @@ Page({
     });
   },
   filterOneChange (data) {
-    console.log('filterOneChange::', data)
   },
   filterItemClick (event) {
     const value = event.currentTarget.dataset.name

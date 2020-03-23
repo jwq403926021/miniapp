@@ -57,8 +57,6 @@ Page({
     })
   },
   onLoad: function (routeParams ) {
-    console.log('车险 工单号：->', routeParams)
-    console.log('当前用户信息->', app.globalData.currentRegisterInfo)
     this.initArea()
     if (routeParams && routeParams.id) {
       this.setData({

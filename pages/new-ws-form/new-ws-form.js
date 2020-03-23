@@ -197,7 +197,6 @@ Page({
   initArea () {
     try {
       let _this = this
-      console.log(app.globalData.currentRegisterInfo, app.globalData)
       _this.setData({
         region: app.globalData.currentRegisterInfo.townCode,
         'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
@@ -325,7 +324,6 @@ Page({
         that.setData({
           [key]: list
         })
-        console.log(list, key)
       }
     })
   },
@@ -394,7 +392,6 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
-    console.log('upload flowID:', this.data.orderId)
     wx.uploadFile({
       url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload',
       filePath: imgPaths[count].path,
@@ -668,7 +665,6 @@ Page({
     }, function (err, res) {
       if (res.code == 0) {
         let imgPaths = [...workLiveImageFiles, ...workVideo]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0

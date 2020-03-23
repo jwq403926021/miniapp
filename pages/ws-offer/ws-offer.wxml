@@ -19,7 +19,7 @@
                 报价合计：{{total}}
             </view>
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-                <van-collapse-item wx:for="{{data}}" wx:key="{{index}}" title="大类：{{item.category}} 大类金额：{{item.categoryTotalPrice}}" name="{{index + ''}}">
+                <van-collapse-item wx:for="{{data}}" wx:key="index" title="大类：{{item.category}} 大类金额：{{item.categoryTotalPrice}}" name="{{index + ''}}">
                     <van-row custom-class="accident-detail-table-header">
                         <van-col span="6">项目</van-col>
                         <van-col span="4">数量</van-col>
@@ -27,7 +27,7 @@
                         <van-col span="4">单价</van-col>
                         <van-col span="6">合价</van-col>
                     </van-row>
-                    <view wx:for="{{item.subCategory}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="{{subItem.id}}">
+                    <view wx:for="{{item.subCategory}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="id">
                         <van-row custom-class="accident-detail-table-body">
                             <van-col span="6">
                                 {{subItem.name}}

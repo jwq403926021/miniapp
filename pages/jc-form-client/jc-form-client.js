@@ -16,7 +16,6 @@ Page({
     for(let key in familyImages) {
       familyImages[key].forEach(item => {
         if (item.hasOwnProperty('clientIndex')) {
-          console.log('item.clientIndex:', item.clientIndex)
           clientIndexArr.push(parseInt(item.clientIndex))
         }
       })

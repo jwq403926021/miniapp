@@ -32,7 +32,7 @@
     </view>
     <view class="searchBtn" style="line-height: 90px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
   </view>
-  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="{{item.id}}" data-id="{{item.damageId}}" bindtap="goToHandleTask">
+  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.damageId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>

@@ -70,7 +70,6 @@ function downloadSaveFiles(obj) {
   }
 
   for (let i = 0; i < urlsLength; i++) {
-    console.log(app.globalData.currentRegisterInfo.role, '??', urls[i])
     downloadSaveFile({
       url: urls[i],
       success: function (res) {

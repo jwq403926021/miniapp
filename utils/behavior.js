@@ -14,7 +14,6 @@ module.exports = Behavior({
       }else{
         nameMap[name] = e.detail.value
       }
-      console.log(nameMap)
       this.setData(nameMap)
     }
   }

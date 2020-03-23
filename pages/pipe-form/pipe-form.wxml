@@ -85,7 +85,7 @@
                 <view class="no-image" wx:if="{{informationImageFiles.length == 0 && id != null && status != '12'}}">
                   无图片
                 </view>
-                <block wx:for="{{informationImageFiles}}" wx:key="{{index}}">
+                <block wx:for="{{informationImageFiles}}" wx:key="index">
                   <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
                     <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                     <van-icon wx:if="{{(id == null || status == '12') && role == '1'}}" catchtap="removeinformationImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
@@ -126,7 +126,7 @@
                   <view class="no-image" wx:if="{{liveImageFiles.length == 0 && status != '13'}}">
                     无图片
                   </view>
-                  <block wx:for="{{liveImageFiles}}" wx:key="{{index}}">
+                  <block wx:for="{{liveImageFiles}}" wx:key="index">
                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewLiveImage" id="{{item.path}}">
                       <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
                       <van-icon wx:if="{{status == '13' && role == 20}}" catchtap="removeLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>

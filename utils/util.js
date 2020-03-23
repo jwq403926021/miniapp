@@ -3,7 +3,6 @@ var Promise = require('./es6-promise.min')
 var constants = require('./constants')
 // util.request({ authorization: true, path: '/bindphone', method: 'POST', data: param }, cb)
 function request(param, cb) {
-  // console.log('request:'+JSON.stringify(param));
   var req = function (param) {
     return new Promise(function (resolve, reject) {
       param.data = param.data || {};
@@ -18,7 +17,6 @@ function request(param, cb) {
           'token': token
         },
         success: function (res) {
-          // console.log('request result:'+JSON.stringify(res))
           if (res.statusCode == 200) {
             if (res.data.code == 500 || res.data.CODE == 500){
               wx.showToast({
@@ -31,12 +29,10 @@ function request(param, cb) {
             }
             resolve(res.data)
           } else {
-            // console.log('requst 请求失败:'+JSON.stringify(res))
             reject(res)
           }
         },
         fail: function (res) {
-          // console.log('requst err'+JSON.stringify(res))
           reject(res)
         }
       })
@@ -68,12 +64,10 @@ function uploadFile(param, cb) {
       if (res.statusCode == 200) {
         cb(null, JSON.parse(res.data));
       } else {
-        // console.log('uploadFile 请求失败:'+JSON.stringify(res))
         cb(res);
       }
     },
     fail: function (res) {
-      // console.log('uploadFile err'+JSON.stringify(res))
       cb(res);
     }
   })

@@ -54,13 +54,10 @@ Page({
     });
   },
   statusFilterChange (data) {
-    console.log('statusFilterChange::', data)
   },
   typeFilterChange (data) {
-    console.log('typeFilterChange::', data)
   },
   dateFilterChange (data) {
-    console.log('dateFilterChange::', data)
   },
   statusFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;

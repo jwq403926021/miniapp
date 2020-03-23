@@ -167,7 +167,6 @@ Page({
         register: [],// 户口本、关系证明 2009
         source: []// 事故源 2010
       }
-      console.log('##', res)
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
@@ -654,7 +653,6 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     var that = this
-    console.log('upload flowID:', this.id, '????',this.data.id)
     let formData = {
       'flowId': that.id || that.data.id,
       'type': imgPaths[count].type
@@ -662,7 +660,6 @@ Page({
     if (imgPaths[count].hasOwnProperty('clientIndex') && imgPaths[count].clientIndex != null) {
       formData.clientIndex = imgPaths[count].clientIndex
     }
-    console.log('---->>', formData)
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
@@ -899,10 +896,8 @@ Page({
       method: 'PUT',
       data: data
     }, function (err, res) {
-      console.log('定损员处理 ：', res)
       if (res.code == 0) {
         let imgPaths = [...familyImagesList]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1112,7 +1107,6 @@ Page({
     let taskData = this.data.taskData
     let familyImagesList = []
     let isSave = e.currentTarget.dataset.save
-    console.log('合作商 完善参数：', taskData)
 
     let familyImages = wx.getStorageSync('familyImages')
     let result
@@ -1246,10 +1240,8 @@ Page({
         flowId: _this.data.flowId
       }
     }, function (err, res) {
-      console.log('被保险人完善 结果：', res)
       if (res.code == 0) {
         let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles, ...completeImageFiles]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1282,11 +1274,9 @@ Page({
     let _this = this
     let taskData = this.data.taskData
     let familyImagesList = []
-    console.log('合作商 协商 完善参数：', taskData)
 
     let familyImages = wx.getStorageSync('familyImages')
     let result = this.checkUploadImages(familyImages)
-    console.log('familyImages::', familyImages)
     if (result.flag) {
       result.data.map(item => {
         if (item.path.indexOf('https://') == -1){
@@ -1406,10 +1396,8 @@ Page({
         flowId: _this.data.flowId
       }
     }, function (err, res) {
-      console.log('被保险人完善 结果：', res)
       if (res.code == 0) {
         let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1442,11 +1430,9 @@ Page({
     let _this = this
     let taskData = this.data.taskData
     let familyImagesList = []
-    console.log('被保险人完善参数：', taskData)
 
     let familyImages = wx.getStorageSync('familyImages')
     let result = this.checkUploadImages(familyImages)
-    console.log('familyImages::', familyImages)
     if (result.flag) {
       result.data.map(item => {
         if (item.path.indexOf('https://') == -1){
@@ -1474,10 +1460,8 @@ Page({
         flowId: _this.data.flowId
       }
     }, function (err, res) {
-      console.log('被保险人完善 结果：', res)
       if (res.code == 0) {
         let imgPaths = familyImagesList
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1563,7 +1547,6 @@ Page({
       }
     })
 
-    console.log('工单新建 改善参数：', taskData)
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1573,11 +1556,9 @@ Page({
       method: 'POST',
       data: taskData
     }, function (err, res) {
-      console.log('工单新建 改善结果：', res)
       if (res.code == 0) {
         _this.id = res.data.flowId || _this.data.id
         let imgPaths = [...informationImageFiles]
-        console.log('Upload Files:', imgPaths)
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1720,7 +1701,6 @@ Page({
         urls.push(item.path)
       }
     })
-    console.log(urls, '?')
     common.downloadImages({
       urls: urls
     })

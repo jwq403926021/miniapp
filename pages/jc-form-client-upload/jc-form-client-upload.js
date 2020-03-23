@@ -24,7 +24,6 @@ Page({
   },
   onLoad: function (routeParams) {
     let familyImages = wx.getStorageSync('familyImages')
-    console.log('client index:', routeParams.index, 'type:', routeParams.type)
     this.setData({
       clientIndex: routeParams.index,
       type: routeParams.type,
@@ -83,7 +82,6 @@ Page({
     var _this = this;
     let imageTypeStr = e.currentTarget.dataset.imagetype
     let imageTypeNumber = _this.getImageTypeNumber(imageTypeStr);
-    console.log('imageTypeStr:', imageTypeStr, 'imageTypeNumber:', imageTypeNumber, _this.data.familyImages[imageTypeStr])
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -110,7 +108,6 @@ Page({
             [`familyImages.${imageTypeStr}`]: list
           });
         }
-        console.log('after choose Image::', _this.data.familyImages)
         wx.setStorageSync('familyImages', _this.data.familyImages)
       }
     })
@@ -140,7 +137,6 @@ Page({
           if (id) {
             common.deleteImage(id)
           }
-          console.log('after remove image', _this.data.familyImages)
           wx.setStorageSync('familyImages', _this.data.familyImages)
         } else if (sm.cancel) {
           console.log('用户点击取消')

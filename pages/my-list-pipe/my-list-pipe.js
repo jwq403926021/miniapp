@@ -72,7 +72,6 @@ Page({
     });
   },
   filterOneChange (data) {
-    console.log('filterOneChange::', data)
   },
   filterItemClick (event) {
     const value = event.currentTarget.dataset.name
@@ -140,7 +139,6 @@ Page({
     if (this.data.searchStatus != -1) {
       filter.status = this.data.searchStatus
     }
-    console.log(filter, this.data.searchKeyword, this.data.searchStatus)
     wx.showLoading({
       mask: true,
       title: '加载中'
