@@ -322,6 +322,10 @@
             </van-collapse>
         </view>
 
+        <view style="text-align: right; padding-right: 10px;">
+            <text class="weui-input readonly">报价合计：{{offerResult || '-'}}</text>
+        </view>
+
         <block wx:if="{{role == 13}}">
             <view class="weui-cells__title">施工人员留言</view>
             <view class="weui-cells weui-cells_after-title">
