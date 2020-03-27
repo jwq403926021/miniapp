@@ -825,17 +825,17 @@ Page({
       url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
     })
   },
-  getMyLocation () {
-    wx.chooseLocation({
-      success: (res) => {
-        this.setData({
-          'location.latitude': res.latitude,
-          'location.longitude': res.longitude
-        })
-      },
-      fail: (err) => {
-        console.log(err, '??')
-      }
-    })
-  }
+  // getMyLocation () {
+  //   wx.chooseLocation({
+  //     success: (res) => {
+  //       this.setData({
+  //         'location.latitude': res.latitude,
+  //         'location.longitude': res.longitude
+  //       })
+  //     },
+  //     fail: (err) => {
+  //       console.log(err, '??')
+  //     }
+  //   })
+  // }
 })
