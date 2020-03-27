@@ -24,7 +24,6 @@ Page({
     companyLevelLabel: '',
     companyLevelList: ['省级', '市级', '区级'],
 
-    showAskUserInfoBtn: true,
     hasUserInfoAuth: false,
     hasBindPhone: false,
     userInfo: null,
@@ -227,7 +226,6 @@ Page({
     }
     app.globalData.userInfo = data.detail.userInfo
     this.setData({
-      showAskUserInfoBtn: false,
       userInfo: app.globalData.userInfo,
       hasUserInfoAuth: true,
       'registeInfo.avatarUrl': app.globalData.userInfo.avatarUrl,

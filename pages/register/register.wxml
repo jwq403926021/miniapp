@@ -1,5 +1,5 @@
 <view class="page">
-    <view wx:if="{{showAskUserInfoBtn && !hasBindPhone}}" class="authAskBtnWrap">
+    <view wx:if="{{!hasBindPhone && !hasUserInfoAuth}}" class="authAskBtnWrap">
         <view style="text-align: center">
             <image class="userinfo-avatar" src="../../asset/image/logo.png" mode="cover"></image>
         </view>
@@ -10,11 +10,16 @@
             立即申请
         </button>
     </view>
-    <view class="userinfo" wx:if="{{(hasUserInfoAuth && !showAskUserInfoBtn) || hasBindPhone}}">
+    <view wx:if="{{hasBindPhone && !hasUserInfoAuth}}" class="authAskBtnWrap">
+        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary">
+            授权登陆
+        </button>
+    </view>
+    <view class="userinfo" wx:if="{{hasUserInfoAuth || hasBindPhone}}">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
-    <view class="page__bd" wx:if="{{hasUserInfoAuth && !hasBindPhone && !showAskUserInfoBtn}}">
+    <view class="page__bd" wx:if="{{hasUserInfoAuth && !hasBindPhone}}">
         <view class="weui-cells__title">绑定手机</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -45,7 +50,6 @@
             </view>
         </view>
     </view>
-    <!--wx:if="{{hasUserInfoAuth && hasBindPhone}}"-->
     <view class="page__bd" wx:if="{{hasUserInfoAuth && hasBindPhone}}">
         <view class="weui-cells__title">注册信息</view>
         <view class="weui-cells weui-cells_after-title">
