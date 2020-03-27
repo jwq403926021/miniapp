@@ -1630,12 +1630,14 @@ Page({
     let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'bank', 'source']
     let excludeThird = ['house', 'electrical', 'cloths', 'furniture', 'overall', 'certificate', 'identification', 'bank', 'register', 'source']
     for(let key in familyImages) {
-      familyImages[key].forEach(item => {
-        if (item.hasOwnProperty('clientIndex')) {
-          familyImagesList.push(item)
-          clientIndexArr.push(parseInt(item.clientIndex))
-        }
-      })
+      if (Array.isArray(familyImages[key])) {
+        familyImages[key].forEach(item => {
+          if (item.hasOwnProperty('clientIndex')) {
+            familyImagesList.push(item)
+            clientIndexArr.push(parseInt(item.clientIndex))
+          }
+        })
+      }
     }
     if (flag) { // flag true 无需校验 直接返回
       return {
@@ -1660,7 +1662,10 @@ Page({
             continue
           }
         }
-        let _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
+        let _arr = []
+        if (Array.isArray(familyImages[key])) {
+          _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
+        }
         if (key == 'identification' && clientIndexArr[i] == 0 && _arr.length != 2) {
           str = `客户身份证图片须传2张`
           break
@@ -1688,11 +1693,6 @@ Page({
         data: str
       }
     }
-    // for (let key in familyImages) {
-    //   familyImages[key].forEach(item => {
-    //     familyImagesList.push(item)
-    //   })
-    // }
   },
   downloadImages () {
     let urls = []
