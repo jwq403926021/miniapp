@@ -233,9 +233,9 @@ Page({
     })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
 
-    let tax = parseFloat(this.data.taxRate) * parseFloat(this.data.amountMoney)
+    let tax = parseFloat(this.data.taxRate) / 100 * parseFloat(this.data.amountMoney)
 
-    let offerResult = this.data.hasTax ? Math.round((offerListTotal - incompleteTotal) * this.data.taxRate) : Math.round(offerListTotal - incompleteTotal)
+    let offerResult = this.data.hasTax ? Math.round((offerListTotal - incompleteTotal) * parseFloat(this.data.taxRate) / 100) : Math.round(offerListTotal - incompleteTotal)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? (offerListTotal - incompleteTotal) : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
