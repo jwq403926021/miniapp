@@ -323,7 +323,7 @@
         </view>
 
         <view style="text-align: right; padding-right: 10px;">
-            <text class="weui-input readonly">报价合计：{{offerResult || '-'}}</text>
+            <text class="weui-input readonly">总报价：{{offerResult || '-'}}</text>
         </view>
 
         <block wx:if="{{role == 13}}">
@@ -351,10 +351,10 @@
         </view>
 
         <view>
-            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="1" custom-class="button-gap">施工人员提交报价</van-button>
-            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="0" custom-class="button-gap">施工人员暂存报价</van-button>
-            <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="1" custom-class="button-gap">报价员提交报价</van-button>
-            <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="0" custom-class="button-gap">报价员暂存报价</van-button>
+            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="1" custom-class="button-gap">提交</van-button>
+            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="0" custom-class="button-gap">暂存</van-button>
+            <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="1" custom-class="button-gap">提交</van-button>
+            <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="0" custom-class="button-gap">暂存</van-button>
             <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="reject" custom-class="button-gap">驳回</van-button>
             <van-button block bindtap="goBack">返回</van-button>
         </view>
@@ -475,7 +475,7 @@
                             <text class="weui-input readonly">{{item.remark}}</text>
                         </view>
                     </view>
-                    <van-button disabled="{{item.disabled}}" type="info" size="small" data-index="{{index}}" bind:click="addToOfferList">追加</van-button>
+                    <van-button type="info" size="small" data-index="{{index}}" bind:click="addToOfferList">追加</van-button>
                 </view>
             </view>
         </scroll-view>
