@@ -417,7 +417,7 @@ Page({
       }
     }, function (err, res) {
       res.page.records.forEach(i => {
-        i.disabled = _this.data.offerList.findIndex(item => i.id === item.id) != -1
+        i.disabled = _this.data.offerList.findIndex(item => i.id === item.id) != -1 && i.childName !== '其它'
       })
       _this.setData({
         libraryDataList: res.page.records
