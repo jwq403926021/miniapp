@@ -16,7 +16,7 @@
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view>
-        <text class="iconfont icon-sunhuai myicon2"></text>新物损工单
+        <text class="iconfont icon-sunhuai myicon2"></text>测试工单
       </view>
     </view>
 

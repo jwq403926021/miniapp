@@ -19,7 +19,7 @@
         <text class="iconfont icon-sunhuai myicon"></text>
       </view>
       <view>
-        新物损
+        测试工单
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
