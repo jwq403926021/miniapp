@@ -606,7 +606,6 @@ Page({
   },
   workHandleWS (e) {
     let _this = this
-    let data = this.data.taskData
     let isSave = e.currentTarget.dataset.save
     let workLiveImageFiles = []
     let workLiveImageAlreadyFiles = []
@@ -650,6 +649,24 @@ Page({
       isAcceptance,
       isAgree
     } = this.data.taskData
+    if (budgetPreliminary == null || budgetPreliminary == '') {
+      wx.showToast({
+        mask: true,
+        title: '初步估损金额不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    if (damageMoney == null || damageMoney == '') {
+      wx.showToast({
+        mask: true,
+        title: '受损方索赔金额不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({
       mask: true,
       title: '提交中'
