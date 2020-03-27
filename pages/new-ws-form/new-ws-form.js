@@ -60,7 +60,11 @@ Page({
       insurePay: '',
       payWorker: '',
     },
-    activeVideo: ''
+    activeVideo: '',
+    location: {
+      latitude: '',
+      longitude: ''
+    }
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -819,6 +823,19 @@ Page({
   bindTapToOffer (event) {
     wx.navigateTo({
       url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+    })
+  },
+  getMyLocation () {
+    wx.chooseLocation({
+      success: (res) => {
+        this.setData({
+          'location.latitude': res.latitude,
+          'location.longitude': res.longitude
+        })
+      },
+      fail: (err) => {
+        console.log(err, '??')
+      }
     })
   }
 })
