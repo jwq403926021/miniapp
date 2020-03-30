@@ -49,7 +49,7 @@
                 <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
                     <view>
                         <view class="row-item offerListRow" wx:for="{{offerList}}" wx:key="index" >
-                            <van-row>
+                            <van-row wx:if="{{role != 1}}">
                                 <van-col span="12">大类: {{item.mainName || '-'}}</van-col>
                                 <van-col span="12">小类: {{item.childName || '-'}}</van-col>
                             </van-row>
@@ -57,7 +57,7 @@
                                 <view class="weui-cell__hd">
                                     <view class="weui-label">类型</view>
                                 </view>
-                                <view class="weui-cell__bd" wx:if="{{!(item.childName == '其它') || !isAllowEdit}}">
+                                <view class="weui-cell__bd" wx:if="{{!item.custom || !isAllowEdit}}">
                                     <text class="weui-input readonly">{{item.projectName || '-'}}</text>
                                 </view>
                                 <view class="weui-cell__bd h28 editable" bindtap="openProjectSheet" data-name="projectId" data-index="{{index}}" wx:else>
@@ -68,7 +68,7 @@
                                 <view class="weui-cell__hd">
                                     <view class="weui-label">名称</view>
                                 </view>
-                                <view class="weui-cell__bd" wx:if="{{!(item.childName == '其它') || !isAllowEdit}}">
+                                <view class="weui-cell__bd" wx:if="{{!item.custom || !isAllowEdit}}">
                                     <text class="weui-input readonly">{{item.name || '-'}}</text>
                                 </view>
                                 <view class="weui-cell__bd" wx:else>
@@ -80,7 +80,7 @@
                                 <view class="weui-cell__hd">
                                     <view class="weui-label">单位</view>
                                 </view>
-                                <view class="weui-cell__bd" wx:if="{{!(item.childName == '其它') || !isAllowEdit}}">
+                                <view class="weui-cell__bd" wx:if="{{!item.custom || !isAllowEdit}}">
                                     <text class="weui-input readonly">{{item.unit || '-'}}</text>
                                 </view>
                                 <view class="weui-cell__bd" wx:else>
@@ -92,7 +92,7 @@
                                 <view class="weui-cell__hd">
                                     <view class="weui-label">单价</view>
                                 </view>
-                                <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.childName == '其它' || (item.remark && role == 13 && status == 41))}}">
+                                <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.custom || (item.remark && role == 13 && status == 41))}}">
                                     <text class="weui-input readonly">{{item.price || '-'}}</text>
                                 </view>
                                 <view class="weui-cell__bd" wx:else>
@@ -104,7 +104,7 @@
                                 <view class="weui-cell__hd">
                                     <view class="weui-label">数量</view>
                                 </view>
-                                <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.childName == '其它' || (item.remark && role == 13 && status == 41))}}">
+                                <view class="weui-cell__bd" wx:if="{{!(isAllowEdit || item.custom || (item.remark && role == 13 && status == 41))}}">
                                     <text class="weui-input readonly">{{item.num || '-'}}</text>
                                 </view>
                                 <view class="weui-cell__bd" wx:else>
