@@ -416,35 +416,31 @@ Page({
         limit: 20
       }
     }, function (err, res) {
-      if (res.page.records.length === 0 && _this.data.library.mainId != '' && _this.data.library.childId != '') {
-        res.page.records = [
-          {
-            'id': '',
-            'name': '其它',
-            'mainId': _this.data.library.mainId,
-            'childId': _this.data.library.childId,
-            'mainName': _this.data.library.mainName,
-            'childName': _this.data.library.childName,
-            'custom': true,
-            'insureType': 1,
-            'insureName': '物损',
-            'projectId': '',
-            'unit': '',
-            'price': '',
-            'maxPrice': '',
-            'minPrice': '',
-            'remark': '',
-            'status': 1,
-            'createTime': null,
-            'updateTime': null,
-            'createId': null,
-            'updateId': null,
-            'province': _this.data.provinceCode,
-            'city': _this.data.cityCode,
-            'projectName': ''
-          }
-        ]
-      }
+      res.page.records.push({
+        'id': '',
+        'name': '其它',
+        'mainId': _this.data.library.mainId,
+        'childId': _this.data.library.childId,
+        'mainName': _this.data.library.mainName,
+        'childName': _this.data.library.childName,
+        'custom': true,
+        'insureType': 1,
+        'insureName': '物损',
+        'projectId': '',
+        'unit': '',
+        'price': '',
+        'maxPrice': '',
+        'minPrice': '',
+        'remark': '',
+        'status': 1,
+        'createTime': null,
+        'updateTime': null,
+        'createId': null,
+        'updateId': null,
+        'province': _this.data.provinceCode,
+        'city': _this.data.cityCode,
+        'projectName': ''
+      })
       res.page.records.forEach(i => {
         i.disabled = _this.data.offerList.findIndex(item => i.id === item.id) != -1 && i.custom
       })
