@@ -287,7 +287,7 @@
                     </view>
                 </view>
 
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">报损金额</view>
                     </view>
@@ -301,7 +301,7 @@
                 </view>
 
                 <!--当 选择 咨询  并且 查勘员现场图片不为空 才可以看到初步估损金额 -->
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">初步估损金额</view>
                     </view>

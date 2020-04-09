@@ -35,7 +35,19 @@ Page({
       id: 1,
       name: '维修'
     }],
-    offerList: [],
+    proTypeList: [{
+      id: 0,
+      name: '咨询'
+    }, {
+      id: 1,
+      name: '施工'
+    }],
+    offerList: [{
+      proName: '',
+      proType: 0,
+      children: [],
+      projectTotal: 0
+    }],
     incompleteList: [],
     showProjectSheet: false,
     showLibrary: false,
@@ -81,7 +93,9 @@ Page({
     surveyId: '',
     handlingType: '',
     customerUser: '',
-    libraryDataList: []
+    libraryDataList: [],
+    operateProIndex: 0,
+    operateIndex: 0
   },
   initArea () {
     try {
@@ -111,7 +125,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: app.globalData.currentRegisterInfo.role
+          role: 12 // app.globalData.currentRegisterInfo.role
         }, () => {
           this.init(routeParams.id)
         })
@@ -132,14 +146,22 @@ Page({
       regionLabel: arr.length ? arr.join(',') : ''
     })
   },
+  openProTypeSheet (e) {
+    this.setData({
+      operateProIndex: e.currentTarget.dataset.pindex,
+      showproTypeSheet: true
+    })
+  },
   openProjectSheet (e) {
     this.setData({
+      operateProIndex: e.currentTarget.dataset.pindex,
       operateIndex: e.currentTarget.dataset.index,
       showProjectSheet: true
     })
   },
   openHandleTypeSheet (e) {
     this.setData({
+      operateProIndex: e.currentTarget.dataset.pindex,
       operateIndex: e.currentTarget.dataset.index,
       showHandleTypeSheet: true
     })
@@ -147,19 +169,23 @@ Page({
   onClose() {
     this.setData({
       showProjectSheet: false,
-      showHandleTypeSheet: false
+      showHandleTypeSheet: false,
+      showproTypeSheet: false
     });
   },
   onSelect(e) {
     let name = e.currentTarget.dataset.name;
+    let pindex = this.data.operateProIndex;
     let index = this.data.operateIndex;
     let target = e.currentTarget.dataset.target || 'offerList';
     let nameMap = {}
     if (name == 'project') {
-      nameMap[`${target}[${index}].projectId`] = e.detail.id
-      nameMap[`${target}[${index}].projectName`] = e.detail.name
-    } else {
-      nameMap[`${target}[${index}].handleType`] = e.detail.id
+      nameMap[`${target}[${pindex}].children[${index}].projectId`] = e.detail.id
+      nameMap[`${target}[${pindex}].children[${index}].projectName`] = e.detail.name
+    } else if (name == 'handleType'){
+      nameMap[`${target}[${pindex}].children[${index}].handleType`] = e.detail.id
+    } else if (name == 'proType'){
+      nameMap[`${target}[${pindex}].proType`] = e.detail.id
     }
     this.setData(nameMap)
     this.onClose()
@@ -201,20 +227,30 @@ Page({
       hasTax: event.detail
     })
   },
-  openLibrary () {
+  openLibrary (e) {
     this.setData({
+      operateProIndex: e.currentTarget.dataset.pindex,
       showLibrary: true
     })
   },
   inputgetName (e) {
     let name = e.currentTarget.dataset.name;
     let index = e.currentTarget.dataset.index;
-    let target = e.currentTarget.dataset.target || 'offerList';
+    let pindex = e.currentTarget.dataset.pindex;
+    let target = e.currentTarget.dataset.target || `offerList`;
     let nameMap = {}
-    if (e.currentTarget.dataset.hasOwnProperty('index')) {
-      nameMap[`${target}[${index}].${name}`] = e.detail.value
+    if (e.currentTarget.dataset.hasOwnProperty('pindex')) {
+      if (e.currentTarget.dataset.hasOwnProperty('index')) {
+        nameMap[`${target}[${pindex}].children[${index}].${name}`] = e.detail.value
+      } else {
+        nameMap[`${target}[${pindex}].${name}`] = e.detail.value
+      }
     } else {
-      nameMap[name] = e.detail.value
+      if (e.currentTarget.dataset.hasOwnProperty('index')) {
+        nameMap[`${target}[${index}].${name}`] = e.detail.value
+      } else {
+        nameMap[name] = e.detail.value
+      }
     }
     this.setData(nameMap, () => {
       this.calculate(name)
@@ -222,8 +258,13 @@ Page({
   },
   calculate (name) {
     let offerListTotal = 0
-    this.data.offerList.forEach(item => {
-      offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+    this.data.offerList.forEach(project => {
+      let projectTotal = 0
+      project.children.forEach(item => {
+        projectTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+        offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+      })
+      project.projectTotal = projectTotal
     })
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
 
@@ -233,10 +274,11 @@ Page({
     })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
 
-    let tax = parseFloat(this.data.taxRate) / 100 * parseFloat(this.data.amountMoney)
+    let amountMoney =  offerListTotal - incompleteTotal
+    let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
 
-    let offerResult = this.data.hasTax ? Math.round((offerListTotal - incompleteTotal) * parseFloat(this.data.taxRate) / 100) : Math.round(offerListTotal - incompleteTotal)
-    let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? (offerListTotal - incompleteTotal) : this.data.coinNum
+    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax) : Math.round(amountMoney)
+    let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
       item.offer = offerListTotal * parseFloat(item.rate || 0)
@@ -244,13 +286,15 @@ Page({
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
     this.setData({
+      amountMoney,
       coinInsert,
       tax,
       offerListTotal,
       incompleteTotal,
       offerResult,
       coinNum,
-      compareList
+      compareList,
+      offerList: this.data.offerList
     })
   },
   formatAreaOptions (sourceData) {
@@ -340,11 +384,13 @@ Page({
           return item.type === '0'
         }
       })
-      console.log(_this.data.role, data.status)
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
         region: data.townCode,
+        townCode: data.townCode,
+        cityCode: data.cityCode,
+        provinceCode: data.provinceCode,
         offerList: res.offerList.filter(item => {
           if (_this.data.role === 12) {
             return item.offerType === '1'
@@ -416,38 +462,6 @@ Page({
         limit: 20
       }
     }, function (err, res) {
-      if (res.page.records.length === 0 && _this.data.library.mainId != '' && _this.data.library.childId != '') {
-        res.page.records = [
-          {
-            'id': '',
-            'name': '其它',
-            'mainId': _this.data.library.mainId,
-            'childId': _this.data.library.childId,
-            'mainName': _this.data.library.mainName,
-            'childName': _this.data.library.childName,
-            'custom': true,
-            'insureType': 1,
-            'insureName': '物损',
-            'projectId': '',
-            'unit': '',
-            'price': '',
-            'maxPrice': '',
-            'minPrice': '',
-            'remark': '',
-            'status': 1,
-            'createTime': null,
-            'updateTime': null,
-            'createId': null,
-            'updateId': null,
-            'province': _this.data.provinceCode,
-            'city': _this.data.cityCode,
-            'projectName': ''
-          }
-        ]
-      }
-      res.page.records.forEach(i => {
-        i.disabled = _this.data.offerList.findIndex(item => i.id === item.id) != -1 && i.custom
-      })
       _this.setData({
         libraryDataList: res.page.records
       })
@@ -455,6 +469,7 @@ Page({
   },
   addToOfferList (e) {
     let index = e.currentTarget.dataset.index;
+    let pindex= this.data.operateProIndex;
     let {
       id,
       mainName,
@@ -473,9 +488,7 @@ Page({
       handleType = '1',
       custom = false
     } = this.data.libraryDataList[index]
-    this.data.libraryDataList[index].disabled = true
-    let arr = [...this.data.offerList]
-    arr.push({
+    this.data.offerList[pindex].children.push({
       id,
       mainName,
       mainId,
@@ -496,9 +509,15 @@ Page({
     })
     this.setData({
       libraryDataList: this.data.libraryDataList,
-      offerList: arr
+      offerList: this.data.offerList
     }, () => {
       this.calculate()
+      wx.showToast({
+        mask: true,
+        title: '追加成功',
+        icon: 'none',
+        duration: 500
+      })
     })
   },
   resetFilter () {
@@ -524,6 +543,7 @@ Page({
     })
   },
   addIncomplete (e) {
+    let pindex = e.currentTarget.dataset.pindex;
     let index = e.currentTarget.dataset.index;
     let {
       id,
@@ -537,7 +557,7 @@ Page({
       unit,
       price,
       num = 1
-    } = this.data.offerList[index]
+    } = this.data.offerList[pindex].children[index]
     let arr = this.data.incompleteList
     arr.push({
       id,
@@ -550,7 +570,9 @@ Page({
       name,
       unit,
       unitPrice: price,
-      num
+      num,
+      proName: this.data.offerList[pindex].proName,
+      remark: ''
     })
     this.setData({
       incompleteList: arr
@@ -565,8 +587,9 @@ Page({
     })
   },
   removeOfferList (e) {
+    let pindex = e.currentTarget.dataset.pindex;
     let index = e.currentTarget.dataset.index;
-    this.data.offerList.splice(index, 1)
+    this.data.offerList[pindex].children.splice(index, 1)
     this.setData({
       offerList: this.data.offerList
     }, () => {
@@ -761,6 +784,102 @@ Page({
           success () {
             _this.goBack()
           }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  addProjectItem () {
+    let arr = this.data.offerList
+    arr.push({
+      proName: '',
+      proType: 0,
+      children: [],
+      projectTotal: 0
+    })
+    this.setData({
+      offerList: arr
+    })
+  },
+  removeProjectItem (e) {
+    let index = e.currentTarget.dataset.index
+    this.data.offerList.splice(index, 1)
+    this.setData({
+      offerList: this.data.offerList
+    })
+  },
+  addCustomItem (e) {
+    this.data.offerList[this.data.operateProIndex].children.push({
+      'id': '',
+      'name': '',
+      'num': 1,
+      'mainId': this.data.library.mainId || '',
+      'childId': this.data.library.childId || '',
+      'mainName': this.data.library.mainName || '',
+      'childName': this.data.library.childName || '',
+      'custom': true,
+      'insureType': 1,
+      'insureName': '物损',
+      'projectId': '',
+      'unit': '',
+      'price': '',
+      'maxPrice': '',
+      'minPrice': '',
+      'remark': '',
+      'status': 1,
+      'createTime': null,
+      'updateTime': null,
+      'createId': null,
+      'updateId': null,
+      'province': this.data.provinceCode,
+      'city': this.data.cityCode,
+      'projectName': '',
+      'handleType': '1'
+    })
+    this.setData({
+      offerList: this.data.offerList
+    }, () => {
+      wx.showToast({
+        mask: true,
+        title: '追加成功',
+        icon: 'none',
+        duration: 500
+      })
+    })
+  },
+  addToLibrary (e) {
+    let pindex = e.currentTarget.dataset.pindex;
+    let index = e.currentTarget.dataset.index;
+    let data = this.data.offerList[pindex].children[index]
+
+    if (data.mainName == '' || data.childName == '' || data.unit == '' || data.price == '' || data.name == '' || data.projectId == '' ||
+        data.mainName == null || data.childName == null || data.unit == null || data.price == null || data.name == null || data.projectId == null) {
+      wx.showToast({
+        mask: true,
+        title: '大类名称 子类名称 类型 单位 单价 名称不能为空。',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    util.request({
+      path: `/app/businessdamagenew/insertPrice`,
+      method: 'POST',
+      data: data
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
         })
       } else {
         wx.showToast({
