@@ -36,11 +36,11 @@
 
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">客户姓名</view>
+                    <view class="weui-label">肇事方姓名</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
-                           value="{{taskData.customerUser}}" placeholder="客户姓名"/>
+                           value="{{taskData.customerUser}}" placeholder="肇事方姓名"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
@@ -48,11 +48,11 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">客户手机</view>
+                    <view class="weui-label">肇事方手机</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                           value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
+                           value="{{taskData.customerPhone}}" placeholder="请输入肇事方手机"/>
                 </view>
                 <block wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <view class="weui-cell__bd">
@@ -67,11 +67,11 @@
             </view>
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">受损人姓名</view>
+                    <view class="weui-label">损失方姓名</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedUser'
-                           value="{{taskData.damagedUser}}" placeholder="受损人姓名"/>
+                           value="{{taskData.damagedUser}}" placeholder="损失方姓名"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <text class="weui-input readonly">{{taskData.damagedUser || '-'}}</text>
@@ -79,11 +79,11 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">受损人手机</view>
+                    <view class="weui-label">损失方手机</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
-                           value="{{taskData.damagedPhone}}" placeholder="请输入受损人手机"/>
+                           value="{{taskData.damagedPhone}}" placeholder="请输入损失方手机"/>
                 </view>
                 <block wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <view class="weui-cell__bd">

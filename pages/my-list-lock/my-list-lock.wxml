@@ -11,7 +11,7 @@
     </view>
     <van-search
             value="{{ searchKeyword }}"
-            placeholder="请输入客户姓名"
+            placeholder="请输入肇事方姓名"
             use-action-slot
             custom-class="my-search"
             bind:change="searchKeywordChange">
@@ -28,7 +28,7 @@
         </view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
-          <view>客户：{{item.customName}}</view>
+          <view>肇事方：{{item.customName}}</view>
           <view>创建时间：{{item.createTime}}</view>
         </view>
       </view>

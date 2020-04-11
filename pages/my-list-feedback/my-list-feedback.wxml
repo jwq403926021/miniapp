@@ -11,7 +11,7 @@
     <!--</view>-->
     <!--<van-search-->
             <!--value="{{ searchKeyword }}"-->
-            <!--placeholder="请输入客户姓名"-->
+            <!--placeholder="请输入肇事方姓名"-->
             <!--use-action-slot-->
             <!--custom-class="my-search"-->
             <!--bind:change="searchKeywordChange">-->

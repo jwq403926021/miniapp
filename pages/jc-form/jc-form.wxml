@@ -37,11 +37,11 @@
             </view>
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">客户姓名</view>
+                    <view class="weui-label">肇事方姓名</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                           value="{{taskData.customerName}}" placeholder="客户姓名"/>
+                           value="{{taskData.customerName}}" placeholder="肇事方姓名"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
@@ -49,11 +49,11 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">客户手机</view>
+                    <view class="weui-label">肇事方手机</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                           value="{{taskData.customerPhone}}" placeholder="请输入客户手机"/>
+                           value="{{taskData.customerPhone}}" placeholder="请输入肇事方手机"/>
                 </view>
                 <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <view class="weui-cell__bd">

@@ -56,7 +56,7 @@ Page({
     if (index == 0) {
       wx.showToast({
         mask: true,
-        title: '无法删除客户项',
+        title: '无法删除肇事方项',
         icon: 'none',
         duration: 2000
       })

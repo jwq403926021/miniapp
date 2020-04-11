@@ -459,14 +459,14 @@ Page({
     if (taskData.autoInsuranceName == '') {
       wx.showToast({
         mask: true,
-        title: '请填写客户姓名',
+        title: '请填写肇事方姓名',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.autoInsuranceMobile, '请输入正确的客户手机号')
+    let isVaidcustomerPhone = this.checkPhone(taskData.autoInsuranceMobile, '请输入正确的肇事方手机号')
     if (!isVaidcustomerPhone) {
       return
     }

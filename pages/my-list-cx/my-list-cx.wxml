@@ -19,7 +19,7 @@
         <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.autoInsuranceId}}</view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
-          <view>客户：{{item.autoInsuranceName}}</view>
+          <view>肇事方：{{item.autoInsuranceName}}</view>
           <view>创建时间：{{item.createTime}}</view>
         </view>
       </view>

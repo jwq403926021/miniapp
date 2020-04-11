@@ -790,7 +790,7 @@ Page({
     // if (taskData.damagedUser == '' || taskData.customerUser == '') {
     //   wx.showToast({
     //     mask: true,
-    //     title: '请填写受损人姓名以及客户姓名',
+    //     title: '请填写损失方姓名以及肇事方姓名',
     //     icon: 'none',
     //     duration: 2000
     //   })
@@ -798,14 +798,14 @@ Page({
     // }
 
     if (taskData.customerPhone != ''){
-      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的客户手机号')
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的肇事方手机号')
       if (!isVaidcustomerPhone) {
         return
       }
     }
 
     if(taskData.damagedPhone != '') {
-      let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的受损人手机号')
+      let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的损失方手机号')
       if (!isVaiddamagedPhone) {
         return
       }
@@ -815,7 +815,7 @@ Page({
     if (taskData.damagedPhone == '' && taskData.customerPhone == ''){
       wx.showToast({
         mask: true,
-        title: '请填写客户手机、受损人手机',
+        title: '请填写肇事方手机、损失方手机',
         icon: 'none',
         duration: 2000
       })
