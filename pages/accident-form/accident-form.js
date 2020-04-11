@@ -788,7 +788,7 @@ Page({
     }
 
     if (taskData.customerPhone != '') {
-      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的肇事方手机号')
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
         return
       }
@@ -878,7 +878,7 @@ Page({
     }
 
     if (taskData.customerPhone != '') {
-      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的肇事方手机号')
+      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
         return
       }
@@ -995,14 +995,14 @@ Page({
     if (taskData.customerName == '') {
       wx.showToast({
         mask: true,
-        title: '请填写肇事方姓名',
+        title: '请填写肇事方',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的肇事方手机号')
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
     console.log(isVaidcustomerPhone, taskData.customerPhone)
     if (!isVaidcustomerPhone) {
       return

@@ -386,7 +386,7 @@ Page({
     // if (taskData.customMobile == '' && _this.data.informationImageFiles.length == 0) {
     //   wx.showToast({
     //     mask: true,
-    //     title: '肇事方手机和报案图片必须填写一项',
+    //     title: '沟通方式和报案图片必须填写一项',
     //     icon: 'none',
     //     duration: 2000
     //   })
@@ -394,7 +394,7 @@ Page({
     // }
 
     if (taskData.customMobile) {
-      let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的肇事方手机号')
+      let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
         return
       }
@@ -525,7 +525,7 @@ Page({
     if (taskData.customName == '') {
       wx.showToast({
         mask: true,
-        title: '请填写肇事方姓名',
+        title: '请填写肇事方',
         icon: 'none',
         duration: 2000
       })
@@ -535,7 +535,7 @@ Page({
     if (taskData.customMobile == '') {
       wx.showToast({
         mask: true,
-        title: '请填写肇事方手机',
+        title: '请填写沟通方式',
         icon: 'none',
         duration: 2000
       })

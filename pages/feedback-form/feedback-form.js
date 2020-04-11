@@ -99,7 +99,7 @@ Page({
       return
     }
 
-    // let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的肇事方手机号')
+    // let isVaidcustomerPhone = this.checkPhone(taskData.customMobile, '请输入正确的沟通方式')
     // if (!isVaidcustomerPhone) {
     //   return
     // }
