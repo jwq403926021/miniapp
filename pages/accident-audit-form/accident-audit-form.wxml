@@ -310,85 +310,85 @@
       </view>
     </block>
 
-    <view class="weui-cells__title">银行卡</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="bankImageFiles">
-                <block wx:for="{{bankImageFiles}}" wx:key="index">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">
-                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                  </view>
-                </block>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
+    <!--<view class="weui-cells__title">银行卡</view>-->
+    <!--<view class="weui-cells weui-cells_after-title">-->
+      <!--<view class="weui-cell">-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<view class="weui-uploader">-->
+            <!--<view class="weui-uploader__bd">-->
+              <!--<view class="weui-uploader__files" id="bankImageFiles">-->
+                <!--<block wx:for="{{bankImageFiles}}" wx:key="index">-->
+                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">-->
+                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                  <!--</view>-->
+                <!--</block>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+      <!--</view>-->
+    <!--</view>-->
 
-    <view class="weui-cells__title">身份证（正面）</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="idImageFrontImageFiles">
-                <block wx:for="{{idImageFrontImageFiles}}" wx:key="index">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">
-                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                  </view>
-                </block>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
+    <!--<view class="weui-cells__title">身份证（正面）</view>-->
+    <!--<view class="weui-cells weui-cells_after-title">-->
+      <!--<view class="weui-cell">-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<view class="weui-uploader">-->
+            <!--<view class="weui-uploader__bd">-->
+              <!--<view class="weui-uploader__files" id="idImageFrontImageFiles">-->
+                <!--<block wx:for="{{idImageFrontImageFiles}}" wx:key="index">-->
+                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">-->
+                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                  <!--</view>-->
+                <!--</block>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+      <!--</view>-->
+    <!--</view>-->
 
-    <view class="weui-cells__title">身份证（反面）</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="idImageBackImageFiles">
-                <block wx:for="{{idImageBackImageFiles}}" wx:key="index">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">
-                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                  </view>
-                </block>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
+    <!--<view class="weui-cells__title">身份证（反面）</view>-->
+    <!--<view class="weui-cells weui-cells_after-title">-->
+      <!--<view class="weui-cell">-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<view class="weui-uploader">-->
+            <!--<view class="weui-uploader__bd">-->
+              <!--<view class="weui-uploader__files" id="idImageBackImageFiles">-->
+                <!--<block wx:for="{{idImageBackImageFiles}}" wx:key="index">-->
+                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">-->
+                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                  <!--</view>-->
+                <!--</block>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+      <!--</view>-->
+    <!--</view>-->
 
-    <view class="weui-cells__title">医疗单证</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="receiptImageImageFiles">
-                <block wx:for="{{receiptImageImageFiles}}" wx:key="index">
-                  <view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">
-                    <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                    <van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                  </view>
-                </block>
-              </view>
-              <view class="weui-uploader__input-box" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-                <view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
+    <!--<view class="weui-cells__title">医疗单证</view>-->
+    <!--<view class="weui-cells weui-cells_after-title">-->
+      <!--<view class="weui-cell">-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<view class="weui-uploader">-->
+            <!--<view class="weui-uploader__bd">-->
+              <!--<view class="weui-uploader__files" id="receiptImageImageFiles">-->
+                <!--<block wx:for="{{receiptImageImageFiles}}" wx:key="index">-->
+                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">-->
+                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+                    <!--<van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+                  <!--</view>-->
+                <!--</block>-->
+              <!--</view>-->
+              <!--<view class="weui-uploader__input-box" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+                <!--<view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+      <!--</view>-->
+    <!--</view>-->
 
     <view class="weui-cells__title">审核信息</view>
     <view class="weui-cells weui-cells_after-title">
