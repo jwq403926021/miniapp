@@ -67,7 +67,7 @@
                                         <view class="weui-label">工程项目类型</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                                        <text class="weui-input readonly">{{project.proType || '-'}}</text>
+                                        <text class="weui-input readonly">{{project.proType !== '' ? proTypeList[project.proType].name : '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd h28 editable" bindtap="openProTypeSheet" data-name="proType" data-pindex="{{pindex}}" wx:else>
                                         {{project.proType !== '' ? proTypeList[project.proType].name : '请选择类型'}}
@@ -290,7 +290,7 @@
                             <view class="weui-label">税率 %</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                            <text class="weui-input readonly">{{taxRate || '-'}}</text>
+                            <text class="weui-input readonly">{{taxRate === '' || taxRate === null ?  '-' : taxRate}}</text>
                         </view>
                         <view class="weui-cell__bd" wx:else>
                             <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='taxRate'
@@ -302,7 +302,7 @@
                             <view class="weui-label">税额</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{tax || '-'}}</text>
+                            <text class="weui-input readonly">{{tax === '' || tax === null ?  '-' : tax}}</text>
                         </view>
                     </view>
                 </van-collapse-item>

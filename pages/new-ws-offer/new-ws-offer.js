@@ -42,12 +42,7 @@ Page({
       id: 1,
       name: '施工'
     }],
-    offerList: [{
-      proName: '',
-      proType: 0,
-      children: [],
-      projectTotal: 0
-    }],
+    offerList: [],
     incompleteList: [],
     showProjectSheet: false,
     showLibrary: false,
@@ -384,6 +379,28 @@ Page({
           return item.type === '0'
         }
       })
+      let list = res.offerList.filter(item => {
+        if (_this.data.role === 12) {
+          return item.offerType === '1'
+        } else {
+          return item.offerType === '0'
+        }
+      })
+      if (list.length > 0) {
+        list.forEach(item => {
+          let proIndex = _this.data.offerList.findIndex(ll => ll.proName === item.proName)
+          if (proIndex === -1) {
+            _this.data.offerList.push({
+              proName: item.proName,
+              proType: parseInt(item.proType),
+              children: [item],
+              projectTotal: 0
+            })
+          } else {
+            _this.data.offerList[proIndex].children.push(item)
+          }
+        })
+      }
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
@@ -391,13 +408,7 @@ Page({
         townCode: data.townCode,
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,
-        offerList: res.offerList.filter(item => {
-          if (_this.data.role === 12) {
-            return item.offerType === '1'
-          } else {
-            return item.offerType === '0'
-          }
-        }),
+        offerList: _this.data.offerList,
         incompleteList: res.incompleteList.filter(item => {
           if (_this.data.role === 12) {
             return item.type === '1'
