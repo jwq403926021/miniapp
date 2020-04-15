@@ -203,9 +203,13 @@ Page({
     })
   },
   onmethodChange (event) {
-    this.setData({
+    let params = {
       'taskData.method': event.detail
-    });
+    }
+    if (event.detail == 3) {
+      params['taskData.offer'] = 0
+    }
+    this.setData(params);
   },
   isLicenseNo(str){
     str = str.toUpperCase()
@@ -503,7 +507,7 @@ Page({
     if (taskData.offer == '') {
       wx.showToast({
         mask: true,
-        title: '请填写收款金额',
+        title: '请填写赔款金额',
         icon: 'none',
         duration: 2000
       })
@@ -543,7 +547,7 @@ Page({
     if (taskData.offer == '') {
       wx.showToast({
         mask: true,
-        title: '请填写收款金额',
+        title: '请填写赔款金额',
         icon: 'none',
         duration: 2000
       })

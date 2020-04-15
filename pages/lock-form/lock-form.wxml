@@ -146,11 +146,11 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">收款金额</view>
+            <view class="weui-label">赔款金额</view>
           </view>
           <view class="weui-cell__bd" wx:if="{{status == '13' && role == 19}}">
             <input class="weui-input" bindinput="inputgetName" data-name='taskData.offer'
-                   value="{{taskData.offer}}" placeholder="收款金额"/>
+                   value="{{taskData.offer}}" placeholder="赔款金额"/>
           </view>
           <view class="weui-cell__bd" wx:if="{{status == '11'}}">
             <text class="weui-input readonly">{{(taskData.offer == null || taskData.offer == '') ? '-' : taskData.offer}}</text>
@@ -166,6 +166,7 @@
                              bind:change="onmethodChange">
               <van-radio custom-class="fl mr5" name="1">施工</van-radio>
               <van-radio custom-class="fl mr5" name="2">赔付</van-radio>
+              <van-radio custom-class="fl mr5" name="3">注销</van-radio>
             </van-radio-group>
           </view>
           <view class="weui-cell__bd" wx:else>
