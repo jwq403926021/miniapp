@@ -627,10 +627,13 @@ Page({
     this.data.offerList.map(item => {
       item.orderId = this.data.orderId
       item.offerType = this.data.role == 12 ? 1 : 0
+      item.incompleteList = []
     })
     this.data.incompleteList.map(item => {
       item.orderId = this.data.orderId
       item.type = this.data.role == 12 ? 1 : 0
+      let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
+      this.data.offerList[proIndex].incompleteList.push(item)
     })
     let params = {
       orderId: this.data.orderId,
@@ -690,10 +693,13 @@ Page({
     this.data.offerList.map(item => {
       item.orderId = this.data.orderId
       item.offerType = this.data.role == 12 ? 1 : 0
+      item.incompleteList = []
     })
     this.data.incompleteList.map(item => {
       item.orderId = this.data.orderId
       item.type = this.data.role == 12 ? 1 : 0
+      let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
+      this.data.offerList[proIndex].incompleteList.push(item)
     })
     this.data.compareList.map((item, index) => {
       item.type = this.data.role == 12 ? 1 : 0

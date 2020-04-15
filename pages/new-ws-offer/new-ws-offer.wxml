@@ -67,10 +67,10 @@
                                         <view class="weui-label">工程项目类型</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                                        <text class="weui-input readonly">{{project.proType !== '' ? proTypeList[project.proType].name : '-'}}</text>
+                                        <text class="weui-input readonly">{{project.proType !== '' && project.proType !== null ? proTypeList[project.proType].name : '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd h28 editable" bindtap="openProTypeSheet" data-name="proType" data-pindex="{{pindex}}" wx:else>
-                                        {{project.proType !== '' ? proTypeList[project.proType].name : '请选择类型'}}
+                                        {{project.proType !== '' && project.proType !== null  ? proTypeList[project.proType].name : '请选择类型'}}
                                     </view>
                                 </view>
                             </view>
