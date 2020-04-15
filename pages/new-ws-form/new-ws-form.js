@@ -879,7 +879,7 @@ Page({
   },
   bindTapToOffer (event) {
     wx.navigateTo({
-      url: `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+      url: this.data.role === 1 ? `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
     })
   },
   // getMyLocation () {
