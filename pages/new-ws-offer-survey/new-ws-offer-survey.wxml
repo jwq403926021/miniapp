@@ -48,7 +48,7 @@
                     </picker>
                 </view>
             </view>
-            <text style="font-size:14px; text-align: right; color:#ccc; float:right;">**点击选择查看其他项目报价信息</text>
+            <text style="font-size:14px; text-align: right; color:#ccc; float:right;">*点击选择想要查看的工程项目报价信息</text>
         </view>
 
         <block wx:if="{{projectValue == 0}}">
