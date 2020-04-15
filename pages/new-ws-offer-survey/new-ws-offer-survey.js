@@ -15,7 +15,7 @@ Page({
       '43': '驳回',
       '50': '已报价',
     },
-    activeNames: ['0'],
+    activeNames: [],
     hasTax: true,
     commentToOffer: '',
     offerRemark: '',
@@ -26,12 +26,7 @@ Page({
     townCode: '',
     cityCode: '',
     provinceCode: '',
-    offerList: [{
-      proName: '',
-      proType: 0,
-      children: [],
-      projectTotal: 0
-    }],
+    offerList: [],
     incompleteList: [],
     tax: '',
     taxRate: '',
@@ -58,7 +53,13 @@ Page({
     coinNum: '',
     coinRate: '',
     coinLevel: 1,
-    coinInsert: ''
+    coinInsert: '',
+    projectListSource: [],
+    projectList: [],
+    projectValue: '',
+    projectLabel: '',
+    offerListSource: [],
+    incompleteListSource: []
   },
   initArea () {
     try {
@@ -88,7 +89,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: 12 // app.globalData.currentRegisterInfo.role
+          role: app.globalData.currentRegisterInfo.role
         }, () => {
           this.init(routeParams.id)
         })
@@ -163,6 +164,10 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
+      let projectListSource = [{
+        proName: '总计',
+        proId: '-999999999',
+      }]
       let taxData = res.taxList.filter(item => {
         if (_this.data.role === 12) {
           return item.type === '1'
@@ -170,29 +175,106 @@ Page({
           return item.type === '0'
         }
       })
+
+      let list = res.offerList.filter(item => {
+        return item.offerType === '0'
+      })
+      if (list.length > 0) {
+        list.forEach(item => {
+          let proIndex = _this.data.offerList.findIndex(ll => ll.proName === item.proName)
+          if (proIndex === -1) {
+            _this.data.offerList.push({
+              proName: item.proName,
+              proId: item.proId,
+              proType: parseInt(item.proType),
+              children: [item],
+              projectTotal: 0
+            })
+            projectListSource.push({
+              proName: item.proName,
+              proId: item.proId,
+            })
+          } else {
+            _this.data.offerList[proIndex].children.push(item)
+          }
+        })
+      }
+      let incompleteList = res.incompleteList.filter(item => {
+        return item.type === '0'
+      })
       let result = {
         ...data,
         region: data.townCode,
         townCode: data.townCode,
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,
-        offerList: res.offerList.filter(item => {
-          return item.offerType === '0'
-        }),
-        incompleteList: res.incompleteList.filter(item => {
-          return item.type === '0'
-        }),
+        offerList: _this.data.offerList,
+        incompleteList: incompleteList,
+        offerListSource: _this.data.offerList,
+        incompleteListSource: incompleteList,
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax ? true : false,
-        coinLevel: data.level || 1
+        coinLevel: data.level || 1,
+        projectListSource: projectListSource,
+        projectList: projectListSource.map(item => item.proName),
+        projectValue: 0,
+        projectLabel: projectListSource[0].proName,
       }
       _this.setData(result, () => {
         _this.calculate()
         wx.hideLoading()
       })
     })
+  },
+  projectChange (event) {
+    this.setData({
+      'projectValue': event.detail.value,
+      'projectLabel': this.data.projectListSource[event.detail.value].proName
+    }, () => {
+      this.calculate()
+    })
+  },
+  calculate (name) {
+    let _this = this
+    let offerList = this.data.projectValue == 0 ? this.data.offerListSource : this.data.offerListSource.filter(item => item.proId == _this.data.projectListSource[_this.data.projectValue].proId)
+    let incompleteList = this.data.projectValue == 0 ? this.data.incompleteListSource : this.data.incompleteListSource.filter(item => item.proId == _this.data.projectListSource[_this.data.projectValue].proId)
+    let offerListTotal = 0
+    offerList.forEach(project => {
+      let projectTotal = 0
+      project.children.forEach(item => {
+        projectTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+        offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+      })
+      project.projectTotal = projectTotal
+    })
+    offerListTotal = parseFloat(offerListTotal.toFixed(2))
+
+    let incompleteTotal = 0
+    incompleteList.forEach(item => {
+      incompleteTotal += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+    })
+    incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
+
+    let amountMoney =  offerListTotal - incompleteTotal
+    let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
+
+    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax) : Math.round(amountMoney)
+
+    this.setData({
+      amountMoney,
+      tax,
+      offerListTotal,
+      incompleteTotal,
+      offerResult,
+      offerList: offerList
+    })
+  },
+  onChange (event) {
+    this.setData({
+      activeNames: event.detail
+    });
   },
   goBack () {
     wx.navigateBack({

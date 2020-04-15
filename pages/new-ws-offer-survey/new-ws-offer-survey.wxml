@@ -35,197 +35,250 @@
                     <text class="weui-input readonly">{{hasTax == 1 || hasTax == true ? '是' : '否'}}</text>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">项目名称</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="projectChange" value="{{projectValue}}"
+                            range="{{projectList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{projectLabel}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <text style="font-size:14px; text-align: right; color:#ccc; float:right;">**点击选择查看其他项目报价信息</text>
         </view>
 
-        <view class="weui-cells__title">报价信息</view>
-        <view class="weui-cells_after-title">
-            <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-                <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
-                    <view>
-                        <view class="pro-wrap" wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project">
-                            <view class="row-item offerListRow">
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">工程项目名称</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{project.proName || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">工程项目类型</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{project.proType || '-'}}</text>
-                                    </view>
-                                </view>
-                            </view>
-                            <view class="row-item offerListRow" wx:for="{{project.children}}" wx:key="index">
-                                <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">大类</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.mainName || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">小类</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.childName || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">类型</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.projectName || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">名称</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.name || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">单位</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.unit || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">单价</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.price || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">数量</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.num || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">处理方式</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{item.handleType || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">备注</view>
-                                    </view>
-                                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                                        {{item.remark || '-'}}
-                                    </view>
-                                </view>
-                            </view>
-                            <view style="margin-bottom:10px; line-height: 24px;">报价小计：{{project.projectTotal}}</view>
-                        </view>
-                        <view style="margin: 10px 0;">
-                        </view>
+        <block wx:if="{{projectValue == 0}}">
+            <view class="weui-cells__title">报价信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报价合计</view>
                     </view>
-                </van-collapse-item>
-                <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
-                    <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
-                        <view class="weui-cell weui-cell_input no-padding">
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{offerListTotal || 0}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">残值合计</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{incompleteTotal || 0}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">税额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{tax || 0}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">总报价</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{offerResult || 0}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="weui-cells__title">报价信息</view>
+            <view class="weui-cells_after-title">
+                <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
+                    <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
+                        <view>
+                            <view class="pro-wrap" wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project">
+                                <view class="row-item offerListRow">
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">工程项目名称</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{project.proName || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">工程项目类型</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{['咨询', '施工'][project.proType] || '-'}}</text>
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="row-item offerListRow" wx:for="{{project.children}}" wx:key="index">
+                                    <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">大类</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.mainName || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">小类</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.childName || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">类型</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.projectName || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">名称</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.name || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">单位</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.unit || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">单价</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.price || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">数量</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.num || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">处理方式</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.handleType || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
+                                            <view class="weui-label">备注</view>
+                                        </view>
+                                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                                            {{item.remark || '-'}}
+                                        </view>
+                                    </view>
+                                </view>
+                                <view style="margin-bottom:10px; line-height: 24px;">报价小计：{{project.projectTotal}}</view>
+                            </view>
+                            <view style="margin: 10px 0;">
+                            </view>
+                        </view>
+                    </van-collapse-item>
+                    <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
+                        <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">工程项目名称</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.proName || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">名称</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.name || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">单位</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.unit || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">单价</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.unitPrice || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">数量</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.num || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">备注</view>
+                                </view>
+                                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                                    {{item.remark || '-'}}
+                                </view>
+                            </view>
+                        </view>
+                    </van-collapse-item>
+                    <van-collapse-item wx:if="{{hasTax}}" title="税金{{tax ? '  |  税:' + tax : ''}}" name="2">
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
                             <view class="weui-cell__hd">
-                                <view class="weui-label">工程项目名称</view>
+                                <view class="weui-label">金额</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.proName || '-'}}</text>
+                                <text class="weui-input readonly">{{amountMoney || '-'}}</text>
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
                             <view class="weui-cell__hd">
-                                <view class="weui-label">名称</view>
+                                <view class="weui-label">税率 %</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.name || '-'}}</text>
+                                <text class="weui-input readonly">{{taxRate || '-'}}</text>
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell weui-cell_input no-padding offerListRow">
                             <view class="weui-cell__hd">
-                                <view class="weui-label">单位</view>
+                                <view class="weui-label">税额</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.unit || '-'}}</text>
+                                <text class="weui-input readonly">{{tax || '-'}}</text>
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding">
-                            <view class="weui-cell__hd">
-                                <view class="weui-label">单价</view>
-                            </view>
-                            <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.unitPrice || '-'}}</text>
-                            </view>
-                        </view>
-                        <view class="weui-cell weui-cell_input no-padding">
-                            <view class="weui-cell__hd">
-                                <view class="weui-label">数量</view>
-                            </view>
-                            <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.num || '-'}}</text>
-                            </view>
-                        </view>
-                        <view class="weui-cell weui-cell_input no-padding">
-                            <view class="weui-cell__hd">
-                                <view class="weui-label">备注</view>
-                            </view>
-                            <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                                {{item.remark || '-'}}
-                            </view>
-                        </view>
-                    </view>
-                </van-collapse-item>
-                <van-collapse-item wx:if="{{hasTax}}" title="税金{{tax ? '  |  税:' + tax : ''}}" name="2">
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">金额</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{amountMoney || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">税率 %</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{taxRate || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">税额</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{tax || '-'}}</text>
-                        </view>
-                    </view>
-                </van-collapse-item>
-            </van-collapse>
-        </view>
-        <view style="text-align: right; padding-right: 10px;">
-            <text class="weui-input readonly">总报价：{{offerResult || 0}}</text>
-        </view>
+                    </van-collapse-item>
+                </van-collapse>
+            </view>
+            <view style="text-align: right; padding-right: 10px;">
+                <text class="weui-input readonly">项目总报价：{{offerResult || 0}}</text>
+            </view>
+        </block>
         <view>
-            <van-button block bindtap="goBack">返回</van-button>
+            <van-button type="primary" block bindtap="goBack">返回</van-button>
         </view>
     </view>
 </view>
