@@ -15,7 +15,7 @@ Page({
       '43': '驳回',
       '50': '已报价',
     },
-    activeNames: ['0'],
+    activeNames: [],
     hasTax: true,
     commentToOffer: '',
     offerRemark: '',
@@ -115,6 +115,10 @@ Page({
     }
   },
   onLoad: function (routeParams) {
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     try {
       this.initArea()
       if (routeParams && routeParams.id) {
@@ -321,10 +325,6 @@ Page({
   },
   init () {
     let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '加载中'
-    })
     util.request({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
@@ -388,10 +388,11 @@ Page({
       })
       if (list.length > 0) {
         list.forEach(item => {
-          let proIndex = _this.data.offerList.findIndex(ll => ll.proName === item.proName)
+          let proIndex = _this.data.offerList.findIndex(ll => ll.proId === item.proId)
           if (proIndex === -1) {
             _this.data.offerList.push({
               proName: item.proName,
+              proId: item.proId,
               proType: parseInt(item.proType),
               children: [item],
               projectTotal: 0
@@ -583,6 +584,7 @@ Page({
       unitPrice: price,
       num,
       proName: this.data.offerList[pindex].proName,
+      proId: this.data.offerList[pindex].proId,
       remark: ''
     })
     this.setData({
@@ -816,6 +818,7 @@ Page({
     let arr = this.data.offerList
     arr.push({
       proName: '',
+      proId: '',
       proType: 0,
       children: [],
       projectTotal: 0

@@ -75,13 +75,18 @@ Page({
       this.setData({
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
-      }, () => {
-        this.initDataById(routeParams.id)
       })
     }
   },
+  onShow: function () {
+    this.initDataById(this.data.orderId)
+  },
   initDataById (id) {
     let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: '/app/businessdamagenew/damageDetail',
       method: 'GET',
@@ -162,6 +167,7 @@ Page({
         _this.initReassignList()
       }
       _this.getRegionLabel()
+      wx.hideLoading()
     })
   },
   checkPhone (str, msg){
