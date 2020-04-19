@@ -79,7 +79,9 @@ Page({
     }
   },
   onShow: function () {
-    this.initDataById(this.data.orderId)
+    if (this.data.orderId) {
+      this.initDataById(this.data.orderId)
+    }
   },
   initDataById (id) {
     let _this = this

@@ -676,7 +676,9 @@ Page({
           icon: 'success',
           duration: 1000,
           success () {
-            _this.goBack()
+            wx.navigateTo({
+              url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
+            })
           }
         })
       } else {
