@@ -27,19 +27,19 @@
       <view><text class="iconfont icon-fangwuxinxi myicon2"></text>家财工单</view>
     </view>
 
-    <view class="my-list-item" bindtap="goToCxList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 16 || role == 17 || role == 22}}">
-      <view class="fr" style="margin-top:13px;">
-        <van-icon name="arrow" style="font-size: 18px;" />
-      </view>
-      <view><text class="iconfont icon-qiche301 myicon2"></text>车险工单</view>
-    </view>
+    <!--<view class="my-list-item" bindtap="goToCxList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 16 || role == 17 || role == 22}}">-->
+      <!--<view class="fr" style="margin-top:13px;">-->
+        <!--<van-icon name="arrow" style="font-size: 18px;" />-->
+      <!--</view>-->
+      <!--<view><text class="iconfont icon-qiche301 myicon2"></text>车险工单</view>-->
+    <!--</view>-->
 
-    <view class="my-list-item" bindtap="goToAccidentList" wx:if="{{role == 1 || role == 8 || role == 15 || role == 24}}">
-      <view class="fr" style="margin-top:13px;">
-        <van-icon name="arrow" style="font-size: 18px;" />
-      </view>
-      <view><text class="iconfont icon-accident myicon2"></text>意外险工单</view>
-    </view>
+    <!--<view class="my-list-item" bindtap="goToAccidentList" wx:if="{{role == 1 || role == 8 || role == 15 || role == 24}}">-->
+      <!--<view class="fr" style="margin-top:13px;">-->
+        <!--<van-icon name="arrow" style="font-size: 18px;" />-->
+      <!--</view>-->
+      <!--<view><text class="iconfont icon-accident myicon2"></text>意外险工单</view>-->
+    <!--</view>-->
 
     <view class="my-list-item" bindtap="goToLockList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 19 || role == 22}}">
       <view class="fr" style="margin-top:13px;">
