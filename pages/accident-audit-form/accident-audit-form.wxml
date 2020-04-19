@@ -1,748 +1,748 @@
 <view class="page">
-  <view class="page__bd">
-    <view class="weui-cells__title">基本信息</view>
-    <view class="weui-cells weui-cells_after-title">
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">工单号</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{id}}</text>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">工单状态</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{statusMap[status]}}</text>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">是否肇事方发起</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{isCustomerCreate}}</text>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">区域</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{regionLabel || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">报案号</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">报案人电话</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">报案人电话</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
-        </view>
-        <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
-          <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">
-            <van-icon name="phone"></van-icon>
-          </view>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">查勘员姓名</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.investigatorName || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">查勘员电话</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>
-        </view>
-        <view class="weui-cell__ft" wx:if="{{taskData.investigatorPhone}}">
-          <view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">
-            <van-icon name="phone"></van-icon>
-          </view>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">救治方式</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <van-checkbox-group value="{{ rescueType }}" custom-class="weui-input vertical" bind:change="onRescueTypeChange">
-            <van-checkbox custom-class="fl mr5" name="0">门急诊</van-checkbox>
-            <van-checkbox custom-class="fl mr5" name="1">住院</van-checkbox>
-          </van-checkbox-group>
-        </view>
-        <view class="weui-cell__bd"  wx:else>
-          <text class="weui-input readonly">{{rescueType.indexOf(0) != -1 ? '门急诊' : ''}} {{rescueType.indexOf(1) != -1 ? '住院' : ''}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_select">
-        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">结费方式</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <van-radio-group value="{{ payType }}" custom-class="weui-input vertical"
-                           bind:change="onPayTypeChange">
-            <van-radio custom-class="fl mr5" name="0">医保</van-radio>
-            <van-radio custom-class="fl mr5" name="1">自费</van-radio>
-          </van-radio-group>
-        </view>
-        <view class="weui-cell__bd"  wx:else>
-          <text class="weui-input readonly">{{['医保', '自费'][payType] || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">被保险人姓名</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.insurantName'
-                 value="{{taskData.insurantName}}" placeholder="请输入被保险人姓名"/>
-        </view>
-        <view class="weui-cell__bd" wx:else>
-          <text class="weui-input readonly">{{taskData.insurantName || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">伤者姓名</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredName'
-                 value="{{taskData.injuredName}}" placeholder="请输入伤者姓名"/>
-        </view>
-        <view class="weui-cell__bd" wx:else>
-          <text class="weui-input readonly">{{taskData.injuredName || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">伤者身份证号</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'
-                 value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>
-        </view>
-        <view class="weui-cell__bd" wx:else>
-          <text class="weui-input readonly">{{taskData.injuredId || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">开户行</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankName'
-                 value="{{taskData.bankName}}" placeholder="请输入开户行"/>
-        </view>
-        <view class="weui-cell__bd" wx:else>
-          <text class="weui-input readonly">{{taskData.bankName || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">银行卡号</view>
-        </view>
-        <view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <input class="weui-input" bindinput="inputgetName" data-name='taskData.bankNum'
-                 value="{{taskData.bankNum}}" placeholder="请输入银行卡号"/>
-        </view>
-        <view class="weui-cell__bd" wx:else>
-          <text class="weui-input readonly">{{taskData.bankNum || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">保险期间</view>
-        </view>
-        <block wx:if="{{role == 24 && (status == 31 || status == 33)}}">
-          <view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">
-            <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>
-          </view>
-          <view data-type="1" bindtap="openDatePicker" class="weui-cell__bd">
-            <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '结束日期'}}</text>
-          </view>
-        </block>
-        <block wx:else>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '-'}}</text>
-          </view>
-          <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '-'}}</text>
-          </view>
-        </block>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">累计赔款金额</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{taskData.amountSum || '-'}}</text>
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">初始门急诊总</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{rescueAmount || '-'}}</text>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">初始住院总</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{insuranceAmount || '-'}}</text>
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">初始已支付总</view>
-        </view>
-        <view class="weui-cell__bd">
-          <text class="weui-input readonly">{{insuranceAlreadyPay || '-'}}</text>
-        </view>
-      </view>
-
-      <block wx:if="{{insuranceText != '' && insuranceText != null}}">
-        <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-            <view class="weui-label">保单号</view>
-          </view>
-          <view class="weui-cell__bd">
-            <input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum' disabled="{{!(role == 24 && (status == 31 || status == 33))}}"
-                   value="{{taskData.insuranceNum}}" placeholder="保单号"/>
-          </view>
-        </view>
-        <view class="weui-cell weui-cell_select">
-          <view class="weui-cell__hd weui-cell__hd_in-select-after">
-            <view class="weui-label">保险公司名称</view>
-          </view>
-          <view class="weui-cell__bd companyNameWrap">
-            <text class="weui-input readonly">{{companyNameLabel || '-'}}</text>
-          </view>
-        </view>
-          <view class="weui-cell weui-cell_select">
-              <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                  <view class="weui-label">出险时间</view>
-              </view>
-              <view class="weui-cell__bd">
-                  <text class="weui-input readonly">{{timepickerLabel || '-'}}</text>
-              </view>
-          </view>
-          <view class="weui-cells__title">出险经过</view>
-          <view class="weui-cells weui-cells_after-title">
-              <view class="weui-cell">
-                  <view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;">
-                      {{insuranceText || '-'}}
-                  </view>
-              </view>
-          </view>
-      </block>
-    </view>
-
-    <block wx:if="{{(role == 25 && status == 32) || (taskData.managerText != '' && taskData.managerText != null)}}">
-      <view class="weui-cells__title">负责人建议</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd" wx:if="{{role == 25}}">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.managerText'
-                              value="{{taskData.managerText}}" placeholder="请输入文本" style="height: 7em"/>
-          </view>
-          <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-            {{taskData.managerText || '-'}}
-          </view>
-        </view>
-      </view>
-    </block>
-
-    <block wx:if="{{(role == 1 && status == 36) || (taskData.rejectText != '' && taskData.rejectText != null)}}">
-      <view class="weui-cells__title">驳回建议</view>
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__bd" wx:if="{{role == 1}}">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.rejectText'
-                              value="{{taskData.rejectText}}" placeholder="请输入文本" style="height: 7em"/>
-          </view>
-          <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-            {{taskData.rejectText || '-'}}
-          </view>
-        </view>
-      </view>
-    </block>
-
-    <!--<view class="weui-cells__title">银行卡</view>-->
+  <!--<view class="page__bd">-->
+    <!--<view class="weui-cells__title">基本信息</view>-->
     <!--<view class="weui-cells weui-cells_after-title">-->
-      <!--<view class="weui-cell">-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">工单号</view>-->
+        <!--</view>-->
         <!--<view class="weui-cell__bd">-->
-          <!--<view class="weui-uploader">-->
-            <!--<view class="weui-uploader__bd">-->
-              <!--<view class="weui-uploader__files" id="bankImageFiles">-->
-                <!--<block wx:for="{{bankImageFiles}}" wx:key="index">-->
-                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">-->
-                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
-                  <!--</view>-->
-                <!--</block>-->
-              <!--</view>-->
-            <!--</view>-->
+          <!--<text class="weui-input readonly">{{id}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">工单状态</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{statusMap[status]}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">是否肇事方发起</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{isCustomerCreate}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">区域</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{regionLabel || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">报案号</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">报案人电话</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerName || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">报案人电话</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">-->
+          <!--<view class="field-right-btn" data-phone="{{taskData.customerPhone}}" bindtap="dialPhone">-->
+            <!--<van-icon name="phone"></van-icon>-->
           <!--</view>-->
         <!--</view>-->
       <!--</view>-->
-    <!--</view>-->
 
-    <!--<view class="weui-cells__title">身份证（正面）</view>-->
-    <!--<view class="weui-cells weui-cells_after-title">-->
-      <!--<view class="weui-cell">-->
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">查勘员姓名</view>-->
+        <!--</view>-->
         <!--<view class="weui-cell__bd">-->
-          <!--<view class="weui-uploader">-->
-            <!--<view class="weui-uploader__bd">-->
-              <!--<view class="weui-uploader__files" id="idImageFrontImageFiles">-->
-                <!--<block wx:for="{{idImageFrontImageFiles}}" wx:key="index">-->
-                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">-->
-                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
-                  <!--</view>-->
-                <!--</block>-->
-              <!--</view>-->
-            <!--</view>-->
+          <!--<text class="weui-input readonly">{{taskData.investigatorName || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">查勘员电话</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.investigatorPhone || '-'}}</text>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__ft" wx:if="{{taskData.investigatorPhone}}">-->
+          <!--<view class="field-right-btn" data-phone="{{taskData.investigatorPhone}}" bindtap="dialPhone">-->
+            <!--<van-icon name="phone"></van-icon>-->
           <!--</view>-->
         <!--</view>-->
       <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_select">-->
+        <!--<view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+          <!--<view class="weui-label">救治方式</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<van-checkbox-group value="{{ rescueType }}" custom-class="weui-input vertical" bind:change="onRescueTypeChange">-->
+            <!--<van-checkbox custom-class="fl mr5" name="0">门急诊</van-checkbox>-->
+            <!--<van-checkbox custom-class="fl mr5" name="1">住院</van-checkbox>-->
+          <!--</van-checkbox-group>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd"  wx:else>-->
+          <!--<text class="weui-input readonly">{{rescueType.indexOf(0) != -1 ? '门急诊' : ''}} {{rescueType.indexOf(1) != -1 ? '住院' : ''}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_select">-->
+        <!--<view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+          <!--<view class="weui-label">结费方式</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<van-radio-group value="{{ payType }}" custom-class="weui-input vertical"-->
+                           <!--bind:change="onPayTypeChange">-->
+            <!--<van-radio custom-class="fl mr5" name="0">医保</van-radio>-->
+            <!--<van-radio custom-class="fl mr5" name="1">自费</van-radio>-->
+          <!--</van-radio-group>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd"  wx:else>-->
+          <!--<text class="weui-input readonly">{{['医保', '自费'][payType] || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">被保险人姓名</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.insurantName'-->
+                 <!--value="{{taskData.insurantName}}" placeholder="请输入被保险人姓名"/>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:else>-->
+          <!--<text class="weui-input readonly">{{taskData.insurantName || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">伤者姓名</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredName'-->
+                 <!--value="{{taskData.injuredName}}" placeholder="请输入伤者姓名"/>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:else>-->
+          <!--<text class="weui-input readonly">{{taskData.injuredName || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">伤者身份证号</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.injuredId'-->
+                 <!--value="{{taskData.injuredId}}" placeholder="请输入伤者身份证号"/>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:else>-->
+          <!--<text class="weui-input readonly">{{taskData.injuredId || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">开户行</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.bankName'-->
+                 <!--value="{{taskData.bankName}}" placeholder="请输入开户行"/>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:else>-->
+          <!--<text class="weui-input readonly">{{taskData.bankName || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">银行卡号</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.bankNum'-->
+                 <!--value="{{taskData.bankNum}}" placeholder="请输入银行卡号"/>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd" wx:else>-->
+          <!--<text class="weui-input readonly">{{taskData.bankNum || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">保险期间</view>-->
+        <!--</view>-->
+        <!--<block wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
+          <!--<view data-type="0" bindtap="openDatePicker" class="weui-cell__bd">-->
+            <!--<text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '开始日期'}}</text>-->
+          <!--</view>-->
+          <!--<view data-type="1" bindtap="openDatePicker" class="weui-cell__bd">-->
+            <!--<text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '结束日期'}}</text>-->
+          <!--</view>-->
+        <!--</block>-->
+        <!--<block wx:else>-->
+          <!--<view class="weui-cell__bd">-->
+            <!--<text class="weui-input readonly">{{insuranceBeginLabel ? insuranceBeginLabel : '-'}}</text>-->
+          <!--</view>-->
+          <!--<view class="weui-cell__bd">-->
+            <!--<text class="weui-input readonly">{{insuranceEndLabel ? insuranceEndLabel : '-'}}</text>-->
+          <!--</view>-->
+        <!--</block>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">累计赔款金额</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{taskData.amountSum || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">初始门急诊总</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{rescueAmount || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">初始住院总</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{insuranceAmount || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+      <!--<view class="weui-cell weui-cell_input">-->
+        <!--<view class="weui-cell__hd">-->
+          <!--<view class="weui-label">初始已支付总</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell__bd">-->
+          <!--<text class="weui-input readonly">{{insuranceAlreadyPay || '-'}}</text>-->
+        <!--</view>-->
+      <!--</view>-->
+
+      <!--<block wx:if="{{insuranceText != '' && insuranceText != null}}">-->
+        <!--<view class="weui-cell weui-cell_input">-->
+          <!--<view class="weui-cell__hd">-->
+            <!--<view class="weui-label">保单号</view>-->
+          <!--</view>-->
+          <!--<view class="weui-cell__bd">-->
+            <!--<input class="weui-input" bindinput="inputgetName" data-name='taskData.insuranceNum' disabled="{{!(role == 24 && (status == 31 || status == 33))}}"-->
+                   <!--value="{{taskData.insuranceNum}}" placeholder="保单号"/>-->
+          <!--</view>-->
+        <!--</view>-->
+        <!--<view class="weui-cell weui-cell_select">-->
+          <!--<view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+            <!--<view class="weui-label">保险公司名称</view>-->
+          <!--</view>-->
+          <!--<view class="weui-cell__bd companyNameWrap">-->
+            <!--<text class="weui-input readonly">{{companyNameLabel || '-'}}</text>-->
+          <!--</view>-->
+        <!--</view>-->
+          <!--<view class="weui-cell weui-cell_select">-->
+              <!--<view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+                  <!--<view class="weui-label">出险时间</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                  <!--<text class="weui-input readonly">{{timepickerLabel || '-'}}</text>-->
+              <!--</view>-->
+          <!--</view>-->
+          <!--<view class="weui-cells__title">出险经过</view>-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+              <!--<view class="weui-cell">-->
+                  <!--<view class="weui-cell__bd" style="min-height: 7em; font-size: 14px;">-->
+                      <!--{{insuranceText || '-'}}-->
+                  <!--</view>-->
+              <!--</view>-->
+          <!--</view>-->
+      <!--</block>-->
     <!--</view>-->
 
-    <!--<view class="weui-cells__title">身份证（反面）</view>-->
-    <!--<view class="weui-cells weui-cells_after-title">-->
-      <!--<view class="weui-cell">-->
-        <!--<view class="weui-cell__bd">-->
-          <!--<view class="weui-uploader">-->
-            <!--<view class="weui-uploader__bd">-->
-              <!--<view class="weui-uploader__files" id="idImageBackImageFiles">-->
-                <!--<block wx:for="{{idImageBackImageFiles}}" wx:key="index">-->
-                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">-->
-                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
-                  <!--</view>-->
-                <!--</block>-->
-              <!--</view>-->
-            <!--</view>-->
+    <!--<block wx:if="{{(role == 25 && status == 32) || (taskData.managerText != '' && taskData.managerText != null)}}">-->
+      <!--<view class="weui-cells__title">负责人建议</view>-->
+      <!--<view class="weui-cells weui-cells_after-title">-->
+        <!--<view class="weui-cell">-->
+          <!--<view class="weui-cell__bd" wx:if="{{role == 25}}">-->
+                    <!--<textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.managerText'-->
+                              <!--value="{{taskData.managerText}}" placeholder="请输入文本" style="height: 7em"/>-->
+          <!--</view>-->
+          <!--<view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>-->
+            <!--{{taskData.managerText || '-'}}-->
           <!--</view>-->
         <!--</view>-->
       <!--</view>-->
-    <!--</view>-->
+    <!--</block>-->
 
-    <!--<view class="weui-cells__title">医疗单证</view>-->
-    <!--<view class="weui-cells weui-cells_after-title">-->
-      <!--<view class="weui-cell">-->
-        <!--<view class="weui-cell__bd">-->
-          <!--<view class="weui-uploader">-->
-            <!--<view class="weui-uploader__bd">-->
-              <!--<view class="weui-uploader__files" id="receiptImageImageFiles">-->
-                <!--<block wx:for="{{receiptImageImageFiles}}" wx:key="index">-->
-                  <!--<view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">-->
-                    <!--<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
-                    <!--<van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
-                  <!--</view>-->
-                <!--</block>-->
-              <!--</view>-->
-              <!--<view class="weui-uploader__input-box" wx:if="{{role == 24 && (status == 31 || status == 33)}}">-->
-                <!--<view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>-->
-              <!--</view>-->
-            <!--</view>-->
+    <!--<block wx:if="{{(role == 1 && status == 36) || (taskData.rejectText != '' && taskData.rejectText != null)}}">-->
+      <!--<view class="weui-cells__title">驳回建议</view>-->
+      <!--<view class="weui-cells weui-cells_after-title">-->
+        <!--<view class="weui-cell">-->
+          <!--<view class="weui-cell__bd" wx:if="{{role == 1}}">-->
+                    <!--<textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.rejectText'-->
+                              <!--value="{{taskData.rejectText}}" placeholder="请输入文本" style="height: 7em"/>-->
+          <!--</view>-->
+          <!--<view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>-->
+            <!--{{taskData.rejectText || '-'}}-->
           <!--</view>-->
         <!--</view>-->
       <!--</view>-->
+    <!--</block>-->
+
+    <!--&lt;!&ndash;<view class="weui-cells__title">银行卡</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;<view class="weui-cells weui-cells_after-title">&ndash;&gt;-->
+      <!--&lt;!&ndash;<view class="weui-cell">&ndash;&gt;-->
+        <!--&lt;!&ndash;<view class="weui-cell__bd">&ndash;&gt;-->
+          <!--&lt;!&ndash;<view class="weui-uploader">&ndash;&gt;-->
+            <!--&lt;!&ndash;<view class="weui-uploader__bd">&ndash;&gt;-->
+              <!--&lt;!&ndash;<view class="weui-uploader__files" id="bankImageFiles">&ndash;&gt;-->
+                <!--&lt;!&ndash;<block wx:for="{{bankImageFiles}}" wx:key="index">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<view class="weui-uploader__file image-preview-wrap" bindtap="previewbankImageFiles" id="{{item.path}}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</view>&ndash;&gt;-->
+                <!--&lt;!&ndash;</block>&ndash;&gt;-->
+              <!--&lt;!&ndash;</view>&ndash;&gt;-->
+            <!--&lt;!&ndash;</view>&ndash;&gt;-->
+          <!--&lt;!&ndash;</view>&ndash;&gt;-->
+        <!--&lt;!&ndash;</view>&ndash;&gt;-->
+      <!--&lt;!&ndash;</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;</view>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<view class="weui-cells__title">身份证（正面）</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;<view class="weui-cells weui-cells_after-title">&ndash;&gt;-->
+      <!--&lt;!&ndash;<view class="weui-cell">&ndash;&gt;-->
+        <!--&lt;!&ndash;<view class="weui-cell__bd">&ndash;&gt;-->
+          <!--&lt;!&ndash;<view class="weui-uploader">&ndash;&gt;-->
+            <!--&lt;!&ndash;<view class="weui-uploader__bd">&ndash;&gt;-->
+              <!--&lt;!&ndash;<view class="weui-uploader__files" id="idImageFrontImageFiles">&ndash;&gt;-->
+                <!--&lt;!&ndash;<block wx:for="{{idImageFrontImageFiles}}" wx:key="index">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageFrontImageFiles" id="{{item.path}}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</view>&ndash;&gt;-->
+                <!--&lt;!&ndash;</block>&ndash;&gt;-->
+              <!--&lt;!&ndash;</view>&ndash;&gt;-->
+            <!--&lt;!&ndash;</view>&ndash;&gt;-->
+          <!--&lt;!&ndash;</view>&ndash;&gt;-->
+        <!--&lt;!&ndash;</view>&ndash;&gt;-->
+      <!--&lt;!&ndash;</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;</view>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<view class="weui-cells__title">身份证（反面）</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;<view class="weui-cells weui-cells_after-title">&ndash;&gt;-->
+      <!--&lt;!&ndash;<view class="weui-cell">&ndash;&gt;-->
+        <!--&lt;!&ndash;<view class="weui-cell__bd">&ndash;&gt;-->
+          <!--&lt;!&ndash;<view class="weui-uploader">&ndash;&gt;-->
+            <!--&lt;!&ndash;<view class="weui-uploader__bd">&ndash;&gt;-->
+              <!--&lt;!&ndash;<view class="weui-uploader__files" id="idImageBackImageFiles">&ndash;&gt;-->
+                <!--&lt;!&ndash;<block wx:for="{{idImageBackImageFiles}}" wx:key="index">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<view class="weui-uploader__file image-preview-wrap" bindtap="previewidImageBackImageFiles" id="{{item.path}}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</view>&ndash;&gt;-->
+                <!--&lt;!&ndash;</block>&ndash;&gt;-->
+              <!--&lt;!&ndash;</view>&ndash;&gt;-->
+            <!--&lt;!&ndash;</view>&ndash;&gt;-->
+          <!--&lt;!&ndash;</view>&ndash;&gt;-->
+        <!--&lt;!&ndash;</view>&ndash;&gt;-->
+      <!--&lt;!&ndash;</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;</view>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<view class="weui-cells__title">医疗单证</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;<view class="weui-cells weui-cells_after-title">&ndash;&gt;-->
+      <!--&lt;!&ndash;<view class="weui-cell">&ndash;&gt;-->
+        <!--&lt;!&ndash;<view class="weui-cell__bd">&ndash;&gt;-->
+          <!--&lt;!&ndash;<view class="weui-uploader">&ndash;&gt;-->
+            <!--&lt;!&ndash;<view class="weui-uploader__bd">&ndash;&gt;-->
+              <!--&lt;!&ndash;<view class="weui-uploader__files" id="receiptImageImageFiles">&ndash;&gt;-->
+                <!--&lt;!&ndash;<block wx:for="{{receiptImageImageFiles}}" wx:key="index">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<view class="weui-uploader__file image-preview-wrap" bindtap="previewreceiptImageImageFiles" id="{{item.path}}">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<van-icon catchtap="removereceiptImageImageFiles" wx:if="{{role == 24 && (status == 31 || status == 33)}}" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</view>&ndash;&gt;-->
+                <!--&lt;!&ndash;</block>&ndash;&gt;-->
+              <!--&lt;!&ndash;</view>&ndash;&gt;-->
+              <!--&lt;!&ndash;<view class="weui-uploader__input-box" wx:if="{{role == 24 && (status == 31 || status == 33)}}">&ndash;&gt;-->
+                <!--&lt;!&ndash;<view class="weui-uploader__input" bindtap="choosereceiptImageImageFiles"></view>&ndash;&gt;-->
+              <!--&lt;!&ndash;</view>&ndash;&gt;-->
+            <!--&lt;!&ndash;</view>&ndash;&gt;-->
+          <!--&lt;!&ndash;</view>&ndash;&gt;-->
+        <!--&lt;!&ndash;</view>&ndash;&gt;-->
+      <!--&lt;!&ndash;</view>&ndash;&gt;-->
+    <!--&lt;!&ndash;</view>&ndash;&gt;-->
+
+    <!--<view class="weui-cells__title">审核信息</view>-->
+    <!--<view class="weui-cells weui-cells_after-title">-->
+      <!--<van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">-->
+        <!--<van-collapse-item title="门急诊医疗费核损" wx:if="{{rescueType.indexOf(0) != -1}}" name="0">-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">门急诊限额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientLimitedNum'-->
+                       <!--value="{{taskData.outpatientLimitedNum}}" placeholder="请输入门急诊限额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">免赔额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientDeductible'-->
+                       <!--value="{{taskData.outpatientDeductible}}" placeholder="请输入免赔额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">给付比例</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientPercent'-->
+                       <!--value="{{taskData.outpatientPercent}}" placeholder="请输入给付比例"/>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+          <!--<view class="mtb10">-->
+            <!--<van-row custom-class="accident-detail-table-header">-->
+              <!--<van-col span="5">名称</van-col>-->
+              <!--<van-col span="4">自付比例</van-col>-->
+              <!--<van-col span="4">金额</van-col>-->
+              <!--<van-col span="4">核损</van-col>-->
+              <!--<van-col span="4">自费</van-col>-->
+              <!--<van-col span="3">操作</van-col>-->
+            <!--</van-row>-->
+            <!--<van-row wx:if="{{detailListArr.length == 0}}" custom-class="accident-detail-table-body">-->
+              <!--<van-col span="24">无数据</van-col>-->
+            <!--</van-row>-->
+            <!--<van-row wx:if="{{detailListArr.length > 0}}" wx:for="{{detailListArr}}" wx:key="index" custom-class="accident-detail-table-body">-->
+              <!--<van-col span="5">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='name' value="{{item.name}}" placeholder="输入名称"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='price' value="{{item.price}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='ownprice' value="{{item.ownprice}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="3">-->
+                <!--<text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="0" bindtap="removeItem">删除</text>-->
+                <!--<text wx:else>-</text>-->
+              <!--</van-col>-->
+            <!--</van-row>-->
+            <!--<view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">-->
+              <!--<view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="0" bindtap="addCustomNewItem">自定义 +</view>-->
+              <!--<view class="addtext" style="width: 50%; float: right;" data-type="0" bindtap="addNewItem">添加 +</view>-->
+            <!--</view>-->
+          <!--</view>-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">门急诊总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.rescueAmount'-->
+                       <!--value="{{taskData.rescueAmount}}" placeholder="请输入门急诊总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">门急诊核损总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientSelfPrice' disabled-->
+                       <!--value="{{taskData.outpatientSelfPrice}}" placeholder="请输入门急诊核损总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">门急诊自费总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientAmount' disabled-->
+                       <!--value="{{taskData.outpatientAmount}}" placeholder="请输入门急诊自费总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">门急诊理算金额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientComputedPrice' disabled-->
+                       <!--value="{{taskData.outpatientComputedPrice}}" placeholder="门急诊理算金额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</van-collapse-item>-->
+        <!--<van-collapse-item title="住院医疗费核损" wx:if="{{rescueType.indexOf(1) != -1}}" name="1">-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">每人保险金额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientLimitedNum'-->
+                       <!--value="{{taskData.inpatientLimitedNum}}" placeholder="每人保险金额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">免赔额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientDeductible'-->
+                       <!--value="{{taskData.inpatientDeductible}}" placeholder="请输入免赔额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">给付比例</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientPercent'-->
+                       <!--value="{{taskData.inpatientPercent}}" placeholder="请输入给付比例"/>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+          <!--<view class="mtb10">-->
+            <!--<van-row custom-class="accident-detail-table-header">-->
+              <!--<van-col span="5">名称</van-col>-->
+              <!--<van-col span="4">自付比例</van-col>-->
+              <!--<van-col span="4">金额</van-col>-->
+              <!--<van-col span="4">核损</van-col>-->
+              <!--<van-col span="4">自费</van-col>-->
+              <!--<van-col span="3">操作</van-col>-->
+            <!--</van-row>-->
+            <!--<van-row wx:if="{{detailListArr2.length == 0}}" custom-class="accident-detail-table-body">-->
+              <!--<van-col span="24">无数据</van-col>-->
+            <!--</van-row>-->
+            <!--<van-row wx:if="{{detailListArr2.length > 0}}" wx:for="{{detailListArr2}}" wx:key="index" custom-class="accident-detail-table-body">-->
+              <!--<van-col span="5">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='name' value="{{item.name}}" placeholder="输入名称"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='price' value="{{item.price}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col span="4">-->
+                <!--<input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='ownprice' value="{{item.ownprice}}" placeholder="输入金额"/>-->
+              <!--</van-col>-->
+              <!--<van-col custom-class="deleteColor" span="3">-->
+                <!--<text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="1" bindtap="removeItem">删除</text>-->
+                <!--<text wx:else>-</text>-->
+              <!--</van-col>-->
+            <!--</van-row>-->
+            <!--<view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">-->
+              <!--<view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="1" bindtap="addCustomNewItem">自定义 +</view>-->
+              <!--<view class="addtext" style="width: 50%; float: right;" data-type="1" bindtap="addNewItem">添加 +</view>-->
+            <!--</view>-->
+          <!--</view>-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell weui-cell_input" wx:if="{{payType == 0}}">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">医保已支付</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" disabled bindinput="bindDataAndCalculate" data-name='taskData.insuranceAlreadyPay'-->
+                       <!--value="{{taskData.insuranceAlreadyPay}}" placeholder="医保已支付"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.insuranceAmount'-->
+                       <!--value="{{taskData.insuranceAmount}}" placeholder="请输入住院总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院核损总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientSelfPrice' disabled-->
+                       <!--value="{{taskData.inpatientSelfPrice}}" placeholder="请输入住院核损总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院自费总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientAmount' disabled-->
+                       <!--value="{{taskData.inpatientAmount}}" placeholder="请输入住院自费总额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院理算金额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientComputedPrice' disabled-->
+                       <!--value="{{taskData.inpatientComputedPrice}}" placeholder="请输入住院理算金额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</van-collapse-item>-->
+        <!--<van-collapse-item title="住院津贴" wx:if="{{rescueType.indexOf(1) != -1}}" name="2">-->
+          <!--<view class="weui-cells weui-cells_after-title">-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院津贴限额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.limitPriceDay'-->
+                       <!--value="{{taskData.limitPriceDay}}" placeholder="住院津贴限额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">天数</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.days'-->
+                       <!--value="{{taskData.days}}" placeholder="请输入天数"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">免赔天数</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.deductibleDays'-->
+                       <!--value="{{taskData.deductibleDays}}" placeholder="请输入免赔天数"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">每日金额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.pricePerDay'-->
+                       <!--value="{{taskData.pricePerDay}}" placeholder="请输入每日金额"/>-->
+              <!--</view>-->
+            <!--</view>-->
+            <!--<view class="weui-cell weui-cell_input">-->
+              <!--<view class="weui-cell__hd">-->
+                <!--<view class="weui-label">住院津贴总额</view>-->
+              <!--</view>-->
+              <!--<view class="weui-cell__bd">-->
+                <!--<text class="weui-input readonly">{{taskData.allowance}}</text>-->
+              <!--</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</van-collapse-item>-->
+      <!--</van-collapse>-->
+    <!--</view>-->
+    <!--<view class="totalPrice">-->
+      <!--总理算金额：{{taskData.totalAmount}}-->
     <!--</view>-->
 
-    <view class="weui-cells__title">审核信息</view>
-    <view class="weui-cells weui-cells_after-title">
-      <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-        <van-collapse-item title="门急诊医疗费核损" wx:if="{{rescueType.indexOf(0) != -1}}" name="0">
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">门急诊限额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientLimitedNum'
-                       value="{{taskData.outpatientLimitedNum}}" placeholder="请输入门急诊限额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">免赔额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientDeductible'
-                       value="{{taskData.outpatientDeductible}}" placeholder="请输入免赔额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">给付比例</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientPercent'
-                       value="{{taskData.outpatientPercent}}" placeholder="请输入给付比例"/>
-              </view>
-            </view>
-          </view>
-          <view class="mtb10">
-            <van-row custom-class="accident-detail-table-header">
-              <van-col span="5">名称</van-col>
-              <van-col span="4">自付比例</van-col>
-              <van-col span="4">金额</van-col>
-              <van-col span="4">核损</van-col>
-              <van-col span="4">自费</van-col>
-              <van-col span="3">操作</van-col>
-            </van-row>
-            <van-row wx:if="{{detailListArr.length == 0}}" custom-class="accident-detail-table-body">
-              <van-col span="24">无数据</van-col>
-            </van-row>
-            <van-row wx:if="{{detailListArr.length > 0}}" wx:for="{{detailListArr}}" wx:key="index" custom-class="accident-detail-table-body">
-              <van-col span="5">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
-              </van-col>
-              <van-col span="4">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>
-              </van-col>
-              <van-col span="4">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col span="4">
-                <input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col span="4">
-                <input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='ownprice' value="{{item.ownprice}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col span="3">
-                <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="0" bindtap="removeItem">删除</text>
-                <text wx:else>-</text>
-              </van-col>
-            </van-row>
-            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">
-              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="0" bindtap="addCustomNewItem">自定义 +</view>
-              <view class="addtext" style="width: 50%; float: right;" data-type="0" bindtap="addNewItem">添加 +</view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">门急诊总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.rescueAmount'
-                       value="{{taskData.rescueAmount}}" placeholder="请输入门急诊总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">门急诊核损总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientSelfPrice' disabled
-                       value="{{taskData.outpatientSelfPrice}}" placeholder="请输入门急诊核损总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">门急诊自费总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientAmount' disabled
-                       value="{{taskData.outpatientAmount}}" placeholder="请输入门急诊自费总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">门急诊理算金额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.outpatientComputedPrice' disabled
-                       value="{{taskData.outpatientComputedPrice}}" placeholder="门急诊理算金额"/>
-              </view>
-            </view>
-          </view>
-        </van-collapse-item>
-        <van-collapse-item title="住院医疗费核损" wx:if="{{rescueType.indexOf(1) != -1}}" name="1">
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">每人保险金额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientLimitedNum'
-                       value="{{taskData.inpatientLimitedNum}}" placeholder="每人保险金额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">免赔额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientDeductible'
-                       value="{{taskData.inpatientDeductible}}" placeholder="请输入免赔额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">给付比例</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientPercent'
-                       value="{{taskData.inpatientPercent}}" placeholder="请输入给付比例"/>
-              </view>
-            </view>
-          </view>
-          <view class="mtb10">
-            <van-row custom-class="accident-detail-table-header">
-              <van-col span="5">名称</van-col>
-              <van-col span="4">自付比例</van-col>
-              <van-col span="4">金额</van-col>
-              <van-col span="4">核损</van-col>
-              <van-col span="4">自费</van-col>
-              <van-col span="3">操作</van-col>
-            </van-row>
-            <van-row wx:if="{{detailListArr2.length == 0}}" custom-class="accident-detail-table-body">
-              <van-col span="24">无数据</van-col>
-            </van-row>
-            <van-row wx:if="{{detailListArr2.length > 0}}" wx:for="{{detailListArr2}}" wx:key="index" custom-class="accident-detail-table-body">
-              <van-col span="5">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='name' value="{{item.name}}" placeholder="输入名称"/>
-              </van-col>
-              <van-col span="4">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='percent' value="{{item.percent}}" placeholder="输入比例"/>
-              </van-col>
-              <van-col span="4">
-                <input bindinput="bindDataAndCalculate" data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='price' value="{{item.price}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col span="4">
-                <input data-itemindex="{{index}}" data-arrayname='detailListArr2' data-name='confirmprice' value="{{item.confirmprice}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col span="4">
-                <input data-itemindex="{{index}}" disabled data-arrayname='detailListArr' data-name='ownprice' value="{{item.ownprice}}" placeholder="输入金额"/>
-              </van-col>
-              <van-col custom-class="deleteColor" span="3">
-                <text wx:if="{{role == 24 && (status == 31 || status ==33)}}" data-itemindex="{{index}}" data-type="1" bindtap="removeItem">删除</text>
-                <text wx:else>-</text>
-              </van-col>
-            </van-row>
-            <view class="accident-detail-table-body" span="24" wx:if="{{role == 24 && (status == 31 || status ==33)}}">
-              <view class="addtext" style="width: 50%; border-right: 1px solid #fff; float: left;" data-type="1" bindtap="addCustomNewItem">自定义 +</view>
-              <view class="addtext" style="width: 50%; float: right;" data-type="1" bindtap="addNewItem">添加 +</view>
-            </view>
-          </view>
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input" wx:if="{{payType == 0}}">
-              <view class="weui-cell__hd">
-                <view class="weui-label">医保已支付</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" disabled bindinput="bindDataAndCalculate" data-name='taskData.insuranceAlreadyPay'
-                       value="{{taskData.insuranceAlreadyPay}}" placeholder="医保已支付"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.insuranceAmount'
-                       value="{{taskData.insuranceAmount}}" placeholder="请输入住院总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院核损总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientSelfPrice' disabled
-                       value="{{taskData.inpatientSelfPrice}}" placeholder="请输入住院核损总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院自费总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientAmount' disabled
-                       value="{{taskData.inpatientAmount}}" placeholder="请输入住院自费总额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院理算金额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.inpatientComputedPrice' disabled
-                       value="{{taskData.inpatientComputedPrice}}" placeholder="请输入住院理算金额"/>
-              </view>
-            </view>
-          </view>
-        </van-collapse-item>
-        <van-collapse-item title="住院津贴" wx:if="{{rescueType.indexOf(1) != -1}}" name="2">
-          <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院津贴限额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.limitPriceDay'
-                       value="{{taskData.limitPriceDay}}" placeholder="住院津贴限额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">天数</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.days'
-                       value="{{taskData.days}}" placeholder="请输入天数"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">免赔天数</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.deductibleDays'
-                       value="{{taskData.deductibleDays}}" placeholder="请输入免赔天数"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">每日金额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <input class="weui-input" bindinput="bindDataAndCalculate" data-name='taskData.pricePerDay'
-                       value="{{taskData.pricePerDay}}" placeholder="请输入每日金额"/>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_input">
-              <view class="weui-cell__hd">
-                <view class="weui-label">住院津贴总额</view>
-              </view>
-              <view class="weui-cell__bd">
-                <text class="weui-input readonly">{{taskData.allowance}}</text>
-              </view>
-            </view>
-          </view>
-        </van-collapse-item>
-      </van-collapse>
-    </view>
-    <view class="totalPrice">
-      总理算金额：{{taskData.totalAmount}}
-    </view>
+    <!--<view class="button-sp-area two-btn-wrap" wx:if="{{role == 25 && status == 32}}">&lt;!&ndash; 负责人处理 &ndash;&gt;-->
+      <!--<button type="primary" data-type="1" bindtap="managerCommit">通过</button>-->
+      <!--<button data-type="0" bindtap="managerCommit">驳回</button>-->
+    <!--</view>-->
+    <!--<view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 36}}">&lt;!&ndash; 查勘员处理 &ndash;&gt;-->
+      <!--<button type="primary" data-type="1" bindtap="suvaryCommit">通过</button>-->
+      <!--<button data-type="0" bindtap="suvaryCommit">驳回</button>-->
+    <!--</view>-->
+    <!--<view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}">&lt;!&ndash; 审核人 处理 &ndash;&gt;-->
+      <!--<button type="primary" bindtap="commitSubmit">提交</button>-->
+    <!--</view>-->
 
-    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 25 && status == 32}}"><!-- 负责人处理 -->
-      <button type="primary" data-type="1" bindtap="managerCommit">通过</button>
-      <button data-type="0" bindtap="managerCommit">驳回</button>
-    </view>
-    <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && status == 36}}"><!-- 查勘员处理 -->
-      <button type="primary" data-type="1" bindtap="suvaryCommit">通过</button>
-      <button data-type="0" bindtap="suvaryCommit">驳回</button>
-    </view>
-    <view class="button-sp-area" wx:if="{{role == 24 && (status == 31 || status == 33)}}"><!-- 审核人 处理 -->
-      <button type="primary" bindtap="commitSubmit">提交</button>
-    </view>
+    <!--<view class="button-sp-area" wx:if="{{id != null && status != 29}}">-->
+      <!--<button type="primary" bindtap="downloadImages">下载工单图片</button>-->
+    <!--</view>-->
 
-    <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
-      <button type="primary" bindtap="downloadImages">下载工单图片</button>
-    </view>
+  <!--</view>-->
 
-  </view>
-
-  <van-popup show="{{ datePickerShow }}" position="bottom" overlay="{{ true }}">
-    <van-datetime-picker
-            type="date"
-            value="{{ currentDate }}"
-            bind:confirm="onDatePickerConfirm"
-            bind:cancel="onDatePickerCancel"
-    />
-  </van-popup>
+  <!--<van-popup show="{{ datePickerShow }}" position="bottom" overlay="{{ true }}">-->
+    <!--<van-datetime-picker-->
+            <!--type="date"-->
+            <!--value="{{ currentDate }}"-->
+            <!--bind:confirm="onDatePickerConfirm"-->
+            <!--bind:cancel="onDatePickerCancel"-->
+    <!--/>-->
+  <!--</van-popup>-->
 
 
-  <van-popup custom-class="add-item-popup" show="{{ show }}" position="bottom" overlay="{{ true }}" close-on-click-overlay="{{ false }}">
-    <van-search
-            value="{{ medicineKeyword }}"
-            placeholder="请输入搜索关键词"
-            bind:change="medicineKeywordChange"
-            use-action-slot>
-      <view slot="action" bind:tap="onSearch">搜索</view>
-    </van-search>
-    <view class="countnum">
-      已追加项目数量：{{tempDetailList.length}}个
-    </view>
-    <van-row custom-class="accident-detail-table-header">
-      <van-col span="10">名称</van-col>
-      <van-col span="5">自付比例</van-col>
-      <van-col span="5">类别</van-col>
-      <van-col span="4">操作</van-col>
-    </van-row>
-    <van-row custom-class="accident-detail-table-body" wx:for="{{medicineList}}" wx:key="index">
-      <van-col span="10">
-        <text>{{item.name}}</text>
-      </van-col>
-      <van-col span="5">
-        <text>{{item.percent}}</text>
-      </van-col>
-      <van-col span="5">
-        <text>{{item.type}} {{item.form}}</text>
-      </van-col>
-      <van-col span="4">
-        <text class="primaryColor" data-itemindex="{{index}}" bindtap="addItemToTempList">追加</text>
-      </van-col>
-    </van-row>
-    <van-row>
-      <van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">
-        <text bindtap="prevMedicinePage">上一页</text>
-      </van-col>
-      <van-col span="14" style="text-align: center; line-height: 30px;">
-        第{{medicinePage}}页 | 共{{medicineTotalPage}}页
-      </van-col>
-      <van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">
-        <text bindtap="nextMedicinePage">下一页</text>
-      </van-col>
-    </van-row>
-    <view class="button-sp-area two-btn-wrap">
-      <button type="primary" bindtap="addItemSubmit">确定追加</button>
-      <button data-cancel="true" bindtap="addItemSubmit">取消</button>
-    </view>
-  </van-popup>
+  <!--<van-popup custom-class="add-item-popup" show="{{ show }}" position="bottom" overlay="{{ true }}" close-on-click-overlay="{{ false }}">-->
+    <!--<van-search-->
+            <!--value="{{ medicineKeyword }}"-->
+            <!--placeholder="请输入搜索关键词"-->
+            <!--bind:change="medicineKeywordChange"-->
+            <!--use-action-slot>-->
+      <!--<view slot="action" bind:tap="onSearch">搜索</view>-->
+    <!--</van-search>-->
+    <!--<view class="countnum">-->
+      <!--已追加项目数量：{{tempDetailList.length}}个-->
+    <!--</view>-->
+    <!--<van-row custom-class="accident-detail-table-header">-->
+      <!--<van-col span="10">名称</van-col>-->
+      <!--<van-col span="5">自付比例</van-col>-->
+      <!--<van-col span="5">类别</van-col>-->
+      <!--<van-col span="4">操作</van-col>-->
+    <!--</van-row>-->
+    <!--<van-row custom-class="accident-detail-table-body" wx:for="{{medicineList}}" wx:key="index">-->
+      <!--<van-col span="10">-->
+        <!--<text>{{item.name}}</text>-->
+      <!--</van-col>-->
+      <!--<van-col span="5">-->
+        <!--<text>{{item.percent}}</text>-->
+      <!--</van-col>-->
+      <!--<van-col span="5">-->
+        <!--<text>{{item.type}} {{item.form}}</text>-->
+      <!--</van-col>-->
+      <!--<van-col span="4">-->
+        <!--<text class="primaryColor" data-itemindex="{{index}}" bindtap="addItemToTempList">追加</text>-->
+      <!--</van-col>-->
+    <!--</van-row>-->
+    <!--<van-row>-->
+      <!--<van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">-->
+        <!--<text bindtap="prevMedicinePage">上一页</text>-->
+      <!--</van-col>-->
+      <!--<van-col span="14" style="text-align: center; line-height: 30px;">-->
+        <!--第{{medicinePage}}页 | 共{{medicineTotalPage}}页-->
+      <!--</van-col>-->
+      <!--<van-col span="5" style="text-align: center; line-height: 30px; color:#016eff;">-->
+        <!--<text bindtap="nextMedicinePage">下一页</text>-->
+      <!--</van-col>-->
+    <!--</van-row>-->
+    <!--<view class="button-sp-area two-btn-wrap">-->
+      <!--<button type="primary" bindtap="addItemSubmit">确定追加</button>-->
+      <!--<button data-cancel="true" bindtap="addItemSubmit">取消</button>-->
+    <!--</view>-->
+  <!--</van-popup>-->
 </view>
