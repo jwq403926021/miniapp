@@ -37,11 +37,11 @@
             </view>
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">肇事方</view>
+                    <view class="weui-label">出险方</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                           value="{{taskData.customerName}}" placeholder="肇事方"/>
+                           value="{{taskData.customerName}}" placeholder="出险方"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>

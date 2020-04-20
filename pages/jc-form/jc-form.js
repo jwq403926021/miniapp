@@ -951,7 +951,7 @@ Page({
     if (taskData.customerName == '') {
       wx.showToast({
         mask: true,
-        title: '请填写肇事方',
+        title: '请填写出险方',
         icon: 'none',
         duration: 2000
       })
@@ -1514,7 +1514,7 @@ Page({
     // if (taskData.customerName == '') {
     //   wx.showToast({
     //     mask: true,
-    //     title: '请填写肇事方',
+    //     title: '请填写出险方',
     //     icon: 'none',
     //     duration: 2000
     //   })
@@ -1667,11 +1667,11 @@ Page({
           _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
         }
         if (key == 'identification' && clientIndexArr[i] == 0 && _arr.length != 2) {
-          str = `肇事方身份证图片须传2张`
+          str = `出险方身份证图片须传2张`
           break
         }
         if (!_arr.length) {
-          str = `${clientIndexArr[i] == 0 ? '肇事方' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
+          str = `${clientIndexArr[i] == 0 ? '出险方' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
           break
         }
       }
