@@ -67,17 +67,13 @@ VantComponent({
 
         if (expanded) {
           _this.set({
-            animationData: animationData
+            contentHeight: 'auto'
           });
         } else {
           _this.set({
-            contentHeight: res.height + 'px'
+            contentHeight: 0 + 'px'
           }, function () {
-            setTimeout(function () {
-              _this.set({
-                animationData: animationData
-              });
-            }, 20);
+
           });
         }
       });
