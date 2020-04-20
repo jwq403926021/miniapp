@@ -290,7 +290,7 @@
                     </view>
                 </view>
 
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 0}}">
+                <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 0}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">押金金额</view>
                     </view>
@@ -301,9 +301,9 @@
                     <view class="weui-cell__bd" wx:else>
                         <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
                     </view>
-                </view>
+                </view>-->
 
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 2}}">
+                <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 2}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">垫付</view>
                     </view>
@@ -314,7 +314,7 @@
                     <view class="weui-cell__bd" wx:else>
                         <text class="weui-input readonly">{{(taskData.prepay == null || taskData.prepay == '') ? '-' : taskData.prepay}}</text>
                     </view>
-                </view>
+                </view>-->
 
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
