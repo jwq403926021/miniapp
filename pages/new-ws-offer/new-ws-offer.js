@@ -285,13 +285,13 @@ Page({
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
     this.setData({
-      amountMoney: amountMoney.toFixed(2),
-      coinInsert: coinInsert.toFixed(2),
-      tax: tax.toFixed(2),
-      offerListTotal: offerListTotal.toFixed(2),
-      incompleteTotal: incompleteTotal.toFixed(2),
-      offerResult: offerResult.toFixed(2),
-      coinNum: coinNum.toFixed(2),
+      amountMoney: (amountMoney || 0).toFixed(2),
+      coinInsert: (coinInsert || 0).toFixed(2),
+      tax: (tax || 0).toFixed(2),
+      offerListTotal: (offerListTotal || 0).toFixed(2),
+      incompleteTotal: (incompleteTotal || 0).toFixed(2),
+      offerResult: (offerResult || 0).toFixed(2),
+      coinNum: (coinNum || 0).toFixed(2),
       compareList,
       offerList: this.data.offerList
     })

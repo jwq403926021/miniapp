@@ -45,7 +45,7 @@
 
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
-            <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
+            <van-collapse value="{{ activeNames }}" bind:change="onChange">
                 <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
                     <view>
                         <view class="pro-wrap" wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project">
@@ -182,7 +182,7 @@
                                     </view>
                                 </view>
                                 <view style="text-align: right;">
-                                    <van-button custom-class="button-gap-right" wx:if="{{isAllowEdit}}" type="primary" size="small" bindtap="addToLibrary" data-pindex="{{pindex}}" data-index="{{index}}">追加到报价库</van-button>
+                                    <van-button wx:if="{{role == 13}}" custom-class="button-gap-right" wx:if="{{isAllowEdit}}" type="primary" size="small" bindtap="addToLibrary" data-pindex="{{pindex}}" data-index="{{index}}">追加到报价库</van-button>
                                     <van-button custom-class="button-gap-right" wx:if="{{isAllowEdit}}" type="primary" size="small" bindtap="addIncomplete" data-pindex="{{pindex}}" data-index="{{index}}">追加残值</van-button>
                                     <van-button custom-class="button-gap-right" wx:if="{{isAllowEdit}}" type="danger" size="small" bindtap="removeOfferList" data-pindex="{{pindex}}" data-index="{{index}}">删除</van-button>
                                 </view>
