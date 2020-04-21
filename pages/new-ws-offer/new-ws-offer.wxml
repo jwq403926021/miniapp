@@ -467,10 +467,10 @@
                 </van-col>
             </van-row>
             <van-row custom-class="libraryFilterRow">
-                <van-col span="6">项目</van-col>
+                <van-col span="6">类型</van-col>
                 <van-col span="18">
                     <picker bindchange="pickerChange" value="{{library.projectId}}" range="{{projectPickerList}}" data-source="projectSource" data-value="projectId" data-label="projectName">
-                        {{ library.projectName || '请选择项目'}}
+                        {{ library.projectName || '请选择类型'}}
                     </picker>
                 </van-col>
             </van-row>
@@ -506,7 +506,7 @@
                     </view>
                     <view class="weui-cell weui-cell_input no-padding offerListRow">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">项目</view>
+                            <view class="weui-label">类型</view>
                         </view>
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{item.projectName}}</text>
