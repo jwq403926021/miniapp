@@ -164,7 +164,9 @@ Page({
         'taskData.financeRemark': data.financeRemark,
         'taskData.manageMoney': data.manageMoney,
         'taskData.insurePay': data.insurePay,
-        'taskData.payWorker': data.payWorker
+        'taskData.payWorker': data.payWorker,
+        'taskData.isAcceptance': data.isAcceptance,
+        'taskData.isAgree': data.isAgree
       })
       if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
         _this.initReassignList()

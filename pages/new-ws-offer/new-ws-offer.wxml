@@ -154,8 +154,9 @@
                                         <text class="weui-input readonly">{{item.num || '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
-                                        <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}"
-                                               value="{{item.num}}" placeholder="请输入数量"/>
+                                        <van-stepper value="{{ item.num }}" bind:change="inputgetName" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}" data-step="1" />
+<!--                                        <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}"-->
+<!--                                               value="{{item.num}}" placeholder="请输入数量"/>-->
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding">
@@ -189,7 +190,7 @@
                             </view>
                             <view style="margin-bottom:10px; line-height: 24px;">报价小计：{{project.projectTotal}}</view>
                             <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="info" size="small" bindtap="openLibrary" data-pindex="{{pindex}}">追加报价条目</van-button>
-                            <van-button custom-class="button-gap" wx:if="{{isAllowEdit && pindex != 0}}" block type="danger" size="small" bindtap="removeProjectItem" data-pindex="{{pindex}}">删除工程项目</van-button>
+                            <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="danger" size="small" bindtap="removeProjectItem" data-pindex="{{pindex}}">删除工程项目</van-button>
                         </view>
                         <view style="margin: 10px 0;">
                             <van-button wx:if="{{isAllowEdit}}" block type="primary" bindtap="addProjectItem">追加工程项目 +</van-button>
@@ -251,8 +252,9 @@
                                 <text class="weui-input readonly">{{item.num || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}"
-                                       value="{{item.num}}" placeholder="请输入数量"/>
+                                <van-stepper value="{{ item.num }}" bind:change="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}" data-step="1" />
+<!--                                <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}"-->
+<!--                                       value="{{item.num}}" placeholder="请输入数量"/>-->
                             </view>
                         </view>
                         <view class="weui-cell weui-cell_input no-padding">

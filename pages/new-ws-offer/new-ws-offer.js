@@ -233,22 +233,24 @@ Page({
     })
   },
   inputgetName (e) {
+    let isStep = e.currentTarget.dataset.step;
     let name = e.currentTarget.dataset.name;
     let index = e.currentTarget.dataset.index;
     let pindex = e.currentTarget.dataset.pindex;
     let target = e.currentTarget.dataset.target || `offerList`;
     let nameMap = {}
+    let value = isStep ? e.detail : e.detail.value
     if (e.currentTarget.dataset.hasOwnProperty('pindex')) {
       if (e.currentTarget.dataset.hasOwnProperty('index')) {
-        nameMap[`${target}[${pindex}].children[${index}].${name}`] = e.detail.value
+        nameMap[`${target}[${pindex}].children[${index}].${name}`] = value
       } else {
-        nameMap[`${target}[${pindex}].${name}`] = e.detail.value
+        nameMap[`${target}[${pindex}].${name}`] = value
       }
     } else {
       if (e.currentTarget.dataset.hasOwnProperty('index')) {
-        nameMap[`${target}[${index}].${name}`] = e.detail.value
+        nameMap[`${target}[${index}].${name}`] = value
       } else {
-        nameMap[name] = e.detail.value
+        nameMap[name] = value
       }
     }
     this.setData(nameMap, () => {
@@ -291,7 +293,7 @@ Page({
       offerListTotal: (offerListTotal || 0).toFixed(2),
       incompleteTotal: (incompleteTotal || 0).toFixed(2),
       offerResult: (offerResult || 0).toFixed(2),
-      coinNum: (coinNum || 0).toFixed(2),
+      coinNum: parseFloat(coinNum || 0).toFixed(2),
       compareList,
       offerList: this.data.offerList
     })
@@ -834,6 +836,8 @@ Page({
     this.data.offerList.splice(index, 1)
     this.setData({
       offerList: this.data.offerList
+    }, () => {
+      this.calculate()
     })
   },
   addCustomItem (e) {
