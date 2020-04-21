@@ -1,26 +1,37 @@
 <view class="page">
   <view class="filter-wrap clearfix" style="background: #f2f2f2">
     <view style="float: left; width: 85%;">
-      <view class="field filterDropdown">
-        <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
+      <view class="clearfix">
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
+        </view>
+        <!--      <view class="field filterDropdown">-->
+        <!--        <view class="caret" bind:tap="openFilterDatePop">{{dateFilterArr[dateFilter]}}</view>-->
+        <!--      </view>-->
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openDatePop" data-targetpop="showStartDate" data-target="startDate">{{startDate ? startDateLabel : '开始时间'}}</view>
+        </view>
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openDatePop" data-targetpop="showEndDate" data-target="endDate">{{endDate ? endDateLabel : '结束时间'}}</view>
+        </view>
       </view>
-      <van-search
-              value="{{ searchCarNumber }}"
-              placeholder="请输入车牌号"
-              custom-class="my-search"
-              bind:change="searchCarNumberChange">
-      </van-search>
-      <view class="field filterDropdown">
-        <view class="caret" bind:tap="openFilterDatePop">{{dateFilterArr[dateFilter]}}</view>
+      <view class="clearfix">
+        <van-search
+                value="{{ searchCarNumber }}"
+                placeholder="请输入车牌号"
+                custom-class="my-search"
+                bind:change="searchCarNumberChange">
+        </van-search>
+        <van-search
+                value="{{ searchOrderId }}"
+                placeholder="请输入工单号"
+                custom-class="my-search"
+                bind:change="searchOrderIdChange">
+        </van-search>
       </view>
-      <van-search
-              value="{{ searchOrderId }}"
-              placeholder="请输入工单号"
-              custom-class="my-search"
-              bind:change="searchOrderIdChange">
-      </van-search>
     </view>
-    <view class="searchBtn" style="line-height: 90px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="resetFilter">重置</view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
   </view>
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.orderId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
@@ -93,4 +104,25 @@
   <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
     <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
   </van-popup>
+  <van-popup show="{{ showStartDate }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker
+      type="date"
+      data-target="startDate"
+      data-targetpop="showStartDate"
+      value="{{ startDate }}"
+      bind:confirm="onInputDate"
+      bind:cancel="cancelDate"
+    />
+  </van-popup>
+  <van-popup show="{{ showEndDate }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker
+      type="date"
+      value="{{ endDate }}"
+      data-target="endDate"
+      data-targetpop="showEndDate"
+      bind:confirm="onInputDate"
+      bind:cancel="cancelDate"
+    />
+  </van-popup>
+
 </view>
