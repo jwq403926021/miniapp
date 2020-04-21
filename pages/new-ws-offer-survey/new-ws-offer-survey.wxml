@@ -88,7 +88,7 @@
                 </view>
             </view>
             <view class="weui-cells__title">比价平台</view>
-            <view class="weui-cells_after-title">
+            <view class="weui-cells weui-cells_after-title">
                 <view class="row-item offerListRow" wx:for="{{compareList}}" wx:key="index">
                     <view class="weui-cell weui-cell_input no-padding offerListRow">
                         <view class="weui-cell__hd">
