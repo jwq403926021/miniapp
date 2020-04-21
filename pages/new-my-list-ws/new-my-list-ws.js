@@ -55,14 +55,14 @@ Page({
     let targetpop = event.currentTarget.dataset.targetpop
     let target = event.currentTarget.dataset.target
     this.setData({
-      [target]: new Date().getTime(),
+      [target]: new Date(new Date().toLocaleDateString()).getTime(),
       [targetpop]: true
     });
   },
   onInputDate (event) {
     let target = event.currentTarget.dataset.target;
     let targetpop = event.currentTarget.dataset.targetpop
-    let timestamp = target === 'startDate' ? event.detail : event.detail + 86399999
+    let timestamp = event.detail
     this.setData({
       [target]: timestamp,
       [`${target}Label`]: this.formatDate(new Date(timestamp)),
@@ -168,7 +168,7 @@ Page({
       filter.startDate = this.formatDate(new Date(this.data.startDate), 'yyyy-MM-dd hh:mm:ss')
     }
     if (this.data.endDate) {
-      filter.endDate = this.formatDate(new Date(this.data.endDate), 'yyyy-MM-dd hh:mm:ss')
+      filter.endDate = this.formatDate(new Date(this.data.endDate + 86399999), 'yyyy-MM-dd hh:mm:ss')
     }
     wx.showLoading({
       mask: true,

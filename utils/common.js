@@ -7,6 +7,13 @@ function deleteImage(id) {
   }, function (err, res) {
   })
 }
+function deleteAttach(id) {
+  util.request({
+    path: '/app/attachments?id='+id,
+    method: 'DELETE'
+  }, function (err, res) {
+  })
+}
 
 function downloadSaveFile(obj) {
   let that = this;
@@ -101,5 +108,6 @@ function downloadSaveFiles(obj) {
 
 module.exports = {
   downloadImages: downloadSaveFiles,
-  deleteImage: deleteImage
+  deleteImage: deleteImage,
+  deleteAttach: deleteAttach
 }

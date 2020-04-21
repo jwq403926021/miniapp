@@ -453,6 +453,29 @@ Page({
       }
     })
   },
+  removeVideo (e) {
+    let key = e.currentTarget.dataset.name
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data[key].splice(index, 1)
+          _this.setData({
+            [key]: _this.data[key]
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteAttach(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   uploadOneByOne (imgPaths,successUp, failUp, count, length) {
     var that = this
     wx.uploadFile({
