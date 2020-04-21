@@ -89,8 +89,8 @@
             </view>
             <view class="weui-cells__title">比价平台</view>
             <view class="weui-cells weui-cells_after-title">
-                <view class="row-item offerListRow" wx:for="{{compareList}}" wx:key="index">
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                <block wx:for="{{compareList}}" wx:key="index">
+                    <view class="weui-cell weui-cell_input offerListRow">
                         <view class="weui-cell__hd">
                             <view class="weui-label">企业</view>
                         </view>
@@ -98,7 +98,7 @@
                             <text class="weui-input readonly">{{item.companyName}}</text>
                         </view>
                     </view>
-                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                    <view class="weui-cell weui-cell_input offerListRow">
                         <view class="weui-cell__hd">
                             <view class="weui-label">报价合计</view>
                         </view>
@@ -106,7 +106,7 @@
                             <text class="weui-input readonly">{{item.offer}}</text>
                         </view>
                     </view>
-                </view>
+                </block>
             </view>
         </block>
         <block wx:else>
