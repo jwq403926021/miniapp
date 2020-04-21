@@ -158,7 +158,7 @@ Page({
     let filter = {
       page: 1,
       size: 100,
-      carNumber: this.data.searchCarNumber,
+      plateNumber: this.data.searchCarNumber,
       orderId: this.data.searchOrderId
     }
     if (this.data.statusFilter != '-1') {
