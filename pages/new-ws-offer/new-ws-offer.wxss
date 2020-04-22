@@ -16,11 +16,18 @@
   height: 2em;
   min-height: 2em;
 }
+.offerListRow .weui-label {
+  width: 80px;
+}
+
+.offerListRow .weui-cell{ width: 50%; float:left;}
+.offerListRow .weui-cell.one-line{clear: both; float: none; width: 100%;}
+
 .offerListRow input, .editable{
   color: #000!important;
 }
 .h28 {
-  line-height: 2em;
+  line-height: 28px;
 }
 .wrapper{
   height: calc(100vh - 60px);
@@ -45,3 +52,8 @@
 .button-gap{
   margin-bottom: 5px;
 }
+.van-stepper__minus,.van-stepper__plus{
+  height: 30px!important;
+  width: 30px!important;
+}
+.mytextarea{padding: 10px 0;}

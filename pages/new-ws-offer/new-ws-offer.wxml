@@ -50,21 +50,21 @@
                     <view>
                         <view class="pro-wrap" wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project">
                             <view class="row-item offerListRow">
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
-                                        <view class="weui-label">工程项目名称</view>
+                                        <view class="weui-label">工程名称</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                                         <text class="weui-input readonly">{{project.proName || '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
                                         <input placeholder-class="editable" class="weui-input editable" bindinput="inputgetName" data-name='proName' data-pindex="{{pindex}}"
-                                               value="{{project.proName}}" placeholder="请输入工程项目名称"/>
+                                               value="{{project.proName}}" placeholder="请输入工程名称"/>
                                     </view>
                                 </view>
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
-                                        <view class="weui-label">工程项目类型</view>
+                                        <view class="weui-label">工程类型</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                                         <text class="weui-input readonly">{{project.proType !== '' && project.proType !== null ? proTypeList[project.proType].name : '-'}}</text>
@@ -146,7 +146,7 @@
                                                value="{{item.price}}" placeholder="请输入单价"/>
                                     </view>
                                 </view>
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">数量</view>
                                     </view>
@@ -159,7 +159,7 @@
 <!--                                               value="{{item.num}}" placeholder="请输入数量"/>-->
                                     </view>
                                 </view>
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">处理方式</view>
                                     </view>
@@ -170,7 +170,7 @@
                                         {{item.handleType !== '' ? handleTypeList[item.handleType].name : '请选择处理方式'}}
                                     </view>
                                 </view>
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">备注</view>
                                     </view>
@@ -178,7 +178,7 @@
                                         {{item.remark || '-'}}
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
-                                        <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='remark' data-pindex="{{pindex}}" data-index="{{index}}"
+                                        <textarea maxlength="-1" wx:if="{{active0 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-pindex="{{pindex}}" data-index="{{index}}"
                                                   value="{{item.remark}}" placeholder="请输入备注" style="height: 7em"/>
                                     </view>
                                 </view>
@@ -200,9 +200,9 @@
                 <van-collapse-item wx:if="{{incompleteList.length > 0}}" title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                     <view style="text-align: center;" wx:if="{{incompleteList.length == 0}}">无数据</view>
                     <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
-                        <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell weui-cell_input no-padding one-line">
                             <view class="weui-cell__hd">
-                                <view class="weui-label">工程项目名称</view>
+                                <view class="weui-label">工程名称</view>
                             </view>
                             <view class="weui-cell__bd">
                                 <text class="weui-input readonly">{{item.proName || '-'}}</text>
@@ -244,7 +244,7 @@
                                        value="{{item.unitPrice}}" placeholder="请输入单价"/>
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell weui-cell_input no-padding one-line">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">数量</view>
                             </view>
@@ -257,7 +257,7 @@
 <!--                                       value="{{item.num}}" placeholder="请输入数量"/>-->
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell weui-cell_input no-padding one-line">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">备注</view>
                             </view>
@@ -265,7 +265,7 @@
                                 {{item.remark || '-'}}
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='remark' data-target='incompleteList' data-index="{{index}}"
+                                <textarea maxlength="-1" wx:if="{{active1 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-target='incompleteList' data-index="{{index}}"
                                           value="{{item.remark}}" placeholder="请输入备注" style="height: 7em"/>
                             </view>
                         </view>
@@ -407,7 +407,7 @@
                     {{offerRemark || '-'}}
                 </view>
                 <view wx:else class="weui-cell__bd">
-                    <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='offerRemark'
+                    <textarea wx:if="{{!show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" maxlength="-1" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='offerRemark'
                               value="{{offerRemark}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
             </view>
@@ -483,7 +483,7 @@
                 </van-col>
             </van-row>
             <view style="margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
-                <van-button type="primary" size="small" bindtap="filter">过滤</van-button>
+                <van-button loading="{{filterLoading}}" type="primary" size="small" bindtap="filter">过滤</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="resetFilter">重置</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="closeFilter">关闭</van-button>
                 <van-button type="primary" size="small" style="margin-left: 5px" bindtap="addCustomItem">追加自定义</van-button>

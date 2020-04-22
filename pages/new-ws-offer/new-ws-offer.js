@@ -90,7 +90,10 @@ Page({
     customerUser: '',
     libraryDataList: [],
     operateProIndex: 0,
-    operateIndex: 0
+    operateIndex: 0,
+    filterLoading: false,
+    active0: false,
+    active1: false
   },
   initArea () {
     try {
@@ -217,13 +220,18 @@ Page({
     })
   },
   onChange (event) {
+    let arr = event.detail
     this.setData({
-      activeNames: event.detail
+      activeNames: arr,
+      active0: arr.indexOf('0') != -1,
+      active1: arr.indexOf('1') != -1
     });
   },
   onSwitchChange (event) {
     this.setData({
       hasTax: event.detail
+    }, () => {
+      this.calculate()
     })
   },
   openLibrary (e) {
@@ -422,7 +430,7 @@ Page({
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
-        hasTax: data.hasTax ? true : false,
+        hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
         coinLevel: data.level || 1
       }
       _this.setData(result, () => {
@@ -465,6 +473,9 @@ Page({
   },
   filter () {
     let _this = this
+    this.setData({
+      filterLoading: true
+    })
     util.request({
       path: '/app/businessprice/list',
       method: 'GET',
@@ -477,7 +488,8 @@ Page({
       }
     }, function (err, res) {
       _this.setData({
-        libraryDataList: res.page.records
+        libraryDataList: res.page.records,
+        filterLoading: false
       })
     })
   },
