@@ -527,7 +527,7 @@ Page({
       avgPrice,
       name,
       unit,
-      price: this.data.role == 12 ? 0 : price,
+      price: this.data.role == 12 ? '' : price,
       num,
       remark: '',
       handleType,
