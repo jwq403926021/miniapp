@@ -103,7 +103,7 @@
                             <view class="weui-label">报价合计</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.offer}}</text>
+                            <text class="weui-input readonly">{{item.offer || '-'}}</text>
                         </view>
                     </view>
                 </block>
