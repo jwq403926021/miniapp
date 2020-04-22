@@ -672,22 +672,19 @@ Page({
     })
   },
   goToList () {
-    // let pages = getCurrentPages()
-    // let length = pages.filter((item) => {
-    //   return item.route == 'pages/new-my-list-ws/new-my-list-ws'
-    // }).length
-    wx.redirectTo({
-      url: '../new-my-list-ws/new-my-list-ws'
+    let pages = getCurrentPages()
+    let index = pages.findIndex((item) => {
+      return item.route == 'pages/new-my-list-ws/new-my-list-ws'
     })
-    // if (length) {
-    //   wx.navigateBack({
-    //     url: '../new-my-list-ws/new-my-list-ws'
-    //   })
-    // } else {
-    //   wx.redirectTo({
-    //     url: '../new-my-list-ws/new-my-list-ws'
-    //   })
-    // }
+    if (index != -1) {
+      wx.navigateBack({
+        delta: pages.length - 1 - index
+      })
+    } else {
+      wx.redirectTo({
+        url: '../new-my-list-ws/new-my-list-ws'
+      })
+    }
   },
   workHandleWS (e) {
     let _this = this
