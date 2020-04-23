@@ -65,7 +65,7 @@
                     </view>
                 </block>
             </view>
-            <view class="weui-cell weui-cell_input">
+            <view class="weui-cell weui-cell_input" wx:if="{{taskData.insuranceType != '2'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">损失方</view>
                 </view>
@@ -77,7 +77,7 @@
                     <text class="weui-input readonly">{{taskData.damagedUser || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType != '2'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">沟通方式</view>
                 </view>

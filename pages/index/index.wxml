@@ -19,7 +19,7 @@
         <text class="iconfont icon-sunhuai myicon"></text>
       </view>
       <view>
-        非车物损
+        非车险
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToNewWsForm" data-type="1" wx:if="{{role == 1}}">
@@ -35,7 +35,7 @@
         <text class="iconfont icon-sunhuai myicon"></text>
       </view>
       <view>
-        新非车物损
+        新非车险
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">

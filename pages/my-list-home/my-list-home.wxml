@@ -16,7 +16,7 @@
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view>
-        <text class="iconfont icon-sunhuai myicon2"></text>非车物损工单
+        <text class="iconfont icon-sunhuai myicon2"></text>非车险工单
       </view>
     </view>
     <view class="my-list-item" data-type="1" bindtap="goToNewWsList" wx:if="{{role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
@@ -32,7 +32,7 @@
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view>
-        <text class="iconfont icon-sunhuai myicon2"></text>新非车物损工单
+        <text class="iconfont icon-sunhuai myicon2"></text>新非车险工单
       </view>
     </view>
 
