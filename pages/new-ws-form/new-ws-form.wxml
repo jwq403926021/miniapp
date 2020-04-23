@@ -47,6 +47,19 @@
                 </view>
             </view>
 
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
+                           value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != 12}}">
+                    <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
+                </view>
+            </view>
+
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">出险方</view>
@@ -84,11 +97,11 @@
             </view>
             <view class="weui-cell weui-cell_input" wx:if="{{taskData.insuranceType != '2'}}">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">损失方</view>
+                    <view class="weui-label">受损方</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedUser'
-                           value="{{taskData.damagedUser}}" placeholder="损失方"/>
+                           value="{{taskData.damagedUser}}" placeholder="受损方"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != 12}}">
                     <text class="weui-input readonly">{{taskData.damagedUser || '-'}}</text>
@@ -100,7 +113,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
-                           value="{{taskData.damagedPhone}}" placeholder="请输入损失方沟通方式"/>
+                           value="{{taskData.damagedPhone}}" placeholder="请输入受损方沟通方式"/>
                 </view>
                 <block wx:if="{{orderId != null && taskData.status != 12}}">
                     <view class="weui-cell__bd">
@@ -130,18 +143,7 @@
 <!--                    <text class="weui-input readonly">{{taskData.insuranceType == 1 ? '车物损' : '非车'}}</text>-->
 <!--                </view>-->
 <!--            </view>-->
-            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">车牌号</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
-                           value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != 12}}">
-                    <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
-                </view>
-            </view>
+
             <!--<view class="weui-cell weui-cell_input weui-cell_vcode">-->
                 <!--<view class="weui-cell__hd">-->
                     <!--<view class="weui-label">保险公司</view>-->
@@ -597,7 +599,7 @@
         <van-area columns-num="{{2}}" area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
     </van-popup>
     <van-dialog
-        message="请拨打出险方电话或者损失方电话。"
+        message="请拨打出险方电话或者受损方电话。"
         title="提醒"
         show="{{ showWorkerHit }}"
     ></van-dialog>

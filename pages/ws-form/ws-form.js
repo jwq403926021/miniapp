@@ -793,7 +793,7 @@ Page({
     // if (taskData.damagedUser == '' || taskData.customerUser == '') {
     //   wx.showToast({
     //     mask: true,
-    //     title: '请填写损失方以及出险方',
+    //     title: '请填写受损方以及出险方',
     //     icon: 'none',
     //     duration: 2000
     //   })
