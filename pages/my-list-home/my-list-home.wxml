@@ -3,7 +3,7 @@
     您好：服务者，请您联系管理维护您的角色
   </view>
   <view wx:else>
-    <view class="my-list-item" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
+    <view class="my-list-item" data-type="1" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
@@ -11,12 +11,28 @@
         <text class="iconfont icon-sunhuai myicon2"></text>物损工单
       </view>
     </view>
-    <view class="my-list-item" bindtap="goToNewWsList" wx:if="{{role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
+    <view class="my-list-item" data-type="2" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
       <view>
-        <text class="iconfont icon-sunhuai myicon2"></text>测试工单
+        <text class="iconfont icon-sunhuai myicon2"></text>非车物损工单
+      </view>
+    </view>
+    <view class="my-list-item" data-type="1" bindtap="goToNewWsList" wx:if="{{role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-sunhuai myicon2"></text>新物损工单
+      </view>
+    </view>
+    <view class="my-list-item" data-type="2" bindtap="goToNewWsList" wx:if="{{role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-sunhuai myicon2"></text>新非车物损工单
       </view>
     </view>
 

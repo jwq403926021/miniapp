@@ -9,14 +9,16 @@ Page({
     role: null
   },
   //事件处理函数
-  goToWsList: function () {
+  goToWsList: function (event) {
+    let type = event.currentTarget.dataset.type
     wx.navigateTo({
-      url: '../my-list-ws/my-list-ws'
+      url: '../my-list-ws/my-list-ws?type='+type
     })
   },
-  goToNewWsList: function () {
+  goToNewWsList: function (event) {
+    let type = event.currentTarget.dataset.type
     wx.navigateTo({
-      url: '../new-my-list-ws/new-my-list-ws'
+      url: '../new-my-list-ws/new-my-list-ws?type='+type
     })
   },
   goToJcList: function () {
