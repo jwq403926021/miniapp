@@ -67,6 +67,9 @@ Page({
   },
   onLoad: function (routeParams) {
     this.initArea()
+    this.setData({
+      'taskData.insuranceType': routeParams.type,
+    })
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         id: routeParams.id,
@@ -790,7 +793,7 @@ Page({
     // if (taskData.damagedUser == '' || taskData.customerUser == '') {
     //   wx.showToast({
     //     mask: true,
-    //     title: '请填写损失方以及肇事方',
+    //     title: '请填写损失方以及出险方',
     //     icon: 'none',
     //     duration: 2000
     //   })

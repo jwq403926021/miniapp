@@ -72,6 +72,9 @@ Page({
   locker: false,
   onLoad: function (routeParams) {
     this.initArea()
+    this.setData({
+      'taskData.insuranceType': routeParams.type,
+    })
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,

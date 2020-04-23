@@ -36,11 +36,11 @@
 
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">肇事方</view>
+                    <view class="weui-label">出险方</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
-                           value="{{taskData.customerUser}}" placeholder="肇事方"/>
+                           value="{{taskData.customerUser}}" placeholder="出险方"/>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
@@ -96,21 +96,21 @@
                     </view>
                 </block>
             </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">险种</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <van-radio-group value="{{ taskData.insuranceType }}" custom-class="weui-input vertical"
-                                     bind:change="oninsuranceTypeChange">
-                        <van-radio custom-class="fl mr5" name="1">车物损</van-radio>
-                        <van-radio custom-class="fl mr5" name="2">非车</van-radio>
-                    </van-radio-group>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
-                    <text class="weui-input readonly">{{taskData.insuranceType == 1 ? '车物损' : '非车'}}</text>
-                </view>
-            </view>
+<!--            <view class="weui-cell weui-cell_select">-->
+<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+<!--                    <view class="weui-label">险种</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">-->
+<!--                    <van-radio-group value="{{ taskData.insuranceType }}" custom-class="weui-input vertical"-->
+<!--                                     bind:change="oninsuranceTypeChange">-->
+<!--                        <van-radio custom-class="fl mr5" name="1">车物损</van-radio>-->
+<!--                        <van-radio custom-class="fl mr5" name="2">非车</van-radio>-->
+<!--                    </van-radio-group>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">-->
+<!--                    <text class="weui-input readonly">{{taskData.insuranceType == 1 ? '车物损' : '非车'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
@@ -123,7 +123,7 @@
                     <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">保险公司</view>
                 </view>
@@ -270,7 +270,7 @@
 
         <block wx:if="{{id != null && taskData.status != 2  && taskData.status != 12}}">
             <view class="weui-cells">
-                <view class="weui-cell weui-cell_select">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">处理方式</view>
                     </view>
@@ -392,7 +392,7 @@
             <block wx:if="{{taskData.handlingType == 0}}">
                 <view class="weui-cells__title">押金</view>
                 <view class="weui-cells weui-cells_after-title">
-                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
                         <view class="weui-cell__hd">
                             <view class="weui-label">押金金额</view>
                         </view>
@@ -456,7 +456,7 @@
                     </view>
                 </view>
 
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">报价人员</view>
                     </view>

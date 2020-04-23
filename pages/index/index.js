@@ -5,14 +5,16 @@ Page({
     isLogin: false,
     role: null
   },
-  goToWsForm: function() {
+  goToWsForm: function(event) {
+    let type = event.currentTarget.dataset.type
     wx.navigateTo({
-      url: '../ws-form/ws-form'
+      url: '../ws-form/ws-form?type='+type
     })
   },
-  goToNewWsForm: function() {
+  goToNewWsForm: function(event) {
+    let type = event.currentTarget.dataset.type
     wx.navigateTo({
-      url: '../new-ws-form/new-ws-form'
+      url: '../new-ws-form/new-ws-form?type='+type
     })
   },
   goToJcForm: function () {
