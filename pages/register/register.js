@@ -60,22 +60,20 @@ Page({
   },
   onShow: function () {
     let value = wx.getStorageSync('status')
-    let _isOurUser = (value == 2 || value == '') ? false : true
     this.setData({
-      hasBindPhone: _isOurUser,
-      isOurUser: _isOurUser,
-      isModifyPhone: _isOurUser
+      hasBindPhone: value == 1 || value == 2,
+      isOurUser: value != '',
+      isModifyPhone: value != ''
     })
   },
   onLoad: function (routeParams) {
     wx.hideLoading()
     let _this = this
     let value = wx.getStorageSync('status')
-    let _isOurUser = (value == 2 || value == '') ? false : true
     this.setData({
-      hasBindPhone: _isOurUser,
-      isOurUser: _isOurUser,
-      isModifyPhone: _isOurUser
+      hasBindPhone: value == 1 || value == 2,
+      isOurUser: value != '',
+      isModifyPhone: value != ''
     })
     wx.getSetting({
       success: res => {
