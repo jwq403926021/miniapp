@@ -1,5 +1,5 @@
 <view class="page">
-    <view wx:if="{{!hasBindPhone && !hasUserInfoAuth}}" class="authAskBtnWrap">
+    <view wx:if="{{!hasUserInfoAuth && !hasBindPhone}}" class="authAskBtnWrap">
         <view style="text-align: center">
             <image class="userinfo-avatar" src="../../asset/image/logo.png" mode="cover"></image>
         </view>
@@ -10,19 +10,13 @@
             立即申请
         </button>
     </view>
-    <view wx:if="{{hasBindPhone && !hasUserInfoAuth}}" class="authAskBtnWrap">
-        <view style="text-align: center">欢迎使用汇报价小程序。</view>
-        <view>登陆后，您将可以获得更畅快的办公体验。</view>
-        <view>提高物损、家财、开锁、疏通等工单的处理效率。</view>
-        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type="primary">
-            授权登陆
-        </button>
-    </view>
-    <view class="userinfo" wx:if="{{hasUserInfoAuth || hasBindPhone}}">
+
+    <view class="userinfo" wx:if="{{hasUserInfoAuth}}">
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </view>
-    <view class="authAskBtnWrap" wx:if="{{hasUserInfoAuth && !hasBindPhone}}">
+
+    <view wx:if="{{!hasUserInfoAuth}}" class="authAskBtnWrap">
         <view style="text-align: center">欢迎使用汇报价小程序。</view>
         <view>登陆后，您将可以获得更畅快的办公体验。</view>
         <view>提高物损、家财、开锁、疏通等工单的处理效率。</view>
@@ -30,6 +24,7 @@
             授权登陆
         </button>
     </view>
+
     <view class="page__bd" wx:if="{{hasUserInfoAuth && !hasBindPhone}}">
         <view class="weui-cells__title">绑定手机</view>
         <view class="weui-cells weui-cells_after-title">
