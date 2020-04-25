@@ -9,22 +9,10 @@ App({
     let _this = this
     let page = getCurrentPages().pop()
     if (page == undefined || page == null) return
-    if ([
-      "pages/index/index",
-      "pages/register/register",
-      "pages/my-list-home/my-list-home",
-      "pages/my-list-ws/my-list-ws",
-      "pages/my-list-jc/my-list-jc",
-      "pages/my-list-cx/my-list-cx",
-      "pages/my-list-lock/my-list-lock",
-      "pages/my-list-feedback/my-list-feedback",
-      "pages/my-list-pipe/my-list-pipe"
-    ].indexOf(obj.path) != -1) {
-      if (!_this.globalData.token) {
-        _this.login()
-      }
-      page.onLoad()
+    if (!_this.globalData.token || _this.globalData.status == null || _this.globalData.status == 2 ) {
+      _this.login()
     }
+    page.onLoad()
   },
   login (routerParams) {
     let _this = this
@@ -64,7 +52,7 @@ App({
       success: function (res) {
         if (res.code) {
           wx.showLoading({
-            title: '登录中',
+            title: '加载中',
             mask: true
           })
           util.request({
@@ -90,6 +78,8 @@ App({
                   url: '../register/register'
                 })
                 wx.hideTabBar()
+                let page = getCurrentPages().pop()
+                page.onLoad()
               } else {
                 _this.globalData.currentRegisterInfo = res.userInfo
                 var page = getCurrentPages().pop();
@@ -119,7 +109,7 @@ App({
   globalData: {
     currentRegisterInfo: null,
     userInfo: null,
-    status: 0,
+    status: null,
     token: ''
     // ,logining: false
   }

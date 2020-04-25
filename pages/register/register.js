@@ -62,7 +62,7 @@ Page({
     let value = wx.getStorageSync('status')
     let mobile = wx.getStorageSync('mobile')
     this.setData({
-      'registeInfo.mobile': mobile,
+      'registeInfo.mobile': mobile || this.data.registeInfo.mobile,
       isDisableVerfiyBtn: value == 1,
       hasBindPhone: value == 1 || value == 2,
       isOurUser: value == 1,
@@ -75,7 +75,7 @@ Page({
     let value = wx.getStorageSync('status')
     let mobile = wx.getStorageSync('mobile')
     this.setData({
-      'registeInfo.mobile': mobile,
+      'registeInfo.mobile': mobile || this.data.registeInfo.mobile,
       isDisableVerfiyBtn: value == 1,
       hasBindPhone: value == 1 || value == 2,
       isOurUser: value == 1,
@@ -486,6 +486,7 @@ Page({
         _this.setData({
           isModifyPhone: false,
           'hasBindPhone': true,
+          "registeInfo.mobileCode": '',
           "registeInfo.companyNameCode": res.userInfo.companyNameCode,
           "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : '',
           "registeInfo.companyType": res.userInfo.companyType || '2', // '新用户默认 单位类别 2保险公司'
