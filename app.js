@@ -80,9 +80,11 @@ App({
             if (res.code == 0) {
               wx.setStorageSync('status', res.status)
               wx.setStorageSync('token', res.token)
+              wx.setStorageSync('mobile', res.mobile)
               _this.globalData.status = res.status
               _this.globalData.token = res.token
-              if (res.status == 2) {
+              _this.globalData.mobile = res.mobile
+              if (res.status == 2 || res.status == null) {
                 console.log('未注册', res)
                 wx.switchTab({
                   url: '../register/register'

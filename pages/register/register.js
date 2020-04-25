@@ -60,20 +60,26 @@ Page({
   },
   onShow: function () {
     let value = wx.getStorageSync('status')
+    let mobile = wx.getStorageSync('mobile')
     this.setData({
+      'registeInfo.mobile': mobile,
+      isDisableVerfiyBtn: value == 1,
       hasBindPhone: value == 1 || value == 2,
-      isOurUser: value != '',
-      isModifyPhone: value != ''
+      isOurUser: value == 1,
+      isModifyPhone: value != null
     })
   },
   onLoad: function (routeParams) {
     wx.hideLoading()
     let _this = this
     let value = wx.getStorageSync('status')
+    let mobile = wx.getStorageSync('mobile')
     this.setData({
+      'registeInfo.mobile': mobile,
+      isDisableVerfiyBtn: value == 1,
       hasBindPhone: value == 1 || value == 2,
-      isOurUser: value != '',
-      isModifyPhone: value != ''
+      isOurUser: value == 1,
+      isModifyPhone: value != null
     })
     wx.getSetting({
       success: res => {
