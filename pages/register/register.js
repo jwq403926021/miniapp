@@ -321,12 +321,15 @@ Page({
         _this.setData({
           isOurUser: true,
           isModifyPhone: false,
+          "registeInfo.coinCount": res.userInfo.coinCount || 0,
+          "registeInfo.mobile": res.userInfo.mobile,
           "registeInfo.mobileCode": '',
           "registeInfo.inviteCode": res.userInfo.inviteCode,
           "registeInfo.roleName": res.userInfo.roleName,
           "registeInfo.companyName": res.userInfo.sysCompanyEntity ? res.userInfo.sysCompanyEntity.companyName : ''
         })
           wx.setStorageSync('status', 1)
+          wx.setStorageSync('mobile', res.userInfo.mobile)
           wx.showToast({
             mask: true,
             title: '操作成功',
