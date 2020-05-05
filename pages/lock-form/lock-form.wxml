@@ -38,11 +38,11 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">肇事方</view>
+          <view class="weui-label">出险方</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customName'
-                 value="{{taskData.customName}}" placeholder="肇事方"/>
+                 value="{{taskData.customName}}" placeholder="出险方"/>
         </view>
       </view>
       <view class="weui-cell weui-cell_input weui-cell_vcode">
