@@ -6,6 +6,7 @@ const app = getApp()
 Page({
   data: {
     id: null,
+    showKeyboard: false,
     role: 1, // 1 查勘员 | 12 合作商施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 |
     informationImageFiles: [],
     liveImageFiles: [],
@@ -1359,7 +1360,17 @@ Page({
     wx.navigateTo({
       url: '../ws-offer/ws-offer?id=' + event.currentTarget.dataset.id
     })
-  }
+  },
+  openPlatePicker () {
+    this.setData({
+      showKeyboard: true
+    })
+  },
+  setNumber (event) {
+    this.setData({
+      'taskData.plateNumber': event.detail.value
+    })
+  },
 })
 
 /*

@@ -1,0 +1,31 @@
+<!--components/plate-number-keyboard/plate-number-keyboard.wxml-->
+<view class='plate-number-keyboard-box' wx:if="{{show}}" catch:touchmove="_preventTouch" catchtap='_closeKeyboard'>
+  <view class='pnk-main' catch:touchmove='_preventDefault' animation="{{animationData}}">
+    <view class='pnk-main-title'>
+      <text>请点击选择车牌号：</text>
+      <view class='iconfont icon-arrow-down' catchtap='_closeKeyboard'></view>
+    </view>
+    <view class='pnk-content'>
+      <!-- 省份面板 -->
+      <view class='province-plane' wx:if='{{showProvince}}'>
+        <block wx:for="{{provinceList}}" wx:key="index">
+          <view class='line'>
+            <view wx:if="{{index === 'line4'}}" class='number-item handle-btn' catchtap='_clickChangePlane'>ABC</view>
+            <view class='number-item' wx:for="{{item}}" wx:for-item="it" wx:for-index="ind" wx:key="ind" data-text='{{it}}' catchtap='_handleClick'>{{it}}</view>
+            <view wx:if="{{index === 'line4'}}" class='number-item handle-btn iconfont icon-huitui' catchtap='_handleDelete'></view>
+          </view>
+        </block>
+      </view>
+      <!-- 字母数字面板 -->
+      <view class='letter-number-plane' wx:if='{{!showProvince}}'>
+        <block wx:for="{{letterNumberList}}" wx:key="index">
+          <view class='line'>
+            <view wx:if="{{index === 'line4'}}" class='number-item handle-btn' catchtap='_clickChangePlane'>省</view>
+            <view class='number-item' wx:for="{{item}}" wx:for-item="it" wx:for-index="ind" wx:key="ind" data-text='{{it}}' catchtap='_handleClick'>{{it}}</view>
+            <view wx:if="{{index === 'line4'}}" class='number-item handle-btn iconfont icon-huitui' catchtap='_handleDelete'></view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

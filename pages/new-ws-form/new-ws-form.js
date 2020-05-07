@@ -6,6 +6,7 @@ const app = getApp()
 Page({
   data: {
     orderId: null,
+    showKeyboard: false,
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
@@ -389,6 +390,16 @@ Page({
           that.locker = false
         }, 500)
       }
+    })
+  },
+  openPlatePicker () {
+    this.setData({
+      showKeyboard: true
+    })
+  },
+  setNumber (event) {
+    this.setData({
+      'taskData.plateNumber': event.detail.value
     })
   },
   previewVideo: function (e) {

@@ -38,9 +38,8 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.plateNumber'
-                           value="{{taskData.plateNumber}}" placeholder="请输入车牌号"/>
+                <view class="weui-cell__bd" bind:tap="openPlatePicker" wx:if="{{(id == null || taskData.status == 2 || taskData.status == 12) && role == 1}}">
+                    <text class="weui-input readonly">{{taskData.plateNumber || '请输入车牌号'}}</text>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{id != null && taskData.status != 2 && taskData.status != 12}}">
                     <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
@@ -591,4 +590,5 @@
     >
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
     </van-popup>
+    <plate-number-keyboard show="{{showKeyboard}}" bind:getResult="setNumber" initValue="{{taskData.plateNumber}}"></plate-number-keyboard>
 </view>
