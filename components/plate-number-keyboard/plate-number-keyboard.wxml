@@ -21,7 +21,7 @@
         <block wx:for="{{letterNumberList}}" wx:key="index">
           <view class='line'>
             <view wx:if="{{index === 'line4'}}" class='number-item handle-btn' catchtap='_clickChangePlane'>省</view>
-            <view class='number-item' wx:for="{{item}}" wx:for-item="it" wx:for-index="ind" wx:key="ind" data-text='{{it}}' catchtap='_handleClick'>{{it}}</view>
+            <view class='number-item {{(it === "I" || it === "O") ? "disabled-btn" : ""}}' wx:for="{{item}}" wx:for-item="it" wx:for-index="ind" wx:key="ind" data-text='{{it}}' catchtap='_handleClick'>{{it}}</view>
             <view wx:if="{{index === 'line4'}}" class='number-item handle-btn iconfont icon-huitui' catchtap='_handleDelete'></view>
           </view>
         </block>

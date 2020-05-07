@@ -83,6 +83,15 @@ button {
   font-size: 28rpx;
 }
 
+.line .disabled-btn {
+  width: 80rpx;
+  background: #acb3bb!important;
+  font-size: 28rpx;
+}
+.line .disabled-btn:active {
+  background: #acb3bb!important;
+}
+
 .line .iconfont {
   font-size: 40rpx;
 }
