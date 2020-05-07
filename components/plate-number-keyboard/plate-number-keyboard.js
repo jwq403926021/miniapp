@@ -118,14 +118,19 @@ Component({
      * 键盘主要键点击事件，将点击内容更新到plateNumber
      */
     _handleClick: function(e) {
+      let currentResult = this.data.plateNumber; // 当前的结果值
+      let currentText = e.currentTarget.dataset.text; // 当前的操作值
+
+      if (currentText === 'I' || currentText === 'O') {
+        return false
+      }
+
       // 如果当前显示的省份面板，当即任意省份后，自动切换到字符面板，同时将结果值的第一个字符修改
       if (this.data.showProvince) {
         this.setData({
           showProvince: false
         })
       }
-      let currentResult = this.data.plateNumber; // 当前的结果值
-      let currentText = e.currentTarget.dataset.text; // 当前的操作值
 
       // 车牌号最多8位，大多数7位，新能源8位，控制不能超过8位数
       if (currentResult.length < 8) {
