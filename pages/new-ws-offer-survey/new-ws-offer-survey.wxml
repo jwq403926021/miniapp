@@ -21,6 +21,22 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{plateNumber || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{reportNumber || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
                     <view class="weui-label">区域</view>
                 </view>
                 <view class="weui-cell__bd">

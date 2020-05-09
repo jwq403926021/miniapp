@@ -93,7 +93,9 @@ Page({
     operateIndex: 0,
     filterLoading: false,
     active0: false,
-    active1: false
+    active1: false,
+    plateNumber: '',
+    reportNumber : ''
   },
   initArea () {
     try {
@@ -335,6 +337,21 @@ Page({
   },
   init () {
     let _this = this
+
+    util.request({
+      path: '/app/businessdamagenew/damageDetail',
+      method: 'GET',
+      data: {
+        orderId: _this.data.orderId
+      }
+    }, function (err, res) {
+      let data = res.data
+      _this.setData({
+        plateNumber: data.plateNumber,
+        reportNumber: data.reportNumber
+      })
+    })
+
     util.request({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',

@@ -132,6 +132,16 @@
                     <text class="weui-input readonly">{{taskData.companyName || '-'}}</text>
                 </view>
             </view>
+
+            <view class="weui-cell weui-cell_input" wx:if="{{(id == null || taskData.status == 12) && role == 1}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                           value="{{taskData.reportNumber}}" placeholder="报案号"/>
+                </view>
+            </view>
         </view>
         <!--<view class="weui-cells__title">报案信息</view>-->
         <!--<view class="weui-cells weui-cells_after-title">-->

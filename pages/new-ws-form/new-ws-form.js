@@ -63,6 +63,7 @@ Page({
       manageMoney: '',
       insurePay: '',
       payWorker: '',
+      reportNumber: ''
     },
     activeVideo: '',
     location: {
@@ -601,6 +602,7 @@ Page({
       customerUser: data.customerUser,
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
+      reportNumber: data.reportNumber,
       information: data.information
     }
     if (this.data.orderId) {

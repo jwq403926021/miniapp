@@ -63,7 +63,8 @@ Page({
       offer: '',
       bidder: '',
       offerRemark: '',
-      companyName: ''
+      companyName: '',
+      reportNumber: ''
     }
   },
   onLoad: function (routeParams) {
@@ -769,6 +770,7 @@ Page({
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
       information: data.information,
+      reportNumber: data.reportNumber,
       live: data.live
     }
 
@@ -1109,6 +1111,7 @@ Page({
       offer: data.offer,
       bidder: data.bidder,
       offerRemark: data.offerRemark,
+      reportNumber: data.reportNumber,
       isTempSave: isSave ? 'save' : 'commit'
     }
 
