@@ -59,6 +59,16 @@
                 </view>
             </view>
 
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                           value="{{taskData.reportNumber}}" placeholder="报案号"/>
+                </view>
+            </view>
+
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">出险方</view>
@@ -129,15 +139,6 @@
                 </block>
             </view>
 
-            <view class="weui-cell weui-cell_input" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">报案号</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
-                           value="{{taskData.reportNumber}}" placeholder="报案号"/>
-                </view>
-            </view>
 <!--            <view class="weui-cell weui-cell_select">-->
 <!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
 <!--                    <view class="weui-label">险种</view>-->
