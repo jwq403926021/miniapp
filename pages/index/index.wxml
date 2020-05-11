@@ -14,6 +14,14 @@
         车物损
       </view>
     </view>
+    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
+      <view>
+        <text class="iconfont icon-fangwuxinxi myicon"></text>
+      </view>
+      <view>
+        家财险
+      </view>
+    </view>
     <view class="new-btn fl" bindtap="goToWsForm" data-type="2" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-feichelipei myicon"></text>
@@ -38,14 +46,7 @@
 <!--        新非车险-->
 <!--      </view>-->
 <!--    </view>-->
-    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
-      <view>
-        <text class="iconfont icon-fangwuxinxi myicon"></text>
-      </view>
-      <view>
-        家财险
-      </view>
-    </view>
+
     <!--<view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">-->
       <!--<view>-->
         <!--<text class="iconfont icon-qiche301 myicon"></text>-->
