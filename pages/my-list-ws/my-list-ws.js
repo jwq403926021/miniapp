@@ -17,6 +17,7 @@ Page({
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     searchCarNumber: '',
+    searchReportNumber: '',
     searchOrderId: '',
     statusMap: {
       '-1': '状态不限',
@@ -83,6 +84,11 @@ Page({
       searchOrderId: data.detail
     })
   },
+  searchReportNumberChange (data) {
+    this.setData({
+      searchReportNumber: data.detail
+    })
+  },
   dateFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
     this.setData({
@@ -102,6 +108,7 @@ Page({
       size: 100,
       datetime: this.data.dateFilter,
       carNumber: this.data.searchCarNumber,
+      reportNumber: this.data.searchReportNumber,
       orderId: this.data.searchOrderId
     }
     if (this.data.statusFilter != '-1') {

@@ -29,6 +29,12 @@
               custom-class="my-search"
               bind:change="searchOrderIdChange">
       </van-search>
+      <van-search
+              value="{{ searchReportNumber }}"
+              placeholder="请输入报案号"
+              custom-class="my-search"
+              bind:change="searchReportNumberChange">
+      </van-search>
     </view>
     <view class="searchBtn" style="line-height: 90px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
   </view>

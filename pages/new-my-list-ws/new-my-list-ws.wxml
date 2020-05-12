@@ -28,6 +28,12 @@
                 custom-class="my-search"
                 bind:change="searchOrderIdChange">
         </van-search>
+        <van-search
+                value="{{ searchReportNumber }}"
+                placeholder="请输入报案号"
+                custom-class="my-search"
+                bind:change="searchReportNumberChange">
+        </van-search>
       </view>
     </view>
     <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="resetFilter">重置</view>
