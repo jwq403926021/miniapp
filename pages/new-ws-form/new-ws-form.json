@@ -5,6 +5,7 @@
     "van-radio": "../../asset/vant/radio/index",
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-icon": "../../asset/vant/icon/index",
-    "van-dialog": "../../asset/vant/dialog/index"
+    "van-dialog": "../../asset/vant/dialog/index",
+    "plate-number-keyboard": "../../components/plate-number-keyboard/plate-number-keyboard"
   }
 }

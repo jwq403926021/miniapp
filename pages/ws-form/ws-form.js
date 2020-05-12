@@ -6,6 +6,7 @@ const app = getApp()
 Page({
   data: {
     id: null,
+    showKeyboard: false,
     role: 1, // 1 查勘员 | 12 合作商施工人员 | 6 公司市级负责人 | 11 合作商市级负责人 |
     informationImageFiles: [],
     liveImageFiles: [],
@@ -62,7 +63,8 @@ Page({
       offer: '',
       bidder: '',
       offerRemark: '',
-      companyName: ''
+      companyName: '',
+      reportNumber: ''
     }
   },
   onLoad: function (routeParams) {
@@ -768,6 +770,7 @@ Page({
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
       information: data.information,
+      reportNumber: data.reportNumber,
       live: data.live
     }
 
@@ -1108,6 +1111,7 @@ Page({
       offer: data.offer,
       bidder: data.bidder,
       offerRemark: data.offerRemark,
+      reportNumber: data.reportNumber,
       isTempSave: isSave ? 'save' : 'commit'
     }
 
@@ -1359,7 +1363,17 @@ Page({
     wx.navigateTo({
       url: '../ws-offer/ws-offer?id=' + event.currentTarget.dataset.id
     })
-  }
+  },
+  openPlatePicker () {
+    this.setData({
+      showKeyboard: true
+    })
+  },
+  setNumber (event) {
+    this.setData({
+      'taskData.plateNumber': event.detail.value
+    })
+  },
 })
 
 /*

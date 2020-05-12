@@ -49,14 +49,14 @@
 					"id": 0,
 					"name": "pages/new-ws-offer/new-ws-offer",
 					"pathName": "pages/new-ws-offer/new-ws-offer",
-					"query": "id=20200330080615000107",
+					"query": "id=20200420101459000107",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "new-ws-offer-survey",
 					"pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
-					"query": "id=20200415081536000107",
+					"query": "id=20200323102655000107",
 					"scene": null
 				}
 			]

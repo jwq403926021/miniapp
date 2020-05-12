@@ -6,6 +6,7 @@ const app = getApp()
 Page({
   data: {
     orderId: null,
+    showKeyboard: false,
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
@@ -62,6 +63,7 @@ Page({
       manageMoney: '',
       insurePay: '',
       payWorker: '',
+      reportNumber: ''
     },
     activeVideo: '',
     location: {
@@ -391,6 +393,16 @@ Page({
       }
     })
   },
+  openPlatePicker () {
+    this.setData({
+      showKeyboard: true
+    })
+  },
+  setNumber (event) {
+    this.setData({
+      'taskData.plateNumber': event.detail.value
+    })
+  },
   previewVideo: function (e) {
     let key = e.currentTarget.dataset.name
     let id = e.currentTarget.id
@@ -590,6 +602,7 @@ Page({
       customerUser: data.customerUser,
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
+      reportNumber: data.reportNumber,
       information: data.information
     }
     if (this.data.orderId) {

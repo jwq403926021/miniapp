@@ -23,7 +23,9 @@ Page({
     },
     activeNames: ['0'],
     data: [],
-    total: 0
+    total: 0,
+    plateNumber: '',
+    reportNumber : ''
   },
   onLoad: function (routeParams) {
     if (routeParams && routeParams.id) {
@@ -41,6 +43,20 @@ Page({
   },
   initDataById (id) {
     let _this = this
+    util.request({
+      path: '/app/damage/damageDetail',
+      method: 'GET',
+      data: {
+        damageId: id
+      }
+    }, function (err, res) {
+      let data = res.data
+      _this.setData({
+        plateNumber: data.plateNumber,
+        reportNumber : data.reportNumber
+      })
+    })
+
     util.request({
       path: `/app/price/priceList`,
       method: 'GET',
