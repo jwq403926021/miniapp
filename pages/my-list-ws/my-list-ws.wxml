@@ -29,6 +29,10 @@
               custom-class="my-search"
               bind:change="searchOrderIdChange">
       </van-search>
+
+      <view class="field filterDropdown">
+        <view style="width: 70px; height: 1px;"> </view>
+      </view>
       <van-search
               value="{{ searchReportNumber }}"
               placeholder="请输入报案号"
