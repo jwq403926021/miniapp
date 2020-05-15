@@ -174,7 +174,7 @@ Page({
     })
   },
   checkPhone (str, msg){
-    str = str.replace('/\\s+/g', '')
+    str = str.replace(/\s/g, '')
     if(!(/^1[3456789]\d{9}$/.test(str))){
       wx.showToast({
         mask: true,
