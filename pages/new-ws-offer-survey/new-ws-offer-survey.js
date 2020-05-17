@@ -280,7 +280,7 @@ Page({
 
     this.setData({
       amountMoney: amountMoney.toFixed(2),
-      tax,
+      tax: tax.toFixed(2),
       offerListTotal,
       incompleteTotal,
       offerResult,
