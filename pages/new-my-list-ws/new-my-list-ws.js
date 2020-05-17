@@ -32,7 +32,8 @@ Page({
     startDateLabel: '开始时间',
     endDate: '',
     endDateLabel: '结束时间',
-    role: 1
+    role: 1,
+    type: 1
   },
   onPullDownRefresh () {
     this.getInitData()
@@ -167,7 +168,8 @@ Page({
       size: 100,
       plateNumber: this.data.searchCarNumber,
       reportNumber: this.data.searchReportNumber,
-      orderId: this.data.searchOrderId
+      orderId: this.data.searchOrderId,
+      insuranceType: this.data.type
     }
     if (this.data.statusFilter != '-1') {
       filter.status = this.data.statusFilter
@@ -197,9 +199,10 @@ Page({
   onShow () {
     this.getInitData()
   },
-  onLoad: function () {
+  onLoad: function (routeParams) {
     let _this = this
     _this.setData({
+      type: routeParams.type,
       role: app.globalData.currentRegisterInfo.role
     })
     wx.getSystemInfo({

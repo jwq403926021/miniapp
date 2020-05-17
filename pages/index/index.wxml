@@ -6,12 +6,20 @@
     您好：服务者，请您联系管理维护您的角色
   </view>
   <view wx:else class="index-btn-wrap">
-    <view class="new-btn fl" bindtap="goToWsForm" data-type="1" wx:if="{{role == 1}}">
+    <!--<view class="new-btn fl" bindtap="goToWsForm" data-type="1" wx:if="{{role == 1}}">-->
+      <!--<view>-->
+        <!--<text class="iconfont icon-sunhuai myicon"></text>-->
+      <!--</view>-->
+      <!--<view>-->
+        <!--车物损-->
+      <!--</view>-->
+    <!--</view>-->
+    <view class="new-btn fl" bindtap="goToNewWsForm" data-type="1" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-sunhuai myicon"></text>
       </view>
       <view>
-        车物损
+        新车物损
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
@@ -22,31 +30,22 @@
         家财险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToWsForm" data-type="2" wx:if="{{role == 1}}">
+    <!--<view class="new-btn fl" bindtap="goToWsForm" data-type="2" wx:if="{{role == 1}}">-->
+      <!--<view>-->
+        <!--<text class="iconfont icon-feichelipei myicon"></text>-->
+      <!--</view>-->
+      <!--<view>-->
+        <!--非车险-->
+      <!--</view>-->
+    <!--</view>-->
+    <view class="new-btn fl" bindtap="goToNewWsForm" data-type="2" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-feichelipei myicon"></text>
       </view>
       <view>
-        非车险
+        新非车险
       </view>
     </view>
-<!--    <view class="new-btn fl" bindtap="goToNewWsForm" data-type="1" wx:if="{{role == 1}}">-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-sunhuai myicon"></text>-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        新车物损-->
-<!--      </view>-->
-<!--    </view>-->
-<!--    <view class="new-btn fl" bindtap="goToNewWsForm" data-type="2" wx:if="{{role == 1}}">-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-feichelipei myicon"></text>-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        新非车险-->
-<!--      </view>-->
-<!--    </view>-->
-
     <!--<view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">-->
       <!--<view>-->
         <!--<text class="iconfont icon-qiche301 myicon"></text>-->
