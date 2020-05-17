@@ -899,7 +899,7 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-ws/my-list-ws'
+        url: '../my-list-ws/my-list-ws?type=' + this.data.taskData.insuranceType
       })
     }
   },

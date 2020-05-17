@@ -701,7 +701,7 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url: '../new-my-list-ws/new-my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.taskData.insuranceType
       })
     }
   },
