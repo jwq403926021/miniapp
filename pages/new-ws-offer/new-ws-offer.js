@@ -292,7 +292,7 @@ Page({
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
-      item.offer = offerListTotal * parseFloat(item.rate || 0)
+      item.offer = (offerListTotal * parseFloat(item.rate || 0)).toFixed(2)
       return item
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
@@ -654,6 +654,23 @@ Page({
       delta: 1
     })
   },
+  checkOfferListItem () {
+    let result = true
+    let list = this.data.offerList
+    for (let i = 0; i < list.length; i++) {
+      for (let j = 0; j < list[i].children.length; j++) {
+        let item = list[i].children[j]
+        if (item.projectId == null || item.projectId == '' ||
+          item.unit == null || item.unit == '' ||
+          item.price == null || item.price == '' ||
+          item.num == null || item.num == '') {
+          result = false
+          break
+        }
+      }
+    }
+    return result
+  },
   submitOfferByWorker (e) {
     let _this = this
     let save = e.currentTarget.dataset.save
@@ -688,6 +705,24 @@ Page({
         title: '请填写报价信息',
         icon: 'none',
         duration: 1000
+      })
+      return
+    }
+    if (!this.checkOfferListItem()) {
+      wx.showToast({
+        mask: true,
+        title: '请填写所有报价条目的 类型 单价 单位 数量.',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    if (this.data.hasTax && (this.data.taxRate == '' || this.data.taxRate == 0)) {
+      wx.showToast({
+        mask: true,
+        title: '请填写税率',
+        icon: 'none',
+        duration: 500
       })
       return
     }
@@ -770,6 +805,24 @@ Page({
         title: '请填写报价信息',
         icon: 'none',
         duration: 1000
+      })
+      return
+    }
+    if (!this.checkOfferListItem()) {
+      wx.showToast({
+        mask: true,
+        title: '请填写所有报价条目的 类型 单价 单位 数量.',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    if (this.data.hasTax && (this.data.taxRate == '' || this.data.taxRate == 0)) {
+      wx.showToast({
+        mask: true,
+        title: '请填写税率',
+        icon: 'none',
+        duration: 500
       })
       return
     }
@@ -858,6 +911,13 @@ Page({
     })
     this.setData({
       offerList: arr
+    }, () => {
+      wx.showToast({
+        mask: true,
+        title: '已追加',
+        icon: 'none',
+        duration: 500
+      })
     })
   },
   removeProjectItem (e) {

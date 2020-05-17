@@ -103,27 +103,27 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cells__title">比价平台</view>
-            <view class="weui-cells weui-cells_after-title">
-                <block wx:for="{{compareList}}" wx:key="index">
-                    <view class="weui-cell weui-cell_input offerListRow">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">企业</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.companyName}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input offerListRow">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">报价合计</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.offer || '-'}}</text>
-                        </view>
-                    </view>
-                </block>
-            </view>
+            <!--<view class="weui-cells__title">比价平台</view>-->
+            <!--<view class="weui-cells weui-cells_after-title">-->
+                <!--<block wx:for="{{compareList}}" wx:key="index">-->
+                    <!--<view class="weui-cell weui-cell_input offerListRow">-->
+                        <!--<view class="weui-cell__hd">-->
+                            <!--<view class="weui-label">企业</view>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd">-->
+                            <!--<text class="weui-input readonly">{{item.companyName}}</text>-->
+                        <!--</view>-->
+                    <!--</view>-->
+                    <!--<view class="weui-cell weui-cell_input offerListRow">-->
+                        <!--<view class="weui-cell__hd">-->
+                            <!--<view class="weui-label">报价合计</view>-->
+                        <!--</view>-->
+                        <!--<view class="weui-cell__bd">-->
+                            <!--<text class="weui-input readonly">{{item.offer || '-'}}</text>-->
+                        <!--</view>-->
+                    <!--</view>-->
+                <!--</block>-->
+            <!--</view>-->
         </block>
         <block wx:else>
             <view class="weui-cells__title">报价信息</view>
@@ -209,7 +209,7 @@
                                     </view>
                                     <view class="weui-cell weui-cell_input no-padding">
                                         <view class="weui-cell__hd">
-                                            <view class="weui-label">处理方式</view>
+                                            <view class="weui-label">修复方式</view>
                                         </view>
                                         <view class="weui-cell__bd">
                                             <text class="weui-input readonly">{{item.handleType || '-'}}</text>

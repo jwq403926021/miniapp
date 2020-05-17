@@ -768,6 +768,15 @@ Page({
       })
       return false
     }
+    if (handlingType == null || handlingType == '') {
+      wx.showToast({
+        mask: true,
+        title: '处理方式不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -842,7 +851,8 @@ Page({
         manageMoney: this.data.taskData.manageMoney,
         insurePay: this.data.taskData.insurePay,
         payWorker: this.data.taskData.payWorker,
-        cityManager: this.data.taskData.cityManager
+        cityManager: this.data.taskData.cityManager,
+        handlingType: this.data.taskData.handlingType
       }
     }, function (err, res) {
       if (res.code == 0) {
