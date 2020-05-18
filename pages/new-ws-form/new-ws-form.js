@@ -701,7 +701,7 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url: '../new-my-list-ws/new-my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.taskData.insuranceType
       })
     }
   },
@@ -763,6 +763,15 @@ Page({
       wx.showToast({
         mask: true,
         title: '受损方索赔金额不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    if (handlingType == null || handlingType == '') {
+      wx.showToast({
+        mask: true,
+        title: '处理方式不能为空',
         icon: 'none',
         duration: 1000
       })
@@ -842,7 +851,8 @@ Page({
         manageMoney: this.data.taskData.manageMoney,
         insurePay: this.data.taskData.insurePay,
         payWorker: this.data.taskData.payWorker,
-        cityManager: this.data.taskData.cityManager
+        cityManager: this.data.taskData.cityManager,
+        handlingType: this.data.taskData.handlingType
       }
     }, function (err, res) {
       if (res.code == 0) {

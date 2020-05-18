@@ -59,6 +59,10 @@
             </view>
         </view>
 
+        <view style="margin: 10px 0;">
+            <van-button block type="primary" bindtap="addProjectItem">追加工程项目 +</van-button>
+        </view>
+
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
             <van-collapse value="{{ activeNames }}" bind:change="onChange">
@@ -177,13 +181,13 @@
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
-                                        <view class="weui-label">处理方式</view>
+                                        <view class="weui-label">修复方式</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                                         <text class="weui-input readonly">{{item.handleType || '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd h28 editable" bindtap="openHandleTypeSheet" data-name='handleType' data-pindex="{{pindex}}" data-index="{{index}}" wx:else>
-                                        {{item.handleType !== '' ? handleTypeList[item.handleType].name : '请选择处理方式'}}
+                                        {{item.handleType !== '' ? handleTypeList[item.handleType].name : '请选择修复方式'}}
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">
@@ -499,7 +503,7 @@
                 </van-col>
             </van-row>
             <view style="margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
-                <van-button loading="{{filterLoading}}" type="primary" size="small" bindtap="filter">过滤</van-button>
+                <van-button loading="{{filterLoading}}" type="primary" size="small" bindtap="filter">查询</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="resetFilter">重置</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="closeFilter">关闭</van-button>
                 <van-button type="primary" size="small" style="margin-left: 5px" bindtap="addCustomItem">追加自定义</van-button>

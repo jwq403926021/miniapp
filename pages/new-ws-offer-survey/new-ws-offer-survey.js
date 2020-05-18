@@ -276,11 +276,11 @@ Page({
     let amountMoney =  offerListTotal - incompleteTotal
     let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
 
-    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax) : Math.round(amountMoney)
+    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax).toFixed(2) : amountMoney.toFixed(2)
 
     this.setData({
-      amountMoney,
-      tax,
+      amountMoney: amountMoney.toFixed(2),
+      tax: tax.toFixed(2),
       offerListTotal,
       incompleteTotal,
       offerResult,
