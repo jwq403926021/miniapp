@@ -260,8 +260,10 @@ Page({
     offerList.forEach(project => {
       let projectTotal = 0
       project.children.forEach(item => {
-        projectTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
-        offerListTotal += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+        let total = (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+        item.itemTotal = total
+        projectTotal += total
+        offerListTotal += total
       })
       project.projectTotal = projectTotal
     })
@@ -269,7 +271,9 @@ Page({
 
     let incompleteTotal = 0
     incompleteList.forEach(item => {
-      incompleteTotal += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      let total = (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      item.itemTotal = total
+      incompleteTotal += total
     })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
 

@@ -209,6 +209,14 @@
                                     </view>
                                     <view class="weui-cell weui-cell_input no-padding">
                                         <view class="weui-cell__hd">
+                                            <view class="weui-label">合计</view>
+                                        </view>
+                                        <view class="weui-cell__bd">
+                                            <text class="weui-input readonly">{{item.itemTotal || '-'}}</text>
+                                        </view>
+                                    </view>
+                                    <view class="weui-cell weui-cell_input no-padding">
+                                        <view class="weui-cell__hd">
                                             <view class="weui-label">修复方式</view>
                                         </view>
                                         <view class="weui-cell__bd">
@@ -270,6 +278,14 @@
                                 </view>
                                 <view class="weui-cell__bd">
                                     <text class="weui-input readonly">{{item.num || '-'}}</text>
+                                </view>
+                            </view>
+                            <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell__hd">
+                                    <view class="weui-label">合计</view>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <text class="weui-input readonly">{{item.itemTotal || '-'}}</text>
                                 </view>
                             </view>
                             <view class="weui-cell weui-cell_input no-padding">
