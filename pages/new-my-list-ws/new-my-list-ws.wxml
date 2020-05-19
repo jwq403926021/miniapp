@@ -17,12 +17,6 @@
       </view>
       <view class="clearfix">
         <van-search
-                value="{{ searchCarNumber }}"
-                placeholder="请输入车牌号"
-                custom-class="my-search"
-                bind:change="searchCarNumberChange">
-        </van-search>
-        <van-search
                 value="{{ searchOrderId }}"
                 placeholder="请输入工单号"
                 custom-class="my-search"
@@ -33,6 +27,13 @@
                 placeholder="请输入报案号"
                 custom-class="my-search"
                 bind:change="searchReportNumberChange">
+        </van-search>
+        <van-search
+                wx:if="{{type == 1}}"
+                value="{{ searchCarNumber }}"
+                placeholder="请输入车牌号"
+                custom-class="my-search"
+                bind:change="searchCarNumberChange">
         </van-search>
       </view>
     </view>
@@ -46,7 +47,7 @@
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
           <view>肇事方：{{item.customerUser || '-'}}</view>
-          <view>车牌号：{{item.plateNumber || '-'}}</view>
+          <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
           <view>创建时间：{{item.createTime || '-'}}</view>
         </view>
       </view>
