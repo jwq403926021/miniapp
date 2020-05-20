@@ -617,6 +617,19 @@ Page({
       }
     })
 
+    if (taskData.insuranceType == 1) {
+      let flag = this.isLicenseNo(taskData.plateNumber)
+      if (!flag) {
+        wx.showToast({
+          mask: true,
+          title: '请填写正确的车牌号',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+    }
+
     if (taskData.customerPhone != ''){
       let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
@@ -639,13 +652,6 @@ Page({
         duration: 2000
       })
       return
-    }
-
-    if (taskData.plateNumber) {
-      let flag = this.isLicenseNo(taskData.plateNumber)
-      if (!flag) {
-        return
-      }
     }
 
     wx.showLoading({
