@@ -216,8 +216,9 @@
     <view class="button-sp-area" wx:if="{{id != null && status == '1' && role == '19'}}">
       <button type="primary" bindtap="managerSubmit">确认</button><!-- 负责人 确认 -->
     </view>
-    <view class="button-sp-area" wx:if="{{id != null && status == '13' && role == '19'}}">
+    <view class="button-sp-area two-btn-wrap" wx:if="{{id != null && status == '13' && role == '19'}}">
       <button type="primary" bindtap="completeSubmit">提交</button><!-- 办结 提交 -->
+      <button data-save="true" bindtap="completeSubmit">暂存</button><!-- 办结 提交 -->
     </view>
     <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
       <button type="primary" bindtap="downloadImages">下载所有图片</button>

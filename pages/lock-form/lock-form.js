@@ -482,6 +482,7 @@ Page({
     })
   },
   completeSubmit () {
+    let isSave = e.currentTarget.dataset.save
     let data = this.data.taskData
     let _this = this
     let taskData = {
