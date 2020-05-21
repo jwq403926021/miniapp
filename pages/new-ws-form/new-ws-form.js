@@ -630,6 +630,16 @@ Page({
       }
     }
 
+    if (taskData.insuranceType == 1 && taskData.reportNumber == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写报案号',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
     if (taskData.customerPhone != ''){
       let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
