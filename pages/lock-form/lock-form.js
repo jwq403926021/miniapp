@@ -559,7 +559,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/lock/finish',
+      path: isSave ? '/app/lock/saveManager' : '/app/lock/finish',
       method: 'PUT',
       data: taskData
     }, function (err, res) {

@@ -552,7 +552,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/dredge/finish',
+      path: isSave ? '/app/dredge/saveManager' : '/app/dredge/finish',
       method: 'PUT',
       data: taskData
     }, function (err, res) {
