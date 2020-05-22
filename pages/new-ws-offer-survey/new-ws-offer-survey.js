@@ -54,10 +54,6 @@ Page({
     coinRate: '',
     coinLevel: 1,
     coinInsert: '',
-    projectListSource: [],
-    projectList: [],
-    projectValue: '',
-    projectLabel: '',
     offerListSource: [],
     incompleteListSource: [],
     plateNumber: '',
@@ -180,10 +176,6 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
-      let projectListSource = [{
-        proName: '总计',
-        proId: '-999999999',
-      }]
       let taxData = res.taxList.filter(item => {
         if (_this.data.role === 12) {
           return item.type === '1'
@@ -203,12 +195,7 @@ Page({
               proName: item.proName,
               proId: item.proId,
               proType: parseInt(item.proType),
-              children: [item],
-              projectTotal: 0
-            })
-            projectListSource.push({
-              proName: item.proName,
-              proId: item.proId,
+              children: [item]
             })
           } else {
             _this.data.offerList[proIndex].children.push(item)
@@ -232,11 +219,7 @@ Page({
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax == 1 ? true : false,
-        coinLevel: data.level || 1,
-        projectListSource: projectListSource,
-        projectList: projectListSource.map(item => item.proName),
-        projectValue: 0,
-        projectLabel: projectListSource[0].proName,
+        coinLevel: data.level || 1
       }
       _this.setData(result, () => {
         _this.calculate()
@@ -244,51 +227,55 @@ Page({
       })
     })
   },
-  projectChange (event) {
-    this.setData({
-      'projectValue': event.detail.value,
-      'projectLabel': this.data.projectListSource[event.detail.value].proName
-    }, () => {
-      this.calculate()
-    })
-  },
-  calculate (name) {
+  calculate () {
     let _this = this
-    let offerList = this.data.projectValue == 0 ? this.data.offerListSource : this.data.offerListSource.filter(item => item.proId == _this.data.projectListSource[_this.data.projectValue].proId)
-    let incompleteList = this.data.projectValue == 0 ? this.data.incompleteListSource : this.data.incompleteListSource.filter(item => item.proId == _this.data.projectListSource[_this.data.projectValue].proId)
+    let offerList = this.data.offerListSource
     let offerListTotal = 0
+    let incompleteTotal = 0
+    let amountMoney = 0
+    let tax = 0
+    let offerResult = 0
+
     offerList.forEach(project => {
-      let projectTotal = 0
+      let incompleteList = this.data.incompleteListSource.filter(item => item.proId == project.proId)
+      let projectOfferTotal = 0
+      let projectIncompleteTotal = 0
+
       project.children.forEach(item => {
         let total = (parseFloat(item.price || 0) * parseFloat(item.num || 0))
         item.itemTotal = total
-        projectTotal += total
+        projectOfferTotal += total
         offerListTotal += total
       })
-      project.projectTotal = projectTotal
+      project.projectOfferTotal = projectOfferTotal
+
+      incompleteList.forEach(item => {
+        let total = (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        item.itemTotal = total
+        projectIncompleteTotal += total
+        incompleteTotal += total
+      })
+      project.projectIncompleteTotal = projectIncompleteTotal
+      project.incompleteList = incompleteList
+
+      project.amountMoney = project.projectOfferTotal - project.projectIncompleteTotal
+      project.tax = parseFloat(this.data.taxRate) / 100 * project.amountMoney
+      project.offerResult = this.data.hasTax ? Math.round(project.amountMoney + project.tax).toFixed(2) : project.amountMoney.toFixed(2)
     })
+
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
-
-    let incompleteTotal = 0
-    incompleteList.forEach(item => {
-      let total = (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
-      item.itemTotal = total
-      incompleteTotal += total
-    })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
-
-    let amountMoney =  offerListTotal - incompleteTotal
-    let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
-
-    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax).toFixed(2) : amountMoney.toFixed(2)
+    amountMoney =  offerListTotal - incompleteTotal
+    tax = parseFloat(this.data.taxRate) / 100 * amountMoney
+    offerResult = this.data.hasTax ? Math.round(amountMoney + tax).toFixed(2) : amountMoney.toFixed(2)
 
     this.setData({
+      offerList: offerList,
       amountMoney: amountMoney.toFixed(2),
       tax: tax.toFixed(2),
       offerListTotal,
       incompleteTotal,
-      offerResult,
-      offerList: offerList
+      offerResult
     })
   },
   onChange (event) {
