@@ -59,7 +59,7 @@
             </view>
         </view>
 
-        <view style="margin: 10px 0;">
+        <view wx:if="{{isAllowEdit}}" style="margin: 10px 0;">
             <van-button block type="primary" bindtap="addProjectItem">追加工程项目 +</van-button>
         </view>
 

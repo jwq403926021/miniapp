@@ -721,9 +721,9 @@ Page({
       })
     }
   },
-  workHandleWS (e) {
+  workHandleWS (e, save, isOfferSave) {
     let _this = this
-    let isSave = e.currentTarget.dataset.save
+    let isSave = e ? e.currentTarget.dataset.save : save
     let workLiveImageFiles = []
     let workLiveImageAlreadyFiles = []
     let workVideo = []
@@ -766,32 +766,34 @@ Page({
       isAcceptance,
       isAgree
     } = this.data.taskData
-    if (budgetPreliminary == null || budgetPreliminary == '') {
-      wx.showToast({
-        mask: true,
-        title: '初步估损金额不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-    if (damageMoney == null || damageMoney == '') {
-      wx.showToast({
-        mask: true,
-        title: '受损方索赔金额不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-    if (handlingType == null || handlingType == '') {
-      wx.showToast({
-        mask: true,
-        title: '处理方式不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
+    if (!isSave) {
+      if (budgetPreliminary == null || budgetPreliminary == '') {
+        wx.showToast({
+          mask: true,
+          title: '初步估损金额不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (damageMoney == null || damageMoney == '') {
+        wx.showToast({
+          mask: true,
+          title: '受损方索赔金额不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (handlingType == null || handlingType == '') {
+        wx.showToast({
+          mask: true,
+          title: '处理方式不能为空',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
     }
     wx.showLoading({
       mask: true,
@@ -832,17 +834,23 @@ Page({
         if (imgPaths.length) {
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
+          if (isOfferSave == 1) {
+            wx.navigateTo({
+              url: `../new-ws-offer/new-ws-offer?id=${_this.data.orderId}`
+            })
+          } else {
+            wx.showToast({
+              mask: true,
+              title: '提交成功',
+              icon: 'success',
+              duration: 1000,
+              success () {
+                setTimeout(() => {
+                  _this.goToList()
+                }, 1000)
+              }
+            })
+          }
         }
       } else {
         wx.showToast({
@@ -965,9 +973,13 @@ Page({
     })
   },
   bindTapToOffer (event) {
-    wx.navigateTo({
-      url: this.data.role === 1 ? `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
-    })
+    if ((this.data.taskData.status == 13 || this.data.taskData.status == 43) && this.data.role == 12) {
+      this.workHandleWS(null, true, 1)
+    } else {
+      wx.navigateTo({
+        url: this.data.role === 1 ? `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+      })
+    }
   },
   // getMyLocation () {
   //   wx.chooseLocation({

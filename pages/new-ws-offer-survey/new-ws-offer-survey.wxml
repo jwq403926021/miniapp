@@ -1,6 +1,6 @@
 <view class="page">
     <view class="page__bd">
-        <image style="z-index: 100; width: 200px; height: 153px; position: absolute; right:50%; top:10px;transform:translateX(50%);" src="../../asset/image/seal.png" mode="cover"></image>
+        <image style="z-index: 100; width: 200px; height: 153px; position: absolute; right:0%; opacity: 0.6; top:60px;" src="../../asset/image/seal.png" mode="cover"></image>
         <view class="weui-cells__title">新物损工单报价</view>
         <view class="weui-cells weui-cells_after-title">
 <!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
@@ -78,7 +78,7 @@
                         <text class="weui-input readonly">{{offerListTotal || 0}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{incompleteList.length > 0}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">残值合计</view>
                     </view>
@@ -86,7 +86,7 @@
                         <text class="weui-input readonly">{{incompleteTotal || 0}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{hasTax}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">税额</view>
                     </view>
@@ -238,7 +238,7 @@
                             </view>
                         </view>
                     </van-collapse-item>
-                    <van-collapse-item title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
+                    <van-collapse-item wx:if="{{incompleteList.length > 0}}" title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                         <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
                             <view class="weui-cell weui-cell_input no-padding">
                                 <view class="weui-cell__hd">
