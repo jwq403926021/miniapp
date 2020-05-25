@@ -380,17 +380,17 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderWorkLiveFiles">
-                                    <view class="no-image" wx:if="{{workLiveImageFiles.length == 0 && orderId != null && !(taskData.status == 13 || taskData.status == 43)}}">
+                                    <view class="no-image" wx:if="{{workLiveImageFiles.length == 0 && orderId != null && role != 12}}">
                                         无图片
                                     </view>
                                     <block wx:for="{{workLiveImageFiles}}" wx:key="index">
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workLiveImageFiles" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
-                                <view class="weui-uploader__input-box" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
                                     <view class="weui-uploader__input" bindtap="chooseImage" data-name="workLiveImageFiles"></view>
                                 </view>
                             </view>
@@ -406,17 +406,17 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderWorkLiveFiles">
-                                    <view class="no-image" wx:if="{{workVideo.length == 0 && orderId != null && !(taskData.status == 13 || taskData.status == 43)}}">
+                                    <view class="no-image" wx:if="{{workVideo.length == 0 && orderId != null && role != 12}}">
                                         无视频
                                     </view>
                                     <block wx:for="{{workVideo}}" wx:key="index">
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewVideo" data-name="workVideo" id="{{item.path}}">
                                             <van-icon id="{{item.path}}" bindtap="previewVideo" size="80px" data-name="workVideo" name="video"></van-icon>
-                                            <van-icon wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}" catchtap="removeVideo" data-name="workVideo" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon wx:if="{{role == 12}}" catchtap="removeVideo" data-name="workVideo" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
-                                <view class="weui-uploader__input-box" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
                                     <view class="weui-uploader__input" bindtap="chooseVideo" data-name="workVideo"></view>
                                 </view>
                             </view>
@@ -592,6 +592,9 @@
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}"> <!-- 施工人员 留言提交 -->
             <button type="primary" bindtap="workerSubmitComment">留言提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && !(orderId == null || taskData.status == null)}}">
+            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
         </view>
         <view class="button-sp-area" wx:if="{{orderId != null}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>

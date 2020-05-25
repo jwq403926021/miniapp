@@ -982,6 +982,32 @@ Page({
       })
     }
   },
+  workerSubmitImage () {
+    let _this = this
+    let workLiveImageFiles = []
+    let workVideo = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    _this.data.workVideo.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workVideo.push({path: item.path, type: 66})
+      }
+    })
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    let imgPaths = [...workLiveImageFiles, ...workVideo]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  }
   // getMyLocation () {
   //   wx.chooseLocation({
   //     success: (res) => {
