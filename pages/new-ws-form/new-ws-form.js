@@ -173,7 +173,8 @@ Page({
         'taskData.insurePay': data.insurePay,
         'taskData.payWorker': data.payWorker,
         'taskData.isAcceptance': data.isAcceptance,
-        'taskData.isAgree': data.isAgree
+        'taskData.isAgree': data.isAgree,
+        'taskData.reportNumber': data.reportNumber
       })
       if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
         _this.initReassignList()
