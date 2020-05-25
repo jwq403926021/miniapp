@@ -259,7 +259,7 @@ Page({
       project.incompleteList = incompleteList
 
       project.amountMoney = project.projectOfferTotal - project.projectIncompleteTotal
-      project.tax = parseFloat(this.data.taxRate) / 100 * project.amountMoney
+      project.tax = parseFloat((parseFloat(this.data.taxRate) / 100 * project.amountMoney).toFixed(2))
       project.offerResult = this.data.hasTax ? Math.round(project.amountMoney + project.tax).toFixed(2) : project.amountMoney.toFixed(2)
     })
 
