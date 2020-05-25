@@ -593,7 +593,7 @@
         <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}"> <!-- 施工人员 留言提交 -->
             <button type="primary" bindtap="workerSubmitComment">留言提交</button>
         </view>
-        <view class="button-sp-area" wx:if="{{role == 12 && !(orderId == null || taskData.status == null)}}">
+        <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 11 || taskData.status == 13 || taskData.status == 41 || taskData.status == 43 || taskData.status == 50)}}">
             <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
         </view>
         <view class="button-sp-area" wx:if="{{orderId != null}}">
