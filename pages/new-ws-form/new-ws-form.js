@@ -832,6 +832,15 @@ Page({
         let count = 0
         let successUp = 0
         let failUp = 0
+        if (isSendFirstTimeUpload) {
+          util.request({
+            path: `/app/businessdamagenew/insertUploadTime`,
+            method: 'GET',
+            data: {
+              orderId: this.data.orderId
+            }
+          }, function (err, res) {})
+        }
         if (imgPaths.length) {
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
