@@ -76,7 +76,7 @@ Page({
     this.initArea()
     if (routeParams.type) {
       this.setData({
-        'taskData.insuranceType': routeParams.type,
+        'taskData.insuranceType': routeParams.type || '',
       })
     }
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
