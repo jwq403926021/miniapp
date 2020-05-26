@@ -15,7 +15,7 @@ Page({
       '43': '驳回',
       '50': '已报价',
     },
-    activeNames: [0],
+    activeNames: ['0'],
     hasTax: true,
     commentToOffer: '',
     offerRemark: '',

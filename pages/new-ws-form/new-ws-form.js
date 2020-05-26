@@ -522,7 +522,7 @@ Page({
                 setTimeout(() => {
                   if (isOfferSave == 1) {
                     wx.navigateTo({
-                      url: `../new-ws-offer/new-ws-offer?id=${_this.data.orderId}`
+                      url: `../new-ws-offer/new-ws-offer?id=${that.data.orderId}`
                     })
                   } else {
                     that.goToList()
