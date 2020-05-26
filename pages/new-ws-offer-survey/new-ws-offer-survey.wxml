@@ -78,8 +78,8 @@
 <!--                        </view>-->
 <!--                        <view class="section-title">报价列表</view>-->
                         <van-row custom-class="accident-detail-table-header">
-                            <van-col span="4">类型</van-col>
                             <van-col span="4">名称</van-col>
+                            <van-col span="4">类型</van-col>
                             <van-col span="4">单位</van-col>
                             <van-col span="4">单价</van-col>
                             <van-col span="4">数量</van-col>
@@ -88,10 +88,10 @@
                         <view wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                             <van-row custom-class="accident-detail-table-body">
                                 <van-col span="4">
-                                    {{subItem.projectName}}
+                                    {{subItem.name}}
                                 </van-col>
                                 <van-col span="4">
-                                    {{subItem.name}}
+                                    {{subItem.projectName}}
                                 </van-col>
                                 <van-col span="4">
                                     {{subItem.unit}}
