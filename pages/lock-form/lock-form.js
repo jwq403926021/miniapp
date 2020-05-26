@@ -46,7 +46,7 @@ Page({
       this.setData({
         id: routeParams.id,
         orderId: routeParams.orderId,
-        role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role // 19
+        role: app.globalData.currentRegisterInfo.role
       })
       this.initDataById(routeParams.id)
     }
@@ -103,6 +103,7 @@ Page({
         }
       })
       _this.setData({
+        orderId: data.orderId,
         'informationImageFiles': informationImageFiles,
         'liveImageFiles': liveImageFiles,
         'status': data.status,
@@ -481,7 +482,7 @@ Page({
       }
     })
   },
-  completeSubmit () {
+  completeSubmit (e) {
     let isSave = e.currentTarget.dataset.save
     let data = this.data.taskData
     let _this = this
