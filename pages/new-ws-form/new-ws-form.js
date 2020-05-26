@@ -71,7 +71,6 @@ Page({
       longitude: ''
     }
   },
-  locker: false,
   onLoad: function (routeParams) {
     this.initArea()
     if (routeParams.type) {
@@ -83,12 +82,9 @@ Page({
       this.setData({
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
+      }, () => {
+        this.initDataById(routeParams.id)
       })
-    }
-  },
-  onShow: function () {
-    if (this.data.orderId && !this.locker) {
-      this.initDataById(this.data.orderId)
     }
   },
   initDataById (id) {
@@ -375,7 +371,6 @@ Page({
   chooseVideo: function (e) {
     let key = e.currentTarget.dataset.name
     var that = this;
-    that.locker = true
     wx.chooseVideo({
       sourceType: ['album','camera'],
       maxDuration: 60,
@@ -389,9 +384,6 @@ Page({
         that.setData({
           [key]: list
         })
-        setTimeout(() => {
-          that.locker = false
-        }, 500)
       }
     })
   },
@@ -421,7 +413,6 @@ Page({
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name
     var that = this;
-    that.locker = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -436,9 +427,6 @@ Page({
         that.setData({
           [key]: list
         })
-        setTimeout(() => {
-          that.locker = false
-        }, 500)
       }
     })
   },

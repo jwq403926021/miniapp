@@ -216,6 +216,17 @@ Page({
   getMore () {
 
   },
+  goToOffer (event) {
+    if (this.data.role === 1) {
+      wx.navigateTo({
+        url: '../new-ws-offer-survey/new-ws-offer-survey?id=' + event.currentTarget.dataset.id
+      })
+    } else {
+      wx.navigateTo({
+        url: '../new-ws-offer/new-ws-offer?id=' + event.currentTarget.dataset.id
+      })
+    }
+  },
   goToHandleTask (event) {
     wx.navigateTo({
       url: '../new-ws-form/new-ws-form?id=' + event.currentTarget.dataset.id
