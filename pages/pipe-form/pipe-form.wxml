@@ -9,7 +9,7 @@
             <view class="weui-label">工单号</view>
           </view>
           <view class="weui-cell__bd">
-            <text class="weui-input readonly">{{orderId}}</text>
+            <text class="weui-input readonly">{{orderId || '-'}}</text>
             <view data-id="{{id}}" data-finishcase="{{taskData.finishCase}}" catchtap="setFinishCase" class="{{taskData.finishCase == 1 ? 'finished' : 'not-finish'}} finishcase-in-detail"></view>
           </view>
         </view>
