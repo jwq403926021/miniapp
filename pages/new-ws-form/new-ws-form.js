@@ -73,7 +73,7 @@ Page({
   },
   onLoad: function (routeParams) {
     this.initArea()
-    if (routeParams.type) {
+    if (routeParams && routeParams.type) {
       this.setData({
         'taskData.insuranceType': routeParams.type || '',
       })
@@ -483,7 +483,7 @@ Page({
       }
     })
   },
-  uploadOneByOne (imgPaths,successUp, failUp, count, length) {
+  uploadOneByOne (imgPaths,successUp, failUp, count, length, isOfferSave) {
     var that = this
     wx.uploadFile({
       url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload',
@@ -520,14 +520,20 @@ Page({
             success () {
               if (length == successUp) {
                 setTimeout(() => {
-                  that.goToList()
+                  if (isOfferSave == 1) {
+                    wx.navigateTo({
+                      url: `../new-ws-offer/new-ws-offer?id=${_this.data.orderId}`
+                    })
+                  } else {
+                    that.goToList()
+                  }
                 }, 1000)
               }
             }
           })
         }else{
           //递归调用，上传下一张
-          that.uploadOneByOne(imgPaths, successUp, failUp, count, length);
+          that.uploadOneByOne(imgPaths, successUp, failUp, count, length, isOfferSave);
           console.log('正在上传第' + count + '张');
         }
       }
@@ -825,12 +831,12 @@ Page({
             path: `/app/businessdamagenew/insertUploadTime`,
             method: 'GET',
             data: {
-              orderId: this.data.orderId
+              orderId: _this.data.orderId
             }
           }, function (err, res) {})
         }
         if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length, isOfferSave)
         } else {
           if (isOfferSave == 1) {
             wx.navigateTo({
