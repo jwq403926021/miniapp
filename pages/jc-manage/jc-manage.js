@@ -263,7 +263,7 @@ Page({
     })
     util.request({
       path: url,
-      method: 'POST',
+      method: 'PUT',
       data: params
     }, function (err, res) {
       if (res.code == 0) {
