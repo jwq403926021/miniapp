@@ -42,7 +42,13 @@ Page({
       id: 1,
       name: '施工'
     }],
-    offerList: [],
+    offerList: [{
+      proName: '',
+      proId: '',
+      proType: 0,
+      children: [],
+      projectTotal: 0
+    }],
     incompleteList: [],
     showProjectSheet: false,
     showLibrary: false,
@@ -92,7 +98,7 @@ Page({
     operateProIndex: 0,
     operateIndex: 0,
     filterLoading: false,
-    active0: false,
+    active0: true,
     active1: false,
     plateNumber: '',
     reportNumber : ''
