@@ -126,10 +126,6 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    wx.showLoading({
-      mask: true,
-      title: '加载中'
-    })
     try {
       this.initArea()
       if (routeParams && routeParams.id) {
@@ -346,8 +342,11 @@ Page({
     return provinceArr
   },
   init () {
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     let _this = this
-
     util.request({
       path: '/app/businessdamagenew/damageDetail',
       method: 'GET',
