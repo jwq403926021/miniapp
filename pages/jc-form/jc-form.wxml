@@ -502,6 +502,10 @@
             <button type="primary" bindtap="completeCommit">施工完成提交</button> <!-- 施工完成提交 -->
         </view>
 
+        <view class="button-sp-area" wx:if="{{(role == 6 || role == 8) && item.status != 29}}">
+            <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
+        </view>
+
         <view class="button-sp-area" wx:if="{{id != null && status != 29}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
@@ -513,4 +517,11 @@
     >
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
     </van-popup>
+
+    <van-action-sheet
+            show="{{ showactionsheet }}"
+            actions="{{ actions }}"
+            bind:close="onactionsheetClose"
+            bind:select="onactionsheetSelect"
+    />
 </view>

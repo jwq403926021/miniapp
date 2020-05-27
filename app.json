@@ -11,6 +11,7 @@
     "pages/ws-form/ws-form",
     "pages/new-ws-form/new-ws-form",
     "pages/jc-offer/jc-offer",
+    "pages/jc-manage/jc-manage",
     "pages/ws-offer/ws-offer",
     "pages/new-ws-offer/new-ws-offer",
     "pages/accident-form/accident-form",

@@ -8,6 +8,7 @@
     "van-cell-group": "../../asset/vant/cell-group/index",
     "van-radio": "../../asset/vant/radio/index",
     "van-radio-group": "../../asset/vant/radio-group/index",
-    "van-transition": "../../asset/vant/transition/index"
+    "van-transition": "../../asset/vant/transition/index",
+    "van-action-sheet": "../../asset/vant/action-sheet/index"
   }
 }

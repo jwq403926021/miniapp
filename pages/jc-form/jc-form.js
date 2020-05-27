@@ -62,7 +62,52 @@ Page({
     caleImageFiles: [],
     authorityImageFiles: [],
     informationImageFiles: [],
-    completeImageFiles: []
+    completeImageFiles: [],
+    showactionsheet: false,
+    actions: [
+      {
+        name: '转线上',
+      },
+      {
+        name: '转线下',
+      },
+      {
+        name: '注销',
+      },
+      {
+        name: '修改基本信息',
+      }
+    ]
+  },
+  openOperation (event) {
+    this.setData({ showactionsheet: true })
+  },
+  onactionsheetClose () {
+    this.setData({ showactionsheet: false })
+  },
+  onactionsheetSelect (event) {
+    switch (event.detail.name) {
+      case '转线上':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=1'
+        })
+        break
+      case '转线下':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=2'
+        })
+        break
+      case '注销':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=3'
+        })
+        break
+      case '修改基本信息':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=4'
+        })
+        break
+    }
   },
   onLoad: function (routeParams) {
     this.initArea()

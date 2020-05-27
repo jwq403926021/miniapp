@@ -42,6 +42,52 @@ Page({
       '11': '已办结',
       '99': '处理中'
     },
+    showactionsheet: false,
+    actions: [
+      {
+        name: '转线上',
+      },
+      {
+        name: '转线下',
+      },
+      {
+        name: '注销',
+      },
+      {
+        name: '修改基本信息',
+      }
+    ]
+  },
+  openOperation (event) {
+    this.id = event.currentTarget.dataset.id
+    this.setData({ showactionsheet: true })
+  },
+  onactionsheetClose () {
+    this.setData({ showactionsheet: false })
+  },
+  onactionsheetSelect (event) {
+    switch (event.detail.name) {
+      case '转线上':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.id + '&type=1'
+        })
+        break
+      case '转线下':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.id + '&type=2'
+        })
+        break
+      case '注销':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.id + '&type=3'
+        })
+        break
+      case '修改基本信息':
+        wx.navigateTo({
+          url: '../jc-manage/jc-manage?id=' + this.id + '&type=4'
+        })
+        break
+    }
   },
   setFinishCase (event) {
     let _this = this
