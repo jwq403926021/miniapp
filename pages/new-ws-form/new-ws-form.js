@@ -942,7 +942,7 @@ Page({
       data: {
         orderId: this.data.orderId,
         information: this.data.taskData.information,
-        userId: this.workListSource[this.data.workerValue]['user_id'],
+        userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId'],
         cityManager: this.data.taskData.cityManager
       }
     }, function (err, res) {
