@@ -26,6 +26,12 @@
     </view>
 
     <view class="page__bd" wx:if="{{hasUserInfoAuth && !hasBindPhone}}">
+        <view class="authAskBtnWrap">
+            <view style="text-align: center">欢迎使用汇报价小程序。</view>
+            <view>登陆后，您将可以获得更畅快的办公体验。</view>
+            <view>提高物损、家财、开锁、疏通等工单的处理效率。</view>
+        </view>
+
         <view class="weui-cells__title">绑定手机</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
