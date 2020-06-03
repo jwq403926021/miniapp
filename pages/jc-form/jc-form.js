@@ -604,7 +604,7 @@ Page({
         if (res.tempFilePaths.length > 9) {
           wx.showToast({
             mask: true,
-            title: '保险计算书图片不能超过9个',
+            title: '授权书图片不能超过9个',
             icon: 'none',
             duration: 2000
           })
