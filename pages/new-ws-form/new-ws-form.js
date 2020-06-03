@@ -270,7 +270,6 @@ Page({
         let workerList = res.data ? res.data.map(item => {
           return item.name
         }) : []
-        workerList.forEach(item => item.userId = item['user_id'])
         _this.setData({
           'workerList': workerList
         })
@@ -943,7 +942,7 @@ Page({
       data: {
         orderId: this.data.orderId,
         information: this.data.taskData.information,
-        userId: this.workListSource[this.data.workerValue].userId,
+        userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId'],
         cityManager: this.data.taskData.cityManager
       }
     }, function (err, res) {
