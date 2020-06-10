@@ -708,6 +708,15 @@ Page({
       incompleteTotal: this.data.incompleteTotal, // 残值合计
       hasTax: this.data.hasTax ? '1' : '0' // 是否有税
     }
+    if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
+      wx.showToast({
+        mask: true,
+        title: '请填写工程项目名称和类型',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
     if (!this.data.offerList.length) {
       wx.showToast({
         mask: true,
@@ -807,6 +816,15 @@ Page({
       handlingType: this.data.handlingType,
       workerId: this.data.workerId,
       surveyId: this.data.surveyId
+    }
+    if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
+      wx.showToast({
+        mask: true,
+        title: '请填写工程项目名称和类型',
+        icon: 'none',
+        duration: 1000
+      })
+      return
     }
     if (!this.data.offerList.length) {
       wx.showToast({
