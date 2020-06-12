@@ -55,7 +55,7 @@
     </view>
     <view class="weui-panel__ft">
       <view class="weui-cell weui-cell_access weui-cell_link">
-        <view class="weui-cell__bd">查看处理</view>
+        <view class="weui-cell__bd">{{role === 13 && taskData.status === 41 ? '待报价' : '查看处理'}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
       <view wx:if="{{item.status == 11 || item.status == 50}}" class="weui-panel__ft" data-status="{{item.status}}" data-id="{{item.orderId}}" catchtap="goToOffer">
