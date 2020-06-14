@@ -5,6 +5,9 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
+    currentPage: 0,
+    totalPage: 1,
+    page: 1,
     show: false,
     areaList: location,
     isShowStatusFilter: false,
@@ -37,6 +40,14 @@ Page({
   },
   onPullDownRefresh () {
     this.getInitData()
+  },
+  onReachBottom () {
+    let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
+    this.setData({
+      page: page
+    }, () => {
+      this.getInitData()
+    })
   },
   openFilterStatusPop () {
     this.setData({
@@ -96,12 +107,16 @@ Page({
   },
   resetFilter () {
     this.setData({
+      page: 1,
+      currentPage: 0,
+      totalPage: 1,
       searchCarNumber: '',
       searchOrderId: '',
       searchReportNumber: '',
       statusFilter: '-1',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      dataList: []
     }, () => {
       this.getInitData()
     })
@@ -164,7 +179,7 @@ Page({
   getInitData () {
     let _this = this
     let filter = {
-      page: 1,
+      page: this.data.page,
       size: 100,
       plateNumber: this.data.searchCarNumber,
       reportNumber: this.data.searchReportNumber,
@@ -191,9 +206,14 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.data.records
-      })
+      if (res.data.current !== _this.data.currentPage) {
+        let data = _this.data.dataList || []
+        _this.setData({
+          currentPage: res.data.current,
+          totalPage: res.data.total,
+          dataList: data.concat(res.data.records || [])
+        })
+      }
     })
   },
   onShow () {

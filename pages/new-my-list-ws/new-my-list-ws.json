@@ -1,5 +1,6 @@
 {
   "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100,
   "usingComponents": {
     "van-search": "../../asset/vant/search/index",
     "van-area": "../../asset/vant/area/index",
