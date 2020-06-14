@@ -174,7 +174,7 @@
                                         <text class="weui-input readonly">{{item.num || '-'}}</text>
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
-                                        <van-stepper value="{{ item.num }}" bind:change="inputgetName" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}" data-step="1" />
+                                        <van-stepper value="{{ item.num }}" bind:change="inputgetName"  data-step="true" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}" step="0.5" />
 <!--                                        <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='num' data-index="{{index}}"-->
 <!--                                               value="{{item.num}}" placeholder="请输入数量"/>-->
                                     </view>
@@ -280,7 +280,7 @@
                                 <text class="weui-input readonly">{{item.num || '-'}}</text>
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <van-stepper value="{{ item.num }}" bind:change="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}" data-step="1" />
+                                <van-stepper value="{{ item.num }}" bind:change="inputgetName"  data-step="true" data-name='num' data-target='incompleteList' data-index="{{index}}" step="0.5" />
 <!--                                <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='num' data-target='incompleteList' data-index="{{index}}"-->
 <!--                                       value="{{item.num}}" placeholder="请输入数量"/>-->
                             </view>

@@ -47,6 +47,7 @@
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status]}}</view>
           <view>肇事方：{{item.customerUser || '-'}}</view>
+          <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 22}}">施工人员：{{item.workerUser || '-'}}</view>
           <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
           <view>创建时间：{{item.createTime || '-'}}</view>
         </view>
@@ -54,7 +55,7 @@
     </view>
     <view class="weui-panel__ft">
       <view class="weui-cell weui-cell_access weui-cell_link">
-        <view class="weui-cell__bd">查看处理</view>
+        <view class="weui-cell__bd">{{role === 13 && taskData.status === 41 ? '待报价' : '查看处理'}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
       <view wx:if="{{item.status == 11 || item.status == 50}}" class="weui-panel__ft" data-status="{{item.status}}" data-id="{{item.orderId}}" catchtap="goToOffer">
