@@ -205,15 +205,15 @@ Page({
       case '1':
         url = '/app/family/updateLosser'
         params.losserId = _this.losserListSource[_this.data.losserValue]['user_id']
-        if (_this.data.losserValue == '' || _this.data.losserValue == null){
-          wx.showToast({
-            mask: true,
-            title: '定损员不能为空',
-            icon: 'none',
-            duration: 1000
-          })
-          return false
-        }
+        // if (_this.data.losserValue == '' || _this.data.losserValue == null){
+        //   wx.showToast({
+        //     mask: true,
+        //     title: '定损员不能为空',
+        //     icon: 'none',
+        //     duration: 1000
+        //   })
+        //   return false
+        // }
         break
       case '2':
         url = '/app/family/updateWorker'
