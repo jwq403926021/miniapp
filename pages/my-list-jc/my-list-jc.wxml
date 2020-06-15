@@ -30,7 +30,8 @@
               bind:change="searchWorkStatusChange">
       </van-search>
     </view>
-    <view class="searchBtn" style="line-height: 134px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="resetFilter">重置</view>
   </view>
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="flowId" data-id="{{item.flowId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">

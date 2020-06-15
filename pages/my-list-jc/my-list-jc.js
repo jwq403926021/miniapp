@@ -5,6 +5,9 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
+    currentPage: 0,
+    totalPage: 1,
+    page: 1,
     show: false,
     areaList: location,
     isShowStatusFilter: false,
@@ -57,6 +60,30 @@ Page({
         name: '修改基本信息',
       }
     ]
+  },
+  onReachBottom () {
+    let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
+    this.setData({
+      page: page
+    }, () => {
+      this.getInitData()
+    })
+  },
+  resetFilter () {
+    this.setData({
+      dateFilter: '0',
+      finishCaseFilter: '',
+      workStatusFilter: '',
+      page: 1,
+      currentPage: 0,
+      totalPage: 1,
+      searchKeyword: '',
+      searchFlowId: '',
+      searchCustomerPhone: '',
+      dataList: []
+    }, () => {
+      this.getInitData()
+    })
   },
   openOperation (event) {
     this.id = event.currentTarget.dataset.id
@@ -261,7 +288,7 @@ Page({
         break
     }
     let filter = {
-      page: 1,
+      page: this.data.page,
       size: 100
     }
 
@@ -295,9 +322,14 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
-      _this.setData({
-        dataList: res.data.records
-      })
+      if (res.data.current !== _this.data.currentPage) {
+        let data = _this.data.dataList || []
+        _this.setData({
+          currentPage: res.data.current,
+          totalPage: res.data.total,
+          dataList: data.concat(res.data.records || [])
+        })
+      }
     })
   },
   openLocation () {
