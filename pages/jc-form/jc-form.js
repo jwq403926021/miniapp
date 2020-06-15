@@ -321,14 +321,14 @@ Page({
       path: `/app/family/getLosserByCity?city=${_this.data.taskData.cityId}`,
       method: 'GET'
     }, function (err, res) {
-      _this.losserListSource = res.data
+      _this.losserListSource = res.data || []
       let losserList = res.data ? res.data.map(item => {
         return item.name
       }) : []
       _this.setData({
         'losserList': losserList,
-        'losserValue': 0,
-        'losserLabel': _this.losserListSource[0].name
+        'losserValue': _this.losserListSource.length > 0 ? 0 : '',
+        'losserLabel': _this.losserListSource.length > 0 ? _this.losserListSource[0].name : ''
       })
     })
   },
@@ -991,7 +991,7 @@ Page({
       customerPhone: _this.data.taskData.customerPhone
     }
     if (active === 'loss') {
-      taskData.losserId = _this.losserListSource[_this.data.losserValue]['user_id']
+      taskData.losserId = _this.data.losserValue != '' ? _this.losserListSource[_this.data.losserValue]['user_id'] : ''
     }
     if (taskData.customerName == '') {
       wx.showToast({
