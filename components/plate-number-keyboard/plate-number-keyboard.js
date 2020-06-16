@@ -8,7 +8,6 @@ Component({
       type: Boolean,
       value: false,
       observer(newVal, oldVal, changedPath) {
-        console.log(newVal)
         if (newVal) {
           // 如果当前是显示状态，调用开始动画,弹出键盘
           const animation = wx.createAnimation({
@@ -21,6 +20,8 @@ Component({
               animationData: animation.export()
             })
           }.bind(this), 100);
+        }else{
+          this.triggerEvent('close');
         }
       }
     },

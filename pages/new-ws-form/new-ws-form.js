@@ -386,6 +386,11 @@ Page({
       }
     })
   },
+  closePlateNum () {
+    this.setData({
+      showKeyboard: false
+    })
+  },
   openPlatePicker () {
     this.setData({
       showKeyboard: true
