@@ -27,7 +27,7 @@
 <!--                    <text class="weui-input readonly">{{statusMap[status]}}</text>-->
 <!--                </view>-->
 <!--            </view>-->
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view wx:if="{{plateNumber}}" class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
