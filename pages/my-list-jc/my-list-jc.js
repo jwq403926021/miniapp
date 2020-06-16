@@ -5,7 +5,6 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
-    currentPage: 0,
     totalPage: 1,
     page: 1,
     show: false,
@@ -66,7 +65,7 @@ Page({
     this.setData({
       page: page
     }, () => {
-      this.getInitData()
+      this.getInitData(true)
     })
   },
   resetFilter () {
@@ -75,7 +74,6 @@ Page({
       finishCaseFilter: '',
       workStatusFilter: '',
       page: 1,
-      currentPage: 0,
       totalPage: 1,
       searchKeyword: '',
       searchFlowId: '',
@@ -262,7 +260,14 @@ Page({
       url: '../jc-offer/jc-offer?id=' + event.currentTarget.dataset.id
     })
   },
-  getInitData () {
+  filter () {
+    this.setData({
+      dataList: []
+    }, () => {
+      this.getInitData()
+    })
+  },
+  getInitData (flag) {
     let _this = this
     let todayDate = +new Date()
     let tempDate
@@ -322,14 +327,11 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
-      if (res.data.current !== _this.data.currentPage) {
-        let data = _this.data.dataList || []
-        _this.setData({
-          currentPage: res.data.current,
-          totalPage: res.data.total,
-          dataList: data.concat(res.data.records || [])
-        })
-      }
+      let data = _this.data.dataList || []
+      _this.setData({
+        totalPage: res.data.total,
+        dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
+      })
     })
   },
   openLocation () {

@@ -5,7 +5,6 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
-    currentPage: 0,
     totalPage: 1,
     page: 1,
     show: false,
@@ -46,7 +45,7 @@ Page({
     this.setData({
       page: page
     }, () => {
-      this.getInitData()
+      this.getInitData(true)
     })
   },
   openFilterStatusPop () {
@@ -108,7 +107,6 @@ Page({
   resetFilter () {
     this.setData({
       page: 1,
-      currentPage: 0,
       totalPage: 1,
       searchCarNumber: '',
       searchOrderId: '',
@@ -176,7 +174,14 @@ Page({
       show: !this.show
     })
   },
-  getInitData () {
+  filter () {
+    this.setData({
+      dataList: []
+    }, () => {
+      this.getInitData()
+    })
+  },
+  getInitData (flag) {
     let _this = this
     let filter = {
       page: this.data.page,
@@ -206,14 +211,11 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
-      if (res.data.current !== _this.data.currentPage) {
-        let data = _this.data.dataList || []
-        _this.setData({
-          currentPage: res.data.current,
-          totalPage: res.data.total,
-          dataList: data.concat(res.data.records || [])
-        })
-      }
+      let data = _this.data.dataList || []
+      _this.setData({
+        totalPage: res.data.total,
+        dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
+      })
     })
   },
   onShow () {
