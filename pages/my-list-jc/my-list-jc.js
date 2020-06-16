@@ -58,7 +58,8 @@ Page({
       {
         name: '修改基本信息',
       }
-    ]
+    ],
+    current: 0
   },
   onReachBottom () {
     let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
@@ -73,6 +74,7 @@ Page({
       dateFilter: '0',
       finishCaseFilter: '',
       workStatusFilter: '',
+      current: 0,
       page: 1,
       totalPage: 1,
       searchKeyword: '',
@@ -262,6 +264,7 @@ Page({
   },
   filter () {
     this.setData({
+      current: 0,
       dataList: []
     }, () => {
       this.getInitData()
@@ -328,7 +331,9 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       let data = _this.data.dataList || []
+      if (res.data.current === _this.data.current) return false
       _this.setData({
+        current: res.data.current,
         totalPage: res.data.total,
         dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })

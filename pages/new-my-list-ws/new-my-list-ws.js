@@ -35,7 +35,8 @@ Page({
     endDate: '',
     endDateLabel: '结束时间',
     role: 1,
-    type: 1
+    type: 1,
+    current: 0
   },
   onPullDownRefresh () {
     this.getInitData()
@@ -106,6 +107,7 @@ Page({
   },
   resetFilter () {
     this.setData({
+      current: 0,
       page: 1,
       totalPage: 1,
       searchCarNumber: '',
@@ -176,6 +178,7 @@ Page({
   },
   filter () {
     this.setData({
+      current: 0,
       dataList: []
     }, () => {
       this.getInitData()
@@ -212,7 +215,9 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       let data = _this.data.dataList || []
+      if (res.data.current === _this.data.current) return false
       _this.setData({
+        current: res.data.current,
         totalPage: res.data.total,
         dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })
