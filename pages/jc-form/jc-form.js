@@ -310,9 +310,10 @@ Page({
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
         region: data.areaCountryId + ''
+      }, () => {
+        _this.getRegionLabel()
+        _this.getLosserList()
       })
-      _this.getRegionLabel()
-      _this.getLosserList()
     })
   },
   getLosserList () {
