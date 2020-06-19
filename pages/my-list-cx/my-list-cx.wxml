@@ -1,5 +1,5 @@
 <view class="page">
-  <!--<view class="filter-wrap clearfix" style="background: #f2f2f2">-->
+  <!--<view class="filter-wrap clearfix">-->
     <!--<view class="field">-->
       <!--<view>过滤检索</view>-->
     <!--</view>-->

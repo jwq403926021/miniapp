@@ -149,12 +149,12 @@ button[type=default] {
 }
 .filter-wrap{
     line-height: 2.5em;
+    background: #fff;
 }
 .filter-wrap .field{
     float:left;
     padding: 0 10px;
     line-height: 44px;
-    background: #f2f2f2;
 }
 .my-search{
     padding: 7px 0 7px 7px!important;

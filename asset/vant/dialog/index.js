@@ -1,101 +1,112 @@
 import { VantComponent } from '../common/component';
 import { button } from '../mixins/button';
 import { openType } from '../mixins/open-type';
+import { GRAY, BLUE } from '../common/color';
 VantComponent({
   mixins: [button, openType],
   props: {
-    show: Boolean,
+    show: {
+      type: Boolean,
+      observer(show) {
+        !show && this.stopLoading();
+      },
+    },
     title: String,
     message: String,
     useSlot: Boolean,
+    className: String,
+    customStyle: String,
     asyncClose: Boolean,
     messageAlign: String,
+    overlayStyle: String,
+    useTitleSlot: Boolean,
     showCancelButton: Boolean,
     closeOnClickOverlay: Boolean,
     confirmButtonOpenType: String,
+    width: null,
     zIndex: {
       type: Number,
-      value: 2000
+      value: 2000,
     },
     confirmButtonText: {
       type: String,
-      value: '确认'
+      value: '确认',
     },
     cancelButtonText: {
       type: String,
-      value: '取消'
+      value: '取消',
+    },
+    confirmButtonColor: {
+      type: String,
+      value: BLUE,
+    },
+    cancelButtonColor: {
+      type: String,
+      value: GRAY,
     },
     showConfirmButton: {
       type: Boolean,
-      value: true
+      value: true,
     },
     overlay: {
       type: Boolean,
-      value: true
+      value: true,
     },
     transition: {
       type: String,
-      value: 'scale'
-    }
+      value: 'scale',
+    },
   },
   data: {
     loading: {
       confirm: false,
-      cancel: false
-    }
-  },
-  watch: {
-    show: function show(_show) {
-      !_show && this.stopLoading();
-    }
+      cancel: false,
+    },
   },
   methods: {
-    onConfirm: function onConfirm() {
+    onConfirm() {
       this.handleAction('confirm');
     },
-    onCancel: function onCancel() {
+    onCancel() {
       this.handleAction('cancel');
     },
-    onClickOverlay: function onClickOverlay() {
+    onClickOverlay() {
       this.onClose('overlay');
     },
-    handleAction: function handleAction(action) {
+    handleAction(action) {
       if (this.data.asyncClose) {
-        this.set({
-          ["loading." + action]: true
+        this.setData({
+          [`loading.${action}`]: true,
         });
       }
-
       this.onClose(action);
     },
-    close: function close() {
-      this.set({
-        show: false
+    close() {
+      this.setData({
+        show: false,
       });
     },
-    stopLoading: function stopLoading() {
-      this.set({
+    stopLoading() {
+      this.setData({
         loading: {
           confirm: false,
-          cancel: false
-        }
+          cancel: false,
+        },
       });
     },
-    onClose: function onClose(action) {
+    onClose(action) {
       if (!this.data.asyncClose) {
         this.close();
       }
-
-      this.$emit('close', action); //把 dialog 实例传递出去，可以通过 stopLoading() 在外部关闭按钮的 loading
-
-      this.$emit(action, {
-        dialog: this
-      });
-      var callback = this.data[action === 'confirm' ? 'onConfirm' : 'onCancel'];
-
+      this.$emit('close', action);
+      // 把 dialog 实例传递出去，可以通过 stopLoading() 在外部关闭按钮的 loading
+      this.$emit(action, { dialog: this });
+      const callback = this.data[
+        action === 'confirm' ? 'onConfirm' : 'onCancel'
+      ];
       if (callback) {
         callback(this);
       }
-    }
-  }
+    },
+  },
 });

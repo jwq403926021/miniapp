@@ -7,13 +7,16 @@ VantComponent({
   mixins: [link, button, openType],
   props: {
     text: String,
+    dot: Boolean,
     info: String,
-    icon: String
+    icon: String,
+    disabled: Boolean,
+    loading: Boolean,
   },
   methods: {
-    onClick: function onClick(event) {
+    onClick(event) {
       this.$emit('click', event.detail);
       this.jumpLink();
-    }
-  }
+    },
+  },
 });

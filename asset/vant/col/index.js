@@ -2,25 +2,25 @@ import { VantComponent } from '../common/component';
 VantComponent({
   relation: {
     name: 'row',
-    type: 'ancestor'
+    type: 'ancestor',
+    current: 'col',
   },
   props: {
     span: Number,
-    offset: Number
+    offset: Number,
   },
   data: {
-    style: ''
+    viewStyle: '',
   },
   methods: {
-    setGutter: function setGutter(gutter) {
-      var padding = gutter / 2 + "px";
-      var style = gutter ? "padding-left: " + padding + "; padding-right: " + padding + ";" : '';
-
-      if (style !== this.data.style) {
-        this.set({
-          style: style
-        });
+    setGutter(gutter) {
+      const padding = `${gutter / 2}px`;
+      const viewStyle = gutter
+        ? `padding-left: ${padding}; padding-right: ${padding};`
+        : '';
+      if (viewStyle !== this.data.viewStyle) {
+        this.setData({ viewStyle });
       }
-    }
-  }
+    },
+  },
 });

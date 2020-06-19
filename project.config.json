@@ -49,14 +49,21 @@
 					"id": 0,
 					"name": "pages/new-ws-offer/new-ws-offer",
 					"pathName": "pages/new-ws-offer/new-ws-offer",
-					"query": "id=20200420101459000107",
+					"query": "id=20200609203313000107",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "new-ws-offer-survey",
 					"pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
-					"query": "id=20200323102655000107",
+					"query": "id=20200608132420000107",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/new-ws-form/new-ws-form",
+					"pathName": "pages/new-ws-form/new-ws-form",
+					"query": "id=20200610125751000107",
 					"scene": null
 				}
 			]
