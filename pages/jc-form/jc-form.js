@@ -304,6 +304,8 @@ Page({
         "taskData.thirdPhone": data.thirdPhone || '',
         "taskData.losserName": data.losserName || '',
         "taskData.losserPhone": data.losserPhone || '',
+        "taskData.servicerName": data.servicerName || '',
+        "taskData.servicerPhone": data.servicerPhone || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
