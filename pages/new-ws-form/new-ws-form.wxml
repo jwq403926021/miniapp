@@ -91,7 +91,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                           value="{{taskData.customerPhone}}" placeholder="请输入出险方沟通方式"/>
+                           value="{{taskData.customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
                 <block wx:if="{{orderId != null && taskData.status != 12}}">
                     <view class="weui-cell__bd">
@@ -125,7 +125,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
-                           value="{{taskData.damagedPhone}}" placeholder="请输入受损方沟通方式"/>
+                           value="{{taskData.damagedPhone}}" placeholder="请输入电话号码"/>
                 </view>
                 <block wx:if="{{orderId != null && taskData.status != 12}}">
                     <view class="weui-cell__bd">

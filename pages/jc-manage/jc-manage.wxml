@@ -37,7 +37,7 @@
                 </view>
                 <view class="weui-cell__bd">
                     <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
-                           value="{{customerPhone}}" placeholder="请输入沟通方式"/>
+                           value="{{customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
             </view>
 

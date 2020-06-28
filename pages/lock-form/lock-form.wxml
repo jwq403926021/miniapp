@@ -51,7 +51,7 @@
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.customMobile'
-                 value="{{taskData.customMobile}}" placeholder="请输入沟通方式"/>
+                 value="{{taskData.customMobile}}" placeholder="请输入电话号码"/>
         </view>
         <view class="weui-cell__ft" wx:if="{{id != null && taskData.customMobile}}">
           <view class="field-right-btn" data-phone="{{taskData.customMobile}}" bindtap="dialPhone">

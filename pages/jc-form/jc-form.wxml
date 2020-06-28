@@ -53,7 +53,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{ id == null || (role == 1 && status == 29) || (role == 8 && status == 20) }}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
-                           value="{{taskData.customerPhone}}" placeholder="请输入沟通方式"/>
+                           value="{{taskData.customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
                 <block wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
                     <view class="weui-cell__bd">
