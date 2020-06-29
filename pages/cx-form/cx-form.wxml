@@ -50,7 +50,7 @@
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='taskData.autoInsuranceMobile'
-                 value="{{taskData.autoInsuranceMobile}}" placeholder="请输入沟通方式"/>
+                 value="{{taskData.autoInsuranceMobile}}" placeholder="请输入电话号码"/>
         </view>
         <view class="weui-cell__ft" wx:if="{{id != null && taskData.autoInsuranceMobile}}">
           <view class="field-right-btn" data-phone="{{taskData.autoInsuranceMobile}}" bindtap="dialPhone">
