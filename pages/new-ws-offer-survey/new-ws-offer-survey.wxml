@@ -3,14 +3,6 @@
         <image style="z-index: 100; width: 200px; height: 153px; position: absolute; right:0%; opacity: 0.6; top:60px; pointer-events: none;" src="../../asset/image/seal.png" mode="cover"></image>
         <view class="weui-cells__title">新物损工单报价</view>
         <view class="weui-cells weui-cells_after-title">
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">工单号</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{orderId}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
@@ -19,14 +11,6 @@
                     <text class="weui-input readonly">{{reportNumber || '-'}}</text>
                 </view>
             </view>
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">工单状态</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{statusMap[status]}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
             <view wx:if="{{plateNumber}}" class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
@@ -35,22 +19,6 @@
                     <text class="weui-input readonly">{{plateNumber || '-'}}</text>
                 </view>
             </view>
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">区域</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{regionLabel || '-'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">是否含税</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{hasTax == 1 || hasTax == true ? '是' : '否'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
         </view>
 
         <view class="weui-cells__title">报价信息</view>
@@ -58,25 +26,6 @@
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
                 <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | 合计:{{project.offerResult}}" name="{{pindex}}">
                     <view>
-<!--                        <view class="weui-cells weui-cells_after-title">-->
-<!--                            <view class="weui-cell weui-cell_input">-->
-<!--                                <view class="weui-cell__hd">-->
-<!--                                    <view class="weui-label">工程项目名称</view>-->
-<!--                                </view>-->
-<!--                                <view class="weui-cell__bd">-->
-<!--                                    <text class="weui-input readonly">{{project.proName || '-'}}</text>-->
-<!--                                </view>-->
-<!--                            </view>-->
-<!--                            <view class="weui-cell weui-cell_input">-->
-<!--                                <view class="weui-cell__hd">-->
-<!--                                    <view class="weui-label">工程项目类型</view>-->
-<!--                                </view>-->
-<!--                                <view class="weui-cell__bd">-->
-<!--                                    <text class="weui-input readonly">{{['咨询', '施工'][project.proType] || '-'}}</text>-->
-<!--                                </view>-->
-<!--                            </view>-->
-<!--                        </view>-->
-<!--                        <view class="section-title">报价列表</view>-->
                         <van-row custom-class="accident-detail-table-header">
                             <van-col span="4">名称</van-col>
                             <van-col span="4">类型</van-col>

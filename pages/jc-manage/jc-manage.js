@@ -91,14 +91,15 @@ Page({
         customerName: data.customerName,
         customerPhone: data.customerPhone,
         losserText: data.losserText
+      }, () => {
+        _this.getRegionLabel()
+        if (_this.data.type == 1) {
+          _this.getLosserList()
+        }
+        if (_this.data.type == 2) {
+          _this.initReassignListForCitymanger()
+        }
       })
-      _this.getRegionLabel()
-      if (_this.data.type == 1) {
-        _this.getLosserList()
-      }
-      if (_this.data.type == 2) {
-        _this.initReassignListForCitymanger()
-      }
     })
   },
   losserChange (event) {
@@ -126,12 +127,6 @@ Page({
   },
   initArea () {
     let _this = this
-    _this.setData({
-      region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
-      countryId: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
-      cityId: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
-      provinceId: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
-    })
     util.request({
       path: '/sys/area/list',
       method: 'GET'
@@ -139,7 +134,6 @@ Page({
       _this.setData({
         areaList: res.DATA.DATA
       })
-      _this.getRegionLabel()
     })
   },
   getRegionLabel () {

@@ -21,8 +21,6 @@ Page({
     offerRemark: '',
     show: false,
     areaList: {},
-    regionLabel: '',
-    region: '',
     townCode: '',
     cityCode: '',
     provinceCode: '',
@@ -59,31 +57,8 @@ Page({
     plateNumber: '',
     reportNumber : ''
   },
-  initArea () {
-    try {
-      let _this = this
-      _this.setData({
-        region: app.globalData.currentRegisterInfo.townCode,
-        townCode: app.globalData.currentRegisterInfo.townCode,
-        cityCode: app.globalData.currentRegisterInfo.cityCode,
-        provinceCode: app.globalData.currentRegisterInfo.provinceCode
-      })
-      util.request({
-        path: '/sys/area/list',
-        method: 'GET'
-      }, function (err, res) {
-        _this.setData({
-          areaList: res.DATA.DATA
-        })
-        _this.getRegionLabel()
-      })
-    } catch (e) {
-
-    }
-  },
   onLoad: function (routeParams) {
     try {
-      this.initArea()
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
@@ -94,63 +69,13 @@ Page({
       }
     } catch (e) {}
   },
-  getRegionLabel () {
-    let arr = []
-    if (this.data.region && this.data.areaList.hasOwnProperty('province_list')) {
-      let provinceCode = this.data.region.slice(0,2) + '0000'
-      let cityCode = this.data.region.slice(0,4) + '00'
-      let townCode = this.data.region
-      arr.push(this.data.areaList['province_list'][provinceCode])
-      arr.push(this.data.areaList['city_list'][cityCode])
-      arr.push(this.data.areaList['county_list'][townCode])
-    }
-    this.setData({
-      regionLabel: arr.length ? arr.join(',') : ''
-    })
-  },
-  formatAreaOptions (sourceData) {
-    let provinceArr = []
-    for (let key in sourceData.province_list) {
-      provinceArr.push({
-        value: key,
-        label: sourceData.province_list[key],
-        children: []
-      })
-    }
-    let cityArr = []
-    for (let key in sourceData.city_list) {
-      cityArr.push({
-        value: key,
-        label: sourceData.city_list[key]
-      })
-    }
-
-    for (let i = 0; i < provinceArr.length; i++) {
-      let provinceCode = provinceArr[i].value.slice(0, 2)
-      for (let j = 0; j < cityArr.length; j++) {
-        if (provinceCode === cityArr[j].value.slice(0, 2)) {
-          provinceArr[i].children.push(cityArr[j])
-        }
-      }
-    }
-    return provinceArr
-  },
   init () {
     let _this = this
     wx.showLoading({
       mask: true,
       title: '加载中'
     })
-    util.request({
-      path: `/sys/area/list`,
-      method: 'GET'
-    }, function (err, res) {
-      _this.setData({
-        areaList: res.DATA.DATA,
-        options: _this.formatAreaOptions(res.DATA.DATA)
-      })
-      _this.loadData()
-    })
+    _this.loadData()
   },
   loadData () {
     let _this = this
@@ -207,7 +132,6 @@ Page({
       })
       let result = {
         ...data,
-        region: data.townCode,
         townCode: data.townCode,
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,

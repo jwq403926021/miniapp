@@ -106,12 +106,6 @@ Page({
   initArea () {
     try {
       let _this = this
-      _this.setData({
-        region: app.globalData.currentRegisterInfo.townCode,
-        townCode: app.globalData.currentRegisterInfo.townCode,
-        cityCode: app.globalData.currentRegisterInfo.cityCode,
-        provinceCode: app.globalData.currentRegisterInfo.provinceCode
-      })
       util.request({
         path: '/sys/area/list',
         method: 'GET'
@@ -119,7 +113,6 @@ Page({
         _this.setData({
           areaList: res.DATA.DATA
         })
-        _this.getRegionLabel()
       })
     } catch (e) {
 
@@ -460,6 +453,7 @@ Page({
         coinLevel: data.level || 1
       }
       _this.setData(result, () => {
+        _this.getRegionLabel()
         _this.calculate()
         wx.hideLoading()
       })
