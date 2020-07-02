@@ -5,6 +5,9 @@ const app = getApp()
 import location from '../../asset/location'
 Page({
   data: {
+    current: 0,
+    totalPage: 1,
+    page: 1,
     show: false,
     areaList: location,
     isShowFilterOne: false,
@@ -66,6 +69,14 @@ Page({
       })
     })
   },
+  onReachBottom () {
+    let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
+    this.setData({
+      page: page
+    }, () => {
+      this.getInitData(true)
+    })
+  },
   openFilterOne () {
     this.setData({
       isShowFilterOne: true
@@ -77,11 +88,15 @@ Page({
     const value = event.currentTarget.dataset.name
     const label = event.currentTarget.dataset.label
     this.setData({
+      current: 0,
+      page: 1,
+      totalPage: 1,
       searchStatus: value,
       isShowFilterOne: false,
       searchStatusLabel: label
+    }, () => {
+      this.getInitData()
     })
-    this.getInitData()
   },
   openLocation () {
     this.setData({
@@ -130,9 +145,21 @@ Page({
       searchKeyword: data.detail
     })
   },
-  getInitData () {
+  filter () {
+    this.setData({
+      current: 0,
+      page: 1,
+      totalPage: 1,
+    }, () => {
+      this.getInitData()
+    })
+  },
+  getInitData (flag) {
     let _this = this
-    let filter = {}
+    let filter = {
+      page: this.data.page,
+      size: 100,
+    }
     if (this.data.searchKeyword) {
       filter.customName = this.data.searchKeyword
     }
@@ -150,8 +177,12 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
+      let data = _this.data.dataList || []
+      if (res.data.current === _this.data.current) return false
       _this.setData({
-        dataList: res.data
+        current: res.data.current,
+        totalPage: res.data.total,
+        dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })
     })
   },
