@@ -10,6 +10,7 @@ Page({
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
+    financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
     show: false,
     showreassign: false,
@@ -114,6 +115,7 @@ Page({
       let liveImageFiles = []
       let workLiveImageFiles = []
       let workVideo = []
+      let financeImageFiles = []
 
       _this.sourceImage.forEach(item => {
         switch (item.type) {
@@ -124,6 +126,10 @@ Page({
           case 3:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             workLiveImageFiles.push(item)
+            break
+          case 13:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            financeImageFiles.push(item)
             break
         }
       })
@@ -138,6 +144,7 @@ Page({
         region: data.townCode,
         liveImageFiles: liveImageFiles,
         workLiveImageFiles: workLiveImageFiles,
+        financeImageFiles: financeImageFiles,
         workVideo: workVideo,
         'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
@@ -874,6 +881,13 @@ Page({
     let _this = this
     let data = this.data.taskData
     let isSave = e.currentTarget.dataset.save
+    let financeImageFiles = []
+    _this.data.financeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        financeImageFiles.push({path: item.path, type: 13})
+      }
+    })
+
     util.request({
       path: isSave ? `/app/businessdamagenew/financeSave` : `/app/businessdamagenew/financeCommit`,
       method: 'POST',
@@ -888,7 +902,25 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        _this.goToList()
+        let imgPaths = [...financeImageFiles]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           mask: true,
