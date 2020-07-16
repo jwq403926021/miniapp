@@ -610,10 +610,7 @@
             <button type="primary" bindtap="financeSubmit">提交</button>
             <button data-save="true" bindtap="financeSubmit">暂存</button>
         </view>
-        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && role == 12}}">
-            <button type="primary" bindtap="assignToOther">转办</button>
-        </view>
-        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && role == 6}}">
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (role == 5 || role == 6 || role == 12) }}">
             <button type="primary" bindtap="assignToOther">转办</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}"> <!-- 施工人员 留言提交 -->
