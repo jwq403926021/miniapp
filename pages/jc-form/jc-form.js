@@ -1544,11 +1544,11 @@ Page({
     let isSave = e.currentTarget.dataset.save
     let taskData = {
       "active": 'submit',
-      "cityId": data.cityId,
-      "countryId": data.countryId,
-      "provinceId": data.provinceId,
+      "cityId": data.cityId + '',
+      "countryId": data.countryId + '',
+      "provinceId": data.provinceId + '',
       "customerName": data.customerName,
-      "customerPhone": data.customerPhone,
+      "customerPhone": data.customerPhone + '',
       "investigatorText": data.investigatorText
     }
     if (isSave) {
