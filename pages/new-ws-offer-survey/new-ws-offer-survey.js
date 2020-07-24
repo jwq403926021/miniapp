@@ -55,7 +55,7 @@ Page({
     offerListSource: [],
     incompleteListSource: [],
     plateNumber: '',
-    reportNumber : ''
+    reportNumber: ''
   },
   onLoad: function (routeParams) {
     try {
@@ -89,7 +89,8 @@ Page({
       let data = res.data
       _this.setData({
         plateNumber: data.plateNumber,
-        reportNumber: data.reportNumber
+        reportNumber: data.reportNumber,
+        offerRemark: data.offerRemark
       })
     })
 
