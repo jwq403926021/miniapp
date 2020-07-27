@@ -64,7 +64,11 @@ Page({
       manageMoney: '',
       insurePay: '',
       payWorker: '',
-      reportNumber: ''
+      reportNumber: '',
+      mail: '',
+      weatherBill: '1',
+      moneySurvey: '',
+      managerReject: ''
     },
     activeVideo: '',
     location: {
@@ -177,7 +181,11 @@ Page({
         'taskData.payWorker': data.payWorker,
         'taskData.isAcceptance': data.isAcceptance,
         'taskData.isAgree': data.isAgree,
-        'taskData.reportNumber': data.reportNumber
+        'taskData.reportNumber': data.reportNumber,
+        'taskData.mail': data.mail,
+        'taskData.weatherBill': data.weatherBill,
+        'taskData.moneySurvey': data.moneySurvey,
+        'taskData.managerReject': data.managerReject
       })
       if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
         _this.initReassignList()
@@ -876,6 +884,69 @@ Page({
         })
       }
     })
+  },
+  receiptApplySubmit (e) {
+    let _this = this
+    let data = this.data.taskData
+    util.request({
+      path: `/app/businessdamagenew/surveyBill`,
+      method: 'POST',
+      data: {
+        mail: data.mail,
+        weatherBill: data.weatherBill,
+        moneySurvey: data.moneySurvey,
+        orderId: _this.data.orderId,
+        cityCode: data.cityCode,
+        insuranceType: data.insuranceType
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  receiptImageSubmit (e) {
+    let _this = this
+    let data = this.data.taskData
+    if (!(data.moneySurvey <= 1000 || (data.moneySurvey > 1000 && data.managerReject == 2))) {
+      wx.showToast({
+        mask: true,
+        title: '开票未通过',
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    let financeImageFiles = []
+    _this.data.financeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        financeImageFiles.push({path: item.path, type: 13})
+      }
+    })
+    let imgPaths = [...financeImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
   },
   financeSubmit (e) {
     let _this = this
