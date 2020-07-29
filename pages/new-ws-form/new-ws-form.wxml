@@ -554,6 +554,36 @@
             </view>
         </block>
 
+        <block wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}">
+            <view class="weui-cells__title">开票信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">邮箱</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.mail || '-'}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">是否专票</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.weatherBill === '0' ? '普票' : '专票'}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">金额</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.moneySurvey || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
         <block wx:if="{{role == 22 && (taskData.status == 50 || taskData.status == 11)}}">
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -647,6 +677,10 @@
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 财务人员 提交 暂存 -->
             <button type="primary" bindtap="financeSubmit">提交</button>
             <button data-save="true" bindtap="financeSubmit">暂存</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}"> <!-- 市负责人 审核发票 -->
+            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
+            <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
         </view>
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 财务人员 提交 发票 -->
             <button type="primary" bindtap="receiptImageSubmit">提交</button>

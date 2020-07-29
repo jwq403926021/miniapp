@@ -922,6 +922,42 @@ Page({
       }
     })
   },
+  receiptApproveSubmit (event) {
+    let _this = this
+    let data = this.data.taskData
+    util.request({
+      path: `/sys/businessdamagenew/managerBill`,
+      method: 'POST',
+      data: {
+        surveyId: data.surveyId,
+        orderId: _this.data.orderId,
+        cityCode: data.cityCode,
+        insuranceType: data.insuranceType,
+        managerReject: event.currentTarget.dataset.type
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   receiptImageSubmit (e) {
     let _this = this
     let data = this.data.taskData
