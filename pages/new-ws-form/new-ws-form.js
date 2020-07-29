@@ -1108,7 +1108,9 @@ Page({
   downloadImages () {
     let urls = []
     this.sourceImage.map(item => {
-      urls.push(item.path)
+      if (!(this.data.role == 1 && item.type == 2)) { //排除查勘员自己的图片
+        urls.push(item.path)
+      }
     })
     common.downloadImages({
       urls: urls

@@ -1745,7 +1745,10 @@ Page({
   downloadImages () {
     let urls = []
     this.sourceImage.map(item => {
-      if (!((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4 )) {
+      if (
+        !((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && item.type == 4) &&
+        !(this.data.role == 1 && item.type == 1)
+      ) {
         urls.push(item.path)
       }
     })
