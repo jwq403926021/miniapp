@@ -554,7 +554,7 @@
             </view>
         </block>
 
-        <block wx:if="{{(role == 5 || role == 6 || role == 7 || role == 22 || role == 13) && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}">
+        <block wx:if="{{(role == 1 || role == 5 || role == 6 || role == 7 || role == 22 || role == 13) && (taskData.status == 50 || taskData.status == 11)}}">
             <view class="weui-cells__title">开票信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -678,7 +678,7 @@
             <button type="primary" bindtap="financeSubmit">提交</button>
             <button data-save="true" bindtap="financeSubmit">暂存</button>
         </view>
-        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}"> <!-- 市负责人 审核发票 -->
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}"> <!-- 市负责人 审核发票 -->
             <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
             <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
         </view>
