@@ -554,7 +554,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}">
+        <block wx:if="{{(role == 5 || role == 6 || role == 7 || role == 22 || role == 13) && (taskData.status == 50 || taskData.status == 11) && taskData.managerReject != 2 && taskData.moneySurvey > 0 && financeImageFiles.length === 0}}">
             <view class="weui-cells__title">开票信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -570,7 +570,7 @@
                         <view class="weui-label">是否专票</view>
                     </view>
                     <view class="weui-cell__bd readonly">
-                        {{taskData.weatherBill === '0' ? '普票' : '专票'}}
+                        {{taskData.weatherBill ? (taskData.weatherBill === '0' ? '普票' : '专票') : ''}}
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -584,7 +584,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role == 22 && (taskData.status == 50 || taskData.status == 11)}}">
+        <block wx:if="{{(role == 22 && (taskData.status == 50 || taskData.status == 11)}}">
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
