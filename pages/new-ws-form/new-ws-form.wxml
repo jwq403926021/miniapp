@@ -581,6 +581,14 @@
                         {{taskData.moneySurvey || '-'}}
                     </view>
                 </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role == 22}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">市负责人是否通过</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.managerReject ? (taskData.managerReject === '2' ? '通过' : '驳回') : ''}}
+                    </view>
+                </view>
             </view>
         </block>
 
