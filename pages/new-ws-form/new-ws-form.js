@@ -186,11 +186,12 @@ Page({
         'taskData.weatherBill': data.weatherBill,
         'taskData.moneySurvey': data.moneySurvey,
         'taskData.managerReject': data.managerReject
+      }, () => {
+        if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
+          _this.initReassignList()
+        }
+        _this.getRegionLabel()
       })
-      if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
-        _this.initReassignList()
-      }
-      _this.getRegionLabel()
       wx.hideLoading()
     })
   },
