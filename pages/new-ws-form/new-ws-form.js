@@ -1074,14 +1074,14 @@ Page({
     })
     util.request({
       path: '/app/businessdamagenew/sign',
-      method: 'POST',
+      method: 'GET',
       data: {
         orderId: this.data.orderId
       }
     }, function (err, res) {
       wx.showToast({
         mask: true,
-        title: '提交失败',
+        title: res.msg || '提交失败',
         icon: 'none',
         duration: 1000
       })
