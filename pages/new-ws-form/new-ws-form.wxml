@@ -679,9 +679,12 @@
             <button type="primary" bindtap="workHandleWS">提交</button>
             <button data-save="true" bindtap="workHandleWS">暂存</button>
         </view>
-        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 查勘员 申请开票 -->
+        <view class="button-sp-area" wx:if="{{role == 1 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 查勘员 申请开票 -->
             <button type="primary" bindtap="receiptApplySubmit">申请开票</button>
         </view>
+        <!--<view class="button-sp-area"> &lt;!&ndash; 授权 &ndash;&gt;-->
+            <!--<button type="primary" bindtap="signSubmit">授权</button>-->
+        <!--</view>-->
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 财务人员 提交 暂存 -->
             <button type="primary" bindtap="financeSubmit">提交</button>
             <button data-save="true" bindtap="financeSubmit">暂存</button>
