@@ -67,6 +67,7 @@ Page({
       payWorker: '',
       reportNumber: '',
       mail: '',
+      accountName: '',
       weatherBill: '1',
       moneySurvey: '',
       managerReject: ''
@@ -191,6 +192,7 @@ Page({
         'taskData.reportNumber': data.reportNumber,
         'taskData.mail': data.mail,
         'taskData.weatherBill': data.weatherBill,
+        'taskData.accountName': data.accountName,
         'taskData.moneySurvey': data.moneySurvey,
         'taskData.managerReject': data.managerReject
       }, () => {
@@ -902,6 +904,7 @@ Page({
       data: {
         mail: data.mail,
         weatherBill: data.weatherBill,
+        accountName: data.accountName,
         moneySurvey: data.moneySurvey,
         orderId: _this.data.orderId,
         cityCode: data.cityCode,
