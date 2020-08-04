@@ -1073,6 +1073,27 @@ Page({
       }
     })
   },
+  signSubmit () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/sign',
+      method: 'GET',
+      data: {
+        orderId: this.data.orderId
+      }
+    }, function (err, res) {
+      wx.showToast({
+        mask: true,
+        title: res.msg || '提交失败',
+        icon: 'none',
+        duration: 1000
+      })
+    })
+  },
   assignToOther () {
     let _this = this
     if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
