@@ -10,6 +10,7 @@ Page({
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
     workLiveImageFiles: [], // 现场图片(施工方)
+    authorityImageFiles: [], // 授权图片
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
     show: false,
@@ -118,6 +119,7 @@ Page({
       _this.sourceAttachment = res.attachment
       let liveImageFiles = []
       let workLiveImageFiles = []
+      let authorityImageFiles = []
       let workVideo = []
       let financeImageFiles = []
 
@@ -135,6 +137,10 @@ Page({
             item.path = `https://aplusprice.xyz/file/${item.path}`
             financeImageFiles.push(item)
             break
+          case 66:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            authorityImageFiles.push(item)
+            break
         }
       })
       _this.sourceAttachment.forEach(item => {
@@ -149,6 +155,7 @@ Page({
         liveImageFiles: liveImageFiles,
         workLiveImageFiles: workLiveImageFiles,
         financeImageFiles: financeImageFiles,
+        authorityImageFiles: authorityImageFiles,
         workVideo: workVideo,
         'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
