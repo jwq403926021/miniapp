@@ -689,7 +689,7 @@
         </block>
 
         <block wx:if="{{authorityImageFiles.length > 0}}">
-            <view class="weui-cells__title">财务图片</view>
+            <view class="weui-cells__title">授权图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
