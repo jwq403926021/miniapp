@@ -97,7 +97,7 @@
                     </view>
                 </view>
             </block>
-            <view class="weui-cells weui-cells_after-title" wx:wx:if="{{taskData.losserName}}">
+            <view class="weui-cells weui-cells_after-title" wx:if="{{taskData.losserName}}">
                 <view class="weui-cell weui-cell_input">
                     <view class="weui-cell__hd">
                         <view class="weui-label">定损员</view>
