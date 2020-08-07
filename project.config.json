@@ -65,6 +65,20 @@
 					"pathName": "pages/new-ws-form/new-ws-form",
 					"query": "id=20200610125751000107",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/jc-form/jc-form",
+					"pathName": "pages/jc-form/jc-form",
+					"query": "id=20200731115925000102",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/new-jc-form/new-jc-form",
+					"pathName": "pages/new-jc-form/new-jc-form",
+					"query": "id=20200731115925000102",
+					"scene": null
 				}
 			]
 		}
