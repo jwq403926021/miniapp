@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/register/register",
     "pages/cx-form/cx-form",
+    "pages/new-jc-form/new-jc-form",
     "pages/jc-form/jc-form",
     "pages/jc-form-client/jc-form-client",
     "pages/jc-form-client-upload/jc-form-client-upload",
