@@ -155,15 +155,12 @@
 
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">报价金额</view>
+                        <view class="weui-label">估损金额</view>
                     </view>
                     <view class="weui-cell__bd">
                         <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
-                               value="{{taskData.offerPrice}}" placeholder="报价金额"/>
+                               value="{{taskData.offerPrice}}" placeholder="估损金额"/>
                     </view>
-                    <!--<view class="weui-cell__bd">-->
-                    <!--<text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>-->
-                    <!--</view>-->
                 </view>
             </block>
         </view>
