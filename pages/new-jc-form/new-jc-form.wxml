@@ -92,6 +92,19 @@
                         </picker>
                     </view>
                 </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">施工人员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="workerChange" value="{{workerValue}}"
+                                range="{{workerList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{workerLabel || '请选择施工人员'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
 
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -363,7 +376,7 @@
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">定损员</view>
+                        <view class="weui-label">定损员姓名</view>
                     </view>
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.losserName || '-'}}</text>
