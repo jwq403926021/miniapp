@@ -177,6 +177,19 @@
             </view>
         </view>
 
+        <view class="weui-cells__title">施工人员备注</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                              value="{{taskData.investigatorText}}" placeholder="请输入文本" style="height: 7em"/>
+                </view>
+                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                    {{taskData.investigatorText || '-'}}
+                </view>
+            </view>
+        </view>
+
         <view class="weui-cells__title">测漏备注</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
