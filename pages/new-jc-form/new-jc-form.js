@@ -60,7 +60,6 @@ Page({
     },
     damageImageFiles: [],
     caleImageFiles: [],
-    authorityImageFiles: [],
     informationImageFiles: [],
     completeImageFiles: [],
     showactionsheet: false,
@@ -196,7 +195,6 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.image
       let informationImageFiles = []
-      let authorityImageFiles = []
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
@@ -221,10 +219,6 @@ Page({
           case 4:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             damageImageFiles.push(item)
-            break
-          case 5:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
-            authorityImageFiles.push(item)
             break
           case 6:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -308,7 +302,6 @@ Page({
         "taskData.servicerPhone": data.servicerPhone || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
-        authorityImageFiles: authorityImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
         region: data.areaCountryId + ''
@@ -414,291 +407,6 @@ Page({
       phoneNumber: phone
     })
   },
-  chooseInfoImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.informationImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '报案图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            informationImageFiles: list
-          });
-        }
-      }
-    })
-  },
-  previewInfoImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.informationImageFiles.map(item => {return item.path})
-    })
-  },
-  removeinformationImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-          _this.data.informationImageFiles.splice(index, 1)
-          _this.setData({
-            informationImageFiles: _this.data.informationImageFiles
-          })
-          let id = e.currentTarget.dataset.id;
-          if (id) {
-            common.deleteImage(id)
-          }
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  },
-  choosecompleteImageFiles: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.completeImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '施工完成图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            completeImageFiles: list
-          });
-        }
-      }
-    })
-  },
-  previewcompleteImageFiles: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.completeImageFiles.map(item => {return item.path})
-    })
-  },
-  removecompleteImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-          _this.data.completeImageFiles.splice(index, 1)
-          _this.setData({
-            completeImageFiles: _this.data.completeImageFiles
-          })
-          let id = e.currentTarget.dataset.id;
-          if (id) {
-            common.deleteImage(id)
-          }
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  },
-  previewAuthorityImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.authorityImageFiles.map(item => {return item.path})
-    })
-  },
-  chooseAuthorityImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.authorityImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '授权图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            authorityImageFiles: list
-          });
-        }
-      }
-    })
-  },
-  removeAuthorityImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-          _this.data.authorityImageFiles.splice(index, 1)
-          _this.setData({
-            authorityImageFiles: _this.data.authorityImageFiles
-          })
-          let id = e.currentTarget.dataset.id;
-          if (id) {
-            common.deleteImage(id)
-          }
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  },
-  previewCaleImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.caleImageFiles.map(item => {return item.path})
-    })
-  },
-  chooseCaleImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.caleImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '授权书图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            caleImageFiles: list
-          });
-        }
-      }
-    })
-  },
-  removeCaleImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-          _this.data.caleImageFiles.splice(index, 1)
-          _this.setData({
-            caleImageFiles: _this.data.caleImageFiles
-          })
-          let id = e.currentTarget.dataset.id;
-          if (id) {
-            common.deleteImage(id)
-          }
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  },
-  previewDamageImage: function (e) {
-    wx.previewImage({
-      current: e.currentTarget.id,
-      urls: this.data.damageImageFiles.map(item => {return item.path})
-    })
-  },
-  chooseDamageImage: function (e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
-          })
-        })
-        let list = that.data.damageImageFiles.concat(tempList)
-        if (res.tempFilePaths.length > 9) {
-          wx.showToast({
-            mask: true,
-            title: '损失清单图片不能超过9个',
-            icon: 'none',
-            duration: 2000
-          })
-        } else {
-          that.setData({
-            damageImageFiles: list
-          });
-        }
-      }
-    })
-  },
-  removeDamageImageFiles (e) {
-    let index = e.currentTarget.dataset.index;
-    let _this = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要删除吗？',
-      success: function (sm) {
-        if (sm.confirm) {
-          _this.data.damageImageFiles.splice(index, 1)
-          _this.setData({
-            damageImageFiles: _this.data.damageImageFiles
-          })
-          let id = e.currentTarget.dataset.id;
-          if (id) {
-            common.deleteImage(id)
-          }
-        } else if (sm.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-
-  },
   uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     var that = this
     let formData = {
@@ -786,42 +494,6 @@ Page({
   bindTapToClient (event) {
     wx.navigateTo({
       url: `../jc-form-client/jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
-    })
-  },
-  insuredAgree () {
-    let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/insured/orders`,
-      method: 'PUT',
-      data: {
-        "active": 'access',
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
     })
   },
   endWork () {
@@ -1042,114 +714,6 @@ Page({
       }
     })
   },
-  insuredReject () {
-    let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/insured/orders`,
-      method: 'PUT',
-      data: {
-        "active": 'refuse',
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  partnerConsultAgree () {
-    let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/partner/orders`,
-      method: 'PUT',
-      data: {
-        "active": 'consult_site',
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  partnerConsultReject () {
-    let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/partner/orders`,
-      method: 'PUT',
-      data: {
-        "active": 'consult_refuse',
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
   partnerCommit (e) {
     let _this = this
     let taskData = this.data.taskData
@@ -1185,18 +749,12 @@ Page({
       }
     }
 
-    let authorityImageFiles = []
     let caleImageFiles = []
     let damageImageFiles = []
     let completeImageFiles = []
     _this.data.completeImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         completeImageFiles.push({path: item.path, type: 6})
-      }
-    })
-    _this.data.authorityImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        authorityImageFiles.push({path: item.path, type: 5})
       }
     })
     _this.data.caleImageFiles.map(item => {
@@ -1209,17 +767,6 @@ Page({
         damageImageFiles.push({path: item.path, type: 4})
       }
     })
-
-    // if (damageImageFiles.length == 0) {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '损失清单不能为空',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    //   return false
-    // }
-
     if (!isSave) {
       if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
         wx.showToast({
@@ -1230,47 +777,8 @@ Page({
         })
         return false
       }
-
-      // if (_this.data.taskData.constructionMethod == 1) {
-      //   if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
-      //     wx.showToast({
-      //       mask: true,
-      //       title: '押金金额不能为空',
-      //       icon: 'none',
-      //       duration: 1000
-      //     })
-      //     return false
-      //   }
-      //   if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
-      //     wx.showToast({
-      //       mask: true,
-      //       title: '银行交易单号不能为空',
-      //       icon: 'none',
-      //       duration: 1000
-      //     })
-      //     return false
-      //   }
-      //   if (_this.data.authorityImageFiles.length == 0) {
-      //     wx.showToast({
-      //       mask: true,
-      //       title: '押金图片不能为空',
-      //       icon: 'none',
-      //       duration: 1000
-      //     })
-      //     return false
-      //   }
-      // }
     }
 
-    // if (caleImageFiles.length == 0) {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '保险计算书不能为空',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    //   return false
-    // }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1289,7 +797,7 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles, ...completeImageFiles]
+        let imgPaths = [...familyImagesList, ...caleImageFiles, ...damageImageFiles, ...completeImageFiles]
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1341,14 +849,8 @@ Page({
       return false
     }
 
-    let authorityImageFiles = []
     let caleImageFiles = []
     let damageImageFiles = []
-    _this.data.authorityImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        authorityImageFiles.push({path: item.path, type: 5})
-      }
-    })
     _this.data.caleImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         caleImageFiles.push({path: item.path, type: 7})
@@ -1360,16 +862,6 @@ Page({
       }
     })
 
-    // if (damageImageFiles.length == 0) {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '损失清单不能为空',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    //   return false
-    // }
-
     if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
       wx.showToast({
         mask: true,
@@ -1380,55 +872,6 @@ Page({
       return false
     }
 
-    // if (_this.data.taskData.constructionMethod == 0) {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '请更改施工方式为施工',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    //   return false
-    // }
-
-    // if (_this.data.taskData.constructionMethod == 1) {
-    //   if (_this.data.taskData.deposit == '' || _this.data.taskData.deposit == null) {
-    //     wx.showToast({
-    //       mask: true,
-    //       title: '押金金额不能为空',
-    //       icon: 'none',
-    //       duration: 1000
-    //     })
-    //     return false
-    //   }
-    //   if (_this.data.taskData.bankTransactionId == '' || _this.data.taskData.bankTransactionId == null) {
-    //     wx.showToast({
-    //       mask: true,
-    //       title: '银行交易单号不能为空',
-    //       icon: 'none',
-    //       duration: 1000
-    //     })
-    //     return false
-    //   }
-    //   // if (authorityImageFiles.length == 0) {
-    //   //   wx.showToast({
-    //   //     mask: true,
-    //   //     title: '押金图片不能为空',
-    //   //     icon: 'none',
-    //   //     duration: 1000
-    //   //   })
-    //   //   return false
-    //   // }
-    // }
-
-    // if (caleImageFiles.length == 0) {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '保险计算书不能为空',
-    //     icon: 'none',
-    //     duration: 1000
-    //   })
-    //   return false
-    // }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1445,71 +888,7 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...familyImagesList, ...authorityImageFiles, ...caleImageFiles, ...damageImageFiles]
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  insuredCommit () {
-    let _this = this
-    let taskData = this.data.taskData
-    let familyImagesList = []
-
-    let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
-    if (result.flag) {
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      wx.showToast({
-        mask: true,
-        title: result.data,
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/insured/orders`,
-      method: 'PUT',
-      data: {
-        active: 'perfect',
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = familyImagesList
+        let imgPaths = [...familyImagesList, ...caleImageFiles, ...damageImageFiles]
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1559,16 +938,6 @@ Page({
       taskData.flowId = this.data.flowId
     }
 
-    // if (taskData.customerName == '') {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '请填写出险方',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    //   return
-    // }
-
     let isVaidcustomerPhone
     if (taskData.customerPhone != '') {
       isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
@@ -1576,17 +945,6 @@ Page({
         return
       }
     }
-
-
-    // if (taskData.investigatorText == '') {
-    //   wx.showToast({
-    //     mask: true,
-    //     title: '请填写查勘员备注',
-    //     icon: 'none',
-    //     duration: 2000
-    //   })
-    //   return
-    // }
 
     let informationImageFiles = []
     _this.data.informationImageFiles.map(item => {
@@ -1741,6 +1099,56 @@ Page({
         data: str
       }
     }
+  },
+  chooseImage: function (e) {
+    let key = e.currentTarget.dataset.name
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        let tempList = []
+        res.tempFilePaths.forEach(item => {
+          tempList.push({
+            "path": item, "id": null
+          })
+        })
+        let list = that.data[key].concat(tempList)
+        that.setData({
+          [key]: list
+        })
+      }
+    })
+  },
+  previewImage: function (e) {
+    let key = e.currentTarget.dataset.name
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data[key].map(item => {return item.path})
+    })
+  },
+  removeImage (e) {
+    let key = e.currentTarget.dataset.name
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data[key].splice(index, 1)
+          _this.setData({
+            [key]: _this.data[key]
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
   downloadImages () {
     let urls = []

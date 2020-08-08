@@ -191,7 +191,7 @@
         </view>
 
         <button style="width:80%" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
-            {{((role == 15 && status == 30) || (role == 12 && status == 40) || (role == 23 && status == 51)) ? '完善图片信息' : '图片信息'}}
+            {{((role == 12 && status == 40) || (role == 23 && status == 51)) ? '完善图片信息' : '图片信息'}}
         </button>
 
         <view class="weui-cells__title">报案信息图片</view>
@@ -205,14 +205,14 @@
                                     无图片
                                 </view>
                                 <block wx:for="{{informationImageFiles}}" wx:key="index">
-                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewInfoImage" id="{{item.path}}">
+                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="informationImageFiles">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon data-id="{{item.id}}" catchtap="removeinformationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon data-id="{{item.id}}" catchtap="removeImage" data-name="informationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
                             <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseInfoImage"></view>
+                                <view class="weui-uploader__input" bindtap="chooseImage" data-name="informationImageFiles"></view>
                             </view>
                         </view>
                     </view>
@@ -232,14 +232,14 @@
                                         无图片
                                     </view>
                                     <block wx:for="{{damageImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewDamageImage" id="{{item.path}}">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="damageImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeDamageImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="damageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
                                 <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseDamageImage"></view>
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="damageImageFiles"></view>
                                 </view>
                             </view>
                         </view>
@@ -260,14 +260,14 @@
                                         无图片
                                     </view>
                                     <block wx:for="{{caleImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewCaleImage" id="{{item.path}}">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="caleImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeCaleImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-index="{{index}}" data-name="caleImageFiles" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
                                 <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseCaleImage"></view>
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="caleImageFiles"></view>
                                 </view>
                             </view>
                         </view>
@@ -288,14 +288,14 @@
                                         无图片
                                     </view>
                                     <block wx:for="{{completeImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewcompleteImageFiles" id="{{item.path}}">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removecompleteImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
                                 <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="choosecompleteImageFiles"></view>
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
                                 </view>
                             </view>
                         </view>
@@ -376,6 +376,11 @@
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.losserPhone || '-'}}</text>
                     </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{taskData.losserPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
                 </view>
             </view>
         </block>
@@ -422,21 +427,6 @@
         <view class="button-sp-area">
             <button data-type="2" bindtap="lossCommit">暂存</button>
         </view>
-        <!--(role == 15 && status == 30) || (role == 12 && status == 40)-->
-        <view class="button-sp-area">
-            <button type="primary" bindtap="insuredCommit">提交</button>   <!--被保险人完善 -->
-        </view>
-
-        <view class="button-sp-area two-btn-wrap">
-            <button type="primary" bindtap="insuredAgree">满意</button> <!-- 被保险人 满意报价 -->
-            <button bindtap="insuredReject">不满意</button> <!-- 被保险人 不满意报价 -->
-        </view>
-
-        <view class="button-sp-area two-btn-wrap">
-            <button type="primary" bindtap="partnerConsultAgree">沟通接受</button> <!-- 被保险人 不满意 沟通后接收 -->
-            <button bindtap="partnerConsultReject">沟通不接受转现场</button> <!-- 被保险人 不满意 沟通后转去现场 -->
-        </view>
-
         <view class="button-sp-area two-btn-wrap">
             <button type="primary" bindtap="partnerCommit">提交</button> <!--施工人员完善 -->
             <button data-save="true" bindtap="partnerCommit">暂存</button> <!--施工人员完善 -->
