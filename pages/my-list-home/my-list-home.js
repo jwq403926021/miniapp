@@ -21,6 +21,11 @@ Page({
       url: '../new-my-list-ws/new-my-list-ws?type='+type
     })
   },
+  goToNewJcList: function (event) {
+    wx.navigateTo({
+      url: '../new-my-list-jc/new-my-list-jc'
+    })
+  },
   goToJcList: function () {
     wx.navigateTo({
       url: '../my-list-jc/my-list-jc'
