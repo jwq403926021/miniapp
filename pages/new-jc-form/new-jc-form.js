@@ -483,11 +483,11 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-jc/my-list-jc'
+        url: '../new-my-list-jc/new-my-list-jc'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-jc/my-list-jc'
+        url: '../new-my-list-jc/new-my-list-jc'
       })
     }
   },
@@ -495,6 +495,20 @@ Page({
     wx.navigateTo({
       url: `../jc-form-client/jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
     })
+  },
+  completeCommit () {
+    let _this = this
+    let completeImageFiles = []
+    _this.data.completeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        completeImageFiles.push({path: item.path, type: 6})
+      }
+    })
+    let imgPaths = [...completeImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length, _this.endWork)
   },
   endWork () {
     wx.showLoading({
@@ -511,20 +525,6 @@ Page({
     }, function (err, res) {
 
     })
-  },
-  completeCommit () {
-    let _this = this
-    let completeImageFiles = []
-    _this.data.completeImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        completeImageFiles.push({path: item.path, type: 6})
-      }
-    })
-    let imgPaths = [...completeImageFiles]
-    let count = 0
-    let successUp = 0
-    let failUp = 0
-    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length, _this.endWork)
   },
   lossCommit (e) {
     let _this = this
@@ -605,8 +605,6 @@ Page({
         return false
       }
     }
-    // console.log('lossCommit:', data)
-    // return
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -820,97 +818,6 @@ Page({
         wx.showToast({
           mask: true,
           title: isSave ? '暂存失败' : '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  consultAgree () {
-    let _this = this
-    let taskData = this.data.taskData
-    let familyImagesList = []
-
-    let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
-    if (result.flag) {
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      wx.showToast({
-        mask: true,
-        title: result.data,
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-
-    let caleImageFiles = []
-    let damageImageFiles = []
-    _this.data.caleImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        caleImageFiles.push({path: item.path, type: 7})
-      }
-    })
-    _this.data.damageImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        damageImageFiles.push({path: item.path, type: 4})
-      }
-    })
-
-    if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
-      wx.showToast({
-        mask: true,
-        title: '施工方式不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/partner/orders`,
-      method: 'PUT',
-      data: {
-        "active": 'site_finish',
-        "bankTransactionId": _this.data.taskData.bankTransactionId,
-        "constructionMethod": _this.data.taskData.constructionMethod,
-        "deposit": _this.data.taskData.deposit,
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = [...familyImagesList, ...caleImageFiles, ...damageImageFiles]
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
           icon: 'none',
           duration: 1000
         })
