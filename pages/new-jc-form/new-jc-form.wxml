@@ -135,6 +135,19 @@
                     </picker>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">侧漏人员</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="workerChange" value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择施工人员'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
 
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -152,6 +165,33 @@
                 </view>
             </view>
 
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">是否侧漏</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <van-radio-group value="{{ taskData.constructionMethod }}" custom-class="weui-input vertical"
+                                     bind:change="onConstructionMethodChange">
+                        <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                        <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                    </van-radio-group>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{['否', '是'][taskData.constructionMethod] || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">侧漏金额</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
+                           value="{{taskData.offerPrice}}" placeholder="侧漏金额"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">估损金额</view>
@@ -159,6 +199,9 @@
                 <view class="weui-cell__bd">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
                            value="{{taskData.offerPrice}}" placeholder="估损金额"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
                 </view>
             </view>
         </view>
@@ -309,6 +352,34 @@
         </view>
 
         <view class="weui-cells__title">施工完成</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files" id="uploadercaleFiles">
+                                    <view class="no-image">
+                                        无图片
+                                    </view>
+                                    <block wx:for="{{completeImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">验收</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
