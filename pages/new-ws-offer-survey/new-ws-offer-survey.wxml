@@ -18,14 +18,6 @@
                     <text class="weui-input readonly">{{plateNumber || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">报价人员意见</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{offerRemark || '-'}}</text>
-                </view>
-            </view>
         </view>
 
         <view class="weui-cells__title">报价信息</view>
