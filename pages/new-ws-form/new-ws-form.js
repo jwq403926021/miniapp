@@ -79,7 +79,11 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    this.initArea()
+    this.routeParams = routeParams
+    this.initArea(this.init)
+  },
+  init () {
+    let routeParams = this.routeParams
     if (routeParams && routeParams.type) {
       this.setData({
         'taskData.insuranceType': routeParams.type || '',
@@ -242,7 +246,7 @@ Page({
     }
     return true
   },
-  initArea () {
+  initArea (callback) {
     try {
       let _this = this
       _this.setData({
@@ -257,8 +261,10 @@ Page({
       }, function (err, res) {
         _this.setData({
           areaList: res.DATA.DATA
+        }, () => {
+          _this.getRegionLabel()
+          callback()
         })
-        _this.getRegionLabel()
       })
     } catch (e) {
 
