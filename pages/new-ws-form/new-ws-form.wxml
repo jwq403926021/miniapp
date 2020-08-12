@@ -206,7 +206,7 @@
             </view>
         </view>
 
-        <block wx:if="{{orderId != null && taskData.status != 12 && role != 10 && role != 11 && role != 12}}">
+        <block wx:if="{{taskData.surveyUser && taskData.status != 12 && role != 10 && role != 11 && role != 12}}">
             <view class="weui-cells__title">查勘员信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -232,7 +232,7 @@
                 </view>
             </view>
         </block>
-        <block wx:if="{{orderId != null && taskData.status != 12 && role != 1 && role != 2 && role != 3 && role != 4}}">
+        <block wx:if="{{taskData.workerUser && role != 1 && role != 2 && role != 3 && role != 4}}">
             <view class="weui-cells__title">施工方信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
