@@ -33,7 +33,9 @@ Page({
       '11': '已办结',
       '99': '处理中'
     },
+    isNeedReportId: false,
     taskData: {
+      "reportId": '',
       "cityId": '',
       "countryId": '',
       "provinceId": '',
@@ -110,14 +112,16 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    this.initArea()
-    if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
-      this.setData({
-        id: routeParams.id,
-        flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
-      })
-      this.initDataById(routeParams.id)
+    if (Object.keys(this.data.areaList).length == 0) {
+      this.initArea()
+      if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
+        this.setData({
+          id: routeParams.id,
+          flowId: routeParams.id,
+          role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        })
+        this.initDataById(routeParams.id)
+      }
     }
   },
   losserChange (event) {
@@ -341,7 +345,8 @@ Page({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
-      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
+      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : '',
+      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000 && app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2
     })
     util.request({
       path: '/sys/area/list',
@@ -1549,7 +1554,8 @@ Page({
       "provinceId": data.provinceId + '',
       "customerName": data.customerName,
       "customerPhone": data.customerPhone + '',
-      "investigatorText": data.investigatorText
+      "investigatorText": data.investigatorText,
+      "reportId": data.reportId
     }
     if (isSave) {
       taskData.active = 'save'

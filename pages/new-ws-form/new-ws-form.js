@@ -79,8 +79,10 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    this.routeParams = routeParams
-    this.initArea(this.init)
+    if (Object.keys(this.data.areaList).length == 0) {
+      this.routeParams = routeParams
+      this.initArea(this.init)
+    }
   },
   init () {
     let routeParams = this.routeParams

@@ -33,7 +33,9 @@ Page({
       '11': '已办结',
       '99': '处理中'
     },
+    isNeedReportId: false,
     taskData: {
+      "reportId": '',
       "cityId": '',
       "countryId": '',
       "provinceId": '',
@@ -334,7 +336,8 @@ Page({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
-      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
+      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : '',
+      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000 && app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2
     })
     util.request({
       path: '/sys/area/list',
