@@ -142,20 +142,20 @@
                 </block>
             </view>
 
-<!--            <view class="weui-cell weui-cell_select">-->
-<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
-<!--                    <view class="weui-label">险种</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">-->
-<!--                    <van-radio-group value="{{ taskData.insuranceType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="insuranceType">-->
-<!--                        <van-radio custom-class="fl mr5" name="1">车物损</van-radio>-->
-<!--                        <van-radio custom-class="fl mr5" name="2">非车</van-radio>-->
-<!--                    </van-radio-group>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != 12}}">-->
-<!--                    <text class="weui-input readonly">{{taskData.insuranceType == 1 ? '车物损' : '非车'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">承保方式</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == 12) && role == 1}}">
+                    <van-radio-group value="{{ taskData.acceptInsurance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="acceptInsurance">
+                        <van-radio custom-class="fl mr5" name="1">异地</van-radio>
+                        <van-radio custom-class="fl mr5" name="2">本地</van-radio>
+                    </van-radio-group>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.acceptInsurance == 1 ? '异地' : '本地'}}</text>
+                </view>
+            </view>
 
             <view wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}" class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
@@ -186,7 +186,7 @@
                 <view class="weui-cell__bd">
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
-                            <view class="weui-uploader__files" id="uploaderLiveFiles">
+                            <view class="weui-uploader__files">
                                 <view class="no-image" wx:if="{{liveImageFiles.length == 0 && orderId != null && taskData.status != 12}}">
                                     无图片
                                 </view>
@@ -375,13 +375,67 @@
                 </view>
             </view>
 
+            <block wx:if="role != 1 || role != 2 || role != 3 || role != 4">
+                <view class="weui-cells__title">工程量清单</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{projectBillImageFiles.length == 0 && orderId != null && role != 12}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{projectBillImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="projectBillImageFiles" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="projectBillImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="projectBillImageFiles"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <view class="weui-cells__title">授权（施工方）</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view class="no-image" wx:if="{{workerAuthImageFiles.length == 0 && orderId != null && role != 12}}">
+                                        无图片
+                                    </view>
+                                    <block wx:for="{{workerAuthImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workerAuthImageFiles" id="{{item.path}}">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="workerAuthImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="workerAuthImageFiles"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
             <view class="weui-cells__title">现场图片（施工方）</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderWorkLiveFiles">
+                                <view class="weui-uploader__files">
                                     <view class="no-image" wx:if="{{workLiveImageFiles.length == 0 && orderId != null && role != 12}}">
                                         无图片
                                     </view>
@@ -407,7 +461,7 @@
                     <view class="weui-cell__bd">
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderWorkLiveFiles">
+                                <view class="weui-uploader__files">
                                     <view class="no-image" wx:if="{{workVideo.length == 0 && orderId != null && role != 12}}">
                                         无视频
                                     </view>
@@ -669,7 +723,7 @@
                     <view class="weui-cell__bd">
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderFinanceFiles">
+                                <view class="weui-uploader__files">
                                     <view class="no-image" wx:if="{{financeImageFiles.length == 0 && taskData.status != 50}}">
                                         无图片
                                     </view>
@@ -691,13 +745,13 @@
         </block>
 
         <block wx:if="{{authorityImageFiles.length > 0}}">
-            <view class="weui-cells__title">授权图片</view>
+            <view class="weui-cells__title">授权书</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploaderFinanceFiles">
+                                <view class="weui-uploader__files">
                                     <block wx:for="{{authorityImageFiles}}" wx:key="index">
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="authorityImageFiles" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>

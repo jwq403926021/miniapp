@@ -9,6 +9,8 @@ Page({
     showKeyboard: false,
     role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
     liveImageFiles: [], // 案件图片
+    projectBillImageFiles: [], // 工程量清单
+    workerAuthImageFiles: [], // 授权（施工方）
     workLiveImageFiles: [], // 现场图片(施工方)
     authorityImageFiles: [], // 授权图片
     financeImageFiles: [], // 财务图片
@@ -38,6 +40,7 @@ Page({
       provinceCode: '',
       cityCode: '',
       townCode: '',
+      acceptInsurance: '1',
       insuranceType: '1',
       damagedUser: '',
       damagedPhone: '',
@@ -125,6 +128,8 @@ Page({
       _this.sourceImage = res.Image
       _this.sourceAttachment = res.attachment
       let liveImageFiles = []
+      let workerAuthImageFiles = []
+      let projectBillImageFiles = []
       let workLiveImageFiles = []
       let authorityImageFiles = []
       let workVideo = []
@@ -148,6 +153,14 @@ Page({
             item.path = `https://aplusprice.xyz/file/${item.path}`
             authorityImageFiles.push(item)
             break
+          case 17:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            projectBillImageFiles.push(item)
+            break
+          case 16:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            workerAuthImageFiles.push(item)
+            break
         }
       })
       _this.sourceAttachment.forEach(item => {
@@ -160,6 +173,8 @@ Page({
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
+        workerAuthImageFiles: workerAuthImageFiles,
+        projectBillImageFiles: projectBillImageFiles,
         workLiveImageFiles: workLiveImageFiles,
         financeImageFiles: financeImageFiles,
         authorityImageFiles: authorityImageFiles,
@@ -167,6 +182,7 @@ Page({
         'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
         'taskData.insuranceType': data.insuranceType,
+        'taskData.acceptInsurance': data.acceptInsurance,
         'taskData.damagedUser': data.damagedUser,
         'taskData.damagedPhone': data.damagedPhone || '',
         'taskData.customerUser': data.customerUser,
@@ -630,6 +646,7 @@ Page({
       cityCode: data.cityCode,
       townCode: data.townCode,
       insuranceType: data.insuranceType,
+      acceptInsurance: data.acceptInsurance,
       damagedUser: data.damagedUser,
       damagedPhone: data.damagedPhone,
       customerUser: data.customerUser,
@@ -760,6 +777,8 @@ Page({
     let workLiveImageAlreadyFiles = []
     let workVideo = []
     let workVideoAlreadyFiles = []
+    let projectBillImageFiles = []
+    let workerAuthImageFiles = []
     _this.data.workLiveImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         workLiveImageFiles.push({path: item.path, type: 3})
@@ -772,6 +791,16 @@ Page({
         workVideo.push({path: item.path, type: 66})
       } else {
         workVideoAlreadyFiles.push(item)
+      }
+    })
+    _this.data.projectBillImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        projectBillImageFiles.push({path: item.path, type: 17})
+      }
+    })
+    _this.data.workerAuthImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workerAuthImageFiles.push({path: item.path, type: 16})
       }
     })
     let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
@@ -859,7 +888,7 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles, ...workVideo]
+        let imgPaths = [...workLiveImageFiles, ...workVideo, ...projectBillImageFiles, ...workerAuthImageFiles]
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1174,6 +1203,8 @@ Page({
     let _this = this
     let workLiveImageFiles = []
     let workVideo = []
+    let projectBillImageFiles = []
+    let workerAuthImageFiles = []
     _this.data.workLiveImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         workLiveImageFiles.push({path: item.path, type: 3})
@@ -1184,11 +1215,21 @@ Page({
         workVideo.push({path: item.path, type: 66})
       }
     })
+    _this.data.projectBillImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        projectBillImageFiles.push({path: item.path, type: 17})
+      }
+    })
+    _this.data.workerAuthImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workerAuthImageFiles.push({path: item.path, type: 16})
+      }
+    })
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
-    let imgPaths = [...workLiveImageFiles, ...workVideo]
+    let imgPaths = [...workLiveImageFiles, ...workVideo, ...projectBillImageFiles, ...workerAuthImageFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
