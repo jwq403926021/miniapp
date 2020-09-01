@@ -651,13 +651,6 @@ Page({
     let failUp = 0
     if (imgPaths.length) {
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-    } else {
-      wx.showToast({
-        mask: true,
-        title: '上传成功',
-        icon: 'success',
-        duration: 1000
-      })
     }
   },
   submitWS (e) {
