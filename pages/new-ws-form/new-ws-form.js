@@ -637,6 +637,29 @@ Page({
       phoneNumber: phone
     })
   },
+  submitSurveyImage (e) {
+    let _this = this
+    let liveImageFiles = []
+    _this.data.liveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 2})
+      }
+    })
+    let imgPaths = [...liveImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    } else {
+      wx.showToast({
+        mask: true,
+        title: '上传成功',
+        icon: 'success',
+        duration: 1000
+      })
+    }
+  },
   submitWS (e) {
     let data = this.data.taskData
     let _this = this
