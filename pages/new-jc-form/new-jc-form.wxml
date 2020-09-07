@@ -149,13 +149,13 @@
             </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">侧漏人员</view>
+                    <view class="weui-label">测漏人员</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="workerChange" value="{{workerValue}}"
-                            range="{{workerList}}">
+                    <picker bindchange="workerChange" value="{{testValue}}"
+                            range="{{testList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{workerLabel || '请选择施工人员'}}
+                            {{testLabel || '请选择测漏人员'}}
                         </view>
                     </picker>
                 </view>
@@ -194,14 +194,14 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">侧漏金额</view>
+                    <view class="weui-label">测漏金额</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
-                           value="{{taskData.offerPrice}}" placeholder="侧漏金额"/>
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.testPrice'
+                           value="{{taskData.testPrice}}" placeholder="测漏金额"/>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
+                    <text class="weui-input readonly">{{taskData.testPrice || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -209,11 +209,19 @@
                     <view class="weui-label">估损金额</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
-                           value="{{taskData.offerPrice}}" placeholder="估损金额"/>
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.estimatePrice'
+                           value="{{taskData.estimatePrice}}" placeholder="估损金额"/>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.offerPrice || '-'}}</text>
+                    <text class="weui-input readonly">{{taskData.estimatePrice || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报价金额</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.offerMoney || '-'}}</text>
                 </view>
             </view>
         </view>
@@ -235,11 +243,11 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                              value="{{taskData.investigatorText}}" placeholder="请输入文本" style="height: 7em"/>
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.workerText'
+                              value="{{taskData.workerText}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.investigatorText || '-'}}
+                    {{taskData.workerText || '-'}}
                 </view>
             </view>
         </view>
@@ -248,11 +256,11 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                              value="{{taskData.investigatorText}}" placeholder="请输入文本" style="height: 7em"/>
+                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.testText'
+                              value="{{taskData.testText}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.investigatorText || '-'}}
+                    {{taskData.testText || '-'}}
                 </view>
             </view>
         </view>
@@ -402,15 +410,15 @@
                                     <view class="no-image">
                                         无图片
                                     </view>
-                                    <block wx:for="{{completeImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
+                                    <block wx:for="{{acceptanceImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="acceptanceImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="acceptanceImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
                                 <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="acceptanceImageFiles"></view>
                                 </view>
                             </view>
                         </view>
@@ -430,15 +438,15 @@
                                     <view class="no-image">
                                         无图片
                                     </view>
-                                    <block wx:for="{{completeImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
+                                    <block wx:for="{{testImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="testImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="testImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
                                 <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="testImageFiles"></view>
                                 </view>
                             </view>
                         </view>
@@ -549,6 +557,62 @@
                     </view>
                     <view class="weui-cell__ft">
                         <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block>
+            <view class="weui-cells__title"></view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">测漏员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.testName || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">测漏员手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.testPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{taskData.testPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block>
+            <view class="weui-cells__title"></view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报价员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.offerCenterName || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报价员手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.offerCenterPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{taskData.offerCenterPhone}}" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
