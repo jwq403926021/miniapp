@@ -1,0 +1,36 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">声明！</view>
+        <view class="page__desc">我们会严格保密您上传的图片信息。</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-cells">
+            <van-row>
+                <van-col span="6">
+                    <ul class="client-list">
+                        <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{item}}" data-index="{{item}}" class="{{ currentIndex == item ? 'active' : ''}}">
+                            {{item == 0 ? '出险方' : ('第三者' + index)}}
+                        </li>
+                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40) || (role == 23 && status == 51)}}" class="add-client-button" bindtap="addClient">
+                            <span>添加</span>
+                        </li>
+                        <li wx:if="{{(role == 15 && status == 30) || (role == 12 && status == 40) || (role == 23 && status == 51)}}" class="remove-client-button" bindtap="removeClient">
+                            <span>删除</span>
+                        </li>
+                    </ul>
+                </van-col>
+                <van-col span="18">
+                    <view class="client-upload-btn-wrap">
+                        <view bindtap="goToClientUpload" data-type="0" class="btn">资料</view>
+                        <view bindtap="goToClientUpload" data-type="1" class="btn">事故源</view>
+                        <view bindtap="goToClientUpload" data-type="2" class="btn">全景</view>
+                        <view bindtap="goToClientUpload" data-type="3" class="btn">细节</view>
+                    </view>
+                </van-col>
+            </van-row>
+        </view>
+        <view class="button-sp-area">
+            <button type="primary" bindtap="back">返回</button>
+        </view>
+    </view>
+</view>

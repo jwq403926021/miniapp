@@ -2,7 +2,7 @@
     <view class="page__bd">
         <view class="weui-cells__title">家财工单</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{flowId}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">工单号</view>
                 </view>
@@ -12,12 +12,12 @@
                     <view data-id="{{flowId}}" data-workendstatus="{{taskData.workStatus}}" catchtap="setworkEndStatus" class="{{taskData.workStatus == 1 ? 'workfinished' : 'worknot-finish'}} finishcase-in-detail"></view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{flowId}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">工单状态</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{statusMap[status]}}</text>
+                    <text class="weui-input readonly">{{statusMap[status] || '暂存'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -25,10 +25,10 @@
                     <view class="weui-label">事故区域</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd">
+                    <view class="weui-cell__bd" wx:if="{{status == '' || (role == 8 && (status == 20 || status == 52))}}">
                         <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                     </view>
-                    <view class="weui-cell__bd">
+                    <view class="weui-cell__bd" wx:else>
                         <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                     </view>
                 </view>
@@ -37,7 +37,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
-                <view class="weui-cell__bd" >
+                <view class="weui-cell__bd" wx:if="{{flowId == null || (role == 8 && (status == 20 || status == 52))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.reportId}}" placeholder="出险方"/>
                 </view>
@@ -49,11 +49,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">出险方</view>
                 </view>
-                <view class="weui-cell__bd" >
+                <view class="weui-cell__bd" wx:if="{{status == ''}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.customerName}}" placeholder="出险方"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.customerName || '-'}}</text>
                 </view>
             </view>
@@ -61,11 +61,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">沟通方式</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{status == ''}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
                            value="{{taskData.customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
-                <block>
+                <block wx:else>
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
                     </view>
@@ -81,11 +81,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">三者姓名</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{status == '' || (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.thirdName'
                            value="{{taskData.thirdName}}" placeholder="请输入三者姓名"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.thirdName || '-'}}</text>
                 </view>
             </view>
@@ -93,11 +93,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">三者电话</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{status == '' || (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
                     <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.thirdPhone'
                            value="{{taskData.thirdPhone}}" placeholder="请输入三者电话"/>
                 </view>
-                <block>
+                <block wx:else>
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{taskData.thirdPhone || '-'}}</text>
                     </view>
@@ -109,7 +109,7 @@
                 </block>
             </view>
 
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{(role == 8 && (status == 20 || status == 52))}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">派送</view>
                 </view>
@@ -147,7 +147,16 @@
 <!--                    </picker>-->
 <!--                </view>-->
 <!--            </view>-->
-            <view class="weui-cell weui-cell_select">
+
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 30}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">筛选区域</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 30}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">测漏人员</view>
                 </view>
@@ -161,62 +170,62 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{taskData.constructionMethod || role == 12}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">施工方式</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
                     <van-radio-group value="{{ taskData.constructionMethod }}" custom-class="weui-input vertical"
                                      bind:change="onConstructionMethodChange">
                         <van-radio custom-class="fl mr5" name="0">赔偿</van-radio>
                         <van-radio custom-class="fl mr5" name="1">施工</van-radio>
                     </van-radio-group>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{['赔偿', '施工'][taskData.constructionMethod] || '-'}}</text>
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{taskData.isTest || role == 12 || role == 27}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">是否测漏</view>
                 </view>
-                <view class="weui-cell__bd">
-                    <van-radio-group value="{{ taskData.constructionMethod }}" custom-class="weui-input vertical"
-                                     bind:change="onConstructionMethodChange">
+                <view class="weui-cell__bd" wx:if="{{((role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 62)))}}">
+                    <van-radio-group value="{{ taskData.isTest }}" custom-class="weui-input vertical"
+                                     bind:change="onRaidoChange">
                         <van-radio custom-class="fl mr5" name="0">否</van-radio>
                         <van-radio custom-class="fl mr5" name="1">是</van-radio>
                     </van-radio-group>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{['否', '是'][taskData.constructionMethod] || '-'}}</text>
+                    <text class="weui-input readonly">{{['否', '是'][taskData.isTest] || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.testPrice || role == 12 || role == 27}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{((role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 62)))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.testPrice'
                            value="{{taskData.testPrice}}" placeholder="测漏金额"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.testPrice || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.estimatePrice || role == 12}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">估损金额</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.estimatePrice'
                            value="{{taskData.estimatePrice}}" placeholder="估损金额"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.estimatePrice || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.offerMoney}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">报价金额</view>
                 </view>
@@ -226,69 +235,77 @@
             </view>
         </view>
 
-        <view class="weui-cells__title">查勘员备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
-                              value="{{taskData.investigatorText}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.investigatorText || '-'}}
-                </view>
-            </view>
-        </view>
-
-        <view class="weui-cells__title">施工人员备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.workerText'
-                              value="{{taskData.workerText}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.workerText || '-'}}
+        <block>
+            <view class="weui-cells__title">查勘员备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd" wx:if="{{!show && status == ''}}">
+                        <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='taskData.investigatorText'
+                                  value="{{taskData.investigatorText}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                        {{taskData.investigatorText || '-'}}
+                    </view>
                 </view>
             </view>
-        </view>
+        </block>
 
-        <view class="weui-cells__title">测漏备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.testText'
-                              value="{{taskData.testText}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.testText || '-'}}
+        <block wx:if="{{taskData.workerText || role == 12}}">
+            <view class="weui-cells__title">施工人员备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd" wx:if="{{!show && (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                        <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='taskData.workerText'
+                                  value="{{taskData.workerText}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                        {{taskData.workerText || '-'}}
+                    </view>
                 </view>
             </view>
-        </view>
+        </block>
 
-        <view class="weui-cells__title">定损备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.losserText'
-                              value="{{taskData.losserText}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{taskData.losserText || '-'}}
-                </view>
-            </view>
-        </view>
-
-        <view class="weui-cells__title">报价备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{ taskData.offerText || '-' }}
+        <block wx:if="{{taskData.testText || role == 27}}">
+            <view class="weui-cells__title">测漏备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd" wx:if="{{!show && (role == 27 && (status == 31))}}">
+                        <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='taskData.testText'
+                                  value="{{taskData.testText}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                        {{taskData.testText || '-'}}
+                    </view>
                 </view>
             </view>
-        </view>
+        </block>
+        <block wx:if="{{taskData.losserText || role == 23}}">
+            <view class="weui-cells__title">定损备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd" wx:if="{{!show && (role == 23 && (status == 51 || status == 52))}}">
+                        <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='taskData.losserText'
+                                  value="{{taskData.losserText}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                        {{taskData.losserText || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{taskData.offerText}}">
+            <view class="weui-cells__title">报价备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{ taskData.offerText || '-' }}
+                    </view>
+                </view>
+            </view>
+        </block>
 
-        <button style="width:80%" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
-            {{((role == 12 && status == 40) || (role == 23 && status == 51)) ? '完善图片信息' : '图片信息'}}
+        <button wx:if="{{status != '' && status != 29}}" style="width:80%" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
+            {{((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
         </button>
 
         <view class="weui-cells__title">报案信息图片</view>
@@ -298,17 +315,17 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files" id="uploaderInformationFiles">
-                                <view class="no-image">
+                                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && !(status == '')}}">
                                     无图片
                                 </view>
                                 <block wx:for="{{informationImageFiles}}" wx:key="index">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="informationImageFiles">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon data-id="{{item.id}}" catchtap="removeImage" data-name="informationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{status == ''}}" data-id="{{item.id}}" catchtap="removeImage" data-name="informationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box">
+                            <view class="weui-uploader__input-box" wx:if="{{status == ''}}">
                                 <view class="weui-uploader__input" bindtap="chooseImage" data-name="informationImageFiles"></view>
                             </view>
                         </view>
@@ -317,171 +334,175 @@
             </view>
         </view>
 
-        <view class="weui-cells__title">损失清单</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
-                            <view class="weui-uploader__files" id="uploaderdamageFiles">
-                                <view class="no-image">
-                                    无图片
-                                </view>
-                                <block wx:for="{{damageImageFiles}}" wx:key="index">
-                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="damageImageFiles">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="damageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                                    </view>
-                                </block>
-                            </view>
-                            <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseImage" data-name="damageImageFiles"></view>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-        </view>
-
-        <view class="weui-cells__title">授权书、保单</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
+        <block wx:if="{{status != ''}}">
+            <view class="weui-cells__title">损失清单</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploadercaleFiles">
-                                    <view class="no-image">
+                                <view class="weui-uploader__files" id="uploaderdamageFiles">
+                                    <view class="no-image" wx:if="{{damageImageFiles.length == 0 && !(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
                                         无图片
                                     </view>
-                                    <block wx:for="{{caleImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="caleImageFiles">
+                                    <block wx:for="{{damageImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="damageImageFiles">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-index="{{index}}" data-name="caleImageFiles" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            <van-icon wx:if="{{(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}" catchtap="removeImage" data-id="{{item.id}}" data-name="damageImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="caleImageFiles"></view>
+                                <view class="weui-uploader__input-box" wx:if="{{(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="damageImageFiles"></view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
 
-        <view class="weui-cells__title">施工完成</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
+            <view class="weui-cells__title">授权书、保单</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploadercaleFiles">
-                                    <view class="no-image">
-                                        无图片
-                                    </view>
-                                    <block wx:for="{{completeImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
-                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploadercaleFiles">
+                                        <view class="no-image" wx:if="{{caleImageFiles.length == 0 && !(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                            无图片
                                         </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
+                                        <block wx:for="{{caleImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="caleImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}" catchtap="removeImage" data-id="{{item.id}}" data-index="{{index}}" data-name="caleImageFiles" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="caleImageFiles"></view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
 
-        <view class="weui-cells__title">验收</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
+            <view class="weui-cells__title">施工完成</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploadercaleFiles">
-                                    <view class="no-image">
-                                        无图片
-                                    </view>
-                                    <block wx:for="{{acceptanceImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="acceptanceImageFiles">
-                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="acceptanceImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploadercaleFiles">
+                                        <view class="no-image" wx:if="{{completeImageFiles.length == 0 && !(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                            无图片
                                         </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="acceptanceImageFiles"></view>
+                                        <block wx:for="{{completeImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="completeImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-id="{{item.id}}" data-name="completeImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
 
-        <view class="weui-cells__title">测漏图片</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
+            <view class="weui-cells__title">验收</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
                             <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files" id="uploadercaleFiles">
-                                    <view class="no-image">
-                                        无图片
-                                    </view>
-                                    <block wx:for="{{testImageFiles}}" wx:key="index">
-                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="testImageFiles">
-                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-id="{{item.id}}" data-name="testImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploadercaleFiles">
+                                        <view class="no-image" wx:if="{{acceptanceImageFiles.length == 0 && !(role == 12)}}">
+                                            无图片
                                         </view>
-                                    </block>
-                                </view>
-                                <view class="weui-uploader__input-box">
-                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="testImageFiles"></view>
+                                        <block wx:for="{{acceptanceImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="acceptanceImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-id="{{item.id}}" data-name="acceptanceImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="acceptanceImageFiles"></view>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
 
-        <view class="weui-cells__title"></view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">客服姓名</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.servicerName || '-'}}</text>
-                </view>
-            </view>
-
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">客服手机</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.servicerPhone || '-'}}</text>
-                </view>
-                <view class="weui-cell__ft">
-                    <view class="field-right-btn" data-phone="{{taskData.servicerPhone}}" bindtap="dialPhone">
-                        <van-icon name="phone"></van-icon>
+            <view class="weui-cells__title">测漏图片</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploadercaleFiles">
+                                        <view class="no-image" wx:if="{{testImageFiles.length == 0 && !((role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)))}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{testImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="testImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{(role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}" catchtap="removeImage" data-id="{{item.id}}" data-name="testImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{(role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="testImageFiles"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
                     </view>
                 </view>
             </view>
-        </view>
+        </block>
 
-        <block>
+        <block wx:if="{{taskData.servicerName}}">
+            <view class="weui-cells__title"></view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">客服姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.servicerName || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">客服手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.servicerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{taskData.servicerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{taskData.investigatorName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -509,7 +530,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{taskData.losserName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -536,7 +557,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{taskData.workerName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -564,7 +585,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{taskData.testName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -592,7 +613,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{taskData.offerCenterName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -624,28 +645,28 @@
             <button type="primary" bindtap="commitOrder">提交</button>
             <button data-save="true" bindtap="commitOrder">暂存</button>
         </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="servicerCommit">客服提交</button>   <!--客服提交 -->
-        </view>
-        <view class="button-sp-area two-btn-wrap">
-            <button data-type="0" type="primary" bindtap="lossCommit">办结</button>
-            <button data-type="1" bindtap="lossCommit">驳回</button>
-        </view>
-        <view class="button-sp-area">
-            <button data-type="2" bindtap="lossCommit">暂存</button>
-        </view>
-        <view class="button-sp-area two-btn-wrap">
-            <button type="primary" bindtap="partnerCommit">提交</button> <!--施工人员完善 -->
-            <button data-save="true" bindtap="partnerCommit">暂存</button> <!--施工人员完善 -->
-        </view>
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="servicerCommit">客服提交</button>   &lt;!&ndash;客服提交 &ndash;&gt;-->
+<!--        </view>-->
+<!--        <view class="button-sp-area two-btn-wrap">-->
+<!--            <button data-type="0" type="primary" bindtap="lossCommit">办结</button>-->
+<!--            <button data-type="1" bindtap="lossCommit">驳回</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button data-type="2" bindtap="lossCommit">暂存</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area two-btn-wrap">-->
+<!--            <button type="primary" bindtap="partnerCommit">提交</button> &lt;!&ndash;施工人员完善 &ndash;&gt;-->
+<!--            <button data-save="true" bindtap="partnerCommit">暂存</button> &lt;!&ndash;施工人员完善 &ndash;&gt;-->
+<!--        </view>-->
 
-        <view class="button-sp-area">
-            <button type="primary" bindtap="completeCommit">施工完成提交</button> <!-- 施工完成提交 -->
-        </view>
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="completeCommit">施工完成提交</button> &lt;!&ndash; 施工完成提交 &ndash;&gt;-->
+<!--        </view>-->
 
-        <view class="button-sp-area">
-            <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
-        </view>
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>-->
+<!--        </view>-->
 
         <view class="button-sp-area">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>

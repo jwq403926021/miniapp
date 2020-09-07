@@ -1,0 +1,58 @@
+.client-upload-btn-wrap{
+  padding: 10px;
+}
+.client-upload-btn-wrap .btn{
+  width: 50%;
+  line-height: 100px;
+  display: inline-block;
+  background: #0bb20c;
+  text-align: center;
+  color:#fff;
+  border: 3px solid #fff;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.client-list li {
+  display: block;
+  line-height: 44px;
+  border-right: 3px solid #ccc;
+  text-align: center;
+  font-size: 16px;
+}
+.client-list li.active{
+  border-right: 3px solid #0bb20c;
+  color:#0bb20c;
+  font-weight: bold;
+}
+.add-client-button{
+  font-size: 24px;
+  font-weight: bold;
+  border: none!important;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.remove-client-button{
+  font-weight: bold;
+  font-size: 24px;
+  border: none!important;
+}
+.add-client-button span{
+  width: 80px;
+  height:30px;
+  display:block;
+  margin:0 auto;
+  border-radius:5px;
+  line-height:30px;
+  color:#fff;
+  background:#016eff;
+}
+.remove-client-button span{
+  width: 80px;
+  height:30px;
+  display:block;
+  margin:0 auto;
+  border-radius:5px;
+  line-height:30px;
+  color:#fff;
+  background: #ff313d;
+}

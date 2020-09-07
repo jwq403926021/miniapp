@@ -6,7 +6,6 @@ const app = getApp()
 Page({
   data: {
     flowId: null,
-    id: null,
     role: 1,
     show: false,
     areaList: {},
@@ -18,20 +17,20 @@ Page({
     losserValue: '',
     losserLabel: '',
     statusMap: {
-      '29': '暂存',
       '20': '待客服人员处理',
-      '30': '待被保险人完善', // 也是驳回状态
-      '31': '被保险人已完善,待报价中心报价',
-      '32': '已报价,待被保险人审阅',
-      '33': '被保险人不满意，待沟通',
-      '40': '待合作商完善', // 也是驳回状态
-      '41': '合作商已完善,待报价中心报价',
-      '42': '已报价',
-      '50': '已报价,待财务处理',
+      '30': '待指派测漏',
+      '31': '待测漏人员处理',
+      '32': '已测漏',
+      '40': '待合作商完善',
+      '41': '待报价中心报价',
+      '42': '合作商已驳回',
+      '44': '待合作商联系客户',
       '51': '待定损员处理',
       '52': '定损员已驳回',
-      '11': '已办结',
-      '99': '处理中'
+      '54': '待定损员联系客户',
+      '61': '已报价,待财务处理',
+      '62': '报价中心驳回',
+      '11': '已办结'
     },
     isNeedReportId: false,
     taskData: {
@@ -64,6 +63,8 @@ Page({
     caleImageFiles: [],
     informationImageFiles: [],
     completeImageFiles: [],
+    acceptanceImageFiles: [],
+    testImageFiles: [],
     showactionsheet: false,
     actions: [
       {
@@ -90,22 +91,22 @@ Page({
     switch (event.detail.name) {
       case '转线上':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=1'
+          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=1'
         })
         break
       case '转线下':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=2'
+          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=2'
         })
         break
       case '注销':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=3'
+          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=3'
         })
         break
       case '修改基本信息':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.id + '&type=4'
+          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=4'
         })
         break
     }
@@ -200,6 +201,9 @@ Page({
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
+      let acceptanceImageFiles = []
+      let testImageFiles = []
+
       let familyImages = {
         house: [],// 房屋及装修 2001
         electrical: [],// 家电及文体用品 2002
@@ -229,6 +233,14 @@ Page({
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             caleImageFiles.push(item)
+            break
+          case 20:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            acceptanceImageFiles.push(item)
+            break
+          case 21:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            testImageFiles.push(item)
             break
           case 2001:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -306,6 +318,8 @@ Page({
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
+        acceptanceImageFiles: acceptanceImageFiles,
+        testImageFiles: testImageFiles,
         region: data.areaCountryId + ''
       }, () => {
         _this.getRegionLabel()
@@ -496,7 +510,7 @@ Page({
   },
   bindTapToClient (event) {
     wx.navigateTo({
-      url: `../jc-form-client/jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
+      url: `../new-jc-form-client/new-jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
     })
   },
   completeCommit () {
@@ -523,7 +537,7 @@ Page({
       path: `/app/family/workEnd`,
       method: 'GET',
       data: {
-        flowId: _this.data.id
+        flowId: _this.data.flowId
       }
     }, function (err, res) {
 
@@ -873,7 +887,6 @@ Page({
       data: taskData
     }, function (err, res) {
       if (res.code == 0) {
-        _this.id = res.data.flowId || _this.data.id
         let imgPaths = [...informationImageFiles]
         let count = 0
         let successUp = 0
