@@ -179,7 +179,7 @@
 
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">是否侧漏</view>
+                    <view class="weui-label">是否测漏</view>
                 </view>
                 <view class="weui-cell__bd">
                     <van-radio-group value="{{ taskData.constructionMethod }}" custom-class="weui-input vertical"
