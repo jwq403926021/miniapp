@@ -201,7 +201,7 @@
                         <van-radio custom-class="fl mr5" name="1">是</van-radio>
                     </van-radio-group>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{['否', '是'][taskData.isTest] || '-'}}</text>
                 </view>
             </view>
@@ -655,30 +655,46 @@
             <button data-type="2" bindtap="workerCommit">暂存</button>
         </view>
         <block wx:if="{{(role == 12 && (status == 40 || status == 42))}}"><!--施工-->
-            <button type="primary" bindtap="workerCancel">注销</button>
-            <button type="primary" bindtap="workerReject">驳回</button>
-            <button type="primary" bindtap="workerNeedTest">需要测漏</button>
+            <view class="button-sp-area">
+                <button type="primary" bindtap="workerCancel">注销</button>
+            </view>
+            <view class="button-sp-area">
+                <button type="primary" bindtap="workerReject">驳回</button>
+            </view>
+            <view class="button-sp-area">
+                <button type="primary" bindtap="workerNeedTest">需要测漏</button>
+            </view>
         </block>
 
-        <button wx:if="{{role == 12}}" type="primary" bindtap="workerUploadImage">提交图片</button>
+        <view class="button-sp-area" wx:if="{{role == 12}}">
+            <button type="primary" bindtap="workerUploadImage">上传图片</button>
+        </view>
 
         <block wx:if="{{(role == 23 && status == 51)}}">
             <view class="button-sp-area two-btn-wrap"><!--定损员-->
                 <button data-type="1" type="primary" bindtap="losserCommit">提交</button>
                 <button data-type="2" bindtap="losserCommit">暂存</button>
             </view>
-            <button type="primary" bindtap="losserReject">驳回</button>
+            <view class="button-sp-area">
+                <button type="primary" bindtap="losserReject">驳回</button>
+            </view>
         </block>
 
-        <button wx:if="{{(role == 8 && (status == 20 || status == 42 || status == 52))}}" type="primary" bindtap="servicerCommit">客服派单</button><!--客服-->
-        <button wx:if="{{(role == 8 && status == 30)}}" type="primary" bindtap="serviceAssignTester">客服指派测漏</button><!--客服-->
+        <view class="button-sp-area" wx:if="{{(role == 8 && (status == 20 || status == 42 || status == 52))}}">
+            <button type="primary" bindtap="servicerCommit">客服派单</button><!--客服-->
+        </view>
+        <view class="button-sp-area" wx:if="{{(role == 8 && status == 30)}}">
+            <button type="primary" bindtap="serviceAssignTester">客服指派测漏</button><!--客服-->
+        </view>
 
         <view wx:if="{{(role == 27 && status == 31)}}" class="button-sp-area two-btn-wrap"> <!--测漏-->
             <button data-type="1" type="primary" bindtap="testerCommit">提交</button>
             <button data-type="2" bindtap="testerCommit">暂存</button>
         </view>
 
-        <button wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
+        <view wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" class="button-sp-area">
+            <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
+        </view>
 
         <view class="button-sp-area">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
