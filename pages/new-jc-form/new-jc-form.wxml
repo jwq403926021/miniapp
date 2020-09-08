@@ -401,7 +401,7 @@
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files" id="uploadercaleFiles">
-                                        <view class="no-image" wx:if="{{completeImageFiles.length == 0 && !(role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62))}}">
+                                        <view class="no-image" wx:if="{{completeImageFiles.length == 0 && !(role == 12)}}">
                                             无图片
                                         </view>
                                         <block wx:for="{{completeImageFiles}}" wx:key="index">
@@ -696,4 +696,9 @@
             bind:close="onactionsheetClose"
             bind:select="onactionsheetSelect"
     />
+    <van-dialog
+            message="请拨打出险方电话。"
+            title="提醒"
+            show="{{ showWorkerHit }}"
+    ></van-dialog>
 </view>

@@ -16,6 +16,7 @@ Page({
     looserList: [],
     losserValue: '',
     losserLabel: '',
+    showWorkerHit: false,
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -123,7 +124,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: 8 // app.globalData.currentRegisterInfo.role // 27:测漏人员 8:客服 22:财务 23:定损员
+        role: 12 // app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
         this.initDataById(routeParams.id)
       })
@@ -398,6 +399,13 @@ Page({
         register: [],// 户口本、关系证明 2009
         source: []// 事故源 2010
       }
+
+      if ((_this.data.role == 12 && data.status == 44) || (_this.data.role == 23 && data.status == 54)) {
+        _this.setData({
+          showWorkerHit: true
+        })
+      }
+
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
