@@ -8,7 +8,7 @@
             <van-row>
                 <van-col span="6">
                     <ul class="client-list">
-                        <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="{{item}}" data-index="{{item}}" class="{{ currentIndex == item ? 'active' : ''}}">
+                        <li wx:for="{{clientIndexArr}}" bindtap="setCurrentIndex" wx:key="item" data-index="{{item}}" class="{{ currentIndex == item ? 'active' : ''}}">
                             {{item == 0 ? '出险方' : ('第三者' + index)}}
                         </li>
                         <li wx:if="{{((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52)))}}" class="add-client-button" bindtap="addClient">

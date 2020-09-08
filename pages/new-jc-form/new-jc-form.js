@@ -11,7 +11,7 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
-    status: '',
+    status: null,
     assignMethod: '0',
     looserList: [],
     losserValue: '',
@@ -123,6 +123,178 @@ Page({
       this.initDataById(routeParams.id)
     }
   },
+  surveyCommit (event) {
+    let _this = this
+    let isSave = event.currentTarget.dataset.type == '2';
+    let data = this.data.taskData
+    let taskData = {
+      "cityId": data.cityId + '',
+      "countryId": data.countryId + '',
+      "provinceId": data.provinceId + '',
+      "customerName": data.customerName,
+      "customerPhone": data.customerPhone + '',
+      "investigatorText": data.investigatorText,
+      "reportId": data.reportId
+    }
+    if (this.data.flowId) {
+      taskData.flowId = this.data.flowId
+    }
+
+    let isVaidcustomerPhone
+    if (taskData.customerPhone != '') {
+      isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
+      if (!isVaidcustomerPhone) {
+        return
+      }
+    }
+
+    let informationImageFiles = []
+    _this.data.informationImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        informationImageFiles.push({path: item.path, type: 1})
+      }
+    })
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: isSave ? `/app/businessinsurancefamilynew/surveySave` : `/app/businessinsurancefamilynew/surveyCommit`,
+      method: 'POST',
+      data: taskData
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.setData({
+          flowId: res.data.flowId
+        })
+        let imgPaths = [...informationImageFiles]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: isSave ? '暂存成功' : '创建成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: isSave ? '暂存失败' : '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  workerCommit (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  workerCancel (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  workerReject (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  workerNeedTest (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  losserCommit (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  losserReject (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  servicerCommit () {
+    let _this = this
+    let active
+    if (_this.data.assignMethod === '1') {
+      active = 'site'
+    } else {
+      active = 'loss'
+    }
+    let taskData = {
+      flowId: _this.data.flowId,
+      active: active,
+      provinceId: _this.data.taskData.provinceId,
+      cityId: _this.data.taskData.cityId,
+      countryId: _this.data.taskData.countryId,
+      customerName: _this.data.taskData.customerName,
+      customerPhone: _this.data.taskData.customerPhone
+    }
+    if (active === 'loss') {
+      taskData.losserId = _this.data.losserValue != '' ? _this.losserListSource[_this.data.losserValue]['user_id'] : ''
+    }
+    if (taskData.customerName == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写出险方',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
+    if (!isVaidcustomerPhone) {
+      return
+    }
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/businessinsurancefamilynew/serviceCommit`,
+      method: 'POST',
+      data: taskData
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  serviceAssignTester (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
+  testerCommit (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+  },
   losserChange (event) {
     this.setData({
       'losserValue': event.detail.value,
@@ -192,12 +364,15 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: `/app/family/orders/${id}`,
-      method: 'GET'
+      path: `/app/businessinsurancefamilynew/familyDetail`,
+      method: 'GET',
+      data: {
+        flowId: id
+      }
     }, function (err, res) {
       let data = res.data
       _this.sourceData = data
-      _this.sourceImage = res.image
+      _this.sourceImage = res.Image
       let informationImageFiles = []
       let damageImageFiles = []
       let caleImageFiles = []
@@ -292,9 +467,10 @@ Page({
         'status': data.status,
         'taskData.finishCase': data.finishCase,
         'taskData.workStatus': data.workStatus,
-        'taskData.countryId': data.areaCountryId,
-        'taskData.cityId': data.areaCityId,
-        'taskData.provinceId': data.areaProvinceId,
+        'taskData.countryId': data.areaCountry,
+        'taskData.cityId': data.areaCity,
+        'taskData.provinceId': data.areaProvince,
+        region: data.areaCountry + '',
         "taskData.customerPhone": data.customerPhone,
         "taskData.customerName": data.customerName,
         "taskData.investigatorName": data.investigatorName,
@@ -303,9 +479,7 @@ Page({
         "taskData.workerPhone": data.workerPhone,
         "taskData.investigatorText": data.investigatorText,
         "taskData.investigatorId": data.investigatorId,
-        "taskData.bankTransactionId": data.bankTransactionId,
         "taskData.constructionMethod": data.constructionMethod,
-        "taskData.deposit": data.deposit || '',
         "taskData.offerText": data.offerText || '',
         "taskData.losserText": data.losserText || '',
         "taskData.offerPrice": data.offerPrice || '',
@@ -320,8 +494,7 @@ Page({
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
         acceptanceImageFiles: acceptanceImageFiles,
-        testImageFiles: testImageFiles,
-        region: data.areaCountryId + ''
+        testImageFiles: testImageFiles
       }, () => {
         _this.getRegionLabel()
         _this.getLosserList()
@@ -428,7 +601,7 @@ Page({
   uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     var that = this
     let formData = {
-      'flowId': that.id || that.data.id,
+      'flowId': that.data.flowId,
       'type': imgPaths[count].type
     }
     if (imgPaths[count].hasOwnProperty('clientIndex') && imgPaths[count].clientIndex != null) {
@@ -497,7 +670,7 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let length = pages.filter((item) => {
-      return item.route == 'pages/my-list-jc/my-list-jc'
+      return item.route == 'pages/new-my-list-jc/new-my-list-jc'
     }).length
     if (length) {
       wx.navigateBack({
@@ -535,386 +708,13 @@ Page({
     })
     let _this = this
     util.request({
-      path: `/app/family/workEnd`,
+      path: `/app/businessinsurancefamilynew/workEnd`,
       method: 'GET',
       data: {
         flowId: _this.data.flowId
       }
     }, function (err, res) {
 
-    })
-  },
-  lossCommit (e) {
-    let _this = this
-    let type = e.currentTarget.dataset.type
-    let active
-    if (type == '0') {
-      active = 'finish'
-    } else if (type == '1') {
-      active = 'reject'
-    } else {
-      active = 'save'
-    }
-    let data = {
-      flowId: _this.data.flowId,
-      active: active,
-      losserText: _this.data.taskData.losserText,
-      offerPrice: _this.data.taskData.offerPrice,
-      investigatorId: _this.data.taskData.investigatorId,
-      customerName: _this.data.taskData.customerName,
-      customerPhone: _this.data.taskData.customerPhone,
-      investigatorText: _this.data.taskData.investigatorText
-    }
-    let familyImagesList = []
-    let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages, true)
-    if (result.flag) {
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      wx.showToast({
-        mask: true,
-        title: result.data,
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-    if (type == '1') {
-      if (_this.data.taskData.losserText == '' || _this.data.taskData.losserText == null){
-        wx.showToast({
-          mask: true,
-          title: '定损备注不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (_this.data.taskData.offerPrice != '' && _this.data.taskData.offerPrice != 0){
-        wx.showToast({
-          mask: true,
-          title: '驳回时，定损金额必须为空或0',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-    } else {
-      if (_this.data.taskData.losserText == '' || _this.data.taskData.losserText == null){
-        wx.showToast({
-          mask: true,
-          title: '定损备注不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (_this.data.taskData.offerPrice == '' || _this.data.taskData.offerPrice == null){
-        wx.showToast({
-          mask: true,
-          title: '定损金额不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-    }
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/losser/orders`,
-      method: 'PUT',
-      data: data
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = [...familyImagesList]
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  servicerCommit () {
-    let _this = this
-    let active
-    if (_this.data.assignMethod === '0') {
-      active = 'advice'
-    } else if (_this.data.assignMethod === '1') {
-      active = 'site'
-    } else {
-      active = 'loss'
-    }
-    let taskData = {
-      flowId: _this.data.flowId,
-      active: active,
-      provinceId: _this.data.taskData.provinceId,
-      cityId: _this.data.taskData.cityId,
-      countryId: _this.data.taskData.countryId,
-      customerName: _this.data.taskData.customerName,
-      customerPhone: _this.data.taskData.customerPhone
-    }
-    if (active === 'loss') {
-      taskData.losserId = _this.data.losserValue != '' ? _this.losserListSource[_this.data.losserValue]['user_id'] : ''
-    }
-    if (taskData.customerName == '') {
-      wx.showToast({
-        mask: true,
-        title: '请填写出险方',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-
-    let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
-    if (!isVaidcustomerPhone) {
-      return
-    }
-
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/customerservice/orders`,
-      method: 'PUT',
-      data: taskData
-    }, function (err, res) {
-      if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  partnerCommit (e) {
-    let _this = this
-    let taskData = this.data.taskData
-    let familyImagesList = []
-    let isSave = e.currentTarget.dataset.save
-
-    let familyImages = wx.getStorageSync('familyImages')
-    let result
-
-    if (isSave) {
-      result = this.checkUploadImages(familyImages, true)
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      result = this.checkUploadImages(familyImages)
-      if (result.flag) {
-        result.data.map(item => {
-          if (item.path.indexOf('https://') == -1){
-            familyImagesList.push(item)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: result.data,
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-    }
-
-    let caleImageFiles = []
-    let damageImageFiles = []
-    let completeImageFiles = []
-    _this.data.completeImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        completeImageFiles.push({path: item.path, type: 6})
-      }
-    })
-    _this.data.caleImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        caleImageFiles.push({path: item.path, type: 7})
-      }
-    })
-    _this.data.damageImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        damageImageFiles.push({path: item.path, type: 4})
-      }
-    })
-    if (!isSave) {
-      if (_this.data.taskData.constructionMethod == '' || _this.data.taskData.constructionMethod == null) {
-        wx.showToast({
-          mask: true,
-          title: '施工方式不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-    }
-
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: `/app/family/partner/orders`,
-      method: 'PUT',
-      data: {
-        "active": isSave ? 'save' : 'site_perfect',
-        "bankTransactionId": _this.data.taskData.bankTransactionId,
-        "constructionMethod": _this.data.taskData.constructionMethod,
-        "deposit": _this.data.taskData.deposit,
-        "thirdName": _this.data.taskData.thirdName,
-        "thirdPhone": _this.data.taskData.thirdPhone,
-        flowId: _this.data.flowId
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = [...familyImagesList, ...caleImageFiles, ...damageImageFiles, ...completeImageFiles]
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: isSave ? '暂存成功' : '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: isSave ? '暂存失败' : '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
-    })
-  },
-  commitOrder(e) {
-    let data = this.data.taskData
-    let _this = this
-    let isSave = e.currentTarget.dataset.save
-    let taskData = {
-      "active": 'submit',
-      "cityId": data.cityId + '',
-      "countryId": data.countryId + '',
-      "provinceId": data.provinceId + '',
-      "customerName": data.customerName,
-      "customerPhone": data.customerPhone + '',
-      "investigatorText": data.investigatorText
-    }
-    if (isSave) {
-      taskData.active = 'save'
-    }
-
-    if (this.data.flowId) {
-      taskData.flowId = this.data.flowId
-    }
-
-    let isVaidcustomerPhone
-    if (taskData.customerPhone != '') {
-      isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
-      if (!isVaidcustomerPhone) {
-        return
-      }
-    }
-
-    let informationImageFiles = []
-    _this.data.informationImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        informationImageFiles.push({path: item.path, type: 1})
-      }
-    })
-
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: '/app/family/orders',
-      method: 'POST',
-      data: taskData
-    }, function (err, res) {
-      if (res.code == 0) {
-        let imgPaths = [...informationImageFiles]
-        let count = 0
-        let successUp = 0
-        let failUp = 0
-        if (imgPaths.length) {
-          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
-        } else {
-          wx.showToast({
-            mask: true,
-            title: isSave ? '暂存成功' : '创建成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
-        }
-      } else {
-        wx.showToast({
-          mask: true,
-          title: isSave ? '暂存失败' : '创建失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
     })
   },
   getImageTypeStr (str) {
