@@ -11,6 +11,10 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    reassignRegionLabel: '',
+    testList: [],
+    testValue: '',
+    testLabel: '',
     status: null,
     assignMethod: '1',
     looserList: [],
@@ -48,9 +52,7 @@ Page({
       "workerPhone": '',
       "investigatorText": '',
       "investigatorId": '',
-      "bankTransactionId": '',
       "constructionMethod": '',
-      "deposit": '',
       "offerText": '',
       "losserText": '',
       "offerPrice": '',
@@ -59,7 +61,13 @@ Page({
       "thirdName": '',
       "thirdPhone": '',
       "losserName": '',
-      "losserPhone": ''
+      "losserPhone": '',
+      "isTest": '',
+      "testPrice": '',
+      "estimatePrice": '',
+      "offerMoney": '',
+      "workerText": '',
+      "testText": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
@@ -226,9 +234,152 @@ Page({
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
     }
   },
-  workerCommit (event) {
+  bindTapToOffer (event) {
+    if ((this.data.taskData.status == 13 || this.data.taskData.status == 43) && this.data.role == 12) {
+      this.workerCommit(null, true, true)
+    } else {
+      wx.navigateTo({
+        url: (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) ? `../new-jc-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
+      })
+    }
+  },
+  prepareUploadImage () {
+    let _this = this
+    let damageImageFiles = []
+    let caleImageFiles = []
+    let completeImageFiles  = []
+    let acceptanceImageFiles = []
+    let testImageFiles = []
+    _this.data.damageImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        damageImageFiles.push({path: item.path, type: 4})
+      }
+    })
+    _this.data.caleImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        caleImageFiles.push({path: item.path, type: 7})
+      }
+    })
+    _this.data.completeImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        completeImageFiles.push({path: item.path, type: 6})
+      }
+    })
+    _this.data.acceptanceImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        acceptanceImageFiles.push({path: item.path, type: 20})
+      }
+    })
+    _this.data.testImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        testImageFiles.push({path: item.path, type: 21})
+      }
+    })
+    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...acceptanceImageFiles, ...testImageFiles]
+  },
+  workerCommit (event, save = false, isOfferSave = false) {
     let _this = this
     const type = event.currentTarget.dataset.type;
+    let isSave = type == 2 || save
+    let data = this.data.taskData
+    let familyImagesList = []
+    let familyImages = wx.getStorageSync('familyImages')
+    let result
+    if (isSave) {
+      result = this.checkUploadImages(familyImages, true)
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
+    } else {
+      result = this.checkUploadImages(familyImages)
+      if (result.flag) {
+        result.data.map(item => {
+          if (item.path.indexOf('https://') == -1){
+            familyImagesList.push(item)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: result.data,
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    }
+    let uploadImageList = this.prepareUploadImage()
+
+    if (!isOfferSave) {
+      if (data.constructionMethod === null || data.constructionMethod === '') {
+        wx.showToast({
+          mask: true,
+          title: '请选择施工方式',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+      if (data.isTest === null || data.isTest === '') {
+        wx.showToast({
+          mask: true,
+          title: '请选择是否测漏',
+          icon: 'none',
+          duration: 1000
+        })
+        return false
+      }
+    }
+    let url = isSave ? `/app/businessinsurancefamilynew/workerSave` : `/app/businessinsurancefamilynew/workerCommit`
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        thirdName: data.thirdName,
+        thirdPhone: data.thirdPhone,
+        constructionMethod: data.constructionMethod,
+        isTest: data.isTest,
+        testPrice: data.testPrice,
+        estimatePrice: data.estimatePrice,
+        workerText: data.workerText
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        let imgPaths = [...familyImagesList, ...uploadImageList]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   workerCancel (event) {
     let _this = this
@@ -390,6 +541,11 @@ Page({
       'taskData.constructionMethod': event.detail
     });
   },
+  onTestChange (event) {
+    this.setData({
+      'taskData.isTest': event.detail
+    });
+  },
   initDataById (id) {
     let _this = this
     wx.showLoading({
@@ -529,6 +685,12 @@ Page({
         "taskData.losserPhone": data.losserPhone || '',
         "taskData.servicerName": data.servicerName || '',
         "taskData.servicerPhone": data.servicerPhone || '',
+        "taskData.isTest": data.isTest || '',
+        "taskData.testPrice": data.testPrice || '',
+        "taskData.estimatePrice": data.estimatePrice || '',
+        "taskData.offerMoney": data.offerMoney || '',
+        "taskData.workerText": data.workerText,
+        "taskData.testText": data.testText || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
@@ -601,6 +763,11 @@ Page({
   openLocation() {
     this.setData({
       show: !this.show
+    })
+  },
+  openReassignLocation() {
+    this.setData({
+      showreassign: !this.showreassign
     })
   },
   onConfirm(data) {

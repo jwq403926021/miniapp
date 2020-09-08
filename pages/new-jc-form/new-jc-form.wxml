@@ -39,7 +39,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{flowId == null || (role == 8 && (status == 20 || status == 52))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
-                           value="{{taskData.reportId}}" placeholder="出险方"/>
+                           value="{{taskData.reportId}}" placeholder="报案号"/>
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input readonly">{{taskData.reportId || '-'}}</text>
@@ -196,7 +196,7 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{((role == 27 && status == 31) || (role == 12 && (status == 40 || status == 42 || status == 62)))}}">
                     <van-radio-group value="{{ taskData.isTest }}" custom-class="weui-input vertical"
-                                     bind:change="onRaidoChange">
+                                     bind:change="onTestChange">
                         <van-radio custom-class="fl mr5" name="0">否</van-radio>
                         <van-radio custom-class="fl mr5" name="1">是</van-radio>
                     </van-radio-group>
@@ -308,9 +308,14 @@
             </view>
         </block>
 
-        <button wx:if="{{status != null && status != 29}}" style="width:80%" data-id="{{flowId}}" bindtap="bindTapToClient" class="weui-btn" type="primary">
-            {{((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
-        </button>
+        <view class="button-sp-area two-btn-wrap">
+            <button wx:if="{{status != null}}" data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
+                {{((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
+            </button>
+            <button wx:if="{{status != null}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
+                {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
+            </button>
+        </view>
 
         <view class="weui-cells__title">报案信息图片</view>
         <view class="weui-cells weui-cells_after-title">

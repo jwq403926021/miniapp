@@ -1,7 +1,7 @@
 //获取应用实例
 import common from "../../utils/common";
 const app = getApp()
-
+let isChoose = false
 Page({
   data: {
     familyImages:{
@@ -23,6 +23,9 @@ Page({
     role: null
   },
   onLoad: function (routeParams) {
+    if (isChoose) {
+      return
+    }
     let familyImages = wx.getStorageSync('familyImages')
     this.setData({
       clientIndex: routeParams.index,
@@ -39,7 +42,7 @@ Page({
       'familyImages.bank': familyImages.bank,
       'familyImages.register': familyImages.register,
       'familyImages.source': familyImages.source,
-      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
+      role: 12 // app.globalData.currentRegisterInfo.role
     })
   },
   getImageTypeNumber (str) {
@@ -82,6 +85,7 @@ Page({
     var _this = this;
     let imageTypeStr = e.currentTarget.dataset.imagetype
     let imageTypeNumber = _this.getImageTypeNumber(imageTypeStr);
+    isChoose = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -109,6 +113,7 @@ Page({
           });
         }
         wx.setStorageSync('familyImages', _this.data.familyImages)
+        isChoose = false
       }
     })
   },
