@@ -17,6 +17,7 @@ Page({
     losserValue: '',
     losserLabel: '',
     statusMap: {
+      '29': '暂存',
       '20': '待客服人员处理',
       '30': '待指派测漏',
       '31': '待测漏人员处理',
@@ -117,7 +118,7 @@ Page({
       this.setData({
         id: routeParams.id,
         flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role // TODO: app.globalData.currentRegisterInfo.role 12合作商 15游客（被保险人）
+        role: app.globalData.currentRegisterInfo.role // 27:测漏人员 8:客服 22:财务 23:定损员
       })
       this.initDataById(routeParams.id)
     }
