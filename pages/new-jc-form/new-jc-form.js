@@ -12,7 +12,7 @@ Page({
     region: '',
     regionLabel: '',
     status: null,
-    assignMethod: '0',
+    assignMethod: '1',
     looserList: [],
     losserValue: '',
     losserLabel: '',
@@ -113,14 +113,20 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    this.initArea()
+    if (Object.keys(this.data.areaList).length == 0) {
+      this.routeParams = routeParams
+      this.initArea(this.init)
+    }
+  },
+  init () {
+    let routeParams = this.routeParams
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
-        id: routeParams.id,
-        flowId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role // 27:测漏人员 8:客服 22:财务 23:定损员
+        orderId: routeParams.id,
+        role: 8 // app.globalData.currentRegisterInfo.role // 27:测漏人员 8:客服 22:财务 23:定损员
+      }, () => {
+        this.initDataById(routeParams.id)
       })
-      this.initDataById(routeParams.id)
     }
   },
   surveyCommit (event) {
@@ -518,7 +524,7 @@ Page({
       })
     })
   },
-  initArea () {
+  initArea (callback) {
     let _this = this
     _this.setData({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
@@ -533,8 +539,10 @@ Page({
     }, function (err, res) {
       _this.setData({
         areaList: res.DATA.DATA
+      }, () => {
+        _this.getRegionLabel()
+        callback()
       })
-      _this.getRegionLabel()
     })
   },
   getRegionLabel () {
@@ -593,7 +601,30 @@ Page({
     this.setData(nameMap)
   },
   dialPhone (e) {
+    let _this = this
     let phone = e.currentTarget.dataset.phone+'';
+    if ((_this.data.role == 12 && _this.data.status == 44) || (_this.data.role == 23 && _this.data.status == 54)) {
+      util.request({
+        path: (_this.data.role == 12 && _this.data.status == 44) ? '/app/businessinsurancefamilynew/workerContanctCustomer' : '/app/businessinsurancefamilynew/losserContanctCustomer',
+        method: 'GET',
+        data: {
+          orderId: _this.data.orderId,
+          surveyId: _this.data.taskData.surveyId
+        }
+      }, function (err, res) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      })
+    }
     wx.makePhoneCall({
       phoneNumber: phone
     })

@@ -49,7 +49,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">出险方</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{status == null}}">
+                <view class="weui-cell__bd" wx:if="{{status == null || (role == 8 && (status == 20 || status == 52))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.customerName}}" placeholder="出险方"/>
                 </view>
@@ -61,7 +61,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">沟通方式</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{status == null}}">
+                <view class="weui-cell__bd" wx:if="{{status == null || (role == 8 && (status == 20 || status == 52))}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
                            value="{{taskData.customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
@@ -109,31 +109,33 @@
                 </block>
             </view>
 
-            <view class="weui-cell weui-cell_select" wx:if="{{(role == 8 && (status == 20 || status == 52))}}">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">派送</view>
+            <block wx:if="{{(role == 8 && (status == 20 || status == 52))}}">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">派送</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
+                                         bind:change="onAssignMethodChange">
+                            <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
+                            <van-radio custom-class="fl mr5" name="2">定损员</van-radio>
+                        </van-radio-group>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <van-radio-group value="{{ assignMethod }}" custom-class="weui-input vertical"
-                                     bind:change="onAssignMethodChange">
-                        <van-radio custom-class="fl mr5" name="1">施工人员</van-radio>
-                        <van-radio custom-class="fl mr5" name="2">定损员</van-radio>
-                    </van-radio-group>
+                <view class="weui-cell weui-cell_select" wx:if="{{assignMethod == '2'}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">定损员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="losserChange" value="{{losserId}}"
+                                range="{{losserList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{losserLabel || '请选择定损员'}}
+                            </view>
+                        </picker>
+                    </view>
                 </view>
-            </view>
-<!--            <view class="weui-cell weui-cell_select">-->
-<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
-<!--                    <view class="weui-label">定损员</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <picker bindchange="losserChange" value="{{losserId}}"-->
-<!--                            range="{{losserList}}">-->
-<!--                        <view class="picker weui-select weui-select_in-select-after">-->
-<!--                            {{losserLabel || '请选择定损员'}}-->
-<!--                        </view>-->
-<!--                    </picker>-->
-<!--                </view>-->
-<!--            </view>-->
+            </block>
 <!--            <view class="weui-cell weui-cell_select">-->
 <!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
 <!--                    <view class="weui-label">施工人员</view>-->
@@ -148,27 +150,29 @@
 <!--                </view>-->
 <!--            </view>-->
 
-            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 30}}">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">筛选区域</view>
+            <block wx:if="{{role == 8 && status == 30}}">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">筛选区域</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">测漏人员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="workerChange" value="{{testValue}}"
+                                range="{{testList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{testLabel || '请选择测漏人员'}}
+                            </view>
+                        </picker>
+                    </view>
                 </view>
-            </view>
-            <view class="weui-cell weui-cell_select" wx:if="{{role == 8 && status == 30}}">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">测漏人员</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <picker bindchange="workerChange" value="{{testValue}}"
-                            range="{{testList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{testLabel || '请选择测漏人员'}}
-                        </view>
-                    </picker>
-                </view>
-            </view>
+            </block>
 
             <view class="weui-cell weui-cell_select" wx:if="{{taskData.constructionMethod || role == 12}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -672,7 +676,7 @@
             <button data-type="2" bindtap="testerCommit">暂存</button>
         </view>
 
-        <button wx:if="{{(role == 6 || role == 8) && status != null}}" type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
+        <button wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
 
         <view class="button-sp-area">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
