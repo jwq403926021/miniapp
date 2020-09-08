@@ -96,22 +96,22 @@ Page({
     switch (event.detail.name) {
       case '转线上':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.id + '&type=1'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.id + '&type=1'
         })
         break
       case '转线下':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.id + '&type=2'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.id + '&type=2'
         })
         break
       case '注销':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.id + '&type=3'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.id + '&type=3'
         })
         break
       case '修改基本信息':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.id + '&type=4'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.id + '&type=4'
         })
         break
     }
@@ -129,7 +129,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/family/finishCase',
+      path: '/app/businessinsurancefamilynew/finishCase',
       method: 'GET',
       data: {
         flowId: id,
@@ -156,7 +156,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/family/workEndStatus',
+      path: '/app/businessinsurancefamilynew/workEndStatus',
       method: 'GET',
       data: {
         flowId: id,
@@ -259,7 +259,7 @@ Page({
   },
   goToOffer (event) {
     wx.navigateTo({
-      url: '../jc-offer/jc-offer?id=' + event.currentTarget.dataset.id
+      url: '../new-jc-offer/new-jc-offer?id=' + event.currentTarget.dataset.id
     })
   },
   filter () {
@@ -324,7 +324,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/family/insured/orders',
+      path: '/app/businessinsurancefamilynew/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
@@ -334,7 +334,7 @@ Page({
       if (res.data.current === _this.data.current) return false
       _this.setData({
         current: res.data.current,
-        totalPage: res.data.total,
+        totalPage: Math.ceil(res.data.total / 100),
         dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })
     })
@@ -365,7 +365,7 @@ Page({
   },
   goToHandleTask (event) {
     wx.navigateTo({
-      url: '../jc-form/jc-form?id=' + event.currentTarget.dataset.id
+      url: '../new-jc-form/new-jc-form?id=' + event.currentTarget.dataset.id
     })
   },
   onCancel () {

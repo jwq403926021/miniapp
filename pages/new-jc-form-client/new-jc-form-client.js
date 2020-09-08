@@ -36,7 +36,7 @@ Page({
   },
   goToClientUpload (e) {
     wx.navigateTo({
-      url: `../jc-form-client-upload/jc-form-client-upload?index=${this.data.currentIndex}&type=${e.currentTarget.dataset['type']}&flowId=${this.data.flowId}&status=${this.data.status}`
+      url: `../new-jc-form-client-upload/new-jc-form-client-upload?index=${this.data.currentIndex}&type=${e.currentTarget.dataset['type']}&flowId=${this.data.flowId}&status=${this.data.status}`
     })
   },
   addClient () {

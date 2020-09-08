@@ -4,6 +4,7 @@
     "pages/register/register",
     "pages/cx-form/cx-form",
     "pages/new-jc-form/new-jc-form",
+    "pages/new-jc-manage/new-jc-manage",
     "pages/new-jc-form-client/new-jc-form-client",
     "pages/new-jc-form-client-upload/new-jc-form-client-upload",
     "pages/jc-form/jc-form",

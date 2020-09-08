@@ -140,7 +140,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/family/finishCase',
+      path: '/app/businessinsurancefamilynew/finishCase',
       method: 'GET',
       data: {
         flowId: id,
@@ -165,7 +165,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/family/workEndStatus',
+      path: '/app/businessinsurancefamilynew/workEndStatus',
       method: 'GET',
       data: {
         flowId: id,
