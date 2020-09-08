@@ -660,6 +660,8 @@
             <button type="primary" bindtap="workerNeedTest">需要测漏</button>
         </block>
 
+        <button wx:if="{{role == 12}}" type="primary" bindtap="workerUploadImage">提交图片</button>
+
         <block wx:if="{{(role == 23 && status == 51)}}">
             <view class="button-sp-area two-btn-wrap"><!--定损员-->
                 <button data-type="1" type="primary" bindtap="losserCommit">提交</button>

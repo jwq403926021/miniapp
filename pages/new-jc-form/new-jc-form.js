@@ -204,6 +204,28 @@ Page({
       }
     })
   },
+  workerUploadImage () {
+    let _this = this
+    let acceptanceImageFiles = []
+    let testImageFiles = []
+    _this.data.acceptanceImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        acceptanceImageFiles.push({path: item.path, type: 20})
+      }
+    })
+    _this.data.testImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        testImageFiles.push({path: item.path, type: 21})
+      }
+    })
+    let imgPaths = [...acceptanceImageFiles, ...testImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
   workerCommit (event) {
     let _this = this
     const type = event.currentTarget.dataset.type;
@@ -370,6 +392,10 @@ Page({
   },
   initDataById (id) {
     let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     util.request({
       path: `/app/businessinsurancefamilynew/familyDetail`,
       method: 'GET',
@@ -512,6 +538,7 @@ Page({
       }, () => {
         _this.getRegionLabel()
         _this.getLosserList()
+        wx.hideLoading()
       })
     })
   },
@@ -534,6 +561,10 @@ Page({
   },
   initArea (callback) {
     let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     _this.setData({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
@@ -614,10 +645,10 @@ Page({
     if ((_this.data.role == 12 && _this.data.status == 44) || (_this.data.role == 23 && _this.data.status == 54)) {
       util.request({
         path: (_this.data.role == 12 && _this.data.status == 44) ? '/app/businessinsurancefamilynew/workerContanctCustomer' : '/app/businessinsurancefamilynew/losserContanctCustomer',
-        method: 'GET',
+        method: 'POST',
         data: {
-          orderId: _this.data.orderId,
-          surveyId: _this.data.taskData.surveyId
+          flowId: _this.data.flowId,
+          investigatorId: _this.data.taskData.investigatorId
         }
       }, function (err, res) {
         wx.showToast({
