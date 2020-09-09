@@ -1,0 +1,59 @@
+.row-item{
+  margin: 5px 0;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ccc;
+}
+.no-padding{
+  padding: 0!important;
+}
+.offerListRow .van-col{
+  line-height: 2em;
+  font-size: 14px;
+}
+.offerListRow .weui-label, .offerListRow .weui-input{
+  line-height: 2em;
+  font-size: 14px;
+  height: 2em;
+  min-height: 2em;
+}
+.offerListRow .weui-label {
+  width: 80px;
+}
+
+.offerListRow .weui-cell{ width: 50%; float:left;}
+.offerListRow .weui-cell.one-line{clear: both; float: none; width: 100%;}
+
+.offerListRow input, .editable{
+  color: #000!important;
+}
+.h28 {
+  line-height: 28px;
+}
+.wrapper{
+  height: calc(100vh - 60px);
+  width: calc(100vw - 60px);
+  background: #fff;
+  padding: 5px 10px;
+}
+.libraryFilterRow .van-col{
+  line-height: 2em;
+  font-size: 14px;
+}
+.button-gap{
+  margin-bottom: 5px;
+}
+.pro-wrap{
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 10px 0;
+}
+.button-gap-right{
+  margin-right: 5px;
+}
+.button-gap{
+  margin-bottom: 5px;
+}
+.van-stepper__minus,.van-stepper__plus{
+  height: 30px!important;
+  width: 30px!important;
+}
+.mytextarea{padding: 10px 0;}

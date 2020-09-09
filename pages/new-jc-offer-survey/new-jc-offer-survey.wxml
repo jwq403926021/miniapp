@@ -1,0 +1,149 @@
+<view class="page">
+    <view class="page__bd">
+        <image style="z-index: 100; width: 200px; height: 153px; position: absolute; right:0%; opacity: 0.6; top:60px; pointer-events: none;" src="../../asset/image/seal.png" mode="cover"></image>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{reportNumber || '-'}}</text>
+                </view>
+            </view>
+            <view wx:if="{{plateNumber}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{plateNumber || '-'}}</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">报价信息</view>
+        <view class="weui-cells_after-title">
+            <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
+                <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | 合计:{{project.offerResult}}" name="{{pindex}}">
+                    <view>
+                        <van-row custom-class="accident-detail-table-header">
+                            <van-col span="4">名称</van-col>
+                            <van-col span="4">类型</van-col>
+                            <van-col span="4">单位</van-col>
+                            <van-col span="4">单价</van-col>
+                            <van-col span="4">数量</van-col>
+                            <van-col span="4">金额</van-col>
+                        </van-row>
+                        <view wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
+                            <van-row custom-class="accident-detail-table-body">
+                                <van-col span="4">
+                                    {{subItem.name}}
+                                </van-col>
+                                <van-col span="4">
+                                    {{subItem.projectName}}
+                                </van-col>
+                                <van-col span="4">
+                                    {{subItem.unit}}
+                                </van-col>
+                                <van-col span="4">
+                                    {{subItem.price}}
+                                </van-col>
+                                <van-col span="4">
+                                    {{subItem.num}}
+                                </van-col>
+                                <van-col span="4">
+                                    {{subItem.itemTotal}}
+                                </van-col>
+                            </van-row>
+                            <van-row custom-class="accident-detail-table-body remark-row">
+                                <van-col span="6">
+                                    项目备注:
+                                </van-col>
+                                <van-col custom-class="align-left" span="18">
+                                    {{subItem.remark || '-'}}
+                                </van-col>
+                            </van-row>
+                        </view>
+
+                        <block wx:if="{{project.incompleteList.length > 0}}">
+                            <view class="section-title">残值列表</view>
+                            <van-row custom-class="accident-detail-table-header">
+                                <van-col span="8">名称</van-col>
+                                <van-col span="4">单位</van-col>
+                                <van-col span="4">单价</van-col>
+                                <van-col span="4">数量</van-col>
+                                <van-col span="4">金额</van-col>
+                            </van-row>
+                            <view wx:for="{{project.incompleteList}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
+                                <van-row custom-class="accident-detail-table-body">
+                                    <van-col span="8">
+                                        {{subItem.name}}
+                                    </van-col>
+                                    <van-col span="4">
+                                        {{subItem.unit}}
+                                    </van-col>
+                                    <van-col span="4">
+                                        {{subItem.unitPrice}}
+                                    </van-col>
+                                    <van-col span="4">
+                                        {{subItem.num}}
+                                    </van-col>
+                                    <van-col span="4">
+                                        {{subItem.itemTotal}}
+                                    </van-col>
+                                </van-row>
+                                <van-row custom-class="accident-detail-table-body remark-row">
+                                    <van-col span="6">
+                                        项目备注:
+                                    </van-col>
+                                    <van-col custom-class="align-left" span="18">
+                                        {{subItem.remark || '-'}}
+                                    </van-col>
+                                </van-row>
+                            </view>
+                        </block>
+
+                        <block wx:if="{{hasTax}}">
+                            <view class="section-title">税额详情</view>
+                            <view class="weui-cells weui-cells_after-title">
+                                <view class="weui-cell weui-cell_input">
+                                    <view class="weui-cell__hd">
+                                        <view class="weui-label">金额</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <text class="weui-input readonly">{{project.amountMoney || '-'}}</text>
+                                    </view>
+                                </view>
+                                <view class="weui-cell weui-cell_input">
+                                    <view class="weui-cell__hd">
+                                        <view class="weui-label">税率 %</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <text class="weui-input readonly">{{taxRate || '-'}}</text>
+                                    </view>
+                                </view>
+                                <view class="weui-cell weui-cell_input">
+                                    <view class="weui-cell__hd">
+                                        <view class="weui-label">税额</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <text class="weui-input readonly">{{project.tax || '-'}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                </van-collapse-item>
+            </van-collapse>
+
+            <view class="offer-total">
+                <view wx:if="{{offerList.length > 1}}">不含税报价合计: {{offerListTotal || 0}}</view>
+                <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
+                <view wx:if="{{hasTax}}">总税额: {{tax || 0}}</view>
+                <view>总报价: {{offerResult || 0}}</view>
+            </view>
+        </view>
+        <view>
+            <van-button type="primary" block bindtap="goBack">返回</van-button>
+        </view>
+    </view>
+</view>
