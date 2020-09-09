@@ -113,7 +113,10 @@ Page({
     operateIndex: 0,
     filterLoading: false,
     active0: true,
-    active1: false
+    active1: false,
+    isTest: '0',
+    testPrice: 0,
+    reportId: ''
   },
   initArea () {
     try {
@@ -362,6 +365,7 @@ Page({
       let data = res.data || {}
       _this.setData({
         isTest: data.isTest,
+        testPrice: data.testPrice,
         reportId: data.reportId
       })
     })
