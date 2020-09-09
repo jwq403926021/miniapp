@@ -205,7 +205,7 @@
                     <text class="weui-input readonly">{{['否', '是'][taskData.isTest] || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.testPrice || role == 12 || role == 27}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{(taskData.testPrice || role == 12 || role == 27) && taskData.isTest == 1}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
                 </view>
