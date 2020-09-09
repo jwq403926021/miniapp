@@ -281,7 +281,6 @@ Page({
   },
   calculate (name) {
     let computedCateogryTotalPrice = ''
-    let isIncludedTestPrice = this.data.offerList.filter(item => item.proType === 1).length > 0 // todo: ??
     let offerListTotal = 0
     let num1 = 0
     let num2 = 0
@@ -312,9 +311,7 @@ Page({
     })
     num1 += (this.data.testPrice || 0)
     num3 += (this.data.testPrice || 0)
-    if (isIncludedTestPrice) {
-      offerListTotal += parseFloat(this.data.testPrice || 0)
-    }
+    offerListTotal += parseFloat(this.data.testPrice || 0)
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
     computedCateogryTotalPrice = `支付平台金额：${num1.toFixed(2)} | 支付被保险人金额：${num2.toFixed(2)}<br/>水渍险合计：${num3.toFixed(2)} | 三者险合计：${num4.toFixed(2)} `
     let incompleteTotal = 0
