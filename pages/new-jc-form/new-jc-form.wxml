@@ -308,11 +308,11 @@
             </view>
         </block>
 
-        <view class="button-sp-area two-btn-wrap">
-            <button wx:if="{{status != null}}" data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
+        <view wx:if="{{status != null && role != 8 && role != 27}}" class="button-sp-area two-btn-wrap">
+            <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
                 {{((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
             </button>
-            <button wx:if="{{status != null}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
+            <button data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
                 {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
             </button>
         </view>

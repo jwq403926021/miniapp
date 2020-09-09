@@ -84,6 +84,7 @@ Page({
     incompleteTotal: '',
     offerListTotal: '',
     offerResult: '',
+    computedCateogryTotalPrice: '',
     compareList: [{
       companyName: '企业1',
       id: 0,
@@ -114,6 +115,7 @@ Page({
     filterLoading: false,
     active0: true,
     active1: false,
+    constructionMethod: '',
     isTest: '0',
     testPrice: 0,
     reportId: ''
@@ -139,7 +141,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: app.globalData.currentRegisterInfo.role
+          role: 12 // app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
         }, () => {
           this.init(routeParams.id)
         })
@@ -278,7 +280,13 @@ Page({
     })
   },
   calculate (name) {
+    let computedCateogryTotalPrice = ''
+    let isIncludedTestPrice = this.data.offerList.filter(item => item.proType === 1).length > 0 // todo: ??
     let offerListTotal = 0
+    let num1 = 0
+    let num2 = 0
+    let num3 = 0
+    let num4 = 0
     this.data.offerList.forEach(project => {
       let projectTotal = 0
       project.children.forEach(item => {
@@ -288,9 +296,27 @@ Page({
         offerListTotal += total
       })
       project.projectTotal = projectTotal
+      if (project.proType === 0) {
+        num2 += parseInt(project.projectTotal)
+        num3 += parseInt(project.projectTotal)
+      } else if (project.proType === 1) {
+        num1 += parseInt(project.projectTotal)
+        num3 += parseInt(project.projectTotal)
+      } else if (project.proType === 2) {
+        num2 += parseInt(project.projectTotal)
+        num4 += parseInt(project.projectTotal)
+      } else if (project.proType === 3) {
+        num1 += parseInt(project.projectTotal)
+        num4 += parseInt(project.projectTotal)
+      }
     })
+    num1 += (this.data.testPrice || 0)
+    num3 += (this.data.testPrice || 0)
+    if (isIncludedTestPrice) {
+      offerListTotal += parseFloat(this.data.testPrice || 0)
+    }
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
-
+    computedCateogryTotalPrice = `支付平台金额：${num1.toFixed(2)} | 支付被保险人金额：${num2.toFixed(2)}<br/>水渍险合计：${num3.toFixed(2)} | 三者险合计：${num4.toFixed(2)} `
     let incompleteTotal = 0
     this.data.incompleteList.forEach(item => {
       let total = (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
@@ -298,10 +324,8 @@ Page({
       incompleteTotal += total
     })
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
-
     let amountMoney =  offerListTotal - incompleteTotal
     let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
-
     let offerResult = this.data.hasTax ? Math.round(amountMoney + tax) : Math.round(amountMoney)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
@@ -311,6 +335,7 @@ Page({
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
     this.setData({
+      computedCateogryTotalPrice: computedCateogryTotalPrice,
       amountMoney: (amountMoney || 0).toFixed(2),
       coinInsert: (coinInsert || 0).toFixed(2),
       tax: (tax || 0).toFixed(2),
@@ -418,6 +443,7 @@ Page({
         }
       })
       if (list.length > 0) {
+        _this.data.offerList = []
         list.forEach(item => {
           let proIndex = _this.data.offerList.findIndex(ll => ll.proId === item.proId)
           if (proIndex === -1) {
@@ -435,11 +461,8 @@ Page({
       }
 
       let result = {
-        isAllowEdit: (_this.data.role == 12 && (_this.data.status == 32 || _this.data.status == 40 || _this.data.status == 62)) || (_this.data.role == 13 && _this.data.status == 41) || (_this.data.role == 23 && _this.data.status == 51),
+        isAllowEdit: (_this.data.role == 12 && (data.status == 32 || data.status == 40 || data.status == 62)) || (_this.data.role == 13 && data.status == 41) || (_this.data.role == 23 && data.status == 51),
         ...data,
-        isTest: data.isTest,
-        testPrice: data.testPrice,
-        reportId: data.reportId,
         region: data.areaCountry + '',
         townCode: data.areaCountry + '',
         cityCode: data.areaCity + '',
@@ -682,7 +705,9 @@ Page({
   },
   submitOfferByWorker (e) {
     let _this = this
+    let url = ''
     let save = e.currentTarget.dataset.save
+    let isLosser = e.currentTarget.dataset.loss == 1
     this.data.offerList.map(item => {
       item.orderId = this.data.orderId
       item.offerType = this.data.role == 12 ? 1 : 0
@@ -748,8 +773,13 @@ Page({
       mask: true,
       title: '提交中'
     })
+    if (isLosser) {
+      url = save == 0 ? '/app/businessinsurancefamilynew/losserPriceSave' : '/app/businessinsurancefamilynew/losserPriceCommit'
+    } else {
+      url = save == 0 ? '/app/businessinsurancefamilynew/workerPriceSave' : '/app/businessinsurancefamilynew/workerPriceCommit'
+    }
     util.request({
-      path: save == 0 ? '/app/businessinsurancefamilynew/workerPriceSave' : '/app/businessinsurancefamilynew/workerPriceCommit',
+      path: url,
       method: 'POST',
       data: params
     }, function (err, res) {
@@ -761,7 +791,7 @@ Page({
           duration: 1000,
           success () {
             wx.navigateTo({
-              url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
+              url: '../new-jc-form/new-jc-form?id=' + _this.data.orderId
             })
           }
         })
@@ -812,10 +842,10 @@ Page({
       coinRate: this.data.coinRate,
       reward: this.data.coinInsert,
       offerRemark: this.data.offerRemark,
-      customerUser: this.data.customerUser,
-      handlingType: this.data.handlingType,
+      customerUser: this.data.customerName,
+      handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
-      surveyId: this.data.surveyId
+      surveyId: this.data.investigatorId
     }
     if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
       wx.showToast({
@@ -904,7 +934,7 @@ Page({
         orderId: _this.data.orderId,
         offerRemark: _this.data.offerRemark,
         workerId: _this.data.workerId,
-        customerUser: _this.data.customerUser
+        customerUser: _this.data.customerName
       }
     }, function (err, res) {
       if (res.code == 0) {
