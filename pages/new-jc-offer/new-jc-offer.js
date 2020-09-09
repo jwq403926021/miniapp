@@ -68,7 +68,7 @@ Page({
     showLibrary: false,
     mainList: ['1', '2', '3'],
     library: {
-      insureType: 1,
+      insureType: 2,
       status: 1,
       name: '',
       mainId: '',
@@ -370,7 +370,7 @@ Page({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
       data: {
-        insureType: '1'
+        insureType: '2'
       }
     }, function (err, res) {
       let data = res.data || []
@@ -581,7 +581,7 @@ Page({
   resetFilter () {
     this.setData({
       library: {
-        insureType: 1,
+        insureType: 2,
         status: 1,
         name: '',
         mainId: '',
