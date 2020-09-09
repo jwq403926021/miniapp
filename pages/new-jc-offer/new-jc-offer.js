@@ -355,20 +355,6 @@ Page({
       title: '加载中'
     })
     let _this = this
-    util.request({
-      path: '/app/businessinsurancefamilynew/familyDetail',
-      method: 'GET',
-      data: {
-        orderId: _this.data.orderId
-      }
-    }, function (err, res) {
-      let data = res.data || {}
-      _this.setData({
-        isTest: data.isTest,
-        testPrice: data.testPrice,
-        reportId: data.reportId
-      })
-    })
 
     util.request({
       path: `/app/businessmaintype/getMainByInsure`,
@@ -447,13 +433,17 @@ Page({
           }
         })
       }
+
       let result = {
-        isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
+        isAllowEdit: (_this.data.role == 12 && (_this.data.status == 32 || _this.data.status == 40 || _this.data.status == 62)) || (_this.data.role == 13 && _this.data.status == 41) || (_this.data.role == 23 && _this.data.status == 51),
         ...data,
-        region: data.townCode,
-        townCode: data.townCode,
-        cityCode: data.cityCode,
-        provinceCode: data.provinceCode,
+        isTest: data.isTest,
+        testPrice: data.testPrice,
+        reportId: data.reportId,
+        region: data.areaCountry + '',
+        townCode: data.areaCountry + '',
+        cityCode: data.areaCity + '',
+        provinceCode: data.areaProvince + '',
         offerList: _this.data.offerList,
         incompleteList: res.incompleteList.filter(item => {
           if (_this.data.role === 12) {
