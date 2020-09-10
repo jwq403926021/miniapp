@@ -55,7 +55,7 @@ Page({
   initReassignListForCitymanger () {
     let _this = this
     util.request({
-      path: `/app/family/getWorkerByCity?city=${this.data.cityId}`,
+      path: `/app/businessinsurancefamilynew/getWorkerByCity?city=${this.data.cityId}`,
       method: 'GET'
     }, function (err, res) {
       if (res) {
@@ -78,17 +78,20 @@ Page({
   initDataById (id) {
     let _this = this
     util.request({
-      path: `/app/family/orders/${id}`,
-      method: 'GET'
+      path: `/app/businessinsurancefamilynew/familyDetail`,
+      method: 'GET',
+      data: {
+        flowId: id
+      }
     }, function (err, res) {
       let data = res.data
       _this.setData({
         id: data.flowId,
         status: data.status,
-        countryId: data.areaCountryId,
-        cityId: data.areaCityId,
-        provinceId: data.areaProvinceId,
-        region: data.areaCountryId + '',
+        countryId: data.areaCountry,
+        cityId: data.areaCity,
+        provinceId: data.areaProvince,
+        region: data.areaCountry + '',
         customerName: data.customerName,
         customerPhone: data.customerPhone,
         losserText: data.losserText
@@ -198,7 +201,7 @@ Page({
     let url = ''
     switch (this.data.type) {
       case '1':
-        url = '/app/family/updateLosser'
+        url = '/app/businessinsurancefamilynew/updateLosser'
         params.losserId = _this.losserListSource[_this.data.losserValue]['user_id']
         // if (_this.data.losserValue == '' || _this.data.losserValue == null){
         //   wx.showToast({
@@ -211,7 +214,7 @@ Page({
         // }
         break
       case '2':
-        url = '/app/family/updateWorker'
+        url = '/app/businessinsurancefamilynew/updateWorker'
         params.partnerId = _this.workListSource[_this.data.workerValue]['user_id']
         if (_this.data.workerValue == '' || _this.data.workerValue == null){
           wx.showToast({
@@ -224,7 +227,7 @@ Page({
         }
         break
       case '3':
-        url = '/app/family/updateOff'
+        url = '/app/businessinsurancefamilynew/updateOff'
         params.losserText = _this.data.losserText
         if (_this.data.losserText == '' || _this.data.losserText == null){
           wx.showToast({
@@ -237,7 +240,7 @@ Page({
         }
         break
       case '4':
-        url = '/app/family/updateBasic'
+        url = '/app/businessinsurancefamilynew/updateBasic'
         params.customerPhone = _this.data.customerPhone
         params.customerName = _this.data.customerName
         if (_this.data.customerPhone == '' || _this.data.customerPhone == null || !this.checkPhone(_this.data.customerPhone)){
