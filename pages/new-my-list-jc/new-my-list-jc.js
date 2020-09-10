@@ -259,9 +259,15 @@ Page({
     })
   },
   goToOffer (event) {
-    wx.navigateTo({
-      url: '../new-jc-offer/new-jc-offer?id=' + event.currentTarget.dataset.id
-    })
+    if (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) {
+      wx.navigateTo({
+        url: '../new-jc-offer-survey/new-jc-offer-survey?id=' + event.currentTarget.dataset.id
+      })
+    } else {
+      wx.navigateTo({
+        url: '../new-jc-offer/new-jc-offer?id=' + event.currentTarget.dataset.id
+      })
+    }
   },
   filter () {
     this.setData({

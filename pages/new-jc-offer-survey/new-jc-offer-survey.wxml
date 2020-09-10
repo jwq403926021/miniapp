@@ -4,18 +4,34 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
+                    <view class="weui-label">工单号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{orderId || '-'}}</text>
+                </view>
+            </view>
+            <view wx:if="{{reportId}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{reportId || '-'}}</text>
                 </view>
             </view>
-            <view wx:if="{{plateNumber}}" class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">车牌号</view>
+                    <view class="weui-label">是否测漏</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{plateNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{['否', '是'][isTest] || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">测漏金额</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{testPrice || '-'}}</text>
                 </view>
             </view>
         </view>
@@ -139,6 +155,7 @@
                 <view wx:if="{{offerList.length > 1}}">不含税报价合计: {{offerListTotal || 0}}</view>
                 <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
                 <view wx:if="{{hasTax}}">总税额: {{tax || 0}}</view>
+                <rich-text nodes="{{computedCateogryTotalPrice}}"></rich-text>
                 <view>总报价: {{offerResult || 0}}</view>
             </view>
         </view>
