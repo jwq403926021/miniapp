@@ -11,6 +11,7 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    reassignRegion: '',
     reassignRegionLabel: '',
     testList: [],
     testValue: '',
@@ -21,6 +22,7 @@ Page({
     losserValue: '',
     losserLabel: '',
     showWorkerHit: false,
+    showreassign: false,
     statusMap: {
       '29': '暂存',
       '20': '待客服人员处理',
@@ -132,7 +134,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: 12 // app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
+        role: 8 // app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
         this.initDataById(routeParams.id)
       })
@@ -239,7 +241,7 @@ Page({
       this.workerCommit(null, true, true)
     } else {
       wx.navigateTo({
-        url: (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) ? `../new-jc-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
+        url: (this.data.role == 1 || this.data.role == 5 || this.data.role == 6 || this.data.role == 7) ? `../new-jc-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
       })
     }
   },
@@ -313,7 +315,7 @@ Page({
     let uploadImageList = this.prepareUploadImage()
 
     if (!isOfferSave) {
-      if (data.constructionMethod === null || data.constructionMethod === '') {
+      if (data.constructionMethod == null || data.constructionMethod == '') {
         wx.showToast({
           mask: true,
           title: '请选择施工方式',
@@ -322,7 +324,7 @@ Page({
         })
         return false
       }
-      if (data.isTest === null || data.isTest === '') {
+      if (data.isTest == null || data.isTest == '') {
         wx.showToast({
           mask: true,
           title: '请选择是否测漏',
@@ -383,15 +385,152 @@ Page({
   },
   workerCancel (event) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.isTest == 1) {
+      wx.showToast({
+        mask: true,
+        title: '无法注销',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    if (data.workerText == null || data.workerText == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入施工人员备注',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/workerCancel',
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        serviceId: data.serviceId,
+        workerText: data.workerText
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   workerReject (event) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.workerText == null || data.workerText == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入施工人员备注',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/workerReject',
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        serviceId: data.serviceId,
+        workerText: data.workerText
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   workerNeedTest (event) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.workerText == null || data.workerText == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入施工人员备注',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/needTest',
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        serviceId: data.serviceId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   losserCommit (event) {
     let _this = this
@@ -399,12 +538,55 @@ Page({
   },
   losserReject (event) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.losserText == null || data.losserText == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入定损员备注',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/losserReject',
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        serviceId: data.serviceId,
+        losserText: data.losserText
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   servicerCommit () {
     let _this = this
     let active
-    if (_this.data.assignMethod === '1') {
+    if (_this.data.assignMethod == '1') {
       active = 'site'
     } else {
       active = 'loss'
@@ -418,7 +600,7 @@ Page({
       customerName: _this.data.taskData.customerName,
       customerPhone: _this.data.taskData.customerPhone
     }
-    if (active === 'loss') {
+    if (active == 'loss') {
       taskData.losserId = _this.data.losserValue != '' ? _this.losserListSource[_this.data.losserValue]['user_id'] : ''
     }
     if (taskData.customerName == '') {
@@ -469,11 +651,134 @@ Page({
   },
   serviceAssignTester (event) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.testId == null || data.testId == '') {
+      wx.showToast({
+        mask: true,
+        title: '请选择测漏人员',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/serviceCommit',
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        testId: _this.data.testValue,
+        active: 'test'
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   testerCommit (event) {
     let _this = this
     const type = event.currentTarget.dataset.type;
+    let data = this.data.taskData
+    if (data.isTest == null || data.isTest == '') {
+      wx.showToast({
+        mask: true,
+        title: '请选择是否测漏',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    if (data.isTest == 0 || data.isTest == '') {
+      wx.showToast({
+        mask: true,
+        title: '请填写测漏备注',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    let testImageFiles = []
+    _this.data.testImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        testImageFiles.push({path: item.path, type: 21})
+      }
+    })
+    if (data.isTest == 1 && this.data.testImageFiles.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '请上传测漏图片',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: type == 1 ? `/app/businessinsurancefamilynew/testCommit` : `/app/businessinsurancefamilynew/testSave`,
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        isTest: data.isTest,
+        testPrice: data.testPrice,
+        testText: data.testText,
+        workerId: data.workerId,
+        customerName: data.customerName
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        let imgPaths = [...testImageFiles]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   losserChange (event) {
     this.setData({
@@ -490,7 +795,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '加载中'
+      title: '提交中'
     })
     util.request({
       path: '/app/businessinsurancefamilynew/finishCase',
@@ -515,7 +820,7 @@ Page({
     }
     wx.showLoading({
       mask: true,
-      title: '加载中'
+      title: '提交中'
     })
     util.request({
       path: '/app/businessinsurancefamilynew/workEndStatus',
@@ -723,10 +1028,6 @@ Page({
   },
   initArea (callback) {
     let _this = this
-    wx.showLoading({
-      mask: true,
-      title: '加载中'
-    })
     _this.setData({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
@@ -770,6 +1071,42 @@ Page({
       showreassign: !this.showreassign
     })
   },
+  onConfirmReassign(data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+    this.setData({
+      showreassign: false,
+      reassignRegion: data.detail.values[1].code,
+      reassignRegionLabel: strArr.join(',')
+    }, () => {
+      this.loadTesterList()
+    })
+  },
+  testerChange (event) {
+    this.setData({
+      'testValue': event.detail.value,
+      'testLabel': this.testListSource[event.detail.value].name
+    })
+  },
+  loadTesterList () {
+    let _this = this
+    util.request({
+      path: `/sys/user/getTestByCity?city=${this.data.reassignRegion}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.testListSource = res.data
+        let testList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'testList': testList
+        })
+      }
+    })
+  },
   onConfirm(data) {
     let strArr = []
     data.detail.values.forEach(item => {
@@ -787,7 +1124,8 @@ Page({
   },
   onCancel() {
     this.setData({
-      show: false
+      show: false,
+      showreassign: false
     })
   },
   inputgetName(e) {
@@ -923,20 +1261,6 @@ Page({
     wx.navigateTo({
       url: `../new-jc-form-client/new-jc-form-client?flowId=${event.currentTarget.dataset.id}&status=${this.data.status}`
     })
-  },
-  completeCommit () {
-    let _this = this
-    let completeImageFiles = []
-    _this.data.completeImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        completeImageFiles.push({path: item.path, type: 6})
-      }
-    })
-    let imgPaths = [...completeImageFiles]
-    let count = 0
-    let successUp = 0
-    let failUp = 0
-    _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length, _this.endWork)
   },
   endWork () {
     wx.showLoading({
