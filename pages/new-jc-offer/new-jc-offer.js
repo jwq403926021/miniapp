@@ -141,7 +141,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: 12 // app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
+          role: 23 // app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
         }, () => {
           this.init(routeParams.id)
         })
@@ -680,7 +680,7 @@ Page({
   },
   goBack () {
     wx.navigateBack({
-      delta: 1
+      url: '../new-jc-form/new-jc-form?id=' + this.data.orderId
     })
   },
   checkOfferListItem () {
@@ -787,7 +787,7 @@ Page({
           icon: 'success',
           duration: 1000,
           success () {
-            wx.navigateTo({
+            wx.navigateBack({
               url: '../new-jc-form/new-jc-form?id=' + _this.data.orderId
             })
           }

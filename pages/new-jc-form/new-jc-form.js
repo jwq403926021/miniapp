@@ -134,7 +134,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: 8 // app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
+        role: 23 // app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
         this.initDataById(routeParams.id)
       })
@@ -237,7 +237,7 @@ Page({
     }
   },
   bindTapToOffer (event) {
-    if ((this.data.taskData.status == 13 || this.data.taskData.status == 43) && this.data.role == 12) {
+    if (this.data.role == 12 && (this.data.status == 32 || this.data.status == 40 || this.data.status == 62)) {
       this.workerCommit(null, true, true)
     } else {
       wx.navigateTo({
@@ -535,6 +535,40 @@ Page({
   losserCommit (event) {
     let _this = this
     const type = event.currentTarget.dataset.type;
+    let url = type == 1 ? `/app/businessinsurancefamilynew/losserCommit` : `/app/businessinsurancefamilynew/losserSave`
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: {
+        flowId: _this.data.flowId,
+        losserText: this.data.taskData.losserText
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   losserReject (event) {
     let _this = this
