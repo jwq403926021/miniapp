@@ -651,8 +651,7 @@ Page({
   },
   serviceAssignTester (event) {
     let _this = this
-    let data = this.data.taskData
-    if (data.testId == null || data.testId == '') {
+    if (this.data.testValue == null || this.data.testValue == '') {
       wx.showToast({
         mask: true,
         title: '请选择测漏人员',
@@ -1093,7 +1092,7 @@ Page({
   loadTesterList () {
     let _this = this
     util.request({
-      path: `/sys/user/getTestByCity?city=${this.data.reassignRegion}`,
+      path: `/app/getTestByCity?city=${this.data.reassignRegion}`,
       method: 'GET'
     }, function (err, res) {
       if (res) {

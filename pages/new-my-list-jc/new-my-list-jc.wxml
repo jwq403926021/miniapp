@@ -60,7 +60,7 @@
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
       </view>
     </view>
-    <view wx:if="{{(role == 6 || role == 8) && item.status != ''}}" class="weui-panel__ft" data-id="{{item.flowId}}" catchtap="openOperation">
+    <view wx:if="{{(role == 5 || role == 6 || role == 7) && item.status != ''}}" class="weui-panel__ft" data-id="{{item.flowId}}" catchtap="openOperation">
       <view class="weui-cell weui-cell_access weui-cell_link">
         <view class="weui-cell__bd">管理工单</view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
