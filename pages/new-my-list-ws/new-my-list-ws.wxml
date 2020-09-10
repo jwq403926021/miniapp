@@ -64,6 +64,12 @@
           <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
       </view>
+      <view wx:if="{{(role == 5 || role == 6 || role == 7) && item.status != ''}}" class="weui-panel__ft" data-id="{{item.orderId}}" catchtap="openOperation">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd">管理工单</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </view>
     </view>
   </view>
   <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">
@@ -138,5 +144,10 @@
       bind:cancel="cancelDate"
     />
   </van-popup>
-
+  <van-action-sheet
+          show="{{ showactionsheet }}"
+          actions="{{ actions }}"
+          bind:close="onactionsheetClose"
+          bind:select="onactionsheetSelect"
+  />
 </view>

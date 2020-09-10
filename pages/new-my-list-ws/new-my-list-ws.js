@@ -36,7 +36,13 @@ Page({
     endDateLabel: '结束时间',
     role: 1,
     type: 1,
-    current: 0
+    current: 0,
+    showactionsheet: false,
+    actions: [
+      {
+        name: '注销',
+      }
+    ]
   },
   onPullDownRefresh () {
     this.getInitData()
@@ -242,6 +248,35 @@ Page({
   },
   getMore () {
 
+  },
+  openOperation (event) {
+    this.id = event.currentTarget.dataset.id
+    this.setData({ showactionsheet: true })
+  },
+  onactionsheetClose () {
+    this.setData({ showactionsheet: false })
+  },
+  onactionsheetSelect (event) {
+    switch (event.detail.name) {
+      case '注销':
+        this.signoff()
+        break
+    }
+  },
+  signoff () {
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/updateOff',
+      method: 'PUT',
+      data: {
+        orderId: this.id
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+    })
   },
   goToOffer (event) {
     if (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) {

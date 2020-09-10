@@ -10,6 +10,7 @@
     "van-radio": "../../asset/vant/radio/index",
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-transition": "../../asset/vant/transition/index",
-    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
+    "van-datetime-picker": "../../asset/vant/datetime-picker/index",
+    "van-action-sheet": "../../asset/vant/action-sheet/index"
   }
 }
