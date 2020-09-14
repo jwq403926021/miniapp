@@ -42,7 +42,7 @@ Page({
       'familyImages.bank': familyImages.bank,
       'familyImages.register': familyImages.register,
       'familyImages.source': familyImages.source,
-      role: 12 // app.globalData.currentRegisterInfo.role
+      role: app.globalData.currentRegisterInfo.role
     })
   },
   getImageTypeNumber (str) {

@@ -361,17 +361,23 @@ Page({
         if (imgPaths.length) {
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
+          if (isOfferSave) {
+            wx.navigateTo({
+              url: `../new-jc-offer/new-jc-offer?id=${_this.data.flowId}`
+            })
+          } else {
+            wx.showToast({
+              mask: true,
+              title: '提交成功',
+              icon: 'success',
+              duration: 1000,
+              success () {
+                setTimeout(() => {
+                  _this.goToList()
+                }, 1000)
+              }
+            })
+          }
         }
       } else {
         wx.showToast({
@@ -536,6 +542,17 @@ Page({
     let _this = this
     const type = event.currentTarget.dataset.type;
     let url = type == 1 ? `/app/businessinsurancefamilynew/losserCommit` : `/app/businessinsurancefamilynew/losserSave`
+
+    let familyImagesList = []
+    let familyImages = wx.getStorageSync('familyImages')
+    let result = this.checkUploadImages(familyImages, true)
+    result.data.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        familyImagesList.push(item)
+      }
+    })
+    let uploadImageList = this.prepareUploadImage()
+
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -549,17 +566,25 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        wx.showToast({
-          mask: true,
-          title: '提交成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
+        let imgPaths = [...familyImagesList, ...uploadImageList]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
       } else {
         wx.showToast({
           mask: true,

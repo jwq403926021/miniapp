@@ -30,7 +30,7 @@ Page({
     this.setData({
       flowId: routeParams.flowId,
       status: routeParams.status,
-      role: app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role//app.globalData.currentRegisterInfo.role
+      role: app.globalData.currentRegisterInfo.role
     })
     console.log(this.data.clientIndexArr, '|clientIndexArr')
   },
