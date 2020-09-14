@@ -695,7 +695,7 @@ Page({
       }
     }
 
-    if (taskData.insuranceType == 1 && taskData.reportNumber == '' && /^[A-Za-z0-9]+$/.test(taskData.reportNumber)) {
+    if ((taskData.insuranceType == 1 && taskData.reportNumber == '') || !(/^[A-Za-z0-9]+$/.test(taskData.reportNumber))) {
       wx.showToast({
         mask: true,
         title: '请输入正确的报案号',
