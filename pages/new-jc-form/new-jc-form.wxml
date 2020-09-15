@@ -343,7 +343,7 @@
             </view>
         </view>
 
-        <block wx:if="{{status != null}}">
+        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4}}">
             <view class="weui-cells__title">损失清单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
