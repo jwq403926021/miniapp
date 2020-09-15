@@ -1193,7 +1193,7 @@ Page({
   downloadImages () {
     let urls = []
     this.sourceImage.map(item => {
-      if (!(this.data.role == 1 && item.type == 2)) { //排除查勘员自己的图片
+      if (!(this.data.role == 1 && (item.type == 2 || item.type == 17))) { //排除查勘员自己的图片
         urls.push(item.path)
       }
     })
