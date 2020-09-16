@@ -295,15 +295,15 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let length = pages.filter((item) => {
-      return item.route == 'pages/my-list-jc/my-list-jc'
+      return item.route == 'pages/new-my-list-jc/new-my-list-jc'
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../my-list-jc/my-list-jc'
+        url: '../new-my-list-jc/new-my-list-jc'
       })
     } else {
       wx.redirectTo({
-        url: '../my-list-jc/my-list-jc'
+        url: '../new-my-list-jc/new-my-list-jc'
       })
     }
   }

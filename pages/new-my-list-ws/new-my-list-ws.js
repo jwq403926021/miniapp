@@ -45,7 +45,12 @@ Page({
     ]
   },
   onPullDownRefresh () {
-    this.getInitData()
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
   },
   onReachBottom () {
     let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
@@ -230,7 +235,12 @@ Page({
     })
   },
   onShow () {
-    this.getInitData()
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
   },
   onLoad: function (routeParams) {
     let _this = this
@@ -246,9 +256,6 @@ Page({
       }
     })
   },
-  getMore () {
-
-  },
   openOperation (event) {
     this.id = event.currentTarget.dataset.id
     this.setData({ showactionsheet: true })
@@ -259,24 +266,23 @@ Page({
   onactionsheetSelect (event) {
     switch (event.detail.name) {
       case '注销':
-        this.signoff()
+        this.setData({
+          current: 0,
+          page: 1,
+          totalPage: 1,
+          searchCarNumber: '',
+          searchOrderId: '',
+          searchReportNumber: '',
+          statusFilter: '-1',
+          startDate: '',
+          endDate: '',
+          dataList: []
+        })
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id
+        })
         break
     }
-  },
-  signoff () {
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: '/app/businessdamagenew/updateOff',
-      method: 'PUT',
-      data: {
-        orderId: this.id
-      }
-    }, function (err, res) {
-      wx.hideLoading()
-    })
   },
   goToOffer (event) {
     if (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) {
