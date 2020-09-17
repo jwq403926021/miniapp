@@ -38,7 +38,8 @@ Page({
     workerList: [],
     customerName: '',
     customerPhone: '',
-    losserText: ''
+    losserText: '',
+    investigatorText: ''
   },
   onLoad: function (routeParams) {
     this.initArea()
@@ -90,7 +91,8 @@ Page({
         region: data.areaCountryId + '',
         customerName: data.customerName,
         customerPhone: data.customerPhone,
-        losserText: data.losserText
+        losserText: data.losserText,
+        investigatorText: data.investigatorText
       }, () => {
         _this.getRegionLabel()
         if (_this.data.type == 1) {
@@ -212,6 +214,9 @@ Page({
       case '2':
         url = '/app/family/updateWorker'
         params.partnerId = _this.workListSource[_this.data.workerValue]['user_id']
+        params.customerPhone = _this.data.customerPhone
+        params.customerName = _this.data.customerName
+        params.investigatorText = _this.data.investigatorText
         if (_this.data.workerValue == '' || _this.data.workerValue == null){
           wx.showToast({
             mask: true,
