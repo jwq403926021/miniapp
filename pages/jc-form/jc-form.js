@@ -1290,7 +1290,8 @@ Page({
         "deposit": _this.data.taskData.deposit,
         "thirdName": _this.data.taskData.thirdName,
         "thirdPhone": _this.data.taskData.thirdPhone,
-        flowId: _this.data.flowId
+        flowId: _this.data.flowId,
+        investigatorId: _this.data.taskData.investigatorId
       }
     }, function (err, res) {
       if (res.code == 0) {

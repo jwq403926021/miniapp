@@ -350,7 +350,8 @@ Page({
         isTest: data.isTest,
         testPrice: data.testPrice,
         estimatePrice: data.estimatePrice,
-        workerText: data.workerText
+        workerText: data.workerText,
+        investigatorId: data.investigatorId
       }
     }, function (err, res) {
       if (res.code == 0) {
