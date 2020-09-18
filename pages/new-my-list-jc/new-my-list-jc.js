@@ -172,7 +172,12 @@ Page({
     })
   },
   onPullDownRefresh () {
-    this.getInitData()
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
   },
   openFilterStatusPop () {
     this.setData({
@@ -352,7 +357,12 @@ Page({
     })
   },
   onShow () {
-    this.getInitData()
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
   },
   onLoad: function () {
     let _this = this
