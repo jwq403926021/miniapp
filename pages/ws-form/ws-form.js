@@ -175,7 +175,7 @@ Page({
   },
   checkPhone (str, msg){
     str = str.replace(/\s/g, '')
-    if(!(/^1[3456789]\d{9}$/.test(str))){
+    if(!(/^(((0\d{2,3}-){0,1}\d{7,8})|(1[345678]\d{9}))$/.test(str))){
       wx.showToast({
         mask: true,
         title: msg,
