@@ -28,7 +28,7 @@ Page({
       '20': '待客服人员处理',
       '30': '待指派测漏',
       '31': '待测漏人员处理',
-      '32': '已测漏',
+      '32': '已测漏,待合作商处理',
       '40': '待合作商完善',
       '41': '待报价中心报价',
       '42': '合作商已驳回',
@@ -324,7 +324,7 @@ Page({
         })
         return false
       }
-      if (data.isTest == null || data.isTest == '') {
+      if (!isSave && (data.isTest == null || data.isTest == '')) {
         wx.showToast({
           mask: true,
           title: '请选择是否测漏',

@@ -297,7 +297,7 @@
                 </view>
             </view>
         </block>
-        <block wx:if="{{taskData.offerText}}">
+        <block wx:if="{{role != 1 && taskData.offerText}}">
             <view class="weui-cells__title">报价备注</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -308,42 +308,44 @@
             </view>
         </block>
 
-        <view wx:if="{{status != null && role != 8 && role != 27}}" class="button-sp-area two-btn-wrap">
+        <view wx:if="{{status != null && role != 8}}" class="button-sp-area two-btn-wrap">
             <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
                 {{((role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
             </button>
-            <button data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
+            <button wx:if="{{role != 27}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
                 {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
             </button>
         </view>
 
-        <view class="weui-cells__title">报案信息图片</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-                    <view class="weui-uploader">
-                        <view class="weui-uploader__bd">
-                            <view class="weui-uploader__files" id="uploaderInformationFiles">
-                                <view class="no-image" wx:if="{{informationImageFiles.length == 0 && !(status == null && role == 1)}}">
-                                    无图片
-                                </view>
-                                <block wx:for="{{informationImageFiles}}" wx:key="index">
-                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="informationImageFiles">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{status == null && role == 1}}" data-id="{{item.id}}" catchtap="removeImage" data-name="informationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+        <block wx:if="{{role != 27}}">
+            <view class="weui-cells__title">报案信息图片</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files" id="uploaderInformationFiles">
+                                    <view class="no-image" wx:if="{{informationImageFiles.length == 0 && !(status == null && role == 1)}}">
+                                        无图片
                                     </view>
-                                </block>
-                            </view>
-                            <view class="weui-uploader__input-box" wx:if="{{status == null && role == 1}}">
-                                <view class="weui-uploader__input" bindtap="chooseImage" data-name="informationImageFiles"></view>
+                                    <block wx:for="{{informationImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="informationImageFiles">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{status == null && role == 1}}" data-id="{{item.id}}" catchtap="removeImage" data-name="informationImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{status == null && role == 1}}">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="informationImageFiles"></view>
+                                </view>
                             </view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
+        </block>
 
-        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4}}">
+        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4 && role != 27 && role != 23}}">
             <view class="weui-cells__title">损失清单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -369,7 +371,9 @@
                     </view>
                 </view>
             </view>
+        </block>
 
+        <block wx:if="{{role != 27 && role != 23}}">
             <view class="weui-cells__title">授权书、保单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -397,7 +401,9 @@
                     </view>
                 </view>
             </view>
+        </block>
 
+        <block wx:if="{{role != 27 && role != 23}}">
             <view class="weui-cells__title">施工完成</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -425,7 +431,9 @@
                     </view>
                 </view>
             </view>
+        </block>
 
+        <block wx:if="{{role != 27 && role != 23}}">
             <view class="weui-cells__title">验收</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -453,7 +461,9 @@
                     </view>
                 </view>
             </view>
+        </block>
 
+        <block wx:if="{{role != 23}}">
             <view class="weui-cells__title">测漏图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">

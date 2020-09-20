@@ -11,7 +11,7 @@ Page({
       '20': '待客服人员处理',
       '30': '待指派测漏',
       '31': '待测漏人员处理',
-      '32': '已测漏',
+      '32': '已测漏,待合作商处理',
       '40': '待合作商完善',
       '41': '待报价中心报价',
       '42': '合作商已驳回',
@@ -203,7 +203,9 @@ Page({
     } else if (name == 'proType'){
       nameMap[`${target}[${pindex}].proType`] = e.detail.id
     }
-    this.setData(nameMap)
+    this.setData(nameMap, () => {
+      this.calculate()
+    })
     this.onClose()
   },
   openLocation() {
@@ -331,6 +333,7 @@ Page({
       return item
     })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
+    coinInsert = coinInsert < 1 ? 1 : coinInsert
     this.setData({
       computedCateogryTotalPrice: computedCateogryTotalPrice,
       amountMoney: (amountMoney || 0).toFixed(2),
@@ -442,7 +445,7 @@ Page({
       if (list.length > 0) {
         _this.data.offerList = []
         list.forEach(item => {
-          let proIndex = _this.data.offerList.findIndex(ll => ll.proId === item.proId)
+          let proIndex = _this.data.offerList.findIndex(ll => ll.proType === parseInt(item.proType))
           if (proIndex === -1) {
             _this.data.offerList.push({
               proName: item.proName,
@@ -728,16 +731,10 @@ Page({
       offerResult: this.data.offerResult, // 报价合计
       offerListTotal: this.data.offerListTotal, // 报价列表合计
       incompleteTotal: this.data.incompleteTotal, // 残值合计
-      hasTax: this.data.hasTax ? '1' : '0' // 是否有税
-    }
-    if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
-      wx.showToast({
-        mask: true,
-        title: '请填写工程项目名称和类型',
-        icon: 'none',
-        duration: 1000
-      })
-      return
+      hasTax: this.data.hasTax ? '1' : '0', // 是否有税
+      handlingType: this.data.constructionMethod,
+      workerId: this.data.workerId,
+      surveyId: this.data.investigatorId
     }
     if (!this.data.offerList.length) {
       wx.showToast({
@@ -843,15 +840,6 @@ Page({
       handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
       surveyId: this.data.investigatorId
-    }
-    if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
-      wx.showToast({
-        mask: true,
-        title: '请填写工程项目名称和类型',
-        icon: 'none',
-        duration: 1000
-      })
-      return
     }
     if (!this.data.offerList.length) {
       wx.showToast({
