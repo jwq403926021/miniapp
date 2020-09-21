@@ -40,7 +40,6 @@ Page({
       '62': '报价中心驳回',
       '11': '已办结'
     },
-    isNeedReportId: false,
     taskData: {
       "reportId": '',
       "cityId": '',
@@ -1071,8 +1070,7 @@ Page({
       region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
-      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : '',
-      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000 && app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2
+      'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
     })
     util.request({
       path: '/sys/area/list',
