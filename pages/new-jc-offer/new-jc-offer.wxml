@@ -19,37 +19,10 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">工单状态</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{statusMap[status]}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">是否测漏</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{['否', '是'][isTest] || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input readonly">{{testPrice || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">区域</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -76,18 +49,6 @@
                     <view>
                         <view class="pro-wrap" wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project">
                             <view class="row-item offerListRow">
-                                <view class="weui-cell weui-cell_input no-padding one-line">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">工程名称</view>
-                                    </view>
-                                    <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                                        <text class="weui-input readonly">{{project.proName || '-'}}</text>
-                                    </view>
-                                    <view class="weui-cell__bd" wx:else>
-                                        <input placeholder-class="editable" class="weui-input editable" bindinput="inputgetName" data-name='proName' data-pindex="{{pindex}}"
-                                               value="{{project.proName}}" placeholder="请输入工程名称"/>
-                                    </view>
-                                </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">工程类型</view>
@@ -191,17 +152,6 @@
                                     </view>
                                     <view class="weui-cell__bd">
                                         <text class="weui-input readonly">{{item.itemTotal || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input no-padding one-line">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">修复方式</view>
-                                    </view>
-                                    <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
-                                        <text class="weui-input readonly">{{item.handleType || '-'}}</text>
-                                    </view>
-                                    <view class="weui-cell__bd h28 editable" bindtap="openHandleTypeSheet" data-name='handleType' data-pindex="{{pindex}}" data-index="{{index}}" wx:else>
-                                        {{item.handleType !== '' ? handleTypeList[item.handleType].name : '请选择修复方式'}}
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">

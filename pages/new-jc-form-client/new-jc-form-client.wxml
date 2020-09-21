@@ -22,9 +22,7 @@
                 <van-col span="18">
                     <view class="client-upload-btn-wrap">
                         <view bindtap="goToClientUpload" data-type="0" class="btn">资料</view>
-                        <view bindtap="goToClientUpload" data-type="1" class="btn">事故源</view>
-                        <view bindtap="goToClientUpload" data-type="2" class="btn">全景</view>
-                        <view bindtap="goToClientUpload" data-type="3" class="btn">细节</view>
+                        <view bindtap="goToClientUpload" data-type="2" class="btn">损失图片</view>
                     </view>
                 </van-col>
             </van-row>

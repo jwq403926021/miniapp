@@ -9,7 +9,16 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"checkSiteMap": false
+		"checkInvalidKey": true,
+		"checkSiteMap": false,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.4",
@@ -78,6 +87,13 @@
 					"name": "pages/new-my-list-jc/new-my-list-jc",
 					"pathName": "pages/new-my-list-jc/new-my-list-jc",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/new-ws-form/new-ws-form",
+					"pathName": "pages/new-ws-form/new-ws-form",
+					"query": "id=20200810204054000107",
 					"scene": null
 				}
 			]
