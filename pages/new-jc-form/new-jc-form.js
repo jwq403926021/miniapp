@@ -286,32 +286,12 @@ Page({
     let data = this.data.taskData
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
-    let result
-    if (isSave) {
-      result = this.checkUploadImages(familyImages, true)
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      result = this.checkUploadImages(familyImages)
-      if (result.flag) {
-        result.data.map(item => {
-          if (item.path.indexOf('https://') == -1){
-            familyImagesList.push(item)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: result.data,
-          icon: 'none',
-          duration: 1000
-        })
-        return false
+    let result = this.checkUploadImages(familyImages, true)
+    result.data.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        familyImagesList.push(item)
       }
-    }
+    })
     let uploadImageList = this.prepareUploadImage()
 
     if (!isOfferSave) {
