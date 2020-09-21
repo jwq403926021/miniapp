@@ -37,7 +37,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{flowId == null || (role == 8 && (status == 20 || status == 52))}}">
+                <view class="weui-cell__bd" wx:if="{{status == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.reportId}}" placeholder="报案号"/>
                 </view>
