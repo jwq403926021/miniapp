@@ -38,7 +38,7 @@
                     <view class="weui-label">报案号</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{status == null}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportId'
                            value="{{taskData.reportId}}" placeholder="报案号"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
@@ -373,7 +373,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23}}">
+        <block wx:if="{{role != 27 && role != 23 && status != null}}">
             <view class="weui-cells__title">授权书、保单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -403,7 +403,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23}}">
+        <block wx:if="{{role != 27 && role != 23 && status != null}}">
             <view class="weui-cells__title">施工完成</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -433,7 +433,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23}}">
+        <block wx:if="{{role != 27 && role != 23 && status != null}}">
             <view class="weui-cells__title">验收</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -463,7 +463,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 23}}">
+        <block wx:if="{{role != 23 && status != null}}">
             <view class="weui-cells__title">测漏图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
