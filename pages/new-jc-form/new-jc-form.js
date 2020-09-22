@@ -238,6 +238,8 @@ Page({
   bindTapToOffer (event) {
     if (this.data.role == 12 && (this.data.status == 32 || this.data.status == 40 || this.data.status == 62)) {
       this.workerCommit(null, true, true)
+    } else if (this.data.role == 23 && this.data.status == 51) {
+      this.losserCommit(null, true, true)
     } else {
       wx.navigateTo({
         url: (this.data.role == 1 || this.data.role == 5 || this.data.role == 6 || this.data.role == 7) ? `../new-jc-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
@@ -280,7 +282,7 @@ Page({
   },
   workerCommit (event, save = false, isOfferSave = false) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
+    const type = event ? event.currentTarget.dataset.type : '';
     let isSave = type == 2 || save
     let data = this.data.taskData
     let familyImagesList = []
@@ -518,10 +520,10 @@ Page({
       }
     })
   },
-  losserCommit (event) {
+  losserCommit (event, isSave, isOfferSave = false) {
     let _this = this
-    const type = event.currentTarget.dataset.type;
-    let url = type == 1 ? `/app/businessinsurancefamilynew/losserCommit` : `/app/businessinsurancefamilynew/losserSave`
+    const type = event ? event.currentTarget.dataset.type : '';
+    let url = (type == 2 || isSave) ? `/app/businessinsurancefamilynew/losserSave` : `/app/businessinsurancefamilynew/losserCommit`
 
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
@@ -553,17 +555,23 @@ Page({
         if (imgPaths.length) {
           _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
         } else {
-          wx.showToast({
-            mask: true,
-            title: '提交成功',
-            icon: 'success',
-            duration: 1000,
-            success () {
-              setTimeout(() => {
-                _this.goToList()
-              }, 1000)
-            }
-          })
+          if (isOfferSave) {
+            wx.navigateTo({
+              url: `../new-jc-offer/new-jc-offer?id=${_this.data.flowId}`
+            })
+          } else {
+            wx.showToast({
+              mask: true,
+              title: '提交成功',
+              icon: 'success',
+              duration: 1000,
+              success () {
+                setTimeout(() => {
+                  _this.goToList()
+                }, 1000)
+              }
+            })
+          }
         }
       } else {
         wx.showToast({
