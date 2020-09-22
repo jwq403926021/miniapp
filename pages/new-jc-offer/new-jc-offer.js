@@ -118,7 +118,8 @@ Page({
     constructionMethod: '',
     isTest: '0',
     testPrice: 0,
-    reportId: ''
+    reportId: '',
+    investigatorCityCode: ''
   },
   initArea () {
     try {
@@ -479,7 +480,8 @@ Page({
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
-        coinLevel: data.level || 1
+        coinLevel: data.level || 1,
+        investigatorCityCode: data.investigatorCityCode || ''
       }
       _this.setData(result, () => {
         _this.getRegionLabel()

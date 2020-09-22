@@ -65,7 +65,8 @@ Page({
     testPrice: 0,
     reportId: '',
     isTest: '',
-    computedCateogryTotalPrice: ''
+    computedCateogryTotalPrice: '',
+    investigatorCityCode: ''
   },
   onLoad: function (routeParams) {
     try {
@@ -140,7 +141,8 @@ Page({
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax == 1 ? true : false,
-        coinLevel: data.level || 1
+        coinLevel: data.level || 1,
+        investigatorCityCode: data.investigatorCityCode || ''
       }
       _this.setData(result, () => {
         _this.calculate()

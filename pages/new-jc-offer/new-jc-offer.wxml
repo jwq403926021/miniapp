@@ -377,7 +377,7 @@
             </van-collapse>
         </view>
 
-        <view style="text-align: right; padding-right: 10px;">
+        <view wx:if="{{investigatorCityCode == 210200}}" style="text-align: right; padding-right: 10px;">
             <rich-text class="weui-input readonly" nodes="{{computedCateogryTotalPrice}}"></rich-text>
         </view>
 <!--        <view style="text-align: right; padding-right: 10px;">-->

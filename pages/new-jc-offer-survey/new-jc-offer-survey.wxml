@@ -146,7 +146,7 @@
             <view class="offer-total">
                 <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
                 <view wx:if="{{hasTax}}">总税额: {{tax || 0}}</view>
-                <rich-text nodes="{{computedCateogryTotalPrice}}"></rich-text>
+                <rich-text wx:if="{{investigatorCityCode == 210200}}" nodes="{{computedCateogryTotalPrice}}"></rich-text>
                 <view>总报价: {{offerResult || 0}}</view>
             </view>
         </view>
