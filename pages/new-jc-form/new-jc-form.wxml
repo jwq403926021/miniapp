@@ -41,7 +41,7 @@
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerName'
                            value="{{taskData.reportId}}" placeholder="报案号"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.reportId || '-'}}</text>
                 </view>
             </view>
