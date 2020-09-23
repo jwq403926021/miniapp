@@ -35,7 +35,7 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input" wx:if="{{isNeedReportId}}">
+            <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
@@ -43,7 +43,7 @@
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportId'
                            value="{{taskData.reportId}}" placeholder="报案号"/>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{ id != null && !(role == 1 && status == 29) && !(role == 8 && status == 20) }}">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.reportId || '-'}}</text>
                 </view>
             </view>

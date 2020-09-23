@@ -310,6 +310,7 @@ Page({
         "taskData.losserPhone": data.losserPhone || '',
         "taskData.servicerName": data.servicerName || '',
         "taskData.servicerPhone": data.servicerPhone || '',
+        "taskData.reportId": data.reportId || '',
         informationImageFiles: informationImageFiles,
         caleImageFiles: caleImageFiles,
         authorityImageFiles: authorityImageFiles,
