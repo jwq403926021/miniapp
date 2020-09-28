@@ -538,17 +538,34 @@ Page({
     let _this = this
     const type = event ? event.currentTarget.dataset.type : '';
     let url = (type == 2 || isSave) ? `/app/businessinsurancefamilynew/losserSave` : `/app/businessinsurancefamilynew/losserCommit`
-
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages, true)
-    result.data.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        familyImagesList.push(item)
+    let result = this.checkUploadImages(familyImages)
+    if (isSave) {
+      result.data.map(item => {
+        if (item.path.indexOf('https://') == -1){
+          familyImagesList.push(item)
+        }
+      })
+    } else {
+      if (result.flag) {
+        result.data.map(item => {
+          if (item.path.indexOf('https://') == -1){
+            familyImagesList.push(item)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: result.data,
+          icon: 'none',
+          duration: 1000
+        })
+        return false
       }
-    })
+    }
     let uploadImageList = this.prepareUploadImage()
-
+    return
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -958,9 +975,9 @@ Page({
         electrical: [],// 家电及文体用品 2002
         cloths: [],// 衣物床品 2003
         furniture: [],// 家具及其他生活用品 2004
-        overall : [],// 全景 2005
+        overall : [],// 损失图片 2005
         certificate: [],// 房产证、楼号、门牌号 2006
-        identification: [],// 省份证 2007
+        identification: [],// 省份证 银行卡 2007
         bank: [],// 银行卡 2008
         register: [],// 户口本、关系证明 2009
         source: []// 事故源 2010
@@ -1373,13 +1390,13 @@ Page({
         result = '家具及其他生活用品'
         break
       case 'overall':
-        result = '全景'
+        result = '损失图片'
         break
       case 'certificate':
         result = '房产证、楼号、门牌号'
         break
       case 'identification':
-        result = '身份证'
+        result = '身份证、银行卡'
         break
       case 'bank':
         result = '银行卡'
@@ -1396,9 +1413,10 @@ Page({
   checkUploadImages (familyImages, flag) {
     let clientIndexArr = []
     let familyImagesList = []
-    // Require-->: ['certificate','identification']
-    let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'bank', 'source']
-    let excludeThird = ['house', 'electrical', 'cloths', 'furniture', 'overall', 'certificate', 'identification', 'bank', 'register', 'source']
+    // customer Require-->: ['identification']
+    // third person Require-->: ['certificate', 'overall']
+    let exclude = ['register', 'house', 'electrical', 'cloths', 'furniture', 'overall', 'certificate', 'bank', 'source']
+    let excludeThird = ['house', 'electrical', 'cloths', 'furniture', 'identification', 'bank', 'register', 'source']
     for(let key in familyImages) {
       if (Array.isArray(familyImages[key])) {
         familyImages[key].forEach(item => {
@@ -1436,10 +1454,6 @@ Page({
         if (Array.isArray(familyImages[key])) {
           _arr = familyImages[key].filter(item => {return item.clientIndex == clientIndexArr[i]})
         }
-        if (key == 'identification' && clientIndexArr[i] == 0 && _arr.length != 2) {
-          str = `出险方身份证图片须传2张`
-          break
-        }
         if (!_arr.length) {
           str = `${clientIndexArr[i] == 0 ? '出险方' : ('第三者' + clientIndexArr[i])}未上传${this.getImageTypeStr(key)}`
           break
@@ -1447,12 +1461,6 @@ Page({
       }
     }
     if (str == '') {
-      if (familyImagesList.length == 0) {
-        return {
-          flag: false,
-          data: '图片信息不能为空'
-        }
-      }
       return {
         flag: true,
         data: familyImagesList
