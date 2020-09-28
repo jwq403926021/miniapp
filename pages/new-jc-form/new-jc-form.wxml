@@ -205,6 +205,22 @@
                     <text class="weui-input readonly">{{['否', '是'][taskData.isTest] || '-'}}</text>
                 </view>
             </view>
+
+            <view class="weui-cell weui-cell_select" wx:if="{{role != 27 && role != 23 && status != null}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">验收</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{role == 12 && (taskData.weatherCheck == 0 || taskData.weatherCheck == null)}}">
+                    <van-button type="primary" size="small" bindtap="handleWeatherCheck">确认验收</van-button>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{taskData.weatherCheck == 1}}">
+                    <text class="weui-input readonly">已验收</text>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{role != 12 && (taskData.weatherCheck == 0 || taskData.weatherCheck == null)}}">
+                    <text class="weui-input readonly">未验收</text>
+                </view>
+            </view>
+
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{(taskData.testPrice || role == 12 || role == 27) && taskData.isTest == 1}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
@@ -424,36 +440,6 @@
                                     </view>
                                     <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
                                         <view class="weui-uploader__input" bindtap="chooseImage" data-name="completeImageFiles"></view>
-                                    </view>
-                                </view>
-                            </view>
-                        </view>
-                    </view>
-                </view>
-            </view>
-        </block>
-
-        <block wx:if="{{role != 27 && role != 23 && status != null}}">
-            <view class="weui-cells__title">验收</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__bd">
-                                    <view class="weui-uploader__files" id="uploadercaleFiles">
-                                        <view class="no-image" wx:if="{{acceptanceImageFiles.length == 0 && !(role == 12)}}">
-                                            无图片
-                                        </view>
-                                        <block wx:for="{{acceptanceImageFiles}}" wx:key="index">
-                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="acceptanceImageFiles">
-                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-id="{{item.id}}" data-name="acceptanceImageFiles" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
-                                            </view>
-                                        </block>
-                                    </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
-                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="acceptanceImageFiles"></view>
                                     </view>
                                 </view>
                             </view>

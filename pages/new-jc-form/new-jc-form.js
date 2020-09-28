@@ -832,6 +832,25 @@ Page({
       'losserLabel': this.losserListSource[event.detail.value].name
     })
   },
+  handleWeatherCheck () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/weatherCheck',
+      method: 'GET',
+      data: {
+        flowId: this.data.orderId
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.setData({
+        'taskData.weatherCheck': 1
+      })
+    })
+  },
   setFinishCase (event) {
     let _this = this
     const id = event.currentTarget.dataset.id;
@@ -1012,6 +1031,7 @@ Page({
         'id': data.flowId,
         'flowId': data.flowId,
         'status': data.status,
+        'taskData.weatherCheck': data.weatherCheck,
         'taskData.finishCase': data.finishCase,
         'taskData.workStatus': data.workStatus,
         'taskData.countryId': data.areaCountry,

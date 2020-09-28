@@ -6,6 +6,7 @@
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-icon": "../../asset/vant/icon/index",
     "van-action-sheet": "../../asset/vant/action-sheet/index",
-    "van-dialog": "../../asset/vant/dialog/index"
+    "van-dialog": "../../asset/vant/dialog/index",
+    "van-button": "../../asset/vant/button/index"
   }
 }
