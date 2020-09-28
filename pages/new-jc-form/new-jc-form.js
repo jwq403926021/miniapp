@@ -839,7 +839,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessinsurancefamilynew/weatherCheck',
+      path: '/app/businessinsurancefamilynew/workCheck',
       method: 'GET',
       data: {
         flowId: this.data.orderId
