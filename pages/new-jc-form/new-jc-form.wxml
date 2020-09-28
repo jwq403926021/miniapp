@@ -325,15 +325,6 @@
             </view>
         </block>
 
-        <view wx:if="{{status != null && role != 8}}" class="button-sp-area two-btn-wrap">
-            <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
-                {{((role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
-            </button>
-            <button wx:if="{{role != 27}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
-                {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
-            </button>
-        </view>
-
         <block wx:if="{{role != 27}}">
             <view class="weui-cells__title">报案信息图片</view>
             <view class="weui-cells weui-cells_after-title">
@@ -646,6 +637,15 @@
                 </view>
             </view>
         </block>
+
+        <view wx:if="{{status != null && role != 8}}" class="button-sp-area two-btn-wrap">
+            <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
+                {{((role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
+            </button>
+            <button wx:if="{{role != 27}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
+                {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
+            </button>
+        </view>
 
         <view wx:if="{{status == null && role == 1}}" class="button-sp-area two-btn-wrap"> <!--查勘员-->
             <button data-type="1" type="primary" bindtap="surveyCommit">提交</button>
