@@ -660,19 +660,17 @@
             <button data-type="2" bindtap="workerCommit">暂存</button>
         </view>
         <block wx:if="{{(role == 12 && (status == 40))}}"><!--施工-->
-            <view class="button-sp-area">
-                <button type="primary" bindtap="workerCancel">注销</button>
-            </view>
-            <view class="button-sp-area">
+            <view class="button-sp-area two-btn-wrap">
                 <button type="primary" bindtap="workerReject">驳回</button>
+                <button type="primary" bindtap="workerCancel">注销</button>
             </view>
             <view class="button-sp-area">
                 <button type="primary" bindtap="workerNeedTest">需要测漏</button>
             </view>
         </block>
 
-        <view class="button-sp-area" wx:if="{{role == 12}}">
-            <button type="primary" bindtap="workerUploadImage">上传图片</button>
+        <view class="button-sp-area" wx:if="{{role == 12 && status != 40}}">
+            <button type="primary" bindtap="workerUploadImage">上传施工完成图片</button>
         </view>
 
         <block wx:if="{{(role == 23 && status == 51)}}">
