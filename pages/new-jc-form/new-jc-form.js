@@ -155,6 +155,20 @@ Page({
     if (this.data.flowId) {
       taskData.flowId = this.data.flowId
     }
+    if (
+      app.globalData.currentRegisterInfo.provinceCode == 310000 &&
+      app.globalData.currentRegisterInfo.sysCompanyEntity &&
+      app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2 &&
+      (data.reportId == '' || data.reportId == null)
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '请输入报案号',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
 
     let isVaidcustomerPhone
     if (taskData.customerPhone != '') {
