@@ -700,10 +700,6 @@
         <view wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" class="button-sp-area">
             <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
         </view>
-
-        <view class="button-sp-area">
-            <button type="primary" bindtap="downloadImages">下载所有图片</button>
-        </view>
     </view>
     <van-popup
             show="{{ show }}"
