@@ -26,12 +26,8 @@ Page({
     activeNames: [0],
     hasTax: true,
     commentToOffer: '',
-    offerRemark: '',
     show: false,
     areaList: {},
-    townCode: '',
-    cityCode: '',
-    provinceCode: '',
     offerList: [],
     incompleteList: [],
     tax: '',
@@ -111,7 +107,7 @@ Page({
       })
       if (list.length > 0) {
         list.forEach(item => {
-          let proIndex = _this.data.offerList.findIndex(ll => ll.proName === item.proName)
+          let proIndex = _this.data.offerList.findIndex(ll => ll.proType == item.proType)
           if (proIndex === -1) {
             _this.data.offerList.push({
               proName: item.proName,
@@ -129,10 +125,6 @@ Page({
       })
       let result = {
         ...data,
-        offerRemark: data.offerRemark,
-        townCode: data.townCode,
-        cityCode: data.cityCode,
-        provinceCode: data.provinceCode,
         offerList: _this.data.offerList,
         incompleteList: incompleteList,
         offerListSource: _this.data.offerList,

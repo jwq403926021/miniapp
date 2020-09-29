@@ -256,7 +256,7 @@ Page({
       this.losserCommit(null, true, true)
     } else {
       wx.navigateTo({
-        url: (this.data.role == 1 || this.data.role == 5 || this.data.role == 6 || this.data.role == 7) ? `../new-jc-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
+        url: (this.data.role == 1 || this.data.role == 5 || this.data.role == 6 || this.data.role == 7) ? `../new-jc-offer-survey/new-jc-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-jc-offer/new-jc-offer?id=${event.currentTarget.dataset.id}`
       })
     }
   },
