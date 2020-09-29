@@ -314,6 +314,31 @@ Page({
     })
     num1 += (this.data.testPrice || 0)
     num3 += (this.data.testPrice || 0)
+
+    let incompletenum1 = 0
+    let incompletenum2 = 0
+    let incompletenum3 = 0
+    let incompletenum4 = 0
+    this.data.incompleteList.forEach(item => {
+      if (parseInt(item.proType) === 0) {
+        incompletenum2 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        incompletenum3 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      } else if (parseInt(item.proType) === 1) {
+        incompletenum1 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        incompletenum3 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      } else if (parseInt(item.proType) === 2) {
+        incompletenum2 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        incompletenum4 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      } else if (parseInt(item.proType) === 3) {
+        incompletenum1 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        incompletenum4 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+      }
+    })
+    num1 -= incompletenum1
+    num2 -= incompletenum2
+    num3 -= incompletenum3
+    num4 -= incompletenum4
+
     offerListTotal += parseFloat(this.data.testPrice || 0)
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
     computedCateogryTotalPrice = `支付平台金额：${num1.toFixed(2)} | 支付被保险人金额：${num2.toFixed(2)}<br/>水渍险合计：${num3.toFixed(2)} | 三者险合计：${num4.toFixed(2)} `
@@ -719,7 +744,7 @@ Page({
     this.data.incompleteList.map(item => {
       item.orderId = this.data.orderId
       item.type = this.data.role == 12 ? 1 : 0
-      let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
+      let proIndex = this.data.offerList.findIndex(ll => parseInt(ll.proType) === parseInt(item.proType))
       this.data.offerList[proIndex].incompleteList.push(item)
     })
     let params = {
@@ -813,7 +838,7 @@ Page({
     this.data.incompleteList.map(item => {
       item.orderId = this.data.orderId
       item.type = this.data.role == 12 ? 1 : 0
-      let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
+      let proIndex = this.data.offerList.findIndex(ll => parseInt(ll.proType) === parseInt(item.proType))
       this.data.offerList[proIndex].incompleteList.push(item)
     })
     this.data.compareList.map((item, index) => {

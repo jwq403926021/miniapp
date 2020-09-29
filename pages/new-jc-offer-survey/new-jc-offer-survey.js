@@ -186,6 +186,30 @@ Page({
       num1 += (this.data.testPrice || 0)
       num3 += (this.data.testPrice || 0)
 
+      let incompletenum1 = 0
+      let incompletenum2 = 0
+      let incompletenum3 = 0
+      let incompletenum4 = 0
+      incompleteList.forEach(item => {
+        if (parseInt(item.proType) === 0) {
+          incompletenum2 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+          incompletenum3 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        } else if (parseInt(item.proType) === 1) {
+          incompletenum1 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+          incompletenum3 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        } else if (parseInt(item.proType) === 2) {
+          incompletenum2 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+          incompletenum4 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        } else if (parseInt(item.proType) === 3) {
+          incompletenum1 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+          incompletenum4 += (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
+        }
+      })
+      num1 -= incompletenum1
+      num2 -= incompletenum2
+      num3 -= incompletenum3
+      num4 -= incompletenum4
+
       incompleteList.forEach(item => {
         let total = (parseFloat(item.unitPrice || 0) * parseFloat(item.num || 0))
         item.itemTotal = total

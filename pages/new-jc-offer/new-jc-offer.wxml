@@ -51,7 +51,7 @@
                             <view class="row-item offerListRow">
                                 <view class="weui-cell weui-cell_input no-padding one-line">
                                     <view class="weui-cell__hd">
-                                        <view class="weui-label">工程类型</view>
+                                        <view class="weui-label">类型</view>
                                     </view>
                                     <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                                         <text class="weui-input readonly">{{project.proType !== '' && project.proType !== null ? proTypeList[project.proType].name : '-'}}</text>
@@ -184,6 +184,15 @@
                 <van-collapse-item wx:if="{{incompleteList.length > 0}}" title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                     <view style="text-align: center;" wx:if="{{incompleteList.length == 0}}">无数据</view>
                     <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
+                        <view class="weui-cell weui-cell_input no-padding">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">类型</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <text class="weui-input readonly">{{['赔偿/被保险人', '施工/被保险人', '赔偿/三者', '施工/三者'][item.proType]}}</text>
+                            </view>
+
+                        </view>
                         <view class="weui-cell weui-cell_input no-padding">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">名称</view>
