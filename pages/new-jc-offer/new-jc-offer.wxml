@@ -184,14 +184,6 @@
                 <van-collapse-item wx:if="{{incompleteList.length > 0}}" title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
                     <view style="text-align: center;" wx:if="{{incompleteList.length == 0}}">无数据</view>
                     <view class="row-item offerListRow" wx:for="{{incompleteList}}" wx:key="index" >
-                        <view class="weui-cell weui-cell_input no-padding one-line">
-                            <view class="weui-cell__hd">
-                                <view class="weui-label">工程名称</view>
-                            </view>
-                            <view class="weui-cell__bd">
-                                <text class="weui-input readonly">{{item.proName || '-'}}</text>
-                            </view>
-                        </view>
                         <view class="weui-cell weui-cell_input no-padding">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">名称</view>

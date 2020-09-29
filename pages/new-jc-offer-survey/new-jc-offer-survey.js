@@ -165,7 +165,7 @@ Page({
     let computedCateogryTotalPrice = ''
 
     offerList.forEach(project => {
-      let incompleteList = this.data.incompleteListSource.filter(item => item.proId == project.proId)
+      let incompleteList = this.data.incompleteListSource.filter(item => item.proType == project.proType)
       let projectOfferTotal = 0
       let projectIncompleteTotal = 0
 

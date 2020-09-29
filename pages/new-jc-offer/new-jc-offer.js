@@ -649,6 +649,7 @@ Page({
       unitPrice: price,
       num,
       proName: this.data.offerList[pindex].proName,
+      proType: this.data.offerList[pindex].proType,
       proId: this.data.offerList[pindex].proId,
       remark: ''
     })
