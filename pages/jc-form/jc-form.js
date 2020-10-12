@@ -1571,11 +1571,11 @@ Page({
       app.globalData.currentRegisterInfo.provinceCode == 310000 &&
       app.globalData.currentRegisterInfo.sysCompanyEntity &&
       app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2 &&
-      (data.reportId == '' || data.reportId == null)
+      (data.reportId == '' || data.reportId == null || !(/^[A-Za-z0-9]+$/.test(data.reportId)))
     ) {
       wx.showToast({
         mask: true,
-        title: '请输入报案号',
+        title: '请输入正确的报案号',
         icon: 'none',
         duration: 1000
       })
