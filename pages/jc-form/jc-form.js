@@ -347,7 +347,7 @@ Page({
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
       'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : '',
-      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000 && app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2
+      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000
     })
     util.request({
       path: '/sys/area/list',
@@ -1569,8 +1569,6 @@ Page({
 
     if (
       app.globalData.currentRegisterInfo.provinceCode == 310000 &&
-      app.globalData.currentRegisterInfo.sysCompanyEntity &&
-      app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2 &&
       (data.reportId == '' || data.reportId == null || !(/^[A-Za-z0-9]+[0-9]$/.test(data.reportId)))
     ) {
       wx.showToast({

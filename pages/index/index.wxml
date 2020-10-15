@@ -35,7 +35,7 @@
         <text class="iconfont icon-fangwuxinxi myicon"></text>
       </view>
       <view>
-        新家财
+        新家财险
       </view>
     </view>
     <!--<view class="new-btn fl" bindtap="goToWsForm" data-type="2" wx:if="{{role == 1}}">-->

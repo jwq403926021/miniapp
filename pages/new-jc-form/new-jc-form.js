@@ -157,8 +157,6 @@ Page({
     }
     if (
       app.globalData.currentRegisterInfo.provinceCode == 310000 &&
-      app.globalData.currentRegisterInfo.sysCompanyEntity &&
-      app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId == 2 &&
       (data.reportId == '' || data.reportId == null || !(/^[A-Za-z0-9]+[0-9]$/.test(data.reportId)))
     ) {
       wx.showToast({
