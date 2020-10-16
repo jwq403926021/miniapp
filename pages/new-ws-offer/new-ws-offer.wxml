@@ -162,7 +162,7 @@
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
                                         <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='price' data-index="{{index}}"
-                                               value="{{item.price}}" placeholder="请输入单价"/>
+                                               value="{{item.price}}" type="number" placeholder="请输入单价"/>
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">
@@ -268,7 +268,7 @@
                             </view>
                             <view class="weui-cell__bd" wx:else>
                                 <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='unitPrice' data-target='incompleteList' data-index="{{index}}"
-                                       value="{{item.unitPrice}}" placeholder="请输入单价"/>
+                                       value="{{item.unitPrice}}" type="number" placeholder="请输入单价"/>
                             </view>
                         </view>
                         <view class="weui-cell weui-cell_input no-padding one-line">
@@ -365,7 +365,7 @@
                                        value="{{item.rate}}" placeholder="请输入税率"/>
                             </view>
                         </view>
-                        <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell weui-cell_input no-padding offerListRow one-line">
                             <view class="weui-cell__hd">
                                 <view class="weui-label">报价合计</view>
                             </view>
