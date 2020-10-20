@@ -309,7 +309,7 @@ Page({
     }
     let filter = {
       page: this.data.page,
-      size: 100
+      size: 20
     }
 
     if (this.data.finishCaseFilter) {
@@ -346,7 +346,7 @@ Page({
       if (res.data.current === _this.data.current && flag) return false
       _this.setData({
         current: res.data.current,
-        totalPage: Math.ceil(res.data.total / 100),
+        totalPage: Math.ceil(res.data.total / 20),
         dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })
     })
