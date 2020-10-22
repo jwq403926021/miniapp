@@ -692,9 +692,9 @@
             </view>
         </block>
 
-        <block wx:if="{{role == 22 && (taskData.status == 50 || taskData.status == 11)}}">
+        <block wx:if="{{taskData.status == 50 || taskData.status == 11}}">
             <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{role == 22}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险公司打款</view>
                     </view>
@@ -706,7 +706,7 @@
                         <text class="weui-input readonly">{{(taskData.insurePay == null || taskData.insurePay == '') ? '-' : taskData.insurePay}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{role == 22}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">管理费</view>
                     </view>
@@ -718,11 +718,11 @@
                         <text class="weui-input readonly">{{(taskData.manageMoney == null || taskData.manageMoney == '') ? '-' : taskData.manageMoney}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{role == 22 || role == 12}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">打给施工方金额</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                    <view class="weui-cell__bd" wx:if="{{role == 22 && taskData.status == 50}}">
                         <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.payWorker'
                                value="{{taskData.payWorker}}" placeholder="垫付金额"/>
                     </view>
@@ -731,18 +731,20 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cells__title">财务备注</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
-                        <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.financeRemark'
-                                  value="{{taskData.financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
-                    </view>
-                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-                        {{taskData.financeRemark || '-'}}
+            <block wx:if="{{role == 22}}">
+                <view class="weui-cells__title">财务备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.financeRemark'
+                                      value="{{taskData.financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{taskData.financeRemark || '-'}}
+                        </view>
                     </view>
                 </view>
-            </view>
+            </block>
         </block>
 
         <block wx:if="{{financeImageFiles.length > 0 || role == 22}}">
