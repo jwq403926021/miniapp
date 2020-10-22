@@ -265,6 +265,10 @@ Page({
     return true
   },
   initArea (callback) {
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
     try {
       let _this = this
       _this.setData({
