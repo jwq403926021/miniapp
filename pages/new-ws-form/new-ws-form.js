@@ -222,8 +222,8 @@ Page({
           _this.initReassignList()
         }
         _this.getRegionLabel()
+        wx.hideLoading()
       })
-      wx.hideLoading()
     })
   },
   checkPhone (str, msg){
@@ -286,6 +286,7 @@ Page({
         }, () => {
           _this.getRegionLabel()
           callback()
+          wx.hideLoading()
         })
       })
     } catch (e) {
