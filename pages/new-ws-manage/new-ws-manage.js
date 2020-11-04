@@ -23,6 +23,7 @@ Page({
   onLoad: function (routeParams) {
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
+        type: routeParams.type,
         id: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
       })
@@ -99,11 +100,11 @@ Page({
     }).length
     if (length) {
       wx.navigateBack({
-        url: '../new-my-list-ws/new-my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.type
       })
     } else {
       wx.redirectTo({
-        url: '../new-my-list-ws/new-my-list-ws'
+        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.type
       })
     }
   }

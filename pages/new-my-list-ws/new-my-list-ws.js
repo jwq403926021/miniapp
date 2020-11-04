@@ -279,7 +279,7 @@ Page({
           dataList: []
         })
         wx.navigateTo({
-          url: '../new-ws-manage/new-ws-manage?id=' + this.id
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.type
         })
         break
     }

@@ -126,11 +126,11 @@ Page({
   initArea () {
     let _this = this
     _this.setData({
-      region: app.globalData.currentRegisterInfo.townCode,
-      'taskData.area': app.globalData.currentRegisterInfo.townCode,
-      'taskData.areaCode': app.globalData.currentRegisterInfo.townCode,
-      'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
-      'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
+      region: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
+      'taskData.area': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
+      'taskData.areaCode': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
+      'taskData.cityCode': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
+      'taskData.provinceCode': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : ''
     })
     util.request({
       path: '/sys/area/list',

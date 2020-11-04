@@ -25,7 +25,7 @@ Page({
   onLoad: function (routeParams) {
     let familyImages = wx.getStorageSync('familyImages')
     this.setData({
-      clientIndex: routeParams.index,
+      clientIndex: routeParams ? routeParams.index : 0,
       type: routeParams.type,
       flowId: routeParams.flowId,
       status: routeParams.status,

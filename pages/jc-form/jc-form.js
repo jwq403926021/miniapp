@@ -347,7 +347,7 @@ Page({
       'taskData.countryId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.townCode : '',
       'taskData.cityId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.cityCode : '',
       'taskData.provinceId': app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode : '',
-      isNeedReportId: app.globalData.currentRegisterInfo.provinceCode == 310000
+      isNeedReportId: app.globalData.currentRegisterInfo ? app.globalData.currentRegisterInfo.provinceCode == 310000 : false
     })
     util.request({
       path: '/sys/area/list',

@@ -116,14 +116,14 @@ Page({
       path: `/app/family/getLosserByCity?city=${_this.data.cityId}`,
       method: 'GET'
     }, function (err, res) {
-      _this.losserListSource = res.data
+      _this.losserListSource = res.data || []
       let losserList = res.data ? res.data.map(item => {
         return item.name
       }) : []
       _this.setData({
         'losserList': losserList,
         'losserValue': 0,
-        'losserLabel': _this.losserListSource[0].name
+        'losserLabel': _this.losserListSource.length > 0 ? _this.losserListSource[0].name : ''
       })
     })
   },
