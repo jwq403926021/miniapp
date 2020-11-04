@@ -199,7 +199,7 @@ Page({
     let _this = this
     let filter = {
       page: this.data.page,
-      size: 100,
+      size: 20,
       plateNumber: this.data.searchCarNumber,
       reportNumber: this.data.searchReportNumber,
       orderId: this.data.searchOrderId,

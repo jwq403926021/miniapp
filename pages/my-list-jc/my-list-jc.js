@@ -297,7 +297,7 @@ Page({
     }
     let filter = {
       page: this.data.page,
-      size: 100
+      size: 20
     }
 
     if (this.data.finishCaseFilter) {
