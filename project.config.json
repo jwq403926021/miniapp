@@ -56,9 +56,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/new-ws-offer/new-ws-offer",
-					"pathName": "pages/new-ws-offer/new-ws-offer",
-					"query": "id=20200609203313000107",
+					"name": "pages/new-jc-offer/new-jc-offer",
+					"pathName": "pages/new-jc-offer/new-jc-offer",
+					"query": "id=20200915194417000108",
 					"scene": null
 				},
 				{
@@ -72,14 +72,14 @@
 					"id": 2,
 					"name": "pages/new-ws-form/new-ws-form",
 					"pathName": "pages/new-ws-form/new-ws-form",
-					"query": "id=20200610125751000107",
+					"query": "id=20201014144946000107",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/jc-form/jc-form",
-					"pathName": "pages/jc-form/jc-form",
-					"query": "id=20200731115925000102",
+					"id": 3,
+					"name": "pages/jc-manage/jc-manage",
+					"pathName": "pages/jc-manage/jc-manage",
+					"query": "id=20201104080357000102&type=2",
 					"scene": null
 				},
 				{
@@ -90,10 +90,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/new-ws-form/new-ws-form",
-					"pathName": "pages/new-ws-form/new-ws-form",
-					"query": "id=20200810204054000107",
+					"id": 5,
+					"name": "pages/new-jc-form/new-jc-form",
+					"pathName": "pages/new-jc-form/new-jc-form",
+					"query": "id=20200920144935000108",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/new-ws-offer/new-ws-offer",
+					"pathName": "pages/new-ws-offer/new-ws-offer",
+					"query": "id=20201026084946000107",
 					"scene": null
 				}
 			]

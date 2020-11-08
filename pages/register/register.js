@@ -98,20 +98,26 @@ Page({
                 'registeInfo.nickName': app.globalData.userInfo.nickName
               })
               if (currentData) {
+                let companyName = ''
+                if (currentData.companyName) {
+                  companyName = currentData.companyName
+                } else if (currentData.sysCompanyEntity) {
+                  companyName = currentData.sysCompanyEntity.companyName
+                }
                 _this.setData({
-                  region: currentData ? currentData.townCode : '',
-                  "registeInfo.cityCode": currentData ? currentData.cityCode : '',
-                  "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-                  "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
-                  "registeInfo.companyType": currentData ? currentData.companyType : '',
-                  "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
-                  "registeInfo.mobile": currentData ? currentData.mobile : '',
-                  "registeInfo.name": currentData ? currentData.name : '',
-                  "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
-                  "registeInfo.role": currentData ? (currentData.role + '') : '',
-                  "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
-                  "registeInfo.townCode": currentData ? currentData.townCode : '',
-                  "registeInfo.coinCount": currentData ? currentData.coinCount : '0'
+                  region:currentData.townCode,
+                  "registeInfo.cityCode":currentData.cityCode,
+                  "registeInfo.companyNameCode":currentData.companyNameCode,
+                  "registeInfo.companyName": companyName,
+                  "registeInfo.companyType":currentData.companyType,
+                  "registeInfo.inviteCode":currentData.inviteCode,
+                  "registeInfo.mobile":currentData.mobile,
+                  "registeInfo.name":currentData.name,
+                  "registeInfo.provinceCode":currentData.provinceCode,
+                  "registeInfo.role":(currentData.role + ''),
+                  "registeInfo.roleName":(currentData.roleName + ''),
+                  "registeInfo.townCode":currentData.townCode,
+                  "registeInfo.coinCount":currentData.coinCount
                 })
               }
             }
@@ -140,7 +146,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        areaList: res.DATA.DATA
+        areaList: res ? res.DATA.DATA : []
       })
       _this.getRegionLabel()
     })
@@ -241,19 +247,25 @@ Page({
 
     let currentData = app.globalData.currentRegisterInfo
     if (currentData) {
+      let companyName = ''
+      if (currentData.companyName) {
+        companyName = currentData.companyName
+      } else if (currentData.sysCompanyEntity) {
+        companyName = currentData.sysCompanyEntity.companyName
+      }
       this.setData({
-        region: currentData ? currentData.townCode : '',
-        "registeInfo.cityCode": currentData ? currentData.cityCode : '',
-        "registeInfo.companyNameCode": currentData ? currentData.companyNameCode : '',
-        "registeInfo.companyName": currentData ? (currentData.companyName || currentData.sysCompanyEntity.companyName) : '',
-        "registeInfo.companyType": currentData ? currentData.companyType : '',
-        "registeInfo.inviteCode": currentData ? currentData.inviteCode : '',
-        "registeInfo.mobile": currentData ? currentData.mobile : '',
-        "registeInfo.name": currentData ? currentData.name : '',
-        "registeInfo.provinceCode": currentData ? currentData.provinceCode : '',
-        "registeInfo.role": currentData ? (currentData.role + '') : '',
-        "registeInfo.roleName": currentData ? (currentData.roleName + '') : '',
-        "registeInfo.townCode": currentData ? currentData.townCode : ''
+        region:currentData.townCode,
+        "registeInfo.cityCode":currentData.cityCode,
+        "registeInfo.companyNameCode":currentData.companyNameCode,
+        "registeInfo.companyName":companyName,
+        "registeInfo.companyType":currentData.companyType,
+        "registeInfo.inviteCode":currentData.inviteCode,
+        "registeInfo.mobile":currentData.mobile,
+        "registeInfo.name":currentData.name,
+        "registeInfo.provinceCode":currentData.provinceCode,
+        "registeInfo.role":(currentData.role + ''),
+        "registeInfo.roleName":(currentData.roleName + ''),
+        "registeInfo.townCode":currentData.townCode
       })
     }
   },

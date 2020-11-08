@@ -138,7 +138,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        areaList: res.DATA.DATA
+        areaList: res ? res.DATA.DATA : []
       })
     })
   },

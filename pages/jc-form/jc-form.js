@@ -354,7 +354,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        areaList: res.DATA.DATA
+        areaList: res ? res.DATA.DATA : []
       })
       _this.getRegionLabel()
     })
@@ -1625,7 +1625,7 @@ Page({
       method: 'POST',
       data: taskData
     }, function (err, res) {
-      if (res.code == 0) {
+      if (res && res.code == 0) {
         _this.id = res.data.flowId || _this.data.id
         let imgPaths = [...informationImageFiles]
         let count = 0

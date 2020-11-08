@@ -129,7 +129,7 @@ Page({
         method: 'GET'
       }, function (err, res) {
         _this.setData({
-          areaList: res.DATA.DATA
+          areaList: res ? res.DATA.DATA : []
         })
       })
     } catch (e) {
@@ -438,7 +438,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        areaList: res.DATA.DATA,
+        areaList: res ? res.DATA.DATA : [],
         options: _this.formatAreaOptions(res.DATA.DATA)
       })
       _this.loadData()

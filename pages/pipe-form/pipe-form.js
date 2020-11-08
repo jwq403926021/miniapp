@@ -43,7 +43,7 @@ Page({
   },
   onLoad: function (routeParams ) {
     this.initArea()
-    if (routeParams && routeParams.id) {
+    if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         id: routeParams.id,
         orderId: routeParams.orderId,
@@ -138,7 +138,7 @@ Page({
       method: 'GET'
     }, function (err, res) {
       _this.setData({
-        areaList: res.DATA.DATA
+        areaList: res ? res.DATA.DATA : []
       })
       _this.getRegionLabel()
     })
