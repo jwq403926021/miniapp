@@ -331,7 +331,7 @@ Page({
       wx.hideLoading()
       wx.stopPullDownRefresh()
       let data = _this.data.dataList || []
-      if (res.data.current === _this.data.current) return false
+      if (res && res.data.current === _this.data.current) return false
       _this.setData({
         current: res.data.current,
         totalPage: res.data.total,
