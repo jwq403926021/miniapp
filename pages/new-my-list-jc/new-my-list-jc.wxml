@@ -45,6 +45,7 @@
           <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
           <view>肇事方：{{item.customerName || '-'}}</view>
           <view>创建时间：{{item.createDate || '-'}}</view>
+          <view wx:if="{{role == 22}}">报价时间：{{item.offerCommittime || '-'}}</view>
         </view>
       </view>
     </view>

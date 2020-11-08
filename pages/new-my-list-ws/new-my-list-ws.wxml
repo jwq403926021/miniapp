@@ -50,6 +50,7 @@
           <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 22}}">施工人员：{{item.workerUser || '-'}}</view>
           <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
           <view>创建时间：{{item.createTime || '-'}}</view>
+          <view wx:if="{{role == 22}}">报价时间：{{item.offerTime || '-'}}</view>
         </view>
       </view>
     </view>
