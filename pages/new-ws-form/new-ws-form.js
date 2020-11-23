@@ -99,22 +99,26 @@ Page({
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
       }, () => {
-        this.initDataById(routeParams.id)
+        this.initDataById(routeParams.id, routeParams.flag || null)
       })
     }
   },
-  initDataById (id) {
+  initDataById (id, flag) {
     let _this = this
     wx.showLoading({
       mask: true,
       title: '加载中'
     })
+    let params = {
+      orderId: id
+    }
+    if (flag) {
+      params.flag = flag
+    }
     util.request({
       path: '/app/businessdamagenew/damageDetail',
       method: 'GET',
-      data: {
-        orderId: id
-      }
+      data: params
     }, function (err, res) {
       let data = res.data
 
