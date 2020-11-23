@@ -5,6 +5,19 @@ button {
   padding: 0rpx;
 }
 
+.tip {
+  line-height: 50rpx;
+  float: left;
+}
+.copy{
+  float: left;
+}
+.copy button{
+  width: 60px;
+  font-size: 14px;
+  line-height: 50rpx;
+}
+
 .plate-number-keyboard-box {
   position: absolute;
   top: 0rpx;
@@ -35,12 +48,15 @@ button {
   overflow: hidden;
 }
 
-.pnk-main-title text {
+
+.fl {
   float: left;
+}
+.fr {
+  float: right;
 }
 
 .pnk-main-title .iconfont {
-  float: right;
   width: 70rpx;
   height: 50rpx;
   font-size: 40rpx;
