@@ -217,7 +217,7 @@ Page({
         break
       case '2':
         url = '/app/businessinsurancefamilynew/updateWorker'
-        params.partnerId = _this.workListSource[_this.data.workerValue]['user_id']
+        params.workerId = _this.workListSource[_this.data.workerValue]['user_id']
         params.customerPhone = _this.data.customerPhone
         params.customerName = _this.data.customerName
         params.investigatorText = _this.data.investigatorText
