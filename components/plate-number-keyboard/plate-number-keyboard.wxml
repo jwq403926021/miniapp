@@ -2,8 +2,13 @@
 <view class='plate-number-keyboard-box' wx:if="{{show}}" catch:touchmove="_preventTouch" catchtap='_closeKeyboard'>
   <view class='pnk-main' catch:touchmove='_preventDefault' animation="{{animationData}}">
     <view class='pnk-main-title'>
-      <text>请点击选择车牌号：</text>
-      <view class='iconfont icon-arrow-down' catchtap='_closeKeyboard'></view>
+      <view class="fl">
+        <view class="tip">请点击选择车牌号：</view>
+        <view class="copy">
+          <button catchtap='_paste'>粘贴</button>
+        </view>
+      </view>
+      <view class='fr iconfont icon-arrow-down' catchtap='_closeKeyboard'></view>
     </view>
     <view class='pnk-content'>
       <!-- 省份面板 -->

@@ -107,6 +107,18 @@ Component({
         }.bind(this), 300);
       }.bind(this), 100);
     },
+    _paste: function(e) {
+      let _this = this
+      wx.getClipboardData({
+        success: function(res){
+          _this.setData({
+            plateNumber: res.data
+          })
+          _this._handleResult();
+          _this._closeKeyboard()
+        }
+      })
+    },
     /* 触发外部绑定事件，传递结果值 */
     _handleResult: function() {
       const myEventDetail = {
