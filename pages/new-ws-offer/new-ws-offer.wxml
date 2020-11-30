@@ -56,6 +56,32 @@
                     <text class="weui-input readonly">{{hasTax == 1 || hasTax == true ? '是' : '否'}}</text>
                 </view>
             </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">初步估损金额</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{role == 13 && status == 41}}">
+                    <input class="weui-input" type="digit" bindinput="inputgetName" data-name='budgetPreliminary'
+                           value="{{budgetPreliminary}}"  placeholder="初步估损金额"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{(budgetPreliminary == null || budgetPreliminary == '') ? '-' : budgetPreliminary}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">受损方索赔金额</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{role == 13 && status == 41}}">
+                    <input class="weui-input" type="digit" bindinput="inputgetName" data-name='damageMoney'
+                           value="{{damageMoney}}"  placeholder="受损方索赔金额"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{(damageMoney == null || damageMoney == '') ? '-' : damageMoney}}</text>
+                </view>
+            </view>
         </view>
 
         <view wx:if="{{isAllowEdit}}" style="margin: 10px 0;">

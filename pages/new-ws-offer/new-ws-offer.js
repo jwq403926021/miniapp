@@ -101,7 +101,9 @@ Page({
     active0: true,
     active1: false,
     plateNumber: '',
-    reportNumber : ''
+    reportNumber : '',
+    damageMoney: '',
+    budgetPreliminary: ''
   },
   initArea () {
     try {
@@ -439,6 +441,8 @@ Page({
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,
         offerList: _this.data.offerList,
+        damageMoney: data.damageMoney,
+        budgetPreliminary: data.budgetPreliminary,
         incompleteList: res.incompleteList.filter(item => {
           if (_this.data.role === 12) {
             return item.type === '1'
@@ -809,7 +813,9 @@ Page({
       customerUser: this.data.customerUser,
       handlingType: this.data.handlingType,
       workerId: this.data.workerId,
-      surveyId: this.data.surveyId
+      surveyId: this.data.surveyId,
+      damageMoney: this.data.damageMoney,
+      budgetPreliminary: this.data.budgetPreliminary
     }
     if (this.data.offerList.filter(item => item.proName === '' || item.proType === '' || item.proName === null || item.proType === null).length > 0) {
       wx.showToast({
