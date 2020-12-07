@@ -66,11 +66,7 @@
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">大类</view>
                                     </view>
-                                    <view class="weui-cell__bd" wx:if="{{(item.mainId == null || item.mainId == '') && ((role == 12 && (status == 13 || status == 43)) || (role == 13 && status == 41))}}">
-                                        <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='mainName' data-index="{{index}}"
-                                               value="{{item.mainName}}" placeholder="请输入大类名称"/>
-                                    </view>
-                                    <view class="weui-cell__bd" wx:else>
+                                    <view class="weui-cell__bd">
                                         <text class="weui-input readonly">{{item.mainName || '-'}}</text>
                                     </view>
                                 </view>
@@ -78,23 +74,16 @@
                                     <view class="weui-cell__hd">
                                         <view class="weui-label">小类</view>
                                     </view>
-                                    <view class="weui-cell__bd" wx:if="{{(item.mainId == null || item.mainId == '') && ((role == 12 && (status == 13 || status == 43)) || (role == 13 && status == 41))}}">
-                                        <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='childName' data-index="{{index}}"
-                                               value="{{item.childName}}" placeholder="请输入小类名称"/>
-                                    </view>
-                                    <view class="weui-cell__bd" wx:else>
+                                    <view class="weui-cell__bd">
                                         <text class="weui-input readonly">{{item.childName || '-'}}</text>
                                     </view>
                                 </view>
-                                <view class="weui-cell weui-cell_input no-padding">
+                                <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
                                     <view class="weui-cell__hd">
-                                        <view class="weui-label">类型</view>
+                                        <view class="weui-label">子类</view>
                                     </view>
-                                    <view class="weui-cell__bd" wx:if="{{!item.custom && !isAllowEdit}}">
+                                    <view class="weui-cell__bd">
                                         <text class="weui-input readonly">{{item.projectName || '-'}}</text>
-                                    </view>
-                                    <view class="weui-cell__bd h28 editable" bindtap="openProjectSheet" data-name="projectId" data-pindex="{{pindex}}" data-index="{{index}}" wx:else>
-                                        {{item.projectName || '请选择类型'}}
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding">
@@ -162,7 +151,7 @@
                                         {{item.remark || '-'}}
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
-                                        <textarea maxlength="-1" wx:if="{{active0 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-pindex="{{pindex}}" data-index="{{index}}"
+                                        <textarea maxlength="-1" wx:if="{{active0 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-pindex="{{pindex}}" data-index="{{index}}"
                                                   value="{{item.remark}}" placeholder="请输入备注" style="height: 7em"/>
                                     </view>
                                 </view>
@@ -258,7 +247,7 @@
                                 {{item.remark || '-'}}
                             </view>
                             <view class="weui-cell__bd" wx:else>
-                                <textarea maxlength="-1" wx:if="{{active1 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-target='incompleteList' data-index="{{index}}"
+                                <textarea maxlength="-1" wx:if="{{active1 && !show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet}}" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='remark' data-target='incompleteList' data-index="{{index}}"
                                           value="{{item.remark}}" placeholder="请输入备注" style="height: 7em"/>
                             </view>
                         </view>
@@ -403,7 +392,7 @@
                     {{offerRemark || '-'}}
                 </view>
                 <view wx:else class="weui-cell__bd">
-                    <textarea wx:if="{{!show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet && !showProjectSheet}}" maxlength="-1" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='offerRemark'
+                    <textarea wx:if="{{!show && !showLibrary && !showproTypeSheet && !showHandleTypeSheet}}" maxlength="-1" class="weui-textarea mytextarea" bindinput="inputgetName" data-name='offerRemark'
                               value="{{offerRemark}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
             </view>
@@ -438,13 +427,6 @@
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
     </van-popup>
     <van-action-sheet
-            data-name='project'
-            show="{{ showProjectSheet }}"
-            actions="{{ projectList }}"
-            bind:close="onClose"
-            bind:select="onSelect"
-    />
-    <van-action-sheet
             data-name='handleType'
             show="{{ showHandleTypeSheet }}"
             actions="{{ handleTypeList }}"
@@ -477,10 +459,10 @@
                 </van-col>
             </van-row>
             <van-row custom-class="libraryFilterRow">
-                <van-col span="6">类型</van-col>
+                <van-col span="6">子类</van-col>
                 <van-col span="18">
                     <picker bindchange="pickerChange" value="{{library.projectId}}" range="{{projectPickerList}}" data-source="projectSource" data-value="projectId" data-label="projectName">
-                        {{ library.projectName || '请选择类型'}}
+                        {{ library.projectName || '请选择子类'}}
                     </picker>
                 </van-col>
             </van-row>
@@ -493,8 +475,8 @@
             <view style="margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
                 <van-button loading="{{filterLoading}}" type="primary" size="small" bindtap="filter">查询</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="resetFilter">重置</van-button>
+                <van-button disabled="{{library.mainId == '' || library.childId == '' || library.projectId == ''}}" type="primary" size="small" style="margin-left: 5px" bindtap="addCustomItem">追加自定义</van-button>
                 <van-button size="small" style="margin-left: 5px" bindtap="closeFilter">关闭</van-button>
-                <van-button type="primary" size="small" style="margin-left: 5px" bindtap="addCustomItem">追加自定义</van-button>
             </view>
             <view style="padding: 5px 0;">
                 <view class="row-item offerListRow" wx:for="{{libraryDataList}}" wx:key="index">

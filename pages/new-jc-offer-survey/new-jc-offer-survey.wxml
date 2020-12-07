@@ -34,28 +34,24 @@
                 <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="{{['赔偿/被保险人', '施工/被保险人', '赔偿/三者', '施工/三者'][project.proType]}} | 合计:{{project.offerResult}}" name="{{pindex}}">
                     <view>
                         <van-row custom-class="accident-detail-table-header">
-                            <van-col span="4">名称</van-col>
-                            <van-col span="4">类型</van-col>
-                            <van-col span="4">单位</van-col>
-                            <van-col span="4">单价</van-col>
-                            <van-col span="4">数量</van-col>
+                            <van-col span="5">名称</van-col>
+                            <van-col span="5">单位</van-col>
+                            <van-col span="5">单价</van-col>
+                            <van-col span="5">数量</van-col>
                             <van-col span="4">金额</van-col>
                         </van-row>
                         <view wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                             <van-row custom-class="accident-detail-table-body">
-                                <van-col span="4">
+                                <van-col span="5">
                                     {{subItem.name}}
                                 </van-col>
-                                <van-col span="4">
-                                    {{subItem.projectName}}
-                                </van-col>
-                                <van-col span="4">
+                                <van-col span="5">
                                     {{subItem.unit}}
                                 </van-col>
-                                <van-col span="4">
+                                <van-col span="5">
                                     {{subItem.price}}
                                 </van-col>
-                                <van-col span="4">
+                                <van-col span="5">
                                     {{subItem.num}}
                                 </van-col>
                                 <van-col span="4">

@@ -35,7 +35,6 @@ Page({
     cityCode: '',
     provinceCode: '',
     categoryoptions: [],
-    projectList: [],
     handleTypeList: [{
       id: 0,
       name: '更换'
@@ -64,7 +63,6 @@ Page({
       projectTotal: 0
     }],
     incompleteList: [],
-    showProjectSheet: false,
     showLibrary: false,
     mainList: ['1', '2', '3'],
     library: {
@@ -169,13 +167,6 @@ Page({
       showproTypeSheet: true
     })
   },
-  openProjectSheet (e) {
-    this.setData({
-      operateProIndex: e.currentTarget.dataset.pindex,
-      operateIndex: e.currentTarget.dataset.index,
-      showProjectSheet: true
-    })
-  },
   openHandleTypeSheet (e) {
     this.setData({
       operateProIndex: e.currentTarget.dataset.pindex,
@@ -185,7 +176,6 @@ Page({
   },
   onClose() {
     this.setData({
-      showProjectSheet: false,
       showHandleTypeSheet: false,
       showproTypeSheet: false
     });
@@ -422,18 +412,6 @@ Page({
     })
 
     util.request({
-      path: `/app/businessprojecttype/getProjectType`,
-      method: 'GET'
-    }, function (err, res) {
-      let data = res.data || []
-      _this.projectSource = data
-      _this.setData({
-        projectList: data,
-        projectPickerList: data.map(item => item.name)
-      })
-    })
-
-    util.request({
       path: `/sys/area/list`,
       method: 'GET'
     }, function (err, res) {
@@ -485,7 +463,6 @@ Page({
           }
         })
       }
-
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 32 || data.status == 40 || data.status == 62)) || (_this.data.role == 13 && data.status == 41) || (_this.data.role == 23 && data.status == 51),
         ...data,
@@ -526,12 +503,17 @@ Page({
     if (value == 'mainId') {
       this.changeParentCategory(this[source][e.detail.value].id)
     }
+    if (value == 'childId') {
+      this.changeSubCategory(this[source][e.detail.value].id)
+    }
   },
   changeParentCategory (value) {
     let _this = this
     this.setData({
       'library.childId': '',
-      'library.childName': ''
+      'library.childName': '',
+      'library.projectId': '',
+      'library.projectName': ''
     })
     util.request({
       path: '/app/businesschildtype/getChildByMain',
@@ -544,6 +526,26 @@ Page({
       _this.childSource = data
       _this.setData({
         childList: data.map(item => item.name)
+      })
+    })
+  },
+  changeSubCategory (value) {
+    let _this = this
+    this.setData({
+      'library.projectId': '',
+      'library.projectName': ''
+    })
+    util.request({
+      path: `/app/businessprojecttype/getProjectType`,
+      method: 'GET',
+      data: {
+        childId: value
+      }
+    }, function (err, res) {
+      let data = res.data || []
+      _this.projectSource = data
+      _this.setData({
+        projectPickerList: data.map(item => item.name)
       })
     })
   },
@@ -776,7 +778,7 @@ Page({
     if (!this.checkOfferListItem()) {
       wx.showToast({
         mask: true,
-        title: '请填写所有报价条目的 类型 单价 单位 数量.',
+        title: '请填写所有报价条目的 单价 单位 数量.',
         icon: 'none',
         duration: 1000
       })
@@ -881,7 +883,7 @@ Page({
     if (!this.checkOfferListItem()) {
       wx.showToast({
         mask: true,
-        title: '请填写所有报价条目的 类型 单价 单位 数量.',
+        title: '请填写所有报价条目的 单价 单位 数量.',
         icon: 'none',
         duration: 1000
       })
@@ -1009,9 +1011,10 @@ Page({
       'mainName': this.data.library.mainName || '',
       'childName': this.data.library.childName || '',
       'custom': true,
-      'insureType': 1,
-      'insureName': '物损',
-      'projectId': '',
+      'insureType': 2,
+      'insureName': '家财',
+      'projectId': this.data.library.projectId || '',
+      'projectName': this.data.library.projectName || '',
       'unit': '',
       'price': '',
       'maxPrice': '',
@@ -1024,7 +1027,6 @@ Page({
       'updateId': null,
       'province': this.data.provinceCode,
       'city': this.data.cityCode,
-      'projectName': '',
       'handleType': '1'
     })
     this.setData({
@@ -1047,7 +1049,7 @@ Page({
         data.mainName == null || data.childName == null || data.unit == null || data.price == null || data.name == null || data.projectId == null) {
       wx.showToast({
         mask: true,
-        title: '大类名称 子类名称 类型 单位 单价 名称不能为空。',
+        title: '大类 小类 子类 单位 单价 名称不能为空。',
         icon: 'none',
         duration: 1000
       })
