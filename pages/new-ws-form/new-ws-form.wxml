@@ -512,7 +512,7 @@
                 </view>
             </view>
 
-            <block wx:if="{{(role == 1 || role == 12) && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}">
+            <block wx:if="{{role == 1 || role == 12 || taskData.commentToSurvey}}">
                 <view class="weui-cells__title">留言[查勘员]</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -527,7 +527,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{(role == 13 || role == 12) && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}">
+            <block wx:if="{{role == 13 || role == 12 || taskData.commentToOffer}}">
                 <view class="weui-cells__title">留言[报价员]</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
