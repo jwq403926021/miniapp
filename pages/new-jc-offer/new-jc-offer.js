@@ -513,7 +513,9 @@ Page({
       'library.childId': '',
       'library.childName': '',
       'library.projectId': '',
-      'library.projectName': ''
+      'library.projectName': '',
+      childList: [],
+      projectPickerList: []
     })
     util.request({
       path: '/app/businesschildtype/getChildByMain',
@@ -533,7 +535,8 @@ Page({
     let _this = this
     this.setData({
       'library.projectId': '',
-      'library.projectName': ''
+      'library.projectName': '',
+      projectPickerList: []
     })
     util.request({
       path: `/app/businessprojecttype/getProjectType`,
