@@ -21,7 +21,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{role == 13 && (status == 41)}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='testPrice'
+                           value="{{testPrice}}" placeholder="测漏金额"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{testPrice || '-'}}</text>
                 </view>
             </view>

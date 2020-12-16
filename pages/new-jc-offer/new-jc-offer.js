@@ -302,8 +302,8 @@ Page({
         num4 += parseInt(project.projectTotal)
       }
     })
-    num1 += (this.data.testPrice || 0)
-    num3 += (this.data.testPrice || 0)
+    num1 += parseFloat(this.data.testPrice || 0)
+    num3 += parseFloat(this.data.testPrice || 0)
 
     let incompletenum1 = 0
     let incompletenum2 = 0
@@ -767,7 +767,8 @@ Page({
       hasTax: this.data.hasTax ? '1' : '0', // 是否有税
       handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
-      surveyId: this.data.investigatorId
+      surveyId: this.data.investigatorId,
+      testPrice: this.data.testPrice
     }
     if (!this.data.offerList.length) {
       wx.showToast({
@@ -872,7 +873,8 @@ Page({
       customerUser: this.data.customerName,
       handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
-      surveyId: this.data.investigatorId
+      surveyId: this.data.investigatorId,
+      testPrice: this.data.testPrice
     }
     if (!this.data.offerList.length) {
       wx.showToast({
