@@ -704,6 +704,18 @@ Page({
       }
     }
 
+    if (
+      app.globalData.currentRegisterInfo.provinceCode == 110000 && _this.data.liveImageFiles.length === 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '北京地区必须传案件图片',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+
     if ((taskData.insuranceType == 1 && taskData.reportNumber == '') || !(/^[A-Za-z0-9]+$/.test(taskData.reportNumber))) {
       wx.showToast({
         mask: true,
