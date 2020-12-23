@@ -136,6 +136,7 @@ Page({
         role: app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
         this.initDataById(routeParams.id)
+        this.getRegionLabel()
       })
     }
   },
