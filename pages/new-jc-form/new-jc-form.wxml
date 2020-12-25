@@ -211,7 +211,7 @@
                     <view class="weui-label">测漏金额</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{((role == 27 && status == 31) || (role == 12 && (status == 40 || status == 62)))}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.testPrice'
+                    <input type="digit" class="weui-input" bindinput="inputgetName" data-name='taskData.testPrice'
                            value="{{taskData.testPrice}}" placeholder="测漏金额"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
@@ -239,7 +239,7 @@
                     <view class="weui-label">估损金额</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.estimatePrice'
+                    <input type="digit" class="weui-input" bindinput="inputgetName" data-name='taskData.estimatePrice'
                            value="{{taskData.estimatePrice}}" placeholder="估损金额"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>

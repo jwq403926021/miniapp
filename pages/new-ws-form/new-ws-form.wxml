@@ -639,7 +639,7 @@
                         <view class="weui-label">金额</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputgetName" data-name='taskData.moneySurvey'
+                        <input type="digit" class="weui-input" bindinput="inputgetName" data-name='taskData.moneySurvey'
                                value="{{taskData.moneySurvey}}" placeholder="金额"/>
                     </view>
                 </view>
