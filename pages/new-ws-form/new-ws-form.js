@@ -100,6 +100,7 @@ Page({
         role: app.globalData.currentRegisterInfo.role
       }, () => {
         this.initDataById(routeParams.id, routeParams.flag || null)
+        this.getRegionLabel()
       })
     }
   },
