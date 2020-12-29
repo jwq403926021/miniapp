@@ -463,7 +463,7 @@
                             <view class="weui-label">报价金额</view>
                         </view>
                         <view class="weui-cell__bd" wx:if="{{status == 51 && role == 23}}">
-                            <input class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
+                            <input type="digit" class="weui-input" bindinput="inputgetName" data-name='taskData.offerPrice'
                                    value="{{taskData.offerPrice}}" placeholder="报价金额"/>
                         </view>
                         <!--<view class="weui-cell__bd" wx:else>-->

@@ -22,7 +22,7 @@
                     <view class="weui-label">测漏金额</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{role == 13 && (status == 41)}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='testPrice'
+                    <input type="digit" class="weui-input" bindinput="inputgetName" data-name='testPrice'
                            value="{{testPrice}}" placeholder="测漏金额"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
@@ -123,7 +123,7 @@
                                     </view>
                                     <view class="weui-cell__bd" wx:else>
                                         <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-pindex="{{pindex}}" data-name='price' data-index="{{index}}"
-                                               value="{{item.price}}" type="number" placeholder="请输入单价"/>
+                                               value="{{item.price}}" type="digit" placeholder="请输入单价"/>
                                     </view>
                                 </view>
                                 <view class="weui-cell weui-cell_input no-padding one-line">
@@ -219,7 +219,7 @@
                             </view>
                             <view class="weui-cell__bd" wx:else>
                                 <input placeholder-class="editable" class="weui-input" bindinput="inputgetName" data-name='unitPrice' data-target='incompleteList' data-index="{{index}}"
-                                       value="{{item.unitPrice}}" type="number" placeholder="请输入单价"/>
+                                       value="{{item.unitPrice}}" type="digit" placeholder="请输入单价"/>
                             </view>
                         </view>
                         <view class="weui-cell weui-cell_input no-padding one-line">

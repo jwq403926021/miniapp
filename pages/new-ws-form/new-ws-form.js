@@ -1239,6 +1239,26 @@ Page({
       })
     }
   },
+  offerSubmitImage () {
+    let _this = this
+    let workLiveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    let imgPaths = [...workLiveImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
   workerSubmitImage () {
     let _this = this
     let workLiveImageFiles = []
