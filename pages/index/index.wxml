@@ -94,5 +94,8 @@
             意见反馈
         </view>
     </view>
+    <view class="new-btn fl" bindtap="goToSign">
+        签名demo
+    </view>
   </view>
 </view>

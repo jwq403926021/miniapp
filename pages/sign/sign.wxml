@@ -1,0 +1,10 @@
+<view class="wrapper">
+    <view class="hand-title">手写签名</view>
+    <view class="hand-center">
+        <canvas class="hand-writing" disable-scroll="true" bindtouchstart="uploadScaleStart" bindtouchmove="uploadScaleMove" bindtouchend="uploadScaleEnd" canvas-id="handWriting"></canvas>
+    </view>
+    <view class="hand-button">
+        <button catchtap="retDraw" class="del-btn">清除</button>
+        <button catchtap="subCanvas" class="sub-btn">保存</button>
+    </view>
+</view>
