@@ -40,6 +40,7 @@ Page({
       '11': '已办结',
       '12': '暂存'
     },
+    recordState: false,
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
@@ -68,8 +69,7 @@ Page({
       bidder: '',
       offerRemark: '',
       companyName: '',
-      reportNumber: '',
-      recordState: false
+      reportNumber: ''
     }
   },
   onLoad: function (routeParams) {
