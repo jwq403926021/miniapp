@@ -695,7 +695,7 @@
             <button data-type="2" bindtap="testerCommit">暂存</button>
         </view>
 
-        <view wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" class="button-sp-area">
+        <view wx:if="{{(role == 5 || role == 6 || role == 7 || role == 8) && status != null}}" class="button-sp-area">
             <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
         </view>
     </view>
