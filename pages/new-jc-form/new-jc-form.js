@@ -564,7 +564,6 @@ Page({
       }
     }
     let uploadImageList = this.prepareUploadImage()
-    return
     wx.showLoading({
       mask: true,
       title: '提交中'
