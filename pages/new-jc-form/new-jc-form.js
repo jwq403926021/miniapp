@@ -102,22 +102,22 @@ Page({
     switch (event.detail.name) {
       case '转线上':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=1'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=1'
         })
         break
       case '转线下':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=2'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=2'
         })
         break
       case '注销':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=3'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=3'
         })
         break
       case '修改基本信息':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=4'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=4'
         })
         break
     }
