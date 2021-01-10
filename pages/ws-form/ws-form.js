@@ -2,6 +2,10 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
 const app = getApp()
+//引入插件：微信同声传译
+const plugin = requirePlugin('WechatSI');
+//获取全局唯一的语音识别管理器recordRecoManager
+const manager = plugin.getRecordRecognitionManager();
 
 Page({
   data: {
@@ -36,6 +40,7 @@ Page({
       '11': '已办结',
       '12': '暂存'
     },
+    recordState: false,
     taskData: {
       status: null, // 0 新建 | 1 施工人员画面 | 2 施工人员提交 押金页面
       provinceCode: '',
@@ -68,6 +73,7 @@ Page({
     }
   },
   onLoad: function (routeParams) {
+    this.initRecord()
     this.initArea()
     this.setData({
       'taskData.insuranceType': routeParams.type,
@@ -1375,6 +1381,87 @@ Page({
       'taskData.plateNumber': event.detail.value
     })
   },
+  //识别语音 -- 初始化
+  initRecord: function () {
+    const that = this;
+    // 有新的识别内容返回，则会调用此事件
+    manager.onRecognize = function (res) {
+      console.log(res)
+    }
+    // 正常开始录音识别时会调用此事件
+    manager.onStart = function (res) {
+      console.log("成功开始录音识别", res)
+    }
+    // 识别错误事件
+    manager.onError = function (res) {
+      console.error("error msg", res)
+    }
+    //识别结束事件
+    manager.onStop = function (res) {
+      console.log('..............结束录音')
+      console.log('录音临时文件地址 -->' + res.tempFilePath);
+      console.log('录音总时长 -->' + res.duration + 'ms');
+      console.log('文件大小 --> ' + res.fileSize + 'B');
+      console.log('语音内容 --> ' + res.result);
+      if (res.result == '') {
+        wx.showModal({
+          title: '提示',
+          content: '听不清楚，请重新说一遍！',
+          showCancel: false,
+          success: function (res) {}
+        })
+        return;
+      }
+      var text = res.result || '';
+      that.setData({
+        'taskData.live': text
+      }, () => {
+        that.digestRecord()
+      })
+    }
+  },
+  touchStart () {
+    this.setData({
+      recordState: true  //录音状态
+    })
+    // 语音开始识别
+    manager.start({
+      lang: 'zh_CN',// 识别的语言，目前支持zh_CN en_US zh_HK sichuanhua
+    })
+  },
+  touchEnd () {
+    this.setData({
+      recordState: false
+    })
+    // 语音结束识别
+    manager.stop();
+  },
+  digestRecord () {
+    let that = this
+    util.request({
+      path: '/app/businessdamagenew/getInfoByContent',
+      method: 'POST',
+      data: {
+        content: that.data.taskData.live || '大连'
+      }
+    }, function (err, res) {
+      let data = res.data
+      that.setData({
+        'taskData.live': that.data.taskData.live + JSON.stringify(data)
+      })
+      console.log(data, '??')
+    })
+  },
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '自定义转发标题',
+      path: '/pages/sign/sign?id=20200920144935000108'
+    }
+  }
 })
 
 /*

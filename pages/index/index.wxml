@@ -27,7 +27,7 @@
         <text class="iconfont icon-fangwuxinxi myicon"></text>
       </view>
       <view>
-        家财险
+        旧家财险
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToNewJcForm" wx:if="{{role == 1}}">
@@ -94,5 +94,11 @@
             意见反馈
         </view>
     </view>
+<!--    <view class="new-btn fl" bindtap="goToWsForm" data-type="1" wx:if="{{role == 1}}">-->
+<!--        语音提取demo-->
+<!--    </view>-->
+<!--    <view class="new-btn fl" bindtap="goToSign">-->
+<!--        签名demo-->
+<!--    </view>-->
   </view>
 </view>

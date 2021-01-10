@@ -47,6 +47,11 @@ Page({
       url: '../feedback-form/feedback-form'
     })
   },
+  goToSign () {
+    wx.navigateTo({
+      url: '../sign/sign'
+    })
+  },
   goToAccident () {
     wx.navigateTo({
       url: '../accident-form/accident-form'

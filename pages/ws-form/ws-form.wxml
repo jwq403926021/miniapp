@@ -198,6 +198,19 @@
                 </view>
             </view>
         </view>
+
+        <view class=''>
+            <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg':''}}" bindtouchstart="touchStart" bindtouchend="touchEnd">
+                <text wx:if="{{recordState == false}}">按住 说话</text>
+                <text wx:else>松开 结束</text>
+            </button>
+        </view>
+        <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
+            <cover-image src="../resource/image/yuyin-min.png"></cover-image>
+            <cover-view>开始语音</cover-view>
+        </cover-view>
+
+
         <!-- upload start-->
         <view class="weui-cells__title">案件图片</view>
         <view class="weui-cells weui-cells_after-title">
@@ -596,6 +609,7 @@
         <view wx:if="{{taskData.offer > 0 && !(role == 10 || role == 11 || role == 12)}}" class="button-sp-area">
             <button type="primary" data-id="{{id}}" bindtap="goToOffer">查看报价</button>
         </view>
+        <button open-type="share">share</button>
     </view>
     <van-popup
             show="{{ show }}"

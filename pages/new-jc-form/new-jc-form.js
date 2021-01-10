@@ -102,22 +102,22 @@ Page({
     switch (event.detail.name) {
       case '转线上':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=1'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=1'
         })
         break
       case '转线下':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=2'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=2'
         })
         break
       case '注销':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=3'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=3'
         })
         break
       case '修改基本信息':
         wx.navigateTo({
-          url: '../jc-manage/jc-manage?id=' + this.data.flowId + '&type=4'
+          url: '../new-jc-manage/new-jc-manage?id=' + this.data.flowId + '&type=4'
         })
         break
     }
@@ -564,7 +564,6 @@ Page({
       }
     }
     let uploadImageList = this.prepareUploadImage()
-    return
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1084,8 +1083,8 @@ Page({
         "taskData.thirdPhone": data.thirdPhone || '',
         "taskData.losserName": data.losserName || '',
         "taskData.losserPhone": data.losserPhone || '',
-        "taskData.servicerName": data.servicerName || '',
-        "taskData.servicerPhone": data.servicerPhone || '',
+        "taskData.serviceName": data.serviceName || '',
+        "taskData.servicePhone": data.servicePhone || '',
         "taskData.isTest": data.isTest || '',
         "taskData.testPrice": data.testPrice || '',
         "taskData.estimatePrice": data.estimatePrice || '',

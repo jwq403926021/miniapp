@@ -3,14 +3,22 @@ var util = require('./utils/util.js')
 App({
   onLaunch: function (data) {
     // this.globalData.logining = true
-    this.login(data.query)
+    if (data.path === 'pages/sign/sign') {
+
+    } else {
+      this.login(data.query)
+    }
   },
   onShow (obj) {
     let _this = this
     let page = getCurrentPages().pop()
     if (page == undefined || page == null) return
     if (!_this.globalData.token || _this.globalData.status == null || _this.globalData.status == 2 ) {
-      _this.login()
+      if (data.path === 'pages/sign/sign') {
+
+      } else {
+        _this.login(obj.query)
+      }
     }
     page.onLoad()
   },

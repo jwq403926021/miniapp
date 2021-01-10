@@ -34,7 +34,9 @@
     "pages/my-list-lock/my-list-lock",
     "pages/my-list-feedback/my-list-feedback",
     "pages/my-list-pipe/my-list-pipe",
-    "pages/my-list-accident/my-list-accident"
+    "pages/my-list-accident/my-list-accident",
+    "pages/sign/sign",
+    "pages/webview/webview"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -65,6 +67,12 @@
         "text": "我的信息"
       }
     ]
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.4",
+      "provider": "wx069ba97219f66d99"
+    }
   },
   "sitemapLocation": "sitemap.json"
 }

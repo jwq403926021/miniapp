@@ -58,7 +58,7 @@
 					"id": 0,
 					"name": "pages/new-jc-offer/new-jc-offer",
 					"pathName": "pages/new-jc-offer/new-jc-offer",
-					"query": "id=20200915194417000108",
+					"query": "id=20201130172711000108",
 					"scene": null
 				},
 				{
@@ -100,7 +100,21 @@
 					"id": 6,
 					"name": "pages/new-ws-offer/new-ws-offer",
 					"pathName": "pages/new-ws-offer/new-ws-offer",
-					"query": "id=20201026084946000107",
+					"query": "id=20201201113636000107",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ws-form/ws-form",
+					"pathName": "pages/ws-form/ws-form",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "pages/sign/sign",
+					"pathName": "pages/sign/sign",
+					"query": "",
 					"scene": null
 				}
 			]

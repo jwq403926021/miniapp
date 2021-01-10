@@ -471,7 +471,7 @@
             </view>
         </block>
 
-        <block wx:if="{{taskData.servicerName}}">
+        <block wx:if="{{taskData.serviceName}}">
             <view class="weui-cells__title"></view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -479,7 +479,7 @@
                         <view class="weui-label">客服姓名</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.servicerName || '-'}}</text>
+                        <text class="weui-input readonly">{{taskData.serviceName || '-'}}</text>
                     </view>
                 </view>
 
@@ -488,10 +488,10 @@
                         <view class="weui-label">客服手机</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{taskData.servicerPhone || '-'}}</text>
+                        <text class="weui-input readonly">{{taskData.servicePhone || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{taskData.servicerPhone}}" bindtap="dialPhone">
+                        <view class="field-right-btn" data-phone="{{taskData.servicePhone}}" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
@@ -695,7 +695,7 @@
             <button data-type="2" bindtap="testerCommit">暂存</button>
         </view>
 
-        <view wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}" class="button-sp-area">
+        <view wx:if="{{(role == 5 || role == 6 || role == 7 || role == 8) && status != null}}" class="button-sp-area">
             <button type="primary" data-id="{{flowId}}" bindtap="openOperation">管理工单</button>
         </view>
     </view>
