@@ -673,10 +673,10 @@ Page({
     for (let i = 0; i < list.length; i++) {
       for (let j = 0; j < list[i].children.length; j++) {
         let item = list[i].children[j]
-        if (item.projectId == null || item.projectId == '' ||
-          item.unit == null || item.unit == '' ||
-          item.price == null || item.price == '' ||
-          item.num == null || item.num == '') {
+        if (item.projectId === null || item.projectId === '' ||
+          item.unit === null || item.unit === '' ||
+          item.price === null || item.price === '' ||
+          item.num === null || item.num === '') {
           result = false
           break
         }
