@@ -1,0 +1,11 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells__title">意见反馈</view>
+    <view class="weui-cells weui-cells_after-title">
+      123
+    </view>
+    <view class="button-sp-area">
+      <button type="primary" bindtap="commitSubmit">付款</button><!-- 办结 提交 -->
+    </view>
+  </view>
+</view>
