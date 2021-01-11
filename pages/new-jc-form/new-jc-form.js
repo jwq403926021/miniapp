@@ -540,29 +540,11 @@ Page({
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
     let result = this.checkUploadImages(familyImages)
-    if (isSave) {
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      if (result.flag) {
-        result.data.map(item => {
-          if (item.path.indexOf('https://') == -1){
-            familyImagesList.push(item)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: result.data,
-          icon: 'none',
-          duration: 1000
-        })
-        return false
+    result.data.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        familyImagesList.push(item)
       }
-    }
+    })
     let uploadImageList = this.prepareUploadImage()
     wx.showLoading({
       mask: true,
