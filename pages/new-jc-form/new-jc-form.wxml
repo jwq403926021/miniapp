@@ -11,6 +11,11 @@
                     <view data-id="{{flowId}}" data-finishcase="{{taskData.finishCase}}" catchtap="setFinishCase" class="{{taskData.finishCase == 1 ? 'finished' : 'not-finish'}} finishcase-in-detail"></view>
                     <view data-id="{{flowId}}" data-workendstatus="{{taskData.workStatus}}" catchtap="setworkEndStatus" class="{{taskData.workStatus == 1 ? 'workfinished' : 'worknot-finish'}} finishcase-in-detail"></view>
                 </view>
+                <view class="weui-cell__ft">
+                    <view class="field-right-btn" data-content="{{flowId}}" bindtap="copy">
+                        <van-icon name="column" />
+                    </view>
+                </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{flowId}}">
                 <view class="weui-cell__hd">
