@@ -20,7 +20,7 @@ App({
         _this.login(obj.query)
       }
     }
-    page.onLoad()
+    page.onLoad(obj ? obj.query : {})
   },
   login (routerParams) {
     let _this = this
