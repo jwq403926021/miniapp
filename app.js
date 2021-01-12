@@ -80,6 +80,7 @@ App({
               _this.globalData.status = res.status
               _this.globalData.token = res.token
               _this.globalData.mobile = res.mobile
+              _this.globalData.openId = res.openId
               if (res.status == 2 || res.status == null) {
                 console.log('未注册', res)
                 wx.switchTab({
