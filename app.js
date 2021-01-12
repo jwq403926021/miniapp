@@ -14,7 +14,7 @@ App({
     let page = getCurrentPages().pop()
     if (page == undefined || page == null) return
     if (!_this.globalData.token || _this.globalData.status == null || _this.globalData.status == 2 ) {
-      if (data.path === 'pages/sign/sign') {
+      if (page.path === 'pages/sign/sign') {
 
       } else {
         _this.login(obj.query)
