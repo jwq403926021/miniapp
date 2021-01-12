@@ -358,7 +358,7 @@
             </view>
         </block>
 
-        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4 && role != 27 && role != 23}}">
+        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4 && role != 27}}">
             <view class="weui-cells__title">损失清单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -386,7 +386,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23 && status != null}}">
+        <block wx:if="{{role != 27 && status != null}}">
             <view class="weui-cells__title">授权书、保单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -416,7 +416,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23 && status != null}}">
+        <block wx:if="{{role != 27 && status != null}}">
             <view class="weui-cells__title">施工完成</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -446,7 +446,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 23 && status != null}}">
+        <block wx:if="{{status != null}}">
             <view class="weui-cells__title">测漏图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
