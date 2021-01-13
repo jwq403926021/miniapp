@@ -545,6 +545,7 @@ Page({
   },
   chooseInfoImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -559,11 +560,13 @@ Page({
         that.setData({
           informationImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
   choosebankImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -624,11 +627,13 @@ Page({
         that.setData({
           bankImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
   chooseidImageFrontImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -691,11 +696,13 @@ Page({
         that.setData({
           idImageFrontImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
   chooseidImageBackImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -711,11 +718,13 @@ Page({
         that.setData({
           idImageBackImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
   choosereceiptImageImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -730,6 +739,7 @@ Page({
         that.setData({
           receiptImageImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },

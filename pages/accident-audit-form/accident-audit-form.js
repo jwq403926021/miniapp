@@ -163,6 +163,7 @@ Page({
   },
   choosereceiptImageImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -177,6 +178,7 @@ Page({
         that.setData({
           receiptImageImageFiles: list
         });
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },

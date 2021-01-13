@@ -82,6 +82,7 @@ Page({
     var _this = this;
     let imageTypeStr = e.currentTarget.dataset.imagetype
     let imageTypeNumber = _this.getImageTypeNumber(imageTypeStr);
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -109,6 +110,7 @@ Page({
           });
         }
         wx.setStorageSync('familyImages', _this.data.familyImages)
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },

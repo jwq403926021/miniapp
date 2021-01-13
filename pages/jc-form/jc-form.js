@@ -422,6 +422,7 @@ Page({
   },
   chooseInfoImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -445,6 +446,7 @@ Page({
             informationImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -479,6 +481,7 @@ Page({
   },
   choosecompleteImageFiles: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -502,6 +505,7 @@ Page({
             completeImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -542,6 +546,7 @@ Page({
   },
   chooseAuthorityImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -565,6 +570,7 @@ Page({
             authorityImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -599,6 +605,7 @@ Page({
   },
   chooseCaleImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -622,6 +629,7 @@ Page({
             caleImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -656,6 +664,7 @@ Page({
   },
   chooseDamageImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -679,6 +688,7 @@ Page({
             damageImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
