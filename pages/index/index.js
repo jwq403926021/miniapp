@@ -57,29 +57,10 @@ Page({
       url: '../accident-form/accident-form'
     })
   },
-  onShow () {
-    var value = wx.getStorageSync('status')
-    if(value == 2 || value == '') {
-      wx.switchTab({
-        url: '../register/register'
-      })
-      wx.hideTabBar()
-    }
-    this.onLoad()
-  },
   onLoad: function () {
-    var value = wx.getStorageSync('status')
-    if(value == 2 || value == '') {
-      wx.switchTab({
-        url: '../register/register'
-      })
-      wx.hideTabBar()
-    }else{
-      this.setData({
-        isLogin: true,
-        role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role
-      })
-      wx.showTabBar()
-    }
+    this.setData({
+      isLogin: true,
+      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role
+    })
   }
 })

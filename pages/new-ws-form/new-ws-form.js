@@ -491,7 +491,7 @@ Page({
         that.setData({
           [key]: list
         })
-        app.globalData.isIgnoreRefresh = false
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },

@@ -12,9 +12,10 @@ App({
   onShow (obj) {
     let pageStages = getCurrentPages()
     let currentPage = pageStages[pageStages.length - 1]
-    if (!this.globalData.isIgnoreRefresh) {
+    console.log(this.globalData.isIgnoreRefresh, '##')
+    if (this.globalData.isIgnoreRefresh === false) {
       currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
-      console.log('app onShow refresh:', obj, currentPage)
+      console.log('app onShow refresh:', obj, currentPage, this.globalData.isIgnoreRefresh)
     }
   },
   login (routerParams) {
@@ -76,7 +77,6 @@ App({
               _this.globalData.mobile = res.mobile
               _this.globalData.openId = res.openId
               if (res.status == 2 || res.status == null) {
-                console.log('未注册', res)
                 wx.switchTab({
                   url: '../register/register'
                 })
@@ -87,6 +87,7 @@ App({
                 _this.globalData.currentRegisterInfo = res.userInfo
                 let page = getCurrentPages().pop()
                 page && page.onLoad(routerParams)
+                wx.showTabBar()
               }
             } else {
               wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});

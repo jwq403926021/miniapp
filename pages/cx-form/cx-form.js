@@ -375,7 +375,7 @@ Page({
             informationImageFiles: list
           });
         }
-        app.globalData.isIgnoreRefresh = false
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },
@@ -434,7 +434,7 @@ Page({
             assessImageFiles: list
           });
         }
-        app.globalData.isIgnoreRefresh = false
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },

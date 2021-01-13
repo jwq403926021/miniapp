@@ -292,7 +292,7 @@ Page({
             informationImageFiles: list
           });
         }
-        app.globalData.isIgnoreRefresh = false
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },
@@ -351,7 +351,7 @@ Page({
             liveImageFiles: list
           });
         }
-        app.globalData.isIgnoreRefresh = false
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },
