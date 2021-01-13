@@ -12,7 +12,6 @@ App({
   onShow (obj) {
     let pageStages = getCurrentPages()
     let currentPage = pageStages[pageStages.length - 1]
-    console.log(this.globalData.isIgnoreRefresh, '##')
     if (this.globalData.isIgnoreRefresh === false) {
       currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
       console.log('app onShow refresh:', obj, currentPage, this.globalData.isIgnoreRefresh)
@@ -76,15 +75,15 @@ App({
               _this.globalData.token = res.token
               _this.globalData.mobile = res.mobile
               _this.globalData.openId = res.openId
+              _this.globalData.currentRegisterInfo = res.userInfo
               if (res.status == 2 || res.status == null) {
                 wx.switchTab({
                   url: '../register/register'
                 })
-                wx.hideTabBar()
                 let page = getCurrentPages().pop()
                 page && page.onLoad()
+                wx.hideTabBar()
               } else {
-                _this.globalData.currentRegisterInfo = res.userInfo
                 let page = getCurrentPages().pop()
                 page && page.onLoad(routerParams)
                 wx.showTabBar()

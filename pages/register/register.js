@@ -355,6 +355,7 @@ Page({
                             var page = getCurrentPages().pop();
                             if (page == undefined || page == null) return;
                             page.onLoad();
+                            wx.showTabBar()
                         }
                     })
                 }, 2000)
