@@ -12,8 +12,10 @@ App({
   onShow (obj) {
     let pageStages = getCurrentPages()
     let currentPage = pageStages[pageStages.length - 1]
-    console.log('app onShow:', obj, currentPage)
-    currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
+    if (!this.globalData.isIgnoreRefresh) {
+      currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
+      console.log('app onShow refresh:', obj, currentPage)
+    }
   },
   login (routerParams) {
     console.log('app login:', routerParams)
@@ -102,6 +104,7 @@ App({
     },
     userInfo: null,
     status: null,
-    token: ''
+    token: '',
+    isIgnoreRefresh: false
   }
 })

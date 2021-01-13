@@ -1453,6 +1453,7 @@ Page({
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -1467,6 +1468,7 @@ Page({
         that.setData({
           [key]: list
         })
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
