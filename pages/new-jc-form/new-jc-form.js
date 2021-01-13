@@ -123,10 +123,8 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    if (Object.keys(this.data.areaList).length == 0) {
-      this.routeParams = routeParams
-      this.initArea(this.init)
-    }
+    this.routeParams = routeParams
+    this.initArea(this.init)
   },
   init () {
     let routeParams = this.routeParams
@@ -540,29 +538,11 @@ Page({
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
     let result = this.checkUploadImages(familyImages)
-    if (isSave) {
-      result.data.map(item => {
-        if (item.path.indexOf('https://') == -1){
-          familyImagesList.push(item)
-        }
-      })
-    } else {
-      if (result.flag) {
-        result.data.map(item => {
-          if (item.path.indexOf('https://') == -1){
-            familyImagesList.push(item)
-          }
-        })
-      } else {
-        wx.showToast({
-          mask: true,
-          title: result.data,
-          icon: 'none',
-          duration: 1000
-        })
-        return false
+    result.data.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        familyImagesList.push(item)
       }
-    }
+    })
     let uploadImageList = this.prepareUploadImage()
     wx.showLoading({
       mask: true,
@@ -1473,6 +1453,7 @@ Page({
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -1487,6 +1468,7 @@ Page({
         that.setData({
           [key]: list
         })
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -1531,6 +1513,20 @@ Page({
     })
     common.downloadImages({
       urls: urls
+    })
+  },
+  copy (e) {
+    let content = e.currentTarget.dataset.content+'';
+    wx.setClipboardData({
+      data: content,
+      success (res) {
+        wx.showToast({
+          mask: true,
+          title: '复制成功',
+          icon: 'success',
+          duration: 1000
+        })
+      }
     })
   }
 })

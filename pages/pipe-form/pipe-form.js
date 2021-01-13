@@ -269,6 +269,7 @@ Page({
   },
   chooseInfoImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -292,6 +293,7 @@ Page({
             informationImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },
@@ -326,6 +328,7 @@ Page({
   },
   chooseLiveImage: function (e) {
     var that = this;
+    app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
@@ -349,6 +352,7 @@ Page({
             liveImageFiles: list
           });
         }
+        app.globalData.isIgnoreRefresh = false
       }
     })
   },

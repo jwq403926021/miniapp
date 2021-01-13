@@ -11,6 +11,11 @@
                     <view data-id="{{flowId}}" data-finishcase="{{taskData.finishCase}}" catchtap="setFinishCase" class="{{taskData.finishCase == 1 ? 'finished' : 'not-finish'}} finishcase-in-detail"></view>
                     <view data-id="{{flowId}}" data-workendstatus="{{taskData.workStatus}}" catchtap="setworkEndStatus" class="{{taskData.workStatus == 1 ? 'workfinished' : 'worknot-finish'}} finishcase-in-detail"></view>
                 </view>
+                <view class="weui-cell__ft">
+                    <view class="field-right-btn" data-content="{{flowId}}" bindtap="copy">
+                        <van-icon name="column" />
+                    </view>
+                </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{flowId}}">
                 <view class="weui-cell__hd">
@@ -353,7 +358,7 @@
             </view>
         </block>
 
-        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4 && role != 27 && role != 23}}">
+        <block wx:if="{{status != null && role != 1 && role != 2 && role != 3 && role != 4 && role != 27}}">
             <view class="weui-cells__title">损失清单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -381,7 +386,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23 && status != null}}">
+        <block wx:if="{{role != 27 && status != null}}">
             <view class="weui-cells__title">授权书、保单</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -411,7 +416,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 27 && role != 23 && status != null}}">
+        <block wx:if="{{role != 27 && status != null}}">
             <view class="weui-cells__title">施工完成</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -441,7 +446,7 @@
             </view>
         </block>
 
-        <block wx:if="{{role != 23 && status != null}}">
+        <block wx:if="{{status != null}}">
             <view class="weui-cells__title">测漏图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -638,7 +643,7 @@
             </view>
         </block>
 
-        <view wx:if="{{status != null && role != 8}}" class="button-sp-area two-btn-wrap">
+        <view wx:if="{{status != null}}" class="button-sp-area two-btn-wrap">
             <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
                 {{((role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
             </button>

@@ -2,7 +2,7 @@ var util = require('./utils/util.js')
 //app.js
 App({
   onLaunch: function (data) {
-    // this.globalData.logining = true
+    console.log('app onLaunch:', data)
     if (data.path === 'pages/sign/sign') {
 
     } else {
@@ -10,21 +10,16 @@ App({
     }
   },
   onShow (obj) {
-    let _this = this
-    let page = getCurrentPages().pop()
-    if (page == undefined || page == null) return
-    if (!_this.globalData.token || _this.globalData.status == null || _this.globalData.status == 2 ) {
-      if (data.path === 'pages/sign/sign') {
-
-      } else {
-        _this.login(obj.query)
-      }
+    let pageStages = getCurrentPages()
+    let currentPage = pageStages[pageStages.length - 1]
+    if (!this.globalData.isIgnoreRefresh) {
+      currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
+      console.log('app onShow refresh:', obj, currentPage)
     }
-    page.onLoad()
   },
   login (routerParams) {
+    console.log('app login:', routerParams)
     let _this = this
-
     if (wx.canIUse('getUpdateManager')) { // 基础库 1.9.90 开始支持，低版本需做兼容处理
       const updateManager = wx.getUpdateManager();
       updateManager.onCheckForUpdate(function(result) {
@@ -72,7 +67,6 @@ App({
             }
           }, function (err, res) {
             wx.hideLoading()
-            _this.globalData.logining = false
             if (res.code == 0) {
               wx.setStorageSync('status', res.status)
               wx.setStorageSync('token', res.token)
@@ -80,6 +74,7 @@ App({
               _this.globalData.status = res.status
               _this.globalData.token = res.token
               _this.globalData.mobile = res.mobile
+              _this.globalData.openId = res.openId
               if (res.status == 2 || res.status == null) {
                 console.log('未注册', res)
                 wx.switchTab({
@@ -87,22 +82,11 @@ App({
                 })
                 wx.hideTabBar()
                 let page = getCurrentPages().pop()
-                page.onLoad()
+                page && page.onLoad()
               } else {
                 _this.globalData.currentRegisterInfo = res.userInfo
-                var page = getCurrentPages().pop();
-                if (page == undefined || page == null) return;
-                // if (page.route == 'pages/index/index') {
-                page.onLoad(routerParams);
-                // }
-                // wx.switchTab({
-                //   url: '../index/index',
-                //   success: function (e) {
-                //     var page = getCurrentPages().pop();
-                //     if (page == undefined || page == null) return;
-                //     page.onLoad();
-                //   }
-                // })
+                let page = getCurrentPages().pop()
+                page && page.onLoad(routerParams)
               }
             } else {
               wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});
@@ -115,10 +99,12 @@ App({
     })
   },
   globalData: {
-    currentRegisterInfo: null,
+    currentRegisterInfo: {
+      role: ''
+    },
     userInfo: null,
     status: null,
-    token: ''
-    // ,logining: false
+    token: '',
+    isIgnoreRefresh: false
   }
 })

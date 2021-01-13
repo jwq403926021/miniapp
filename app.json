@@ -36,6 +36,7 @@
     "pages/my-list-pipe/my-list-pipe",
     "pages/my-list-accident/my-list-accident",
     "pages/sign/sign",
+    "pages/pay/pay",
     "pages/webview/webview"
   ],
   "window": {
