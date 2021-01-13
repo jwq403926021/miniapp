@@ -123,10 +123,8 @@ Page({
     }
   },
   onLoad: function (routeParams) {
-    if (Object.keys(this.data.areaList).length == 0) {
-      this.routeParams = routeParams
-      this.initArea(this.init)
-    }
+    this.routeParams = routeParams
+    this.initArea(this.init)
   },
   init () {
     let routeParams = this.routeParams

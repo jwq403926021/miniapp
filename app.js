@@ -2,7 +2,7 @@ var util = require('./utils/util.js')
 //app.js
 App({
   onLaunch: function (data) {
-    // this.globalData.logining = true
+    console.log('app onLaunch:', data)
     if (data.path === 'pages/sign/sign') {
 
     } else {
@@ -10,21 +10,14 @@ App({
     }
   },
   onShow (obj) {
-    let _this = this
-    let page = getCurrentPages().pop()
-    if (page == undefined || page == null) return
-    if (!_this.globalData.token || _this.globalData.status == null || _this.globalData.status == 2 ) {
-      if (page.path === 'pages/sign/sign') {
-
-      } else {
-        _this.login(obj.query)
-      }
-    }
-    page.onLoad(obj ? (obj.query || {}) : {})
+    let pageStages = getCurrentPages()
+    let currentPage = pageStages[pageStages.length - 1]
+    console.log('app onShow:', obj, currentPage)
+    currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
   },
   login (routerParams) {
+    console.log('app login:', routerParams)
     let _this = this
-
     if (wx.canIUse('getUpdateManager')) { // 基础库 1.9.90 开始支持，低版本需做兼容处理
       const updateManager = wx.getUpdateManager();
       updateManager.onCheckForUpdate(function(result) {
@@ -72,7 +65,6 @@ App({
             }
           }, function (err, res) {
             wx.hideLoading()
-            _this.globalData.logining = false
             if (res.code == 0) {
               wx.setStorageSync('status', res.status)
               wx.setStorageSync('token', res.token)
@@ -88,22 +80,11 @@ App({
                 })
                 wx.hideTabBar()
                 let page = getCurrentPages().pop()
-                page.onLoad()
+                page && page.onLoad()
               } else {
                 _this.globalData.currentRegisterInfo = res.userInfo
-                var page = getCurrentPages().pop();
-                if (page == undefined || page == null) return;
-                // if (page.route == 'pages/index/index') {
-                page.onLoad(routerParams);
-                // }
-                // wx.switchTab({
-                //   url: '../index/index',
-                //   success: function (e) {
-                //     var page = getCurrentPages().pop();
-                //     if (page == undefined || page == null) return;
-                //     page.onLoad();
-                //   }
-                // })
+                let page = getCurrentPages().pop()
+                page && page.onLoad(routerParams)
               }
             } else {
               wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});
@@ -122,6 +103,5 @@ App({
     userInfo: null,
     status: null,
     token: ''
-    // ,logining: false
   }
 })
