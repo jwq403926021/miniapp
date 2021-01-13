@@ -20,8 +20,7 @@ App({
         _this.login(obj.query)
       }
     }
-    console.log('app onshow:', page, obj)
-    page.onLoad(obj ? obj.query : {})
+    page.onLoad(obj ? (obj.query || {}) : {})
   },
   login (routerParams) {
     let _this = this
@@ -117,7 +116,9 @@ App({
     })
   },
   globalData: {
-    currentRegisterInfo: {},
+    currentRegisterInfo: {
+      role: ''
+    },
     userInfo: null,
     status: null,
     token: ''
