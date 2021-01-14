@@ -57,6 +57,11 @@ Page({
       url: '../accident-form/accident-form'
     })
   },
+  goToWebview () {
+    wx.navigateTo({
+      url: '../webview/webview'
+    })
+  },
   onLoad: function () {
     this.setData({
       isLogin: true,
