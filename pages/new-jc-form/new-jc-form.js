@@ -90,6 +90,11 @@ Page({
       {
         name: '修改基本信息',
       }
+    ],
+    dinsunActions: [
+      {
+        name: '注销',
+      }
     ]
   },
   openOperation (event) {
