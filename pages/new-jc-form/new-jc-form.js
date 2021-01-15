@@ -542,7 +542,7 @@ Page({
     let url = (type == 2 || isSave) ? `/app/businessinsurancefamilynew/losserSave` : `/app/businessinsurancefamilynew/losserCommit`
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
+    let result = this.checkUploadImages(familyImages, true)
     result.data.map(item => {
       if (item.path.indexOf('https://') == -1){
         familyImagesList.push(item)
