@@ -836,6 +836,9 @@
         <view class="button-sp-area" wx:if="{{orderId != null}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
+        <view class="button-sp-area" wx:if="{{(role == 5 || role == 6 || role == 7) && taskData.status != null}}">
+            <button type="primary" data-id="{{orderId}}" bindtap="openOperation">管理工单</button>
+        </view>
     </view>
     <van-popup
             show="{{ show }}"
@@ -857,4 +860,10 @@
         show="{{ showWorkerHit }}"
     ></van-dialog>
     <plate-number-keyboard show="{{showKeyboard}}" bind:getResult="setNumber" bind:close="closePlateNum" initValue="{{taskData.plateNumber}}"></plate-number-keyboard>
+    <van-action-sheet
+            show="{{ showactionsheet }}"
+            actions="{{ actions }}"
+            bind:close="onactionsheetClose"
+            bind:select="onactionsheetSelect"
+    />
 </view>

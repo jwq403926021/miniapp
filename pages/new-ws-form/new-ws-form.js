@@ -79,7 +79,16 @@ Page({
     location: {
       latitude: '',
       longitude: ''
-    }
+    },
+    showactionsheet: false,
+    actions: [
+      {
+        name: '注销',
+      },
+      {
+        name: '修改信息',
+      }
+    ]
   },
   onLoad: function (routeParams) {
     if (Object.keys(this.data.areaList).length == 0) {
@@ -1297,6 +1306,27 @@ Page({
     let failUp = 0
     if (imgPaths.length) {
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
+  openOperation (event) {
+    this.id = event.currentTarget.dataset.id
+    this.setData({ showactionsheet: true })
+  },
+  onactionsheetClose () {
+    this.setData({ showactionsheet: false })
+  },
+  onactionsheetSelect (event) {
+    switch (event.detail.name) {
+      case '注销':
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 0
+        })
+        break
+      case '修改信息':
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 1
+        })
+        break
     }
   }
   // getMyLocation () {
