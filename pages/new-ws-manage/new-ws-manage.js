@@ -18,12 +18,21 @@ Page({
     },
     cancelRemark: '',
     customerUser: '',
-    surveyId: ''
+    customerPhone: '',
+    damagedUser: '',
+    damagedPhone: '',
+    plateNumber: '',
+    surveyId: '',
+    type: '',
+    manageType: '',
+    showKeyboard: false,
+    insuranceType: ''
   },
   onLoad: function (routeParams) {
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         type: routeParams.type,
+        manageType: routeParams.manageType,
         id: routeParams.id,
         role: app.globalData.currentRegisterInfo.role
       })
@@ -44,7 +53,12 @@ Page({
         id: data.orderId,
         status: data.status,
         customerUser: data.customerUser,
-        surveyId: data.surveyId
+        customerPhone: data.customerPhone,
+        surveyId: data.surveyId,
+        damagedUser: data.damagedUser,
+        damagedPhone: data.damagedPhone,
+        plateNumber: data.plateNumber,
+        insuranceType: data.insuranceType
       })
     })
   },
@@ -69,6 +83,62 @@ Page({
         cancelRemark: this.cancelRemark,
         customerUser: this.customerUser,
         surveyId: this.surveyId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  closePlateNum () {
+    this.setData({
+      showKeyboard: false
+    })
+  },
+  openPlatePicker () {
+    this.setData({
+      showKeyboard: true
+    })
+  },
+  setNumber (event) {
+    this.setData({
+      'plateNumber': event.detail.value
+    })
+  },
+  submitModifyRequest () {
+    let _this = this
+    let url = '/app/businessdamagenew/updateBasic'
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: url,
+      method: 'PUT',
+      data: {
+        orderId: _this.data.id,
+        customerUser: this.customerUser,
+        customerPhone: this.customerPhone,
+        damagedUser: this.damagedUser,
+        damagedPhone: this.damagedPhone,
+        plateNumber: this.plateNumber
       }
     }, function (err, res) {
       if (res.code == 0) {

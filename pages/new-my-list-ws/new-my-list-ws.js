@@ -41,6 +41,9 @@ Page({
     actions: [
       {
         name: '注销',
+      },
+      {
+        name: '修改信息',
       }
     ]
   },
@@ -264,22 +267,27 @@ Page({
     this.setData({ showactionsheet: false })
   },
   onactionsheetSelect (event) {
+    this.setData({
+      current: 0,
+      page: 1,
+      totalPage: 1,
+      searchCarNumber: '',
+      searchOrderId: '',
+      searchReportNumber: '',
+      statusFilter: '-1',
+      startDate: '',
+      endDate: '',
+      dataList: []
+    })
     switch (event.detail.name) {
       case '注销':
-        this.setData({
-          current: 0,
-          page: 1,
-          totalPage: 1,
-          searchCarNumber: '',
-          searchOrderId: '',
-          searchReportNumber: '',
-          statusFilter: '-1',
-          startDate: '',
-          endDate: '',
-          dataList: []
-        })
         wx.navigateTo({
-          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.type
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.type + '&manageType=' + 0
+        })
+        break
+      case '修改信息':
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.type + '&manageType=' + 1
         })
         break
     }
