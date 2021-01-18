@@ -433,14 +433,14 @@ Page({
     }, function (err, res) {
       let data = res.data
       let taxData = res.taxList.filter(item => {
-        if (_this.data.role === 12) {
+        if (_this.data.role === 12 || _this.data.role === 8) {
           return item.type === '1'
         } else {
           return item.type === '0'
         }
       })
       let list = res.offerList.filter(item => {
-        if (_this.data.role === 12) {
+        if (_this.data.role === 12 || _this.data.role === 8) {
           return item.offerType === '1'
         } else {
           return item.offerType === '0'
@@ -472,7 +472,7 @@ Page({
         provinceCode: data.areaProvince + '',
         offerList: _this.data.offerList,
         incompleteList: res.incompleteList.filter(item => {
-          if (_this.data.role === 12) {
+          if (_this.data.role === 12 || _this.data.role === 8) {
             return item.type === '1'
           } else {
             return item.type === '0'
