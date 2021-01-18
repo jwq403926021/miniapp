@@ -80,9 +80,9 @@ Page({
       method: 'PUT',
       data: {
         orderId: _this.data.id,
-        cancelRemark: this.cancelRemark,
-        customerUser: this.customerUser,
-        surveyId: this.surveyId
+        cancelRemark: _this.data.cancelRemark,
+        customerUser: _this.data.customerUser,
+        surveyId: _this.data.surveyId
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -134,11 +134,11 @@ Page({
       method: 'PUT',
       data: {
         orderId: _this.data.id,
-        customerUser: this.customerUser,
-        customerPhone: this.customerPhone,
-        damagedUser: this.damagedUser,
-        damagedPhone: this.damagedPhone,
-        plateNumber: this.plateNumber
+        customerUser: _this.data.customerUser,
+        customerPhone: _this.data.customerPhone,
+        damagedUser: _this.data.damagedUser,
+        damagedPhone: _this.data.damagedPhone,
+        plateNumber: _this.data.plateNumber
       }
     }, function (err, res) {
       if (res.code == 0) {
