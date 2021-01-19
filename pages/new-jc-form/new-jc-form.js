@@ -74,7 +74,6 @@ Page({
     caleImageFiles: [],
     informationImageFiles: [],
     completeImageFiles: [],
-    acceptanceImageFiles: [],
     testImageFiles: [],
     showactionsheet: false,
     actions: [
@@ -231,19 +230,13 @@ Page({
   },
   workerUploadImage () {
     let _this = this
-    let acceptanceImageFiles = []
     let testImageFiles = []
-    _this.data.acceptanceImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        acceptanceImageFiles.push({path: item.path, type: 20})
-      }
-    })
     _this.data.testImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         testImageFiles.push({path: item.path, type: 21})
       }
     })
-    let imgPaths = [...acceptanceImageFiles, ...testImageFiles]
+    let imgPaths = [...testImageFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
@@ -267,7 +260,6 @@ Page({
     let damageImageFiles = []
     let caleImageFiles = []
     let completeImageFiles  = []
-    let acceptanceImageFiles = []
     let testImageFiles = []
     _this.data.damageImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -284,17 +276,12 @@ Page({
         completeImageFiles.push({path: item.path, type: 6})
       }
     })
-    _this.data.acceptanceImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        acceptanceImageFiles.push({path: item.path, type: 20})
-      }
-    })
     _this.data.testImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         testImageFiles.push({path: item.path, type: 21})
       }
     })
-    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...acceptanceImageFiles, ...testImageFiles]
+    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...testImageFiles]
   },
   workerCommit (event, save = false, isOfferSave = false) {
     let _this = this
@@ -950,7 +937,6 @@ Page({
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
-      let acceptanceImageFiles = []
       let testImageFiles = []
 
       let familyImages = {
@@ -989,10 +975,6 @@ Page({
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             caleImageFiles.push(item)
-            break
-          case 20:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
-            acceptanceImageFiles.push(item)
             break
           case 21:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -1080,7 +1062,6 @@ Page({
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
-        acceptanceImageFiles: acceptanceImageFiles,
         testImageFiles: testImageFiles
       }, () => {
         _this.getRegionLabel()
