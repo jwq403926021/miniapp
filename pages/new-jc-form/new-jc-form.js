@@ -230,13 +230,17 @@ Page({
   },
   workerUploadImage () {
     let _this = this
-    let testImageFiles = []
-    _this.data.testImageFiles.map(item => {
+    let completeImageFiles = []
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    _this.data.completeImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        testImageFiles.push({path: item.path, type: 21})
+        completeImageFiles.push({path: item.path, type: 6})
       }
     })
-    let imgPaths = [...testImageFiles]
+    let imgPaths = [...completeImageFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
