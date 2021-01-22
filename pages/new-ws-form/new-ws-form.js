@@ -1270,6 +1270,44 @@ Page({
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
     }
   },
+  managerSubmitImage () {
+    let _this = this
+    let workLiveImageFiles = []
+    let projectBillImageFiles = []
+    let workerAuthImageFiles = []
+    let liveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    _this.data.projectBillImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        projectBillImageFiles.push({path: item.path, type: 17})
+      }
+    })
+    _this.data.workerAuthImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workerAuthImageFiles.push({path: item.path, type: 16})
+      }
+    })
+    _this.data.liveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 2})
+      }
+    })
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    let imgPaths = [...workLiveImageFiles, ...projectBillImageFiles, ...workerAuthImageFiles, ...liveImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
   workerSubmitImage () {
     let _this = this
     let workLiveImageFiles = []
