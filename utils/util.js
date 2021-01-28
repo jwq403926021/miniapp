@@ -38,7 +38,7 @@ function request(param, cb) {
       })
     })
   }
-  req(param)
+  return req(param)
     .done(function (data) {
       cb(null, data)
     }, function (err) {

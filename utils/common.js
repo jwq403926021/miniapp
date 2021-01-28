@@ -109,5 +109,9 @@ function downloadSaveFiles(obj) {
 module.exports = {
   downloadImages: downloadSaveFiles,
   deleteImage: deleteImage,
-  deleteAttach: deleteAttach
+  deleteAttach: deleteAttach,
+  formatDateTimePicker: (date) => {
+    let str = `${date.toLocaleDateString()}  ${date.getHours()}:${(date.getMinutes()+'').padStart(2, '0')}`
+    return str
+  }
 }

@@ -37,7 +37,8 @@
     "pages/my-list-accident/my-list-accident",
     "pages/sign/sign",
     "pages/pay/pay",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "pages/idi-form/idi-form"
   ],
   "window": {
     "backgroundTextStyle": "dark",

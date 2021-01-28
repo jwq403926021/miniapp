@@ -1,123 +1,143 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": false,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.10.4",
-	"appid": "wxc9cdcd3084bb6aee",
-	"projectname": "hbj",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": 0,
-					"name": "pages/new-jc-offer/new-jc-offer",
-					"pathName": "pages/new-jc-offer/new-jc-offer",
-					"query": "id=20201130172711000108",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "new-ws-offer-survey",
-					"pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
-					"query": "id=20200608132420000107",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "pages/new-ws-form/new-ws-form",
-					"pathName": "pages/new-ws-form/new-ws-form",
-					"query": "id=20201014144946000107",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "pages/jc-manage/jc-manage",
-					"pathName": "pages/jc-manage/jc-manage",
-					"query": "id=20201104080357000102&type=2",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "pages/new-my-list-jc/new-my-list-jc",
-					"pathName": "pages/new-my-list-jc/new-my-list-jc",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "pages/new-jc-form/new-jc-form",
-					"pathName": "pages/new-jc-form/new-jc-form",
-					"query": "id=20200920144935000108",
-					"scene": null
-				},
-				{
-					"id": 6,
-					"name": "pages/new-ws-offer/new-ws-offer",
-					"pathName": "pages/new-ws-offer/new-ws-offer",
-					"query": "id=20201201113636000107",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/ws-form/ws-form",
-					"pathName": "pages/ws-form/ws-form",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 8,
-					"name": "pages/sign/sign",
-					"pathName": "pages/sign/sign",
-					"query": "",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": false,
+    "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "enhance": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.10.4",
+  "appid": "wxc9cdcd3084bb6aee",
+  "projectname": "hbj",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "pages/new-jc-offer/new-jc-offer",
+          "pathName": "pages/new-jc-offer/new-jc-offer",
+          "query": "id=20201130172711000108",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "new-ws-offer-survey",
+          "pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
+          "query": "id=20200608132420000107",
+          "scene": null
+        },
+        {
+          "id": 2,
+          "name": "pages/new-ws-form/new-ws-form",
+          "pathName": "pages/new-ws-form/new-ws-form",
+          "query": "id=20201014144946000107",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "pages/new-jc-manage/new-jc-manage",
+          "pathName": "pages/new-jc-manage/new-jc-manage",
+          "query": "id=20210106090735000108&type=2",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "pages/new-my-list-jc/new-my-list-jc",
+          "pathName": "pages/new-my-list-jc/new-my-list-jc",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "pages/new-jc-form/new-jc-form",
+          "pathName": "pages/new-jc-form/new-jc-form",
+          "query": "id=20210110083943000108",
+          "scene": null
+        },
+        {
+          "id": 6,
+          "name": "pages/new-ws-offer/new-ws-offer",
+          "pathName": "pages/new-ws-offer/new-ws-offer",
+          "query": "id=20201201113636000107",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/ws-form/ws-form",
+          "pathName": "pages/ws-form/ws-form",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 8,
+          "name": "pages/sign/sign",
+          "pathName": "pages/sign/sign",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/pay/pay",
+          "pathName": "pages/pay/pay",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/webview/webview",
+          "pathName": "pages/webview/webview",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/idi-form/idi-form",
+          "pathName": "pages/idi-form/idi-form",
+          "scene": null
+        }
+      ]
+    }
+  }
 }
