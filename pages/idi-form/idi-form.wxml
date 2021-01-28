@@ -495,6 +495,10 @@
                     </view>
                 </view>
             </view>
+            <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
+                <text wx:if="{{!recordState}}">按住说话</text>
+                <text wx:else>松开结束</text>
+            </button>
         </block>
         <block>
             <view class="weui-cells__title">留言</view>
@@ -541,4 +545,7 @@
     <van-popup show="{{ showDateTimePopup }}" position="bottom" overlay="{{ true }}">
         <van-datetime-picker data-name="showDateTimePopup" type="datetime" value="{{ comeDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
     </van-popup>
+    <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
+        <cover-view>开始语音</cover-view>
+    </cover-view>
 </view>

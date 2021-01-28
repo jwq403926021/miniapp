@@ -2,6 +2,9 @@ import util from "../../utils/util";
 import common from "../../utils/common";
 const app = getApp()
 let today = new Date()
+const plugin = requirePlugin('WechatSI')
+const manager = plugin.getRecordRecognitionManager()
+
 Page({
   data: {
     role: 1,
@@ -21,6 +24,7 @@ Page({
       '50': '已完工待财务处理',
       '11': '已办结'
     },
+    recordState: false,
     showAreaPopup: false,
     showDateTimePopup: false,
     areaList: {},
@@ -69,6 +73,7 @@ Page({
     jobRole: ''
   },
   async onLoad (routeParams) {
+    this.initRecord()
     routeParams = {id: '1'}
     wx.showLoading({
       mask: true,
@@ -250,6 +255,70 @@ Page({
           console.log('正在上传第' + count + '张');
         }
       }
+    })
+  },
+  initRecord: function () {
+    const that = this
+    manager.onRecognize = function (res) {
+      console.log(res)
+    }
+    manager.onStart = function (res) {
+      console.log("成功开始录音识别", res)
+    }
+    manager.onError = function (res) {
+      console.error("录音错误", res)
+    }
+    manager.onStop = function (res) {
+      if (res.result == '') {
+        wx.showModal({
+          title: '提示',
+          content: '听不清楚，请重新说一遍！',
+          showCancel: false,
+          success: function (res) {}
+        })
+        return;
+      }
+      let text = res.result || ''
+      that.setData({
+        [this.recordTarget]: text
+      }, () => {
+        // that.digestRecord()
+      })
+    }
+  },
+  recordStart (e) {
+    let name = e.currentTarget.dataset.name
+    this.recordTarget = name
+    this.setData({
+      recordState: true
+    }, () => {
+      manager.start({
+        lang: 'zh_CN'
+      })
+    })
+  },
+  recordEnd (e) {
+    let name = e.currentTarget.dataset.name
+    this.recordTarget = ''
+    this.setData({
+      recordState: false
+    }, () => {
+      manager.stop()
+    })
+  },
+  digestRecord (form, to) {
+    let that = this
+    util.request({
+      path: '/app/businessdamagenew/getInfoByContent',
+      method: 'POST',
+      data: {
+        content: that.data[form]
+      }
+    }, function (err, res) {
+      let data = res.data
+      that.setData({
+        [to]: JSON.stringify(data)
+      })
     })
   },
   goToList () {
