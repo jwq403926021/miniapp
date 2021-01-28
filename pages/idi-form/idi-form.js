@@ -1,16 +1,17 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
+let computedBehavior = require('miniprogram-computed')
 const app = getApp()
 let today = new Date()
 const plugin = requirePlugin('WechatSI')
 const manager = plugin.getRecordRecognitionManager()
-const computedBehavior = require('miniprogram-computed')
 Page({
-  behaviors: [computedBehavior],
+  behaviors: [computedBehavior.behavior],
   computed: {
-    // sum(data) {
-    //   return data.a + data.b
-    // }
+    sum (data) {
+      console.log(data)
+      return data.countryId + data.cityId
+    }
   },
   data: {
     role: 1,

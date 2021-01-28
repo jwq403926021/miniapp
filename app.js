@@ -86,7 +86,7 @@ App({
               } else {
                 let page = getCurrentPages().pop()
                 page && page.onLoad(routerParams)
-                wx.showTabBar()
+                // wx.showTabBar()
               }
             } else {
               wx.showToast({mask: true,title: '登录出错请重试', icon: 'none', duration: 3000});
