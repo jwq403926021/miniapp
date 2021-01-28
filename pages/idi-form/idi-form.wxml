@@ -38,6 +38,30 @@
                     </view>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">保单号</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{true}}">
+                    <input class="weui-input" bindinput="inputChange" data-name='insuranceOrderId'
+                           value="{{insuranceOrderId}}" placeholder="保单号"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{insuranceOrderId || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{true}}">
+                    <input class="weui-input" bindinput="inputChange" data-name='reportId'
+                           value="{{reportId}}" placeholder="报案号"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{reportId || '-'}}</text>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">保险公司</view>

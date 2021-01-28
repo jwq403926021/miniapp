@@ -4,8 +4,8 @@ const app = getApp()
 let today = new Date()
 Page({
   data: {
-    orderId: '1',
-    status: '',
+    role: 1,
+    orderId: null,
     statusMap: {
       '20': '已派送',
       '13': '已确认',
@@ -25,6 +25,9 @@ Page({
     showDateTimePopup: false,
     areaList: {},
     // -- order data --
+    status: '',
+    reportId: '',
+    insuranceOrderId: '',
     region: '',
     regionLabel: '',
     countryId: '',
@@ -73,12 +76,12 @@ Page({
     })
     await this.initCondition()
     this.setData({
-      orderId: routeParams?.id || '',
+      orderId: routeParams?.id || null,
       region: app.globalData.currentRegisterInfo?.townCode || '',
       countryId: app.globalData.currentRegisterInfo?.townCode || '',
       cityId: app.globalData.currentRegisterInfo?.cityCode || '',
       provinceId: app.globalData.currentRegisterInfo?.provinceCode || '',
-      role: app.globalData.currentRegisterInfo?.role || '' // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      role: app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
     }, async () => {
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
