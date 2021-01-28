@@ -4,8 +4,14 @@ const app = getApp()
 let today = new Date()
 const plugin = requirePlugin('WechatSI')
 const manager = plugin.getRecordRecognitionManager()
-
+const computedBehavior = require('miniprogram-computed')
 Page({
+  behaviors: [computedBehavior],
+  computed: {
+    // sum(data) {
+    //   return data.a + data.b
+    // }
+  },
   data: {
     role: 1,
     orderId: null,
