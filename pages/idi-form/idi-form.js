@@ -1,10 +1,10 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
-let computedBehavior = require('miniprogram-computed')
-const app = getApp()
-let today = new Date()
+const computedBehavior = require('miniprogram-computed')
 const plugin = requirePlugin('WechatSI')
+const today = new Date()
 const manager = plugin.getRecordRecognitionManager()
+const app = getApp()
 Page({
   behaviors: [computedBehavior.behavior],
   computed: {
