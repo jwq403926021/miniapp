@@ -1217,7 +1217,10 @@ Page({
         method: 'POST',
         data: {
           flowId: _this.data.flowId,
-          investigatorId: _this.data.taskData.investigatorId
+          investigatorId: _this.data.taskData.investigatorId,
+          customerName: _this.data.taskData.customerName,
+          customerPhone: _this.data.taskData.customerPhone,
+          investigatorText: _this.data.taskData.investigatorText,
         }
       }, function (err, res) {
         wx.showToast({
