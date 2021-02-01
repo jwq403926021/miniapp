@@ -8,9 +8,11 @@ const app = getApp()
 Page({
   behaviors: [computedBehavior.behavior],
   computed: {
-    sum (data) {
-      console.log(data)
-      return data.countryId + data.cityId
+    isEditable (data) {
+      // 1 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      // data.role data.status
+      let isEditable = true
+      return isEditable
     }
   },
   data: {
