@@ -182,10 +182,6 @@ Page({
         num1 += parseInt(project.projectOfferTotal)
         num4 += parseInt(project.projectOfferTotal)
       }
-
-      num1 += (this.data.testPrice || 0)
-      num3 += (this.data.testPrice || 0)
-
       let incompletenum1 = 0
       let incompletenum2 = 0
       let incompletenum3 = 0
@@ -223,6 +219,8 @@ Page({
       project.tax = parseFloat((parseFloat(this.data.taxRate) / 100 * project.amountMoney).toFixed(2))
       project.offerResult = this.data.hasTax ? Math.round(project.amountMoney + project.tax).toFixed(2) : project.amountMoney.toFixed(2)
     })
+    num1 += (this.data.testPrice || 0)
+    num3 += (this.data.testPrice || 0)
     offerListTotal += parseFloat(this.data.testPrice || 0)
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
     computedCateogryTotalPrice = `支付平台金额：${num1.toFixed(2)} | 支付被保险人金额：${num2.toFixed(2)}<br/>水渍险合计：${num3.toFixed(2)} | 三者险合计：${num4.toFixed(2)} `
