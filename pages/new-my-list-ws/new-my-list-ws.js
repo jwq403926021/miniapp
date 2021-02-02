@@ -293,7 +293,7 @@ Page({
     }
   },
   goToOffer (event) {
-    if (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) {
+    if (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7 || this.data.role === 8) {
       wx.navigateTo({
         url: '../new-ws-offer-survey/new-ws-offer-survey?id=' + event.currentTarget.dataset.id
       })
