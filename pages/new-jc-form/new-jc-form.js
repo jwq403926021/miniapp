@@ -549,7 +549,8 @@ Page({
       method: 'POST',
       data: {
         flowId: _this.data.flowId,
-        losserText: this.data.taskData.losserText
+        losserText: this.data.taskData.losserText,
+        investigatorId: this.data.taskData.investigatorId
       }
     }, function (err, res) {
       if (res.code == 0) {
