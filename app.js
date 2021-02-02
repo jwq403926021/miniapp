@@ -84,8 +84,8 @@ App({
                 page && page.onLoad()
                 wx.hideTabBar()
               } else {
-                let page = getCurrentPages().pop()
-                page && page.onLoad(routerParams)
+                // let page = getCurrentPages().pop()
+                // page && page.onLoad(routerParams)
                 // wx.showTabBar()
               }
             } else {
