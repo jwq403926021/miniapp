@@ -74,7 +74,6 @@ Page({
     caleImageFiles: [],
     informationImageFiles: [],
     completeImageFiles: [],
-    acceptanceImageFiles: [],
     testImageFiles: [],
     showactionsheet: false,
     actions: [
@@ -89,6 +88,11 @@ Page({
       },
       {
         name: '修改基本信息',
+      }
+    ],
+    dinsunActions: [
+      {
+        name: '注销',
       }
     ]
   },
@@ -226,19 +230,17 @@ Page({
   },
   workerUploadImage () {
     let _this = this
-    let acceptanceImageFiles = []
-    let testImageFiles = []
-    _this.data.acceptanceImageFiles.map(item => {
+    let completeImageFiles = []
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    _this.data.completeImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        acceptanceImageFiles.push({path: item.path, type: 20})
+        completeImageFiles.push({path: item.path, type: 6})
       }
     })
-    _this.data.testImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        testImageFiles.push({path: item.path, type: 21})
-      }
-    })
-    let imgPaths = [...acceptanceImageFiles, ...testImageFiles]
+    let imgPaths = [...completeImageFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
@@ -262,7 +264,6 @@ Page({
     let damageImageFiles = []
     let caleImageFiles = []
     let completeImageFiles  = []
-    let acceptanceImageFiles = []
     let testImageFiles = []
     _this.data.damageImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -279,17 +280,12 @@ Page({
         completeImageFiles.push({path: item.path, type: 6})
       }
     })
-    _this.data.acceptanceImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        acceptanceImageFiles.push({path: item.path, type: 20})
-      }
-    })
     _this.data.testImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         testImageFiles.push({path: item.path, type: 21})
       }
     })
-    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...acceptanceImageFiles, ...testImageFiles]
+    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...testImageFiles]
   },
   workerCommit (event, save = false, isOfferSave = false) {
     let _this = this
@@ -537,7 +533,7 @@ Page({
     let url = (type == 2 || isSave) ? `/app/businessinsurancefamilynew/losserSave` : `/app/businessinsurancefamilynew/losserCommit`
     let familyImagesList = []
     let familyImages = wx.getStorageSync('familyImages')
-    let result = this.checkUploadImages(familyImages)
+    let result = this.checkUploadImages(familyImages, true)
     result.data.map(item => {
       if (item.path.indexOf('https://') == -1){
         familyImagesList.push(item)
@@ -553,7 +549,9 @@ Page({
       method: 'POST',
       data: {
         flowId: _this.data.flowId,
-        losserText: this.data.taskData.losserText
+        losserText: this.data.taskData.losserText,
+        investigatorId: this.data.taskData.investigatorId,
+        customerName: this.data.taskData.customerName
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -945,7 +943,6 @@ Page({
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
-      let acceptanceImageFiles = []
       let testImageFiles = []
 
       let familyImages = {
@@ -984,10 +981,6 @@ Page({
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             caleImageFiles.push(item)
-            break
-          case 20:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
-            acceptanceImageFiles.push(item)
             break
           case 21:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -1075,7 +1068,6 @@ Page({
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
-        acceptanceImageFiles: acceptanceImageFiles,
         testImageFiles: testImageFiles
       }, () => {
         _this.getRegionLabel()
@@ -1227,7 +1219,10 @@ Page({
         method: 'POST',
         data: {
           flowId: _this.data.flowId,
-          investigatorId: _this.data.taskData.investigatorId
+          investigatorId: _this.data.taskData.investigatorId,
+          customerName: _this.data.taskData.customerName,
+          customerPhone: _this.data.taskData.customerPhone,
+          investigatorText: _this.data.taskData.investigatorText,
         }
       }, function (err, res) {
         wx.showToast({

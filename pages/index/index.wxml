@@ -22,14 +22,14 @@
         车物损
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">
-      <view>
-        <text class="iconfont icon-fangwuxinxi myicon"></text>
-      </view>
-      <view>
-        旧家财险
-      </view>
-    </view>
+<!--    <view class="new-btn fl" bindtap="goToJcForm" wx:if="{{role == 1}}">-->
+<!--      <view>-->
+<!--        <text class="iconfont icon-fangwuxinxi myicon"></text>-->
+<!--      </view>-->
+<!--      <view>-->
+<!--        旧家财险-->
+<!--      </view>-->
+<!--    </view>-->
     <view class="new-btn fl" bindtap="goToNewJcForm" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-fangwuxinxi myicon"></text>
@@ -99,6 +99,9 @@
 <!--    </view>-->
 <!--    <view class="new-btn fl" bindtap="goToSign">-->
 <!--        签名demo-->
+<!--    </view>-->
+<!--    <view class="new-btn fl" bindtap="goToWebview">-->
+<!--        webview demo-->
 <!--    </view>-->
   </view>
 </view>

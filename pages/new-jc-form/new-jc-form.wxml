@@ -720,7 +720,7 @@
     </van-popup>
     <van-action-sheet
             show="{{ showactionsheet }}"
-            actions="{{ actions }}"
+            actions="{{ role == 23 ? dinsunActions : actions }}"
             bind:close="onactionsheetClose"
             bind:select="onactionsheetSelect"
     />

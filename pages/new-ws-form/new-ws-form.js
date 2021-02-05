@@ -79,7 +79,16 @@ Page({
     location: {
       latitude: '',
       longitude: ''
-    }
+    },
+    showactionsheet: false,
+    actions: [
+      {
+        name: '注销',
+      },
+      {
+        name: '修改信息',
+      }
+    ]
   },
   onLoad: function (routeParams) {
     if (Object.keys(this.data.areaList).length == 0) {
@@ -248,7 +257,7 @@ Page({
     str = str.toUpperCase()
     str = str.replace(/\s+/g,"")
     if (str) {
-      let flag = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(str);
+      let flag = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z](([0-9]{5}[ADF])|([ADF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z][A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/.test(str);
       if (!flag) {
         wx.showToast({
           mask: true,
@@ -1261,6 +1270,44 @@ Page({
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
     }
   },
+  managerSubmitImage () {
+    let _this = this
+    let workLiveImageFiles = []
+    let projectBillImageFiles = []
+    let workerAuthImageFiles = []
+    let liveImageFiles = []
+    _this.data.workLiveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workLiveImageFiles.push({path: item.path, type: 3})
+      }
+    })
+    _this.data.projectBillImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        projectBillImageFiles.push({path: item.path, type: 17})
+      }
+    })
+    _this.data.workerAuthImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workerAuthImageFiles.push({path: item.path, type: 16})
+      }
+    })
+    _this.data.liveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 2})
+      }
+    })
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    let imgPaths = [...workLiveImageFiles, ...projectBillImageFiles, ...workerAuthImageFiles, ...liveImageFiles]
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
   workerSubmitImage () {
     let _this = this
     let workLiveImageFiles = []
@@ -1297,6 +1344,27 @@ Page({
     let failUp = 0
     if (imgPaths.length) {
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    }
+  },
+  openOperation (event) {
+    this.id = event.currentTarget.dataset.id
+    this.setData({ showactionsheet: true })
+  },
+  onactionsheetClose () {
+    this.setData({ showactionsheet: false })
+  },
+  onactionsheetSelect (event) {
+    switch (event.detail.name) {
+      case '注销':
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 0
+        })
+        break
+      case '修改信息':
+        wx.navigateTo({
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 1
+        })
+        break
     }
   }
   // getMyLocation () {

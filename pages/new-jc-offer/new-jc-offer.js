@@ -433,14 +433,14 @@ Page({
     }, function (err, res) {
       let data = res.data
       let taxData = res.taxList.filter(item => {
-        if (_this.data.role === 12) {
+        if (_this.data.role === 12 || _this.data.role === 8) {
           return item.type === '1'
         } else {
           return item.type === '0'
         }
       })
       let list = res.offerList.filter(item => {
-        if (_this.data.role === 12) {
+        if (_this.data.role === 12 || _this.data.role === 8) {
           return item.offerType === '1'
         } else {
           return item.offerType === '0'
@@ -472,7 +472,7 @@ Page({
         provinceCode: data.areaProvince + '',
         offerList: _this.data.offerList,
         incompleteList: res.incompleteList.filter(item => {
-          if (_this.data.role === 12) {
+          if (_this.data.role === 12 || _this.data.role === 8) {
             return item.type === '1'
           } else {
             return item.type === '0'
@@ -725,7 +725,7 @@ Page({
     for (let i = 0; i < list.length; i++) {
       for (let j = 0; j < list[i].children.length; j++) {
         let item = list[i].children[j]
-        if (item.projectId === null || item.projectId === '' ||
+        if (item.name === null || item.name === '' ||
           item.unit === null || item.unit === '' ||
           item.price === null || item.price === '' ||
           item.num === null || item.num === '') {
@@ -782,7 +782,7 @@ Page({
     if (!this.checkOfferListItem()) {
       wx.showToast({
         mask: true,
-        title: '请填写所有报价条目的 单价 单位 数量.',
+        title: '请填写所有报价条目的 名称 单价 单位 数量.',
         icon: 'none',
         duration: 1000
       })
@@ -888,7 +888,7 @@ Page({
     if (!this.checkOfferListItem()) {
       wx.showToast({
         mask: true,
-        title: '请填写所有报价条目的 单价 单位 数量.',
+        title: '请填写所有报价条目的 名称 单价 单位 数量.',
         icon: 'none',
         duration: 1000
       })
