@@ -550,7 +550,8 @@ Page({
       data: {
         flowId: _this.data.flowId,
         losserText: this.data.taskData.losserText,
-        investigatorId: this.data.taskData.investigatorId
+        investigatorId: this.data.taskData.investigatorId,
+        customerName: this.data.taskData.customerName
       }
     }, function (err, res) {
       if (res.code == 0) {
