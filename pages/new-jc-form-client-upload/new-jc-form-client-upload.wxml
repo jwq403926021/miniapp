@@ -13,9 +13,6 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderOverallFiles">
-                                    <view class="no-image" wx:if="{{familyImages.overall.length == 0 && !((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52)))}}">
-                                        无图片
-                                    </view>
                                     <block wx:for="{{familyImages.overall}}" wx:key="index">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="overall" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
@@ -43,9 +40,6 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files" id="uploaderCertificateFiles">
-                                    <view class="no-image" wx:if="{{familyImages.certificate.length == 0 && !((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52)))}}">
-                                        无图片
-                                    </view>
                                     <block wx:for="{{familyImages.certificate}}" wx:key="index">
                                         <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="certificate" bindtap="previewImage" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
@@ -70,9 +64,6 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files" id="uploaderIdentificationFiles">
-                                        <view class="no-image" wx:if="{{familyImages.identification.length == 0 && !((role == 12 && (status == 40 || status == 42 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52)))}}">
-                                            无图片
-                                        </view>
                                         <block wx:for="{{familyImages.identification}}" wx:key="index">
                                             <view wx:if="{{item.clientIndex == clientIndex}}" class="weui-uploader__file image-preview-wrap" data-imagetype="identification" bindtap="previewImage" id="{{item.path}}">
                                                 <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>

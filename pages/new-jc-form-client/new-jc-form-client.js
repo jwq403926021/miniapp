@@ -12,11 +12,11 @@ Page({
   },
   onLoad: function (routeParams) {
     let familyImages = wx.getStorageSync('familyImages')
-    let clientIndexArr = []
+    let clientIndexArr = [0]
     for(let key in familyImages) {
       familyImages[key].forEach(item => {
         if (item.hasOwnProperty('clientIndex')) {
-          clientIndexArr.push(parseInt(item.clientIndex))
+          clientIndexArr.push(parseInt(item.clientIndex || 0))
         }
       })
     }
