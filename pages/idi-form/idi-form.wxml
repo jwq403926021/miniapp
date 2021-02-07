@@ -103,7 +103,7 @@
                     <text class="weui-input readonly">{{address || '-'}}</text>
                 </view>
                 <view class="weui-cell__ft">
-                    <van-button bindtap="getLocation" type="info" size="small">获取定位</van-button>
+                    <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>
                 </view>
             </view>
             <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">

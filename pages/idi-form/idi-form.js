@@ -343,7 +343,7 @@ Page({
     // })
   },
   // ------- COMMON FUNCTION --------
-  getLocation (e) {
+  chooseLocation () {
     let _this = this
     wx.getLocation({
       type: 'wgs84',
@@ -351,10 +351,17 @@ Page({
       success (res) {
         const latitude = res.latitude
         const longitude = res.longitude
-        _this.setData({
-          userLocationInfo: {
-            latitude: latitude,
-            longitude: longitude
+        wx.chooseLocation({
+          latitude: latitude,
+          longitude: longitude,
+          success (location) {
+            _this.setData({
+              address: location.address,
+              userLocationInfo: {
+                latitude: location.latitude,
+                longitude: location.longitude
+              }
+            })
           }
         })
       },
