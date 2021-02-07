@@ -58,10 +58,9 @@
     "miniprogram": {
       "list": [
         {
-          "id": 0,
           "name": "pages/new-jc-offer/new-jc-offer",
           "pathName": "pages/new-jc-offer/new-jc-offer",
-          "query": "id=20201130172711000108",
+          "query": "id=20210124124235000108",
           "scene": null
         },
         {
@@ -93,10 +92,9 @@
           "scene": null
         },
         {
-          "id": 5,
           "name": "pages/new-jc-form/new-jc-form",
           "pathName": "pages/new-jc-form/new-jc-form",
-          "query": "id=20210110083943000108",
+          "query": "id=20210129170214000108",
           "scene": null
         },
         {
@@ -136,6 +134,13 @@
         {
           "name": "pages/idi-form/idi-form",
           "pathName": "pages/idi-form/idi-form",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/new-jc-offer-survey/new-jc-offer-survey",
+          "pathName": "pages/new-jc-offer-survey/new-jc-offer-survey",
+          "query": "id=20210124124235000108",
           "scene": null
         }
       ]

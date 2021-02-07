@@ -82,7 +82,11 @@ Page({
     comeDateTimeLabel: common.formatDateTimePicker(today),
     expireDateTimeValue: today.getTime(),
     expireDateTimeLabel: common.formatDateTimePicker(today),
-    jobRole: ''
+    jobRole: '',
+    userLocationInfo: {
+      latitude: null,
+      longitude: null
+    }
   },
   async onLoad (routeParams) {
     this.initRecord()
@@ -339,6 +343,44 @@ Page({
     // })
   },
   // ------- COMMON FUNCTION --------
+  getLocation (e) {
+    let _this = this
+    wx.getLocation({
+      type: 'wgs84',
+      isHighAccuracy: true,
+      success (res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        _this.setData({
+          userLocationInfo: {
+            latitude: latitude,
+            longitude: longitude
+          }
+        })
+      },
+      fail: function (res) {
+        if (res.errMsg == 'getLocation:fail auth deny') {
+          wx.openSetting({
+            success: function (res) {
+              if (res.authSetting['scope.userLocation'] == false) {
+                wx.showModal({
+                  title: '提示',
+                  content: '您未开启定位权限.',
+                  showCancel: false
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: '您已开启定位权限，请重新点击登录',
+                  showCancel: false
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
   openPopup (e) {
     let name = e.currentTarget.dataset.name
     this.setData({

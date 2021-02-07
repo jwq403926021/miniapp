@@ -40,6 +40,11 @@
     "pages/webview/webview",
     "pages/idi-form/idi-form"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "请求获取您的位置信息"
+    }
+  },
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#016eff",
