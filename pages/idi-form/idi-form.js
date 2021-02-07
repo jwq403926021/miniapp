@@ -35,7 +35,8 @@ Page({
     },
     recordState: false,
     showAreaPopup: false,
-    showDateTimePopup: false,
+    showComeDateTimePopup: false,
+    showExpireDateTimePopup: false,
     areaList: {},
     // -- order data --
     status: '',
@@ -79,6 +80,8 @@ Page({
     workerCompleteImageFiles: [],
     comeDateTimeValue: today.getTime(),
     comeDateTimeLabel: common.formatDateTimePicker(today),
+    expireDateTimeValue: today.getTime(),
+    expireDateTimeLabel: common.formatDateTimePicker(today),
     jobRole: ''
   },
   async onLoad (routeParams) {
@@ -173,7 +176,7 @@ Page({
   confirmDateTimePopup (e) {
     let d = new Date(e.detail)
     this.setData({
-      showDateTimePopup: false,
+      showComeDateTimePopup: false,
       comeDateTimeValue: e.detail,
       comeDateTimeLabel: common.formatDateTimePicker(d)
     })

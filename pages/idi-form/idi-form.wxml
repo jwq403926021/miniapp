@@ -52,6 +52,21 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
+                    <view class="weui-label">保险期限</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimePopup" bindtap="openPopup">
+                            {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限'}}
+                        </view>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{expireDateTimeLabel || '-'}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{true}}">
@@ -170,7 +185,7 @@
                 </view>
                 <view class="weui-cell__bd">
                     <view class="weui-cell__bd" wx:if="{{true}}">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showDateTimePopup" bindtap="openPopup">
+                        <view class="picker weui-select weui-select_in-select-after" data-name="showComeDateTimePopup" bindtap="openPopup">
                             {{comeDateTimeLabel ? comeDateTimeLabel : '请选择上门时间'}}
                         </view>
                     </view>
@@ -542,8 +557,11 @@
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
         <van-area data-name="showAreaPopup" area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
     </van-popup>
-    <van-popup show="{{ showDateTimePopup }}" position="bottom" overlay="{{ true }}">
-        <van-datetime-picker data-name="showDateTimePopup" type="datetime" value="{{ comeDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
+    <van-popup show="{{ showComeDateTimePopup }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker data-name="showComeDateTimePopup" type="datetime" value="{{ comeDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
+    </van-popup>
+    <van-popup show="{{ showExpireDateTimePopup }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker data-name="showExpireDateTimePopup" type="datetime" value="{{ expireDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
     </van-popup>
     <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
         <cover-view>开始语音</cover-view>
