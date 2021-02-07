@@ -349,8 +349,8 @@ Page({
       type: 'wgs84',
       isHighAccuracy: true,
       success (res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
+        const latitude = _this.data.userLocationInfo.latitude || res.latitude
+        const longitude = _this.data.userLocationInfo.longitude || res.longitude
         wx.chooseLocation({
           latitude: latitude,
           longitude: longitude,
