@@ -3,11 +3,14 @@
     "van-area": "../../asset/vant/area/index",
     "van-popup": "../../asset/vant/popup/index",
     "van-radio": "../../asset/vant/radio/index",
+    "van-checkbox": "../../asset/vant/checkbox/index",
     "van-radio-group": "../../asset/vant/radio-group/index",
     "van-icon": "../../asset/vant/icon/index",
     "van-action-sheet": "../../asset/vant/action-sheet/index",
     "van-dialog": "../../asset/vant/dialog/index",
     "van-button": "../../asset/vant/button/index",
-    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
+    "van-datetime-picker": "../../asset/vant/datetime-picker/index",
+    "van-row": "../../asset/vant/row/index",
+    "van-col": "../../asset/vant/col/index"
   }
 }
