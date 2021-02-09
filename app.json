@@ -38,7 +38,8 @@
     "pages/sign/sign",
     "pages/pay/pay",
     "pages/webview/webview",
-    "pages/idi-form/idi-form"
+    "pages/idi-form/idi-form",
+    "pages/idi-offer/idi-offer"
   ],
   "permission": {
     "scope.userLocation": {
