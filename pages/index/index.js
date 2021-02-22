@@ -62,7 +62,7 @@ Page({
       url: '../webview/webview'
     })
   },
-  onLoad: function () {
+  onLoad () {
     this.setData({
       isLogin: true,
       role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role
