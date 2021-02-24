@@ -40,7 +40,7 @@ Page({
       provinceCode: '',
       cityCode: '',
       townCode: '',
-      acceptInsurance: '0',
+      acceptInsurance: '2',
       insuranceType: '1',
       damagedUser: '',
       damagedPhone: '',
