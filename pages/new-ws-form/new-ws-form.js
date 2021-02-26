@@ -490,15 +490,19 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let tempList = []
-        res.tempFilePaths.forEach(item => {
-          tempList.push({
-            "path": item, "id": null
+        res.tempFilePaths.forEach((item, index) => {
+          wx.compressImage({
+            src: item,
+            quality: res.tempFiles[index].size > 2 * 1024 * 1024 ? 50 : 90,
+            success ({tempFilePath}) {
+              let list = that.data[key].concat([{
+                "path": tempFilePath, "id": null
+              }])
+              that.setData({
+                [key]: list
+              })
+            }
           })
-        })
-        let list = that.data[key].concat(tempList)
-        that.setData({
-          [key]: list
         })
         setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
