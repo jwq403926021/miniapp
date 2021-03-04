@@ -302,8 +302,8 @@ Page({
         num4 += parseInt(project.projectTotal)
       }
     })
-    num1 += parseFloat(this.data.testPrice || 0)
-    num3 += parseFloat(this.data.testPrice || 0)
+    // num1 += parseFloat(this.data.testPrice || 0)
+    // num3 += parseFloat(this.data.testPrice || 0)
 
     let incompletenum1 = 0
     let incompletenum2 = 0
