@@ -75,7 +75,11 @@ Page({
       mask: true,
       title: '加载中'
     })
-    _this.loadData()
+    this.setData({
+      offerList: []
+    }, () => {
+      _this.loadData()
+    })
   },
   loadData () {
     let _this = this
