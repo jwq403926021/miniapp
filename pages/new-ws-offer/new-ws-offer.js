@@ -395,11 +395,12 @@ Page({
           return item.offerType === '0'
         }
       })
+      let offerList = []
       if (list.length > 0) {
         list.forEach(item => {
-          let proIndex = _this.data.offerList.findIndex(ll => ll.proId === item.proId)
+          let proIndex = offerList.findIndex(ll => ll.proId === item.proId)
           if (proIndex === -1) {
-            _this.data.offerList.push({
+            offerList.push({
               proName: item.proName,
               proId: item.proId,
               proType: parseInt(item.proType),
@@ -407,7 +408,7 @@ Page({
               projectTotal: 0
             })
           } else {
-            _this.data.offerList[proIndex].children.push(item)
+            offerList[proIndex].children.push(item)
           }
         })
       }
@@ -418,7 +419,7 @@ Page({
         townCode: data.townCode,
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,
-        offerList: _this.data.offerList,
+        offerList: offerList,
         damageMoney: data.damageMoney,
         budgetPreliminary: data.budgetPreliminary,
         incompleteList: res.incompleteList.filter(item => {

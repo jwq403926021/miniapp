@@ -109,18 +109,19 @@ Page({
       let list = res.offerList.filter(item => {
         return item.offerType === '0'
       })
+      let offerList = []
       if (list.length > 0) {
         list.forEach(item => {
-          let proIndex = _this.data.offerList.findIndex(ll => ll.proType == item.proType)
+          let proIndex = offerList.findIndex(ll => ll.proType == item.proType)
           if (proIndex === -1) {
-            _this.data.offerList.push({
+            offerList.push({
               proName: item.proName,
               proId: item.proId,
               proType: parseInt(item.proType),
               children: [item]
             })
           } else {
-            _this.data.offerList[proIndex].children.push(item)
+            offerList[proIndex].children.push(item)
           }
         })
       }
@@ -129,9 +130,9 @@ Page({
       })
       let result = {
         ...data,
-        offerList: _this.data.offerList,
+        offerList: offerList,
         incompleteList: incompleteList,
-        offerListSource: _this.data.offerList,
+        offerListSource: offerList,
         incompleteListSource: incompleteList,
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
