@@ -1370,6 +1370,43 @@ Page({
         })
         break
     }
+  },
+  digestRecord () {
+    let that = this
+    wx.showLoading({
+      mask: true,
+      title: '识别中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/getInfoByContent',
+      method: 'POST',
+      data: {
+        content: that.data.taskData.information
+      }
+    }, function (err, res) {
+      let data = res.data
+      let state = {}
+      if (data.county) {
+        state.region = data.county
+        state['taskData.townCode'] = data.county
+      }
+      if (data.city) {
+        state['taskData.cityCode'] = data.city
+      }
+      if (data.province) {
+        state['taskData.provinceCode'] = data.province
+      }
+      if (data.person) {
+        state['taskData.customerUser'] = data.person
+      }
+      if (data.phonenum) {
+        state['taskData.customerPhone'] = data.phonenum
+      }
+      that.setData(state, () => {
+        that.getRegionLabel()
+        wx.hideLoading()
+      })
+    })
   }
   // getMyLocation () {
   //   wx.chooseLocation({

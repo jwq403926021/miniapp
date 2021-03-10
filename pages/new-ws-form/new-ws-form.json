@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "van-button": "../../asset/vant/button/index",
     "van-area": "../../asset/vant/area/index",
     "van-popup": "../../asset/vant/popup/index",
     "van-radio": "../../asset/vant/radio/index",

@@ -173,6 +173,7 @@
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
                               value="{{taskData.information}}" disabled="{{orderId !== null && taskData.status != 2 && taskData.status != null}}" placeholder="请输入文本" style="height: 7em"/>
+                    <van-button type="primary" block size="small" bindtap="digestRecord">识别信息</van-button>
                 </view>
                 <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:if="{{orderId != null && taskData.status != null}}">
                     {{taskData.information || '-'}}
