@@ -140,7 +140,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
+          role: 8 // app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
         }, () => {
           this.init(routeParams.id)
         })
@@ -433,14 +433,14 @@ Page({
     }, function (err, res) {
       let data = res.data
       let taxData = res.taxList.filter(item => {
-        if (_this.data.role === 12 || _this.data.role === 8) {
+        if (_this.data.role === 12) {
           return item.type === '1'
         } else {
           return item.type === '0'
         }
       })
       let list = res.offerList.filter(item => {
-        if (_this.data.role === 12 || _this.data.role === 8) {
+        if (_this.data.role === 12) {
           return item.offerType === '1'
         } else {
           return item.offerType === '0'
@@ -472,7 +472,7 @@ Page({
         provinceCode: data.areaProvince + '',
         offerList: offerList,
         incompleteList: res.incompleteList.filter(item => {
-          if (_this.data.role === 12 || _this.data.role === 8) {
+          if (_this.data.role === 12) {
             return item.type === '1'
           } else {
             return item.type === '0'
