@@ -140,7 +140,7 @@ Page({
       if (routeParams && routeParams.id) {
         this.setData({
           orderId: routeParams.id,
-          role: 8 // app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
+          role: app.globalData.currentRegisterInfo.role // 13:报价员 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
         }, () => {
           this.init(routeParams.id)
         })
