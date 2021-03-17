@@ -38,7 +38,7 @@
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
-      <view><text class="iconfont icon-fangwuxinxi myicon2"></text>IDI工单</view>
+      <view><text class="iconfont icon-fangwuxinxi myicon2"></text>测试工单</view>
     </view>
 
     <!--<view class="my-list-item" bindtap="goToCxList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 16 || role == 17 || role == 22}}">-->

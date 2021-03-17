@@ -59,7 +59,7 @@
         <text class="iconfont icon-fangwuxinxi myicon"></text>
       </view>
       <view>
-        IDI
+        测试
       </view>
     </view>
     <!--<view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">-->
