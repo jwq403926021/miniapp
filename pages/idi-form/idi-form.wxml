@@ -25,21 +25,6 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">事故区域</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showAreaPopup" bindtap="openPopup">
-                            {{regionLabel ? regionLabel : '请填写地址'}}
-                        </view>
-                    </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{regionLabel || '-'}}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
                     <view class="weui-label">保单号</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{true}}">
@@ -48,21 +33,6 @@
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{insuranceOrderId || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">保险期限</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimePopup" bindtap="openPopup">
-                            {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限'}}
-                        </view>
-                    </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{expireDateTimeLabel || '-'}}</text>
-                    </view>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -77,21 +47,36 @@
                     <text class="weui-input readonly">{{reportId || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">保险公司</view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">事故区域</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <picker bindchange="pickerChange" data-name="insuranceCompany" value="{{insuranceCompanyValue}}" range="{{insuranceCompanyList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{insuranceCompanyLabel || '请选择保险公司'}}
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <view class="picker weui-select weui-select_in-select-after" data-name="showAreaPopup" bindtap="openPopup">
+                            {{regionLabel ? regionLabel : '请填写地址'}}
                         </view>
-                    </picker>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{insuranceCompanyLabel || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+                    </view>
                 </view>
             </view>
+<!--            <view class="weui-cell weui-cell_select">-->
+<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+<!--                    <view class="weui-label">保险公司</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{true}}">-->
+<!--                    <picker bindchange="pickerChange" data-name="insuranceCompany" value="{{insuranceCompanyValue}}" range="{{insuranceCompanyList}}">-->
+<!--                        <view class="picker weui-select weui-select_in-select-after">-->
+<!--                            {{insuranceCompanyLabel || '请选择保险公司'}}-->
+<!--                        </view>-->
+<!--                    </picker>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:else>-->
+<!--                    <text class="weui-input readonly">{{insuranceCompanyLabel || '-'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">详细地址</view>
@@ -200,125 +185,144 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">估损金额</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <input class="weui-input" bindinput="inputChange" data-name='estimatePrice'
-                           value="{{estimatePrice}}" placeholder="请输入估损金额"/>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{estimatePrice || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">报价金额</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <input class="weui-input" bindinput="inputChange" data-name='offerPrice'
-                           value="{{offerPrice}}" placeholder="请输入估损金额"/>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{offerPrice || '-'}}</text>
-                </view>
-                <view class="weui-cell__ft">
-                    <van-button type="info" size="small">详情</van-button>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">事故原因</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <picker bindchange="pickerChange" data-name="accidentReason" value="{{accidentReasonValue}}" range="{{accidentReasonList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{accidentReasonLabel || '请选择事故原因'}}
+
+            <template wx:if="{{orderId}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">保险期限</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{true}}">
+                            <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimePopup" bindtap="openPopup">
+                                {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限'}}
+                            </view>
                         </view>
-                    </picker>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{accidentReasonLabel || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">保险责任</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <van-radio-group value="{{ insurerResponsibility }}" data-name="insurerResponsibility" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">不成立</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">成立</van-radio>
-                    </van-radio-group>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{['不成立', '成立'][insurerResponsibility] || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">非责任施工</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <van-radio-group value="{{ noResponsibilityConstruct }}" data-name="noResponsibilityConstruct" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">拒绝</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">同意</van-radio>
-                    </van-radio-group>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{['拒绝', '同意'][noResponsibilityConstruct] || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">TIS单位</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{tisCompanyLabel || '请选择TIS单位'}}
+                        <view class="weui-cell__bd" wx:else>
+                            <text class="weui-input readonly">{{expireDateTimeLabel || '-'}}</text>
                         </view>
-                    </picker>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{tisCompanyLabel || '-'}}</text>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">估损金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <input class="weui-input" bindinput="inputChange" data-name='estimatePrice'
+                               value="{{estimatePrice}}" placeholder="请输入估损金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{estimatePrice || '-'}}</text>
+                    </view>
                 </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">岗位</view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报价金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <input class="weui-input" bindinput="inputChange" data-name='offerPrice'
+                               value="{{offerPrice}}" placeholder="请输入估损金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{offerPrice || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <van-button type="info" size="small">详情</van-button>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <van-radio-group value="{{ jobRole }}" data-name="jobRole" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">查勘岗</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">核销岗</van-radio>
-                    </van-radio-group>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">事故原因</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <picker bindchange="pickerChange" data-name="accidentReason" value="{{accidentReasonValue}}" range="{{accidentReasonList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{accidentReasonLabel || '请选择事故原因'}}
+                            </view>
+                        </picker>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{accidentReasonLabel || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{['查勘岗', '核销岗'][jobRole] || '-'}}</text>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">保险责任</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <van-radio-group value="{{ insurerResponsibility }}" data-name="insurerResponsibility" custom-class="weui-input vertical" bind:change="radioChange">
+                            <van-radio custom-class="fl mr5" name="0">不成立</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">成立</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{['不成立', '成立'][insurerResponsibility] || '-'}}</text>
+                    </view>
                 </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">是否支付</view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">非责任施工</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <van-radio-group value="{{ noResponsibilityConstruct }}" data-name="noResponsibilityConstruct" custom-class="weui-input vertical" bind:change="radioChange">
+                            <van-radio custom-class="fl mr5" name="0">拒绝</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">同意</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{['拒绝', '同意'][noResponsibilityConstruct] || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
-                    <van-radio-group value="{{ isPay }}" data-name="isPay" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">未支付</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">已支付</van-radio>
-                    </van-radio-group>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">TIS单位</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{tisCompanyLabel || '请选择TIS单位'}}
+                            </view>
+                        </picker>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{tisCompanyLabel || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{['未支付', '已支付'][isPay] || '-'}}</text>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">岗位</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <van-radio-group value="{{ jobRole }}" data-name="jobRole" custom-class="weui-input vertical" bind:change="radioChange">
+                            <van-radio custom-class="fl mr5" name="0">查勘岗</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">核销岗</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{['查勘岗', '核销岗'][jobRole] || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__ft">
-                    <van-button type="info" size="small">详情</van-button>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否支付</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{true}}">
+                        <van-radio-group value="{{ isPay }}" data-name="isPay" custom-class="weui-input vertical" bind:change="radioChange">
+                            <van-radio custom-class="fl mr5" name="0">未支付</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">已支付</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{['未支付', '已支付'][isPay] || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <van-button type="info" size="small">详情</van-button>
+                    </view>
                 </view>
-            </view>
+            </template>
+
         </view>
 
-        <block>
+        <block wx:if="{{orderId}}">
             <view class="weui-cells__title">比价列表</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_select">
@@ -388,199 +392,201 @@
             </view>
         </block>
 
-        <block>
-            <view class="weui-cells__title">查勘图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{investigatorImageFiles.length == 0}}">
-                                        无图片
+        <block wx:if="{{orderId}}">
+            <block>
+                <view class="weui-cells__title">查勘图片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{investigatorImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <view wx:for="{{investigatorImageFiles}}"
+                                              wx:key="index"
+                                              data-name="investigatorImageFiles"
+                                              class="weui-uploader__file image-preview-wrap"
+                                              bindtap="previewImage">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{true}}"
+                                                      data-name="investigatorImageFiles"
+                                                      data-id="{{item.id}}"
+                                                      catchtap="removeImage"
+                                                      data-index="{{index}}"
+                                                      name="clear"
+                                                      custom-class="delete-image-icon">
+                                            </van-icon>
+                                        </view>
                                     </view>
-                                    <view wx:for="{{investigatorImageFiles}}"
-                                          wx:key="index"
-                                          data-name="investigatorImageFiles"
-                                          class="weui-uploader__file image-preview-wrap"
-                                          bindtap="previewImage">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{true}}"
-                                                  data-name="investigatorImageFiles"
-                                                  data-id="{{item.id}}"
-                                                  catchtap="removeImage"
-                                                  data-index="{{index}}"
-                                                  name="clear"
-                                                  custom-class="delete-image-icon">
-                                        </van-icon>
+                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                        <view data-name="investigatorImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
-                                </view>
-                                <view class="weui-uploader__input-box" wx:if="{{true}}">
-                                    <view data-name="investigatorImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
-        </block>
+            </block>
 
-        <block>
-            <view class="weui-cells__title">施工告知图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{workerInfoImageFiles.length == 0}}">
-                                        无图片
+            <block>
+                <view class="weui-cells__title">施工告知图片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{workerInfoImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <view wx:for="{{workerInfoImageFiles}}"
+                                              wx:key="index"
+                                              data-name="workerInfoImageFiles"
+                                              class="weui-uploader__file image-preview-wrap"
+                                              bindtap="previewImage">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{true}}"
+                                                      data-name="workerInfoImageFiles"
+                                                      data-id="{{item.id}}"
+                                                      catchtap="removeImage"
+                                                      data-index="{{index}}"
+                                                      name="clear"
+                                                      custom-class="delete-image-icon">
+                                            </van-icon>
+                                        </view>
                                     </view>
-                                    <view wx:for="{{workerInfoImageFiles}}"
-                                          wx:key="index"
-                                          data-name="workerInfoImageFiles"
-                                          class="weui-uploader__file image-preview-wrap"
-                                          bindtap="previewImage">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{true}}"
-                                                  data-name="workerInfoImageFiles"
-                                                  data-id="{{item.id}}"
-                                                  catchtap="removeImage"
-                                                  data-index="{{index}}"
-                                                  name="clear"
-                                                  custom-class="delete-image-icon">
-                                        </van-icon>
+                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                        <view data-name="workerInfoImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
-                                </view>
-                                <view class="weui-uploader__input-box" wx:if="{{true}}">
-                                    <view data-name="workerInfoImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
-        </block>
+            </block>
 
-        <block>
-            <view class="weui-cells__title">施工申请图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0}}">
-                                        无图片
+            <block>
+                <view class="weui-cells__title">施工申请图片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <view wx:for="{{workerApplicationImageFiles}}"
+                                              wx:key="index"
+                                              data-name="workerApplicationImageFiles"
+                                              class="weui-uploader__file image-preview-wrap"
+                                              bindtap="previewImage">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{true}}"
+                                                      data-name="workerApplicationImageFiles"
+                                                      data-id="{{item.id}}"
+                                                      catchtap="removeImage"
+                                                      data-index="{{index}}"
+                                                      name="clear"
+                                                      custom-class="delete-image-icon">
+                                            </van-icon>
+                                        </view>
                                     </view>
-                                    <view wx:for="{{workerApplicationImageFiles}}"
-                                          wx:key="index"
-                                          data-name="workerApplicationImageFiles"
-                                          class="weui-uploader__file image-preview-wrap"
-                                          bindtap="previewImage">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{true}}"
-                                                  data-name="workerApplicationImageFiles"
-                                                  data-id="{{item.id}}"
-                                                  catchtap="removeImage"
-                                                  data-index="{{index}}"
-                                                  name="clear"
-                                                  custom-class="delete-image-icon">
-                                        </van-icon>
+                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                        <view data-name="workerApplicationImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
-                                </view>
-                                <view class="weui-uploader__input-box" wx:if="{{true}}">
-                                    <view data-name="workerApplicationImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
-        </block>
+            </block>
 
-        <block>
-            <view class="weui-cells__title">完工凭证图片</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
-                        <view class="weui-uploader">
-                            <view class="weui-uploader__bd">
-                                <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0}}">
-                                        无图片
+            <block>
+                <view class="weui-cells__title">完工凭证图片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <view wx:for="{{workerCompleteImageFiles}}"
+                                              wx:key="index"
+                                              data-name="workerCompleteImageFiles"
+                                              class="weui-uploader__file image-preview-wrap"
+                                              bindtap="previewImage">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{true}}"
+                                                      data-name="workerCompleteImageFiles"
+                                                      data-id="{{item.id}}"
+                                                      catchtap="removeImage"
+                                                      data-index="{{index}}"
+                                                      name="clear"
+                                                      custom-class="delete-image-icon">
+                                            </van-icon>
+                                        </view>
                                     </view>
-                                    <view wx:for="{{workerCompleteImageFiles}}"
-                                          wx:key="index"
-                                          data-name="workerCompleteImageFiles"
-                                          class="weui-uploader__file image-preview-wrap"
-                                          bindtap="previewImage">
-                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{true}}"
-                                                  data-name="workerCompleteImageFiles"
-                                                  data-id="{{item.id}}"
-                                                  catchtap="removeImage"
-                                                  data-index="{{index}}"
-                                                  name="clear"
-                                                  custom-class="delete-image-icon">
-                                        </van-icon>
+                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                        <view data-name="workerCompleteImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
-                                </view>
-                                <view class="weui-uploader__input-box" wx:if="{{true}}">
-                                    <view data-name="workerCompleteImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
-        </block>
+            </block>
 
-        <block>
-            <view class="weui-cells__title">报案信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='orderInfo'
-                                  value="{{orderInfo}}" placeholder="请输入报案信息" style="height: 7em"/>
-                    </view>
-                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-                        {{orderInfo || '-'}}
-                    </view>
-                </view>
-            </view>
-            <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
-                <text wx:if="{{!recordState}}">按住说话</text>
-                <text wx:else>松开结束</text>
-            </button>
-        </block>
-        <block>
-            <view class="weui-cells__title">施工留言</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='workerComment'
-                                  value="{{workerComment}}" placeholder="请输入施工留言" style="height: 7em"/>
-                    </view>
-                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-                        {{workerComment || '-'}}
+            <block>
+                <view class="weui-cells__title">报案信息</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{true}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='orderInfo'
+                                      value="{{orderInfo}}" placeholder="请输入报案信息" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{orderInfo || '-'}}
+                        </view>
                     </view>
                 </view>
-            </view>
-        </block>
-        <block>
-            <view class="weui-cells__title">报价留言</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='comment'
-                                  value="{{comment}}" placeholder="请输入留言" style="height: 7em"/>
-                    </view>
-                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
-                        {{comment || '-'}}
+                <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
+                    <text wx:if="{{!recordState}}">按住说话</text>
+                    <text wx:else>松开结束</text>
+                </button>
+            </block>
+            <block>
+                <view class="weui-cells__title">施工留言</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{true}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='workerComment'
+                                      value="{{workerComment}}" placeholder="请输入施工留言" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{workerComment || '-'}}
+                        </view>
                     </view>
                 </view>
-            </view>
+            </block>
+            <block>
+                <view class="weui-cells__title">报价留言</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{true}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='comment'
+                                      value="{{comment}}" placeholder="请输入留言" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{comment || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
         </block>
 
         <!-- BUTTON AREA -->

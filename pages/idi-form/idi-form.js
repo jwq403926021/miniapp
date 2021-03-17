@@ -94,7 +94,6 @@ Page({
   },
   async onLoad (routeParams) {
     this.initRecord()
-    routeParams = {id: '1'}
     wx.showLoading({
       mask: true,
       title: '加载中'
