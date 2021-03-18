@@ -18,27 +18,15 @@ Page({
     })
     util.request({
       authorization: false,
-      path: '/sys/mini/getPrepay',
+      path: '/sys/wxPay/js',
       method: 'GET',
       data: {
-        item: '123',
         openId:  app.globalData.openId,
-        orderId: '20210107121615000108',
+        orderId: '20210318210708000109',
         money: 1 * 100
       }
     }, function (err, res) {
       console.log(res, '??')
-      // appid: "wxc9cdcd3084bb6aee"
-      // code: 0
-      // createTime: "2021-01-12 10:41:43"
-      // msg: "success"
-      // nonceStr: "209ff48310ca411f99df158d47a02841"
-      // orderId: "20210107121615000108"
-      // package: "prepay_id=wx12104143943301da41e4fd950d830f0000"
-      // payPrice: 10000
-      // paySign: "2BD4F2961017CDE90EE21A59002046C0"
-      // timeStamp: "1610419304"
-      // totalFeeStr: "100.0"
       if (res.msg === 'success') {
         wx.requestPayment({
           "timeStamp": res.timeStamp,
@@ -54,6 +42,7 @@ Page({
             })
           },
           "fail":function(res){
+            console.log('pay fail:', res)
             wx.showToast({
               title: '支付失败',
               icon: 'error',
