@@ -62,6 +62,11 @@ Page({
       url: '../webview/webview'
     })
   },
+  goToIdiForm () {
+    wx.navigateTo({
+      url: '../idi-form/idi-form'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,

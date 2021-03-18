@@ -26,6 +26,11 @@ Page({
       url: '../new-my-list-jc/new-my-list-jc'
     })
   },
+  goToIdiList: function (event) {
+    wx.navigateTo({
+      url: '../my-list-idi/my-list-idi'
+    })
+  },
   goToJcList: function () {
     wx.navigateTo({
       url: '../my-list-jc/my-list-jc'

@@ -54,6 +54,14 @@
         非车险
       </view>
     </view>
+    <view class="new-btn fl" bindtap="goToIdiForm" wx:if="{{role == 1}}">
+      <view>
+        <text class="iconfont icon-fangwuxinxi myicon"></text>
+      </view>
+      <view>
+        测试
+      </view>
+    </view>
     <!--<view class="new-btn fl" bindtap="goToCxForm" wx:if="{{role == 1}}">-->
       <!--<view>-->
         <!--<text class="iconfont icon-qiche301 myicon"></text>-->

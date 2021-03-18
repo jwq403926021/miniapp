@@ -90,11 +90,11 @@ Page({
     userLocationInfo: {
       latitude: null,
       longitude: null
-    }
+    },
+    investigatorId: ''
   },
   async onLoad (routeParams) {
     this.initRecord()
-    routeParams = {id: '1'}
     wx.showLoading({
       mask: true,
       title: '加载中'
@@ -118,29 +118,96 @@ Page({
   },
   async initDataById (orderId) {
     let _this = this
-    // await util.request({
-    //   path: `/app/businessinsurancefamilynew/familyDetail`,
-    //   method: 'GET',
-    //   data: {
-    //     orderId: orderId
-    //   }
-    // }, function (err, res) {
-    //   let data = res.data
-    //   _this.sourceData = data
-    //   _this.sourceImage = res.Image
-    //   let informationImageFiles = []
-    //   _this.sourceImage.forEach(item => {
-    //     switch (item.type) {
-    //       case 1:
-    //         item.path = `https://aplusprice.xyz/file/${item.path}`
-    //         informationImageFiles.push(item)
-    //         break
-    //     }
-    //   })
-    //   _this.setData({}, () => {
-    //     _this.refreshRegionLabel()
-    //   })
-    // })
+    await util.request({
+      path: `/app/businessinsuranceidi/idiDetail`,
+      method: 'GET',
+      data: {
+        flowId: orderId
+      }
+    }, function (err, res) {
+      let data = res.data
+      let state = {
+        ...data,
+        compareList: (data.compareList || []).map(item => {
+          return {
+            ...item,
+            check: false
+          }
+        }),
+        reportId: data.data.reportId,
+        orderId: data.data.flowId,
+        status: data.data.status,
+        countryId: `${data.data.areaCountry}`,
+        cityId: `${data.data.areaCity}`,
+        provinceId: `${data.data.areaProvince}`,
+        region: `${data.data.areaCountry}`,
+        insuranceOrderId: data.data.insuranceNumber,
+        expireDateTime: data.data.insuranceTimeLimit ? +new Date(data.data.insuranceTimeLimit) : '',
+        insuranceCompany: '',
+        address: data.data.address,
+        damageTarget: data.data.target,
+        insuredName: data.data.customerName,
+        insuredPhone: data.data.customerPhone,
+        ownerName: data.data.ownerName,
+        ownerPhone: data.data.ownerPhone,
+        comeDateTime: +new Date(data.data.doorTime),
+        estimatePrice: data.data.estimatePrice,
+        offerPrice: data.data.offerMoney,
+        accidentReason: data.data.troubleReason,
+        insurerResponsibility: data.data.insuranceDuty,
+        noResponsibilityConstruct: data.data.notDutyWork,
+        // tisCompanyValue: data.data.tisId,
+        tisId: data.data.tisId,
+        jobRole: data.data.station,
+        // isPay: data.data.isPay,
+        orderInfo: data.data.investigatorText,
+        workerComment: data.data.workerText,
+        comment: data.data.offerText
+      }
+      _this.sourceData = data
+      _this.sourceImage = res.Image
+      let orderImageFiles = []
+      let investigatorImageFiles = []
+      let workerInfoImageFiles = []
+      let workerApplicationImageFiles = []
+      let workerCompleteImageFiles = []
+      _this.sourceImage.forEach(item => {
+        switch (item.type) {
+          case 1:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            orderImageFiles.push(item)
+            break
+          case 2:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            investigatorImageFiles.push(item)
+            break
+          case 3:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            workerInfoImageFiles.push(item)
+            break
+          case 4:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            workerApplicationImageFiles.push(item)
+            break
+          case 5:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            workerCompleteImageFiles.push(item)
+            break
+        }
+      })
+      state.orderImageFiles = orderImageFiles
+      state.investigatorImageFiles = investigatorImageFiles
+      state.workerInfoImageFiles = workerInfoImageFiles
+      state.workerApplicationImageFiles = workerApplicationImageFiles
+      state.workerCompleteImageFiles = workerCompleteImageFiles
+      _this.setData(state, () => {
+        _this.getTisCompany()
+        _this.getComparePerson()
+        _this.getAccident()
+        _this.getTisUser(false)
+        _this.refreshRegionLabel()
+      })
+    })
   },
   async initCondition () {
     let _this = this
@@ -346,7 +413,81 @@ Page({
     //   url: '../new-my-list-jc/new-my-list-jc'
     // })
   },
+  getSubmitParams () {
+    return {
+      flowId: this.data.orderId,
+      // areaProvince: '',
+      // areaCity: '',
+      // areaCountry: '',
+      address: this.data.address,
+      lon: this.data.userLocationInfo.lon,
+      lat: this.data.userLocationInfo.lat,
+      insuranceNumber: this.data.insuranceOrderId,
+      reportId: this.data.reportId,
+      target: this.data.damageTarget,
+      customerName: this.data.insuredName,
+      customerPhone: this.data.insuredPhone,
+      ownerName: this.data.ownerName,
+      ownerPhone: this.data.ownerPhone,
+      doorTime: this.formatDate(this.data.comeDateTime, 'YYYY-MM-DD HH:mm:ss'),
+      investigatorText: this.data.orderInfo,
+      estimatePrice: this.data.estimatePrice,
+      offerMoney: this.data.offerPrice,
+      troubleReason: this.data.accidentReason,
+      insuranceDuty: this.data.insurerResponsibility,
+      notDutyWork: this.data.noResponsibilityConstruct,
+      tisId: this.data.tisId,
+      station: this.data.jobRole,
+      // constructionMethod: '',
+      offerText: this.data.comment,
+      // finishDate: '',
+      investigatorId: this.data.investigatorId,
+      managerId: this.data.managerId,
+      workerId: this.data.workerId,
+      offerCenterId: this.data.offerCenterId,
+      propertyId: this.data.propertyId,
+      insuranceTimeLimit: this.formatDate(this.data.expireDateTime, 'YYYY-MM-DD HH:mm:ss'),
+      workerText: this.data.workerComment,
+      isPay: this.data.isPay
+    }
+  },
+  getAccident () {},
+  getTisCompany () {},
+  getComparePerson () {},
+  getTisUser () {},
+  applyReject () {},
+  rejectRejectApplication () {},
+  passRejectApplication () {},
+  compareWorkerSubmit () {},
+  workerSubmit () {},
+  workerAfterOfferSubmit () {},
+  assignSubmit () {},
+  confirmWorkerSubmit () {},
+  finishHandler () {},
   // ------- COMMON FUNCTION --------
+  formatDate (date, fmt) {
+    if (typeof date == 'string') {
+      return date;
+    }
+
+    if (!fmt) fmt = "yyyy-MM-dd";
+
+    if (!date || date == null) return null;
+    let o = {
+      'M+': date.getMonth() + 1, // 月份
+      'd+': date.getDate(), // 日
+      'h+': date.getHours(), // 小时
+      'm+': date.getMinutes(), // 分
+      's+': date.getSeconds(), // 秒
+      'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
+      'S': date.getMilliseconds() // 毫秒
+    }
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+    for (let k in o) {
+      if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+    }
+    return fmt
+  },
   chooseLocation () {
     let _this = this
     wx.getLocation({
@@ -440,6 +581,21 @@ Page({
   dialPhone (e) {
     let _this = this
     let phone = e.currentTarget.dataset.phone+'';
+    util.request({
+      path: `/app/businessinsuranceidi/contanctCustomer`,
+      method: 'POST',
+      data: {
+        flowId: _this.data.orderId,
+        investigatorId: _this.data.investigatorId
+      }
+    }, function (err, res) {
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000
+      })
+    })
     wx.makePhoneCall({
       phoneNumber: phone
     })
