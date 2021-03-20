@@ -149,7 +149,7 @@ Page({
         provinceId: `${data.areaProvince}`,
         region: `${data.areaCountry}`,
         insuranceOrderId: data.insuranceNumber,
-        expireDateTime: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
+        expireDateTimeValue: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
         insuranceCompany: '',
         address: data.address,
         damageTarget: `${data.target}`,
@@ -157,7 +157,7 @@ Page({
         insuredPhone: data.customerPhone,
         ownerName: data.ownerName,
         ownerPhone: data.ownerPhone,
-        comeDateTime: +new Date(data.doorTime),
+        comeDateTimeValue: +new Date(data.doorTime),
         estimatePrice: data.estimatePrice,
         offerPrice: data.offerMoney,
         accidentReason: data.troubleReason,
@@ -423,12 +423,12 @@ Page({
   getSubmitParams () {
     return {
       flowId: this.data.orderId,
-      // areaProvince: '',
-      // areaCity: '',
-      // areaCountry: '',
+      areaProvince: this.data.provinceId,
+      areaCity: this.data.cityId,
+      areaCountry: this.data.countryId,
       address: this.data.address,
-      lon: this.data.userLocationInfo.lon,
-      lat: this.data.userLocationInfo.lat,
+      lon: this.data.userLocationInfo.longitude,
+      lat: this.data.userLocationInfo.latitude,
       insuranceNumber: this.data.insuranceOrderId,
       reportId: this.data.reportId,
       target: this.data.damageTarget,
@@ -436,7 +436,7 @@ Page({
       customerPhone: this.data.insuredPhone,
       ownerName: this.data.ownerName,
       ownerPhone: this.data.ownerPhone,
-      doorTime: this.formatDate(this.data.comeDateTime, 'YYYY-MM-DD HH:mm:ss'),
+      doorTime: this.formatDate(new Date(this.data.comeDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       investigatorText: this.data.orderInfo,
       estimatePrice: this.data.estimatePrice,
       offerMoney: this.data.offerPrice,
@@ -453,7 +453,7 @@ Page({
       workerId: this.data.workerId,
       offerCenterId: this.data.offerCenterId,
       propertyId: this.data.propertyId,
-      insuranceTimeLimit: this.formatDate(this.data.expireDateTime, 'YYYY-MM-DD HH:mm:ss'),
+      insuranceTimeLimit: this.formatDate(new Date(this.data.expireDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       workerText: this.data.workerComment,
       isPay: this.data.isPay
     }
@@ -597,7 +597,10 @@ Page({
     util.request({
       path: isSave ? `/app/businessinsuranceidi/workSave` : `/app/businessinsuranceidi/workCommit`,
       method: 'POST',
-      data: this.getSubmitParams()
+      data: {
+        ...this.getSubmitParams(),
+        investigatorId: app.globalData.currentRegisterInfo.userId
+      }
     }, function (err, res) {
       wx.hideLoading()
       wx.showToast({
