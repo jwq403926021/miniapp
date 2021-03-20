@@ -179,7 +179,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/dredge/list',
+      path: '/app/businessinsuranceidi/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
@@ -189,7 +189,7 @@ Page({
       if (res && res.data.current === _this.data.current) return false
       _this.setData({
         current: res.data.current,
-        totalPage: res.data.total,
+        totalPage: Math.ceil(res.data.total / 100),
         dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
       })
     })

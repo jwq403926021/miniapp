@@ -360,8 +360,216 @@
                     <text class="weui-input readonly">总报价：{{offerResult || 0}}</text>
                 </view>
             </van-tab>
-            <van-tab title="工程量清单" name="2"></van-tab>
-            <van-tab title="工程报价书" name="3"></van-tab>
+            <van-tab title="工程量清单" name="2">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">直接费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='directionMoney'
+                                   value="{{directionMoney}}" placeholder="直接费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">其中人工费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='manualMoney'
+                                   value="{{manualMoney}}" placeholder="其中人工费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">其中材料费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='materialMoney'
+                                   value="{{materialMoney}}" placeholder="其中材料费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">其中机械费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='machineMoney'
+                                   value="{{machineMoney}}" placeholder="其中机械费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">企业管理和利润</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='manageProfit'
+                                   value="{{manageProfit}}" placeholder="企业管理和利润"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">安全防护，文明施工措施费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='measureMoney'
+                                   value="{{measureMoney}}" placeholder="安全防护，文明施工措施费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">施工措施费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='workMeasureMoney'
+                                   value="{{workMeasureMoney}}" placeholder="施工措施费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">小计</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='subTotal'
+                                   value="{{subTotal}}" placeholder="小计"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">工料机差价</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='subMoney'
+                                   value="{{subMoney}}" placeholder="工料机差价"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">工程排污费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='pollutionMoney'
+                                   value="{{pollutionMoney}}" placeholder="工程排污费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">社会保险费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='insuranceMoney'
+                                   value="{{insuranceMoney}}" placeholder="社会保险费"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">住房公积金</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='fundsMoney'
+                                   value="{{fundsMoney}}" placeholder="住房公积金"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">规费合计</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='ruleTotal'
+                                   value="{{ruleTotal}}" placeholder="规费合计"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">税前补差</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='beforeTax'
+                                   value="{{beforeTax}}" placeholder="税前补差"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">税金</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='taxs'
+                                   value="{{taxs}}" placeholder="税金"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">税后补差</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='afterTax'
+                                   value="{{afterTax}}" placeholder="税后补差"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">甲供材料</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='materialA'
+                                   value="{{materialA}}" placeholder="甲供材料"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">工程施工费</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputChange" data-name='workMoney'
+                                   value="{{workMoney}}" placeholder="工程施工费"/>
+                        </view>
+                    </view>
+                </view>
+            </van-tab>
+            <van-tab title="工程报价书" name="3">
+                <view class="row-item offerListRow">
+                    <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">名称</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.name || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">单位</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.unit || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">单价</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.unitPrice || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding one-line">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">工程量</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.num || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input no-padding one-line">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">合计</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.itemTotal || '-'}}</text>
+                        </view>
+                    </view>
+                </view>
+            </van-tab>
         </van-tabs>
 
         <block wx:if="{{role == 13}}">

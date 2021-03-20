@@ -100,7 +100,27 @@ Page({
     plateNumber: '',
     reportNumber : '',
     damageMoney: '',
-    budgetPreliminary: ''
+    budgetPreliminary: '',
+    // --工程量清单
+    directionMoney: '',
+    manualMoney: '',
+    materialMoney: '',
+    machineMoney: '',
+    manageProfit: '',
+    measureMoney: '',
+    workMeasureMoney: '',
+    subTotal: '',
+    subMoney: '',
+    pollutionMoney: '',
+    insuranceMoney: '',
+    fundsMoney: '',
+    ruleTotal: '',
+    beforeTax: '',
+    taxs: '',
+    afterTax: '',
+    materialA: '',
+    workMoney: ''
+    // --工程量清单
   },
   initArea () {
     try {
@@ -317,10 +337,10 @@ Page({
     return provinceArr
   },
   init () {
-    wx.showLoading({
-      mask: true,
-      title: '加载中'
-    })
+    // wx.showLoading({
+    //   mask: true,
+    //   title: '加载中'
+    // })
     let _this = this
     util.request({
       path: '/app/businessdamagenew/damageDetail',
@@ -364,7 +384,7 @@ Page({
   loadData () {
     let _this = this
     util.request({
-      path: `/app/businessdamagenew/damagePriceDetail`,
+      path: `/app/businessinsuranceidi/idiPriceDetail`,
       method: 'GET',
       data: {
         orderId: _this.data.orderId
@@ -700,7 +720,29 @@ Page({
       offerResult: this.data.offerResult, // 报价合计
       offerListTotal: this.data.offerListTotal, // 报价列表合计
       incompleteTotal: this.data.incompleteTotal, // 残值合计
-      hasTax: this.data.hasTax ? '1' : '0' // 是否有税
+      hasTax: this.data.hasTax ? '1' : '0', // 是否有税
+      businessIdiPriceEntity: {
+        orderId: this.data.orderId,
+        directionMoney: this.data.directionMoney,
+        manualMoney: this.data.manualMoney,
+        materialMoney: this.data.materialMoney,
+        machineMoney: this.data.machineMoney,
+        manageProfit: this.data.manageProfit,
+        measureMoney: this.data.measureMoney,
+        workMeasureMoney: this.data.workMeasureMoney,
+        subTotal: this.data.subTotal,
+        subMoney: this.data.subMoney,
+        pollutionMoney: this.data.pollutionMoney,
+        insuranceMoney: this.data.insuranceMoney,
+        fundsMoney: this.data.fundsMoney,
+        ruleTotal: this.data.ruleTotal,
+        beforeTax: this.data.beforeTax,
+        tax: this.data.taxs,
+        afterTax: this.data.afterTax,
+        materialA: this.data.materialA,
+        workMoney: this.data.workMoney,
+        type: 1
+      }
     }
     if (this.data.offerList.filter(item => item.proName === '' || item.proName === null).length > 0) {
       wx.showToast({
@@ -743,7 +785,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: save == 0 ? '/app/businessdamagenew/workerPriceSave' : '/app/businessdamagenew/workerPriceCommit',
+      path: save == 0 ? '/app/businessinsuranceidi/workerPriceSave' : '/app/businessinsuranceidi/workerPriceCommit',
       method: 'POST',
       data: params
     }, function (err, res) {
@@ -811,7 +853,29 @@ Page({
       workerId: this.data.workerId,
       surveyId: this.data.surveyId,
       damageMoney: this.data.damageMoney,
-      budgetPreliminary: this.data.budgetPreliminary
+      budgetPreliminary: this.data.budgetPreliminary,
+      businessIdiPriceEntity: {
+        orderId: this.data.orderId,
+        directionMoney: this.data.directionMoney,
+        manualMoney: this.data.manualMoney,
+        materialMoney: this.data.materialMoney,
+        machineMoney: this.data.machineMoney,
+        manageProfit: this.data.manageProfit,
+        measureMoney: this.data.measureMoney,
+        workMeasureMoney: this.data.workMeasureMoney,
+        subTotal: this.data.subTotal,
+        subMoney: this.data.subMoney,
+        pollutionMoney: this.data.pollutionMoney,
+        insuranceMoney: this.data.insuranceMoney,
+        fundsMoney: this.data.fundsMoney,
+        ruleTotal: this.data.ruleTotal,
+        beforeTax: this.data.beforeTax,
+        tax: this.data.taxs,
+        afterTax: this.data.afterTax,
+        materialA: this.data.materialA,
+        workMoney: this.data.workMoney,
+        type: 0
+      }
     }
     if (this.data.offerList.filter(item => item.proName === '' || item.proName === null).length > 0) {
       wx.showToast({
@@ -854,7 +918,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: save == 0 ? '/app/businessdamagenew/offerPriceSave' : '/app/businessdamagenew/offerPriceCommit',
+      path: save == 0 ? '/app/businessinsuranceidi/offerPriceSave' : '/app/businessinsuranceidi/offerPriceCommit',
       method: 'POST',
       data: params
     }, function (err, res) {
@@ -894,7 +958,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/offerPriceReject',
+      path: '/app/businessinsuranceidi/offerPriceReject',
       method: 'POST',
       data: {
         orderId: _this.data.orderId,

@@ -118,7 +118,7 @@ Page({
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
       } else {
-        setTimeout(() => this.refreshRegionLabel(), 100)
+        setTimeout(() => this.refreshRegionLabel(), 500)
       }
       wx.hideLoading()
     })
@@ -141,35 +141,35 @@ Page({
             check: false
           }
         }),
-        reportId: data.data.reportId,
-        orderId: data.data.flowId,
-        status: data.data.status,
-        countryId: `${data.data.areaCountry}`,
-        cityId: `${data.data.areaCity}`,
-        provinceId: `${data.data.areaProvince}`,
-        region: `${data.data.areaCountry}`,
-        insuranceOrderId: data.data.insuranceNumber,
-        expireDateTime: data.data.insuranceTimeLimit ? +new Date(data.data.insuranceTimeLimit) : '',
+        reportId: data.reportId,
+        orderId: data.flowId,
+        status: data.status,
+        countryId: `${data.areaCountry}`,
+        cityId: `${data.areaCity}`,
+        provinceId: `${data.areaProvince}`,
+        region: `${data.areaCountry}`,
+        insuranceOrderId: data.insuranceNumber,
+        expireDateTime: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
         insuranceCompany: '',
-        address: data.data.address,
-        damageTarget: data.data.target,
-        insuredName: data.data.customerName,
-        insuredPhone: data.data.customerPhone,
-        ownerName: data.data.ownerName,
-        ownerPhone: data.data.ownerPhone,
-        comeDateTime: +new Date(data.data.doorTime),
-        estimatePrice: data.data.estimatePrice,
-        offerPrice: data.data.offerMoney,
-        accidentReason: data.data.troubleReason,
-        insurerResponsibility: data.data.insuranceDuty,
-        noResponsibilityConstruct: data.data.notDutyWork,
-        // tisCompanyValue: data.data.tisId,
-        tisId: data.data.tisId,
-        jobRole: data.data.station,
-        // isPay: data.data.isPay,
-        orderInfo: data.data.investigatorText,
-        workerComment: data.data.workerText,
-        comment: data.data.offerText
+        address: data.address,
+        damageTarget: `${data.target}`,
+        insuredName: data.customerName,
+        insuredPhone: data.customerPhone,
+        ownerName: data.ownerName,
+        ownerPhone: data.ownerPhone,
+        comeDateTime: +new Date(data.doorTime),
+        estimatePrice: data.estimatePrice,
+        offerPrice: data.offerMoney,
+        accidentReason: data.troubleReason,
+        insurerResponsibility: data.insuranceDuty,
+        noResponsibilityConstruct: data.notDutyWork,
+        // tisCompanyValue: data.tisId,
+        tisId: data.tisId,
+        jobRole: data.station,
+        // isPay: data.isPay,
+        orderInfo: data.investigatorText,
+        workerComment: data.workerText,
+        comment: data.offerText
       }
       _this.sourceData = data
       _this.sourceImage = res.Image
