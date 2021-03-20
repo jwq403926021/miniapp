@@ -22,9 +22,10 @@ Page({
       '20': '已派送',
       '13': '已确认',
       '42': '待施工人员报价',
-      '40': '申请退单',
+      '37': '待处理人指派比价人员',
+      '38': '申请退单',
       '39': '比价中',
-      '51': '待处理人处理',
+      '51': '待处理人确认',
       '33': '处理人驳回',
       '41': '待报价',
       '43': '报价驳回',
@@ -52,7 +53,7 @@ Page({
     insuranceCompanyValue: '',
     insuranceCompanyLabel: '',
     address: '',
-    damageTarget: '',
+    damageTarget: '0',
     insuredName: '',
     insuredPhone: '',
     ownerName: '',
@@ -72,6 +73,10 @@ Page({
     tisCompanyList: [],
     tisCompanyValue: '',
     tisCompanyLabel: '',
+    tisUserSourceList: [],
+    tisUserList: [],
+    tisUserValue: '',
+    tisUserLabel: '',
     pendingWorkerSourceList: [],
     pendingWorkerList: [],
     pendingWorkerValue: '',
@@ -91,7 +96,9 @@ Page({
       latitude: null,
       longitude: null
     },
-    investigatorId: ''
+    investigatorId: '',
+    compareEstimatePrice: '',
+    pendingWorker: ''
   },
   async onLoad (routeParams) {
     this.initRecord()
@@ -111,7 +118,7 @@ Page({
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
       } else {
-        setTimeout(() => this.refreshRegionLabel(), 10)
+        setTimeout(() => this.refreshRegionLabel(), 100)
       }
       wx.hideLoading()
     })
@@ -396,7 +403,7 @@ Page({
   digestRecord (form, to) {
     let that = this
     util.request({
-      path: '/app/businessdamagenew/getInfoByContent',
+      path: '/app/businessinsuranceidi/getInfoByContent',
       method: 'POST',
       data: {
         content: that.data[form]
@@ -451,19 +458,278 @@ Page({
       isPay: this.data.isPay
     }
   },
-  getAccident () {},
-  getTisCompany () {},
-  getComparePerson () {},
-  getTisUser () {},
-  applyReject () {},
-  rejectRejectApplication () {},
-  passRejectApplication () {},
-  compareWorkerSubmit () {},
-  workerSubmit () {},
-  workerAfterOfferSubmit () {},
-  assignSubmit () {},
-  confirmWorkerSubmit () {},
-  finishHandler () {},
+  getAccident () {
+    util.request({
+      path: '/app/businessinsuranceidi/getAccident',
+      method: 'GET'
+    }, function (err, res) {
+        console.log(err, res)
+      // accidentReasonSourceList
+      // accidentReasonList
+    })
+  },
+  getTisCompany () {
+    util.request({
+      path: '/app/businessinsuranceidi/getTisByCity',
+      method: 'GET',
+      data: {
+        cityCode: this.data.cityId
+      }
+    }, function (err, res) {
+      console.log(err, res)
+      // tisCompanyList
+      // tisCompanySourceList
+    })
+  },
+  getComparePerson () {
+    util.request({
+      path: '/app/businessinsuranceidi/getCompareUser',
+      method: 'GET',
+      data: {
+        cityCode: this.data.cityId
+      }
+    }, function (err, res) {
+      console.log(err, res)
+      // pendingWorkerSourceList
+      // pendingWorkerList
+    })
+  },
+  getTisUser () {
+    util.request({
+      path: '/app/businessinsuranceidi/getTisUser',
+      method: 'GET',
+      data: {
+        id: this.data.tisCompanyValue
+      }
+    }, function (err, res) {
+      console.log(err, res)
+      // tisUserList
+      // tisUserSourceList
+    })
+  },
+  applyReject () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/workBack',
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  rejectRejectApplication () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/managerReject',
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  passRejectApplication () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/managerPass',
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  compareWorkerSubmit () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/workCompare',
+      method: 'POST',
+      data: {
+        flowId: that.data.orderId,
+        estimatePrice: that.data.compareEstimatePrice
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  workerSubmit () {
+    let that = this
+    let isSave = event.currentTarget.dataset.type == '1'
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: isSave ? `/app/businessinsuranceidi/workSave` : `/app/businessinsuranceidi/workCommit`,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  investigatorSubmit () {
+    let type = event.currentTarget.dataset.type
+    let url = ''
+    if (type === 0) {
+      url = '/app/businessinsuranceidi/surveyDealSave'
+    } else if (type === 1) {
+      url = '/app/businessinsuranceidi/surveyDeal'
+    } else {
+      url = '/app/businessinsuranceidi/surveyCancel'
+    }
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  workerAfterOfferSubmit () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/workerCommit2',
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  workerFinishSubmit () {
+    let that = this
+    let isSave = event.currentTarget.dataset.type == '1'
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: isSave ? `/app/businessinsuranceidi/workSave3` : `/app/businessinsuranceidi/workCommit3`,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  assignSubmit () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/businessinsuranceidi/managerChoose',
+      method: 'POST',
+      data: {
+        ...this.getSubmitParams(),
+        userIds: this.data.pendingWorker
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  confirmWorkerSubmit () {
+    let that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    // let confirmUser = this.compareList.find(i => i.check)
+    // if (!confirmUser) return
+    util.request({
+      path: '/app/businessinsuranceidi/managerChooseRight',
+      method: 'POST',
+      data: {
+        ...this.getSubmitParams(),
+        // flowId: confirmUser.orderId,
+        // estimatePrice: confirmUser.offer,
+        // workerId: confirmUser.workerId
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
   // ------- COMMON FUNCTION --------
   formatDate (date, fmt) {
     if (typeof date == 'string') {

@@ -18,7 +18,7 @@ Page({
     })
     util.request({
       authorization: false,
-      path: '/sys/wxPay/js',
+      path: '/app/wxPay/js',
       method: 'GET',
       data: {
         openId:  app.globalData.openId,
