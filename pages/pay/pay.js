@@ -22,7 +22,7 @@ Page({
       method: 'POST',
       data: {
         openId:  app.globalData.openId,
-        orderId: 20210320214034001109,
+        orderId: 20210320214034001109 + '-' + Math.ceil(Math.random() * 1000),
         money: 1 // 1 * 100
       }
     }, function (err, res) {
