@@ -19,41 +19,35 @@ Page({
     util.request({
       authorization: false,
       path: '/app/wxPay/js',
-      method: 'GET',
+      method: 'POST',
       data: {
         openId:  app.globalData.openId,
-        orderId: '20210318210708000109',
-        money: 1 * 100
+        orderId: 20210320214034001109,
+        money: 1 // 1 * 100
       }
     }, function (err, res) {
-      console.log(res, '??')
-      if (res.msg === 'success') {
-        wx.requestPayment({
-          "timeStamp": res.timeStamp,
-          "nonceStr": res.nonceStr,
-          "package": res.package,
-          "signType": "RSA",
-          "paySign": res.paySign,
-          "success":function(res){
-            wx.showToast({
-              title: '支付成功',
-              icon: 'success',
-              duration: 2000
-            })
-          },
-          "fail":function(res){
-            console.log('pay fail:', res)
-            wx.showToast({
-              title: '支付失败',
-              icon: 'error',
-              duration: 2000
-            })
-          },
-          "complete":function(res){
+      wx.hideLoading()
+      wx.requestPayment({
+        ...res,
+        "success":function(res){
+          wx.showToast({
+            title: '支付成功',
+            icon: 'success',
+            duration: 2000
+          })
+        },
+        "fail":function(res){
+          console.log('pay fail:', res)
+          wx.showToast({
+            title: '支付失败',
+            icon: 'error',
+            duration: 2000
+          })
+        },
+        "complete":function(res){
 
-          }
-        })
-      }
+        }
+      })
     })
   }
 })
