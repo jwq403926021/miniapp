@@ -18,29 +18,37 @@ Page({
     role: 1,
     searchKeyword: '',
     statusMap: {
-      '12': '暂存',
-      '1': '查勘员已派送',
-      '13': '负责人已确认',
-      '11': '已办结',
-      '99': '处理中'
+      '20': '已派送',
+      '13': '已确认',
+      '42': '待施工人员报价',
+      '37': '待处理人指派比价人员',
+      '38': '申请退单',
+      '39': '比价中',
+      '51': '待处理人确认',
+      '33': '处理人驳回',
+      '41': '待报价',
+      '43': '报价驳回',
+      '36': '待查勘员处理',
+      '35': '待施工',
+      '50': '已完工待财务处理',
+      '11': '已办结'
     },
     statusList: [
-      {
-        id: '12',
-        name: '暂存'
-      },
-      {
-        id: '1',
-        name: '查勘员已派送'
-      },
-      {
-        id: '13',
-        name: '负责人已确认'
-      },
-      {
-        id: '11',
-        name: '已办结'
-      }]
+      { id: '12', name: '暂存' },
+      { id: '13', name: '已确认' },
+      { id: '42', name: '待施工人员报价' },
+      { id: '37', name: '待处理人指派比价人员' },
+      { id: '38', name: '申请退单' },
+      { id: '39', name: '比价中' },
+      { id: '51', name: '待处理人确认' },
+      { id: '33', name: '处理人驳回' },
+      { id: '41', name: '待报价' },
+      { id: '43', name: '报价驳回' },
+      { id: '36', name: '待查勘员处理' },
+      { id: '35', name: '待施工' },
+      { id: '50', name: '已完工待财务处理' },
+      { id: '11', name: '已办结' }
+    ]
   },
   setFinishCase (event) {
     let _this = this
@@ -127,7 +135,7 @@ Page({
   },
   goToHandleTask (event) {
     wx.navigateTo({
-      url: '../pipe-form/pipe-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
+      url: '../idi-form/idi-form?id=' + event.currentTarget.dataset.id + '&orderId=' + event.currentTarget.dataset.orderid
     })
   },
   onCancel () {

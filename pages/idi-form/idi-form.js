@@ -590,7 +590,7 @@ Page({
       })
     })
   },
-  workerSubmit () {
+  workerSubmit (event) {
     let that = this
     let isSave = event.currentTarget.dataset.type == '1'
     wx.showLoading({ mask: true, title: '提交中' })
@@ -611,7 +611,7 @@ Page({
       })
     })
   },
-  investigatorSubmit () {
+  investigatorSubmit (event) {
     let type = event.currentTarget.dataset.type
     let url = ''
     if (type === 0) {
@@ -659,7 +659,7 @@ Page({
       })
     })
   },
-  workerFinishSubmit () {
+  workerFinishSubmit (event) {
     let that = this
     let isSave = event.currentTarget.dataset.type == '1'
     wx.showLoading({ mask: true, title: '提交中' })

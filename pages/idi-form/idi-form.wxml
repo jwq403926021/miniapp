@@ -609,18 +609,18 @@
             <button data-type="0" bindtap="workerSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerSubmit">暂存</button>
         </view>
-        <view class="button-sp-area"><button type="applyReject">申请退单</button></view>
-        <view class="button-sp-area"><button type="rejectRejectApplication">驳回退单申请</button></view>
-        <view class="button-sp-area"><button type="passRejectApplication">通过退单申请</button></view>
-        <view class="button-sp-area"><button type="assignSubmit">指派提交</button></view>
-        <view class="button-sp-area"><button type="confirmWorkerSubmit">处理人员确认提交</button></view>
-        <view class="button-sp-area"><button type="workerAfterOfferSubmit">施工人员报价后提交</button></view>
-        <view class="button-sp-area"><button type="compareWorkerSubmit">比价人员估损金额提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="compareWorkerSubmit">比价人员估损金额提交</button></view>
         <view class="button-sp-area two-btn-wrap">
-            <button data-type="1" bindtap="investigatorSubmit" type="primary">查勘处理提交</button>
+            <button type="primary" data-type="1" bindtap="investigatorSubmit" type="primary">查勘处理提交</button>
             <button data-type="0" bindtap="investigatorSubmit">查勘处理暂存</button>
         </view>
-        <view class="button-sp-area"><button data-type="3" type="investigatorSubmit">查勘处理注销</button></view>
+        <view class="button-sp-area"><button type="primary" data-type="3" bindtap="investigatorSubmit">查勘处理注销</button></view>
         <view class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="workerFinishSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerFinishSubmit">暂存</button>
