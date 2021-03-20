@@ -607,6 +607,10 @@
 
         <!-- BUTTON AREA -->
         <view class="button-sp-area two-btn-wrap">
+            <button data-type="0" bindtap="orderSubmit" type="primary">提交</button>
+            <button data-type="1" bindtap="orderSubmit">暂存</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="workerSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerSubmit">暂存</button>
         </view>

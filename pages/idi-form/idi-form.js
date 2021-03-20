@@ -416,9 +416,9 @@ Page({
     })
   },
   goToList () {
-    // wx.redirectTo({
-    //   url: '../new-my-list-jc/new-my-list-jc'
-    // })
+    wx.redirectTo({
+      url: '../my-list-idi/my-list-idi'
+    })
   },
   getSubmitParams () {
     return {
@@ -596,6 +596,28 @@ Page({
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: isSave ? `/app/businessinsuranceidi/workSave` : `/app/businessinsuranceidi/workCommit`,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  orderSubmit (event) {
+    let that = this
+    let isSave = event.currentTarget.dataset.type == '1'
+    let url = this.data.role == 1 ? (isSave ? `/app/businessinsuranceidi/surveySave` : `/app/businessinsuranceidi/surveyCommit`) : (isSave ? `/app/businessinsuranceidi/propertySave` : `/app/businessinsuranceidi/propertyCommit`)
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: url,
       method: 'POST',
       data: {
         ...this.getSubmitParams(),
