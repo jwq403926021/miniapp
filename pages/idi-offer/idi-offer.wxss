@@ -57,3 +57,6 @@
   width: 30px!important;
 }
 .mytextarea{padding: 10px 0;}
+.sm-lh{
+  line-height: 20px!important;
+}

@@ -156,9 +156,6 @@
                                     <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="info" size="small" bindtap="openLibrary" data-pindex="{{pindex}}">追加报价条目</van-button>
                                     <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="danger" size="small" bindtap="removeProjectItem" data-pindex="{{pindex}}">删除工程项目</van-button>
                                 </view>
-                                <!--                        <view style="margin: 10px 0;">-->
-                                <!--                            <van-button wx:if="{{isAllowEdit}}" block type="primary" bindtap="addProjectItem">追加工程项目 +</van-button>-->
-                                <!--                        </view>-->
                             </view>
                         </van-collapse-item>
                         <van-collapse-item wx:if="{{incompleteList.length > 0}}" title="残值{{incompleteTotal ? '  |  合计:' + incompleteTotal : ''}}" name="1">
@@ -367,8 +364,7 @@
                             <view class="weui-label">直接费</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='directionMoney'
-                                   value="{{directionMoney}}" placeholder="直接费"/>
+                            <text>{{directionMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -403,17 +399,15 @@
                             <view class="weui-label">企业管理和利润</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='manageProfit'
-                                   value="{{manageProfit}}" placeholder="企业管理和利润"/>
+                            <text>{{manageProfit || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">安全防护，文明施工措施费</view>
+                            <view class="weui-label sm-lh">安全防护，文明施工措施费</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='measureMoney'
-                                   value="{{measureMoney}}" placeholder="安全防护，文明施工措施费"/>
+                            <text>{{measureMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -430,8 +424,7 @@
                             <view class="weui-label">小计</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='subTotal'
-                                   value="{{subTotal}}" placeholder="小计"/>
+                            <text>{{subTotal || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -457,8 +450,7 @@
                             <view class="weui-label">社会保险费</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='insuranceMoney'
-                                   value="{{insuranceMoney}}" placeholder="社会保险费"/>
+                            <text>{{insuranceMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -466,8 +458,7 @@
                             <view class="weui-label">住房公积金</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='fundsMoney'
-                                   value="{{fundsMoney}}" placeholder="住房公积金"/>
+                            <text>{{fundsMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -475,8 +466,7 @@
                             <view class="weui-label">规费合计</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='ruleTotal'
-                                   value="{{ruleTotal}}" placeholder="规费合计"/>
+                            <text>{{ruleTotal || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -493,8 +483,7 @@
                             <view class="weui-label">税金</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='taxs'
-                                   value="{{taxs}}" placeholder="税金"/>
+                            <text>{{taxs || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -520,8 +509,7 @@
                             <view class="weui-label">工程施工费</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" bindinput="inputChange" data-name='workMoney'
-                                   value="{{workMoney}}" placeholder="工程施工费"/>
+                            <text>{{workMoney || '-'}}</text>
                         </view>
                     </view>
                 </view>
@@ -597,8 +585,8 @@
         </view>
 
         <view>
-            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="1" custom-class="button-gap">提交</van-button>
-            <van-button wx:if="{{role == 12 && (status == 13 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="0" custom-class="button-gap">暂存</van-button>
+            <van-button wx:if="{{role == 12 && (status == 42 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="1" custom-class="button-gap">提交</van-button>
+            <van-button wx:if="{{role == 12 && (status == 42 || status == 43)}}" block type="info" bindtap="submitOfferByWorker" data-save="0" custom-class="button-gap">暂存</van-button>
             <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="1" custom-class="button-gap">提交</van-button>
             <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="submitOfferByOffer" data-save="0" custom-class="button-gap">暂存</van-button>
             <van-button wx:if="{{role == 13 && status == 41}}" block type="info" bindtap="reject" custom-class="button-gap">驳回</van-button>

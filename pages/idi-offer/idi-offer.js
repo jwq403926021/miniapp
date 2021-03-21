@@ -42,8 +42,9 @@ Page({
       name: '维修'
     }],
     offerList: [{
-      proName: '',
-      proId: '',
+      uuid: +new Date(),
+      proName: 'idi报价',
+      proId: '1',
       children: [],
       projectTotal: 0
     }],
@@ -382,6 +383,13 @@ Page({
           return item.type === '0'
         }
       })
+      let offerList = [{
+        uuid: +new Date(),
+        proName: 'idi报价',
+        proId: '1',
+        children: [],
+        projectTotal: 0
+      }]
       let list = res.offerList.filter(item => {
         if (_this.data.role === 12) {
           return item.offerType === '1'
@@ -389,24 +397,24 @@ Page({
           return item.offerType === '0'
         }
       })
-      let offerList = []
+      let idiList = res.idiList.find(item => {
+        if (_this.data.role === 12) {
+          return item.type === 1
+        } else {
+          return item.type === 0
+        }
+      })
+
+      if (idiList) {
+      }
       if (list.length > 0) {
         list.forEach(item => {
-          let proIndex = offerList.findIndex(ll => ll.proId === item.proId)
-          if (proIndex === -1) {
-            offerList.push({
-              proName: item.proName,
-              proId: item.proId,
-              children: [item],
-              projectTotal: 0
-            })
-          } else {
-            offerList[proIndex].children.push(item)
-          }
+          offerList[0].children.push(item)
         })
       }
+
       let result = {
-        isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
+        isAllowEdit: (_this.data.role == 12 && (data.status == 43 || data.status == 42)) || (_this.data.role == 13 && data.status == 41),
         ...data,
         offerList: offerList,
         incompleteList: res.incompleteList.filter(item => {
@@ -775,7 +783,7 @@ Page({
           duration: 1000,
           success () {
             wx.navigateTo({
-              url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
+              url: '../idi-form/idi-form?id=' + _this.data.orderId
             })
           }
         })
@@ -1047,6 +1055,38 @@ Page({
           duration: 1000
         })
       }
+    })
+  },
+  calculateBook () {
+    let data = this.data
+    let one = Number(data['manualMoney']) + Number(data['materialMoney']) + Number(data['machineMoney'])
+    let five = Number(data['manualMoney']) * 0.3
+    let six = (one + five) * 1 // ?
+    let eight = one + five + six + Number(data['workMeasureMoney'])
+    let eleven = Number(data['manualMoney']) * 0.2941
+    let twelve = Number(data['manualMoney']) * 0.0196
+    let thirteen = Number(data['pollutionMoney']) + eleven + twelve
+    let fifteen = (eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax'])) * 1 // ?
+    let eighteen = eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax']) + fifteen + Number(data['afterTax']) + Number(data['materialA'])
+    this.setData({
+      directionMoney: one.toFixed(2),
+      manageProfit: five.toFixed(2),
+      measureMoney: six.toFixed(2),
+      subTotal: eight.toFixed(2),
+      insuranceMoney: eleven.toFixed(2),
+      fundsMoney: twelve.toFixed(2),
+      ruleTotal: thirteen.toFixed(2),
+      taxs: fifteen.toFixed(2),
+      workMoney: eighteen.toFixed(2)
+    })
+  },
+  inputChange (e) {
+    let that = this
+    let name = e.currentTarget.dataset.name;
+    let nameMap = {}
+    nameMap[name] = e.detail.value
+    this.setData(nameMap, () => {
+      that.calculateBook()
     })
   }
 })
