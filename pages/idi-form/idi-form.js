@@ -139,6 +139,7 @@ Page({
           showWorkerHit: true
         })
       }
+      let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let state = {
         ...data,
         compareList: (data.compareList || []).map(item => {
@@ -157,8 +158,9 @@ Page({
         insuranceOrderId: data.insuranceNumber,
         expireDateTimeValue: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
         expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit)) : '',
-        insuranceCompany: '',
-        accidentReasonValue: data.troubleReason,
+        // insuranceCompany: '',
+        accidentReasonValue: accidentReasonIndex,
+        accidentReasonLabel: _this.data.accidentReasonSourceList[accidentReasonIndex].name,
         address: data.address,
         damageTarget: `${data.target}`,
         insuredName: data.customerName,
@@ -218,7 +220,6 @@ Page({
       _this.setData(state, () => {
         _this.getTisCompany()
         _this.getComparePerson()
-        _this.getAccident()
         _this.getTisUser(false)
         _this.refreshRegionLabel()
       })
@@ -226,6 +227,7 @@ Page({
   },
   async initCondition () {
     let _this = this
+    await this.getAccident()
     await util.request({
       path: '/sys/area/list',
       method: 'GET'
