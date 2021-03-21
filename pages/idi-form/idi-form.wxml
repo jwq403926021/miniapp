@@ -399,9 +399,9 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{orderImageFiles.length == 0}}">
-                                        无图片
-                                    </view>
+                                    <!--<view class="no-image" wx:if="{{orderImageFiles.length == 0}}">-->
+                                        <!--无图片-->
+                                    <!--</view>-->
                                     <view wx:for="{{orderImageFiles}}"
                                           wx:key="index"
                                           data-name="orderImageFiles"
@@ -437,9 +437,9 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <view class="no-image" wx:if="{{investigatorImageFiles.length == 0}}">
-                                            无图片
-                                        </view>
+                                        <!--<view class="no-image" wx:if="{{investigatorImageFiles.length == 0}}">-->
+                                            <!--无图片-->
+                                        <!--</view>-->
                                         <view wx:for="{{investigatorImageFiles}}"
                                               wx:key="index"
                                               data-name="investigatorImageFiles"
@@ -474,9 +474,9 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <view class="no-image" wx:if="{{workerInfoImageFiles.length == 0}}">
-                                            无图片
-                                        </view>
+                                        <!--<view class="no-image" wx:if="{{workerInfoImageFiles.length == 0}}">-->
+                                            <!--无图片-->
+                                        <!--</view>-->
                                         <view wx:for="{{workerInfoImageFiles}}"
                                               wx:key="index"
                                               data-name="workerInfoImageFiles"
@@ -511,9 +511,9 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0}}">
-                                            无图片
-                                        </view>
+                                        <!--<view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0}}">-->
+                                            <!--无图片-->
+                                        <!--</view>-->
                                         <view wx:for="{{workerApplicationImageFiles}}"
                                               wx:key="index"
                                               data-name="workerApplicationImageFiles"
@@ -548,9 +548,9 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0}}">
-                                            无图片
-                                        </view>
+                                        <!--<view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0}}">-->
+                                            <!--无图片-->
+                                        <!--</view>-->
                                         <view wx:for="{{workerCompleteImageFiles}}"
                                               wx:key="index"
                                               data-name="workerCompleteImageFiles"
