@@ -98,9 +98,7 @@ Page({
     active0: true,
     active1: false,
     plateNumber: '',
-    reportNumber : '',
-    damageMoney: '',
-    budgetPreliminary: '',
+    reportId : '',
     // --工程量清单
     directionMoney: '',
     manualMoney: '',
@@ -337,25 +335,11 @@ Page({
     return provinceArr
   },
   init () {
-    // wx.showLoading({
-    //   mask: true,
-    //   title: '加载中'
-    // })
-    let _this = this
-    util.request({
-      path: '/app/businessdamagenew/damageDetail',
-      method: 'GET',
-      data: {
-        orderId: _this.data.orderId
-      }
-    }, function (err, res) {
-      let data = res.data || {}
-      _this.setData({
-        plateNumber: data.plateNumber,
-        reportNumber: data.reportNumber
-      })
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
     })
-
+    let _this = this
     util.request({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
@@ -387,7 +371,7 @@ Page({
       path: `/app/businessinsuranceidi/idiPriceDetail`,
       method: 'GET',
       data: {
-        orderId: _this.data.orderId
+        flowId: _this.data.orderId
       }
     }, function (err, res) {
       let data = res.data
@@ -424,13 +408,7 @@ Page({
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
-        region: data.townCode,
-        townCode: data.townCode,
-        cityCode: data.cityCode,
-        provinceCode: data.provinceCode,
         offerList: offerList,
-        damageMoney: data.damageMoney,
-        budgetPreliminary: data.budgetPreliminary,
         incompleteList: res.incompleteList.filter(item => {
           if (_this.data.role === 12) {
             return item.type === '1'
@@ -440,7 +418,7 @@ Page({
         }),
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
-        compareList: res.compareList.length ? res.compareList : _this.data.compareList,
+        compareList: res.compareList ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
         coinLevel: data.level || 1
       }
@@ -852,8 +830,6 @@ Page({
       handlingType: this.data.handlingType,
       workerId: this.data.workerId,
       surveyId: this.data.surveyId,
-      damageMoney: this.data.damageMoney,
-      budgetPreliminary: this.data.budgetPreliminary,
       businessIdiPriceEntity: {
         orderId: this.data.orderId,
         directionMoney: this.data.directionMoney,
