@@ -41,7 +41,7 @@ Page({
     showExpireDateTimePopup: false,
     areaList: {},
     // -- order data --
-    status: '',
+    status: null,
     reportId: '',
     insuranceOrderId: '',
     region: '',
@@ -114,7 +114,7 @@ Page({
       countryId: app.globalData.currentRegisterInfo?.townCode || '',
       cityId: app.globalData.currentRegisterInfo?.cityCode || '',
       provinceId: app.globalData.currentRegisterInfo?.provinceCode || '',
-      role: 12 // app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      role: app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
     }, async () => {
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
@@ -160,7 +160,7 @@ Page({
         expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit)) : '',
         // insuranceCompany: '',
         accidentReasonValue: accidentReasonIndex,
-        accidentReasonLabel: _this.data.accidentReasonSourceList[accidentReasonIndex].name,
+        accidentReasonLabel: accidentReasonIndex != -1 ? _this.data.accidentReasonSourceList[accidentReasonIndex].name : '',
         address: data.address,
         damageTarget: `${data.target}`,
         insuredName: data.customerName,
@@ -298,25 +298,45 @@ Page({
     })
     _this.data.investigatorImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        investigatorImageFiles.push({path: item.path, type: 1})
+        investigatorImageFiles.push({path: item.path, type: 2})
       }
     })
     _this.data.workerInfoImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        workerInfoImageFiles.push({path: item.path, type: 1})
+        workerInfoImageFiles.push({path: item.path, type: 3})
       }
     })
     _this.data.workerApplicationImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        workerApplicationImageFiles.push({path: item.path, type: 1})
+        workerApplicationImageFiles.push({path: item.path, type: 4})
       }
     })
     _this.data.workerCompleteImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
-        workerCompleteImageFiles.push({path: item.path, type: 1})
+        workerCompleteImageFiles.push({path: item.path, type: 5})
       }
     })
     return [...orderImageFiles, ...investigatorImageFiles, ...workerInfoImageFiles, ...workerApplicationImageFiles, ...workerCompleteImageFiles]
+  },
+  uploadImage () {
+    let _this = this
+    let imgPaths = this.prepareUploadImage()
+    let count = 0
+    let successUp = 0
+    let failUp = 0
+    if (imgPaths.length) {
+      _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+    } else {
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          _this.goToList()
+        }
+      })
+    }
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     let that = this
@@ -565,15 +585,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   rejectRejectApplication () {
@@ -585,15 +597,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   passRejectApplication () {
@@ -605,15 +609,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   compareWorkerSubmit () {
@@ -649,15 +645,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   orderSubmit (event) {
@@ -674,14 +662,10 @@ Page({
       }
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
+      that.setData({
+        orderId: res.data.flowId
+      }, () => {
+        that.uploadImage()
       })
     })
   },
@@ -722,15 +706,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   workerFinishSubmit (event) {
@@ -743,15 +719,7 @@ Page({
       data: this.getSubmitParams()
     }, function (err, res) {
       wx.hideLoading()
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000,
-        success () {
-          that.goToList()
-        }
-      })
+      that.uploadImage()
     })
   },
   assignSubmit () {
