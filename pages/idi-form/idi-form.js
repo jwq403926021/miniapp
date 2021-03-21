@@ -34,6 +34,7 @@ Page({
       '50': '已完工待财务处理',
       '11': '已办结'
     },
+    showWorkerHit: false,
     recordState: false,
     showAreaPopup: false,
     showComeDateTimePopup: false,
@@ -113,7 +114,7 @@ Page({
       countryId: app.globalData.currentRegisterInfo?.townCode || '',
       cityId: app.globalData.currentRegisterInfo?.cityCode || '',
       provinceId: app.globalData.currentRegisterInfo?.provinceCode || '',
-      role: app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      role: 12 // app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
     }, async () => {
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
@@ -133,6 +134,11 @@ Page({
       }
     }, function (err, res) {
       let data = res.data
+      if (data.status == 20 && _this.data.role == 12) {
+        _this.setData({
+          showWorkerHit: true
+        })
+      }
       let state = {
         ...data,
         compareList: (data.compareList || []).map(item => {
@@ -150,23 +156,25 @@ Page({
         region: `${data.areaCountry}`,
         insuranceOrderId: data.insuranceNumber,
         expireDateTimeValue: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
+        expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit)) : '',
         insuranceCompany: '',
+        accidentReasonValue: data.troubleReason,
         address: data.address,
         damageTarget: `${data.target}`,
         insuredName: data.customerName,
         insuredPhone: data.customerPhone,
         ownerName: data.ownerName,
         ownerPhone: data.ownerPhone,
-        comeDateTimeValue: +new Date(data.doorTime),
+        comeDateTimeValue: data.doorTime ? +new Date(data.doorTime) : '',
+        comeDateTimeLabel: data.doorTime ? common.formatDateTimePicker(new Date(data.doorTime)) : '',
         estimatePrice: data.estimatePrice,
         offerPrice: data.offerMoney,
-        accidentReason: data.troubleReason,
-        insurerResponsibility: data.insuranceDuty,
-        noResponsibilityConstruct: data.notDutyWork,
+        insurerResponsibility: `${data.insuranceDuty}`,
+        noResponsibilityConstruct: `${data.notDutyWork}`,
         // tisCompanyValue: data.tisId,
         tisId: data.tisId,
-        jobRole: data.station,
-        // isPay: data.isPay,
+        jobRole: `${data.station}`,
+        isPay: `${data.isPay}`,
         orderInfo: data.investigatorText,
         workerComment: data.workerText,
         comment: data.offerText
@@ -256,12 +264,23 @@ Page({
     })
   },
   confirmDateTimePopup (e) {
+    let name = e.currentTarget.dataset.name
     let d = new Date(e.detail)
-    this.setData({
-      showComeDateTimePopup: false,
-      comeDateTimeValue: e.detail,
-      comeDateTimeLabel: common.formatDateTimePicker(d)
-    })
+    let data = {}
+    if (name === 'showComeDateTimePopup') {
+      data = {
+        showComeDateTimePopup: false,
+        comeDateTimeValue: e.detail,
+        comeDateTimeLabel: common.formatDateTimePicker(d)
+      }
+    } else if (name === 'showExpireDateTimePopup') {
+      data = {
+        showExpireDateTimePopup: false,
+        expireDateTimeValue: e.detail,
+        expireDateTimeLabel: common.formatDateTimePicker(d)
+      }
+    }
+    this.setData(data)
   },
   prepareUploadImage () {
     let _this = this
@@ -440,7 +459,7 @@ Page({
       investigatorText: this.data.orderInfo,
       estimatePrice: this.data.estimatePrice,
       offerMoney: this.data.offerPrice,
-      troubleReason: this.data.accidentReason,
+      troubleReason: this.data.accidentReasonValue ? this.data.accidentReasonSourceList[this.data.accidentReasonValue].id : '',
       insuranceDuty: this.data.insurerResponsibility,
       notDutyWork: this.data.noResponsibilityConstruct,
       tisId: this.data.tisId,
@@ -905,21 +924,23 @@ Page({
   dialPhone (e) {
     let _this = this
     let phone = e.currentTarget.dataset.phone+'';
-    util.request({
-      path: `/app/businessinsuranceidi/contanctCustomer`,
-      method: 'POST',
-      data: {
-        flowId: _this.data.orderId,
-        investigatorId: _this.data.investigatorId
-      }
-    }, function (err, res) {
-      wx.showToast({
-        mask: true,
-        title: '提交成功',
-        icon: 'success',
-        duration: 1000
+    if (this.data.status == 20 && this.data.role == 12) {
+      util.request({
+        path: `/app/businessinsuranceidi/contanctCustomer`,
+        method: 'POST',
+        data: {
+          flowId: _this.data.orderId,
+          investigatorId: _this.data.investigatorId
+        }
+      }, function (err, res) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000
+        })
       })
-    })
+    }
     wx.makePhoneCall({
       phoneNumber: phone
     })

@@ -112,7 +112,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人姓名</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
                     <input class="weui-input" bindinput="inputChange" data-name='insuredName'
                            value="{{insuredName}}" placeholder="请输入被保险人姓名"/>
                 </view>
@@ -124,7 +124,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人电话</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
                     <input class="weui-input" type="digit" bindinput="inputChange" data-name='insuredPhone'
                            value="{{insuredPhone}}" placeholder="请输入被保险人电话"/>
                 </view>
@@ -143,7 +143,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">业主姓名</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
                     <input class="weui-input" bindinput="inputChange" data-name='ownerName'
                            value="{{ownerName}}" placeholder="请输入被保险人姓名"/>
                 </view>
@@ -155,7 +155,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">业主电话</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
                     <input class="weui-input" type="digit" bindinput="inputChange" data-name='ownerPhone'
                            value="{{ownerPhone}}" placeholder="请输入被保险人电话"/>
                 </view>
@@ -634,6 +634,11 @@
         </view>
         <!-- BUTTON AREA -->
     </view>
+    <van-dialog
+            message="请拨打客户电话。"
+            title="提醒"
+            show="{{ showWorkerHit }}"
+    ></van-dialog>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
         <van-area data-name="showAreaPopup" area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
     </van-popup>
