@@ -185,8 +185,7 @@
                     </view>
                 </view>
             </view>
-
-            <template wx:if="{{orderId}}">
+            <block wx:if="{{orderId}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险期限</view>
@@ -214,15 +213,20 @@
                         <text class="weui-input readonly">{{estimatePrice || '-'}}</text>
                     </view>
                 </view>
+                <view wx:if="{{status == 39 && role == 12}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">比价金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name='compareEstimatePrice'
+                               value="{{compareEstimatePrice}}" placeholder="请输入估损金额"/>
+                    </view>
+                </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">报价金额</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <input class="weui-input" bindinput="inputChange" data-name='offerPrice'
-                               value="{{offerPrice}}" placeholder="请输入估损金额"/>
-                    </view>
-                    <view class="weui-cell__bd" wx:else>
+                    <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{offerPrice || '-'}}</text>
                     </view>
                     <view class="weui-cell__ft">
@@ -333,13 +337,12 @@
                         <van-button type="info" size="small">详情</van-button>
                     </view>
                 </view>
-            </template>
-
+            </block>
         </view>
 
-        <block wx:if="{{orderId}}">
+        <block wx:if="{{status == 39 || status == 37}}">
             <view class="weui-cells__title">比价列表</view>
-            <view class="weui-cells weui-cells_after-title">
+            <view wx:if="{{status == 37}}" class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">比价人员</view>
@@ -353,7 +356,7 @@
                     </view>
                 </view>
             </view>
-            <view class="compare-wrapper">
+            <view wx:if="{{status == 39}}" class="compare-wrapper">
                 <van-row custom-class="compare-detail-table-header">
                     <van-col span="10">施工人员</van-col>
                     <van-col span="10">估损金额</van-col>
@@ -363,8 +366,7 @@
                     <van-col span="10">张三</van-col>
                     <van-col span="10">1000</van-col>
                     <van-col span="4">
-                        <text class="delete-btn">删除</text>
-<!--                        <van-checkbox value="{{ true }}"></van-checkbox>-->
+                        <van-checkbox value="{{ true }}"></van-checkbox>
                     </van-col>
                 </van-row>
             </view>
@@ -606,27 +608,27 @@
         </block>
 
         <!-- BUTTON AREA -->
-        <view class="button-sp-area two-btn-wrap">
+        <view wx:if="{{role == 1 && !orderId}}" class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="orderSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="orderSubmit">暂存</button>
         </view>
-        <view class="button-sp-area two-btn-wrap">
+        <view wx:if="{{role == 12 && status == 13}}" class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="workerSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerSubmit">暂存</button>
         </view>
-        <view class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
-        <view class="button-sp-area"><button type="primary" bindtap="compareWorkerSubmit">比价人员估损金额提交</button></view>
-        <view class="button-sp-area two-btn-wrap">
+        <view wx:if="{{role == 12 && status == 13}}" class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
+        <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
+        <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
+        <view wx:if="{{role == 30 && status == 37}}" class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
+        <view wx:if="{{role == 30 && (status == 39 || status == 51)}}" class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
+        <view wx:if="{{role == 12 && status == 42}}" class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
+        <view wx:if="{{role == 12 && status == 39}}" class="button-sp-area"><button type="primary" bindtap="compareWorkerSubmit">比价人员估损金额提交</button></view>
+        <view wx:if="{{role == 1 && status == 36}}" class="button-sp-area two-btn-wrap">
             <button type="primary" data-type="1" bindtap="investigatorSubmit" type="primary">查勘处理提交</button>
             <button data-type="0" bindtap="investigatorSubmit">查勘处理暂存</button>
         </view>
-        <view class="button-sp-area"><button type="primary" data-type="3" bindtap="investigatorSubmit">查勘处理注销</button></view>
-        <view class="button-sp-area two-btn-wrap">
+        <view wx:if="{{role == 1 && status == 36}}" class="button-sp-area"><button type="primary" data-type="3" bindtap="investigatorSubmit">查勘处理注销</button></view>
+        <view wx:if="{{role == 12 && status == 35}}" class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="workerFinishSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerFinishSubmit">暂存</button>
         </view>

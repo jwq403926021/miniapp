@@ -459,16 +459,22 @@ Page({
     }
   },
   getAccident () {
+    let that = this
     util.request({
       path: '/app/businessinsuranceidi/getAccident',
       method: 'GET'
     }, function (err, res) {
-        console.log(err, res)
-      // accidentReasonSourceList
-      // accidentReasonList
+      let accidentReasonList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        accidentReasonSourceList: res.data,
+        accidentReasonList: accidentReasonList
+      })
     })
   },
   getTisCompany () {
+    let that = this
     util.request({
       path: '/app/businessinsuranceidi/getTisByCity',
       method: 'GET',
@@ -476,12 +482,18 @@ Page({
         cityCode: this.data.cityId
       }
     }, function (err, res) {
-      console.log(err, res)
-      // tisCompanyList
-      // tisCompanySourceList
+      (res.data || []).forEach(i => i.name = i['company_name'])
+      let tisCompanyList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        tisCompanyList: tisCompanyList,
+        tisCompanySourceList: res.data
+      })
     })
   },
   getComparePerson () {
+    let that = this
     util.request({
       path: '/app/businessinsuranceidi/getCompareUser',
       method: 'GET',
@@ -489,22 +501,38 @@ Page({
         cityCode: this.data.cityId
       }
     }, function (err, res) {
-      console.log(err, res)
-      // pendingWorkerSourceList
-      // pendingWorkerList
+      // (res.data || []).forEach(i => i.name = i['company_name'])
+      let pendingWorkerList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        pendingWorkerSourceList: res.data,
+        pendingWorkerList: pendingWorkerList
+      })
     })
   },
-  getTisUser () {
+  getTisUser (clearValue = true) {
+    let that = this
+    if (clearValue) {
+      this.setData({
+        tisUserValue: '',
+        tisUserLabel: ''
+      })
+    }
     util.request({
       path: '/app/businessinsuranceidi/getTisUser',
       method: 'GET',
       data: {
-        id: this.data.tisCompanyValue
+        id: this.data.tisCompanyValue ? this.data.tisCompanySourceList[this.data.tisCompanyValue].id : ''
       }
     }, function (err, res) {
-      console.log(err, res)
-      // tisUserList
-      // tisUserSourceList
+      let tisUserList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        tisUserSourceList: res.data || [],
+        tisUserList: tisUserList
+      })
     })
   },
   applyReject () {
@@ -837,10 +865,15 @@ Page({
     })
   },
   pickerChange (e) {
+    let that = this
     let name = e.currentTarget.dataset.name;
     this.setData({
       [`${name}Value`]: e.detail.value,
       [`${name}Label`]: this.data[`${name}SourceList`][e.detail.value] ? this.data[`${name}SourceList`][e.detail.value].name : ''
+    }, () => {
+      if (name === 'tisCompany') {
+        that.getTisUser()
+      }
     })
   },
   copy (e) {
