@@ -13,7 +13,7 @@ page {
 .hand-writing {
     background: #fff;
     width: 100%;
-    height: 50vh;
+    height: 40vh;
 }
 
 .hand-center {
@@ -24,7 +24,6 @@ page {
 .hand-title {
     padding: 10px;
     line-height: 30px;
-    font-size: 20px;
 }
 .hand-button{
     margin-top: 10px;
@@ -32,4 +31,18 @@ page {
 .del-btn {
 }
 .sub-btn {
+}
+.main-title{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+.sign-wrapper{
+    padding: 10px;
+}
+.sign-title{font-weight: bold;}
+.sign-content{line-height: 35px; text-indent: 30px; }
+.sign-highlight{
+    color: red;
 }

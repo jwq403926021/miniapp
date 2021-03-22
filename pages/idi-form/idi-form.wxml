@@ -624,7 +624,7 @@
         <view wx:if="{{role == 12 && (status == 42 || status == 43)}}" class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
         <view wx:if="{{role == 12 && status == 39}}" class="button-sp-area"><button type="primary" bindtap="compareWorkerSubmit">比价人员估损金额提交</button></view>
         <view wx:if="{{role == 1 && status == 36}}" class="button-sp-area two-btn-wrap">
-            <button type="primary" data-type="1" bindtap="investigatorSubmit" type="primary">查勘处理提交</button>
+            <button data-type="1" bindtap="investigatorSubmit" type="primary">查勘处理提交</button>
             <button data-type="0" bindtap="investigatorSubmit">查勘处理暂存</button>
         </view>
         <view wx:if="{{role == 1 && status == 36}}" class="button-sp-area"><button type="primary" data-type="3" bindtap="investigatorSubmit">查勘处理注销</button></view>
@@ -632,6 +632,8 @@
             <button data-type="0" bindtap="workerFinishSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerFinishSubmit">暂存</button>
         </view>
+
+        <view wx:if="{{(role == 28 || role == 29) && !workerInfoImageFiles.length && orderId}}" class="button-sp-area"><button type="primary" bindtap="goToSign">电子签</button></view>
         <!-- BUTTON AREA -->
     </view>
     <van-dialog

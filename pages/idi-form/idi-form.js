@@ -785,6 +785,11 @@ Page({
       })
     })
   },
+  goToSign () {
+    wx.navigateTo({
+      url: `../sign/sign?id=${this.data.orderId}`
+    })
+  },
   // ------- COMMON FUNCTION --------
   formatDate (date, fmt) {
     if (typeof date == 'string') {
