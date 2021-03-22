@@ -67,6 +67,11 @@ Page({
       url: '../idi-form/idi-form'
     })
   },
+  goToPay () {
+    wx.navigateTo({
+      url: '../pay/pay'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,

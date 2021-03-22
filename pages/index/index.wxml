@@ -102,6 +102,9 @@
             意见反馈
         </view>
     </view>
+    <view class="new-btn fl" bindtap="goToPay" data-type="1">
+        支付测试
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToWsForm" data-type="1" wx:if="{{role == 1}}">-->
 <!--        语音提取demo-->
 <!--    </view>-->
