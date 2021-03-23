@@ -371,27 +371,36 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中人工费</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='manualMoney'
                                    value="{{manualMoney}}" placeholder="其中人工费"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中材料费</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='materialMoney'
                                    value="{{materialMoney}}" placeholder="其中材料费"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中机械费</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='machineMoney'
                                    value="{{machineMoney}}" placeholder="其中机械费"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -414,9 +423,12 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">施工措施费</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='workMeasureMoney'
                                    value="{{workMeasureMoney}}" placeholder="施工措施费"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -431,18 +443,24 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">工料机差价</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='subMoney'
                                    value="{{subMoney}}" placeholder="工料机差价"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">工程排污费</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='pollutionMoney'
                                    value="{{pollutionMoney}}" placeholder="工程排污费"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -473,9 +491,12 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">税前补差</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='beforeTax'
                                    value="{{beforeTax}}" placeholder="税前补差"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -490,18 +511,24 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">税后补差</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='afterTax'
                                    value="{{afterTax}}" placeholder="税后补差"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">甲供材料</view>
                         </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                             <input class="weui-input" bindinput="inputChange" data-name='materialA'
                                    value="{{materialA}}" placeholder="甲供材料"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd">
+                            <text>{{manualMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
