@@ -541,50 +541,6 @@
                     </view>
                 </view>
             </van-tab>
-            <van-tab title="工程报价书" name="3">
-                <view class="row-item offerListRow">
-                    <view class="weui-cell weui-cell_input no-padding">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">名称</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.name || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">单位</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.unit || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">单价</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.unitPrice || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding one-line">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">工程量</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.num || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_input no-padding one-line">
-                        <view class="weui-cell__hd">
-                            <view class="weui-label">合计</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{item.itemTotal || '-'}}</text>
-                        </view>
-                    </view>
-                </view>
-            </van-tab>
         </van-tabs>
 
         <block wx:if="{{role == 13}}">
