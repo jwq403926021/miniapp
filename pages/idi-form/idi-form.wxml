@@ -231,7 +231,7 @@
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{offerPrice || '-'}}</text>
                     </view>
-                    <view class="weui-cell__ft">
+                    <view class="weui-cell__ft" wx:if="{{offerPrice}}">
                         <van-button type="info" size="small" bindtap="offerDetail">详情</van-button>
                     </view>
                 </view>
