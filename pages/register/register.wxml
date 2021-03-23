@@ -87,6 +87,8 @@
                         <van-radio custom-class="fl mr5" name="1">查勘员</van-radio>
                         <van-radio custom-class="fl mr5" name="15">游客</van-radio>
                         <van-radio custom-class="fl mr5" name="21">服务者</van-radio>
+                        <van-radio custom-class="fl mr5" name="28">业主</van-radio>
+                        <van-radio custom-class="fl mr5" name="29">物业</van-radio>
                     </van-radio-group>
                 </view>
             </view>
