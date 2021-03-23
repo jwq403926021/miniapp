@@ -114,7 +114,7 @@ Page({
       countryId: app.globalData.currentRegisterInfo?.townCode || '',
       cityId: app.globalData.currentRegisterInfo?.cityCode || '',
       provinceId: app.globalData.currentRegisterInfo?.provinceCode || '',
-      role: 12 // app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      role: app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
     }, async () => {
       if (routeParams.id) {
         await this.initDataById(routeParams.id)

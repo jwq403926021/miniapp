@@ -100,12 +100,12 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{true}}">
                     <van-radio-group value="{{ damageTarget }}" data-name="damageTarget" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">物业</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">业主</van-radio>
+                        <van-radio custom-class="fl mr5" name="0">业主</van-radio>
+                        <van-radio custom-class="fl mr5" name="1">物业</van-radio>
                     </van-radio-group>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{['物业', '业主'][damageTarget] || '-'}}</text>
+                    <text class="weui-input readonly">{{['业主', '物业'][damageTarget] || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -139,37 +139,39 @@
                     </view>
                 </block>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">业主姓名</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
-                    <input class="weui-input" bindinput="inputChange" data-name='ownerName'
-                           value="{{ownerName}}" placeholder="请输入被保险人姓名"/>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{ownerName || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">业主电话</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
-                    <input class="weui-input" type="digit" bindinput="inputChange" data-name='ownerPhone'
-                           value="{{ownerPhone}}" placeholder="请输入被保险人电话"/>
-                </view>
-                <block wx:else>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{ownerPhone || '-'}}</text>
+            <block wx:if="{{!(role == 29 && damageTarget == 1)}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">业主姓名</view>
                     </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{ownerPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
+                    <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                        <input class="weui-input" bindinput="inputChange" data-name='ownerName'
+                               value="{{ownerName}}" placeholder="请输入被保险人姓名"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{ownerName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">业主电话</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                        <input class="weui-input" type="digit" bindinput="inputChange" data-name='ownerPhone'
+                               value="{{ownerPhone}}" placeholder="请输入被保险人电话"/>
+                    </view>
+                    <block wx:else>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{ownerPhone || '-'}}</text>
                         </view>
-                    </view>
-                </block>
-            </view>
+                        <view class="weui-cell__ft">
+                            <view class="field-right-btn" data-phone="{{ownerPhone}}" bindtap="dialPhone">
+                                <van-icon name="phone"></van-icon>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </block>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">上门时间</view>
@@ -222,7 +224,7 @@
                                value="{{compareEstimatePrice}}" placeholder="请输入估损金额"/>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx-if="{{role != 28 && role != 29}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">报价金额</view>
                     </view>
@@ -248,7 +250,7 @@
                         <text class="weui-input readonly">{{accidentReasonLabel || '-'}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select">
+                <view class="weui-cell weui-cell_select" wx-if="{{role != 28 && role != 29}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">保险责任</view>
                     </view>
