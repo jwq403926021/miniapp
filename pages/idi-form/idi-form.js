@@ -78,10 +78,7 @@ Page({
     tisUserList: [],
     tisUserValue: '',
     tisUserLabel: '',
-    pendingWorkerSourceList: [],
     pendingWorkerList: [],
-    pendingWorkerValue: '',
-    pendingWorkerLabel: '',
     isPay: '',
     orderImageFiles: [],
     investigatorImageFiles: [],
@@ -98,8 +95,7 @@ Page({
       longitude: null
     },
     investigatorId: '',
-    compareEstimatePrice: '',
-    pendingWorker: ''
+    compareEstimatePrice: ''
   },
   async onLoad (routeParams) {
     this.initRecord()
@@ -142,19 +138,19 @@ Page({
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let state = {
         ...data,
-        compareList: (data.compareList || []).map(item => {
+        compareList: (res.compareList || []).map(item => {
           return {
             ...item,
-            check: false
+            checked: false
           }
         }),
         reportId: data.reportId,
         orderId: data.flowId,
         status: data.status,
-        countryId: `${data.areaCountry}`,
-        cityId: `${data.areaCity}`,
-        provinceId: `${data.areaProvince}`,
-        region: `${data.areaCountry}`,
+        countryId: `${data.areaCountry || ''}`,
+        cityId: `${data.areaCity || ''}`,
+        provinceId: `${data.areaProvince || ''}`,
+        region: `${data.areaCountry || ''}`,
         insuranceOrderId: data.insuranceNumber,
         expireDateTimeValue: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit) : '',
         expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit)) : '',
@@ -171,12 +167,12 @@ Page({
         comeDateTimeLabel: data.doorTime ? common.formatDateTimePicker(new Date(data.doorTime)) : '',
         estimatePrice: data.estimatePrice,
         offerPrice: data.offerMoney,
-        insurerResponsibility: `${data.insuranceDuty}`,
-        noResponsibilityConstruct: `${data.notDutyWork}`,
+        insurerResponsibility: `${data.insuranceDuty || ''}`,
+        noResponsibilityConstruct: `${data.notDutyWork || ''}`,
         // tisCompanyValue: data.tisId,
         tisId: data.tisId,
-        jobRole: `${data.station}`,
-        isPay: `${data.isPay}`,
+        jobRole: `${data.station || ''}`,
+        isPay: `${data.isPay || ''}`,
         orderInfo: data.investigatorText,
         workerComment: data.workerText,
         comment: data.offerText
@@ -494,7 +490,7 @@ Page({
       investigatorText: this.data.orderInfo,
       estimatePrice: this.data.estimatePrice,
       offerMoney: this.data.offerPrice,
-      troubleReason: this.data.accidentReasonValue ? this.data.accidentReasonSourceList[this.data.accidentReasonValue].id : '',
+      troubleReason: (this.data.accidentReasonValue && this.data.accidentReasonSourceList[this.data.accidentReasonValue]) ? this.data.accidentReasonSourceList[this.data.accidentReasonValue].id : '',
       insuranceDuty: this.data.insurerResponsibility,
       notDutyWork: this.data.noResponsibilityConstruct,
       tisId: this.data.tisId,
@@ -555,13 +551,11 @@ Page({
         cityCode: this.data.cityId
       }
     }, function (err, res) {
-      // (res.data || []).forEach(i => i.name = i['company_name'])
-      let pendingWorkerList = res.data ? res.data.map(item => {
-        return item.name
-      }) : []
+      res.data.forEach(item => {
+        item.checked = false
+      })
       that.setData({
-        pendingWorkerSourceList: res.data,
-        pendingWorkerList: pendingWorkerList
+        pendingWorkerList: res.data || []
       })
     })
   },
@@ -743,7 +737,7 @@ Page({
       method: 'POST',
       data: {
         ...this.getSubmitParams(),
-        userIds: this.data.pendingWorker
+        userIds: that.data.pendingWorkerList.filter(i => i.checked).map(i => i['user_id'])
       }
     }, function (err, res) {
       wx.hideLoading()
@@ -761,16 +755,16 @@ Page({
   confirmWorkerSubmit () {
     let that = this
     wx.showLoading({ mask: true, title: '提交中' })
-    // let confirmUser = this.compareList.find(i => i.check)
-    // if (!confirmUser) return
+    let confirmUser = this.data.compareList.find(i => i.checked)
+    if (!confirmUser) return
     util.request({
       path: '/app/businessinsuranceidi/managerChooseRight',
       method: 'POST',
       data: {
         ...this.getSubmitParams(),
-        // flowId: confirmUser.orderId,
-        // estimatePrice: confirmUser.offer,
-        // workerId: confirmUser.workerId
+        flowId: confirmUser.orderId,
+        estimatePrice: confirmUser.offer,
+        workerId: confirmUser.workerId
       }
     }, function (err, res) {
       wx.hideLoading()
@@ -791,6 +785,27 @@ Page({
     })
   },
   // ------- COMMON FUNCTION --------
+  checkboxChange (e) {
+    let checked = e.detail
+    let index = e.currentTarget.dataset.index
+    let target = e.currentTarget.dataset.target
+    if (target === 'compareList') {
+      this.data.compareList.forEach((item, idx) => {
+        if (idx == index) {
+          item.checked = true
+        } else {
+          item.checked = false
+        }
+      })
+      this.setData({
+        compareList: this.data.compareList
+      })
+    } else {
+      let data = {}
+      data[`${target}[${index}].checked`] = checked
+      this.setData(data)
+    }
+  },
   formatDate (date, fmt) {
     if (typeof date == 'string') {
       return date;

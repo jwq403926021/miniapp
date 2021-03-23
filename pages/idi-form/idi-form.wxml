@@ -343,34 +343,38 @@
         </view>
 
         <block wx:if="{{status == 39 || status == 37}}">
-            <view class="weui-cells__title">比价列表</view>
+            <view class="weui-cells__title">{{status == 37 ? '备选比价人员' : '比价列表'}}</view>
             <view wx:if="{{status == 37}}" class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">比价人员</view>
-                    </view>
                     <view class="weui-cell__bd">
-                        <picker bindchange="pickerChange" data-name="pendingWorker" value="{{pendingWorkerValue}}" range="{{pendingWorkerList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{pendingWorkerLabel || '追加参与比价人员'}}
-                            </view>
-                        </picker>
+                        <van-row custom-class="compare-detail-table-header">
+                            <van-col span="20">施工人员</van-col>
+                            <van-col span="4">操作</van-col>
+                        </van-row>
+                        <van-row wx:for="{{pendingWorkerList}}" wx:key="index" custom-class="compare-detail-table-body">
+                            <van-col span="20">{{item.name}}</van-col>
+                            <van-col span="4">
+                                <van-checkbox bind:change="checkboxChange" data-target="pendingWorkerList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
+                            </van-col>
+                        </van-row>
                     </view>
                 </view>
             </view>
-            <view wx:if="{{status == 39}}" class="compare-wrapper">
-                <van-row custom-class="compare-detail-table-header">
-                    <van-col span="10">施工人员</van-col>
-                    <van-col span="10">估损金额</van-col>
-                    <van-col span="4">操作</van-col>
-                </van-row>
-                <van-row custom-class="compare-detail-table-body">
-                    <van-col span="10">张三</van-col>
-                    <van-col span="10">1000</van-col>
-                    <van-col span="4">
-                        <van-checkbox value="{{ true }}"></van-checkbox>
-                    </van-col>
-                </van-row>
+            <view wx:if="{{status == 39}}" class="weui-cells weui-cells_after-title">
+                <view class="compare-wrapper">
+                    <van-row custom-class="compare-detail-table-header">
+                        <van-col span="10">施工人员</van-col>
+                        <van-col span="10">估损金额</van-col>
+                        <van-col span="4">操作</van-col>
+                    </van-row>
+                    <van-row wx:for="{{compareList}}" wx:key="index" custom-class="compare-detail-table-body">
+                        <van-col span="10">{{item.workerId}}</van-col>
+                        <van-col span="10">{{item.offer}}</van-col>
+                        <van-col span="4">
+                            <van-checkbox bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
+                        </van-col>
+                    </van-row>
+                </view>
             </view>
         </block>
 
