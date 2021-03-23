@@ -1,17 +1,9 @@
 <view class="wrapper">
-    <view class="main-title">维修确认书</view>
-    <view class="sign-wrapper">
-        <view class="sign-title">
-            <text class="sign-highlight">中国人民财产保险股份有限公司上海市分公司</text>：
-        </view>
-        <view class="sign-content">
-            贵司签发的工程质量潜在缺陷保险第 <text class="sign-highlight"></text> 号保单，承保的保险标的于 <text class="sign-highlight"></text> 月 <text class="sign-highlight"></text> 日在 <text class="sign-highlight">次卧墙体漏水维修工程</text> 发生 <text class="sign-highlight"></text> 保险事故。我司确认已经委托 <text class="sign-highlight"></text>对 <text class="sign-highlight"></text> 进行维修 ，且修理完毕。贵司将维修款项 <text class="sign-highlight"></text> 元支付给维修单位后，贵司就前述保险事故应承担的赔偿责任依法解除。我司就本案不再对贵司提出任何理赔要求。
-        </view>
-    </view>
-    <view class="hand-title">业主签字：</view>
+    <canvas canvas-id="myCanvas" class="mycanvas"></canvas>
     <view class="hand-center">
         <canvas class="hand-writing" disable-scroll="true" bindtouchstart="uploadScaleStart" bindtouchmove="uploadScaleMove" bindtouchend="uploadScaleEnd" canvas-id="handWriting"></canvas>
     </view>
+    <canvas canvas-id="resultCanvas"></canvas>
     <view class="hand-button">
         <van-button block bindtap="retDraw">清除</van-button>
         <van-button block type="primary" bindtap="subCanvas">保存</van-button>
