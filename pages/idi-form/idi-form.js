@@ -831,6 +831,7 @@ Page({
   },
   chooseLocation () {
     let _this = this
+    app.globalData.isIgnoreRefresh = true
     wx.getLocation({
       type: 'wgs84',
       isHighAccuracy: true,
@@ -841,6 +842,7 @@ Page({
           latitude: latitude,
           longitude: longitude,
           success (location) {
+            console.log('location:', location)
             _this.setData({
               address: location.address,
               userLocationInfo: {
@@ -848,6 +850,7 @@ Page({
                 longitude: location.longitude
               }
             })
+            setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
           }
         })
       },
