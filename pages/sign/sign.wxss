@@ -11,7 +11,7 @@ page {
 .hand-writing {
     background: #fff;
     width: 100%;
-    height: 40vh;
+    height: 260px;
 }
 
 .hand-center {
@@ -46,5 +46,9 @@ page {
 }
 .mycanvas{
     width: 100%;
-    height: 300px;
+}
+.resultCanvas{
+    position: absolute;
+    top: 0;
+    z-index: -1;
 }

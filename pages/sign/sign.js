@@ -11,7 +11,10 @@ Page({
   data: {
     penColor: 'black',
     lineWidth: 0.6,
-    isEmpty: true
+    isEmpty: true,
+    height: '',
+    resultCanvasHeight: '',
+    orderId: ''
   },
   uploadScaleStart(e) {
     const item = {
@@ -38,6 +41,9 @@ Page({
     })
   },
   onLoad: function(options) {
+    this.setData({
+      orderId: options.id
+    })
     var ctx = wx.createCanvasContext('handWriting');
     const data = {
       devicePixelRatio: pix,
@@ -57,11 +63,17 @@ Page({
     this.canvas.fillText('中国人民财产保险股份有限公司上海市分公司:', 10, 80)
     this.canvas.setTextAlign('left')
     this.canvas.setFillStyle('black')
-    this.drawText(`
+    let rowNum = this.drawText(`
       贵司签发的工程质量潜在缺陷保险第 ${'??'} 号保单，承保的保险标的于 ${'??'} 月 ${'??'} 日在 ${'??'}  发生 ${'??'} 保险事故。我司确认已经委托 ${'??'}对 ${'??'} 进行维修 ，且修理完毕。贵司将维修款项 ${'??'} 元支付给维修单位后，贵司就前述保险事故应承担的赔偿责任依法解除。我司就本案不再对贵司提出任何理赔要求。
     `, 10, 120, 28, 400)
-    this.canvas.fillText('业主签名:', 10, 270)
-    this.canvas.draw()
+    let height = (120 + rowNum * 28) + 10
+    this.canvas.fillText('签名:', 10, height)
+    this.setData({
+      height: height + 15,
+      resultCanvasHeight: height + 15 + 260
+    }, () => {
+      this.canvas.draw()
+    })
   },
   drawText (text, startX, startY, lineHeight, MAX_WIDTH) {
     let allAtr = text.split('');
@@ -107,13 +119,71 @@ Page({
     this.onConfirm()
   },
   onConfirm: function() {
-    if (this.data.isEmpty) {
-      return false
-    }
+    let that = this
+    // if (this.data.isEmpty) {
+    //   return false
+    // }
+    let content = null
+    that.resultCanvas = wx.createCanvasContext('resultCanvas');
     wx.canvasToTempFilePath({
-      canvasId: 'handWriting',
+      canvasId: 'myCanvas',
       success: function(res) {
-        console.log(res.tempFilePath)
+        content = res.tempFilePath
+      },
+      fail: function(res) {
+        console.log(res)
+      },
+      complete: function(res) {
+        console.log(res)
+      }
+    })
+    setTimeout(() => {
+      wx.canvasToTempFilePath({
+        canvasId: 'handWriting',
+        success: function(res) {
+          that.resultCanvas.drawImage(content, 0, 0, 400, that.data.height)
+          that.resultCanvas.drawImage(res.tempFilePath, 0, that.data.height, 400, 260)
+          that.resultCanvas.draw()
+          setTimeout(() => {
+            that.exportImage()
+          }, 100)
+        },
+        fail: function(res) {
+          console.log(res)
+        },
+        complete: function(res) {
+          console.log(res)
+        }
+      })
+    }, 100)
+  },
+  exportImage () {
+    let that = this
+    wx.canvasToTempFilePath({
+      fileType: 'jpg',
+      canvasId: 'resultCanvas',
+      success: function(res) {
+        wx.uploadFile({
+          url: 'https://aplusprice.xyz/aprice/app/image/upload',
+          filePath: res.tempFilePath,
+          name: `files`,
+          header: {
+            "Content-Type": "multipart/form-data",
+            'token': wx.getStorageSync('token')
+          },
+          formData: {
+            'flowId': that.data.orderId,
+            'type': 3
+          },
+          success:function(e){
+            wx.showToast({
+              mask: true,
+              title: '提交成功',
+              icon: 'success',
+              duration: 1000
+            })
+          }
+        })
       },
       fail: function(res) {
         console.log(res)

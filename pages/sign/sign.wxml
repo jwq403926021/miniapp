@@ -1,11 +1,11 @@
 <view class="wrapper">
-    <canvas canvas-id="myCanvas" class="mycanvas"></canvas>
+    <canvas style="height:{{height}}px" canvas-id="myCanvas" class="mycanvas"></canvas>
     <view class="hand-center">
         <canvas class="hand-writing" disable-scroll="true" bindtouchstart="uploadScaleStart" bindtouchmove="uploadScaleMove" bindtouchend="uploadScaleEnd" canvas-id="handWriting"></canvas>
     </view>
-    <canvas canvas-id="resultCanvas"></canvas>
+    <canvas style="width: 100%; height:{{resultCanvasHeight}}px; visibility: hidden;" canvas-id="resultCanvas" class="resultCanvas"></canvas>
     <view class="hand-button">
         <van-button block bindtap="retDraw">清除</van-button>
-        <van-button block type="primary" bindtap="subCanvas">保存</van-button>
+        <van-button block type="primary" bindtap="subCanvas">提交</van-button>
     </view>
 </view>
