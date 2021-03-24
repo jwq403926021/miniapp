@@ -221,7 +221,7 @@
                     </view>
                     <view class="weui-cell__bd">
                         <input class="weui-input" bindinput="inputChange" data-name='compareEstimatePrice'
-                               value="{{compareEstimatePrice}}" placeholder="请输入估损金额"/>
+                               value="{{compareEstimatePrice}}" placeholder="请输入比价金额"/>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode" wx-if="{{role != 28 && role != 29}}">
