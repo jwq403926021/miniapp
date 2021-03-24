@@ -354,7 +354,7 @@
                         <van-row wx:for="{{pendingWorkerList}}" wx:key="index" custom-class="compare-detail-table-body">
                             <van-col span="20">{{item.name}}</van-col>
                             <van-col span="4">
-                                <van-checkbox bind:change="checkboxChange" data-target="pendingWorkerList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
+                                <van-checkbox custom-class="idi-checkbox" bind:change="checkboxChange" data-target="pendingWorkerList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
                             </van-col>
                         </van-row>
                     </view>
@@ -371,7 +371,7 @@
                         <van-col span="10">{{item.workerId}}</van-col>
                         <van-col span="10">{{item.offer}}</van-col>
                         <van-col span="4">
-                            <van-checkbox bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
+                            <van-checkbox custom-class="idi-checkbox" bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
                         </van-col>
                     </van-row>
                 </view>

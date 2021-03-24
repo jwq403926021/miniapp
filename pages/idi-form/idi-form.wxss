@@ -22,3 +22,6 @@
     text-decoration: underline;
     color: #cc2629;
 }
+.idi-checkbox{
+    margin-top: 7px;
+}
