@@ -231,8 +231,8 @@
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{offerPrice || '-'}}</text>
                     </view>
-                    <view class="weui-cell__ft" wx:if="{{offerPrice}}">
-                        <van-button type="info" size="small" bindtap="offerDetail">详情</van-button>
+                    <view class="weui-cell__ft" wx:if="{{offerPrice || (role == 12 && (status == 42 || status == 43) || (role == 13 && status == 41))}}">
+                        <van-button type="info" size="small" bindtap="offerDetail">报价单</van-button>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_select">
