@@ -54,7 +54,7 @@
         非车险
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToIdiForm" wx:if="{{role == 1}}">
+    <view class="new-btn fl" bindtap="goToIdiForm" wx:if="{{role == 1 || role == 28 || role == 29}}">
       <view>
         <text class="iconfont icon-fangwuxinxi myicon"></text>
       </view>
