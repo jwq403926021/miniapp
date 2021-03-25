@@ -614,7 +614,7 @@
         </block>
 
         <!-- BUTTON AREA -->
-        <view wx:if="{{role == 1 && !orderId}}" class="button-sp-area two-btn-wrap">
+        <view wx:if="{{(role == 1 || role == 28 || role == 29) && !orderId}}" class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="orderSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="orderSubmit">暂存</button>
         </view>
