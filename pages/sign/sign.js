@@ -180,7 +180,12 @@ Page({
               mask: true,
               title: '提交成功',
               icon: 'success',
-              duration: 1000
+              duration: 1000,
+              success () {
+                wx.navigateTo({
+                  url: '../idi-form/idi-form?id=' + that.data.orderId
+                })
+              }
             })
           }
         })
