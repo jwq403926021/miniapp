@@ -699,6 +699,7 @@ Page({
     })
   },
   investigatorSubmit (event) {
+    let that = this
     let type = parseInt(event.currentTarget.dataset.type)
     let url = ''
     if (type === 0) {
