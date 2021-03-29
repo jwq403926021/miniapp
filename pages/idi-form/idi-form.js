@@ -649,6 +649,24 @@ Page({
   workerSubmit (event) {
     let that = this
     let isSave = event.currentTarget.dataset.type == '1'
+    if (!this.data.expireDateTimeValue) {
+      wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: '请输入保险期限',
+        duration: 1000
+      })
+      return
+    }
+    if (!this.data.estimatePrice) {
+      wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: '请输入估损金额',
+        duration: 1000
+      })
+      return
+    }
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: isSave ? `/app/businessinsuranceidi/workSave` : `/app/businessinsuranceidi/workCommit`,
@@ -715,9 +733,18 @@ Page({
       path: '/app/businessinsuranceidi/workerCommit2',
       method: 'POST',
       data: this.getSubmitParams()
-    }, function (err, res) {
-      wx.hideLoading()
-      that.uploadImage()
+    }, function (res) {
+      if (res.code == 0) {
+        wx.hideLoading()
+        that.uploadImage()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '没有报价信息',
+          icon: 'none',
+          duration: 1000
+        })
+      }
     })
   },
   workerFinishSubmit (event) {
