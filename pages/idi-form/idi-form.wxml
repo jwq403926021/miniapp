@@ -326,17 +326,11 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">是否支付</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
-                        <van-radio-group value="{{ isPay }}" data-name="isPay" custom-class="weui-input vertical" bind:change="radioChange">
-                            <van-radio custom-class="fl mr5" name="0">未支付</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">已支付</van-radio>
-                        </van-radio-group>
+                    <view class="weui-cell__bd" wx:if="{{isPay == '1'}}">
+                        <text class="weui-input readonly">已支付</text>
                     </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{['未支付', '已支付'][isPay] || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <van-button type="info" size="small">详情</van-button>
+                    <view class="weui-cell__ft" wx:else>
+                        <van-button type="info" size="small">去支付</van-button>
                     </view>
                 </view>
             </block>

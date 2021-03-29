@@ -783,6 +783,11 @@ Page({
       })
     })
   },
+  goToPay () {
+    wx.navigateTo({
+      url: `../pay/pay?id=${this.data.orderId}`
+    })
+  },
   goToSign () {
     wx.navigateTo({
       url: `../sign/sign?id=${this.data.orderId}`
