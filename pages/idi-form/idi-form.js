@@ -681,7 +681,7 @@ Page({
     })
   },
   investigatorSubmit (event) {
-    let type = event.currentTarget.dataset.type
+    let type = parseInt(event.currentTarget.dataset.type)
     let url = ''
     if (type === 0) {
       url = '/app/businessinsuranceidi/surveyDealSave'
