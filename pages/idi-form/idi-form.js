@@ -98,6 +98,10 @@ Page({
     compareEstimatePrice: ''
   },
   async onLoad (routeParams) {
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('reload', () => {
+      this.initDataById(routeParams.id)
+    })
     this.initRecord()
     wx.showLoading({
       mask: true,

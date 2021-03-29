@@ -52,7 +52,7 @@ Page({
     showLibrary: false,
     mainList: ['1', '2', '3'],
     library: {
-      insureType: 1,
+      insureType: 3,
       status: 1,
       name: '',
       mainId: '',
@@ -345,7 +345,7 @@ Page({
       path: `/app/businessmaintype/getMainByInsure`,
       method: 'GET',
       data: {
-        insureType: '1'
+        insureType: '3'
       }
     }, function (err, res) {
       let data = res.data || []
@@ -575,7 +575,7 @@ Page({
   resetFilter () {
     this.setData({
       library: {
-        insureType: 1,
+        insureType: 3,
         status: 1,
         name: '',
         mainId: '',
@@ -783,7 +783,10 @@ Page({
           duration: 1000,
           success () {
             wx.navigateTo({
-              url: '../idi-form/idi-form?id=' + _this.data.orderId
+              url: '../idi-form/idi-form?id=' + _this.data.orderId,
+              success: function(res) {
+                res.eventChannel.emit('reload')
+              }
             })
           }
         })
@@ -990,8 +993,8 @@ Page({
       'mainName': this.data.library.mainName || '',
       'childName': this.data.library.childName || '',
       'custom': true,
-      'insureType': 1,
-      'insureName': '物损',
+      'insureType': 3,
+      'insureName': 'IDI',
       'projectId': this.data.library.projectId || '',
       'projectName': this.data.library.projectName || '',
       'unit': '',
