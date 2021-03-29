@@ -355,7 +355,7 @@
                 </view>
             </view>
             <view wx:if="{{status == 39}}" class="weui-cells weui-cells_after-title">
-                <view class="compare-wrapper">
+                <view class="compare-wrapper" wx:if="{{compareList.length > 0}}">
                     <van-row custom-class="compare-detail-table-header">
                         <van-col span="10">施工人员</van-col>
                         <van-col span="10">估损金额</van-col>
@@ -368,6 +368,9 @@
                             <van-checkbox custom-class="idi-checkbox" bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
                         </van-col>
                     </van-row>
+                </view>
+                <view class="text-center" wx:else>
+                    无人员
                 </view>
             </view>
         </block>
