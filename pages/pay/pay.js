@@ -8,10 +8,12 @@ Page({
   data: {
 
   },
-  onLoad: function (routeParams ) {
-
+  onLoad: function (routeParams) {
+    this.orderId = routeParams.id || 20210320214034001109
+    this.money = routeParams.money || 1
   },
   commitSubmit: function () {
+    let that = this
     wx.showLoading({
       title: '提交订单中',
       mask: true
@@ -22,8 +24,8 @@ Page({
       method: 'POST',
       data: {
         openId:  app.globalData.openId,
-        orderId: 20210320214034001109 + '-' + Math.ceil(Math.random() * 1000),
-        money: 1 // 1 * 100
+        orderId: that.orderId + '-' + Math.ceil(Math.random() * 1000),
+        money: that.money
       }
     }, function (err, res) {
       wx.hideLoading()
