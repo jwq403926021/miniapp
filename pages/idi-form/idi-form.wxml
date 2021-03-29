@@ -329,7 +329,7 @@
                     <view class="weui-cell__bd" wx:if="{{isPay == '1'}}">
                         <text class="weui-input readonly">已支付</text>
                     </view>
-                    <view class="weui-cell__ft" wx:else>
+                    <view class="weui-cell__ft" wx:if="{{isPay == '0'}}" bindtap="goToPay">
                         <van-button type="info" size="small">去支付</van-button>
                     </view>
                 </view>
