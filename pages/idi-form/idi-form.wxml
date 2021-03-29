@@ -402,16 +402,16 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files">
-                                    <!--<view class="no-image" wx:if="{{orderImageFiles.length == 0}}">-->
-                                        <!--无图片-->
-                                    <!--</view>-->
+                                    <view class="no-image" wx:if="{{orderImageFiles.length == 0 && !((role == 1 || role == 28 || role == 29) && orderId === '')}}">
+                                        无图片
+                                    </view>
                                     <view wx:for="{{orderImageFiles}}"
                                           wx:key="index"
                                           data-name="orderImageFiles"
                                           class="weui-uploader__file image-preview-wrap"
                                           bindtap="previewImage">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{true}}"
+                                        <van-icon wx:if="{{(role == 1 || role == 28 || role == 29) && orderId === ''}}"
                                                   data-name="orderImageFiles"
                                                   data-id="{{item.id}}"
                                                   catchtap="removeImage"
@@ -421,7 +421,7 @@
                                         </van-icon>
                                     </view>
                                 </view>
-                                <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                <view class="weui-uploader__input-box" wx:if="{{(role == 1 || role == 28 || role == 29) && orderId === ''}}">
                                     <view data-name="orderImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
@@ -440,16 +440,16 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <!--<view class="no-image" wx:if="{{investigatorImageFiles.length == 0}}">-->
-                                            <!--无图片-->
-                                        <!--</view>-->
+                                        <view class="no-image" wx:if="{{investigatorImageFiles.length == 0 && !(role == 1 && status == 36)}}">
+                                            无图片
+                                        </view>
                                         <view wx:for="{{investigatorImageFiles}}"
                                               wx:key="index"
                                               data-name="investigatorImageFiles"
                                               class="weui-uploader__file image-preview-wrap"
                                               bindtap="previewImage">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{true}}"
+                                            <van-icon wx:if="{{role == 1 && status == 36}}"
                                                       data-name="investigatorImageFiles"
                                                       data-id="{{item.id}}"
                                                       catchtap="removeImage"
@@ -459,7 +459,7 @@
                                             </van-icon>
                                         </view>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 1 && status == 36}}">
                                         <view data-name="investigatorImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
                                 </view>
@@ -477,16 +477,16 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <!--<view class="no-image" wx:if="{{workerInfoImageFiles.length == 0}}">-->
-                                            <!--无图片-->
-                                        <!--</view>-->
+                                        <view class="no-image" wx:if="{{workerInfoImageFiles.length == 0 && !(role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35))}}">
+                                            无图片
+                                        </view>
                                         <view wx:for="{{workerInfoImageFiles}}"
                                               wx:key="index"
                                               data-name="workerInfoImageFiles"
                                               class="weui-uploader__file image-preview-wrap"
                                               bindtap="previewImage">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{true}}"
+                                            <van-icon wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}"
                                                       data-name="workerInfoImageFiles"
                                                       data-id="{{item.id}}"
                                                       catchtap="removeImage"
@@ -496,7 +496,7 @@
                                             </van-icon>
                                         </view>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}">
                                         <view data-name="workerInfoImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
                                 </view>
@@ -514,16 +514,16 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <!--<view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0}}">-->
-                                            <!--无图片-->
-                                        <!--</view>-->
+                                        <view class="no-image" wx:if="{{workerApplicationImageFiles.length == 0 && !(role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35))}}">
+                                            无图片
+                                        </view>
                                         <view wx:for="{{workerApplicationImageFiles}}"
                                               wx:key="index"
                                               data-name="workerApplicationImageFiles"
                                               class="weui-uploader__file image-preview-wrap"
                                               bindtap="previewImage">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{true}}"
+                                            <van-icon wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}"
                                                       data-name="workerApplicationImageFiles"
                                                       data-id="{{item.id}}"
                                                       catchtap="removeImage"
@@ -533,7 +533,7 @@
                                             </van-icon>
                                         </view>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}">
                                         <view data-name="workerApplicationImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
                                 </view>
@@ -551,16 +551,16 @@
                             <view class="weui-uploader">
                                 <view class="weui-uploader__bd">
                                     <view class="weui-uploader__files">
-                                        <!--<view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0}}">-->
-                                            <!--无图片-->
-                                        <!--</view>-->
+                                        <view class="no-image" wx:if="{{workerCompleteImageFiles.length == 0 && !(role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35))}}">
+                                            无图片
+                                        </view>
                                         <view wx:for="{{workerCompleteImageFiles}}"
                                               wx:key="index"
                                               data-name="workerCompleteImageFiles"
                                               class="weui-uploader__file image-preview-wrap"
                                               bindtap="previewImage">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon wx:if="{{true}}"
+                                            <van-icon wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}"
                                                       data-name="workerCompleteImageFiles"
                                                       data-id="{{item.id}}"
                                                       catchtap="removeImage"
@@ -570,7 +570,7 @@
                                             </van-icon>
                                         </view>
                                     </view>
-                                    <view class="weui-uploader__input-box" wx:if="{{true}}">
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 && (status == 13 || status == 33 || status == 42 || status == 43 || status == 39 || status == 35)}}">
                                         <view data-name="workerCompleteImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                     </view>
                                 </view>
