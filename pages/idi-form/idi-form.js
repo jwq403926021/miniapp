@@ -763,13 +763,23 @@ Page({
   },
   assignSubmit () {
     let that = this
+    let userIdList = that.data.pendingWorkerList.filter(i => i.checked)
+    if (userIdList.length == 0) {
+      wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: '请选择参与比价人员',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: '/app/businessinsuranceidi/managerChoose',
       method: 'POST',
       data: {
         ...this.getSubmitParams(),
-        userIds: that.data.pendingWorkerList.filter(i => i.checked).map(i => i['user_id'])
+        userIds: userIdList.map(i => i['user_id'])
       }
     }, function (err, res) {
       wx.hideLoading()
