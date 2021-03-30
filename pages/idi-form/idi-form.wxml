@@ -112,7 +112,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人姓名</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
                     <input class="weui-input" bindinput="inputChange" data-name='insuredName'
                            value="{{insuredName}}" placeholder="请输入被保险人姓名"/>
                 </view>
@@ -124,7 +124,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人电话</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
                     <input class="weui-input" type="digit" bindinput="inputChange" data-name='insuredPhone'
                            value="{{insuredPhone}}" placeholder="请输入被保险人电话"/>
                 </view>
@@ -144,7 +144,7 @@
                     <view class="weui-cell__hd">
                         <view class="weui-label">业主姓名</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                    <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
                         <input class="weui-input" bindinput="inputChange" data-name='ownerName'
                                value="{{ownerName}}" placeholder="请输入被保险人姓名"/>
                     </view>
@@ -156,7 +156,7 @@
                     <view class="weui-cell__hd">
                         <view class="weui-label">业主电话</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{status == null && role == 1}}">
+                    <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
                         <input class="weui-input" type="digit" bindinput="inputChange" data-name='ownerPhone'
                                value="{{ownerPhone}}" placeholder="请输入被保险人电话"/>
                     </view>
@@ -379,7 +379,7 @@
             <view class="weui-cells__title">报案信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
                             <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='orderInfo'
                                       value="{{orderInfo}}" placeholder="请输入报案信息" style="height: 7em"/>
                     </view>
@@ -388,7 +388,7 @@
                     </view>
                 </view>
             </view>
-            <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
+            <button wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}" class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
                 <text wx:if="{{!recordState}}">按住说话</text>
                 <text wx:else>松开结束</text>
             </button>
