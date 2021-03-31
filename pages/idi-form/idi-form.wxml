@@ -326,10 +326,10 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">是否支付</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{isPay == '1'}}">
+                    <view class="weui-cell__bd" wx:if="{{weatherBusiness == '1'}}">
                         <text class="weui-input readonly">已支付</text>
                     </view>
-                    <view class="weui-cell__ft" wx:if="{{isPay == '0'}}" bindtap="goToPay">
+                    <view class="weui-cell__ft" wx:if="{{weatherBusiness == '0'}}" bindtap="goToPay">
                         <van-button type="info" size="small">去支付</van-button>
                     </view>
                 </view>
@@ -362,7 +362,7 @@
                         <van-col span="4">操作</van-col>
                     </van-row>
                     <van-row wx:for="{{compareList}}" wx:key="index" custom-class="compare-detail-table-body">
-                        <van-col span="10">{{item.workerId}}</van-col>
+                        <van-col span="10">{{item.workerName}}</van-col>
                         <van-col span="10">{{item.offer}}</van-col>
                         <van-col span="4">
                             <van-checkbox custom-class="idi-checkbox" bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>

@@ -79,7 +79,7 @@ Page({
     tisUserValue: '',
     tisUserLabel: '',
     pendingWorkerList: [],
-    isPay: '',
+    weatherBusiness: '',
     orderImageFiles: [],
     investigatorImageFiles: [],
     workerInfoImageFiles: [],
@@ -176,7 +176,7 @@ Page({
         // tisCompanyValue: data.tisId,
         tisId: data.tisId,
         jobRole: `${data.station || ''}`,
-        isPay: `${data.isPay || ''}`,
+        weatherBusiness: `${data.weatherBusiness || ''}`,
         orderInfo: data.investigatorText,
         workerComment: data.workerText,
         comment: data.offerText
@@ -509,7 +509,7 @@ Page({
       propertyId: this.data.propertyId,
       insuranceTimeLimit: this.formatDate(new Date(this.data.expireDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       workerText: this.data.workerComment,
-      isPay: this.data.isPay
+      weatherBusiness: this.data.weatherBusiness
     }
   },
   getAccident () {
