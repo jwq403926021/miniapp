@@ -402,7 +402,7 @@
                         <view class="weui-uploader">
                             <view class="weui-uploader__bd">
                                 <view class="weui-uploader__files">
-                                    <view class="no-image" wx:if="{{orderImageFiles.length == 0 && !((role == 1 || role == 28 || role == 29) && orderId === '')}}">
+                                    <view class="no-image" wx:if="{{orderImageFiles.length == 0 && !((role == 1 || role == 28 || role == 29) && !orderId)}}">
                                         无图片
                                     </view>
                                     <view wx:for="{{orderImageFiles}}"
@@ -411,7 +411,7 @@
                                           class="weui-uploader__file image-preview-wrap"
                                           bindtap="previewImage">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(role == 1 || role == 28 || role == 29) && orderId === ''}}"
+                                        <van-icon wx:if="{{(role == 1 || role == 28 || role == 29) && !orderId}}"
                                                   data-name="orderImageFiles"
                                                   data-id="{{item.id}}"
                                                   catchtap="removeImage"
@@ -421,7 +421,7 @@
                                         </van-icon>
                                     </view>
                                 </view>
-                                <view class="weui-uploader__input-box" wx:if="{{(role == 1 || role == 28 || role == 29) && orderId === ''}}">
+                                <view class="weui-uploader__input-box" wx:if="{{(role == 1 || role == 28 || role == 29) && !orderId}}">
                                     <view data-name="orderImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>
                                 </view>
                             </view>
