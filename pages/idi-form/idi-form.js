@@ -428,15 +428,13 @@ Page({
       }
       let text = res.result || ''
       that.setData({
-        [this.recordTarget]: text
+        orderInfo: text
       }, () => {
-        // that.digestRecord()
+        that.digestRecord()
       })
     }
   },
   recordStart (e) {
-    let name = e.currentTarget.dataset.name
-    this.recordTarget = name
     this.setData({
       recordState: true
     }, () => {
@@ -446,27 +444,26 @@ Page({
     })
   },
   recordEnd (e) {
-    let name = e.currentTarget.dataset.name
-    this.recordTarget = ''
     this.setData({
       recordState: false
     }, () => {
       manager.stop()
     })
   },
-  digestRecord (form, to) {
+  digestRecord () {
     let that = this
     util.request({
       path: '/app/businessinsuranceidi/getInfoByContent',
       method: 'POST',
       data: {
-        content: that.data[form]
+        content: that.data.orderInfo
       }
     }, function (err, res) {
       let data = res.data
-      that.setData({
-        [to]: JSON.stringify(data)
-      })
+      console.log('digestRecord::', data)
+      // that.setData({
+      //   [to]: JSON.stringify(data)
+      // })
     })
   },
   goToList () {
