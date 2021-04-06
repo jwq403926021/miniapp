@@ -1,11 +1,30 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-cells__title">意见反馈</view>
+    <view class="weui-cells__title">支付</view>
     <view class="weui-cells weui-cells_after-title">
-      123
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">工单号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{orderId || '-'}}</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">金额</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text class="weui-input readonly">{{money || '-'}}</text>
+        </view>
+      </view>
+      <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">
+        <map id="map" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" markers="{{userLocationInfo}}" scale="13" show-location style="width: 100%; height: 100%;"></map>
+      </view>
     </view>
+
     <view class="button-sp-area">
-      <button type="primary" bindtap="commitSubmit">付款</button><!-- 办结 提交 -->
+      <button type="primary" bindtap="commitSubmit">付款</button>
     </view>
   </view>
 </view>

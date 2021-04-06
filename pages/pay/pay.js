@@ -6,11 +6,22 @@ const app = getApp()
 
 Page({
   data: {
-
+    orderId: '',
+    money: '',
+    userLocationInfo: {
+      latitude: '',
+      longitude: ''
+    }
   },
   onLoad: function (routeParams) {
-    this.orderId = routeParams.id || 20210320214034001109
-    this.money = routeParams.money || 1
+    this.setData({
+      orderId: routeParams.id || '',
+      money: routeParams.money || 0,
+      userLocationInfo: {
+        latitude: routeParams.latitude || '',
+        longitude: routeParams.longitude || ''
+      }
+    })
   },
   commitSubmit: function () {
     let that = this
@@ -24,8 +35,8 @@ Page({
       method: 'POST',
       data: {
         openId:  app.globalData.openId,
-        orderId: that.orderId + '-' + Math.ceil(Math.random() * 1000),
-        money: that.money
+        orderId: that.data.orderId + '-' + Math.ceil(Math.random() * 1000),
+        money: that.data.money
       }
     }, function (err, res) {
       wx.hideLoading()
