@@ -117,7 +117,11 @@ Page({
     isTest: '0',
     testPrice: 0,
     reportId: '',
-    investigatorCityCode: ''
+    investigatorCityCode: '',
+    templateName: '',
+    showTemplate: false,
+    searchTemplateName: '',
+    templateDataList: []
   },
   initArea () {
     try {
@@ -1081,6 +1085,136 @@ Page({
           duration: 1000
         })
       }
+    })
+  },
+  importTemplate (e) {
+    let that = this
+    let id = this.data.templateDataList[e.currentTarget.dataset.index].id
+    util.request({
+      path: `/app/businesspricetemplate/info/${id}`,
+      method: 'GET'
+    }, function (err, res) {
+      let key = `offerList[${that.currentPindex}].children`
+      let data = res.businessPriceTemplate.detailList || []
+      that.setData({
+        filterLoading: false,
+        [key]: data.map(i => {
+          return {
+            'name': i.name,
+            'num': 1,
+            'mainId': i.mainId,
+            'childId': i.childId,
+            'mainName': i.mainName,
+            'childName': i.childName,
+            'insureType': 2,
+            'insureName': '家财',
+            'projectId': i.projectId,
+            'projectName': i.projectName,
+            'unit': i.unit,
+            'price': i.price,
+            'remark': i.remark,
+            'status': 1
+          }
+        })
+      }, () => {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      })
+    })
+
+  },
+  showImportTemplate (e) {
+    this.currentPindex = e.currentTarget.dataset.pindex
+    this.setData({
+      showTemplate: true
+    })
+  },
+  saveAsTemplate (e) {
+    let that = this
+    let pindex = e.currentTarget.dataset.pindex
+    util.request({
+      path: '/app/businesspricetemplate/save',
+      method: 'POST',
+      data: {
+        templateName: that.data.templateName,
+        orderType: 2,
+        status: 1,
+        detailList: that.data.offerList[pindex].children.map(item => {
+          return {
+            // id: item.id,
+            // templateId: item.templateId,
+            mainName: item.mainName,
+            mainId: item.mainId,
+            childName: item.childName,
+            childId: item.childId,
+            projectName: item.projectName,
+            projectId: item.projectId,
+            name: item.name,
+            remark: item.remark,
+            price: item.price,
+            unit: item.unit
+          }
+        })
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  filterTemplate () {
+    let _this = this
+    this.setData({
+      filterLoading: true
+    })
+    let params = {
+      'page': 1,
+      'size': 20,
+      'status': 1,
+      'orderType': 2
+    }
+    if (this.data.templateName) {
+      params.name = this.data.templateName
+    }
+    util.request({
+      path: '/app/businesspricetemplate/list',
+      method: 'GET',
+      data: params
+    }, function (err, res) {
+      _this.setData({
+        templateDataList: res.data.records || [],
+        filterLoading: false
+      })
+    })
+  },
+  resetTemplateFilter () {
+    this.setData({
+      searchTemplateName: '',
+      templateDataList: []
+    }, () => {
+      this.filterTemplate()
+    })
+  },
+  closeTemplateFilter () {
+    this.resetTemplateFilter()
+    this.setData({
+      showTemplate: false
     })
   }
 })

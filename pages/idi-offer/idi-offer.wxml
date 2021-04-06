@@ -40,6 +40,17 @@
                                                        value="{{project.proName}}" placeholder="请输入工程名称"/>
                                             </view>
                                         </view>
+                                        <view wx:if="{{isAllowEdit}}" class="weui-cell weui-cell_input no-padding one-line">
+                                            <view class="weui-cell__hd">
+                                                <view class="weui-label">模板名称</view>
+                                            </view>
+                                            <view class="weui-cell__bd">
+                                                <input class="weui-input" bindinput="inputgetName" data-name='templateName' value="{{templateName}}" placeholder="模板名称"/>
+                                            </view>
+                                            <view class="weui-cell__ft">
+                                                <van-button bindtap="saveAsTemplate" type="info" size="small" data-pindex="{{pindex}}">保存为模板</van-button>
+                                            </view>
+                                        </view>
                                     </view>
                                     <view class="row-item offerListRow" wx:for="{{project.children}}" wx:key="index">
                                         <view class="weui-cell weui-cell_input no-padding" wx:if="{{role != 1}}">
@@ -153,6 +164,7 @@
                                         </view>
                                     </view>
                                     <view style="margin-bottom:10px; line-height: 24px;">报价小计：{{project.projectTotal}}</view>
+                                    <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="primary" size="small" bindtap="showImportTemplate" data-pindex="{{pindex}}">导入模板</van-button>
                                     <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="info" size="small" bindtap="openLibrary" data-pindex="{{pindex}}">追加报价条目</van-button>
                                     <van-button custom-class="button-gap" wx:if="{{isAllowEdit}}" block type="danger" size="small" bindtap="removeProjectItem" data-pindex="{{pindex}}">删除工程项目</van-button>
                                 </view>
@@ -597,6 +609,34 @@
             bind:close="onClose"
             bind:select="onSelect"
     />
+    <van-popup show="{{ showTemplate }}">
+        <scroll-view class="wrapper" scroll-y="true">
+            <van-row custom-class="libraryFilterRow">
+                <van-col span="6">模板名称</van-col>
+                <van-col span="18">
+                    <input placeholder-class="editable" bindinput="inputgetName" data-name='searchTemplateName' value="{{searchTemplateName}}" placeholder="请输入模板名称"/>
+                </van-col>
+            </van-row>
+            <view style="margin-top: 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
+                <van-button loading="{{filterLoading}}" type="primary" size="small" bindtap="filterTemplate">查询</van-button>
+                <van-button size="small" style="margin-left: 5px" bindtap="resetTemplateFilter">重置</van-button>
+                <van-button size="small" style="margin-left: 5px" bindtap="closeTemplateFilter">关闭</van-button>
+            </view>
+            <view style="padding: 5px 0;">
+                <view class="row-item offerListRow" wx:for="{{templateDataList}}" wx:key="index">
+                    <view class="weui-cell weui-cell_input no-padding offerListRow">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">模板名称</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{item.templateName}}</text>
+                        </view>
+                    </view>
+                    <van-button type="info" size="small" data-index="{{index}}" bind:click="importTemplate">导入</van-button>
+                </view>
+            </view>
+        </scroll-view>
+    </van-popup>
     <van-popup show="{{ showLibrary }}">
         <scroll-view class="wrapper" scroll-y="true">
             <van-row custom-class="libraryFilterRow">
