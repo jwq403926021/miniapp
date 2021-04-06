@@ -506,7 +506,8 @@ Page({
       propertyId: this.data.propertyId,
       insuranceTimeLimit: this.formatDate(new Date(this.data.expireDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       workerText: this.data.workerComment,
-      weatherBusiness: this.data.weatherBusiness
+      weatherBusiness: this.data.weatherBusiness,
+      financeId: this.data.financeId
     }
   },
   getAccident () {
@@ -980,7 +981,11 @@ Page({
         method: 'POST',
         data: {
           flowId: _this.data.orderId,
-          investigatorId: _this.data.investigatorId
+          investigatorId: _this.data.investigatorId,
+          target: _this.data.damageTarget,
+          customerPhone: _this.data.insuredPhone,
+          ownerPhone: _this.data.ownerPhone,
+          propertyId: _this.data.propertyId
         }
       }, function (err, res) {
         wx.showToast({
