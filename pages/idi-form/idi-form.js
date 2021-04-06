@@ -821,7 +821,7 @@ Page({
   },
   goToPay () {
     wx.navigateTo({
-      url: `../pay/pay?id=${this.data.orderId}&money=${this.data.offerPrice}&latitude=${this.data.userLocationInfo.latitude}&longitude=${this.data.userLocationInfo.longitude}`
+      url: `../pay/pay?id=${this.data.orderId}&money=${this.data.offerPrice || 0}&latitude=${this.data.userLocationInfo.latitude}&longitude=${this.data.userLocationInfo.longitude}`
     })
   },
   goToSign () {
