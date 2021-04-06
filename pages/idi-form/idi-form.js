@@ -179,7 +179,11 @@ Page({
         weatherBusiness: `${data.weatherBusiness || ''}`,
         orderInfo: data.investigatorText,
         workerComment: data.workerText,
-        comment: data.offerText
+        comment: data.offerText,
+        userLocationInfo: {
+          latitude: data.lat,
+          longitude: data.lon
+        }
       }
       _this.sourceData = data
       _this.sourceImage = res.Image
