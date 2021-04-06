@@ -23,6 +23,19 @@ Page({
       }
     })
   },
+  backDetail () {
+    let that = this
+    wx.navigateBack({
+      delta: 1,
+      success () {
+        let pages = getCurrentPages()
+        let backTarget = pages[pages.length - 1]
+        backTarget.onLoad({
+          id: that.data.orderId
+        })
+      }
+    })
+  },
   commitSubmit: function () {
     let that = this
     wx.showLoading({
@@ -48,6 +61,7 @@ Page({
             icon: 'success',
             duration: 2000
           })
+          that.backDetail()
         },
         "fail":function(res){
           console.log('pay fail:', res)
