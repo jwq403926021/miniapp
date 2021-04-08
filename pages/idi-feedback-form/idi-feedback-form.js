@@ -12,20 +12,42 @@ Page({
     cause: ''
   },
   onLoad: function (routeParams) {
+    let that = this
     this.setData({
       id: routeParams.id,
       feedbackType: routeParams.type,
       role: app.globalData.currentRegisterInfo?.role
+    }, () => {
+      that.initDataById()
     })
   },
-  initDataById (id) {
+  initDataById () {
+    let that = this
+    let url = ``
+    if (this.data.feedbackType == '1') {
+      url = `/app/businessinsuranceidi/complaintInfo`
+    } else {
+      url = `/app/businessinsuranceidi/satisfactionInfo`
+    }
     util.request({
-      path: '/app/dredge/info',
+      path: url,
       method: 'GET',
       data: {
-        id: id
+        userId: app.globalData.currentRegisterInfo.userId,
+        orderId: this.data.id
       }
     }, function (err, res) {
+      if (that.data.feedbackType == '1') {
+        that.setData({
+          content: res.data.remark,
+          cause: res.data.cause.split(',')
+        })
+      } else {
+        that.setData({
+          content: res.data.remark,
+          satisfactionDegree: res.data.satisfactionDegree + ''
+        })
+      }
     })
   },
   inputgetName(e) {
@@ -44,8 +66,7 @@ Page({
       'cause': event.detail
     });
   },
-  commitSubmit (e) {
-    let _this = this
+  commitSubmit () {
     wx.showLoading({
       mask: true,
       title: '提交中'
