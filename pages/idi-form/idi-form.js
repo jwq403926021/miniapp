@@ -99,9 +99,11 @@ Page({
   },
   async onLoad (routeParams) {
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.on('reload', () => {
-      this.initDataById(routeParams.id)
-    })
+    if (eventChannel.on) {
+      eventChannel.on('reload', () => {
+        this.initDataById(routeParams.id)
+      })
+    }
     this.initRecord()
     wx.showLoading({
       mask: true,
@@ -831,6 +833,16 @@ Page({
   goToSign () {
     wx.navigateTo({
       url: `../sign/sign?id=${this.data.orderId}`
+    })
+  },
+  goToComplain () {
+    wx.navigateTo({
+      url: `../idi-feedback-form/idi-feedback-form?id=${this.data.orderId}&type=1`
+    })
+  },
+  goToSatisfaction () {
+    wx.navigateTo({
+      url: `../idi-feedback-form/idi-feedback-form?id=${this.data.orderId}&type=2`
     })
   },
   // ------- COMMON FUNCTION --------

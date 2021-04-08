@@ -126,6 +126,7 @@ button[type=primary] {
 .fl{ float:left}
 .fr{float:right}
 .mr5{margin-right: 5px}
+.mb5{margin-bottom: 5px}
 .clearfix:after{
     display:block;
     content:"";
