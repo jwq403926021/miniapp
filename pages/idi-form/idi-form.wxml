@@ -635,7 +635,7 @@
             <button data-type="0" bindtap="workerFinishSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerFinishSubmit">暂存</button>
         </view>
-        <view wx:if="{{orderId && (role == 1 || role == 28 || role == 29)}}" class="button-sp-area two-btn-wrap">
+        <view wx:if="{{orderId && (role == 1 || role == 28 || role == 29 || role == 5 || role == 6 || role == 7)}}" class="button-sp-area two-btn-wrap">
             <button bindtap="goToComplain">投诉</button>
             <button bindtap="goToSatisfaction">满意度</button>
         </view>
