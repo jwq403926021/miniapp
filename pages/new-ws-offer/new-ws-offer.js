@@ -48,6 +48,13 @@ Page({
       children: [],
       projectTotal: 0
     }],
+    offerWorkerList: [{
+      proName: '',
+      proId: '',
+      proType: 0,
+      children: [],
+      projectTotal: 0
+    }],
     incompleteList: [],
     showLibrary: false,
     mainList: ['1', '2', '3'],
@@ -67,6 +74,7 @@ Page({
     amountMoney: '',
     incompleteTotal: '',
     offerListTotal: '',
+    offerListTotalWorker: '',
     offerResult: '',
     compareList: [{
       companyName: '企业1',
@@ -260,6 +268,7 @@ Page({
   },
   calculate (name) {
     let offerListTotal = 0
+    let offerListTotalWorker = 0
     this.data.offerList.forEach(project => {
       let projectTotal = 0
       project.children.forEach(item => {
@@ -271,6 +280,18 @@ Page({
       project.projectTotal = projectTotal
     })
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
+
+    this.data.offerWorkerList.forEach(project => {
+      let projectTotal = 0
+      project.children.forEach(item => {
+        let total = (parseFloat(item.price || 0) * parseFloat(item.num || 0))
+        item.itemTotal = total
+        projectTotal += total
+        offerListTotalWorker += total
+      })
+      project.projectTotal = projectTotal
+    })
+    offerListTotalWorker = parseFloat(offerListTotalWorker.toFixed(2))
 
     let incompleteTotal = 0
     this.data.incompleteList.forEach(item => {
@@ -296,6 +317,7 @@ Page({
       coinInsert: (coinInsert || 0).toFixed(2),
       tax: (tax || 0).toFixed(2),
       offerListTotal: (offerListTotal || 0).toFixed(2),
+      offerListTotalWorker: (offerListTotalWorker || 0).toFixed(2),
       incompleteTotal: (incompleteTotal || 0).toFixed(2),
       offerResult: (offerResult || 0).toFixed(2),
       coinNum: parseFloat(coinNum || 0).toFixed(2),
@@ -399,7 +421,11 @@ Page({
           return item.offerType === '0'
         }
       })
+      let workerList = res.offerList.filter(item => {
+        return item.offerType === '1'
+      })
       let offerList = []
+      let offerWorkerList = []
       if (list.length > 0) {
         list.forEach(item => {
           let proIndex = offerList.findIndex(ll => ll.proId === item.proId)
@@ -416,6 +442,22 @@ Page({
           }
         })
       }
+      if (workerList.length > 0) {
+        workerList.forEach(item => {
+          let proIndex = workerList.findIndex(ll => ll.proId === item.proId)
+          if (proIndex === -1) {
+            offerWorkerList.push({
+              proName: item.proName,
+              proId: item.proId,
+              proType: parseInt(item.proType),
+              children: [item],
+              projectTotal: 0
+            })
+          } else {
+            offerWorkerList[proIndex].children.push(item)
+          }
+        })
+      }
       let result = {
         isAllowEdit: (_this.data.role == 12 && (data.status == 13 || data.status == 43)) || (_this.data.role == 13 && data.status == 41),
         ...data,
@@ -424,6 +466,7 @@ Page({
         cityCode: data.cityCode,
         provinceCode: data.provinceCode,
         offerList: offerList,
+        offerWorkerList: offerWorkerList,
         damageMoney: data.damageMoney,
         budgetPreliminary: data.budgetPreliminary,
         incompleteList: res.incompleteList.filter(item => {
@@ -814,6 +857,7 @@ Page({
       tax: this.data.tax, // 税额
       offerResult: this.data.offerResult, // 报价合计
       offerListTotal: this.data.offerListTotal, // 报价列表合计
+      offerListTotalWorker: this.data.offerListTotalWorker, // 报价列表合计
       incompleteTotal: this.data.incompleteTotal, // 残值合计
       hasTax: this.data.hasTax ? '1' : '0', // 是否有税
       compareList: this.data.compareList,
