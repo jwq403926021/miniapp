@@ -43,7 +43,7 @@ Page({
     }],
     offerList: [{
       uuid: +new Date(),
-      proName: 'idi报价',
+      proName: '',
       proId: '1',
       children: [],
       projectTotal: 0
@@ -388,7 +388,7 @@ Page({
       })
       let offerList = [{
         uuid: +new Date(),
-        proName: 'idi报价',
+        proName: '',
         proId: '1',
         children: [],
         projectTotal: 0
