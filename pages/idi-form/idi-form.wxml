@@ -388,10 +388,15 @@
                     </view>
                 </view>
             </view>
-            <button wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}" class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
-                <text wx:if="{{!recordState}}">按住说话</text>
-                <text wx:else>松开结束</text>
-            </button>
+            <block wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
+                <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
+                    <text wx:if="{{!recordState}}">按住说话</text>
+                    <text wx:else>松开结束</text>
+                </button>
+                <button class="yuyinBtn" bind:tap="digestRecord">
+                    识别信息
+                </button>
+            </block>
         </block>
 
         <block>

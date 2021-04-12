@@ -435,8 +435,6 @@ Page({
       let text = res.result || ''
       that.setData({
         orderInfo: text
-      }, () => {
-        that.digestRecord()
       })
     }
   },
@@ -459,17 +457,21 @@ Page({
   digestRecord () {
     let that = this
     util.request({
-      path: '/app/businessinsuranceidi/getInfoByContent',
+      path: '/app/businessdamagenew/getInfoByContent',
       method: 'POST',
       data: {
         content: that.data.orderInfo
       }
     }, function (err, res) {
       let data = res.data
-      console.log('digestRecord::', data)
-      // that.setData({
-      //   [to]: JSON.stringify(data)
-      // })
+      that.setData({
+        region: that.data.region,
+        countryId: data.county || that.data.countryId,
+        cityId: data.city || that.data.cityId,
+        provinceId: data.province || that.data.provinceId,
+        insuredName: data.person || that.data.insuredName,
+        insuredPhone: data.phonenum || that.data.insuredPhone
+      })
     })
   },
   goToList () {
