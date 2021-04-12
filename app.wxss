@@ -264,6 +264,9 @@ textarea[disabled]{
 .button-sp-area{
     margin-top: 10px;
 }
+.btn-white{
+    background: #fff;
+}
 .category-icon{
     width: 40px;
     height: 40px;
