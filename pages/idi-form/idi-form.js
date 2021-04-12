@@ -465,12 +465,14 @@ Page({
     }, function (err, res) {
       let data = res.data
       that.setData({
-        region: that.data.region,
+        region: data.county || that.data.region,
         countryId: data.county || that.data.countryId,
         cityId: data.city || that.data.cityId,
         provinceId: data.province || that.data.provinceId,
         insuredName: data.person || that.data.insuredName,
         insuredPhone: data.phonenum || that.data.insuredPhone
+      }, () => {
+        setTimeout(() => that.refreshRegionLabel(), 250)
       })
     })
   },
