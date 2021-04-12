@@ -550,7 +550,7 @@ Page({
       }) : []
       that.setData({
         tisCompanyList: tisCompanyList,
-        tisCompanySourceList: res.data
+        tisCompanySourceList: res.data || []
       })
     })
   },
@@ -563,9 +563,11 @@ Page({
         cityCode: this.data.cityId
       }
     }, function (err, res) {
-      res.data.forEach(item => {
-        item.checked = false
-      })
+      if (res.data) {
+        res.data.forEach(item => {
+          item.checked = false
+        })
+      }
       that.setData({
         pendingWorkerList: res.data || []
       })
