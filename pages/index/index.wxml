@@ -32,7 +32,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToIdiForm" wx:if="{{role == 1 || role == 28 || role == 29}}">
       <view>
-          <text class="iconfont icon-qiche301 myicon"></text>
+        <van-icon name="orders-o" style="font-size: 40px; margin-top: 18px;" />
       </view>
       <view>
         测试

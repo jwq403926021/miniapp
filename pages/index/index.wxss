@@ -15,8 +15,11 @@ page{
   border-bottom: 1px solid #f7f7f7;
   box-sizing: border-box;
   height: 125px;
-  padding-top: 30px;
+  padding-top: 15px;
   width: 33.33333%;
+}
+.vanticon{
+  font-size: 40px;
 }
 .new-btn .van-icon{
   color:#016eff
