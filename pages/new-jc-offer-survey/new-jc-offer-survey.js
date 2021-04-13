@@ -62,7 +62,8 @@ Page({
     reportId: '',
     isTest: '',
     computedCateogryTotalPrice: '',
-    investigatorCityCode: ''
+    investigatorCityCode: '',
+    deductType: '0'
   },
   onLoad: function (routeParams) {
     try {
@@ -139,7 +140,8 @@ Page({
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax == 1 ? true : false,
         coinLevel: data.level || 1,
-        investigatorCityCode: data.investigatorCityCode || ''
+        investigatorCityCode: data.investigatorCityCode || '',
+        deductType: data.deductType || '0'
       }
       _this.setData(result, () => {
         _this.calculate()
