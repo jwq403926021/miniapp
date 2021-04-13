@@ -19,7 +19,7 @@
         </view>
       </view>
       <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">
-        <map id="map" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" markers="{{userLocationInfo}}" scale="13" show-location style="width: 100%; height: 100%;"></map>
+        <map bind:tap="goto" id="map" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" markers="{{userLocationInfo}}" scale="13" show-location style="width: 100%; height: 100%;"></map>
       </view>
     </view>
 

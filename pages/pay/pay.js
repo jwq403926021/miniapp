@@ -76,5 +76,13 @@ Page({
         }
       })
     })
+  },
+  goto () {
+    wx.openLocation({
+      latitude: Number(this.data.userLocationInfo.latitude),
+      longitude: Number(this.data.userLocationInfo.longitude),
+      name: '',
+      address: ''
+    })
   }
 })
