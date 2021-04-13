@@ -11,6 +11,8 @@
     "van-popup": "../../asset/vant/popup/index",
     "van-action-sheet": "../../asset/vant/action-sheet/index",
     "van-cell": "../../asset/vant/cell/index",
-    "van-stepper": "../../asset/vant/stepper/index"
+    "van-stepper": "../../asset/vant/stepper/index",
+    "van-radio": "../../asset/vant/radio/index",
+    "van-radio-group": "../../asset/vant/radio-group/index"
   }
 }

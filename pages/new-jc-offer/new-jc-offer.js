@@ -121,7 +121,8 @@ Page({
     templateName: '',
     showTemplate: false,
     searchTemplateName: '',
-    templateDataList: []
+    templateDataList: [],
+    deductType: '0'
   },
   initArea () {
     try {
@@ -487,7 +488,8 @@ Page({
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
         coinLevel: data.level || 1,
-        investigatorCityCode: data.investigatorCityCode || ''
+        investigatorCityCode: data.investigatorCityCode || '',
+        deductType: data.deductType || '0'
       }
       _this.setData(result, () => {
         _this.getRegionLabel()
@@ -772,7 +774,8 @@ Page({
       handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
       surveyId: this.data.investigatorId,
-      testPrice: this.data.testPrice
+      testPrice: this.data.testPrice,
+      deductType: this.data.deductType
     }
     if (!this.data.offerList.length) {
       wx.showToast({
@@ -878,7 +881,8 @@ Page({
       handlingType: this.data.constructionMethod,
       workerId: this.data.workerId,
       surveyId: this.data.investigatorId,
-      testPrice: this.data.testPrice
+      testPrice: this.data.testPrice,
+      deductType: this.data.deductType
     }
     if (!this.data.offerList.length) {
       wx.showToast({
@@ -1216,5 +1220,11 @@ Page({
     this.setData({
       showTemplate: false
     })
+  },
+  radioChange (event) {
+    let name = event.currentTarget.dataset.name;
+    let nameMap = {}
+    nameMap[name] = event.detail
+    this.setData(nameMap)
   }
 })

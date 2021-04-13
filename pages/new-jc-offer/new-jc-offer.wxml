@@ -25,6 +25,21 @@
                     <text class="weui-input readonly">{{customerName || '-'}}</text>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">免赔扣除方式</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <van-radio-group value="{{ deductType }}" data-name="deductType" custom-class="weui-input vertical" bind:change="radioChange">
+                        <van-radio custom-class="mb5" name="0">无</van-radio>
+                        <van-radio custom-class="mb5" name="1">从支付被保险人扣除</van-radio>
+                        <van-radio custom-class="mb5" name="2">从平台扣除</van-radio>
+                    </van-radio-group>
+                </view>
+<!--                <view class="weui-cell__bd">-->
+<!--                    <text class="weui-input readonly">{{['无', '从支付被保险人扣除', '从平台扣除'][deductType] || '-'}}</text>-->
+<!--                </view>-->
+            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">测漏金额</view>
