@@ -13,6 +13,9 @@ Page({
       // data.role data.status
       let isEditable = true
       return isEditable
+    },
+    disabledCase (data) {
+      return data.role == 12 && data.status == 13
     }
   },
   data: {

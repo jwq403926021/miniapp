@@ -27,7 +27,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">保单号</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                     <input class="weui-input" bindinput="inputChange" data-name='insuranceOrderId'
                            value="{{insuranceOrderId}}" placeholder="保单号"/>
                 </view>
@@ -39,7 +39,7 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                     <input class="weui-input" bindinput="inputChange" data-name='reportId'
                            value="{{reportId}}" placeholder="报案号"/>
                 </view>
@@ -52,7 +52,7 @@
                     <view class="weui-label">事故区域</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <view class="picker weui-select weui-select_in-select-after" data-name="showAreaPopup" bindtap="openPopup">
                             {{regionLabel ? regionLabel : '请填写地址'}}
                         </view>
@@ -81,13 +81,13 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">详细地址</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                     <input class="weui-input" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{address || '-'}}</text>
                 </view>
-                <view class="weui-cell__ft">
+                <view class="weui-cell__ft" wx:if="{{!disabledCase}}">
                     <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>
                 </view>
             </view>
@@ -98,7 +98,7 @@
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">受损标的</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{true}}">
+                <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                     <van-radio-group value="{{ damageTarget }}" data-name="damageTarget" custom-class="weui-input vertical" bind:change="radioChange">
                         <van-radio custom-class="fl mr5" name="0">业主</van-radio>
                         <van-radio custom-class="fl mr5" name="1">物业</van-radio>
@@ -177,7 +177,7 @@
                     <view class="weui-label">上门时间</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <view class="picker weui-select weui-select_in-select-after" data-name="showComeDateTimePopup" bindtap="openPopup">
                             {{comeDateTimeLabel ? comeDateTimeLabel : '请选择上门时间'}}
                         </view>
@@ -239,7 +239,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">事故原因</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <picker bindchange="pickerChange" data-name="accidentReason" value="{{accidentReasonValue}}" range="{{accidentReasonList}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{accidentReasonLabel || '请选择事故原因'}}
@@ -254,7 +254,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">保险责任</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <van-radio-group value="{{ insurerResponsibility }}" data-name="insurerResponsibility" custom-class="weui-input vertical" bind:change="radioChange">
                             <van-radio custom-class="fl mr5" name="0">不成立</van-radio>
                             <van-radio custom-class="fl mr5" name="1">成立</van-radio>
@@ -268,7 +268,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">非责任施工</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <van-radio-group value="{{ noResponsibilityConstruct }}" data-name="noResponsibilityConstruct" custom-class="weui-input vertical" bind:change="radioChange">
                             <van-radio custom-class="fl mr5" name="0">拒绝</van-radio>
                             <van-radio custom-class="fl mr5" name="1">同意</van-radio>
@@ -282,7 +282,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">TIS单位</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{tisCompanyLabel || '请选择TIS单位'}}
@@ -297,7 +297,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">TIS人员</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <picker bindchange="pickerChange" data-name="tisUser" value="{{tisUserValue}}" range="{{tisUserList}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{tisUserLabel || '请选择TIS单位'}}
@@ -312,7 +312,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">岗位</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{true}}">
+                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <van-radio-group value="{{ jobRole }}" data-name="jobRole" custom-class="weui-input vertical" bind:change="radioChange">
                             <van-radio custom-class="fl mr5" name="0">查勘岗</van-radio>
                             <van-radio custom-class="fl mr5" name="1">核销岗</van-radio>
@@ -379,7 +379,7 @@
             <view class="weui-cells__title">报案信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
-                    <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
+                    <view class="weui-cell__bd" wx:if="{{status == null && (role == 1 || role == 28 || role == 29) && !disabledCase}}">
                             <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='orderInfo'
                                       value="{{orderInfo}}" placeholder="请输入报案信息" style="height: 7em"/>
                     </view>
@@ -388,7 +388,7 @@
                     </view>
                 </view>
             </view>
-            <block wx:if="{{status == null && (role == 1 || role == 28 || role == 29)}}">
+            <block wx:if="{{status == null && (role == 1 || role == 28 || role == 29) && !disabledCase}}">
                 <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
                     <text wx:if="{{!recordState}}">按住说话</text>
                     <text wx:else>松开结束</text>
@@ -589,7 +589,7 @@
                 <view class="weui-cells__title">施工留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
-                        <view class="weui-cell__bd" wx:if="{{true}}">
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                             <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='workerComment'
                                       value="{{workerComment}}" placeholder="请输入施工留言" style="height: 7em"/>
                         </view>
@@ -603,7 +603,7 @@
                 <view class="weui-cells__title">报价留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
-                        <view class="weui-cell__bd" wx:if="{{true}}">
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                             <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='comment'
                                       value="{{comment}}" placeholder="请输入留言" style="height: 7em"/>
                         </view>
