@@ -329,7 +329,7 @@
                     <view class="weui-cell__bd" wx:if="{{weatherBusiness == '1'}}">
                         <text class="weui-input readonly">已支付</text>
                     </view>
-                    <view class="weui-cell__ft" wx:if="{{weatherBusiness == '0' || weatherBusiness == ''}}" bindtap="goToPay">
+                    <view class="weui-cell__ft" wx:if="{{(weatherBusiness == '0' || weatherBusiness == '') && offerPrice > 0}}" bindtap="goToPay">
                         <van-button type="info" size="small">去支付</van-button>
                     </view>
                 </view>
@@ -641,8 +641,8 @@
             <button data-type="1" bindtap="workerFinishSubmit">暂存</button>
         </view>
         <view wx:if="{{orderId && (role == 1 || role == 28 || role == 29)}}" class="button-sp-area two-btn-wrap">
-            <button class="btn-white" bindtap="goToComplain">投诉</button>
-            <button class="btn-white" bindtap="goToSatisfaction">满意度</button>
+            <button type="primary" class="btn-white" bindtap="goToComplain">投诉</button>
+            <button type="primary" class="btn-white" bindtap="goToSatisfaction">满意度</button>
         </view>
 
         <view wx:if="{{(role == 28 || role == 29) && !workerInfoImageFiles.length && orderId}}" class="button-sp-area"><button type="primary" bindtap="goToSign">电子签</button></view>
