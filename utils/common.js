@@ -111,7 +111,7 @@ module.exports = {
   deleteImage: deleteImage,
   deleteAttach: deleteAttach,
   formatDateTimePicker: (date) => {
-    let str = `${date.toLocaleDateString()}  ${date.getHours()}:${(date.getMinutes()+'').padStart(2, '0')}`
+    let str = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}  ${date.getHours()}:${(date.getMinutes()+'').padStart(2, '0')}`
     return str
   }
 }
