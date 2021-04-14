@@ -95,7 +95,8 @@ Page({
     jobRole: '',
     userLocationInfo: {
       latitude: null,
-      longitude: null
+      longitude: null,
+      name: '位置'
     },
     investigatorId: '',
     compareEstimatePrice: ''
@@ -852,6 +853,14 @@ Page({
   goToSatisfaction () {
     wx.navigateTo({
       url: `../idi-feedback-form/idi-feedback-form?id=${this.data.orderId}&type=2`
+    })
+  },
+  goToLocation () {
+    wx.openLocation({
+      latitude: Number(this.data.userLocationInfo.latitude),
+      longitude: Number(this.data.userLocationInfo.longitude),
+      name: '',
+      address: ''
     })
   },
   // ------- COMMON FUNCTION --------
