@@ -67,6 +67,7 @@ Page({
     amountMoney: '',
     incompleteTotal: '',
     offerListTotal: '',
+    offerListTotalWorker: 0,
     offerResult: '',
     compareList: [{
       companyName: '企业1',
@@ -400,6 +401,9 @@ Page({
           return item.offerType === '0'
         }
       })
+      let list2 = res.offerList.filter(item => {
+        return item.offerType === '1'
+      })
       let idiList = res.idiList.find(item => {
         if (_this.data.role === 12) {
           return item.type === 1
@@ -413,6 +417,12 @@ Page({
       if (list.length > 0) {
         list.forEach(item => {
           offerList[0].children.push(item)
+        })
+      }
+      let offerListTotalWorker = 0
+      if (list2.length > 0) {
+        list.forEach(item => {
+          offerListTotalWorker += (parseFloat(item.price || 0) * parseFloat(item.num || 0))
         })
       }
 
@@ -431,7 +441,8 @@ Page({
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
-        coinLevel: data.level || 1
+        coinLevel: data.level || 1,
+        offerListTotalWorker: offerListTotalWorker || 0
       }
       _this.setData(result, () => {
         _this.getRegionLabel()
@@ -833,6 +844,7 @@ Page({
       tax: this.data.tax, // 税额
       offerResult: this.data.offerResult, // 报价合计
       offerListTotal: this.data.offerListTotal, // 报价列表合计
+      offerListTotalWorker: this.data.offerListTotalWorker, // 报价列表合计
       incompleteTotal: this.data.incompleteTotal, // 残值合计
       hasTax: this.data.hasTax ? '1' : '0', // 是否有税
       compareList: this.data.compareList,
