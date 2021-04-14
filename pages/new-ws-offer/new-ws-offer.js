@@ -444,7 +444,7 @@ Page({
       }
       if (workerList.length > 0) {
         workerList.forEach(item => {
-          let proIndex = workerList.findIndex(ll => ll.proId === item.proId)
+          let proIndex = offerWorkerList.findIndex(ll => ll.proId === item.proId)
           if (proIndex === -1) {
             offerWorkerList.push({
               proName: item.proName,
