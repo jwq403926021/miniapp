@@ -462,6 +462,10 @@ Page({
   },
   digestRecord () {
     let that = this
+    wx.showLoading({
+      mask: true,
+      title: '识别中'
+    })
     util.request({
       path: '/app/businessdamagenew/getInfoByContent',
       method: 'POST',
@@ -479,6 +483,12 @@ Page({
         insuredPhone: data.phonenum || that.data.insuredPhone
       }, () => {
         setTimeout(() => that.refreshRegionLabel(), 250)
+        wx.showToast({
+          mask: true,
+          icon: 'none',
+          title: '识别完成',
+          duration: 1000
+        })
       })
     })
   },
