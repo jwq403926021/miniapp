@@ -354,7 +354,7 @@
                     </view>
                 </view>
             </view>
-            <view wx:if="{{status == 39}}" class="weui-cells weui-cells_after-title">
+            <view wx:if="{{status == 39 && (role === 5 || role === 6 || role === 7 || role === 30)}}" class="weui-cells weui-cells_after-title">
                 <view class="compare-wrapper" wx:if="{{compareList.length > 0}}">
                     <van-row custom-class="compare-detail-table-header">
                         <van-col span="10">施工人员</van-col>

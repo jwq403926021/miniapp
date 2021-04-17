@@ -146,6 +146,7 @@ Page({
         })
       }
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
+      let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
       let state = {
         ...data,
         compareList: (res.compareList || []).map(item => {
@@ -179,7 +180,8 @@ Page({
         offerPrice: data.offerMoney,
         insurerResponsibility: `${data.insuranceDuty || ''}`,
         noResponsibilityConstruct: `${data.notDutyWork || ''}`,
-        // tisCompanyValue: data.tisId,
+        tisCompanyValue: tisCompanyIndex,
+        tisCompanyLabel: tisCompanyIndex != -1 ? _this.data.tisCompanySourceList[tisCompanyIndex].name : '',
         tisId: data.tisId,
         jobRole: `${data.station || ''}`,
         weatherBusiness: `${data.weatherBusiness || ''}`,
@@ -509,6 +511,7 @@ Page({
       insuranceDuty: this.data.insurerResponsibility,
       notDutyWork: this.data.noResponsibilityConstruct,
       tisId: this.data.tisId,
+      tisCompanyValue:  (this.data.tisCompanyValue && this.data.tisCompanySourceList[this.data.tisCompanyValue]) ? this.data.tisCompanySourceList[this.data.tisCompanyValue].id : '',
       station: this.data.jobRole,
       // constructionMethod: '',
       offerText: this.data.comment,
