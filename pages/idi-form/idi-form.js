@@ -180,7 +180,7 @@ Page({
         offerPrice: data.offerMoney,
         insurerResponsibility: `${data.insuranceDuty || ''}`,
         noResponsibilityConstruct: `${data.notDutyWork || ''}`,
-        tisCompanyValue: tisCompanyIndex,
+        tisCompanyValue: tisCompanyIndex != -1 ? tisCompanyIndex : '',
         tisCompanyLabel: tisCompanyIndex != -1 ? _this.data.tisCompanySourceList[tisCompanyIndex].name : '',
         tisId: data.tisId,
         jobRole: `${data.station || ''}`,
