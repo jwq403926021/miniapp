@@ -706,6 +706,20 @@ Page({
   },
   orderSubmit (event) {
     let that = this
+    if (this.data.insuredPhone != ''){
+      let isVaidinsuredPhone = this.checkPhone(this.data.insuredPhone, '请输入正确的沟通方式')
+      if (!isVaidinsuredPhone) {
+        return
+      }
+    }
+
+    if(this.data.ownerPhone != '') {
+      let isVaidownerPhone = this.checkPhone(this.data.ownerPhone, '请输入正确的沟通方式')
+      if (!isVaidownerPhone) {
+        return
+      }
+    }
+
     let isSave = event.currentTarget.dataset.type == '1'
     let url = this.data.role == 1 ? (isSave ? `/app/businessinsuranceidi/surveySave` : `/app/businessinsuranceidi/surveyCommit`) : (isSave ? `/app/businessinsuranceidi/propertySave` : `/app/businessinsuranceidi/propertyCommit`)
     wx.showLoading({ mask: true, title: '提交中' })
@@ -1102,5 +1116,18 @@ Page({
         }
       }
     })
+  },
+  checkPhone (str, msg){
+    str = str.replace(/\s/g, '')
+    if(!(/^(((0\d{2,3}-){0,1}\d{7,8})|(1[3456789]\d{9}))$/.test(str))){
+      wx.showToast({
+        mask: true,
+        title: msg,
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    return true
   },
 })
