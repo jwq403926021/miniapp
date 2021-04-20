@@ -354,7 +354,7 @@
                     </view>
                 </view>
             </view>
-            <view wx:if="{{status == 39 && (role === 5 || role === 6 || role === 7 || role === 30)}}" class="weui-cells weui-cells_after-title">
+            <view wx:if="{{status == 51 && (role === 5 || role === 6 || role === 7 || role === 30)}}" class="weui-cells weui-cells_after-title">
                 <view class="compare-wrapper" wx:if="{{compareList.length > 0}}">
                     <van-row custom-class="compare-detail-table-header">
                         <van-col span="10">施工人员</van-col>
@@ -628,7 +628,7 @@
         <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
         <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
         <view wx:if="{{role == 30 && status == 37}}" class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
-        <view wx:if="{{role == 30 && (status == 39 || status == 51)}}" class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
+        <view wx:if="{{role == 30 && status == 51}}" class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
         <view wx:if="{{role == 12 && (status == 42 || status == 43)}}" class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
         <view wx:if="{{role == 12 && status == 39}}" class="button-sp-area"><button type="primary" bindtap="compareWorkerSubmit">比价人员估损金额提交</button></view>
         <view wx:if="{{role == 1 && status == 36}}" class="button-sp-area two-btn-wrap">
