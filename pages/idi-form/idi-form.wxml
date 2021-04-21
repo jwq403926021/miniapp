@@ -172,6 +172,52 @@
                     </block>
                 </view>
             </block>
+            <block wx:if="{{investigatorName}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{investigatorName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{investigatorPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{investigatorPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:if="{{managerName}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">处理人姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{managerName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">处理人电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{managerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{managerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </block>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">上门时间</view>
