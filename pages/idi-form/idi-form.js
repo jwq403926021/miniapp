@@ -20,6 +20,8 @@ Page({
   },
   data: {
     role: 1,
+    currentUserId: '-1',
+    workerId: null,
     orderId: null,
     statusMap: {
       '20': '已派送',
@@ -120,7 +122,8 @@ Page({
       countryId: app.globalData.currentRegisterInfo?.townCode || '',
       cityId: app.globalData.currentRegisterInfo?.cityCode || '',
       provinceId: app.globalData.currentRegisterInfo?.provinceCode || '',
-      role: app.globalData.currentRegisterInfo?.role // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      role: app.globalData.currentRegisterInfo?.role, // 查勘员、业主、物业、施工人员、平台处理人、报价人员、财务人员、tis人员、市级负责人、省级负责人
+      currentUserId: app.globalData.currentRegisterInfo.userId
     }, async () => {
       if (routeParams.id) {
         await this.initDataById(routeParams.id)

@@ -203,7 +203,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{currentUserId == workerId}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">估损金额</view>
                     </view>
