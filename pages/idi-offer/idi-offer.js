@@ -1085,7 +1085,7 @@ Page({
     let eleven = Number(data['manualMoney']) * 0.2941
     let twelve = Number(data['manualMoney']) * 0.0196
     let thirteen = Number(data['pollutionMoney']) + eleven + twelve
-    let fifteen = (eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax'])) * 1 // ?
+    let fifteen = (eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax'])) * 0.6 // ?
     let eighteen = eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax']) + fifteen + Number(data['afterTax']) + Number(data['materialA'])
     this.setData({
       directionMoney: one.toFixed(2),
