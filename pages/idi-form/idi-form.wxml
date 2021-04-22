@@ -236,16 +236,31 @@
             <block wx:if="{{orderId}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">保险期限</view>
+                        <view class="weui-label">保险期限起始</view>
                     </view>
                     <view class="weui-cell__bd">
                         <view class="weui-cell__bd" wx:if="{{true}}">
                             <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimePopup" bindtap="openPopup">
-                                {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限'}}
+                                {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限起始'}}
                             </view>
                         </view>
                         <view class="weui-cell__bd" wx:else>
                             <text class="weui-input readonly">{{expireDateTimeLabel || '-'}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">保险期限结束</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" wx:if="{{true}}">
+                            <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimeEndPopup" bindtap="openPopup">
+                                {{expireDateTimeEndLabel ? expireDateTimeEndLabel : '请选择保险期限结束'}}
+                            </view>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <text class="weui-input readonly">{{expireDateTimeEndLabel || '-'}}</text>
                         </view>
                     </view>
                 </view>
@@ -707,6 +722,9 @@
     </van-popup>
     <van-popup show="{{ showExpireDateTimePopup }}" position="bottom" overlay="{{ true }}">
         <van-datetime-picker data-name="showExpireDateTimePopup" type="datetime" value="{{ expireDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
+    </van-popup>
+    <van-popup show="{{ showExpireDateTimeEndPopup }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker data-name="showExpireDateTimeEndPopup" type="datetime" value="{{ expireDateTimeEndValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
     </van-popup>
     <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
         <cover-view>开始语音</cover-view>

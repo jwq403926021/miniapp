@@ -44,6 +44,7 @@ Page({
     showAreaPopup: false,
     showComeDateTimePopup: false,
     showExpireDateTimePopup: false,
+    showExpireDateTimeEndPopup: false,
     areaList: {},
     // -- order data --
     status: null,
@@ -98,6 +99,8 @@ Page({
     comeDateTimeLabel: common.formatDateTimePicker(today),
     expireDateTimeValue: today.getTime(),
     expireDateTimeLabel: common.formatDateTimePicker(today),
+    expireDateTimeEndValue: today.getTime(),
+    expireDateTimeEndLabel: common.formatDateTimePicker(today),
     jobRole: '',
     userLocationInfo: {
       latitude: null,
@@ -172,6 +175,8 @@ Page({
         insuranceOrderId: data.insuranceNumber,
         expireDateTimeValue: data.insuranceTimeLimit ? +new Date(data.insuranceTimeLimit.replaceAll('-', '/')) : '',
         expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit.replaceAll('-', '/'))) : '',
+        expireDateTimeEndValue: data.insuranceTimeLimitEnd ? +new Date(data.insuranceTimeLimitEnd.replaceAll('-', '/')) : '',
+        expireDateTimeEndLabel: data.insuranceTimeLimitEnd ? common.formatDateTimePicker(new Date(data.insuranceTimeLimitEnd.replaceAll('-', '/'))) : '',
         // insuranceCompany: '',
         accidentReasonValue: accidentReasonIndex,
         accidentReasonLabel: accidentReasonIndex != -1 ? _this.data.accidentReasonSourceList[accidentReasonIndex].name : '',
@@ -316,6 +321,12 @@ Page({
         showExpireDateTimePopup: false,
         expireDateTimeValue: e.detail,
         expireDateTimeLabel: common.formatDateTimePicker(d)
+      }
+    } else if (name === 'showExpireDateTimeEndPopup') {
+      data = {
+        showExpireDateTimeEndPopup: false,
+        expireDateTimeEndValue: e.detail,
+        expireDateTimeEndLabel: common.formatDateTimePicker(d)
       }
     }
     this.setData(data)
@@ -543,6 +554,7 @@ Page({
       offerCenterId: this.data.offerCenterId,
       propertyId: this.data.propertyId,
       insuranceTimeLimit: this.formatDate(new Date(this.data.expireDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
+      insuranceTimeLimitEnd: this.formatDate(new Date(this.data.expireDateTimeEndValue), 'yyyy-MM-dd hh:mm:ss'),
       workerText: this.data.workerComment,
       weatherBusiness: this.data.weatherBusiness,
       financeId: this.data.financeId
@@ -687,7 +699,7 @@ Page({
   workerSubmit (event) {
     let that = this
     let isSave = event.currentTarget.dataset.type == '1'
-    if (!this.data.expireDateTimeValue) {
+    if (!(this.data.expireDateTimeValue && this.data.expireDateTimeEndValue)) {
       wx.showToast({
         mask: true,
         icon: 'none',
