@@ -691,8 +691,8 @@
             <button data-type="1" bindtap="workerSubmit">暂存</button>
         </view>
         <view wx:if="{{role == 12 && status == 13}}" class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
-        <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
-        <view wx:if="{{role == 30 && status == 40}}" class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
+        <view wx:if="{{role == 30 && status == 38}}" class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
+        <view wx:if="{{role == 30 && status == 38}}" class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
         <view wx:if="{{role == 30 && status == 37}}" class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
         <view wx:if="{{role == 30 && status == 51}}" class="button-sp-area"><button type="primary" bindtap="confirmWorkerSubmit">处理人员确认提交</button></view>
         <view wx:if="{{role == 12 && (status == 42 || status == 43)}}" class="button-sp-area"><button type="primary" bindtap="workerAfterOfferSubmit">施工人员报价后提交</button></view>
