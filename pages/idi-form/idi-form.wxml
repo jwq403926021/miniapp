@@ -327,7 +327,7 @@
                 </view>
                 <view class="weui-cell weui-cell_select" wx:if="{{ role == 12 && noResponsibilityConstruct == 0 }}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">客户是否同意自费</view>
+                        <view class="weui-label">非责任施工</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <van-radio-group value="{{ noResponsibilityConstruct }}" data-name="noResponsibilityConstruct" custom-class="weui-input vertical" bind:change="radioChange">
