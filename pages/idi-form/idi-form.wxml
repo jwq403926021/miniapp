@@ -371,16 +371,16 @@
                 </view>
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">岗位</view>
+                        <view style="line-height: 14px;" class="weui-label">是否需要上级核赔复核</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
                         <van-radio-group value="{{ jobRole }}" data-name="jobRole" custom-class="weui-input vertical" bind:change="radioChange">
-                            <van-radio custom-class="fl mr5" name="0">查勘岗</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">核销岗</van-radio>
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
                         </van-radio-group>
                     </view>
                     <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{['查勘岗', '核销岗'][jobRole] || '-'}}</text>
+                        <text class="weui-input readonly">{{['否', '是'][jobRole] || '-'}}</text>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_select">
