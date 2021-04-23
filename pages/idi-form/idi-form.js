@@ -729,6 +729,30 @@ Page({
   },
   orderSubmit (event) {
     let that = this
+    if (!this.data.insuranceOrderId){
+      wx.showToast({
+        mask: true,
+        title: '请输入保单号',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (!this.data.reportId){
+      wx.showToast({
+        mask: true,
+        title: '请输入报案号',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (this.data.insuredPhone != ''){
+      let isVaidinsuredPhone = this.checkPhone(this.data.insuredPhone, '请输入正确的沟通方式')
+      if (!isVaidinsuredPhone) {
+        return
+      }
+    }
     if (this.data.insuredPhone != ''){
       let isVaidinsuredPhone = this.checkPhone(this.data.insuredPhone, '请输入正确的沟通方式')
       if (!isVaidinsuredPhone) {
