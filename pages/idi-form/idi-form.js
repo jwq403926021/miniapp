@@ -108,7 +108,8 @@ Page({
       name: '位置'
     },
     investigatorId: '',
-    compareEstimatePrice: ''
+    compareEstimatePrice: '',
+    warningCase: false
   },
   async onLoad (routeParams) {
     const eventChannel = this.getOpenerEventChannel()
@@ -155,8 +156,13 @@ Page({
           showWorkerHit: true
         })
       }
+      let warningCase = false
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
+      if (data.offerListTotalWorker && data.estimatePrice) {
+        let minData = Math.min(data.offerListTotalWorker, data.estimatePrice)
+        return (Math.abs(data.offerListTotalWorker - data.estimatePrice) / minData) >= 0.3
+      }
       let state = {
         ...data,
         compareList: (res.compareList || []).map(item => {
@@ -207,7 +213,8 @@ Page({
         userLocationInfo: {
           latitude: data.lat,
           longitude: data.lon
-        }
+        },
+        warningCase: warningCase
       }
       _this.sourceData = data
       _this.sourceImage = res.Image
