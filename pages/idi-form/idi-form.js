@@ -43,6 +43,7 @@ Page({
     recordState: false,
     showAreaPopup: false,
     showComeDateTimePopup: false,
+    showInsuranceTimePopup: false,
     showExpireDateTimePopup: false,
     showExpireDateTimeEndPopup: false,
     areaList: {},
@@ -97,6 +98,8 @@ Page({
     workerCompleteImageFiles: [],
     comeDateTimeValue: today.getTime(),
     comeDateTimeLabel: common.formatDateTimePicker(today),
+    insuranceTimeValue: today.getTime(),
+    insuranceTimeLabel: common.formatDateTimePicker(today),
     expireDateTimeValue: today.getTime(),
     expireDateTimeLabel: common.formatDateTimePicker(today),
     expireDateTimeEndValue: today.getTime(),
@@ -198,6 +201,8 @@ Page({
         managerPhone: data.managerPhone,
         comeDateTimeValue: data.doorTime ? +new Date(data.doorTime.replaceAll('-', '/')) : '',
         comeDateTimeLabel: data.doorTime ? common.formatDateTimePicker(new Date(data.doorTime.replaceAll('-', '/'))) : '',
+        insuranceTimeValue: data.insuranceTime ? +new Date(data.insuranceTime.replaceAll('-', '/')) : '',
+        insuranceTimeLabel: data.insuranceTime ? common.formatDateTimePicker(new Date(data.insuranceTime.replaceAll('-', '/'))) : '',
         estimatePrice: data.estimatePrice,
         offerPrice: data.offerMoney,
         insurerResponsibility: `${data.insuranceDuty || ''}`,
@@ -322,6 +327,12 @@ Page({
         showComeDateTimePopup: false,
         comeDateTimeValue: e.detail,
         comeDateTimeLabel: common.formatDateTimePicker(d)
+      }
+    } else if (name === 'showInsuranceTimePopup') {
+      data = {
+        showInsuranceTimePopup: false,
+        insuranceTimeValue: e.detail,
+        insuranceTimeLabel: common.formatDateTimePicker(d)
       }
     } else if (name === 'showExpireDateTimePopup') {
       let nextYearDate = new Date(e.detail + 31536000000)
@@ -546,6 +557,7 @@ Page({
       ownerName: this.data.ownerName,
       ownerPhone: this.data.ownerPhone,
       doorTime: this.formatDate(new Date(this.data.comeDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
+      insuranceTime: this.formatDate(new Date(this.data.insuranceTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       investigatorText: this.data.orderInfo,
       estimatePrice: this.data.estimatePrice,
       offerMoney: this.data.offerPrice,

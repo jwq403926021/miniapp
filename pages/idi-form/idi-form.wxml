@@ -238,6 +238,18 @@
                     </view>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">出险时间</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd">
+                        <view class="picker weui-select weui-select_in-select-after" data-name="showInsuranceTimePopup" bindtap="openPopup">
+                            {{insuranceTimeLabel ? insuranceTimeLabel : '请选择上门时间'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
             <block wx:if="{{orderId}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
