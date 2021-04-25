@@ -16,6 +16,13 @@ Page({
     },
     disabledCase (data) {
       return data.role == 12 && data.status == 13
+    },
+    warningCase (data) {
+      if (data.offerListTotalWorker && data.estimatePrice) {
+        return (Math.abs(data.offerListTotalWorker - data.estimatePrice) / data.estimatePrice) >= 0.3
+      } else {
+        return false
+      }
     }
   },
   data: {
@@ -111,8 +118,7 @@ Page({
       name: '位置'
     },
     investigatorId: '',
-    compareEstimatePrice: '',
-    warningCase: false
+    compareEstimatePrice: ''
   },
   async onLoad (routeParams) {
     const eventChannel = this.getOpenerEventChannel()
@@ -159,12 +165,8 @@ Page({
           showWorkerHit: true
         })
       }
-      let warningCase = false
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
-      if (data.offerListTotalWorker && data.estimatePrice) {
-        warningCase = (Math.abs(data.offerListTotalWorker - data.estimatePrice) / data.estimatePrice) >= 0.3
-      }
       let state = {
         ...data,
         compareList: (res.compareList || []).map(item => {
@@ -217,8 +219,7 @@ Page({
         userLocationInfo: {
           latitude: data.lat,
           longitude: data.lon
-        },
-        warningCase: warningCase
+        }
       }
       _this.sourceData = data
       _this.sourceImage = res.Image
