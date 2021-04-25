@@ -163,8 +163,7 @@ Page({
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
       if (data.offerListTotalWorker && data.estimatePrice) {
-        let minData = Math.min(data.offerListTotalWorker, data.estimatePrice)
-        return (Math.abs(data.offerListTotalWorker - data.estimatePrice) / minData) >= 0.3
+        warningCase = (Math.abs(data.offerListTotalWorker - data.estimatePrice) / data.estimatePrice) >= 0.3
       }
       let state = {
         ...data,
