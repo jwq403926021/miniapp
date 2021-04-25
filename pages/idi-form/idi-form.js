@@ -317,10 +317,13 @@ Page({
         comeDateTimeLabel: common.formatDateTimePicker(d)
       }
     } else if (name === 'showExpireDateTimePopup') {
+      let nextYearDate = new Date(e.detail + 31536000000)
       data = {
         showExpireDateTimePopup: false,
         expireDateTimeValue: e.detail,
-        expireDateTimeLabel: common.formatDateTimePicker(d)
+        expireDateTimeLabel: common.formatDateTimePicker(d),
+        expireDateTimeEndValue: +nextYearDate,
+        expireDateTimeEndLabel: common.formatDateTimePicker(nextYearDate)
       }
     } else if (name === 'showExpireDateTimeEndPopup') {
       data = {
