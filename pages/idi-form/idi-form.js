@@ -842,7 +842,10 @@ Page({
     util.request({
       path: '/app/businessinsuranceidi/workerCommit2',
       method: 'POST',
-      data: this.getSubmitParams()
+      data: {
+        ...this.getSubmitParams(),
+        isWarnFlag: this.data.warningCase ? "1" : "0"
+      }
     }, function (res) {
       if (res.code == 0) {
         wx.hideLoading()
