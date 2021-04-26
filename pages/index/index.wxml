@@ -35,7 +35,7 @@
         <text class="iconfont icon-baoxian1 myicon"></text>
       </view>
       <view>
-        测试
+        IDI
       </view>
     </view>
     <view class="new-btn fl" bindtap="goToAccident" wx:if="{{role == 1 || role == 15}}">
