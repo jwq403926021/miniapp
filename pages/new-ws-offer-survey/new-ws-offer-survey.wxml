@@ -23,7 +23,7 @@
         <view class="weui-cells__title">报价信息</view>
         <view class="weui-cells_after-title">
             <van-collapse custom-class="accident-collapse" value="{{ activeNames }}" bind:change="onChange">
-                <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | 合计:{{project.offerResult}}" name="{{pindex}}">
+                <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | {{['咨询', '施工'][project.proType]}} | 合计:{{project.offerResult}}" name="{{pindex}}">
                     <view>
                         <van-row custom-class="accident-detail-table-header">
                             <van-col span="5">名称</van-col>
