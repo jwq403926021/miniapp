@@ -22,8 +22,8 @@
         </view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{statusMap[item.status] || '暂存'}}</view>
-          <view>出险方：{{item.customerName}}</view>
-          <view>施工单位：{{item.workerCompanyName || '-'}}</view>
+          <view>被保险人姓名：{{item.customerName}}</view>
+          <view style="color:red; font-weight: bold;">施工单位：{{item.workerCompanyName || '-'}}</view>
           <view>创建时间：{{item.createDate}}</view>
         </view>
       </view>
