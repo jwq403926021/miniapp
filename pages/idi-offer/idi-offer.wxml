@@ -20,8 +20,8 @@
         </view>
 
         <van-tabs active="{{ activeTab }}">
-            <van-tab title="报价信息" name="1">
-                <view class="weui-cells__title">报价信息</view>
+            <van-tab title="工程量清单" name="1">
+                <view class="weui-cells__title">工程量清单</view>
                 <view class="weui-cells_after-title">
                     <van-collapse value="{{ activeNames }}" bind:change="onChange">
                         <van-collapse-item title="报价列表{{offerListTotal ? '  |  合计:' + offerListTotal : ''}}" name="0">
@@ -30,14 +30,14 @@
                                     <view class="row-item offerListRow">
                                         <view class="weui-cell weui-cell_input no-padding one-line">
                                             <view class="weui-cell__hd">
-                                                <view class="weui-label">工程名称</view>
+                                                <view class="weui-label">工程项目名称</view>
                                             </view>
                                             <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
                                                 <text class="weui-input readonly">{{project.proName || '-'}}</text>
                                             </view>
                                             <view class="weui-cell__bd" wx:else>
                                                 <input placeholder-class="editable" class="weui-input editable" bindinput="inputgetName" data-name='proName' data-pindex="{{pindex}}"
-                                                       value="{{project.proName}}" placeholder="请输入工程名称"/>
+                                                       value="{{project.proName}}" placeholder="请输入工程项目名称"/>
                                             </view>
                                         </view>
                                         <view wx:if="{{isAllowEdit}}" class="weui-cell weui-cell_input no-padding one-line">
@@ -369,7 +369,7 @@
                     <text class="weui-input readonly">总报价：{{offerResult || 0}}</text>
                 </view>
             </van-tab>
-            <van-tab title="工程量清单" name="2">
+            <van-tab title="工程报价书" name="2">
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">

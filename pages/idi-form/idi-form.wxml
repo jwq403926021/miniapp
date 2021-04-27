@@ -473,7 +473,7 @@
             </view>
             <view class="button-sp-area two-btn-wrap" wx:if="{{status == null && (role == 1 || role == 28 || role == 29) && !disabledCase}}">
                 <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="orderInfo" bindtouchstart="recordStart" bindtouchend="recordEnd">
-                    <text wx:if="{{!recordState}}">按住说话</text>
+                    <text wx:if="{{!recordState}}">语音报案</text>
                     <text wx:else>松开结束</text>
                 </button>
                 <button class="yuyinBtn" bind:tap="digestRecord">
@@ -741,6 +741,9 @@
     </van-popup>
     <van-popup show="{{ showComeDateTimePopup }}" position="bottom" overlay="{{ true }}">
         <van-datetime-picker data-name="showComeDateTimePopup" type="datetime" value="{{ comeDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
+    </van-popup>
+    <van-popup show="{{ showInsuranceTimePopup }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker data-name="showInsuranceTimePopup" type="datetime" value="{{ insuranceTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
     </van-popup>
     <van-popup show="{{ showExpireDateTimePopup }}" position="bottom" overlay="{{ true }}">
         <van-datetime-picker data-name="showExpireDateTimePopup" type="datetime" value="{{ expireDateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
