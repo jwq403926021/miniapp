@@ -447,6 +447,7 @@ Page({
       _this.setData(result, () => {
         _this.getRegionLabel()
         _this.calculate()
+        _this.calculateBook()
         wx.hideLoading()
       })
     })
