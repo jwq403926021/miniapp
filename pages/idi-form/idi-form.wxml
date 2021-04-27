@@ -2,11 +2,14 @@
     <view class="page__bd">
         <view class="weui-cells__title">IDI工单</view>
         <view class="weui-cells weui-cells_after-title">
-            <van-notice-bar
-                    wx:if="{{warningCase}}"
-                    scrollable="{{ false }}"
-                    text="警告: 估损金额和施工报价金额偏差过大."
-            />
+            <block wx:if="{{!(role == 1 || role == 2 || role == 3 || role == 4 || role == 28 || role == 29)}}">
+                <van-notice-bar
+                        wx:if="{{warningCase}}"
+                        scrollable="{{ false }}"
+                        text="警告: 估损金额和施工报价金额偏差过大."
+                />
+            </block>
+
             <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{orderId}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">工单号</view>
