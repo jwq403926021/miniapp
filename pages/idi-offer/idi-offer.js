@@ -269,6 +269,7 @@ Page({
   },
   calculate (name) {
     let offerListTotal = 0
+    let _this = this
     this.data.offerList.forEach(project => {
       let projectTotal = 0
       project.children.forEach(item => {
@@ -310,6 +311,8 @@ Page({
       coinNum: parseFloat(coinNum || 0).toFixed(2),
       compareList,
       offerList: this.data.offerList
+    }, () => {
+      _this.calculateBook()
     })
   },
   formatAreaOptions (sourceData) {
@@ -447,7 +450,6 @@ Page({
       _this.setData(result, () => {
         _this.getRegionLabel()
         _this.calculate()
-        _this.calculateBook()
         wx.hideLoading()
       })
     })
@@ -1097,7 +1099,7 @@ Page({
   },
   calculateBook () {
     let data = this.data
-    let one = Number(data['manualMoney']) + Number(data['materialMoney']) + Number(data['machineMoney'])
+    let one = Number(data.offerResult)
     let five = Number(data['manualMoney']) * 0.3
     let six = (one + five) * 1 // ?
     let eight = one + five + six + Number(data['workMeasureMoney'])
