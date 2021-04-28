@@ -1100,6 +1100,9 @@ Page({
   calculateBook () {
     let data = this.data
     let one = Number(data.offerResult)
+    let two = Number(data.offerResult) * 0.45
+    let three = Number(data.offerResult) * 0.4
+    let four = Number(data.offerResult) * 0.15
     let five = Number(data['manualMoney']) * 0.3
     let six = (one + five) * 1 // ?
     let eight = one + five + six + Number(data['workMeasureMoney'])
@@ -1110,6 +1113,9 @@ Page({
     let eighteen = eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax']) + fifteen + Number(data['afterTax']) + Number(data['materialA'])
     this.setData({
       directionMoney: one.toFixed(2),
+      manualMoney: two.toFixed(2),
+      materialMoney: three.toFixed(2),
+      machineMoney: four.toFixed(2),
       manageProfit: five.toFixed(2),
       measureMoney: six.toFixed(2),
       subTotal: eight.toFixed(2),
