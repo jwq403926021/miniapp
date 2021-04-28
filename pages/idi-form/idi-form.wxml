@@ -731,7 +731,7 @@
             <button type="primary" class="btn-white" bindtap="goToSatisfaction">满意度</button>
         </view>
 
-        <view wx:if="{{(role == 28 || role == 29) && !workerInfoImageFiles.length && orderId}}" class="button-sp-area"><button type="primary" bindtap="goToSign">电子签</button></view>
+        <view wx:if="{{(role == 28 || role == 29) && !workerInfoImageFiles.length && (status == 36 || status == 35 || status == 11 || status == 50)}}" class="button-sp-area"><button type="primary" bindtap="goToSign">电子签</button></view>
         <!-- BUTTON AREA -->
     </view>
     <van-dialog
