@@ -781,6 +781,15 @@ Page({
       })
       return
     }
+    if (this.data.workMoney && (this.data.workMoney == '' || Number(this.data.workMoney) == 0)) {
+      wx.showToast({
+        mask: true,
+        title: '请填写工程报价书',
+        icon: 'none',
+        duration: 500
+      })
+      return
+    }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -912,6 +921,15 @@ Page({
       wx.showToast({
         mask: true,
         title: '请填写税率',
+        icon: 'none',
+        duration: 500
+      })
+      return
+    }
+    if (this.data.workMoney && (this.data.workMoney == '' || Number(this.data.workMoney) == 0)) {
+      wx.showToast({
+        mask: true,
+        title: '请填写工程报价书',
         icon: 'none',
         duration: 500
       })
