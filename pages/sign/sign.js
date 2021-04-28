@@ -49,6 +49,24 @@ Page({
       devicePixelRatio: pix,
     };
     signaturePad = new SignaturePad(ctx, data);
+
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: `/app/businessinsuranceidi/idiPriceDetail`,
+      method: 'GET',
+      data: {
+        flowId: options.id
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        console.log(res, '##')
+      }
+      wx.hideLoading()
+    })
+
     this.drawTextCanvas()
   },
   drawTextCanvas () {
