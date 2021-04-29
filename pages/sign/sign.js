@@ -14,7 +14,15 @@ Page({
     isEmpty: true,
     height: '',
     resultCanvasHeight: '',
-    orderId: ''
+    orderId: '',
+    surveyCompanyName: '',
+    insuranceNumber: '',
+    createDate: '',
+    address: '',
+    troubleReason: '',
+    workerCompanyName: '',
+
+    workMoney: ''
   },
   uploadScaleStart(e) {
     const item = {
@@ -41,6 +49,7 @@ Page({
     })
   },
   onLoad: function(options) {
+    let that = this
     this.setData({
       orderId: options.id
     })
@@ -62,12 +71,24 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        console.log(res, '##')
+        let idiList = res.idiList.find(item => {
+          return item.type === 0
+        })
+        that.setData({
+          surveyCompanyName: res.data.surveyCompanyName || '??',
+          insuranceNumber: res.data.insuranceNumber || '??',
+          createDate: res.data.createDate || '??',
+          address: res.data.address || '??',
+          troubleReason: res.data.troubleReason || '??',
+          workerCompanyName: res.data.workerCompanyName || '??',
+          workMoney: idiList.workMoney || '??'
+        }, () => {
+          that.drawTextCanvas()
+        })
       }
       wx.hideLoading()
     })
 
-    this.drawTextCanvas()
   },
   drawTextCanvas () {
     this.canvas = wx.createCanvasContext('myCanvas');
@@ -78,11 +99,11 @@ Page({
     this.canvas.setFontSize(14)
     this.canvas.setTextAlign('left')
     this.canvas.setFillStyle('red')
-    this.canvas.fillText('中国人民财产保险股份有限公司上海市分公司:', 10, 80)
+    this.canvas.fillText(`${this.data.surveyCompanyName}:`, 10, 80)
     this.canvas.setTextAlign('left')
     this.canvas.setFillStyle('black')
     let rowNum = this.drawText(`
-      贵司签发的工程质量潜在缺陷保险第 ${'??'} 号保单，承保的保险标的于 ${'??'} 月 ${'??'} 日在 ${'??'}  发生 ${'??'} 保险事故。我司确认已经委托 ${'??'}对 ${'??'} 进行维修 ，且修理完毕。贵司将维修款项 ${'??'} 元支付给维修单位后，贵司就前述保险事故应承担的赔偿责任依法解除。我司就本案不再对贵司提出任何理赔要求。
+      贵司签发的工程质量潜在缺陷保险第 ${this.data.insuranceNumber} 号保单，承保的保险标的于 ${this.data.createDate} 在 ${this.data.address}  发生 ${this.data.troubleReason} 保险事故。我司确认已经委托 ${this.data.workerCompanyName}对 ${'??'} 进行维修 ，且修理完毕。贵司将维修款项 ${this.data.workMoney} 元支付给维修单位后，贵司就前述保险事故应承担的赔偿责任依法解除。我司就本案不再对贵司提出任何理赔要求。
     `, 10, 120, 28, 400)
     let height = (120 + rowNum * 28) + 10
     this.canvas.fillText('签名:', 10, height)
