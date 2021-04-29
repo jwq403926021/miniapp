@@ -383,36 +383,48 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中人工费</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
-                            <input class="weui-input" bindinput="inputChange" data-name='manualMoney'
-                                   value="{{manualMoney}}" placeholder="其中人工费"/>
-                        </view>
-                        <view wx:else class="weui-cell__bd">
+                        <view class="weui-cell__bd">
                             <text>{{manualMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ manualMoneyRate }}"
+                                    data-name='manualMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中材料费</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
-                            <input class="weui-input" bindinput="inputChange" data-name='materialMoney'
-                                   value="{{materialMoney}}" placeholder="其中材料费"/>
-                        </view>
-                        <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                        <view class="weui-cell__bd">
+                            <text>{{materialMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ materialMoneyRate }}"
+                                    data-name='materialMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">其中机械费</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
-                            <input class="weui-input" bindinput="inputChange" data-name='machineMoney'
-                                   value="{{machineMoney}}" placeholder="其中机械费"/>
-                        </view>
-                        <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                        <view class="weui-cell__bd">
+                            <text>{{machineMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ machineMoneyRate }}"
+                                    data-name='machineMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -421,6 +433,14 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text>{{manageProfit || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ manageProfitRate }}"
+                                    data-name='manageProfitRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -429,6 +449,14 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text>{{measureMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ measureMoneyRate }}"
+                                    data-name='measureMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -440,7 +468,7 @@
                                    value="{{workMeasureMoney}}" placeholder="施工措施费"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{workMeasureMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -460,7 +488,7 @@
                                    value="{{subMoney}}" placeholder="工料机差价"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{subMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -472,7 +500,7 @@
                                    value="{{pollutionMoney}}" placeholder="工程排污费"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{pollutionMoney || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -481,6 +509,14 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text>{{insuranceMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ insuranceMoneyRate }}"
+                                    data-name='insuranceMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -489,6 +525,14 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text>{{fundsMoney || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ fundsMoneyRate }}"
+                                    data-name='fundsMoneyRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -508,7 +552,7 @@
                                    value="{{beforeTax}}" placeholder="税前补差"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{beforeTax || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -517,6 +561,14 @@
                         </view>
                         <view class="weui-cell__bd">
                             <text>{{taxs || '-'}}</text>
+                            <van-stepper
+                                    custom-class="rate-step"
+                                    style="width: 150px;"
+                                    decimal-length="{{2}}"
+                                    value="{{ taxsRate }}"
+                                    data-name='taxsRate'
+                                    bind:change="changeStepper"
+                                    step="0.01" wx:if="{{isAllowEdit}}" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -528,7 +580,7 @@
                                    value="{{afterTax}}" placeholder="税后补差"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{afterTax || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -540,7 +592,7 @@
                                    value="{{materialA}}" placeholder="甲供材料"/>
                         </view>
                         <view wx:else class="weui-cell__bd">
-                            <text>{{manualMoney || '-'}}</text>
+                            <text>{{materialA || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">

@@ -60,3 +60,9 @@
 .sm-lh{
   line-height: 20px!important;
 }
+.rate-step{
+  float: right;
+}
+.rate-step .van-stepper__input {
+  width: 60px!important;
+}

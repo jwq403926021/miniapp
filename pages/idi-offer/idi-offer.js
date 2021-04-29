@@ -123,7 +123,15 @@ Page({
     templateName: '',
     showTemplate: false,
     searchTemplateName: '',
-    templateDataList: []
+    templateDataList: [],
+    manualMoneyRate: 45,
+    materialMoneyRate: 40,
+    machineMoneyRate: 15,
+    manageProfitRate: 30,
+    measureMoneyRate: 100,
+    insuranceMoneyRate: 29.41,
+    fundsMoneyRate: 1.96,
+    taxsRate: 6
   },
   initArea () {
     try {
@@ -240,6 +248,15 @@ Page({
     this.setData({
       operateProIndex: e.currentTarget.dataset.pindex,
       showLibrary: true
+    })
+  },
+  changeStepper (e) {
+    let name = e.currentTarget.dataset.name;
+    let value = e.detail
+    this.setData({
+      [name]: value
+    }, () => {
+      this.calculate(name)
     })
   },
   inputgetName (e) {
@@ -1100,16 +1117,16 @@ Page({
   calculateBook () {
     let data = this.data
     let one = Number(data.offerResult)
-    let two = Number(data.offerResult) * 0.45
-    let three = Number(data.offerResult) * 0.4
-    let four = Number(data.offerResult) * 0.15
-    let five = Number(data['manualMoney']) * 0.3
-    let six = (one + five) * 1 // ?
+    let two = Number(data.offerResult) * (data.manualMoneyRate / 100)
+    let three = Number(data.offerResult) * (data.materialMoneyRate / 100)
+    let four = Number(data.offerResult) * (data.machineMoneyRate / 100)
+    let five = Number(two) * (data.manageProfitRate / 100)
+    let six = (one + five) * (data.measureMoneyRate / 100)
     let eight = one + five + six + Number(data['workMeasureMoney'])
-    let eleven = Number(data['manualMoney']) * 0.2941
-    let twelve = Number(data['manualMoney']) * 0.0196
+    let eleven = Number(two) * (data.insuranceMoneyRate / 100)
+    let twelve = Number(two) * (data.fundsMoneyRate / 100)
     let thirteen = Number(data['pollutionMoney']) + eleven + twelve
-    let fifteen = (eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax'])) * 0.06 // ?
+    let fifteen = (eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax'])) * (data.taxsRate / 100)
     let eighteen = eight + Number(data['subMoney']) + thirteen + Number(data['beforeTax']) + fifteen + Number(data['afterTax']) + Number(data['materialA'])
     this.setData({
       directionMoney: one.toFixed(2),
