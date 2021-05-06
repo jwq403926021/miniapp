@@ -180,7 +180,7 @@
                     </block>
                 </view>
             </block>
-            <block wx:if="{{investigatorName}}">
+            <block wx:if="{{investigatorName && role != 1 && role != 12}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">查勘员姓名</view>
@@ -254,7 +254,7 @@
                 </view>
             </view>
             <block wx:if="{{orderId}}">
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险期限起始</view>
                     </view>
@@ -269,7 +269,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险期限结束</view>
                     </view>
@@ -284,7 +284,7 @@
                         </view>
                     </view>
                 </view>
-                <view wx:if="{{currentUserId == workerId}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{currentUserId == workerId && role != 28 && role != 29}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">估损金额</view>
                     </view>
@@ -305,7 +305,7 @@
                                value="{{compareEstimatePrice}}" placeholder="请输入比价金额"/>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx-if="{{role != 28 && role != 29}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx-if="{{role != 28 && role != 29 && role != 12}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">报价金额</view>
                     </view>
@@ -316,7 +316,7 @@
                         <van-button type="info" size="small" bindtap="offerDetail">报价单</van-button>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 28 && role != 29}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">事故原因</view>
                     </view>
@@ -359,37 +359,39 @@
                         <text class="weui-input readonly">{{['拒绝', '同意'][noResponsibilityConstruct] || '-'}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">TIS单位</view>
+                <block wx:if="{{role != 12 && role != 28 && role != 29}}">
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">TIS单位</view>
+                        </view>
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
+                            <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{tisCompanyLabel || '请选择TIS单位'}}
+                                </view>
+                            </picker>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <text class="weui-input readonly">{{tisCompanyLabel || '-'}}</text>
+                        </view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
-                        <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{tisCompanyLabel || '请选择TIS单位'}}
-                            </view>
-                        </picker>
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">TIS人员</view>
+                        </view>
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
+                            <picker bindchange="pickerChange" data-name="tisUser" value="{{tisUserValue}}" range="{{tisUserList}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{tisUserLabel || '请选择TIS单位'}}
+                                </view>
+                            </picker>
+                        </view>
+                        <view class="weui-cell__bd" wx:else>
+                            <text class="weui-input readonly">{{tisUserLabel || '-'}}</text>
+                        </view>
                     </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{tisCompanyLabel || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">TIS人员</view>
-                    </view>
-                    <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
-                        <picker bindchange="pickerChange" data-name="tisUser" value="{{tisUserValue}}" range="{{tisUserList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{tisUserLabel || '请选择TIS单位'}}
-                            </view>
-                        </picker>
-                    </view>
-                    <view class="weui-cell__bd" wx:else>
-                        <text class="weui-input readonly">{{tisUserLabel || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
+                </block>
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 12 && role != 28 && role != 29}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view style="line-height: 14px;" class="weui-label">是否需要上级核赔复核</view>
                     </view>
@@ -403,7 +405,7 @@
                         <text class="weui-input readonly">{{['否', '是'][jobRole] || '-'}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">是否支付</view>
                     </view>
@@ -522,8 +524,8 @@
             </view>
         </block>
 
-        <block wx:if="{{orderId}}">
-            <block>
+        <block wx:if="{{orderId && role != 28}}">
+            <block wx:if="{{role != 29}}">
                 <view class="weui-cells__title">查勘图片</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -671,7 +673,7 @@
                 </view>
             </block>
 
-            <block>
+            <block wx:if="{{role != 29}}">
                 <view class="weui-cells__title">施工留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -685,7 +687,7 @@
                     </view>
                 </view>
             </block>
-            <block>
+            <block wx:if="{{role != 29}}">
                 <view class="weui-cells__title">报价留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
