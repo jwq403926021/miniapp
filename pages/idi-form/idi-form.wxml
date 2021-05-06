@@ -147,7 +147,7 @@
                     </view>
                 </block>
             </view>
-            <block wx:if="{{damageTarget == 0}}">
+            <block wx:if="{{damageTarget == 0 && role != 31}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">业主姓名</view>
@@ -226,7 +226,7 @@
                     </view>
                 </view>
             </block>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 31}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">上门时间</view>
                 </view>
@@ -254,7 +254,7 @@
                 </view>
             </view>
             <block wx:if="{{orderId}}">
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29 && role != 31}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险期限起始</view>
                     </view>
@@ -269,7 +269,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 28 && role != 29 && role != 31}}">
                     <view class="weui-cell__hd">
                         <view class="weui-label">保险期限结束</view>
                     </view>
@@ -284,7 +284,7 @@
                         </view>
                     </view>
                 </view>
-                <view wx:if="{{currentUserId == workerId && role != 28 && role != 29}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                <view wx:if="{{currentUserId == workerId && role != 28 && role != 29 && role != 31}}" class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">估损金额</view>
                     </view>
@@ -391,7 +391,7 @@
                         </view>
                     </view>
                 </block>
-                <view class="weui-cell weui-cell_select" wx:if="{{role != 12 && role != 28 && role != 29}}">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 12 && role != 28 && role != 29 && role != 31}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view style="line-height: 14px;" class="weui-label">是否需要上级核赔复核</view>
                     </view>
@@ -405,7 +405,7 @@
                         <text class="weui-input readonly">{{['否', '是'][jobRole] || '-'}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 1 && role != 31}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">是否支付</view>
                     </view>
@@ -673,7 +673,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{role != 29}}">
+            <block wx:if="{{role != 1 && role != 29 && role != 31}}">
                 <view class="weui-cells__title">施工留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -687,7 +687,7 @@
                     </view>
                 </view>
             </block>
-            <block wx:if="{{role != 29}}">
+            <block wx:if="{{role != 1 && role != 29 && role != 31}}">
                 <view class="weui-cells__title">报价留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
