@@ -708,7 +708,7 @@ Page({
     })
 
     if (taskData.insuranceType == 1) {
-      let flag = this.isLicenseNo(taskData.plateNumber)
+      let flag = this.isLicenseNo(taskData.plateNumber || '')
       if (!flag) {
         wx.showToast({
           mask: true,
