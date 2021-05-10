@@ -370,7 +370,7 @@
                 </view>
             </van-tab>
             <van-tab title="工程报价书" name="2">
-                <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cells weui-cells_after-title idi-offer-book">
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">直接费</view>

@@ -2,48 +2,37 @@ const app = getApp()
 var Promise = require('./es6-promise.min')
 var constants = require('./constants')
 // util.request({ authorization: true, path: '/bindphone', method: 'POST', data: param }, cb)
-function request(param, cb) {
-  var req = function (param) {
-    return new Promise(function (resolve, reject) {
-      param.data = param.data || {};
-      // if (param.authorization) {
-      var token = wx.getStorageSync('token');
-      // }
-      wx.request({
-        url: constants.domain + param.path,
-        data: param.data === null ? '' : param.data,
-        method: param.method,
-        header: {
-          'token': token
-        },
-        success: function (res) {
-          if (res.statusCode == 200) {
-            if (res.data.code == 500 || res.data.CODE == 500){
-              wx.showToast({
-                mask: true,
-                title: res.data.msg || '请求错误，请联系管理员',
-                icon: 'none',
-                duration: 2000
-              })
-              reject(res.data)
-            }
-            resolve(res.data)
-          } else {
-            reject(res)
+async function request(param, cb) {
+  return new Promise(function (resolve, reject) {
+    param.data = param.data || {};
+    var token = wx.getStorageSync('token');
+    wx.request({
+      url: constants.domain + param.path,
+      data: param.data === null ? '' : param.data,
+      method: param.method,
+      header: {
+        'token': token
+      },
+      success: function (res) {
+        if (res.statusCode == 200) {
+          if (res.data.code == 500 || res.data.CODE == 500){
+            wx.showToast({
+              mask: true,
+              title: res.data.msg || '请求错误，请联系管理员',
+              icon: 'none',
+              duration: 2000
+            })
+            reject(res.data)
           }
-        },
-        fail: function (res) {
-          reject(res)
-        }
-      })
+          cb(null, res.data)
+          resolve(res.data)
+        } else {}
+      },
+      fail: function (res) {
+        reject(res)
+      }
     })
-  }
-  return req(param)
-    .done(function (data) {
-      cb(null, data)
-    }, function (err) {
-      cb(err)
-    });
+  })
 }
 
 // util.uploadFile({ businessType: 'userAvatar', path: '/ins/upload', filePath: param.filePath }, cb)

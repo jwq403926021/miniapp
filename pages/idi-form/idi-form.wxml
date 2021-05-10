@@ -673,7 +673,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{role != 1 && role != 29 && role != 31}}">
+            <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4 && role != 29 && role != 31}}">
                 <view class="weui-cells__title">施工留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -687,7 +687,7 @@
                     </view>
                 </view>
             </block>
-            <block wx:if="{{role != 1 && role != 29 && role != 31}}">
+            <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4 && role != 29 && role != 31}}">
                 <view class="weui-cells__title">报价留言</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">

@@ -66,3 +66,4 @@
 .rate-step .van-stepper__input {
   width: 60px!important;
 }
+.idi-offer-book .weui-label{padding-right:15px!important;}
