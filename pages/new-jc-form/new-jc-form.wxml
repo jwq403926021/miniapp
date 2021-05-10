@@ -251,7 +251,7 @@
                     <text class="weui-input readonly">{{taskData.estimatePrice || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.offerMoney}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.offerMoney && role != 10 && role != 11 && role != 12}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">报价金额</view>
                 </view>
