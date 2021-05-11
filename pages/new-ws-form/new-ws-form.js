@@ -11,7 +11,7 @@ Page({
     liveImageFiles: [], // 案件图片
     projectBillImageFiles: [], // 工程量清单
     workerAuthImageFiles: [], // 授权（施工方）
-    workLiveImageFiles: [], // 现场图片(施工方)
+    workLiveImageFiles: [[]], // 现场图片(施工方)
     authorityImageFiles: [], // 授权图片
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
@@ -91,10 +91,10 @@ Page({
     ]
   },
   onLoad: function (routeParams) {
-    if (Object.keys(this.data.areaList).length == 0) {
+    setTimeout(() => {
       this.routeParams = routeParams
       this.initArea(this.init)
-    }
+    }, 500)
   },
   init () {
     let routeParams = this.routeParams
@@ -106,7 +106,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role
+        role: 12 // app.globalData.currentRegisterInfo.role
       }, () => {
         this.initDataById(routeParams.id, routeParams.flag || null)
         this.getRegionLabel()
@@ -144,7 +144,7 @@ Page({
       let liveImageFiles = []
       let workerAuthImageFiles = []
       let projectBillImageFiles = []
-      let workLiveImageFiles = []
+      let workLiveImageFiles = [[]]
       let authorityImageFiles = []
       let workVideo = []
       let financeImageFiles = []
@@ -157,7 +157,11 @@ Page({
             break
           case 3:
             item.path = `https://aplusprice.xyz/file/${item.path}`
-            workLiveImageFiles.push(item)
+            let clientIndex = item.clientIndex || 0
+            if (!workLiveImageFiles[clientIndex]) {
+              workLiveImageFiles[clientIndex] = []
+            }
+            workLiveImageFiles[clientIndex].push(item)
             break
           case 13:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -238,6 +242,13 @@ Page({
         _this.getRegionLabel()
         wx.hideLoading()
       })
+    })
+  },
+  addAnotherWorkLiveImage () {
+    let workLiveImageFiles = this.data.workLiveImageFiles
+    workLiveImageFiles.push([])
+    this.setData({
+      workLiveImageFiles: workLiveImageFiles
     })
   },
   checkPhone (str, msg){
@@ -484,6 +495,8 @@ Page({
   },
   chooseImage: function (e) {
     let key = e.currentTarget.dataset.name
+    let hasChild = e.currentTarget.dataset.hasOwnProperty('index')
+    let idx = e.currentTarget.dataset.index
     var that = this;
     app.globalData.isIgnoreRefresh = true
     wx.chooseImage({
@@ -495,9 +508,16 @@ Page({
             src: item,
             quality: res.tempFiles[index].size > 2 * 1024 * 1024 ? 50 : 90,
             success ({tempFilePath}) {
-              let list = that.data[key].concat([{
-                "path": tempFilePath, "id": null
-              }])
+              let list = that.data[key]
+              if (hasChild) {
+                list[idx] = list[idx].concat([{
+                  "path": tempFilePath, "id": null, "clientIndex": idx
+                }])
+              } else {
+                list = that.data[key].concat([{
+                  "path": tempFilePath, "id": null
+                }])
+              }
               that.setData({
                 [key]: list
               })
@@ -518,13 +538,19 @@ Page({
   removeImage (e) {
     let key = e.currentTarget.dataset.name
     let index = e.currentTarget.dataset.index;
+    let childindex = e.currentTarget.dataset.childindex;
+    let hasChildindex = e.currentTarget.dataset.hasChildindex;
     let _this = this
     wx.showModal({
       title: '提示',
       content: '确定要删除吗？',
       success: function (sm) {
         if (sm.confirm) {
-          _this.data[key].splice(index, 1)
+          if (hasChildindex) {
+            _this.data[key][childindex].splice(childindex, 1)
+          } else {
+            _this.data[key].splice(index, 1)
+          }
           _this.setData({
             [key]: _this.data[key]
           })
@@ -563,6 +589,13 @@ Page({
   },
   uploadOneByOne (imgPaths,successUp, failUp, count, length, isOfferSave) {
     var that = this
+    let formData = {
+      'flowId': that.data.orderId,
+      'type': imgPaths[count].type
+    }
+    if (imgPaths[count].hasOwnProperty('clientIndex') && imgPaths[count].clientIndex != null) {
+      formData.clientIndex = imgPaths[count].clientIndex
+    }
     wx.uploadFile({
       url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload',
       filePath: imgPaths[count].path,
@@ -571,10 +604,7 @@ Page({
         "Content-Type": "multipart/form-data",
         'token': wx.getStorageSync('token')
       },
-      formData: {
-        'flowId': that.data.orderId,
-        'type': imgPaths[count].type
-      },
+      formData: formData,
       success:function(e){
         let responseCode = JSON.parse(e.data)
         if (responseCode.code == 0) {
@@ -832,12 +862,14 @@ Page({
     let workVideoAlreadyFiles = []
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
-    _this.data.workLiveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        workLiveImageFiles.push({path: item.path, type: 3})
-      } else {
-        workLiveImageAlreadyFiles.push(item)
-      }
+    _this.data.workLiveImageFiles.map((item, index) => {
+      item.forEach(i => {
+        if (i.path.indexOf('https://') == -1){
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index})
+        } else {
+          workLiveImageAlreadyFiles.push(i)
+        }
+      })
     })
     _this.data.workVideo.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -1257,10 +1289,12 @@ Page({
   offerSubmitImage () {
     let _this = this
     let workLiveImageFiles = []
-    _this.data.workLiveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        workLiveImageFiles.push({path: item.path, type: 3})
-      }
+    _this.data.workLiveImageFiles.map((item, index) => {
+      item.forEach(i => {
+        if (i.path.indexOf('https://') == -1){
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+        }
+      })
     })
     wx.showLoading({
       mask: true,
@@ -1280,10 +1314,12 @@ Page({
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
     let liveImageFiles = []
-    _this.data.workLiveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        workLiveImageFiles.push({path: item.path, type: 3})
-      }
+    _this.data.workLiveImageFiles.map((item, index) => {
+      item.forEach(i => {
+        if (i.path.indexOf('https://') == -1){
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+        }
+      })
     })
     _this.data.projectBillImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -1318,10 +1354,12 @@ Page({
     let workVideo = []
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
-    _this.data.workLiveImageFiles.map(item => {
-      if (item.path.indexOf('https://') == -1){
-        workLiveImageFiles.push({path: item.path, type: 3})
-      }
+    _this.data.workLiveImageFiles.map((item, index) => {
+      item.forEach(i => {
+        if (i.path.indexOf('https://') == -1){
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+        }
+      })
     })
     _this.data.workVideo.map(item => {
       if (item.path.indexOf('https://') == -1){
