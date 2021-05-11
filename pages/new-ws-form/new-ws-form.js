@@ -106,7 +106,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: 12 // app.globalData.currentRegisterInfo.role
+        role: app.globalData.currentRegisterInfo.role
       }, () => {
         this.initDataById(routeParams.id, routeParams.flag || null)
         this.getRegionLabel()
