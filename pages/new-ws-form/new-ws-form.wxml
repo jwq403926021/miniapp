@@ -776,7 +776,7 @@
             </block>
         </block>
 
-        <block wx:if="{{financeImageFiles.length > 0 || role == 22}}">
+        <block wx:if="{{(financeImageFiles.length > 0 && role != 12) || role == 22}}">
             <view class="weui-cells__title">财务图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
