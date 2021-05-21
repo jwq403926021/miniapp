@@ -88,7 +88,19 @@ Page({
       {
         name: '修改信息',
       }
-    ]
+    ],
+    customName: {
+      0: '受损人1',
+      1: '受损人2',
+      2: '受损人3',
+      3: '受损人4',
+      4: '受损人5',
+      5: '受损人6',
+      6: '受损人7',
+      7: '受损人8',
+      8: '受损人9',
+      9: '受损人10'
+    }
   },
   onLoad: function (routeParams) {
     setTimeout(() => {
@@ -421,6 +433,7 @@ Page({
   },
   inputgetName(e) {
     let name = e.currentTarget.dataset.name;
+    let index = e.currentTarget.dataset.index;
     let nameMap = {}
     if (name.indexOf('.')) {
       let nameList = name.split('.')
@@ -431,7 +444,11 @@ Page({
       }
       nameMap[nameList[0]][nameList[1]] = e.detail.value
     } else {
-      nameMap[name] = e.detail.value
+      if (index) {
+        nameMap[name][index] = e.detail.value
+      } else {
+        nameMap[name] = e.detail.value
+      }
     }
     this.setData(nameMap)
   },
@@ -530,9 +547,11 @@ Page({
   },
   previewImage: function (e) {
     let key = e.currentTarget.dataset.name
+    let index = e.currentTarget.dataset.index
+    let data = index !== undefined ? this.data[key][index] : this.data[key]
     wx.previewImage({
       current: e.currentTarget.id,
-      urls: this.data[key].map(item => {return item.path})
+      urls: data.map(item => {return item.path})
     })
   },
   removeImage (e) {
@@ -865,7 +884,7 @@ Page({
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
-          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index})
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index, customName: _this.data.customName[index]})
         } else {
           workLiveImageAlreadyFiles.push(i)
         }
@@ -1292,7 +1311,7 @@ Page({
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
-          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index, customName: _this.data.customName[index]})
         }
       })
     })
@@ -1317,7 +1336,7 @@ Page({
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
-          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index, customName: _this.data.customName[index]})
         }
       })
     })
@@ -1357,7 +1376,7 @@ Page({
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
-          workLiveImageFiles.push({path: i.path, type: 3, clientIndex: index})
+          workLiveImageFiles.push({path: i.path, type: 3, clientIndex:index, customName: _this.data.customName[index]})
         }
       })
     })

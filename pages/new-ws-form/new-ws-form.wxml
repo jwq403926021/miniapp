@@ -456,9 +456,18 @@
                     </view>
                 </view>
             </view>
+            <view class="weui-cells__title">现场图片 (施工方)</view>
             <block wx:for="{{workLiveImageFiles}}" wx:key="index">
-                <view class="weui-cells__title">现场图片 ({{index + 1}})</view>
                 <view class="weui-cells weui-cells_after-title">
+                    <view style="padding-left: 15px;">
+                        <view wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}">
+                            <input class="weui-input" bindinput="inputgetName" data-name='customName' data-index='{{index}}'
+                                   value="{{customName[index]}}" placeholder="受损人"/>
+                        </view>
+                        <view wx:else>
+                            <text class="weui-input readonly">{{customName[index] || '-'}}</text>
+                        </view>
+                    </view>
                     <view class="weui-cell">
                         <view class="weui-cell__bd">
                             <view class="weui-uploader">
