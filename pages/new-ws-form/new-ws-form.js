@@ -208,6 +208,7 @@ Page({
         workerAuthImageFiles: workerAuthImageFiles,
         projectBillImageFiles: projectBillImageFiles,
         workLiveImageFiles: workLiveImageFiles,
+        customerName: customerName,
         financeImageFiles: financeImageFiles,
         authorityImageFiles: authorityImageFiles,
         workVideo: workVideo,
