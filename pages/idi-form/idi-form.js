@@ -36,6 +36,7 @@ Page({
       '42': '已中标',
       '37': '待处理人指派比价人员',
       '38': '申请退单',
+      '52': '待查勘员审核',
       '39': '比价中',
       '51': '待处理人确认',
       '33': '处理人驳回',
@@ -63,10 +64,10 @@ Page({
     countryId: '',
     cityId: '',
     provinceId: '',
-    insuranceCompanySourceList: [],
-    insuranceCompanyList: [],
-    insuranceCompanyValue: '',
-    insuranceCompanyLabel: '',
+    runCompanySourceList: [],
+    runCompanyList: [],
+    runCompanyValue: '',
+    runCompanyLabel: '',
     address: '',
     damageTarget: '0',
     insuredName: '',
@@ -167,6 +168,7 @@ Page({
       }
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
+      let runCompanyIndex = _this.data.runCompanySourceList.findIndex(i => i.id == data.businessId)
       let state = {
         ...data,
         compareList: (res.compareList || []).map(item => {
@@ -187,7 +189,8 @@ Page({
         expireDateTimeLabel: data.insuranceTimeLimit ? common.formatDateTimePicker(new Date(data.insuranceTimeLimit.replaceAll('-', '/'))) : '',
         expireDateTimeEndValue: data.insuranceTimeLimitEnd ? +new Date(data.insuranceTimeLimitEnd.replaceAll('-', '/')) : '',
         expireDateTimeEndLabel: data.insuranceTimeLimitEnd ? common.formatDateTimePicker(new Date(data.insuranceTimeLimitEnd.replaceAll('-', '/'))) : '',
-        // insuranceCompany: '',
+        runCompanyValue: runCompanyIndex,
+        runCompanyLabel: runCompanyIndex != -1 ? _this.data.runCompanySourceList[runCompanyIndex].name : '',
         accidentReasonValue: accidentReasonIndex,
         accidentReasonLabel: accidentReasonIndex != -1 ? _this.data.accidentReasonSourceList[accidentReasonIndex].name : '',
         address: data.address,
@@ -219,7 +222,8 @@ Page({
         userLocationInfo: {
           latitude: data.lat,
           longitude: data.lon
-        }
+        },
+        insuranceId: data.insuranceId
       }
       _this.sourceData = data
       _this.sourceImage = res.Image
@@ -259,6 +263,7 @@ Page({
       state.workerCompleteImageFiles = workerCompleteImageFiles
       _this.setData(state, () => {
         _this.getTisCompany()
+        _this.getRunCompany()
         _this.getComparePerson()
         _this.getTisUser(false)
         _this.refreshRegionLabel()
@@ -565,7 +570,7 @@ Page({
       insuranceDuty: this.data.insurerResponsibility,
       notDutyWork: this.data.noResponsibilityConstruct,
       tisId: this.data.tisId,
-      tisCompanyValue:  (this.data.tisCompanyValue && this.data.tisCompanySourceList[this.data.tisCompanyValue]) ? this.data.tisCompanySourceList[this.data.tisCompanyValue].id : '',
+      tisCompanyValue: (this.data.tisCompanyValue && this.data.tisCompanySourceList[this.data.tisCompanyValue]) ? this.data.tisCompanySourceList[this.data.tisCompanyValue].id : '',
       station: this.data.jobRole,
       // constructionMethod: '',
       offerText: this.data.comment,
@@ -579,7 +584,8 @@ Page({
       insuranceTimeLimitEnd: this.formatDate(new Date(this.data.expireDateTimeEndValue), 'yyyy-MM-dd hh:mm:ss'),
       workerText: this.data.workerComment,
       weatherBusiness: this.data.weatherBusiness,
-      financeId: this.data.financeId
+      financeId: this.data.financeId,
+      businessId: (this.data.runCompanyValue && this.data.runCompanySourceList[this.data.runCompanyValue]) ? this.data.runCompanySourceList[this.data.runCompanyValue].id : ''
     }
   },
   getAccident () {
@@ -613,6 +619,26 @@ Page({
       that.setData({
         tisCompanyList: tisCompanyList,
         tisCompanySourceList: res.data || []
+      })
+    })
+  },
+  getRunCompany () {
+    let that = this
+    util.request({
+      path: '/app/businessinsuranceidi/getBusiness',
+      method: 'GET',
+      data: {
+        cityCode: this.data.cityId,
+        insuranceId: this.data.insuranceId
+      }
+    }, function (err, res) {
+      (res.data || []).forEach(i => i.name = i['company_name'])
+      let runCompanyList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        runCompanyList: runCompanyList,
+        runCompanySourceList: res.data || []
       })
     })
   },
@@ -819,6 +845,48 @@ Page({
     } else {
       url = '/app/businessinsuranceidi/surveyCancel'
     }
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  investagatorPass (event) {
+    let that = this
+    let url = '/app/businessinsuranceidi/surveyDealSave'
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  investagatorFinish (event) {
+    let that = this
+    let url = '/app/businessinsuranceidi/surveyDealSave'
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: url,

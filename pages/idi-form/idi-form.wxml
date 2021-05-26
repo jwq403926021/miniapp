@@ -70,21 +70,21 @@
                     </view>
                 </view>
             </view>
-<!--            <view class="weui-cell weui-cell_select">-->
-<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
-<!--                    <view class="weui-label">保险公司</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd" wx:if="{{true}}">-->
-<!--                    <picker bindchange="pickerChange" data-name="insuranceCompany" value="{{insuranceCompanyValue}}" range="{{insuranceCompanyList}}">-->
-<!--                        <view class="picker weui-select weui-select_in-select-after">-->
-<!--                            {{insuranceCompanyLabel || '请选择保险公司'}}-->
-<!--                        </view>-->
-<!--                    </picker>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd" wx:else>-->
-<!--                    <text class="weui-input readonly">{{insuranceCompanyLabel || '-'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">经营单位</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{role == 1 && status == 52}}">
+                    <picker bindchange="pickerChange" data-name="runCompany" value="{{runCompanyValue}}" range="{{runCompanyList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{runCompanyLabel || '请选择经营单位'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{runCompanyLabel || '-'}}</text>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">详细地址</view>
@@ -731,6 +731,11 @@
         <view wx:if="{{orderId && (role == 1 || role == 28 || role == 29)}}" class="button-sp-area two-btn-wrap">
             <button type="primary" class="btn-white" bindtap="goToComplain">投诉</button>
             <button type="primary" class="btn-white" bindtap="goToSatisfaction">满意度</button>
+        </view>
+
+        <view wx:if="{{role == 1 && status == 52}}" class="button-sp-area two-btn-wrap">
+            <button bindtap="investagatorPass" type="primary">通过</button>
+            <button bindtap="investagatorFinish">注销</button>
         </view>
 
         <view wx:if="{{(role == 28 || role == 29) && !workerInfoImageFiles.length && (status == 36 || status == 35 || status == 11 || status == 50)}}" class="button-sp-area"><button type="primary" bindtap="goToSign">电子签</button></view>
