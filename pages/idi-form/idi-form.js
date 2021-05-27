@@ -625,11 +625,11 @@ Page({
   getRunCompany () {
     let that = this
     util.request({
-      path: '/app/businessinsuranceidi/getBusiness',
+      path: '/app/businessinsuranceidi/getBusinessByCityInsurance',
       method: 'GET',
       data: {
         cityCode: this.data.cityId,
-        insuranceId: this.data.insuranceId
+        insuranceId: app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId
       }
     }, function (err, res) {
       (res.data || []).forEach(i => i.name = i['company_name'])
