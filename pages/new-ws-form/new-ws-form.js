@@ -73,7 +73,8 @@ Page({
       accountName: '',
       weatherBill: '1',
       moneySurvey: '',
-      managerReject: ''
+      managerReject: '',
+      cancelRemark: ''
     },
     activeVideo: '',
     location: {
@@ -249,7 +250,8 @@ Page({
         'taskData.weatherBill': data.weatherBill,
         'taskData.accountName': data.accountName,
         'taskData.moneySurvey': data.moneySurvey,
-        'taskData.managerReject': data.managerReject
+        'taskData.managerReject': data.managerReject,
+        'taskData.cancelRemark': data.cancelRemark
       }, () => {
         if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
           _this.initReassignList()

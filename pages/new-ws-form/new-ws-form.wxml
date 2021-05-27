@@ -785,6 +785,18 @@
             </block>
         </block>
 
+
+        <block wx:if="{{taskData.cancelRemark}}">
+            <view class="weui-cells__title">注销原因</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{taskData.cancelRemark || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
         <block wx:if="{{(financeImageFiles.length > 0 && role != 10 && role != 11 && role != 12) || role == 22}}">
             <view class="weui-cells__title">财务图片</view>
             <view class="weui-cells weui-cells_after-title">
