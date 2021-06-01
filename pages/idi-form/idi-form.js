@@ -634,7 +634,6 @@ Page({
         insuranceId: app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId
       }
     }, function (err, res) {
-      (res.data || []).forEach(i => i.name = i['company_name'])
       let runCompanyList = res.data ? res.data.map(item => {
         return item.name
       }) : []
