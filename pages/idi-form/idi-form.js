@@ -263,7 +263,9 @@ Page({
       state.workerCompleteImageFiles = workerCompleteImageFiles
       _this.setData(state, () => {
         _this.getTisCompany()
-        _this.getRunCompany()
+        if (this.data.role == 1) {
+          _this.getRunCompany()
+        }
         _this.getComparePerson()
         _this.getTisUser(false)
         _this.refreshRegionLabel()
