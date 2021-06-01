@@ -263,9 +263,7 @@ Page({
       state.workerCompleteImageFiles = workerCompleteImageFiles
       _this.setData(state, () => {
         _this.getTisCompany()
-        if (this.data.role == 1) {
-          _this.getRunCompany()
-        }
+        _this.getRunCompany()
         _this.getComparePerson()
         _this.getTisUser(false)
         _this.refreshRegionLabel()
@@ -323,6 +321,8 @@ Page({
       countryId: e.detail.values[2].code,
       cityId: e.detail.values[1].code,
       provinceId: e.detail.values[0].code
+    }, () => {
+      this.getRunCompany()
     })
   },
   confirmDateTimePopup (e) {
@@ -626,6 +626,9 @@ Page({
   },
   getRunCompany () {
     let that = this
+    if (this.data.role == 1) {
+      return false
+    }
     util.request({
       path: '/app/user/getBusinessByCityInsurance',
       method: 'GET',
