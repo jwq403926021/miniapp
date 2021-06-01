@@ -168,7 +168,7 @@ Page({
       }
       let accidentReasonIndex = _this.data.accidentReasonSourceList.findIndex(i => i.id == data.troubleReason)
       let tisCompanyIndex = _this.data.tisCompanySourceList.findIndex(i => i.id == data.tisCompanyValue)
-      let runCompanyIndex = _this.data.runCompanySourceList.findIndex(i => i.id == data.businessId)
+      let runCompanyIndex = _this.data.runCompanySourceList.findIndex(i => i['user_id'] == data.businessId)
       let state = {
         ...data,
         compareList: (res.compareList || []).map(item => {
@@ -585,7 +585,7 @@ Page({
       workerText: this.data.workerComment,
       weatherBusiness: this.data.weatherBusiness,
       financeId: this.data.financeId,
-      businessId: (this.data.runCompanyValue && this.data.runCompanySourceList[this.data.runCompanyValue]) ? this.data.runCompanySourceList[this.data.runCompanyValue].id : ''
+      businessId: (this.data.runCompanyValue && this.data.runCompanySourceList[this.data.runCompanyValue]) ? this.data.runCompanySourceList[this.data.runCompanyValue]['user_id'] : ''
     }
   },
   getAccident () {
@@ -625,10 +625,10 @@ Page({
   getRunCompany () {
     let that = this
     util.request({
-      path: '/app/businessinsuranceidi/getBusinessByCityInsurance',
+      path: '/app/user/getBusinessByCityInsurance',
       method: 'GET',
       data: {
-        cityCode: this.data.cityId,
+        city: this.data.cityId,
         insuranceId: app.globalData.currentRegisterInfo.sysCompanyEntity.insuranceId
       }
     }, function (err, res) {
