@@ -401,30 +401,35 @@ Page({
     return true
   },
   previewbankImageFiles: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.bankImageFiles.map(item => {return item.path})
     })
   },
   previewInfoImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.informationImageFiles.map(item => {return item.path})
     })
   },
   previewidImageFrontImageFiles: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.idImageFrontImageFiles.map(item => {return item.path})
     })
   },
   previewidImageBackImageFiles: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.idImageBackImageFiles.map(item => {return item.path})
     })
   },
   previewreceiptImageImageFiles: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.receiptImageImageFiles.map(item => {return item.path})

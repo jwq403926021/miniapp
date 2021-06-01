@@ -554,6 +554,7 @@ Page({
     let key = e.currentTarget.dataset.name
     let index = e.currentTarget.dataset.index
     let data = index !== undefined ? this.data[key][index] : this.data[key]
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: data.map(item => {return item.path})

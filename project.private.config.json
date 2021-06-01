@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -24,10 +25,9 @@
           "scene": null
         },
         {
-          "id": 2,
           "name": "pages/new-ws-form/new-ws-form",
           "pathName": "pages/new-ws-form/new-ws-form",
-          "query": "id=20201014144946000107",
+          "query": "id=20210522085235000107",
           "scene": null
         },
         {
@@ -67,7 +67,7 @@
         {
           "name": "pages/sign/sign",
           "pathName": "pages/sign/sign",
-          "query": "id=20210320213551000109",
+          "query": "id=20210321104855000109",
           "scene": null
         },
         {
@@ -86,7 +86,7 @@
         {
           "name": "pages/idi-form/idi-form",
           "pathName": "pages/idi-form/idi-form",
-          "query": "id=20210321104855000109",
+          "query": "id=20210422212319000109",
           "scene": null
         },
         {
@@ -98,7 +98,7 @@
         {
           "name": "pages/idi-offer/idi-offer",
           "pathName": "pages/idi-offer/idi-offer",
-          "query": "id=20210316200615000109",
+          "query": "id=20210414204337000109",
           "scene": null
         },
         {

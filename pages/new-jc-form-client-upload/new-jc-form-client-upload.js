@@ -119,6 +119,7 @@ Page({
   previewImage: function (e) {
     let _this = this
     let imageTypeStr = e.currentTarget.dataset.imagetype
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: _this.data.familyImages[imageTypeStr].map(item => {return item.path})

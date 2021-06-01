@@ -1473,6 +1473,7 @@ Page({
   },
   previewImage: function (e) {
     let key = e.currentTarget.dataset.name
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data[key].map(item => {return item.path})

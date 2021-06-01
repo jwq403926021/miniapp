@@ -321,6 +321,7 @@ Page({
     })
   },
   previewInfoImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.informationImageFiles.map(item => {return item.path})
@@ -380,6 +381,7 @@ Page({
     })
   },
   previewAssessImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.assessImageFiles.map(item => {return item.path})

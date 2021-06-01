@@ -15,6 +15,7 @@ App({
     if (this.globalData.isIgnoreRefresh === false) {
       currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
       console.log('app onShow refresh:', obj, currentPage, this.globalData.isIgnoreRefresh)
+      this.globalData.isIgnoreRefresh = true
     }
   },
   login (routerParams) {

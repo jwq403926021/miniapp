@@ -367,6 +367,7 @@ Page({
     })
   },
   previewInfoImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.informationImageFiles.map(item => {return item.path})
@@ -423,6 +424,7 @@ Page({
     })
   },
   previewImageForliveImageFiles: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.liveImageFiles.map(item => {return item.path})
@@ -502,12 +504,14 @@ Page({
 
   },
   previewWorkLiveImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.workLiveImageFiles.map(item => {return item.path})
     })
   },
   previewDamageImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.damageImageFiles.map(item => {return item.path})
@@ -565,6 +569,7 @@ Page({
 
   },
   previewAuthorityImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.authorityImageFiles.map(item => {return item.path})
@@ -621,6 +626,7 @@ Page({
     })
   },
   previewCaleImage: function (e) {
+    app.globalData.isIgnoreRefresh = true
     wx.previewImage({
       current: e.currentTarget.id,
       urls: this.data.caleImageFiles.map(item => {return item.path})
