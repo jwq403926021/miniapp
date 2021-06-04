@@ -344,20 +344,20 @@
                         <text class="weui-input readonly">{{['拒绝', '同意'][noResponsibilityConstruct] || '-'}}</text>
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_select" wx:if="{{role == 1 && status == 52}}">
+                <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">经营单位</view>
                     </view>
-                    <view class="weui-cell__bd">
+                    <view class="weui-cell__bd" wx:if="{{role == 1 && status == 52}}">
                         <picker bindchange="pickerChange" data-name="runCompany" value="{{runCompanyValue}}" range="{{runCompanyList}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{runCompanyLabel || '请选择经营单位'}}
                             </view>
                         </picker>
                     </view>
-<!--                    <view class="weui-cell__bd" wx:else>-->
-<!--                        <text class="weui-input readonly">{{runCompanyLabel || '-'}}</text>-->
-<!--                    </view>-->
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{businessName || '-'}}</text>
+                    </view>
                 </view>
                 <block wx:if="{{role != 12 && role != 28 && role != 29}}">
                     <view class="weui-cell weui-cell_select">
