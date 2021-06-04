@@ -69,7 +69,7 @@ Page({
     runCompanyValue: '',
     runCompanyLabel: '',
     address: '',
-    damageTarget: '0',
+    damageTarget: '1',
     insuredName: '',
     insuredPhone: '',
     ownerName: '',
@@ -626,7 +626,7 @@ Page({
   },
   getRunCompany () {
     let that = this
-    if (this.data.role == 1) {
+    if (this.data.role != 1) {
       return false
     }
     util.request({
@@ -868,6 +868,15 @@ Page({
     })
   },
   investagatorPass (event) {
+    if (this.data.accidentReasonValue == '' || this.data.accidentReasonValue == null || this.data.insurerResponsibility == '' || this.data.insurerResponsibility == null) {
+      wx.showToast({
+        mask: true,
+        icon: 'none',
+        title: '请选择事故原因和保险责任',
+        duration: 1000
+      })
+      return false
+    }
     let that = this
     let url = '/app/businessinsuranceidi/surveyDealSave'
     wx.showLoading({ mask: true, title: '提交中' })
