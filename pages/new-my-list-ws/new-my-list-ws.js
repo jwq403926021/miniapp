@@ -308,6 +308,32 @@ Page({
       url: '../new-ws-form/new-ws-form?id=' + event.currentTarget.dataset.id
     })
   },
+  setFinishCase (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+    const id = event.currentTarget.dataset.id;
+    const value = event.currentTarget.dataset.value == 1 ? 0 : 1;
+    const index = event.currentTarget.dataset.index;
+    const key = type == '0' ? 'isCompulsory' : 'isBusiness'
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: `/app/businessdamagenew/${key}`,
+      method: 'GET',
+      data: {
+        orderId: id,
+        [key]: value
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.data.dataList[index][key] = value
+      _this.setData({
+        dataList: _this.data.dataList
+      })
+    })
+  },
   onCancel () {
     this.setData({
       show: false

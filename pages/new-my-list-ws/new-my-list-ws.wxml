@@ -43,7 +43,17 @@
   <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.orderId}}" bindtap="goToHandleTask">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
-        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.orderId}}</view>
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          <view>工单号：{{item.orderId}}</view>
+          <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}">
+            <view style="width: 95px; display: inline-block; margin-right: 10px;">
+              交强险：<view data-index='{{index}}' data-id="{{item.orderId}}" data-type="0" data-value="{{item.isCompulsory}}" catchtap="setFinishCase" class="{{item.isCompulsory == 1 ? 'finished' : 'not-finish'}}"></view>
+            </view>
+            <view style="width: 95px; display: inline-block;">
+              商业险：<view data-index='{{index}}' data-id="{{item.orderId}}" data-type="1" data-value="{{item.isBusiness}}" catchtap="setFinishCase" class="{{item.isBusiness == 1 ? 'finished' : 'not-finish'}}"></view>
+            </view>
+          </view>
+        </view>
         <view class="weui-media-box__desc">
           <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
           <view>出险方：{{item.customerUser || '-'}}</view>

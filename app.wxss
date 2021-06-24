@@ -126,10 +126,11 @@ button[type=primary] {
     color:#FFFFFF;
     background-color:#016eff;
 }
-.fl{ float:left}
-.fr{float:right}
+.fl{ float:left!important; }
+.fr{ float:right!important; }
 .mr5{margin-right: 5px}
 .mb5{margin-bottom: 5px}
+.float-none{float: none!important;}
 .clearfix:after{
     display:block;
     content:"";

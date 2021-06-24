@@ -252,13 +252,39 @@ Page({
         'taskData.accountName': data.accountName,
         'taskData.moneySurvey': data.moneySurvey,
         'taskData.managerReject': data.managerReject,
-        'taskData.cancelRemark': data.cancelRemark
+        'taskData.cancelRemark': data.cancelRemark,
+        'taskData.isCompulsory': data.isCompulsory,
+        'taskData.isBusiness': data.isBusiness
       }, () => {
         if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
           _this.initReassignList()
         }
         _this.getRegionLabel()
         wx.hideLoading()
+      })
+    })
+  },
+  setFinishCase (event) {
+    let _this = this
+    const type = event.currentTarget.dataset.type;
+    const value = event.currentTarget.dataset.value == 1 ? 0 : 1;
+    const key = type == '0' ? 'isCompulsory' : 'isBusiness'
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: `/app/businessdamagenew/${key}`,
+      method: 'GET',
+      data: {
+        orderId: _this.data.orderId,
+        [key]: value
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      _this.data.taskData[key] = value
+      _this.setData({
+        taskData: _this.data.taskData
       })
     })
   },
