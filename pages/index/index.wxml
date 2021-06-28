@@ -24,7 +24,7 @@
     </view>
     <view class="new-btn fl" bindtap="goToFastJcForm" wx:if="{{role == 1}}">
       <view>
-        <text class="iconfont icon-fangwuxinxi myicon"></text>
+        <text class="iconfont icon-spaceship myicon"></text>
       </view>
       <view>
         快速家财

@@ -133,13 +133,15 @@ Page({
   },
   onLoad: function (routeParams) {
     this.routeParams = routeParams
+    this.setData({
+      isQuick: routeParams.isQuick == '1'
+    })
     this.initArea(this.init)
   },
   init () {
     let routeParams = this.routeParams
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
-        isQuick: routeParams.isQuick == '1',
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {

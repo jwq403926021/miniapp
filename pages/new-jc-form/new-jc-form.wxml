@@ -259,22 +259,24 @@
                     <text class="weui-input readonly">{{taskData.offerMoney || '-'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">地板损失</view>
+            <block wx:if="{{status != null}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">地板损失</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.floorArea || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.floorArea || '-'}}</text>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">大白损失</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.wallArea || '-'}}</text>
+                    </view>
                 </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">大白损失</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{taskData.wallArea || '-'}}</text>
-                </view>
-            </view>
+            </block>
         </view>
 
         <block>
