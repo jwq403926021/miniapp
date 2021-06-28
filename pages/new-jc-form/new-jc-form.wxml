@@ -259,6 +259,22 @@
                     <text class="weui-input readonly">{{taskData.offerMoney || '-'}}</text>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">地板损失</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.floorArea || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">大白损失</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.wallArea || '-'}}</text>
+                </view>
+            </view>
         </view>
 
         <block>
@@ -467,6 +483,52 @@
                                     </view>
                                     <view class="weui-uploader__input-box" wx:if="{{(role == 27 && status == 31) || (role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62))}}">
                                         <view class="weui-uploader__input" bindtap="chooseImage" data-name="testImageFiles"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__title">地板损失</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploaderFloorFiles">
+                                        <view class="no-image" wx:if="{{floorImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{floorImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="floorImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            </view>
+                                        </block>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__title">大白损失</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files" id="uploaderWallFiles">
+                                        <view class="no-image" wx:if="{{wallImageFiles.length == 0}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{wallImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" id="{{item.path}}" data-name="wallImageFiles">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            </view>
+                                        </block>
                                     </view>
                                 </view>
                             </view>

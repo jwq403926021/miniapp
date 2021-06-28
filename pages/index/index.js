@@ -27,6 +27,11 @@ Page({
       url: '../new-jc-form/new-jc-form'
     })
   },
+  goToFastJcForm: function () {
+    wx.navigateTo({
+      url: '../new-jc-form/new-jc-form?isQuick=1'
+    })
+  },
   goToCxForm: function () {
     wx.navigateTo({
       url: '../cx-form/cx-form'

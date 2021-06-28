@@ -24,6 +24,7 @@ Page({
     showWorkerHit: false,
     showreassign: false,
     statusMap: {
+      '13': '待客户完善',
       '29': '暂存',
       '20': '待客服人员处理',
       '30': '待指派测漏',
@@ -68,12 +69,16 @@ Page({
       "estimatePrice": '',
       "offerMoney": '',
       "workerText": '',
-      "testText": ''
+      "testText": '',
+      "floorArea": '',
+      "wallArea": ''
     },
     damageImageFiles: [],
     caleImageFiles: [],
     informationImageFiles: [],
     completeImageFiles: [],
+    floorImageFiles: [],
+    wallImageFiles: [],
     testImageFiles: [],
     showactionsheet: false,
     actions: [
@@ -134,6 +139,7 @@ Page({
     let routeParams = this.routeParams
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
+        isQuick: routeParams.isQuick == '1',
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
@@ -191,7 +197,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: isSave ? `/app/businessinsurancefamilynew/surveySave` : `/app/businessinsurancefamilynew/surveyCommit`,
+      path: isSave ? `/app/businessinsurancefamilynew/surveySave` : _this.data.isQuick ? `/app/businessinsurancefamilynew/surveyCommitToCustomer` : `/app/businessinsurancefamilynew/surveyCommit`,
       method: 'POST',
       data: taskData
     }, function (err, res) {
@@ -940,6 +946,8 @@ Page({
       _this.sourceData = data
       _this.sourceImage = res.Image
       let informationImageFiles = []
+      let floorImageFiles = []
+      let wallImageFiles = []
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
@@ -985,6 +993,14 @@ Page({
           case 21:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             testImageFiles.push(item)
+            break
+          case 22:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            floorImageFiles.push(item)
+            break
+          case 23:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            wallImageFiles.push(item)
             break
           case 2001:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -1064,7 +1080,11 @@ Page({
         "taskData.offerMoney": data.offerMoney || '',
         "taskData.workerText": data.workerText,
         "taskData.testText": data.testText || '',
+        "taskData.floorArea": data.floorArea || '',
+        "taskData.wallArea": data.wallArea || '',
         informationImageFiles: informationImageFiles,
+        floorImageFiles: floorImageFiles,
+        wallImageFiles: wallImageFiles,
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,

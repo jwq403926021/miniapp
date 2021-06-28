@@ -29,6 +29,7 @@ Page({
     searchCustomerPhone: '',
     role: 1,
     statusMap: {
+      '13': '待客户完善',
       '29': '暂存',
       '20': '待客服人员处理',
       '30': '待指派测漏',
