@@ -1524,7 +1524,7 @@ Page({
       }
     })
   },
-  downloadImages () {
+  downloadImages (){
     let urls = []
     this.sourceImage.map(item => {
       if (
