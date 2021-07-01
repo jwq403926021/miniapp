@@ -880,7 +880,7 @@ Page({
       return false
     }
     let that = this
-    let url = '/app/businessinsuranceidi/surveyDealSave'
+    let url = '/app/businessinsuranceidi/surveyCommit2'
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: url,
@@ -901,7 +901,7 @@ Page({
   },
   investagatorFinish (event) {
     let that = this
-    let url = '/app/businessinsuranceidi/surveyDealSave'
+    let url = '/app/businessinsuranceidi/surveyCancel'
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: url,
