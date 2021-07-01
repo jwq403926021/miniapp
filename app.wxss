@@ -1,9 +1,9 @@
 @import 'weui.wxss';
 
 @font-face { font-family: "iconfont"; /* Project id 1013448 */
-    src: url('asset/iconfont.woff2?t=1624865391390') format('woff2'),
-    url('asset/iconfont.woff?t=1624865391390') format('woff'),
-    url('asset/iconfont.ttf?t=1624865391390') format('truetype');}
+    src: url('//at.alicdn.com/t/font_1013448_ivwaxcrkk5r.woff2?t=1625145031959') format('woff2'),
+    url('//at.alicdn.com/t/font_1013448_ivwaxcrkk5r.woff?t=1625145031959') format('woff'),
+    url('//at.alicdn.com/t/font_1013448_ivwaxcrkk5r.ttf?t=1625145031959') format('truetype');}
 
 
 .iconfont {
