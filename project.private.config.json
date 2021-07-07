@@ -15,7 +15,7 @@
         {
           "name": "pages/new-jc-offer/new-jc-offer",
           "pathName": "pages/new-jc-offer/new-jc-offer",
-          "query": "id=20210124124235000108",
+          "query": "id=20210701134057000109",
           "scene": null
         },
         {
@@ -86,7 +86,7 @@
         {
           "name": "pages/idi-form/idi-form",
           "pathName": "pages/idi-form/idi-form",
-          "query": "id=20210422212319000109",
+          "query": "id=20210701134057000109",
           "scene": null
         },
         {
@@ -105,6 +105,12 @@
           "name": "pages/new-ws-offer/new-ws-offer",
           "pathName": "pages/new-ws-offer/new-ws-offer",
           "query": "id=20210302114457000107",
+          "scene": null
+        },
+        {
+          "name": "pages/videocall/videocall",
+          "pathName": "pages/videocall/videocall",
+          "query": "",
           "scene": null
         }
       ]

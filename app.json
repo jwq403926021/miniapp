@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/videocall/videocall",
     "pages/register/register",
     "pages/cx-form/cx-form",
     "pages/new-jc-form/new-jc-form",

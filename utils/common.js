@@ -106,7 +106,17 @@ function downloadSaveFiles(obj) {
   }
 }
 
+function randomUserID() {
+  return new Date().getTime().toString(16).split('').reverse().join('')
+}
+function randomRoomID() {
+  return parseInt(Math.random() * 9999)
+}
+
+
 module.exports = {
+  randomUserID: randomUserID,
+  randomRoomID: randomRoomID,
   downloadImages: downloadSaveFiles,
   deleteImage: deleteImage,
   deleteAttach: deleteAttach,
