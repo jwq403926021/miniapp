@@ -1,5 +1,6 @@
 import { randomRoomID }  from '../../../utils/common'
 import TRTC from '../../../static/trtc-wx'
+import util from "../../../utils/util";
 
 Page({
   data: {
@@ -79,7 +80,16 @@ Page({
       playerList: this.TRTC.setPlayerAttributes(player.streamID, options),
     })
   },
-
+  sendLeaveRoom () {
+    console.log('* room dismiss!!!!!!!!')
+    util.request({
+      path: `https://trtc.tencentcloudapi.com/?Action=DismissRoomByStrRoomId&SdkAppId=1400543194&RoomId=110&Version=2020-7-3&Region=ap-beijing`,
+      method: 'GET',
+      data: {}
+    }, function (err, res) {
+      console.log(err, res)
+    })
+  },
   // 事件监听
   bindTRTCRoomEvent() {
     const TRTC_EVENT = this.TRTC.EVENT
@@ -92,6 +102,7 @@ Page({
     })
     this.TRTC.on(TRTC_EVENT.LOCAL_LEAVE, (event) => {
       console.log('* room LOCAL_LEAVE', event)
+      this.sendLeaveRoom()
     })
     this.TRTC.on(TRTC_EVENT.ERROR, (event) => {
       console.log('* room ERROR', event)
@@ -103,6 +114,7 @@ Page({
         playerList: playerList
       })
       console.log('* room REMOTE_USER_LEAVE', event)
+      this.sendLeaveRoom()
     })
     // 远端用户推送视频
     this.TRTC.on(TRTC_EVENT.REMOTE_VIDEO_ADD, (event) => {
@@ -159,6 +171,7 @@ Page({
 
   // 挂断退出房间
   _hangUp() {
+    this.sendLeaveRoom()
     this.exitRoom()
     wx.navigateBack({
       delta: 1,
