@@ -37,6 +37,7 @@ Page({
       '37': '待处理人指派比价人员',
       '38': '申请退单',
       '52': '待查勘员审核',
+      '53': '查勘员驳回',
       '39': '比价中',
       '51': '待处理人确认',
       '33': '处理人驳回',
@@ -68,6 +69,10 @@ Page({
     runCompanyList: [],
     runCompanyValue: '',
     runCompanyLabel: '',
+    workerIdSourceList: [],
+    workerIdList: [],
+    workerIdValue: '',
+    workerIdLabel: '',
     businessName: '',
     address: '',
     damageTarget: '1',
@@ -81,6 +86,9 @@ Page({
     managerPhone: '',
     orderInfo: '',
     comment: '',
+    accidentRemark: '',
+    workerToSurvey: '',
+    surveyToWorker: '',
     workerComment: '',
     estimatePrice: '',
     offerPrice: '',
@@ -147,6 +155,7 @@ Page({
       if (routeParams.id) {
         await this.initDataById(routeParams.id)
       } else {
+        this.getWorkerPerson()
         setTimeout(() => this.refreshRegionLabel(), 500)
       }
       wx.hideLoading()
@@ -219,7 +228,10 @@ Page({
         jobRole: `${data.station || ''}`,
         weatherBusiness: `${data.weatherBusiness || ''}`,
         orderInfo: data.investigatorText,
+        accidentRemark: data.accidentRemark,
         workerComment: data.workerText,
+        workerToSurvey: data.workerToSurvey,
+        surveyToWorker: data.surveyToWorker,
         comment: data.offerText,
         userLocationInfo: {
           latitude: data.lat,
@@ -325,6 +337,7 @@ Page({
       provinceId: e.detail.values[0].code
     }, () => {
       this.getRunCompany()
+      this.getWorkerPerson()
     })
   },
   confirmDateTimePopup (e) {
@@ -586,7 +599,10 @@ Page({
       propertyId: this.data.propertyId,
       insuranceTimeLimit: this.formatDate(new Date(this.data.expireDateTimeValue), 'yyyy-MM-dd hh:mm:ss'),
       insuranceTimeLimitEnd: this.formatDate(new Date(this.data.expireDateTimeEndValue), 'yyyy-MM-dd hh:mm:ss'),
+      accidentRemark: this.data.accidentRemark,
       workerText: this.data.workerComment,
+      workerToSurvey: this.data.workerToSurvey,
+      surveyToWorker: this.data.surveyToWorker,
       weatherBusiness: this.data.weatherBusiness,
       financeId: this.data.financeId,
       businessId: (this.data.runCompanyValue && this.data.runCompanySourceList[this.data.runCompanyValue]) ? this.data.runCompanySourceList[this.data.runCompanyValue]['user_id'] : ''
@@ -688,6 +704,57 @@ Page({
       that.setData({
         tisUserSourceList: res.data || [],
         tisUserList: tisUserList
+      })
+    })
+  },
+  diffWorker (id) {
+    util.request({
+      path: '/app/businessinsuranceidi/changeWorker',
+      method: 'POST',
+      data: {
+        flowId: id
+      }
+    }, function (err, res) {
+    })
+  },
+  getAccordingWorker () {
+    let that = this
+    util.request({
+      path: '/app/businessinsuranceidi/getWorkerByInsuranceNumber',
+      method: 'GET',
+      data: {
+        insuranceNumber: this.data.insuranceOrderId
+      }
+    }, function (err, res) {
+      if (res.workerList.length) {
+        let index = that.data.workerIdSourceList.findIndex(i => i['user_id'] == res.workerList[0]['user_id'])
+        that.setData({
+          workerIdValue: index,
+          workerIdLabel: res.workerList[0].name
+        })
+        that.defaultWorker = res.workerList[0].name
+      } else {
+        that.defaultWorker = ''
+      }
+    })
+  },
+  getWorkerPerson () {
+    let that = this
+    util.request({
+      path: '/app/family/getWorkerByCity',
+      method: 'GET',
+      data: {
+        city: this.data.cityId
+      }
+    }, function (err, res) {
+      let workerIdList = res.data ? res.data.map(item => {
+        return item.name
+      }) : []
+      that.setData({
+        workerIdValue: '',
+        workerIdLabel: '',
+        workerIdSourceList: res.data,
+        workerIdList: workerIdList
       })
     })
   },
@@ -836,6 +903,9 @@ Page({
       that.setData({
         orderId: res.data.flowId
       }, () => {
+        if (that.data.workerIdLabel != that.defaultWorker) {
+          that.diffWorker(res.data.flowId)
+        }
         that.uploadImage()
       })
     })
@@ -851,6 +921,27 @@ Page({
     } else {
       url = '/app/businessinsuranceidi/surveyCancel'
     }
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: this.getSubmitParams()
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    })
+  },
+  investagatorReject () {
+    let that = this
+    let url = '/app/businessinsuranceidi/surveyReject'
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: url,

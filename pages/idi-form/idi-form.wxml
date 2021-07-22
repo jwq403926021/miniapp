@@ -36,7 +36,7 @@
                     <view class="weui-label">保单号</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
-                    <input class="weui-input" bindinput="inputChange" data-name='insuranceOrderId'
+                    <input class="weui-input" bindinput="inputChange" bindblur="getAccordingWorker" data-name='insuranceOrderId'
                            value="{{insuranceOrderId}}" placeholder="保单号"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
@@ -53,6 +53,21 @@
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{reportId || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{orderId == '' || orderId == null}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">施工人员</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
+                    <picker bindchange="pickerChange" data-name="workerId" value="{{workerIdValue}}" range="{{workerIdList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerIdLabel || '请选择施工人员'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{workerIdLabel || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -163,6 +178,29 @@
                             </view>
                         </view>
                     </block>
+                </view>
+            </block>
+            <block wx:if="{{workerName && role != 12}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施工人员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{workerName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施工人员电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{workerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{workerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
                 </view>
             </block>
             <block wx:if="{{investigatorName && role != 1 && role != 12}}">
@@ -673,6 +711,48 @@
                 </view>
             </block>
 
+            <block>
+                <view class="weui-cells__title">事故概述</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='accidentRemark'
+                                      value="{{accidentRemark}}" placeholder="请输入事故概述" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{accidentRemark || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block>
+                <view class="weui-cells__title">施工给查勘员留言</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase && role == 12}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='workerToSurvey'
+                                      value="{{workerToSurvey}}" placeholder="请输入留言" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{workerToSurvey || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block>
+                <view class="weui-cells__title">查勘员给施工留言</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{!disabledCase && role == 1}}">
+                            <textarea wx:if="{{!show}}" maxlength="-1" class="weui-textarea" bindinput="inputChange" data-name='surveyToWorker'
+                                      value="{{surveyToWorker}}" placeholder="请输入留言" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{surveyToWorker || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
             <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4 && role != 29 && role != 31}}">
                 <view class="weui-cells__title">施工留言</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -708,11 +788,11 @@
             <button data-type="0" bindtap="orderSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="orderSubmit">暂存</button>
         </view>
-        <view wx:if="{{role == 12 && (status == 13 || status == 33)}}" class="button-sp-area two-btn-wrap">
+        <view wx:if="{{role == 12 && (status == 13 || status == 53 || status == 33)}}" class="button-sp-area two-btn-wrap">
             <button data-type="0" bindtap="workerSubmit" type="primary">提交</button>
             <button data-type="1" bindtap="workerSubmit">暂存</button>
         </view>
-        <view wx:if="{{role == 12 && status == 13}}" class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
+        <view wx:if="{{role == 12 && (status == 13 || status == 53)}}" class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
         <view wx:if="{{role == 30 && status == 38}}" class="button-sp-area"><button type="primary" bindtap="rejectRejectApplication">驳回退单申请</button></view>
         <view wx:if="{{role == 30 && status == 38}}" class="button-sp-area"><button type="primary" bindtap="passRejectApplication">通过退单申请</button></view>
         <view wx:if="{{role == 30 && status == 37}}" class="button-sp-area"><button type="primary" bindtap="assignSubmit">指派提交</button></view>
@@ -735,6 +815,7 @@
 
         <view wx:if="{{role == 1 && status == 52}}" class="button-sp-area two-btn-wrap">
             <button bindtap="investagatorPass" type="primary">通过</button>
+            <button bindtap="investagatorReject">驳回</button>
             <button bindtap="investagatorFinish">注销</button>
         </view>
 
