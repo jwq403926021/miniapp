@@ -13,6 +13,9 @@ Page({
     regionLabel: '',
     reassignRegion: '',
     reassignRegionLabel: '',
+    workerList: [],
+    workerValue: '',
+    workerLabel: '',
     testList: [],
     testValue: '',
     testLabel: '',
@@ -149,6 +152,62 @@ Page({
         this.getRegionLabel()
       })
     }
+  },
+  initReassignList () {
+    let _this = this
+    util.request({
+      path: '/app/businessdamagenew/getSameUnitWorker',
+      method: 'GET',
+      data: {
+        workerId: this.data.taskData.workerId
+      }
+    }, function (err, res) {
+      if (res) {
+        _this.workListSource = res.data
+        let workerList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'workerList': workerList
+        })
+      }
+    })
+  },
+  assignToOther () {
+    let _this = this
+    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
+      wx.showToast({
+        mask: true,
+        title: '请选择转办人员',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/changeWorker',
+      method: 'POST',
+      data: {
+        orderId: this.data.orderId,
+        information: this.data.taskData.investigatorText,
+        userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId']
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   surveyCommit (event) {
     let _this = this
@@ -1092,6 +1151,9 @@ Page({
         completeImageFiles: completeImageFiles,
         testImageFiles: testImageFiles
       }, () => {
+        if (_this.data.role == 12) {
+          _this.initReassignList()
+        }
         _this.getRegionLabel()
         _this.getLosserList()
         wx.hideLoading()
