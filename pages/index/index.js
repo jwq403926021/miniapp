@@ -17,6 +17,12 @@ Page({
       url: '../new-ws-form/new-ws-form?type='+type
     })
   },
+  goToNewWsForm2: function(event) {
+    let type = event.currentTarget.dataset.type
+    wx.navigateTo({
+      url: '../../subpackage/wscompare/new-ws-form/new-ws-form?type='+type
+    })
+  },
   goToJcForm: function () {
     wx.navigateTo({
       url: '../jc-form/jc-form'

@@ -43,6 +43,15 @@
     "pages/idi-form/idi-form",
     "pages/idi-offer/idi-offer"
   ],
+  "subPackages": [
+    {
+      "root": "subpackage/wscompare/",
+      "pages": [
+        "new-my-list-ws/new-my-list-ws",
+        "new-ws-form/new-ws-form"
+      ]
+    }
+  ],
   "permission": {
     "scope.userLocation": {
       "desc": "请求获取您的位置信息"

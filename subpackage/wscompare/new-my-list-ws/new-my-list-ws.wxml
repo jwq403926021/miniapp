@@ -1,0 +1,164 @@
+<view class="page">
+  <view class="filter-wrap clearfix">
+    <view style="float: left; width: 85%;">
+      <view class="clearfix">
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
+        </view>
+        <!--      <view class="field filterDropdown">-->
+        <!--        <view class="caret" bind:tap="openFilterDatePop">{{dateFilterArr[dateFilter]}}</view>-->
+        <!--      </view>-->
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openDatePop" data-targetpop="showStartDate" data-target="startDate">{{startDate ? startDateLabel : '开始时间'}}</view>
+        </view>
+        <view class="field filterDropdown">
+          <view class="caret" bind:tap="openDatePop" data-targetpop="showEndDate" data-target="endDate">{{endDate ? endDateLabel : '结束时间'}}</view>
+        </view>
+      </view>
+      <view class="clearfix">
+        <van-search
+                value="{{ searchOrderId }}"
+                placeholder="请输入工单号"
+                custom-class="my-search"
+                bind:change="searchOrderIdChange">
+        </van-search>
+        <van-search
+                value="{{ searchReportNumber }}"
+                placeholder="请输入报案号"
+                custom-class="my-search"
+                bind:change="searchReportNumberChange">
+        </van-search>
+        <van-search
+                wx:if="{{type == 1}}"
+                value="{{ searchCarNumber }}"
+                placeholder="请输入车牌号"
+                custom-class="my-search"
+                bind:change="searchCarNumberChange">
+        </van-search>
+      </view>
+    </view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="resetFilter">重置</view>
+    <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="filter">搜索</view>
+  </view>
+  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.orderId}}" bindtap="goToHandleTask">
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">
+          <view>工单号：{{item.orderId}}</view>
+          <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}">
+            <view style="width: 95px; display: inline-block; margin-right: 10px;">
+              交强险：<view data-index='{{index}}' data-id="{{item.orderId}}" data-type="0" data-value="{{item.isCompulsory}}" catchtap="setFinishCase" class="{{item.isCompulsory == 1 ? 'finished' : 'not-finish'}}"></view>
+            </view>
+            <view style="width: 95px; display: inline-block;">
+              商业险：<view data-index='{{index}}' data-id="{{item.orderId}}" data-type="1" data-value="{{item.isBusiness}}" catchtap="setFinishCase" class="{{item.isBusiness == 1 ? 'finished' : 'not-finish'}}"></view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-media-box__desc">
+          <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
+          <view>出险方：{{item.customerUser || '-'}}</view>
+          <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 22}}">施工人员：{{item.workerUser || '-'}}</view>
+          <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
+          <view>创建时间：{{item.createTime || '-'}}</view>
+          <view wx:if="{{role == 22}}">报价时间：{{item.offerTime || '-'}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel__ft">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__bd">{{role === 13 && taskData.status === 41 ? '待报价' : '查看处理'}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+      <view wx:if="{{item.status == 11 || item.status == 50}}" class="weui-panel__ft" data-status="{{item.status}}" data-id="{{item.orderId}}" catchtap="goToOffer">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd">查看报价</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </view>
+      <view wx:if="{{(role == 5 || role == 6 || role == 7) && item.status != ''}}" class="weui-panel__ft" data-id="{{item.orderId}}" catchtap="openOperation">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd">管理工单</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ statusFilter }}" bind:change="statusFilterChange">
+      <van-cell-group>
+        <van-cell title="状态不限" clickable data-name="-1" bind:click="statusFilterItemClick">
+          <van-radio name="-1" />
+        </van-cell>
+        <van-cell title="处理中" clickable data-name="13" bind:click="statusFilterItemClick">
+          <van-radio name="13" />
+        </van-cell>
+        <van-cell title="已派送" clickable data-name="20" bind:click="statusFilterItemClick">
+          <van-radio name="20" />
+        </van-cell>
+        <van-cell title="待报价" clickable data-name="41" bind:click="statusFilterItemClick">
+          <van-radio name="41" />
+        </van-cell>
+        <van-cell title="驳回" clickable data-name="43" bind:click="statusFilterItemClick">
+          <van-radio name="43" />
+        </van-cell>
+        <van-cell title="已报价" clickable data-name="50" bind:click="statusFilterItemClick">
+          <van-radio name="50" />
+        </van-cell>
+        <van-cell title="已办结" clickable data-name="11" bind:click="statusFilterItemClick">
+          <van-radio name="11" />
+        </van-cell>
+        <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">
+          <van-radio name="12" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <van-transition name="fade-up" show="{{ isShowDateFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ dateFilter }}" bind:change="dateFilterChange">
+      <van-cell-group>
+        <van-cell title="不限" clickable data-name="0" bind:click="dateFilterItemClick">
+          <van-radio name="0" />
+        </van-cell>
+        <van-cell title="最近3天" clickable data-name="1" bind:click="dateFilterItemClick">
+          <van-radio name="1" />
+        </van-cell>
+        <van-cell title="最近7天" clickable data-name="2" bind:click="dateFilterItemClick">
+          <van-radio name="2" />
+        </van-cell>
+        <van-cell title="最近30天" clickable data-name="3" bind:click="dateFilterItemClick">
+          <van-radio name="3" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <view bindtap="closeFilter" wx:if="{{isShowDateFilter || isShowTypeFilter || isShowStatusFilter}}" class="mask"></view>
+  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
+    <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+  </van-popup>
+  <van-popup show="{{ showStartDate }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker
+      type="date"
+      data-target="startDate"
+      data-targetpop="showStartDate"
+      value="{{ startDate }}"
+      bind:confirm="onInputDate"
+      bind:cancel="cancelDate"
+    />
+  </van-popup>
+  <van-popup show="{{ showEndDate }}" position="bottom" overlay="{{ true }}">
+    <van-datetime-picker
+      type="date"
+      value="{{ endDate }}"
+      data-target="endDate"
+      data-targetpop="showEndDate"
+      bind:confirm="onInputDate"
+      bind:cancel="cancelDate"
+    />
+  </van-popup>
+  <van-action-sheet
+          show="{{ showactionsheet }}"
+          actions="{{ actions }}"
+          bind:close="onactionsheetClose"
+          bind:select="onactionsheetSelect"
+  />
+</view>
