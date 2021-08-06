@@ -7,7 +7,8 @@ Page({
   data: {
     orderId: null,
     showKeyboard: false,
-    role: 1, // 1 查勘员、 12 施工人员、 13 报价人员、6 汇世达市级负责人、22 财务人员
+    // 1 查勘员、12 施工人员、客服人员（即初审人员，因为平台一人身兼多角色）、13 报价人员、22 财务人员、核损人、6 市级负责人、 5 省级负责人
+    role: 1,
     liveImageFiles: [], // 案件图片
     projectBillImageFiles: [], // 工程量清单
     workerAuthImageFiles: [], // 授权（施工方）
@@ -27,55 +28,58 @@ Page({
     workerValue: '',
     workerLabel: '',
     statusMap: {
-      '11': '已办结',
-      '12': '暂存',
-      '13': '处理中',
-      '20': '已派送',
+      '20': '待客服人员处理',
+      '21': '客服驳回',
+      '22': '已派送',
+      '13': '已确认',
+      '42': '待施工人员报价',
+      '39': '比价中',
       '41': '待报价',
-      '43': '驳回',
-      '50': '已报价',
+      '43': '报价驳回',
+      '51': '待核损',
+      '33': '核损人驳回',
+      '50': '待财务处理',
+      '11': '已办结'
     },
-    taskData: {
-      status: null,
-      provinceCode: '',
-      cityCode: '',
-      townCode: '',
-      acceptInsurance: '2',
-      insuranceType: '1',
-      damagedUser: '',
-      damagedPhone: '',
-      customerUser: '',
-      customerPhone: '',
-      plateNumber: '',
-      information: '',
-      surveyUser: '',
-      surveyPhone: '',
-      workerUser: '',
-      workerPhone: '',
-      workType: '0',
-      budgetPreliminary: '', // 初步估损金额
-      damageMoney: '', // 受损方索赔金额
-      handlingType: '0',
-      isAcceptance: '0',
-      isAgree: '0',
-      deposit: '',
-      prepay: '',
-      offerRemark: '',
-      commentToSurvey: '',
-      commentToOffer: '',
-      companyName: '',
-      financeRemark: '',
-      manageMoney: '',
-      insurePay: '',
-      payWorker: '',
-      reportNumber: '',
-      mail: '',
-      accountName: '',
-      weatherBill: '1',
-      moneySurvey: '',
-      managerReject: '',
-      cancelRemark: ''
-    },
+    status: null,
+    provinceCode: '',
+    cityCode: '',
+    townCode: '',
+    acceptInsurance: '2',
+    insuranceType: '1',
+    damagedUser: '',
+    damagedPhone: '',
+    customerUser: '',
+    customerPhone: '',
+    plateNumber: '',
+    information: '',
+    surveyUser: '',
+    surveyPhone: '',
+    workerUser: '',
+    workerPhone: '',
+    workType: '0',
+    budgetPreliminary: '', // 初步估损金额
+    damageMoney: '', // 受损方索赔金额
+    handlingType: '0',
+    isAcceptance: '0',
+    isAgree: '0',
+    deposit: '',
+    prepay: '',
+    offerRemark: '',
+    commentToSurvey: '',
+    commentToOffer: '',
+    companyName: '',
+    financeRemark: '',
+    manageMoney: '',
+    insurePay: '',
+    payWorker: '',
+    reportNumber: '',
+    mail: '',
+    accountName: '',
+    weatherBill: '1',
+    moneySurvey: '',
+    managerReject: '',
+    cancelRemark: '',
     activeVideo: '',
     location: {
       latitude: '',
@@ -113,7 +117,7 @@ Page({
     let routeParams = this.routeParams
     if (routeParams && routeParams.type) {
       this.setData({
-        'taskData.insuranceType': routeParams.type || '',
+        'insuranceType': routeParams.type || '',
       })
     }
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
@@ -214,47 +218,47 @@ Page({
         financeImageFiles: financeImageFiles,
         authorityImageFiles: authorityImageFiles,
         workVideo: workVideo,
-        'taskData.surveyId': data.surveyId,
-        'taskData.status': data.status,
-        'taskData.insuranceType': data.insuranceType,
-        'taskData.acceptInsurance': data.acceptInsurance,
-        'taskData.damagedUser': data.damagedUser,
-        'taskData.damagedPhone': data.damagedPhone || '',
-        'taskData.customerUser': data.customerUser,
-        'taskData.customerPhone': data.customerPhone,
-        'taskData.plateNumber': data.plateNumber,
-        'taskData.information': data.information,
-        "taskData.surveyUser": data.surveyUser,
-        "taskData.surveyPhone": data.surveyPhone,
-        "taskData.workerUser": data.workerUser,
-        "taskData.workerPhone": data.workerPhone,
-        "taskData.workType": data.workType,
-        "taskData.budgetPreliminary": data.budgetPreliminary,
-        "taskData.damageMoney": data.damageMoney,
-        'taskData.handlingType': data.handlingType,
-        'taskData.deposit': data.deposit,
-        'taskData.prepay': data.prepay,
-        'taskData.offerRemark': data.offerRemark,
-        'taskData.companyName': data.companyName,
-        'taskData.cityManager': data.cityManager,
-        'taskData.workerId': data.workerId,
-        'taskData.commentToSurvey': data.commentToSurvey,
-        'taskData.commentToOffer': data.commentToOffer,
-        'taskData.financeRemark': data.financeRemark,
-        'taskData.manageMoney': data.manageMoney,
-        'taskData.insurePay': data.insurePay,
-        'taskData.payWorker': data.payWorker,
-        'taskData.isAcceptance': data.isAcceptance,
-        'taskData.isAgree': data.isAgree,
-        'taskData.reportNumber': data.reportNumber,
-        'taskData.mail': data.mail,
-        'taskData.weatherBill': data.weatherBill,
-        'taskData.accountName': data.accountName,
-        'taskData.moneySurvey': data.moneySurvey,
-        'taskData.managerReject': data.managerReject,
-        'taskData.cancelRemark': data.cancelRemark,
-        'taskData.isCompulsory': data.isCompulsory,
-        'taskData.isBusiness': data.isBusiness
+        'surveyId': data.surveyId,
+        'status': data.status,
+        'insuranceType': data.insuranceType,
+        'acceptInsurance': data.acceptInsurance,
+        'damagedUser': data.damagedUser,
+        'damagedPhone': data.damagedPhone || '',
+        'customerUser': data.customerUser,
+        'customerPhone': data.customerPhone,
+        'plateNumber': data.plateNumber,
+        'information': data.information,
+        "surveyUser": data.surveyUser,
+        "surveyPhone": data.surveyPhone,
+        "workerUser": data.workerUser,
+        "workerPhone": data.workerPhone,
+        "workType": data.workType,
+        "budgetPreliminary": data.budgetPreliminary,
+        "damageMoney": data.damageMoney,
+        'handlingType': data.handlingType,
+        'deposit': data.deposit,
+        'prepay': data.prepay,
+        'offerRemark': data.offerRemark,
+        'companyName': data.companyName,
+        'cityManager': data.cityManager,
+        'workerId': data.workerId,
+        'commentToSurvey': data.commentToSurvey,
+        'commentToOffer': data.commentToOffer,
+        'financeRemark': data.financeRemark,
+        'manageMoney': data.manageMoney,
+        'insurePay': data.insurePay,
+        'payWorker': data.payWorker,
+        'isAcceptance': data.isAcceptance,
+        'isAgree': data.isAgree,
+        'reportNumber': data.reportNumber,
+        'mail': data.mail,
+        'weatherBill': data.weatherBill,
+        'accountName': data.accountName,
+        'moneySurvey': data.moneySurvey,
+        'managerReject': data.managerReject,
+        'cancelRemark': data.cancelRemark,
+        'isCompulsory': data.isCompulsory,
+        'isBusiness': data.isBusiness
       }, () => {
         if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
           _this.initReassignList()
@@ -282,9 +286,8 @@ Page({
       }
     }, function (err, res) {
       wx.hideLoading()
-      _this.data.taskData[key] = value
       _this.setData({
-        taskData: _this.data.taskData
+        key: value
       })
     })
   },
@@ -342,9 +345,9 @@ Page({
       let _this = this
       _this.setData({
         region: app.globalData.currentRegisterInfo.townCode,
-        'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
-        'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
-        'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
+        'townCode': app.globalData.currentRegisterInfo.townCode,
+        'cityCode': app.globalData.currentRegisterInfo.cityCode,
+        'provinceCode': app.globalData.currentRegisterInfo.provinceCode
       })
       util.request({
         path: '/sys/area/list',
@@ -368,7 +371,7 @@ Page({
       path: '/app/businessdamagenew/getSameUnitWorker',
       method: 'GET',
       data: {
-        workerId: this.data.taskData.workerId
+        workerId: this.data.workerId
       }
     }, function (err, res) {
       if (res) {
@@ -439,9 +442,9 @@ Page({
       show: false,
       region: data.detail.values[2].code,
       regionLabel: strArr.join(','),
-      'taskData.townCode': data.detail.values[2].code,
-      'taskData.cityCode': data.detail.values[1].code,
-      'taskData.provinceCode': data.detail.values[0].code,
+      'townCode': data.detail.values[2].code,
+      'cityCode': data.detail.values[1].code,
+      'provinceCode': data.detail.values[0].code,
     })
   },
   onConfirmReassign(data) {
@@ -485,10 +488,10 @@ Page({
     this.setData(nameMap)
   },
   onRadioChange (event) {
-    let key = `taskData.${event.currentTarget.dataset.name}`
+    let key = `${event.currentTarget.dataset.name}`
     if (event.detail != '1' && event.currentTarget.dataset.name == 'insuranceType') {
       this.setData({
-        'taskData.plateNumber': ''
+        'plateNumber': ''
       })
     }
     this.setData({
@@ -526,7 +529,7 @@ Page({
   },
   setNumber (event) {
     this.setData({
-      'taskData.plateNumber': event.detail.value
+      'plateNumber': event.detail.value
     })
   },
   previewVideo: function (e) {
@@ -718,13 +721,13 @@ Page({
     let phone = e.currentTarget.dataset.phone+'';
     let worker = e.currentTarget.dataset.worker+'';
 
-    if (worker && this.data.taskData.status == 20 && this.data.role == 12) {
+    if (worker && this.data.status == 20 && this.data.role == 12) {
       util.request({
         path: '/app/businessdamagenew/contanctCustomer',
         method: 'GET',
         data: {
           orderId: _this.data.orderId,
-          surveyId: _this.data.taskData.surveyId
+          surveyId: _this.data.surveyId
         }
       }, function (err, res) {
         wx.showToast({
@@ -761,10 +764,10 @@ Page({
     }
   },
   submitWS (e) {
-    let data = this.data.taskData
+    let data = this.data
     let _this = this
     let isSave = e.currentTarget.dataset.save
-    let taskData = {
+    let payload = {
       provinceCode: data.provinceCode,
       cityCode: data.cityCode,
       townCode: data.townCode,
@@ -779,7 +782,7 @@ Page({
       information: data.information
     }
     if (this.data.orderId) {
-      taskData.orderId = _this.data.orderId
+      payload.orderId = _this.data.orderId
     }
 
     let liveImageFiles = []
@@ -789,8 +792,8 @@ Page({
       }
     })
 
-    if (taskData.insuranceType == 1) {
-      let flag = this.isLicenseNo(taskData.plateNumber || '')
+    if (payload.insuranceType == 1) {
+      let flag = this.isLicenseNo(payload.plateNumber || '')
       if (!flag) {
         wx.showToast({
           mask: true,
@@ -814,7 +817,7 @@ Page({
       return
     }
 
-    if ((taskData.insuranceType == 1 && taskData.reportNumber == '') || !(/^[A-Za-z0-9]+$/.test(taskData.reportNumber))) {
+    if ((payload.insuranceType == 1 && payload.reportNumber == '') || !(/^[A-Za-z0-9]+$/.test(payload.reportNumber))) {
       wx.showToast({
         mask: true,
         title: '请输入正确的报案号',
@@ -824,21 +827,21 @@ Page({
       return
     }
 
-    if (taskData.customerPhone != ''){
-      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
+    if (payload.customerPhone != ''){
+      let isVaidcustomerPhone = this.checkPhone(payload.customerPhone, '请输入正确的沟通方式')
       if (!isVaidcustomerPhone) {
         return
       }
     }
 
-    if(taskData.damagedPhone != '') {
-      let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的沟通方式')
+    if(payload.damagedPhone != '') {
+      let isVaiddamagedPhone = this.checkPhone(payload.damagedPhone, '请输入正确的沟通方式')
       if (!isVaiddamagedPhone) {
         return
       }
     }
 
-    if (taskData.damagedPhone == '' && taskData.customerPhone == ''){
+    if (payload.damagedPhone == '' && payload.customerPhone == ''){
       wx.showToast({
         mask: true,
         title: '请填写沟通方式',
@@ -855,7 +858,7 @@ Page({
     util.request({
       path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/surveyCommit',
       method: 'POST',
-      data: taskData
+      data: payload
     }, function (err, res) {
       if (res.code == 0) {
         _this.setData({
@@ -901,7 +904,7 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.taskData.insuranceType
+        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.insuranceType
       })
     }
   },
@@ -963,7 +966,7 @@ Page({
       damageMoney,
       isAcceptance,
       isAgree
-    } = this.data.taskData
+    } = this.data
     if (!isSave) {
       if (budgetPreliminary == null || budgetPreliminary == '') {
         wx.showToast({
@@ -1071,7 +1074,7 @@ Page({
   },
   receiptApplySubmit (e) {
     let _this = this
-    let data = this.data.taskData
+    let data = this.data
     util.request({
       path: `/app/businessdamagenew/surveyBill`,
       method: 'POST',
@@ -1109,7 +1112,7 @@ Page({
   },
   receiptApproveSubmit (event) {
     let _this = this
-    let data = this.data.taskData
+    let data = this.data
     util.request({
       path: `/sys/businessdamagenew/managerBill`,
       method: 'POST',
@@ -1145,7 +1148,7 @@ Page({
   },
   receiptImageSubmit (e) {
     let _this = this
-    let data = this.data.taskData
+    let data = this.data
     if (!(data.moneySurvey <= 1000 || (data.moneySurvey > 1000 && data.managerReject == 2))) {
       wx.showToast({
         mask: true,
@@ -1171,7 +1174,6 @@ Page({
   },
   financeSubmit (e) {
     let _this = this
-    let data = this.data.taskData
     let isSave = e.currentTarget.dataset.save
     let financeImageFiles = []
     _this.data.financeImageFiles.map(item => {
@@ -1185,12 +1187,12 @@ Page({
       method: 'POST',
       data: {
         orderId: this.data.orderId,
-        financeRemark: this.data.taskData.financeRemark,
-        manageMoney: this.data.taskData.manageMoney,
-        insurePay: this.data.taskData.insurePay,
-        payWorker: this.data.taskData.payWorker,
-        cityManager: this.data.taskData.cityManager,
-        handlingType: this.data.taskData.handlingType
+        financeRemark: this.data.financeRemark,
+        manageMoney: this.data.manageMoney,
+        insurePay: this.data.insurePay,
+        payWorker: this.data.payWorker,
+        cityManager: this.data.cityManager,
+        handlingType: this.data.handlingType
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -1234,8 +1236,8 @@ Page({
       method: 'POST',
       data: {
         orderId: this.data.orderId,
-        commentToSurvey: this.data.taskData.commentToSurvey,
-        commentToOffer: this.data.taskData.commentToOffer
+        commentToSurvey: this.data.commentToSurvey,
+        commentToOffer: this.data.commentToOffer
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -1291,9 +1293,9 @@ Page({
       method: 'POST',
       data: {
         orderId: this.data.orderId,
-        information: this.data.taskData.information,
+        information: this.data.information,
         userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId'],
-        cityManager: this.data.taskData.cityManager
+        cityManager: this.data.cityManager
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -1330,7 +1332,7 @@ Page({
     })
   },
   bindTapToOffer (event) {
-    if ((this.data.taskData.status == 13 || this.data.taskData.status == 43) && this.data.role == 12) {
+    if ((this.data.status == 13 || this.data.status == 43) && this.data.role == 12) {
       this.workHandleWS(null, true, 1)
     } else {
       wx.navigateTo({
@@ -1451,12 +1453,12 @@ Page({
     switch (event.detail.name) {
       case '注销':
         wx.navigateTo({
-          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 0
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.insuranceType + '&manageType=' + 0
         })
         break
       case '修改信息':
         wx.navigateTo({
-          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.taskData.insuranceType + '&manageType=' + 1
+          url: '../new-ws-manage/new-ws-manage?id=' + this.id + '&type=' + this.data.insuranceType + '&manageType=' + 1
         })
         break
     }
@@ -1471,26 +1473,26 @@ Page({
       path: '/app/businessdamagenew/getInfoByContent',
       method: 'POST',
       data: {
-        content: that.data.taskData.information
+        content: that.data.information
       }
     }, function (err, res) {
       let data = res.data
       let state = {}
       if (data.county) {
         state.region = data.county
-        state['taskData.townCode'] = data.county
+        state['townCode'] = data.county
       }
       if (data.city) {
-        state['taskData.cityCode'] = data.city
+        state['cityCode'] = data.city
       }
       if (data.province) {
-        state['taskData.provinceCode'] = data.province
+        state['provinceCode'] = data.province
       }
       if (data.person) {
-        state['taskData.customerUser'] = data.person
+        state['customerUser'] = data.person
       }
       if (data.phonenum) {
-        state['taskData.customerPhone'] = data.phonenum
+        state['customerPhone'] = data.phonenum
       }
       that.setData(state, () => {
         that.getRegionLabel()
