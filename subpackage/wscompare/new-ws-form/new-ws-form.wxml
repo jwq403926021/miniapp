@@ -549,7 +549,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
-                    {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
+                    报价信息
                 </button>
             </view>
         </view>
