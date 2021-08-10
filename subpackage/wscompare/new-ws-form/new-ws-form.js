@@ -470,20 +470,10 @@ Page({
     let name = e.currentTarget.dataset.name;
     let index = e.currentTarget.dataset.index;
     let nameMap = {}
-    if (name.indexOf('.')) {
-      let nameList = name.split('.')
-      if (this.data[nameList[0]]) {
-        nameMap[nameList[0]] = this.data[nameList[0]]
-      } else {
-        nameMap[nameList[0]] = {}
-      }
-      nameMap[nameList[0]][nameList[1]] = e.detail.value
+    if (index !== undefined) {
+      nameMap[`${name}[${index}]`] = e.detail.value
     } else {
-      if (index) {
-        nameMap[name][index] = e.detail.value
-      } else {
-        nameMap[name] = e.detail.value
-      }
+      nameMap[name] = e.detail.value
     }
     this.setData(nameMap)
   },

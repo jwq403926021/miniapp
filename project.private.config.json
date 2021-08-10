@@ -112,6 +112,12 @@
           "pathName": "pages/videocall/videocall",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "subpackage/wscompare/new-ws-form/new-ws-form",
+          "pathName": "subpackage/wscompare/new-ws-form/new-ws-form",
+          "query": "",
+          "scene": null
         }
       ]
     }
