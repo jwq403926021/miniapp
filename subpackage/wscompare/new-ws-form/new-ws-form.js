@@ -7,7 +7,7 @@ Page({
   data: {
     orderId: null,
     showKeyboard: false,
-    // 1 查勘员、12 施工人员、客服人员（即初审人员，因为平台一人身兼多角色）、13 报价人员、22 财务人员、核损人、6 市级负责人、 5 省级负责人
+    // 1 查勘员、12 施工人员、8 客服人员、13 报价人员、22 财务人员、33 核损人、6 市级负责人、 5 省级负责人
     role: 1,
     liveImageFiles: [], // 案件图片
     projectBillImageFiles: [], // 工程量清单

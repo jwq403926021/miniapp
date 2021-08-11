@@ -1,8 +1,8 @@
 <view class="page">
     <view class="page__bd">
-        <view class="weui-cells__title">{{insuranceType == '1' ? '物损工单' : '非车工单'}}</view>
+        <view class="weui-cells__title">竞价{{insuranceType == '1' ? '物损工单' : '非车工单'}}</view>
         <view class="weui-cells weui-cells_after-title">
-            <block>
+            <block wx:if="{{orderId}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">工单号</view>
@@ -38,7 +38,7 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{insuranceType == '1'}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
@@ -215,7 +215,7 @@
             </view>
         </view>
 
-        <block>
+        <block wx:if="{{surveyUser}}">
             <view class="weui-cells__title">查勘员信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -241,7 +241,7 @@
                 </view>
             </view>
         </block>
-        <block>
+        <block wx:if="{{workerUser}}">
             <view class="weui-cells__title">施工方信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -268,7 +268,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{cityManagerName}}">
             <view class="weui-cells__title">平台负责人信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -498,7 +498,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="video-wrap">
+                <view class="video-wrap" wx:if="{{activeVideo}}">
                     <video id="myVideo" src="{{activeVideo}}" controls></video>
                     <button type="primary" bindtap="closePreviewVideo">关闭视频</button>
                 </view>
@@ -534,7 +534,7 @@
                 </view>
             </block>
 
-            <block>
+            <block wx:if="{{offerRemark}}">
                 <view class="weui-cells__title">报价员意见</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -554,7 +554,7 @@
             </view>
         </view>
 
-        <view class="weui-cells weui-cells_after-title"> <!--市负责人 转办-->
+        <view class="weui-cells weui-cells_after-title" wx:if="{{(role == 5 || role == 6 || role == 7)}}"> <!--市负责人 转办-->
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">转办区域</view>
@@ -578,7 +578,7 @@
             </view>
         </view>
 
-        <view class="weui-cells weui-cells_after-title"> <!--施工人员 转办-->
+        <view class="weui-cells weui-cells_after-title" wx:if="{{role == 12}}"> <!--施工人员 转办-->
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">施工人员</view>
@@ -594,7 +594,7 @@
             </view>
         </view>
 
-        <block>
+        <block wx:if="{{role == 1 && (status == 50 || status == 11)}}">
             <view class="weui-cells__title">查勘员开票</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -638,7 +638,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{accountName || moneySurvey}}">
             <view class="weui-cells__title">开票信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -675,7 +675,7 @@
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">市负责人是否通过</view>
+                        <view class="weui-label">负责人是否通过</view>
                     </view>
                     <view class="weui-cell__bd readonly">
                         {{managerReject ? (managerReject === '2' ? '通过' : '驳回') : ''}}
@@ -684,7 +684,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{role == 22}}">
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
@@ -723,35 +723,20 @@
                     </view>
                 </view>
             </view>
-            <block>
-                <view class="weui-cells__title">财务备注</view>
-                <view class="weui-cells weui-cells_after-title">
-                    <view class="weui-cell">
-                        <view class="weui-cell__bd">
-                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='financeRemark'
-                                      value="{{financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
-                        </view>
-                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                            {{financeRemark || '-'}}
-                        </view>
-                    </view>
-                </view>
-            </block>
-        </block>
-
-
-        <block>
-            <view class="weui-cells__title">注销原因</view>
+            <view class="weui-cells__title">财务备注</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='financeRemark'
+                                  value="{{financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
                     <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                        {{cancelRemark || '-'}}
+                        {{financeRemark || '-'}}
                     </view>
                 </view>
             </view>
         </block>
-
-        <block>
+        <block wx:if="{{(financeImageFiles.length > 0 && role != 10 && role != 11 && role != 12) || role == 22}}">
             <view class="weui-cells__title">财务图片</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
@@ -776,7 +761,18 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{cancelRemark}}">
+            <view class="weui-cells__title">注销原因</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{cancelRemark || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{authorityImageFiles.length}}">
             <view class="weui-cells__title">授权书</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
