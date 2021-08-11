@@ -48,7 +48,9 @@
       "root": "subpackage/wscompare/",
       "pages": [
         "new-my-list-ws/new-my-list-ws",
-        "new-ws-form/new-ws-form"
+        "new-ws-form/new-ws-form",
+        "new-ws-offer/new-ws-offer",
+        "new-ws-offer-survey/new-ws-offer-survey"
       ]
     }
   ],
