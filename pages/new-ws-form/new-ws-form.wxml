@@ -609,7 +609,7 @@
             </block>
         </block>
 
-        <view class="weui-cells weui-cells_after-title" wx:if="{{userId != 1871 && ((role === 1 && (taskData.status === 50 || taskData.status === 11)) || (role != 1 && taskData.status != null && taskData.status != 20))}}">
+        <view class="weui-cells weui-cells_after-title" wx:if="{{userId != 2620 && ((role === 1 && (taskData.status === 50 || taskData.status === 11)) || (role != 1 && taskData.status != null && taskData.status != 20))}}">
             <view class="weui-cell">
                 <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
                     {{role === 13 && taskData.status === 41 ? '待报价' : '报价信息'}}
