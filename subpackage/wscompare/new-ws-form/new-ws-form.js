@@ -60,6 +60,8 @@ Page({
     workType: '0',
     budgetPreliminary: '', // 初步估损金额
     damageMoney: '', // 受损方索赔金额
+    budgetPreliminarySurvey: '', // 初步估损金额
+    damageMoneySurvey: '', // 受损方索赔金额
     handlingType: '0',
     isAcceptance: '0',
     isAgree: '0',
@@ -235,6 +237,8 @@ Page({
         "workType": data.workType,
         "budgetPreliminary": data.budgetPreliminary,
         "damageMoney": data.damageMoney,
+        "budgetPreliminarySurvey": data.budgetPreliminarySurvey,
+        "damageMoneySurvey": data.damageMoneySurvey,
         'handlingType': data.handlingType,
         'deposit': data.deposit,
         'prepay': data.prepay,

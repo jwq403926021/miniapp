@@ -418,3 +418,5 @@ textarea[disabled]{
 .startYuyinImage cover-view {
     margin-top: 25rpx;
 }
+
+.lh24{line-height: 24px;}
