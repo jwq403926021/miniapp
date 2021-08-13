@@ -8,6 +8,9 @@
     "van-icon": "../../../asset/vant/icon/index",
     "van-dialog": "../../../asset/vant/dialog/index",
     "plate-number-keyboard": "../../../components/plate-number-keyboard/plate-number-keyboard",
-    "van-action-sheet": "../../../asset/vant/action-sheet/index"
+    "van-action-sheet": "../../../asset/vant/action-sheet/index",
+    "van-row": "../../../asset/vant/row/index",
+    "van-col": "../../../asset/vant/col/index",
+    "van-checkbox": "../../../asset/vant/checkbox/index"
   }
 }

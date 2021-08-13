@@ -410,7 +410,40 @@
                         <text class="weui-input readonly">{{(damageMoney == null || damageMoney == '') ? '-' : damageMoney}}</text>
                     </view>
                 </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">比价金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputgetName" data-name='compareEstimatePrice'
+                               value="{{compareEstimatePrice}}" placeholder="请输入比价金额"/>
+                    </view>
+                </view>
             </view>
+
+            <block>
+                <view class="weui-cells__title">比价列表</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="compare-wrapper" wx:if="{{compareList.length > 0}}">
+                        <van-row custom-class="compare-detail-table-header">
+                            <van-col span="10">施工人员</van-col>
+                            <van-col span="10">估损金额</van-col>
+                            <van-col span="4">操作</van-col>
+                        </van-row>
+                        <van-row wx:for="{{compareList}}" wx:key="index" custom-class="compare-detail-table-body">
+                            <van-col span="10">{{item.workerName}}</van-col>
+                            <van-col span="10">{{item.offer}}</van-col>
+                            <van-col span="4">
+                                <van-checkbox custom-class="idi-checkbox" bind:change="checkboxChange" data-target="compareList" data-index="{{index}}" value="{{ item.checked }}"></van-checkbox>
+                            </van-col>
+                        </van-row>
+                    </view>
+                    <view class="no-image" wx:else>
+                        无人员
+                    </view>
+                </view>
+            </block>
 
             <block>
                 <view class="weui-cells__title">工程量清单</view>
