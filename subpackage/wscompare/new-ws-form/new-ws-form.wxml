@@ -878,8 +878,8 @@
             <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
             <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
         </view>
-        <view class="button-sp-area two-btn-wrap"> <!-- 财务人员 提交 发票 -->
-            <button type="primary" bindtap="receiptImageSubmit">提交</button>
+        <view class="button-sp-area"> <!-- 财务人员 提交 发票 -->
+            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>
         </view>
         <view class="button-sp-area">
             <button type="primary" bindtap="assignToOther">转办</button>
