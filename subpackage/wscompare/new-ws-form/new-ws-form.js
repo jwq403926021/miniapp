@@ -210,6 +210,12 @@ Page({
         }
       })
       _this.setData({
+        compareList: (res.compareList || []).map(item => {
+          return {
+            ...item,
+            checked: false
+          }
+        }),
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
@@ -1493,6 +1499,27 @@ Page({
         wx.hideLoading()
       })
     })
+  },
+  checkboxChange (e) {
+    let checked = e.detail
+    let index = e.currentTarget.dataset.index
+    let target = e.currentTarget.dataset.target
+    if (target === 'compareList') {
+      this.data.compareList.forEach((item, idx) => {
+        if (idx == index) {
+          item.checked = true
+        } else {
+          item.checked = false
+        }
+      })
+      this.setData({
+        compareList: this.data.compareList
+      })
+    } else {
+      let data = {}
+      data[`${target}[${index}].checked`] = checked
+      this.setData(data)
+    }
   }
   // getMyLocation () {
   //   wx.chooseLocation({
