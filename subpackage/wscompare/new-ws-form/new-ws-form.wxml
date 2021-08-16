@@ -30,10 +30,10 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">区域</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{regionLabel || '-'}}</text>
                 </view>
             </view>
@@ -42,10 +42,10 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
-                <view class="weui-cell__bd" bind:tap="openPlatePicker">
+                <view class="weui-cell__bd" bind:tap="openPlatePicker" wx:if="{{orderId == null}}">
                     <text class="weui-input readonly">{{plateNumber || '请输入车牌号'}}</text>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{plateNumber || '-'}}</text>
                 </view>
             </view>
@@ -54,11 +54,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">报案号</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='reportNumber'
                            value="{{reportNumber}}" placeholder="报案号"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{reportNumber || '-'}}</text>
                 </view>
             </view>
@@ -67,11 +67,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">出险方</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='customerUser'
                            value="{{customerUser}}" placeholder="出险方姓名"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{customerUser || '-'}}</text>
                 </view>
             </view>
@@ -80,11 +80,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">沟通方式</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
                            value="{{customerPhone}}" placeholder="请输入电话号码"/>
                 </view>
-                <block>
+                <block wx:else>
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{customerPhone || '-'}}</text>
                     </view>
@@ -102,11 +102,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">受损方</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='damagedUser'
                            value="{{damagedUser}}" placeholder="受损方姓名"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{damagedUser || '-'}}</text>
                 </view>
             </view>
@@ -114,11 +114,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label">沟通方式</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='damagedPhone'
                            value="{{damagedPhone}}" placeholder="请输入电话号码"/>
                 </view>
-                <block>
+                <block wx:else>
                     <view class="weui-cell__bd">
                         <text class="weui-input readonly">{{damagedPhone || '-'}}</text>
                     </view>
@@ -137,13 +137,13 @@
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">承保方式</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <van-radio-group value="{{ acceptInsurance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="acceptInsurance">
                         <van-radio custom-class="fl mr5" name="1">异地</van-radio>
                         <van-radio custom-class="fl mr5" name="2">本地</van-radio>
                     </van-radio-group>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{acceptInsurance == 1 ? '异地' : '本地'}}</text>
                 </view>
             </view>
@@ -153,11 +153,11 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label lh24">初步估损金额(查)</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" type="digit" bindinput="inputgetName" data-name='budgetPreliminarySurvey'
                            value="{{budgetPreliminarySurvey}}"  placeholder="初步估损金额(查)"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{(budgetPreliminarySurvey == null || budgetPreliminarySurvey == '') ? '-' : budgetPreliminarySurvey}}</text>
                 </view>
             </view>
@@ -166,16 +166,33 @@
                 <view class="weui-cell__hd">
                     <view class="weui-label lh24">受损方索赔金额(查)</view>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
                     <input class="weui-input" type="digit" bindinput="inputgetName" data-name='damageMoneySurvey'
                            value="{{damageMoneySurvey}}"  placeholder="受损方索赔金额(查)"/>
                 </view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{(damageMoneySurvey == null || damageMoneySurvey == '') ? '-' : damageMoneySurvey}}</text>
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">服务类型</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId == null}}">
+                    <picker bindchange="serviceTypeChange" value="{{serviceTypeValue}}"
+                            range="{{serviceTypeList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{serviceTypeLabel || '请选择服务类型'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{serviceTypeLabel}}</text>
+                </view>
+            </view>
+
+            <view wx:if="{{companyName}}" class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">保险公司</view>
                 </view>
@@ -857,48 +874,48 @@
             <button type="primary" bindtap="submitWS">提交</button>
             <button data-save="true" bindtap="submitWS">暂存</button>
         </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="submitSurveyImage">上传图片</button>
-        </view>
-        <view class="button-sp-area two-btn-wrap"> <!-- 施工人员 提交 暂存 -->
-            <button type="primary" bindtap="workHandleWS">提交</button>
-            <button data-save="true" bindtap="workHandleWS">暂存</button>
-        </view>
-        <view class="button-sp-area"> <!-- 查勘员 申请开票 -->
-            <button type="primary" bindtap="receiptApplySubmit">申请开票</button>
-        </view>
-        <view class="button-sp-area"> <!-- 授权 -->
-            <button type="primary" bindtap="signSubmit">授权</button>
-        </view>
-        <view class="button-sp-area two-btn-wrap"> <!-- 财务人员 提交 暂存 -->
-            <button type="primary" bindtap="financeSubmit">提交</button>
-            <button data-save="true" bindtap="financeSubmit">暂存</button>
-        </view>
-        <view class="button-sp-area two-btn-wrap"> <!-- 市负责人 审核发票 -->
-            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
-            <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
-        </view>
-        <view class="button-sp-area"> <!-- 财务人员 提交 发票 -->
-            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>
-        </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="assignToOther">转办</button>
-        </view>
-        <view class="button-sp-area"> <!-- 施工人员 留言提交 -->
-            <button type="primary" bindtap="workerSubmitComment">留言提交</button>
-        </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
-        </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="offerSubmitImage">报价提交图片</button>
-        </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>
-        </view>
-        <view class="button-sp-area">
-            <button type="primary" bindtap="downloadImages">下载所有图片</button>
-        </view>
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="submitSurveyImage">上传图片</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 施工人员 提交 暂存 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="workHandleWS">提交</button>-->
+<!--            <button data-save="true" bindtap="workHandleWS">暂存</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area"> &lt;!&ndash; 查勘员 申请开票 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="receiptApplySubmit">申请开票</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area"> &lt;!&ndash; 授权 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="signSubmit">授权</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 财务人员 提交 暂存 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="financeSubmit">提交</button>-->
+<!--            <button data-save="true" bindtap="financeSubmit">暂存</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 市负责人 审核发票 &ndash;&gt;-->
+<!--            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>-->
+<!--            <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area"> &lt;!&ndash; 财务人员 提交 发票 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="assignToOther">转办</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area"> &lt;!&ndash; 施工人员 留言提交 &ndash;&gt;-->
+<!--            <button type="primary" bindtap="workerSubmitComment">留言提交</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="offerSubmitImage">报价提交图片</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>-->
+<!--        </view>-->
+<!--        <view class="button-sp-area">-->
+<!--            <button type="primary" bindtap="downloadImages">下载所有图片</button>-->
+<!--        </view>-->
 <!--        <view class="button-sp-area">-->
 <!--            <button type="primary" data-id="{{orderId}}" bindtap="openOperation">管理工单</button>-->
 <!--        </view>-->

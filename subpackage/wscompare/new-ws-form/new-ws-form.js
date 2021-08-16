@@ -16,6 +16,10 @@ Page({
     authorityImageFiles: [], // 授权图片
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
+    serviceTypeList: [],
+    serviceTypeListSource: [],
+    serviceTypeValue: '',
+    serviceTypeLabel: '',
     show: false,
     showreassign: false,
     showWorkerHit: false,
@@ -112,6 +116,7 @@ Page({
   onLoad: function (routeParams) {
     setTimeout(() => {
       this.routeParams = routeParams
+      this.getServiceTypeList()
       this.initArea(this.init)
     }, 500)
   },
@@ -146,7 +151,7 @@ Page({
       params.flag = flag
     }
     util.request({
-      path: '/app/businessdamagenew/damageDetail',
+      path: '/app/businessdamagecompare/damageDetail',
       method: 'GET',
       data: params
     }, function (err, res) {
@@ -288,7 +293,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: `/app/businessdamagenew/${key}`,
+      path: `/app/businessdamagecompare/${key}`,
       method: 'GET',
       data: {
         orderId: _this.data.orderId,
@@ -346,6 +351,24 @@ Page({
     }
     return true
   },
+  getServiceTypeList () {
+    try {
+      let _this = this
+      util.request({
+        path: '/app/businessdamagecompare/getWorkerProject',
+        method: 'GET'
+      }, function (err, res) {
+        _this.serviceTypeListSource = res.data
+        let serviceTypeList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          serviceTypeList: serviceTypeList
+        })
+      })
+    } catch (e) {
+    }
+  },
   initArea (callback) {
     wx.showLoading({
       mask: true,
@@ -378,7 +401,7 @@ Page({
   initReassignList () {
     let _this = this
     util.request({
-      path: '/app/businessdamagenew/getSameUnitWorker',
+      path: '/app/businessdamagecompare/getSameUnitWorker',
       method: 'GET',
       data: {
         workerId: this.data.workerId
@@ -416,6 +439,12 @@ Page({
     this.setData({
       'workerValue': event.detail.value,
       'workerLabel': this.workListSource[event.detail.value].name
+    })
+  },
+  serviceTypeChange (event) {
+    this.setData({
+      'serviceTypeValue': event.detail.value,
+      'serviceTypeLabel': this.serviceTypeListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -723,7 +752,7 @@ Page({
 
     if (worker && this.data.status == 20 && this.data.role == 12) {
       util.request({
-        path: '/app/businessdamagenew/contanctCustomer',
+        path: '/app/businessdamagecompare/contanctCustomer',
         method: 'GET',
         data: {
           orderId: _this.data.orderId,
@@ -779,7 +808,10 @@ Page({
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
       reportNumber: data.reportNumber,
-      information: data.information
+      information: data.information,
+      budgetPreliminarySurvey: data.budgetPreliminarySurvey,
+      damageMoneySurvey: data.damageMoneySurvey,
+      serviceType: this.serviceTypeListSource[data.serviceTypeValue]['id']
     }
     if (this.data.orderId) {
       payload.orderId = _this.data.orderId
@@ -834,11 +866,32 @@ Page({
       }
     }
 
-    if(payload.damagedPhone != '') {
-      let isVaiddamagedPhone = this.checkPhone(payload.damagedPhone, '请输入正确的沟通方式')
-      if (!isVaiddamagedPhone) {
-        return
-      }
+    if(payload.budgetPreliminarySurvey == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入初步估损金额(查)',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if(payload.serviceType == '') {
+      wx.showToast({
+        mask: true,
+        title: '请选择服务类型',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if(payload.damageMoneySurvey == '') {
+      wx.showToast({
+        mask: true,
+        title: '请输入受损方索赔金额(查)',
+        icon: 'none',
+        duration: 2000
+      })
+      return
     }
 
     if (payload.damagedPhone == '' && payload.customerPhone == ''){
@@ -856,7 +909,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/surveyCommit',
+      path: isSave ? '/app/businessdamagecompare/surveySave' : '/app/businessdamagecompare/surveyCommit',
       method: 'POST',
       data: payload
     }, function (err, res) {
@@ -896,7 +949,7 @@ Page({
   goToList () {
     let pages = getCurrentPages()
     let index = pages.findIndex((item) => {
-      return item.route == 'pages/new-my-list-ws/new-my-list-ws'
+      return item.route == 'subpackage/wscompare/new-my-list-ws/new-my-list-ws'
     })
     if (index != -1) {
       wx.navigateBack({
@@ -944,7 +997,7 @@ Page({
       }
     })
     let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
-    let url = isSave ? `/app/businessdamagenew/workerSave` : `/app/businessdamagenew/workerCommit`
+    let url = isSave ? `/app/businessdamagecompare/workerSave` : `/app/businessdamagecompare/workerCommit`
     let {
       provinceCode,
       cityCode,
@@ -1034,7 +1087,7 @@ Page({
         let failUp = 0
         if (isSendFirstTimeUpload) {
           util.request({
-            path: `/app/businessdamagenew/insertUploadTime`,
+            path: `/app/businessdamagecompare/insertUploadTime`,
             method: 'GET',
             data: {
               orderId: _this.data.orderId
@@ -1076,7 +1129,7 @@ Page({
     let _this = this
     let data = this.data
     util.request({
-      path: `/app/businessdamagenew/surveyBill`,
+      path: `/app/businessdamagecompare/surveyBill`,
       method: 'POST',
       data: {
         mail: data.mail,
@@ -1114,7 +1167,7 @@ Page({
     let _this = this
     let data = this.data
     util.request({
-      path: `/sys/businessdamagenew/managerBill`,
+      path: `/sys/businessdamagecompare/managerBill`,
       method: 'POST',
       data: {
         surveyId: data.surveyId,
@@ -1183,7 +1236,7 @@ Page({
     })
 
     util.request({
-      path: isSave ? `/app/businessdamagenew/financeSave` : `/app/businessdamagenew/financeCommit`,
+      path: isSave ? `/app/businessdamagecompare/financeSave` : `/app/businessdamagecompare/financeCommit`,
       method: 'POST',
       data: {
         orderId: this.data.orderId,
@@ -1232,7 +1285,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/workerMessage',
+      path: '/app/businessdamagecompare/workerMessage',
       method: 'POST',
       data: {
         orderId: this.data.orderId,
@@ -1259,7 +1312,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/sign',
+      path: '/app/businessdamagecompare/sign',
       method: 'GET',
       data: {
         orderId: this.data.orderId
@@ -1289,7 +1342,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/changeWorker',
+      path: '/app/businessdamagecompare/changeWorker',
       method: 'POST',
       data: {
         orderId: this.data.orderId,
@@ -1470,7 +1523,7 @@ Page({
       title: '识别中'
     })
     util.request({
-      path: '/app/businessdamagenew/getInfoByContent',
+      path: '/app/businessdamagecompare/getInfoByContent',
       method: 'POST',
       data: {
         content: that.data.information
