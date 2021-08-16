@@ -82,6 +82,7 @@ Page({
     commentToOffer: '',
     companyName: '',
     financeRemark: '',
+    serviceRemark: '',
     manageMoney: '',
     insurePay: '',
     payWorker: '',
@@ -258,6 +259,7 @@ Page({
         'cityManager': data.cityManager,
         'workerId': data.workerId,
         'commentToSurvey': data.commentToSurvey,
+        'serviceRemark': data.serviceRemark,
         'commentToOffer': data.commentToOffer,
         'financeRemark': data.financeRemark,
         'manageMoney': data.manageMoney,
@@ -791,6 +793,88 @@ Page({
     if (imgPaths.length) {
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
     }
+  },
+  serviceSubmit (e) {
+    let data = this.data
+    let _this = this
+    let type = e.currentTarget.dataset.type
+    let url = ""
+    switch (type) {
+      case '0':
+        url = '/app/businessdamagecompare/serviceSave'
+        break;
+      case '1':
+        url = '/app/businessdamagecompare/serviceCommit'
+        break;
+      case '2':
+        url = '/app/businessdamagecompare/serviceReject'
+        break;
+    }
+    let {
+      provinceCode,
+      cityCode,
+      townCode,
+      damagedUser,
+      damagedPhone,
+      customerUser,
+      customerPhone,
+      plateNumber,
+      insuranceType,
+      orderId,
+      reportNumber,
+      acceptInsurance,
+      serviceType,
+      serviceRemark,
+      budgetPreliminarySurvey,
+      surveyId
+    } = data
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: url,
+      method: 'POST',
+      data: {
+        provinceCode,
+        cityCode,
+        townCode,
+        damagedUser,
+        damagedPhone,
+        customerUser,
+        customerPhone,
+        plateNumber,
+        insuranceType,
+        orderId,
+        reportNumber,
+        acceptInsurance,
+        serviceType,
+        serviceRemark,
+        budgetPreliminarySurvey,
+        surveyId
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: "操作成功",
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
   },
   submitWS (e) {
     let data = this.data

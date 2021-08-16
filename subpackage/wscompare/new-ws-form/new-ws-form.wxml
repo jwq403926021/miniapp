@@ -559,6 +559,21 @@
             </view>
 
             <block>
+                <view class="weui-cells__title">客服留言</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{role == 8}}">
+                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='serviceRemark'
+                                      value="{{serviceRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                        <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                            {{serviceRemark || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block>
                 <view class="weui-cells__title">留言[查勘员]</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -847,9 +862,16 @@
             </view>
         </block>
 
-        <view class="button-sp-area two-btn-wrap"> <!-- 新建 暂存 -->
+        <view wx:if="{{(role == 1 && (orderId == null || status == 21))}}" class="button-sp-area two-btn-wrap"> <!-- 查勘员 -->
             <button type="primary" bindtap="submitWS">提交</button>
             <button data-save="true" bindtap="submitWS">暂存</button>
+        </view>
+        <view wx:if="{{(role == 8 && (status == 20 || status == 33))}}" class="button-sp-area two-btn-wrap"> <!-- 客服 -->
+            <button type="primary" bindtap="serviceSubmit" data-type="0">提交</button>
+            <button data-save="true" bindtap="serviceSubmit" data-type="1">暂存</button>
+        </view>
+        <view wx:if="{{(role == 8 && (status == 20 || status == 33))}}" class="button-sp-area"> <!-- 客服 -->
+            <button type="primary" bindtap="serviceSubmit" data-type="2">驳回</button>
         </view>
 <!--        <view class="button-sp-area">-->
 <!--            <button type="primary" bindtap="submitSurveyImage">上传图片</button>-->
