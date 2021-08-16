@@ -3,6 +3,12 @@ import util from "../../../utils/util";
 import common from "../../../utils/common";
 const app = getApp()
 
+// role == 8 && (status == 20 || status == 33)
+// role == 1 && (orderId == null || status == 21)
+// role == 12 && (status == 20 || status == 13 || status == 42 || status == 39 || status == 43)
+// role == 22 && (status == 41 || status == 50)
+// role == 33 && (status == 51)
+
 Page({
   data: {
     orderId: null,
@@ -746,7 +752,32 @@ Page({
     })
   },
   dialPhone (e) {
+    let _this = this
     let phone = e.currentTarget.dataset.phone+'';
+    let worker = e.currentTarget.dataset.worker+'';
+
+    if (worker && this.data.status == 20 && this.data.role == 12) {
+      util.request({
+        path: '/app/businessdamagecompare/contanctCustomer',
+        method: 'GET',
+        data: {
+          orderId: _this.data.orderId,
+          surveyId: _this.data.surveyId
+        }
+      }, function (err, res) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      })
+    }
     wx.makePhoneCall({
       phoneNumber: phone
     })
