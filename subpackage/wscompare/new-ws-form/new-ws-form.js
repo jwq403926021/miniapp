@@ -3,11 +3,11 @@ import util from "../../../utils/util";
 import common from "../../../utils/common";
 const app = getApp()
 
-// role == 8 && (status == 20 || status == 33)
-// role == 1 && (orderId == null || status == 21)
-// role == 12 && (status == 20 || status == 13 || status == 42 || status == 39 || status == 43)
-// role == 22 && (status == 41 || status == 50)
-// role == 33 && (status == 51)
+// (role == 1 && (orderId == null || status == 21))
+// (role == 8 && (status == 20 || status == 33))
+// (role == 12 && (status == 22 || status == 13 || status == 42 || status == 39 || status == 43))
+// (role == 22 && (status == 41 || status == 50))
+// (role == 33 && (status == 51))
 
 Page({
   data: {
@@ -221,12 +221,6 @@ Page({
         }
       })
       _this.setData({
-        compareList: (res.compareList || []).map(item => {
-          return {
-            ...item,
-            checked: false
-          }
-        }),
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
@@ -1558,27 +1552,6 @@ Page({
         wx.hideLoading()
       })
     })
-  },
-  checkboxChange (e) {
-    let checked = e.detail
-    let index = e.currentTarget.dataset.index
-    let target = e.currentTarget.dataset.target
-    if (target === 'compareList') {
-      this.data.compareList.forEach((item, idx) => {
-        if (idx == index) {
-          item.checked = true
-        } else {
-          item.checked = false
-        }
-      })
-      this.setData({
-        compareList: this.data.compareList
-      })
-    } else {
-      let data = {}
-      data[`${target}[${index}].checked`] = checked
-      this.setData(data)
-    }
   }
   // getMyLocation () {
   //   wx.chooseLocation({
