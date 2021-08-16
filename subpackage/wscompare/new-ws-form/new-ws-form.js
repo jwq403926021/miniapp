@@ -746,32 +746,7 @@ Page({
     })
   },
   dialPhone (e) {
-    let _this = this
     let phone = e.currentTarget.dataset.phone+'';
-    let worker = e.currentTarget.dataset.worker+'';
-
-    if (worker && this.data.status == 20 && this.data.role == 12) {
-      util.request({
-        path: '/app/businessdamagecompare/contanctCustomer',
-        method: 'GET',
-        data: {
-          orderId: _this.data.orderId,
-          surveyId: _this.data.surveyId
-        }
-      }, function (err, res) {
-        wx.showToast({
-          mask: true,
-          title: '操作成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      })
-    }
     wx.makePhoneCall({
       phoneNumber: phone
     })
