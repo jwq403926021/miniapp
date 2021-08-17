@@ -1081,7 +1081,7 @@ Page({
       }
     })
     let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
-    let url = isSave ? `/app/businessdamagecompare/workerSave` : `/app/businessdamagecompare/workerCommit`
+    let url = '/app/businessdamagecompare/workCompare' // isSave ? `/app/businessdamagecompare/workerSave` : `/app/businessdamagecompare/workerCommit`
     let {
       provinceCode,
       cityCode,
