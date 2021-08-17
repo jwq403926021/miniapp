@@ -227,7 +227,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/businessdamagenew/orders',
+      path: '/app/businessdamagecompare/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
@@ -325,7 +325,7 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: `/app/businessdamagenew/${key}`,
+      path: `/app/businessdamagecompare/${key}`,
       method: 'GET',
       data: {
         orderId: id,
