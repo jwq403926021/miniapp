@@ -5,7 +5,7 @@ const app = getApp()
 
 // (role == 1 && (orderId == null || status == 21))
 // (role == 8 && (status == 20 || status == 33))
-// (role == 12 && (status == 22 || status == 13 || status == 42 || status == 39 || status == 43))
+// (role == 12 && (status == 13 || status == 42 || status == 39 || status == 43))
 // (role == 22 && (status == 41 || status == 50))
 // (role == 33 && (status == 51))
 
@@ -164,7 +164,7 @@ Page({
     }, function (err, res) {
       let data = res.data
 
-      if (data.status == 20 && _this.data.role == 12) {
+      if (data.status == 22 && _this.data.role == 12) {
         _this.setData({
           showWorkerHit: true
         })
