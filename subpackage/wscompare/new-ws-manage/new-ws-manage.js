@@ -1,6 +1,6 @@
 //获取应用实例
-import util from "../../utils/util";
-import common from "../../utils/common";
+import util from "../../../utils/util";
+import common from "../../../utils/common";
 const app = getApp()
 
 Page({
