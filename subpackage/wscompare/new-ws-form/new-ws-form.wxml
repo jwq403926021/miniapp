@@ -427,16 +427,6 @@
                         <text class="weui-input readonly">{{(damageMoney == null || damageMoney == '') ? '-' : damageMoney}}</text>
                     </view>
                 </view>
-
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{(role == 12 && status == 39)}}">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">比价金额</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputgetName" data-name='compareEstimatePrice'
-                               value="{{compareEstimatePrice}}" placeholder="请输入比价金额"/>
-                    </view>
-                </view>
             </view>
 
             <block>
@@ -876,9 +866,12 @@
         <view wx:if="{{role == 1}}" class="button-sp-area">
             <button type="primary" bindtap="submitSurveyImage">上传图片</button>
         </view>
-        <view wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43))}}" class="button-sp-area"> <!-- two-btn-wrap 施工人员 提交 暂存 -->
+        <view wx:if="{{(role == 12 && (status == 39))}}" class="button-sp-area"> <!-- 施工人员 比价 -->
+            <button type="primary" bindtap="compareCommit">提交比价</button>
+        </view>
+        <view wx:if="{{(role == 12 && (status == 13 || status == 43))}}" class="button-sp-area two-btn-wrap"> <!-- 施工人员 提交 暂存 -->
             <button type="primary" bindtap="workHandleWS">提交</button>
-<!--            <button data-save="true" bindtap="workHandleWS">暂存</button>-->
+            <button data-save="true" bindtap="workHandleWS">暂存</button>
         </view>
         <view wx:if="{{(role == 12 && (status == 22))}}" class="button-sp-area">
             <button type="primary" bindtap="assignToOther">转办</button>

@@ -1044,6 +1044,52 @@ Page({
       })
     }
   },
+  compareCommit () {
+    let _this = this
+    let {budgetPreliminary,orderId} = this.data
+    if (budgetPreliminary == null || budgetPreliminary == '') {
+      wx.showToast({
+        mask: true,
+        title: '初步估损金额(施)不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagecompare/workCompare',
+      method: 'POST',
+      data: {
+        orderId,
+        budgetPreliminary
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   workHandleWS (e, save, isOfferSave) {
     let _this = this
     let isSave = e ? e.currentTarget.dataset.save : save
@@ -1080,7 +1126,7 @@ Page({
       }
     })
     let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
-    let url = '/app/businessdamagecompare/workCompare' // isSave ? `/app/businessdamagecompare/workerSave` : `/app/businessdamagecompare/workerCommit`
+    let url = isSave ? `/app/businessdamagecompare/workerSave` : `/app/businessdamagecompare/workerCommit`
     let {
       provinceCode,
       cityCode,
@@ -1104,24 +1150,6 @@ Page({
       isAgree
     } = this.data
     if (!isSave) {
-      if (budgetPreliminary == null || budgetPreliminary == '') {
-        wx.showToast({
-          mask: true,
-          title: '初步估损金额不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
-      if (damageMoney == null || damageMoney == '') {
-        wx.showToast({
-          mask: true,
-          title: '受损方索赔金额不能为空',
-          icon: 'none',
-          duration: 1000
-        })
-        return false
-      }
       if (handlingType == null || handlingType == '') {
         wx.showToast({
           mask: true,
