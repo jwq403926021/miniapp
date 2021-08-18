@@ -88,7 +88,7 @@ Page({
   loadData () {
     let _this = this
     util.request({
-      path: '/app/businessdamagenew/damageDetail',
+      path: '/app/businessdamagecompare/damageDetail',
       method: 'GET',
       data: {
         orderId: _this.data.orderId
@@ -103,7 +103,7 @@ Page({
     })
 
     util.request({
-      path: `/app/businessdamagenew/damagePriceDetail`,
+      path: `/app/businessdamagecompare/damagePriceDetail`,
       method: 'GET',
       data: {
         orderId: _this.data.orderId

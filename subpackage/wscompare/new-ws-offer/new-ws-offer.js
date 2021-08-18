@@ -341,7 +341,7 @@ Page({
     })
     let _this = this
     util.request({
-      path: '/app/businessdamagenew/damageDetail',
+      path: '/app/businessdamagecompare/damageDetail',
       method: 'GET',
       data: {
         orderId: _this.data.orderId
@@ -382,7 +382,7 @@ Page({
   loadData () {
     let _this = this
     util.request({
-      path: `/app/businessdamagenew/damagePriceDetail`,
+      path: `/app/businessdamagecompare/damagePriceDetail`,
       method: 'GET',
       data: {
         orderId: _this.data.orderId
@@ -765,7 +765,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: save == 0 ? '/app/businessdamagenew/workerPriceSave' : '/app/businessdamagenew/workerPriceCommit',
+      path: save == 0 ? '/app/businessdamagecompare/workerPriceSave' : '/app/businessdamagecompare/workerPriceCommit',
       method: 'POST',
       data: params
     }, function (err, res) {
@@ -876,7 +876,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: save == 0 ? '/app/businessdamagenew/offerPriceSave' : '/app/businessdamagenew/offerPriceCommit',
+      path: save == 0 ? '/app/businessdamagecompare/offerPriceSave' : '/app/businessdamagecompare/offerPriceCommit',
       method: 'POST',
       data: params
     }, function (err, res) {
@@ -916,7 +916,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/offerPriceReject',
+      path: '/app/businessdamagecompare/offerPriceReject',
       method: 'POST',
       data: {
         orderId: _this.data.orderId,
@@ -1030,7 +1030,7 @@ Page({
     }
 
     util.request({
-      path: `/app/businessdamagenew/insertPrice`,
+      path: `/app/businessdamagecompare/insertPrice`,
       method: 'POST',
       data: data
     }, function (err, res) {
