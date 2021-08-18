@@ -5,7 +5,7 @@ const app = getApp()
 
 // (role == 1 && (orderId == null || status == 21))
 // (role == 8 && (status == 20 || status == 33))
-// (role == 12 && (status == 13 || status == 42 || status == 39 || status == 43))
+// (role == 12 && (status == 13 || status == 39 || status == 43))
 // (role == 22 && (status == 41 || status == 50))
 // (role == 33 && (status == 51))
 
@@ -41,8 +41,7 @@ Page({
       '20': '待客服人员处理',
       '21': '客服驳回',
       '22': '已派送',
-      '13': '已确认',
-      '42': '待施工人员报价',
+      '13': '待施工人员报价',
       '39': '比价中',
       '41': '待报价',
       '43': '报价驳回',
