@@ -1,0 +1,84 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells__title">管理工单</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">工单号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{id}}</text>
+                </view>
+            </view>
+
+            <block wx:if="{{manageType == 0}}">
+                <view class="weui-cells__title">注销备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='cancelRemark'
+                                      value="{{cancelRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block wx:if="{{manageType == 1}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{insuranceType == '1'}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">车牌号</view>
+                    </view>
+                    <view class="weui-cell__bd" bind:tap="openPlatePicker">
+                        <text class="weui-input">{{plateNumber}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险方</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputgetName" data-name='customerUser'
+                               value="{{customerUser}}" placeholder="出险方"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">沟通方式</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
+                               value="{{customerPhone}}" placeholder="请输入电话号码"/>
+                    </view>
+                </view>
+                <block wx:if="{{insuranceType != '2'}}">
+                    <view class="weui-cell weui-cell_input">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">受损方</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputgetName" data-name='damagedUser'
+                                   value="{{damagedUser}}" placeholder="受损方"/>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">沟通方式</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-input" bindinput="inputgetName" data-name='damagedPhone'
+                                   value="{{damagedPhone}}" placeholder="请输入电话号码"/>
+                        </view>
+                    </view>
+                </block>
+            </block>
+        </view>
+
+        <view class="button-sp-area" wx:if="{{manageType == 0}}">
+            <button type="primary" bindtap="submitRequest">注销提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{manageType == 1}}">
+            <button type="primary" bindtap="submitModifyRequest">修改提交</button>
+        </view>
+    </view>
+    <plate-number-keyboard show="{{showKeyboard}}" bind:getResult="setNumber" bind:close="closePlateNum" initValue="{{plateNumber}}"></plate-number-keyboard>
+</view>
