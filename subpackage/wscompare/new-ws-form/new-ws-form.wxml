@@ -889,10 +889,10 @@
 <!--        <view class="button-sp-area"> &lt;!&ndash; 授权 &ndash;&gt;-->
 <!--            <button type="primary" bindtap="signSubmit">授权</button>-->
 <!--        </view>-->
-<!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 财务人员 提交 暂存 &ndash;&gt;-->
-<!--            <button type="primary" bindtap="financeSubmit">提交</button>-->
-<!--            <button data-save="true" bindtap="financeSubmit">暂存</button>-->
-<!--        </view>-->
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (status == 11 || status == 50)}}"> <!-- 财务人员 提交 暂存 -->
+            <button type="primary" bindtap="financeSubmit">提交</button>
+            <button data-save="true" bindtap="financeSubmit">暂存</button>
+        </view>
 <!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 市负责人 审核发票 &ndash;&gt;-->
 <!--            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>-->
 <!--            <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>-->
@@ -901,24 +901,22 @@
 <!--            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>-->
 <!--        </view>-->
 
-<!--        <view class="button-sp-area"> &lt;!&ndash; 施工人员 留言提交 &ndash;&gt;-->
-<!--            <button type="primary" bindtap="workerSubmitComment">留言提交</button>-->
-<!--        </view>-->
-<!--        <view class="button-sp-area">-->
-<!--            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>-->
-<!--        </view>-->
-<!--        <view class="button-sp-area">-->
-<!--            <button type="primary" bindtap="offerSubmitImage">报价提交图片</button>-->
-<!--        </view>-->
-<!--        <view class="button-sp-area">-->
-<!--            <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>-->
-<!--        </view>-->
-        <view class="button-sp-area">
+        <view class="button-sp-area" wx:if="{{role == 12 && (status == 13 ||status == 43)}}"> <!-- 施工人员 留言提交 -->
+            <button type="primary" bindtap="workerSubmitComment">施工提交留言</button>
+            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 13 && status == 41}}">
+            <button type="primary" bindtap="offerSubmitImage">报价提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 5 || role == 6 || role == 7}}">
+            <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{orderId != null}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
-<!--        <view class="button-sp-area">-->
-<!--            <button type="primary" data-id="{{orderId}}" bindtap="openOperation">管理工单</button>-->
-<!--        </view>-->
+        <view class="button-sp-area" wx:if="{{(role == 5 || role == 6 || role == 7) && status != null}}">
+            <button type="primary" data-id="{{orderId}}" bindtap="openOperation">管理工单</button>
+        </view>
 
     </view>
     <van-popup
