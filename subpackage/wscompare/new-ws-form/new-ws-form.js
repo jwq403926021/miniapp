@@ -751,7 +751,7 @@ Page({
     let phone = e.currentTarget.dataset.phone+'';
     let worker = e.currentTarget.dataset.worker+'';
 
-    if (worker && this.data.status == 20 && this.data.role == 12) {
+    if (worker && this.data.status == 22 && this.data.role == 12) {
       util.request({
         path: '/app/businessdamagecompare/contanctCustomer',
         method: 'GET',

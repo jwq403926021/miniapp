@@ -1,15 +1,15 @@
 {
   "usingComponents": {
-    "van-icon": "../../asset/vant/icon/index",
-    "van-collapse": "../../asset/vant/collapse/index",
-    "van-collapse-item": "../../asset/vant/collapse-item/index",
-    "van-row": "../../asset/vant/row/index",
-    "van-col": "../../asset/vant/col/index",
-    "van-button": "../../asset/vant/button/index",
-    "van-switch": "../../asset/vant/switch/index",
-    "van-area": "../../asset/vant/area/index",
-    "van-popup": "../../asset/vant/popup/index",
-    "van-action-sheet": "../../asset/vant/action-sheet/index",
-    "van-cell": "../../asset/vant/cell/index"
+    "van-icon": "../../../asset/vant/icon/index",
+    "van-collapse": "../../../asset/vant/collapse/index",
+    "van-collapse-item": "../../../asset/vant/collapse-item/index",
+    "van-row": "../../../asset/vant/row/index",
+    "van-col": "../../../asset/vant/col/index",
+    "van-button": "../../../asset/vant/button/index",
+    "van-switch": "../../../asset/vant/switch/index",
+    "van-area": "../../../asset/vant/area/index",
+    "van-popup": "../../../asset/vant/popup/index",
+    "van-action-sheet": "../../../asset/vant/action-sheet/index",
+    "van-cell": "../../../asset/vant/cell/index"
   }
 }

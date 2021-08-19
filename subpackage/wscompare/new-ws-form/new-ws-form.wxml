@@ -201,7 +201,7 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">交强险</view>
                 </view>
@@ -209,7 +209,7 @@
                     <view data-index='{{index}}' data-id="{{orderId}}" data-type="0" data-value="{{isCompulsory}}" catchtap="setFinishCase" class="{{isCompulsory == 1 ? 'finished' : 'not-finish'}} fl"></view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">商业险</view>
                 </view>
@@ -240,17 +240,17 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files">
-                                <view wx:if="{{!(role == 1 && (orderId == null || status == 21))}}" class="no-image">
+                                <view wx:if="{{liveImageFiles.length == 0 && orderId != null && status != null && !(role == 1 || role == 5 || role == 6 || role == 7)}}" class="no-image">
                                     无图片
                                 </view>
                                 <block wx:for="{{liveImageFiles}}" wx:key="index">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="liveImageFiles" id="{{item.path}}">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{(role == 1 && (orderId == null || status == 21))}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view wx:if="{{(role == 1 && (orderId == null || status == 21))}}" class="weui-uploader__input-box">
+                            <view wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}" class="weui-uploader__input-box">
                                 <view class="weui-uploader__input" bindtap="chooseImage" data-name="liveImageFiles"></view>
                             </view>
                         </view>
@@ -339,7 +339,7 @@
             </view>
         </block>
 
-        <block>
+        <block wx:if="{{orderId != null && status != null}}">
             <view class="weui-cells">
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -605,7 +605,8 @@
             </block>
         </block>
 
-        <view class="weui-cells weui-cells_after-title">
+        <view wx:if="{{userId != 2620 && status != null}}"
+                class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
                     报价信息
@@ -865,7 +866,7 @@
                 <button type="primary" bindtap="serviceSubmit" data-type="2">驳回</button>
             </view>
         </block>
-        <view wx:if="{{role == 1}}" class="button-sp-area">
+        <view wx:if="{{role == 1 && status != null}}" class="button-sp-area">
             <button type="primary" bindtap="submitSurveyImage">上传图片</button>
         </view>
         <view wx:if="{{(role == 12 && (status == 39))}}" class="button-sp-area"> <!-- 施工人员 比价 -->
