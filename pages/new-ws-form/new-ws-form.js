@@ -214,6 +214,8 @@ Page({
         financeImageFiles: financeImageFiles,
         authorityImageFiles: authorityImageFiles,
         workVideo: workVideo,
+        'taskData.cityManagerName': data.cityManagerName,
+        'taskData.cityManagerMobile': data.cityManagerMobile,
         'taskData.surveyId': data.surveyId,
         'taskData.status': data.status,
         'taskData.insuranceType': data.insuranceType,

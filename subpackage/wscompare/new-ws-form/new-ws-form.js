@@ -232,6 +232,8 @@ Page({
         financeImageFiles: financeImageFiles,
         authorityImageFiles: authorityImageFiles,
         workVideo: workVideo,
+        'cityManagerName': data.cityManagerName,
+        'cityManagerMobile': data.cityManagerMobile,
         'surveyId': data.surveyId,
         'status': data.status,
         'insuranceType': data.insuranceType,
