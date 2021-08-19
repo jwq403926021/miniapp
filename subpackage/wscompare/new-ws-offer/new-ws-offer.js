@@ -675,8 +675,8 @@ Page({
     })
   },
   goBack () {
-    wx.navigateBack({
-      delta: 1
+    wx.navigateTo({
+      url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
     })
   },
   checkOfferListItem () {
@@ -776,9 +776,7 @@ Page({
           icon: 'success',
           duration: 1000,
           success () {
-            wx.navigateTo({
-              url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
-            })
+            _this.goBack()
           }
         })
       } else {
