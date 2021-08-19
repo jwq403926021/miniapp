@@ -821,6 +821,19 @@
             </view>
         </block>
 
+        <view class="weui-cells__title">核损员备注</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view wx:if="{{(role == 33 && (status == 51))}}" class="weui-cell__bd">
+                    <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='surveyLossRemark'
+                              value="{{surveyLossRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                </view>
+                <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                    {{surveyLossRemark || '-'}}
+                </view>
+            </view>
+        </view>
+
         <block wx:if="{{cancelRemark}}">
             <view class="weui-cells__title">注销原因</view>
             <view class="weui-cells weui-cells_after-title">
@@ -894,6 +907,10 @@
         <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (status == 11 || status == 50)}}"> <!-- 财务人员 提交 暂存 -->
             <button type="primary" bindtap="financeSubmit">提交</button>
             <button data-save="true" bindtap="financeSubmit">暂存</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{(role == 33 && (status == 51))}}"> <!-- 核损人 审核 -->
+            <button data-type="1" type="primary" bindtap="confirmSubmit">驳回</button>
+            <button data-type="2" type="primary" bindtap="confirmSubmit">通过</button>
         </view>
 <!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 市负责人 审核发票 &ndash;&gt;-->
 <!--            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>-->

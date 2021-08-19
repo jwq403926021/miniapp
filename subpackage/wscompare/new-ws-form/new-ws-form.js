@@ -81,6 +81,7 @@ Page({
     commentToOffer: '',
     companyName: '',
     financeRemark: '',
+    surveyLossRemark: '',
     serviceRemark: '',
     manageMoney: '',
     insurePay: '',
@@ -261,6 +262,7 @@ Page({
         'serviceRemark': data.serviceRemark,
         'commentToOffer': data.commentToOffer,
         'financeRemark': data.financeRemark,
+        'surveyLossRemark': data.surveyLossRemark,
         'manageMoney': data.manageMoney,
         'insurePay': data.insurePay,
         'payWorker': data.payWorker,
@@ -1250,6 +1252,42 @@ Page({
         orderId: _this.data.orderId,
         cityCode: data.cityCode,
         insuranceType: data.insuranceType
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  confirmSubmit (event) {
+    let _this = this
+    let data = this.data
+    let type = event.currentTarget.dataset.type
+    util.request({
+      path: type == '1' ? `/app/businessdamagecompare/losserReject` : `/app/businessdamagecompare/losserPass`,
+      method: 'POST',
+      data: {
+        surveyId: data.surveyId,
+        orderId: data.orderId,
+        serviceId: data.serviceId,
+        surveyLossRemark: data.surveyLossRemark
       }
     }, function (err, res) {
       if (res.code == 0) {
