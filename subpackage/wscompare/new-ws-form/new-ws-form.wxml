@@ -341,11 +341,11 @@
 
         <block wx:if="{{orderId != null && status != null}}">
             <view class="weui-cells">
-                <view class="weui-cell weui-cell_select">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">处理方式</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43))}}">
+                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43)) || (role == 22 && (status == 11 || status == 50))}}">
                         <van-radio-group value="{{ handlingType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="handlingType">
                             <van-radio custom-class="fl mr5" name="0">咨询</van-radio>
                             <van-radio custom-class="fl mr5" name="1">施工</van-radio>
@@ -371,7 +371,7 @@
                     </view>
                 </view>
 
-                <view class="weui-cell weui-cell_select" wx:if="{{handlingType == 1}}">
+                <view class="weui-cell weui-cell_select" wx:if="{{handlingType == 1 && role != 1}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">施工方式</view>
                     </view>
@@ -387,7 +387,7 @@
                     </view>
                 </view>
 
-                <view class="weui-cell weui-cell_select" wx:if="{{handlingType != 0}}">
+                <view class="weui-cell weui-cell_select" wx:if="{{handlingType != 0 && role != 1}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">验收</view>
                     </view>
@@ -609,7 +609,7 @@
                 class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
-                    报价信息
+                    {{role == 13 && status == 41 ? '待报价' : '报价信息'}}
                 </button>
             </view>
         </view>
@@ -733,9 +733,9 @@
                         {{moneySurvey || '-'}}
                     </view>
                 </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role == 22}}">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">负责人是否通过</view>
+                        <view class="weui-label">市负责人是否通过</view>
                     </view>
                     <view class="weui-cell__bd readonly">
                         {{managerReject ? (managerReject === '2' ? '通过' : '驳回') : ''}}
@@ -871,6 +871,9 @@
             <button type="primary" bindtap="submitWS">提交</button>
             <button data-save="true" bindtap="submitWS">暂存</button>
         </view>
+        <view wx:if="{{role == 1 && status != null}}" class="button-sp-area">
+            <button type="primary" bindtap="submitSurveyImage">上传图片</button>
+        </view>
         <block wx:if="{{(role == 8 && (status == 20 || status == 33))}}">
             <view class="button-sp-area two-btn-wrap"> <!-- 客服 -->
                 <button type="primary" bindtap="serviceSubmit" data-type="1">提交</button>
@@ -880,18 +883,14 @@
                 <button type="primary" bindtap="serviceSubmit" data-type="2">驳回</button>
             </view>
         </block>
-        <view wx:if="{{role == 1 && status != null}}" class="button-sp-area">
-            <button type="primary" bindtap="submitSurveyImage">上传图片</button>
-        </view>
+
         <view wx:if="{{(role == 12 && (status == 39))}}" class="button-sp-area"> <!-- 施工人员 比价 -->
             <button type="primary" bindtap="compareCommit">提交比价</button>
         </view>
-        <block wx:if="{{(role == 12 && (status == 13 || status == 43))}}" >
-            <view class="button-sp-area two-btn-wrap"> <!-- 施工人员 提交 暂存 -->
-                <button type="primary" bindtap="workHandleWS">提交</button>
-                <button data-save="true" bindtap="workHandleWS">暂存</button>
-            </view>
-        </block>
+        <view wx:if="{{(role == 12 && (status == 13 || status == 43))}}" class="button-sp-area two-btn-wrap"> <!-- 施工人员 提交 暂存 -->
+            <button type="primary" bindtap="workHandleWS">提交</button>
+            <button data-save="true" bindtap="workHandleWS">暂存</button>
+        </view>
         <view wx:if="{{role == 12}}" class="button-sp-area two-btn-wrap">
             <button type="primary" bindtap="workerSubmitComment">施工提交留言</button>
             <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
@@ -948,9 +947,9 @@
         <van-area columns-num="{{2}}" area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
     </van-popup>
     <van-dialog
-            message="请拨打出险方电话或者受损方电话。"
-            title="提醒"
-            show="{{ showWorkerHit }}"
+        message="请拨打出险方电话或者受损方电话。"
+        title="提醒"
+        show="{{ showWorkerHit }}"
     ></van-dialog>
     <plate-number-keyboard show="{{showKeyboard}}" bind:getResult="setNumber" bind:close="closePlateNum" initValue="{{plateNumber}}"></plate-number-keyboard>
     <van-action-sheet
