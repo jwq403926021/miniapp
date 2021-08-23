@@ -822,18 +822,20 @@
             </view>
         </block>
 
-        <view class="weui-cells__title">核损员备注</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view wx:if="{{(role == 33 && (status == 51))}}" class="weui-cell__bd">
-                    <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='surveyLossRemark'
-                              value="{{surveyLossRemark}}" placeholder="请输入文本" style="height: 7em"/>
-                </view>
-                <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                    {{surveyLossRemark || '-'}}
+        <block wx:if="{{status != null}}">
+            <view class="weui-cells__title">核损员备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view wx:if="{{(role == 33 && (status == 51))}}" class="weui-cell__bd">
+                        <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='surveyLossRemark'
+                                  value="{{surveyLossRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                    </view>
+                    <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{surveyLossRemark || '-'}}
+                    </view>
                 </view>
             </view>
-        </view>
+        </block>
 
         <block wx:if="{{cancelRemark}}">
             <view class="weui-cells__title">注销原因</view>
