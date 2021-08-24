@@ -313,7 +313,7 @@ Page({
     let amountMoney =  offerListTotal - incompleteTotal
     let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
 
-    let offerResult = this.data.hasTax ? Math.round(amountMoney + tax) : Math.round(amountMoney)
+    let offerResult = (this.data.hasTax && this.data.hasTax == '1') ? Math.round(amountMoney + tax) : Math.round(amountMoney)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
