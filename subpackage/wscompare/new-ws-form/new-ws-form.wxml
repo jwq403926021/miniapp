@@ -225,11 +225,19 @@
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21))}}">
                     <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='information'
                               value="{{information}}" disabled="{{orderId !== null && status != 2 && status != null}}" placeholder="请输入文本" style="height: 7em"/>
-                    <van-button type="primary" block size="small" bindtap="digestRecord">识别信息</van-button>
                 </view>
                 <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
                     {{information || '-'}}
                 </view>
+            </view>
+            <view class="button-sp-area two-btn-wrap" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21))}}">
+                <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="information" bindtouchstart="recordStart" bindtouchend="recordEnd">
+                    <text wx:if="{{!recordState}}">语音报案</text>
+                    <text wx:else>松开结束</text>
+                </button>
+                <button class="yuyinBtn" bind:tap="digestRecord">
+                    识别信息
+                </button>
             </view>
         </view>
 
@@ -593,7 +601,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{role != 1}}">
+            <block wx:if="{{role != 1 && role != 33}}">
                 <view class="weui-cells__title">报价员意见</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
@@ -783,18 +791,20 @@
                     </view>
                 </view>
             </view>
-            <view class="weui-cells__title">财务备注</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">
+            <block wx:if="{{role != 33}}">
+                <view class="weui-cells__title">财务备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
                         <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='financeRemark'
                                   value="{{financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
-                    </view>
-                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
-                        {{financeRemark || '-'}}
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                            {{financeRemark || '-'}}
+                        </view>
                     </view>
                 </view>
-            </view>
+            </block>
         </block>
 
         <block wx:if="{{(financeImageFiles.length > 0 && role != 10 && role != 11 && role != 12) || role == 22}}">
@@ -960,4 +970,7 @@
             bind:close="onactionsheetClose"
             bind:select="onactionsheetSelect"
     />
+    <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
+        <cover-view>开始语音</cover-view>
+    </cover-view>
 </view>

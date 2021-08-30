@@ -676,7 +676,7 @@ Page({
   },
   goBack () {
     wx.navigateTo({
-      url: '../new-ws-form/new-ws-form?id=' + _this.data.orderId
+      url: '../new-ws-form/new-ws-form?id=' + this.data.orderId
     })
   },
   checkOfferListItem () {
@@ -1017,7 +1017,7 @@ Page({
     let data = this.data.offerList[pindex].children[index]
 
     if (data.mainName == '' || data.childName == '' || data.unit == '' || data.price == '' || data.name == '' || data.projectId == '' ||
-        data.mainName == null || data.childName == null || data.unit == null || data.price == null || data.name == null || data.projectId == null) {
+      data.mainName == null || data.childName == null || data.unit == null || data.price == null || data.name == null || data.projectId == null) {
       wx.showToast({
         mask: true,
         title: '大类 小类 子类 单位 单价 名称不能为空。',
