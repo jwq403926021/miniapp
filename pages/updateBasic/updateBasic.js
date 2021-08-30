@@ -40,7 +40,8 @@ Page({
     statusListSource: Object.values(statusMap[1]),
     statusValue: '',
     statusLabel: '',
-    workType: ''
+    workType: '',
+    handlingType: ''
   },
   onLoad: function (routeParams) {
 
@@ -81,6 +82,7 @@ Page({
       params.orderId = this.data.id
       params.status = status
       params.workType = this.data.workType
+      params.handlingType = this.data.handlingType
     } else {
       params.flowId = this.data.id
       params.status = status
