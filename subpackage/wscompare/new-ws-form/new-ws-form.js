@@ -124,10 +124,10 @@ Page({
     }
   },
   onLoad: function (routeParams) {
+    this.getServiceTypeList()
     setTimeout(() => {
       this.routeParams = routeParams
       this.initRecord()
-      this.getServiceTypeList()
       this.initArea(this.init)
     }, 500)
   },
@@ -225,6 +225,7 @@ Page({
           workVideo.push(item)
         }
       })
+      let serviceTypeValue = _this.serviceTypeListSource.findIndex(i => i.id == data.serviceType)
       _this.setData({
         orderId: data.orderId,
         region: data.townCode,
@@ -282,7 +283,9 @@ Page({
         'managerReject': data.managerReject,
         'cancelRemark': data.cancelRemark,
         'isCompulsory': data.isCompulsory,
-        'isBusiness': data.isBusiness
+        'isBusiness': data.isBusiness,
+        serviceTypeValue: serviceTypeValue,
+        serviceTypeLabel: _this.serviceTypeListSource[serviceTypeValue].name
       }, () => {
         if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
           _this.initReassignList()
@@ -873,7 +876,6 @@ Page({
       orderId,
       reportNumber,
       acceptInsurance,
-      serviceType,
       serviceRemark,
       budgetPreliminarySurvey,
       surveyId
@@ -898,10 +900,10 @@ Page({
         orderId,
         reportNumber,
         acceptInsurance,
-        serviceType,
         serviceRemark,
         budgetPreliminarySurvey,
-        surveyId
+        surveyId,
+        serviceType: this.serviceTypeListSource[data.serviceTypeValue]['id']
       }
     }, function (err, res) {
       if (res.code == 0) {
