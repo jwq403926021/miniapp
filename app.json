@@ -39,6 +39,7 @@
     "pages/my-list-accident/my-list-accident",
     "pages/sign/sign",
     "pages/pay/pay",
+    "pages/updateBasic/updateBasic",
     "pages/webview/webview",
     "pages/idi-form/idi-form",
     "pages/idi-offer/idi-offer"

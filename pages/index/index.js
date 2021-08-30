@@ -83,10 +83,16 @@ Page({
       url: '../pay/pay'
     })
   },
+  goToUpdateBasic () {
+    wx.navigateTo({
+      url: '../updateBasic/updateBasic'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,
-      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role
+      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
+      userId: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.userId,
     })
   }
 })

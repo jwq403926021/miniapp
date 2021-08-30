@@ -94,6 +94,14 @@
             意见反馈
         </view>
     </view>
+    <view class="new-btn fl" bindtap="goToUpdateBasic" wx:if="{{userId == 91}}">
+        <view>
+          <text class="iconfont icon-yijianfankui myicon"></text>
+        </view>
+        <view>
+            更新工单
+        </view>
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToWebview">-->
 <!--        webview demo-->
 <!--    </view>-->
