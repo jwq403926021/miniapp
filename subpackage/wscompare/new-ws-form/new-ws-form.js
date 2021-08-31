@@ -592,7 +592,8 @@ Page({
   },
   chooseVideo: function (e) {
     let key = e.currentTarget.dataset.name
-    var that = this;
+    var that = this
+    app.globalData.isIgnoreRefresh = true
     wx.chooseVideo({
       sourceType: ['album','camera'],
       maxDuration: 60,
@@ -606,6 +607,7 @@ Page({
         that.setData({
           [key]: list
         })
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
       }
     })
   },
