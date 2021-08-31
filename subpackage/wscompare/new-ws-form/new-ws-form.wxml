@@ -860,7 +860,7 @@
             </view>
         </block>
 
-        <block wx:if="{{status != null}}">
+        <block wx:if="{{status != null && (role == 5 || role == 6 || role == 7 || role == 8 || role == 33)}}">
             <view class="weui-cells__title">核损员备注</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell">
