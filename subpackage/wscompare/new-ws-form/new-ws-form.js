@@ -1594,7 +1594,7 @@ Page({
       this.workHandleWS(null, true, 1)
     } else {
       wx.navigateTo({
-        url: (this.data.role === 1 || this.data.role === 5 || this.data.role === 6 || this.data.role === 7) ? `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}` : `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}`
+        url: (this.data.role === 12 || this.data.role === 13) ? `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}` : `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}`
       })
     }
   },
