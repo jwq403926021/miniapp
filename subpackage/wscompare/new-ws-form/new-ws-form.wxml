@@ -465,6 +465,25 @@
                 </view>
             </view>
 
+            <block wx:if="{{(role === 5 || role === 6 || role === 7 || role === 33)}}">
+                <view class="weui-cells__title">{{'比价列表'}}</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="compare-wrapper" wx:if="{{compareList.length > 0}}">
+                        <van-row custom-class="compare-detail-table-header">
+                            <van-col span="12">施工人员</van-col>
+                            <van-col span="12">估损金额</van-col>
+                        </van-row>
+                        <van-row wx:for="{{compareList}}" wx:key="index" custom-class="compare-detail-table-body">
+                            <van-col span="12">{{item.workerName}}</van-col>
+                            <van-col span="12">{{item.offer}}</van-col>
+                        </van-row>
+                    </view>
+                    <view class="text-center" wx:else>
+                        无人员
+                    </view>
+                </view>
+            </block>
+
             <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
                 <view class="weui-cells__title">工程量清单</view>
                 <view class="weui-cells weui-cells_after-title">

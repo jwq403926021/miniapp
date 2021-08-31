@@ -2,3 +2,36 @@
     width: 100vw;
     height: 300px;
 }
+
+.text-center{
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+.compare-wrapper{
+    background: #fff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+.compare-detail-table-header{
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+.compare-detail-table-body {
+}
+.compare-detail-table-header .van-col, .compare-detail-table-body .van-col {
+    font-size: 14px;
+    color: #4e4d50;
+    line-height: 36px;
+    padding: 0 4px;
+}
+.compare-detail-table-body .van-col {
+    font-size: 12px;
+}
+.delete-btn{
+    text-decoration: underline;
+    color: #cc2629;
+}
+.idi-checkbox{
+    margin-top: 7px;
+}

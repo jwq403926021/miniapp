@@ -104,6 +104,7 @@ Page({
       latitude: '',
       longitude: ''
     },
+    compareList: [],
     showactionsheet: false,
     actions: [
       {
@@ -230,6 +231,7 @@ Page({
       })
       let serviceTypeValue = _this.serviceTypeListSource.findIndex(i => i.id == data.serviceType)
       _this.setData({
+        compareList: res.compareList || [],
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
