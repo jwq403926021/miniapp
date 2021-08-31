@@ -75,6 +75,7 @@ Page({
     damageMoney: '', // 受损方索赔金额
     budgetPreliminarySurvey: '', // 初步估损金额
     damageMoneySurvey: '', // 受损方索赔金额
+    offerWorker: '',
     handlingType: '0',
     isAcceptance: '0',
     isAgree: '0',
@@ -261,6 +262,7 @@ Page({
         "budgetPreliminary": data.budgetPreliminary,
         "damageMoney": data.damageMoney,
         "budgetPreliminarySurvey": data.budgetPreliminarySurvey,
+        "offerWorker": data.offerWorker,
         "damageMoneySurvey": data.damageMoneySurvey,
         'handlingType': data.handlingType,
         'deposit': data.deposit,
@@ -1205,9 +1207,22 @@ Page({
       offerRemark,
       damageMoney,
       isAcceptance,
-      isAgree
+      isAgree,
+      offerWorker
     } = this.data
     if (!isSave) {
+      if (offerWorker && budgetPreliminary) {
+        let rate = (offerWorker - budgetPreliminary) / budgetPreliminary
+        if (rate > 0.1) {
+          wx.showToast({
+            mask: true,
+            title: '报价金额大于估损金额10%, 无法提交. 请联系客服.',
+            icon: 'none',
+            duration: 1000
+          })
+          return false
+        }
+      }
       if (handlingType == null || handlingType == '') {
         wx.showToast({
           mask: true,
