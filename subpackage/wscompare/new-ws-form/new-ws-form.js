@@ -68,6 +68,8 @@ Page({
     surveyPhone: '',
     workerUser: '',
     workerPhone: '',
+    serviceName: '',
+    servicePhone: '',
     workType: '0',
     budgetPreliminary: '', // 初步估损金额
     damageMoney: '', // 受损方索赔金额
@@ -253,6 +255,8 @@ Page({
         "surveyPhone": data.surveyPhone,
         "workerUser": data.workerUser,
         "workerPhone": data.workerPhone,
+        "serviceName": data.serviceName,
+        "servicePhone": data.servicePhone,
         "workType": data.workType,
         "budgetPreliminary": data.budgetPreliminary,
         "damageMoney": data.damageMoney,

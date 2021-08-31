@@ -295,7 +295,7 @@
                 </view>
             </view>
         </block>
-        <block wx:if="{{workerUser && role != 1 && role != 2 && role != 3 && role != 4 && status != 39}}">
+        <block wx:if="{{workerUser && role != 1 && role != 2 && role != 3 && role != 4 && role != 33 && status != 39}}">
             <view class="weui-cells__title">施工方信息</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input">
@@ -315,6 +315,32 @@
                     </view>
                     <view class="weui-cell__ft">
                         <view class="field-right-btn" data-phone="{{workerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{serviceName}}">
+            <view class="weui-cells__title">客服信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">客服姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{serviceName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">客服手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{servicePhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-phone="{{servicePhone}}" bindtap="dialPhone">
                             <van-icon name="phone"></van-icon>
                         </view>
                     </view>
