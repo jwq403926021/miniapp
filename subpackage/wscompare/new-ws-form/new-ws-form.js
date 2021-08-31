@@ -831,7 +831,7 @@ Page({
       phoneNumber: phone
     })
   },
-  submitSurveyImage (e) {
+  submitSurveyImage () {
     let _this = this
     let liveImageFiles = []
     _this.data.liveImageFiles.map(item => {
@@ -884,6 +884,7 @@ Page({
       mask: true,
       title: '提交中'
     })
+    this.submitSurveyImage()
     util.request({
       path: url,
       method: 'POST',

@@ -226,7 +226,7 @@
             <view class="weui-cell">
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                     <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='information'
-                              value="{{information}}" disabled="{{orderId !== null && status != 2 && status != null}}" placeholder="请输入文本" style="height: 7em"/>
+                              value="{{information}}" placeholder="请输入文本" style="height: 7em"/>
                 </view>
                 <view wx:else class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
                     {{information || '-'}}
@@ -250,17 +250,17 @@
                     <view class="weui-uploader">
                         <view class="weui-uploader__bd">
                             <view class="weui-uploader__files">
-                                <view wx:if="{{liveImageFiles.length == 0 && orderId != null && status != null && !(role == 1 || role == 5 || role == 6 || role == 7)}}" class="no-image">
+                                <view wx:if="{{liveImageFiles.length == 0 && orderId != null && status != null && !(role == 1 || role == 5 || role == 6 || role == 7 || role == 8)}}" class="no-image">
                                     无图片
                                 </view>
                                 <block wx:for="{{liveImageFiles}}" wx:key="index">
                                     <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="liveImageFiles" id="{{item.path}}">
                                         <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                        <van-icon wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        <van-icon wx:if="{{role == 1 || role == 5 || role == 6 || role == 7 || role == 8}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
                                     </view>
                                 </block>
                             </view>
-                            <view class="weui-uploader__input-box" wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}">
+                            <view class="weui-uploader__input-box" wx:if="{{role == 1 || role == 5 || role == 6 || role == 7 || role == 8}}">
                                 <view class="weui-uploader__input" bindtap="chooseImage" data-name="liveImageFiles"></view>
                             </view>
                         </view>
