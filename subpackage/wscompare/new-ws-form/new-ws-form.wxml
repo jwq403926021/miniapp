@@ -153,7 +153,6 @@
                 </view>
             </view>
 
-
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label lh24">初步估损金额(查)</view>
