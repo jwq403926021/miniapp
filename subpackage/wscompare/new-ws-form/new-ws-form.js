@@ -145,7 +145,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role,
+        role: 12, // app.globalData.currentRegisterInfo.role,
         userId: app.globalData.currentRegisterInfo.userId
       }, () => {
         this.initDataById(routeParams.id, routeParams.flag || null)
