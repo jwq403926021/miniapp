@@ -384,7 +384,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">处理方式</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43)) || (role == 22 && (status == 11 || status == 50))}}">
+                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 43)) || (role == 22 && (status == 11 || status == 50))}}">
                         <van-radio-group value="{{ handlingType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="handlingType">
                             <van-radio custom-class="fl mr5" name="0">咨询</van-radio>
                             <van-radio custom-class="fl mr5" name="1">施工</van-radio>
@@ -399,7 +399,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">受损方是否同意</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43))}}">
+                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 43))}}">
                         <van-radio-group value="{{ isAgree }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isAgree">
                             <van-radio custom-class="fl mr5" name="0">否</van-radio>
                             <van-radio custom-class="fl mr5" name="1">是</van-radio>
@@ -430,7 +430,7 @@
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">验收</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43))}}">
+                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13|| status == 43))}}">
                         <van-radio-group value="{{ isAcceptance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isAcceptance">
                             <van-radio custom-class="fl mr5" name="0">否</van-radio>
                             <van-radio custom-class="fl mr5" name="1">是</van-radio>
