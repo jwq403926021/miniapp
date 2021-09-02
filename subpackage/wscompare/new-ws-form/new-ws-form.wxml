@@ -63,41 +63,44 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">出险方</view>
+            <block wx:if="{{!(role == 12 && status == 39)}}">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险方</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
+                        <input class="weui-input" bindinput="inputgetName" data-name='customerUser'
+                               value="{{customerUser}}" placeholder="出险方姓名"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{customerUser || '-'}}</text>
+                    </view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='customerUser'
-                           value="{{customerUser}}" placeholder="出险方姓名"/>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{customerUser || '-'}}</text>
-                </view>
-            </view>
 
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">沟通方式</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
-                           value="{{customerPhone}}" placeholder="请输入电话号码"/>
-                </view>
-                <block wx:else>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{customerPhone || '-'}}</text>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">沟通方式</view>
                     </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-content="{{customerPhone}}" bindtap="copy">
-                            <van-icon name="column" />
-                        </view>
-                        <view class="field-right-btn" data-phone="{{customerPhone}}" data-worker="1" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
+                    <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
+                        <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
+                               value="{{customerPhone}}" placeholder="请输入电话号码"/>
                     </view>
-                </block>
-            </view>
+                    <block wx:else>
+                        <view class="weui-cell__bd">
+                            <text class="weui-input readonly">{{customerPhone || '-'}}</text>
+                        </view>
+                        <view class="weui-cell__ft">
+                            <view class="field-right-btn" data-content="{{customerPhone}}" bindtap="copy">
+                                <van-icon name="column" />
+                            </view>
+                            <view class="field-right-btn" data-phone="{{customerPhone}}" data-worker="1" bindtap="dialPhone">
+                                <van-icon name="phone"></van-icon>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </block>
+
             <block wx:if="{{!(role == 12 && (status == 20 || status == 21 || status == 22 || status == 39))}}">
                 <view class="weui-cell weui-cell_input" wx:if="{{insuranceType != '2'}}">
                     <view class="weui-cell__hd">
