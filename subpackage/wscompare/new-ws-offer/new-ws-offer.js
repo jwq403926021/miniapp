@@ -442,7 +442,7 @@ Page({
         }),
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
-        compareList: res.compareList.length ? res.compareList : _this.data.compareList,
+        compareList: (res.compareList && res.compareList.length) ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
         coinLevel: data.level || 1
       }
