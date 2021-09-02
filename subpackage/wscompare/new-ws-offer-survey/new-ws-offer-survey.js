@@ -36,22 +36,6 @@ Page({
     incompleteTotal: '',
     offerListTotal: '',
     offerResult: '',
-    compareList: [{
-      companyName: '企业1',
-      id: 0,
-      rate: '',
-      offer: ''
-    }, {
-      companyName: '企业2',
-      id: 1,
-      rate: '',
-      offer: ''
-    }, {
-      companyName: '企业3',
-      id: 2,
-      rate: '',
-      offer: ''
-    }],
     coinNum: '',
     coinRate: '',
     coinLevel: 1,
@@ -151,7 +135,6 @@ Page({
         incompleteListSource: incompleteList,
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
-        compareList: (res.compareList && res.compareList.length) ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax == 1 ? true : false,
         coinLevel: data.level || 1
       }

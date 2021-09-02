@@ -72,22 +72,6 @@ Page({
     incompleteTotal: '',
     offerListTotal: '',
     offerResult: '',
-    compareList: [{
-      companyName: '企业1',
-      id: 0,
-      rate: '',
-      offer: ''
-    }, {
-      companyName: '企业2',
-      id: 1,
-      rate: '',
-      offer: ''
-    }, {
-      companyName: '企业3',
-      id: 2,
-      rate: '',
-      offer: ''
-    }],
     coinNum: '',
     coinRate: '',
     coinLevel: 1,
@@ -290,10 +274,6 @@ Page({
     let offerResult = (this.data.hasTax && this.data.hasTax == '1') ? Math.round(amountMoney + tax) : Math.round(amountMoney)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
-    let compareList = this.data.compareList.map(item => {
-      item.offer = (offerListTotal * parseFloat(item.rate || 0)).toFixed(2)
-      return item
-    })
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
     this.setData({
       amountMoney: (amountMoney || 0).toFixed(2),
@@ -303,7 +283,6 @@ Page({
       incompleteTotal: (incompleteTotal || 0).toFixed(2),
       offerResult: (offerResult || 0).toFixed(2),
       coinNum: parseFloat(coinNum || 0).toFixed(2),
-      compareList,
       offerList: this.data.offerList
     })
   },
@@ -442,7 +421,6 @@ Page({
         }),
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
-        compareList: (res.compareList && res.compareList.length) ? res.compareList : _this.data.compareList,
         hasTax: (data.hasTax && data.hasTax == '1') ? true : false,
         coinLevel: data.level || 1
       }
@@ -803,11 +781,6 @@ Page({
       let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
       this.data.offerList[proIndex].incompleteList.push(item)
     })
-    this.data.compareList.map((item, index) => {
-      item.type = this.data.role == 12 ? 1 : 0
-      item.offer = item.rate * this.data.offerListTotal
-      item.orderId = this.data.orderId
-    })
     let params = {
       orderId: this.data.orderId,
       provinceCode: this.data.provinceCode,
@@ -821,7 +794,6 @@ Page({
       offerListTotal: this.data.offerListTotal, // 报价列表合计
       incompleteTotal: this.data.incompleteTotal, // 残值合计
       hasTax: this.data.hasTax ? '1' : '0', // 是否有税
-      compareList: this.data.compareList,
       coinNum: this.data.coinNum,
       coinRate: this.data.coinRate,
       reward: this.data.coinInsert,
