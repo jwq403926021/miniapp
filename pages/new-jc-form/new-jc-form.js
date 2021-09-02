@@ -1116,6 +1116,7 @@ Page({
         'taskData.countryId': data.areaCountry,
         'taskData.cityId': data.areaCity,
         'taskData.provinceId': data.areaProvince,
+        'taskData.workerId': data.workerId,
         region: data.areaCountry + '',
         "taskData.customerPhone": data.customerPhone,
         "taskData.customerName": data.customerName,
