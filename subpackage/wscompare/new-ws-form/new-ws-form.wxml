@@ -956,7 +956,7 @@
             <button type="primary" bindtap="workerSubmitComment">施工提交留言</button>
             <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
         </view>
-        <view wx:if="{{(role == 12 && (status == 22))}}" class="button-sp-area">
+        <view wx:if="{{((role == 5 || role == 6 || role == 7 || role == 12) && (status == 22))}}" class="button-sp-area">
             <button type="primary" bindtap="assignToOther">转办</button>
         </view>
 <!--        <view class="button-sp-area"> &lt;!&ndash; 查勘员 申请开票 &ndash;&gt;-->
