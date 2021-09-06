@@ -444,7 +444,7 @@
                     <view class="weui-cell__hd">
                         <view class="weui-label lh24">初步估损金额(施)</view>
                     </view>
-                    <view class="weui-cell__bd" wx:if="{{(role == 12 && (status == 13 || status == 39 || status == 43))}}">
+                    <view class="weui-cell__bd" wx:if="{{!hasBudgetPreliminary && (role == 12 && (status == 13 || status == 39 || status == 43))}}">
                         <input class="weui-input" type="digit" bindinput="inputgetName" data-name='budgetPreliminary'
                                value="{{budgetPreliminary}}"  placeholder="初步估损金额(施)"/>
                     </view>

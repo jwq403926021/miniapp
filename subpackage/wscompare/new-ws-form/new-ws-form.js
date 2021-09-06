@@ -70,6 +70,7 @@ Page({
     workerPhone: '',
     serviceName: '',
     servicePhone: '',
+    hasBudgetPreliminary: false,
     workType: '0',
     budgetPreliminary: '', // 初步估损金额
     damageMoney: '', // 受损方索赔金额
@@ -231,6 +232,7 @@ Page({
       })
       let serviceTypeValue = _this.serviceTypeListSource.findIndex(i => i.id == data.serviceType)
       _this.setData({
+        hasBudgetPreliminary: Boolean(data.budgetPreliminary),
         compareList: res.compareList || [],
         orderId: data.orderId,
         region: data.townCode,
