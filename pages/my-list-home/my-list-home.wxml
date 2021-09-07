@@ -93,21 +93,21 @@
       <view><text class="iconfont icon-yijianfankui myicon2"></text>意见反馈</view>
     </view>
 
-<!--    <view class="my-list-item" data-type="1" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">-->
-<!--      <view class="fr" style="margin-top:13px;">-->
-<!--        <van-icon name="arrow" style="font-size: 18px;" />-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-sunhuai myicon2"></text>物损工单-->
-<!--      </view>-->
-<!--    </view>-->
-<!--    <view class="my-list-item" data-type="2" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">-->
-<!--      <view class="fr" style="margin-top:13px;">-->
-<!--        <van-icon name="arrow" style="font-size: 18px;" />-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-feichelipei myicon2"></text>非车险工单-->
-<!--      </view>-->
-<!--    </view>-->
+    <view class="my-list-item" data-type="1" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-sunhuai myicon2"></text>物损工单
+      </view>
+    </view>
+    <view class="my-list-item" data-type="2" bindtap="goToWsList" wx:if="{{role == 1 || role == 2 || role == 3 || role == 4 || role == 5 || role == 6 || role == 7 || role == 10 || role == 11 || role == 12 || role == 13 || role == 14 || role == 18 || role == 22}}">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-feichelipei myicon2"></text>非车险工单
+      </view>
+    </view>
   </view>
 </view>
