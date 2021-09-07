@@ -48,6 +48,11 @@
                     <input class="weui-input" bindinput="inputgetName" data-name='id'
                            value="{{id}}" placeholder="工单号"/>
                 </view>
+                <view>
+                    <view class="field-right-btn" bindtap="clear">
+                        x
+                    </view>
+                </view>
             </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
