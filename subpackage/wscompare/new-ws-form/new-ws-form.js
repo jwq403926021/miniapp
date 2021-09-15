@@ -244,6 +244,8 @@ Page({
         workVideo: workVideo,
         'cityManagerName': data.cityManagerName,
         'cityManagerMobile': data.cityManagerMobile,
+        'surveyLossName': data.surveyLossName,
+        'surveyLossTime': data.surveyLossTime,
         'surveyId': data.surveyId,
         'status': data.status,
         'insuranceType': data.insuranceType,
