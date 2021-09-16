@@ -29,16 +29,10 @@ Page({
     serviceTypeValue: '',
     serviceTypeLabel: '',
     show: false,
-    showreassign: false,
     showWorkerHit: false,
     areaList: {},
     region: '',
     regionLabel: '',
-    reassignRegion: '',
-    reassignRegionLabel: '',
-    workerList: [],
-    workerValue: '',
-    workerLabel: '',
     statusMap: {
       '20': '待客服人员处理',
       '21': '客服驳回',
@@ -297,9 +291,6 @@ Page({
         serviceTypeValue: serviceTypeValue,
         serviceTypeLabel: _this.serviceTypeListSource[serviceTypeValue].name
       }, () => {
-        if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
-          _this.initReassignList()
-        }
         _this.getRegionLabel()
         wx.hideLoading()
       })
@@ -463,49 +454,6 @@ Page({
 
     }
   },
-  initReassignList () {
-    let _this = this
-    util.request({
-      path: '/app/businessdamagecompare/getSameUnitWorker',
-      method: 'GET',
-      data: {
-        workerId: this.data.workerId
-      }
-    }, function (err, res) {
-      if (res) {
-        _this.workListSource = res.data
-        let workerList = res.data ? res.data.map(item => {
-          return item.name
-        }) : []
-        _this.setData({
-          'workerList': workerList
-        })
-      }
-    })
-  },
-  initReassignListForCitymanger () {
-    let _this = this
-    util.request({
-      path: `/app/family/getWorkerByCity?city=${this.data.reassignRegion}`,
-      method: 'GET'
-    }, function (err, res) {
-      if (res) {
-        _this.workListSource = res.data
-        let workerList = res.data ? res.data.map(item => {
-          return item.name
-        }) : []
-        _this.setData({
-          'workerList': workerList
-        })
-      }
-    })
-  },
-  workerChange (event) {
-    this.setData({
-      'workerValue': event.detail.value,
-      'workerLabel': this.workListSource[event.detail.value].name
-    })
-  },
   serviceTypeChange (event) {
     this.setData({
       'serviceTypeValue': event.detail.value,
@@ -531,11 +479,6 @@ Page({
       show: !this.show
     })
   },
-  openReassignLocation() {
-    this.setData({
-      showreassign: !this.showreassign
-    })
-  },
   onConfirm(data) {
     let strArr = []
     data.detail.values.forEach(item => {
@@ -551,23 +494,9 @@ Page({
       'provinceCode': data.detail.values[0].code,
     })
   },
-  onConfirmReassign(data) {
-    let strArr = []
-    data.detail.values.forEach(item => {
-      strArr.push(item.name)
-    })
-    this.setData({
-      showreassign: false,
-      reassignRegion: data.detail.values[1].code,
-      reassignRegionLabel: strArr.join(',')
-    }, () => {
-      this.initReassignListForCitymanger()
-    })
-  },
   onCancel() {
     this.setData({
-      show: false,
-      showreassign: false
+      show: false
     })
   },
   inputgetName(e) {
@@ -1552,43 +1481,6 @@ Page({
         icon: 'none',
         duration: 1000
       })
-    })
-  },
-  assignToOther () {
-    let _this = this
-    if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
-      wx.showToast({
-        mask: true,
-        title: '请选择转办人员',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
-    wx.showLoading({
-      mask: true,
-      title: '提交中'
-    })
-    util.request({
-      path: '/app/businessdamagecompare/changeWorker',
-      method: 'POST',
-      data: {
-        orderId: this.data.orderId,
-        information: this.data.information,
-        userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId'],
-        cityManager: this.data.cityManager
-      }
-    }, function (err, res) {
-      if (res.code == 0) {
-        _this.goToList()
-      } else {
-        wx.showToast({
-          mask: true,
-          title: '提交失败',
-          icon: 'none',
-          duration: 1000
-        })
-      }
     })
   },
   modifyWS () {
