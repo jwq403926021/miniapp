@@ -377,28 +377,6 @@
             </view>
         </block>
 
-        <block wx:if="{{surveyLossName}}">
-            <view class="weui-cells__title">核损人信息</view>
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">核损人姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{surveyLossName || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">核损时间</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{surveyLossTime || '-'}}</text>
-                    </view>
-                </view>
-            </view>
-        </block>
-
         <block wx:if="{{orderId != null && status != null}}">
             <view class="weui-cells">
                 <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">

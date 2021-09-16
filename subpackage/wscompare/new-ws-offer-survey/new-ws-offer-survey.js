@@ -43,6 +43,8 @@ Page({
     offerListSource: [],
     incompleteListSource: [],
     plateNumber: '',
+    surveyLossName: '',
+    surveyLossTime: '',
     reportNumber: ''
   },
   onLoad: function (routeParams) {

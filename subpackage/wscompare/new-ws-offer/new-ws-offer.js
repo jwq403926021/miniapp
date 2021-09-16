@@ -93,6 +93,8 @@ Page({
     templateName: '',
     showTemplate: false,
     searchTemplateName: '',
+    surveyLossName: '',
+    surveyLossTime: '',
     templateDataList: []
   },
   initArea () {
