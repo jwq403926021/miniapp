@@ -820,7 +820,8 @@ Page({
       serviceRemark,
       budgetPreliminarySurvey,
       surveyId,
-      workerId
+      workerId,
+      information
     } = data
     wx.showLoading({
       mask: true,
@@ -847,7 +848,8 @@ Page({
         budgetPreliminarySurvey,
         surveyId,
         serviceType: this.serviceTypeListSource[data.serviceTypeValue]['id'],
-        workerId
+        workerId,
+        information
       }
     }, function (err, res) {
       if (res.code == 0) {
