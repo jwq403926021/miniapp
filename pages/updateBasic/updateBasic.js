@@ -70,6 +70,11 @@ Page({
       'statusLabel': this.data.statusListSource[event.detail.value]
     })
   },
+  clear () {
+    this.setData({
+      id: ''
+    })
+  },
   submitRequest () {
     let params = {}
     let url = this.data.type == '1' ? '/app/businessdamagenew/updateBasic' : '/app/businessinsurancefamilynew/updateBasic'
