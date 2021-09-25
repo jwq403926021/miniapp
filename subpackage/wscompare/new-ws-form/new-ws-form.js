@@ -1153,11 +1153,10 @@ Page({
     } = this.data
     if (!isSave) {
       if (offerWorker && budgetPreliminary) {
-        let rate = (offerWorker - budgetPreliminary) / budgetPreliminary
-        if (rate > 0.1) {
+        if (offerWorker > budgetPreliminary) {
           wx.showToast({
             mask: true,
-            title: '报价金额大于估损金额10%, 无法提交. 请联系客服.',
+            title: '报价金额大于初步估损金额, 无法提交. 请联系客服.',
             icon: 'none',
             duration: 1000
           })
