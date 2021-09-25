@@ -142,7 +142,7 @@
                 </block>
             </view>
 
-            <view class="weui-cell weui-cell_select">
+            <view class="weui-cell weui-cell_select" wx:if="{{insuranceType == '1'}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">承保方式</view>
                 </view>
