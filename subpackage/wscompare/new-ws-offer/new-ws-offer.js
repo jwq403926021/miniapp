@@ -783,6 +783,15 @@ Page({
       let proIndex = this.data.offerList.findIndex(ll => ll.proId === item.proId)
       this.data.offerList[proIndex].incompleteList.push(item)
     })
+    if (this.data.offerResult && this.data.budgetPreliminary && (this.data.offerResult > this.data.budgetPreliminary)) {
+      wx.showToast({
+        mask: true,
+        title: '报价金额大于初步估损金额, 无法提交.',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
     let params = {
       orderId: this.data.orderId,
       provinceCode: this.data.provinceCode,
