@@ -61,7 +61,7 @@ Page({
         damagedPhone: data.damagedPhone,
         plateNumber: data.plateNumber,
         insuranceType: data.insuranceType,
-        isComplaint: data.insuranceType || '0',
+        isComplaint: data.isComplaint || '0',
         managerRemark: data.managerRemark
       })
     })
