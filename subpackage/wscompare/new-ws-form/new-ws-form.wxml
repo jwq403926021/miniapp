@@ -659,7 +659,7 @@
             </block>
         </block>
 
-        <view wx:if="{{userId != 2620 && status != null}}"
+        <view wx:if="{{status != null}}"
                 class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
