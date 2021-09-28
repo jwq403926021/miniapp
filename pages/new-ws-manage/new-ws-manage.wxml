@@ -23,6 +23,8 @@
                 </view>
             </block>
 
+
+
             <block wx:if="{{manageType == 1}}">
                 <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{insuranceType == '1'}}">
                     <view class="weui-cell__hd">
@@ -70,6 +72,27 @@
                         </view>
                     </view>
                 </block>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否投诉</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <van-radio-group value="{{ isComplaint }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isComplaint">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                </view>
+
+                <view class="weui-cells__title">负责人备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <textarea maxlength="-1" class="weui-textarea" bindinput="inputgetName" data-name='managerRemark'
+                                      value="{{managerRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                    </view>
+                </view>
             </block>
         </view>
 

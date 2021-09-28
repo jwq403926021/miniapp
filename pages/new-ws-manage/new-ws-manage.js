@@ -25,6 +25,8 @@ Page({
     surveyId: '',
     type: '',
     manageType: '',
+    isComplaint: '0',
+    managerRemark: '',
     showKeyboard: false,
     insuranceType: ''
   },
@@ -58,7 +60,9 @@ Page({
         damagedUser: data.damagedUser,
         damagedPhone: data.damagedPhone,
         plateNumber: data.plateNumber,
-        insuranceType: data.insuranceType
+        insuranceType: data.insuranceType,
+        isComplaint: data.insuranceType,
+        managerRemark: data.managerRemark
       })
     })
   },
@@ -122,6 +126,12 @@ Page({
       'plateNumber': event.detail.value
     })
   },
+  onRadioChange (event) {
+    let key = `${event.currentTarget.dataset.name}`
+    this.setData({
+      [key]: event.detail
+    });
+  },
   submitModifyRequest () {
     let _this = this
     let url = '/app/businessdamagenew/updateBasic'
@@ -138,7 +148,9 @@ Page({
         customerPhone: _this.data.customerPhone,
         damagedUser: _this.data.damagedUser,
         damagedPhone: _this.data.damagedPhone,
-        plateNumber: _this.data.plateNumber
+        plateNumber: _this.data.plateNumber,
+        isComplaint: _this.data.isComplaint,
+        managerRemark: _this.data.managerRemark
       }
     }, function (err, res) {
       if (res.code == 0) {
