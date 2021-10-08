@@ -885,8 +885,8 @@
             <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
             <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
         </view>
-        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50) && ((taskData.moneySurvey > 1000 && taskData.managerReject == 2) || taskData.moneySurvey <= 1000)}}"> <!-- 财务人员 提交 发票 -->
-            <button type="primary" bindtap="receiptImageSubmit">提交</button>
+        <view class="button-sp-area" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50) && ((taskData.moneySurvey > 1000 && taskData.managerReject == 2) || taskData.moneySurvey <= 1000)}}"> <!-- 财务人员 提交 发票 -->
+            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>
         </view>
         <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (role == 5 || role == 6 || role == 7 || role == 12) }}">
             <button type="primary" bindtap="assignToOther">转办</button>
