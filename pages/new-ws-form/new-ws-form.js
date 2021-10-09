@@ -74,7 +74,8 @@ Page({
       weatherBill: '1',
       moneySurvey: '',
       managerReject: '',
-      cancelRemark: ''
+      cancelRemark: '',
+      managerRemark: ''
     },
     activeVideo: '',
     location: {
@@ -255,6 +256,7 @@ Page({
         'taskData.moneySurvey': data.moneySurvey,
         'taskData.managerReject': data.managerReject,
         'taskData.cancelRemark': data.cancelRemark,
+        'taskData.managerRemark': data.managerRemark,
         'taskData.isCompulsory': data.isCompulsory,
         'taskData.isBusiness': data.isBusiness
       }, () => {
