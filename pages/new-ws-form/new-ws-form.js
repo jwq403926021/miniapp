@@ -2,6 +2,8 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
 const app = getApp()
+const plugin = requirePlugin('WechatSI')
+const manager = plugin.getRecordRecognitionManager()
 
 Page({
   data: {
@@ -18,6 +20,7 @@ Page({
     show: false,
     showreassign: false,
     showWorkerHit: false,
+    recordState: false,
     areaList: {},
     region: '',
     regionLabel: '',
@@ -107,6 +110,7 @@ Page({
   onLoad: function (routeParams) {
     setTimeout(() => {
       this.routeParams = routeParams
+      this.initRecord()
       this.initArea(this.init)
     }, 500)
   },
@@ -266,6 +270,49 @@ Page({
         _this.getRegionLabel()
         wx.hideLoading()
       })
+    })
+  },
+  initRecord: function () {
+    const that = this
+    manager.onRecognize = function (res) {
+      console.log(res)
+    }
+    manager.onStart = function (res) {
+      console.log("成功开始录音识别", res)
+    }
+    manager.onError = function (res) {
+      console.error("录音错误", res)
+    }
+    manager.onStop = function (res) {
+      if (res.result == '') {
+        wx.showModal({
+          title: '提示',
+          content: '听不清楚，请重新说一遍！',
+          showCancel: false,
+          success: function (res) {}
+        })
+        return;
+      }
+      let text = res.result || ''
+      that.setData({
+        'taskData.information': text
+      })
+    }
+  },
+  recordStart (e) {
+    this.setData({
+      recordState: true
+    }, () => {
+      manager.start({
+        lang: 'zh_CN'
+      })
+    })
+  },
+  recordEnd (e) {
+    this.setData({
+      recordState: false
+    }, () => {
+      manager.stop()
     })
   },
   setFinishCase (event) {
