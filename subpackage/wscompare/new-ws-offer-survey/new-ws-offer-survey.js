@@ -82,6 +82,7 @@ Page({
     }, function (err, res) {
       let data = res.data
       _this.setData({
+        status: data.status,
         plateNumber: data.plateNumber,
         reportNumber: data.reportNumber,
         offerRemark: data.offerRemark
