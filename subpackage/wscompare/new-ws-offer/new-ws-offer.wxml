@@ -370,7 +370,7 @@
                         <view class="weui-cell__hd">
                             <view class="weui-label">税率 %</view>
                         </view>
-                        <view class="weui-cell__bd" wx:if="{{!isAllowEdit}}">
+                        <view class="weui-cell__bd" wx:if="{{(!isAllowEdit) || (hasTax && handlingType == 0)}}">
                             <text class="weui-input readonly">{{taxRate === '' || taxRate === null ?  '-' : taxRate}}</text>
                         </view>
                         <view class="weui-cell__bd" wx:else>
@@ -433,7 +433,7 @@
         </view>
 
         <view style="text-align: right; padding-right: 10px;">
-            <text class="weui-input readonly">总报价：{{offerResult || 0}}</text>
+            <text class="weui-input readonly">总报价：{{offerResult || 0}}{{hasTax ? '(有税)' : ''}}</text>
         </view>
 
         <block wx:if="{{role == 13}}">

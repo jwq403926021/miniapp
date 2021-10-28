@@ -151,7 +151,7 @@
                 <view wx:if="{{offerList.length > 0}}">不含税报价合计: {{offerListTotal || 0}}</view>
                 <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
                 <view wx:if="{{hasTax}}">总税额: {{tax || 0}}</view>
-                <view>总报价: {{offerResult || 0}}</view>
+                <view>总报价: {{offerResult || 0}}{{hasTax ? '(有税)' : ''}}</view>
             </view>
         </view>
         <view>
