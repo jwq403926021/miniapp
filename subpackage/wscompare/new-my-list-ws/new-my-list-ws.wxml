@@ -89,27 +89,39 @@
         <van-cell title="状态不限" clickable data-name="-1" bind:click="statusFilterItemClick">
           <van-radio name="-1" />
         </van-cell>
-        <van-cell title="处理中" clickable data-name="13" bind:click="statusFilterItemClick">
-          <van-radio name="13" />
-        </van-cell>
-        <van-cell title="已派送" clickable data-name="20" bind:click="statusFilterItemClick">
+        <van-cell title="待客服人员处理" clickable data-name="20" bind:click="statusFilterItemClick">
           <van-radio name="20" />
+        </van-cell>
+        <van-cell title="客服驳回" clickable data-name="21" bind:click="statusFilterItemClick">
+          <van-radio name="21" />
+        </van-cell>
+        <van-cell title="已派送" clickable data-name="22" bind:click="statusFilterItemClick">
+          <van-radio name="22" />
+        </van-cell>
+        <van-cell title="待施工人员报价" clickable data-name="13" bind:click="statusFilterItemClick">
+          <van-radio name="13" />
         </van-cell>
         <van-cell title="待报价" clickable data-name="41" bind:click="statusFilterItemClick">
           <van-radio name="41" />
         </van-cell>
-        <van-cell title="驳回" clickable data-name="43" bind:click="statusFilterItemClick">
+        <van-cell title="报价驳回" clickable data-name="43" bind:click="statusFilterItemClick">
           <van-radio name="43" />
         </van-cell>
-        <van-cell title="已报价" clickable data-name="50" bind:click="statusFilterItemClick">
+        <van-cell title="待核损" clickable data-name="51" bind:click="statusFilterItemClick">
+          <van-radio name="51" />
+        </van-cell>
+        <van-cell title="核损人驳回" clickable data-name="33" bind:click="statusFilterItemClick">
+          <van-radio name="33" />
+        </van-cell>
+        <van-cell title="待财务处理" clickable data-name="50" bind:click="statusFilterItemClick">
           <van-radio name="50" />
         </van-cell>
         <van-cell title="已办结" clickable data-name="11" bind:click="statusFilterItemClick">
           <van-radio name="11" />
         </van-cell>
-        <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">
-          <van-radio name="12" />
-        </van-cell>
+<!--        <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">-->
+<!--          <van-radio name="12" />-->
+<!--        </van-cell>-->
       </van-cell-group>
     </van-radio-group>
   </van-transition>
