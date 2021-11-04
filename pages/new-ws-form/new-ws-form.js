@@ -29,6 +29,9 @@ Page({
     workerList: [],
     workerValue: '',
     workerLabel: '',
+    processorList: [],
+    processorValue: '',
+    processorLabel: '',
     statusMap: {
       '11': '已办结',
       '12': '暂存',
@@ -449,11 +452,32 @@ Page({
         })
       }
     })
+
+    util.request({
+      path: `/app/getManagerByCity?city=${this.data.reassignRegion}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.processorListSource = res.data
+        let processorList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'processorList': processorList
+        })
+      }
+    })
   },
   workerChange (event) {
     this.setData({
       'workerValue': event.detail.value,
       'workerLabel': this.workListSource[event.detail.value].name
+    })
+  },
+  processorChange (event) {
+    this.setData({
+      'processorValue': event.detail.value,
+      'processorLabel': this.processorListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -1324,7 +1348,7 @@ Page({
       })
     })
   },
-  assignToOther () {
+  assignToOtherWorker () {
     let _this = this
     if (this.data.workerValue == null || this.data.workerValue == undefined || this.data.workerValue == ''){
       wx.showToast({
@@ -1346,6 +1370,43 @@ Page({
         orderId: this.data.orderId,
         information: this.data.taskData.information,
         userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId'],
+        cityManager: this.data.taskData.cityManager
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  assignToOtherProcessor () {
+    let _this = this
+    if (this.data.processorValue == null || this.data.processorValue == undefined || this.data.processorValue == ''){
+      wx.showToast({
+        mask: true,
+        title: '请选择经办人',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/changeManager',
+      method: 'POST',
+      data: {
+        orderId: this.data.orderId,
+        information: this.data.taskData.information,
+        userId: this.processorListSource[this.data.processorValue]['user_id'] || this.processorListSource[this.data.processorValue]['userId'],
         cityManager: this.data.taskData.cityManager
       }
     }, function (err, res) {
