@@ -120,7 +120,15 @@ Page({
       7: '受损人8',
       8: '受损人9',
       9: '受损人10'
-    }
+    },
+    showreassign: false,
+    reassignRegion: '',
+    reassignRegionLabel: '',
+    estimateCompanyValue: '',
+    estimateCompanyLabel: '',
+    estimatePersonValue: '',
+    estimatePersonLabel: '',
+    estimatePersonList: [],
   },
   onLoad: function (routeParams) {
     this.getServiceTypeList()
@@ -481,6 +489,11 @@ Page({
       show: !this.show
     })
   },
+  openReassignLocation() {
+    this.setData({
+      showreassign: !this.showreassign
+    })
+  },
   onConfirm(data) {
     let strArr = []
     data.detail.values.forEach(item => {
@@ -496,9 +509,64 @@ Page({
       'provinceCode': data.detail.values[0].code,
     })
   },
+  onConfirmReassign (data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+    this.setData({
+      showreassign: false,
+      reassignRegion: data.detail.values[1].code,
+      reassignRegionLabel: strArr.join(','),
+      estimateCompanyValue: '',
+      estimateCompanyLabel: '',
+      estimateCompanyList: [],
+      estimatePersonValue: '',
+      estimatePersonLabel: '',
+      estimatePersonList: []
+    }, () => {
+      this.getEstimateCompanyList()
+    })
+  },
+  getEstimateCompanyList () {
+    let _this = this
+    util.request({
+      path: `/app/user/getEstimateCompany?city=${this.data.reassignRegion}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.estimateCompanyListSource = res.data
+        let estimateCompanyList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'estimateCompanyList': estimateCompanyList
+        })
+      }
+    })
+  },
+  getEstimatePersonList () {
+    let _this = this
+    let company = _this.estimateCompanyListSource[this.data.estimateCompanyValue]['id']
+    util.request({
+      path: `/app/userList?companyId=${company}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.estimatePersonListSource = res.data
+        let estimateCompanyList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'estimateCompanyList': estimateCompanyList
+        })
+      }
+    })
+  },
   onCancel() {
     this.setData({
-      show: false
+      show: false,
+      showreassign: false
     })
   },
   inputgetName(e) {
@@ -552,6 +620,18 @@ Page({
   openPlatePicker () {
     this.setData({
       showKeyboard: true
+    })
+  },
+  pickerChange (e) {
+    let _this = this
+    let key = e.currentTarget.dataset.name
+    this.setData({
+      [`${key}Value`]: e.detail.value,
+      [`${key}Label`]: this[`${key}ListSource`][e.detail.value].name
+    }, () => {
+      if (key == 'estimateCompany') {
+        _this.getEstimatePersonList()
+      }
     })
   },
   setNumber (event) {
@@ -772,6 +852,60 @@ Page({
     }
     wx.makePhoneCall({
       phoneNumber: phone
+    })
+  },
+  estimateCommit (e) {
+    let data = this.data
+    let _this = this
+    let {
+      orderId,
+      customerUser,
+      customerPhone,
+      plateNumber,
+      handlingType,
+      surveyLossId,
+      surveyId,
+      cityManager
+    } = data
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: `/app/businessdamagecompare/needEstimate`,
+      method: 'POST',
+      data: {
+        orderId,
+        customerUser,
+        customerPhone,
+        plateNumber,
+        handlingType,
+        surveyLossId,
+        surveyId,
+        cityManager,
+        estimateId: this.estimatePersonListSource[data.estimatePersonValue]['userId']
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: "操作成功",
+          icon: 'success',
+          duration: 1000,
+          success () {
+            setTimeout(() => {
+              _this.goToList()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
     })
   },
   submitSurveyImage () {

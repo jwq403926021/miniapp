@@ -483,6 +483,46 @@
                 </view>
             </block>
 
+            <block wx:if="{{(role == 5 || role == 6 || role == 7) && (taskData.status != 11 && taskData.status != 50)}}">
+                <view class="weui-cells__title">公估</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input weui-cell_vcode">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">公估区域</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">公估公司</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="pickerChange" value="{{estimateCompanyValue}}" data-name="estimateCompany"
+                                    range="{{estimateCompanyList}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{estimateCompanyLabel || '请选择公估公司'}}
+                                </view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">公估人员</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="pickerChange" value="{{estimatePersonValue}}" data-name="estimatePerson"
+                                    range="{{estimatePersonList}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{estimatePersonLabel || '请选择公估人员'}}
+                                </view>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
             <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
                 <view class="weui-cells__title">工程量清单</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -905,6 +945,9 @@
         <view wx:if="{{(role == 12 && (status == 39))}}" class="button-sp-area"> <!-- 施工人员 比价 -->
             <button type="primary" bindtap="compareCommit">提交比价</button>
         </view>
+        <view wx:if="{{(role == 5 || role == 6 || role == 7) && (taskData.status != 11 && taskData.status != 50)}}">
+            <button type="primary" bindtap="estimateCommit">需要公估</button>
+        </view>
         <view wx:if="{{(role == 12 && (status == 13 || status == 43))}}" class="button-sp-area two-btn-wrap"> <!-- 施工人员 提交 暂存 -->
             <button type="primary" bindtap="workHandleWS">提交</button>
             <button data-save="true" bindtap="workHandleWS">暂存</button>
@@ -953,6 +996,13 @@
             overlay="{{ true }}"
     >
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
+    <van-popup
+            show="{{ showreassign }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area columns-num="{{2}}" area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
     </van-popup>
     <van-dialog
         message="请拨打出险方电话或者受损方电话。"
