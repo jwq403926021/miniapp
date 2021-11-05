@@ -531,13 +531,13 @@ Page({
   getEstimateCompanyList () {
     let _this = this
     util.request({
-      path: `/app/user/getEstimateCompany?city=${this.data.reassignRegion}`,
+      path: `/app/getEstimateCompany?city=${this.data.reassignRegion}`,
       method: 'GET'
     }, function (err, res) {
       if (res) {
         _this.estimateCompanyListSource = res.data
         let estimateCompanyList = res.data ? res.data.map(item => {
-          return item.name
+          return item['company_name']
         }) : []
         _this.setData({
           'estimateCompanyList': estimateCompanyList
@@ -554,11 +554,11 @@ Page({
     }, function (err, res) {
       if (res) {
         _this.estimatePersonListSource = res.data
-        let estimateCompanyList = res.data ? res.data.map(item => {
+        let estimatePersonList = res.data ? res.data.map(item => {
           return item.name
         }) : []
         _this.setData({
-          'estimateCompanyList': estimateCompanyList
+          'estimatePersonList': estimatePersonList
         })
       }
     })
