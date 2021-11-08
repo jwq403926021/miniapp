@@ -1407,7 +1407,9 @@ Page({
         orderId: this.data.orderId,
         information: this.data.taskData.information,
         userId: this.processorListSource[this.data.processorValue]['user_id'] || this.processorListSource[this.data.processorValue]['userId'],
-        cityManager: this.data.taskData.cityManager
+        cityManager: this.data.taskData.cityManager,
+        surveyId: this.data.taskData.surveyId,
+        insuranceType: this.data.taskData.insuranceType
       }
     }, function (err, res) {
       if (res.code == 0) {
