@@ -29,9 +29,6 @@ Page({
     workerList: [],
     workerValue: '',
     workerLabel: '',
-    processorList: [],
-    processorValue: '',
-    processorLabel: '',
     statusMap: {
       '11': '已办结',
       '12': '暂存',
@@ -452,32 +449,11 @@ Page({
         })
       }
     })
-
-    util.request({
-      path: `/app/getManagerByCity?city=${this.data.reassignRegion}`,
-      method: 'GET'
-    }, function (err, res) {
-      if (res) {
-        _this.processorListSource = res.data
-        let processorList = res.data ? res.data.map(item => {
-          return item.name
-        }) : []
-        _this.setData({
-          'processorList': processorList
-        })
-      }
-    })
   },
   workerChange (event) {
     this.setData({
       'workerValue': event.detail.value,
       'workerLabel': this.workListSource[event.detail.value].name
-    })
-  },
-  processorChange (event) {
-    this.setData({
-      'processorValue': event.detail.value,
-      'processorLabel': this.processorListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -1387,15 +1363,6 @@ Page({
   },
   assignToOtherProcessor () {
     let _this = this
-    if (this.data.processorValue == null || this.data.processorValue == undefined || this.data.processorValue == ''){
-      wx.showToast({
-        mask: true,
-        title: '请选择经办人',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1406,7 +1373,7 @@ Page({
       data: {
         orderId: this.data.orderId,
         information: this.data.taskData.information,
-        userId: this.processorListSource[this.data.processorValue]['user_id'] || this.processorListSource[this.data.processorValue]['userId'],
+        userId: '',
         cityManager: this.data.taskData.cityManager,
         surveyId: this.data.taskData.surveyId,
         insuranceType: this.data.taskData.insuranceType

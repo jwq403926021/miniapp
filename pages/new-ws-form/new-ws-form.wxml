@@ -648,19 +648,6 @@
                     </picker>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">经办人</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <picker bindchange="processorChange" value="{{processorValue}}"
-                            range="{{processorList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{processorLabel || '请选择经办人'}}
-                        </view>
-                    </picker>
-                </view>
-            </view>
         </view>
 
         <view class="weui-cells weui-cells_after-title" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}"> <!--施工人员 转办-->
