@@ -41,7 +41,8 @@ Page({
     statusValue: '',
     statusLabel: '',
     workType: '',
-    handlingType: ''
+    handlingType: '',
+    isAcceptance: ''
   },
   onLoad: function (routeParams) {
 
@@ -88,6 +89,7 @@ Page({
       params.status = status
       params.workType = this.data.workType
       params.handlingType = this.data.handlingType
+      params.isAcceptance = this.data.isAcceptance
     } else {
       params.flowId = this.data.id
       params.status = status
