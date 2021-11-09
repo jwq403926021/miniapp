@@ -1376,7 +1376,10 @@ Page({
         userId: '',
         cityManager: this.data.taskData.cityManager,
         surveyId: this.data.taskData.surveyId,
-        insuranceType: this.data.taskData.insuranceType
+        insuranceType: this.data.taskData.insuranceType,
+        provinceCode: this.data.taskData.provinceCode,
+        cityCode: this.data.taskData.cityCode,
+        townCode: this.data.taskData.townCode
       }
     }, function (err, res) {
       if (res.code == 0) {
