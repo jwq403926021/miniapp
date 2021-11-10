@@ -943,7 +943,7 @@
             position="bottom"
             overlay="{{ true }}"
     >
-        <van-area columns-num="{{2}}" area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
+        <van-area area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
     </van-popup>
     <van-dialog
         message="请拨打出险方电话或者受损方电话。"

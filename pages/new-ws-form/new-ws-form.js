@@ -24,6 +24,7 @@ Page({
     areaList: {},
     region: '',
     regionLabel: '',
+    reassignRegionArr: [],
     reassignRegion: '',
     reassignRegionLabel: '',
     workerList: [],
@@ -502,6 +503,7 @@ Page({
     })
     this.setData({
       showreassign: false,
+      reassignRegionArr: data.detail.values,
       reassignRegion: data.detail.values[1].code,
       reassignRegionLabel: strArr.join(',')
     }, () => {
@@ -1363,6 +1365,15 @@ Page({
   },
   assignToOtherProcessor () {
     let _this = this
+    if (this.data.reassignRegionArr.length == 0){
+      wx.showToast({
+        mask: true,
+        title: '请选择转办区域',
+        icon: 'none',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -1377,9 +1388,9 @@ Page({
         cityManager: this.data.taskData.cityManager,
         surveyId: this.data.taskData.surveyId,
         insuranceType: this.data.taskData.insuranceType,
-        provinceCode: this.data.taskData.provinceCode,
-        cityCode: this.data.taskData.cityCode,
-        townCode: this.data.taskData.townCode
+        provinceCode: this.data.reassignRegionArr[0].code,
+        cityCode: this.data.reassignRegionArr[1].code,
+        townCode: this.data.reassignRegionArr[2].code
       }
     }, function (err, res) {
       if (res.code == 0) {
