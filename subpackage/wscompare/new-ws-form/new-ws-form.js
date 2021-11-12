@@ -1432,7 +1432,8 @@ Page({
         surveyId: data.surveyId,
         orderId: data.orderId,
         serviceId: data.serviceId,
-        surveyLossRemark: data.surveyLossRemark
+        surveyLossRemark: data.surveyLossRemark,
+        handlingType: data.handlingType
       }
     }, function (err, res) {
       if (res.code == 0) {
