@@ -625,9 +625,13 @@ Page({
   pickerChange (e) {
     let _this = this
     let key = e.currentTarget.dataset.name
+    let labelKey = 'name'
+    if (key == 'estimateCompany') {
+      labelKey = 'company_name'
+    }
     this.setData({
       [`${key}Value`]: e.detail.value,
-      [`${key}Label`]: this[`${key}ListSource`][e.detail.value].name
+      [`${key}Label`]: this[`${key}ListSource`][e.detail.value][labelKey]
     }, () => {
       if (key == 'estimateCompany') {
         _this.getEstimatePersonList()
