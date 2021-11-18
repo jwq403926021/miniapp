@@ -1647,11 +1647,11 @@ Page({
     })
   },
   bindTapToOffer (event) {
-    if ((this.data.status == 13 || this.data.status == 43) && this.data.role == 12) {
+    if ((this.data.status == 13 || this.data.status == 43) && this.data.role == 12 && (this.data.workerId == this.data.userId)) {
       this.workHandleWS(null, true, 1)
     } else {
       wx.navigateTo({
-        url: (this.data.role === 12 || this.data.role === 13) ? `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}` : `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}`
+        url: ((this.data.role === 12 && (this.data.workerId == this.data.userId)) || this.data.role === 13) ? `../new-ws-offer/new-ws-offer?id=${event.currentTarget.dataset.id}` : `../new-ws-offer-survey/new-ws-offer-survey?id=${event.currentTarget.dataset.id}`
       })
     }
   },
