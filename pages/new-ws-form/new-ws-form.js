@@ -516,11 +516,48 @@ Page({
       showreassign: false
     })
   },
+  updateImageName (e) {
+    let index = e.currentTarget.dataset.index;
+    util.request({
+      path: '/app/image/changeName',
+      method: 'POST',
+      data: {
+        flowId: this.data.orderId,
+        type: 3,
+        clientIndex: index,
+        customerName: this.data.customerName[index]
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  inputImageName (e) {
+    let result = this.data.customerName;
+    let index = e.currentTarget.dataset.index;
+    result[index] = e.detail.value
+    this.setData({
+      customerName: result
+    })
+  },
   inputgetName(e) {
     let name = e.currentTarget.dataset.name;
     let index = e.currentTarget.dataset.index;
     let nameMap = {}
-    if (name.indexOf('.')) {
+    if (name.indexOf('.') != -1) {
       let nameList = name.split('.')
       if (this.data[nameList[0]]) {
         nameMap[nameList[0]] = this.data[nameList[0]]
@@ -529,7 +566,7 @@ Page({
       }
       nameMap[nameList[0]][nameList[1]] = e.detail.value
     } else {
-      if (index) {
+      if (index != undefined && index != null) {
         nameMap[name][index] = e.detail.value
       } else {
         nameMap[name] = e.detail.value
