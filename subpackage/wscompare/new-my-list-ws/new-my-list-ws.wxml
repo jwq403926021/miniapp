@@ -57,6 +57,7 @@
         <view class="weui-media-box__desc">
           <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
           <view>出险方：{{item.customerUser || '-'}}</view>
+          <view style="color:red; font-weight: bold;">施工单位：{{item.workerCompanyName || '-'}}</view>
           <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 13 || role == 14 || role == 22}}">施工人员：{{item.workerUser || '-'}}</view>
           <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
           <view>创建时间：{{item.createTime || '-'}}</view>
