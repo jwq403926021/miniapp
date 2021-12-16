@@ -967,8 +967,8 @@
             <button data-save="true" bindtap="financeSubmit">暂存</button>
         </view>
         <view class="button-sp-area two-btn-wrap" wx:if="{{(role == 33 && (status == 51))}}"> <!-- 核损人 审核 -->
-            <button data-type="2" type="primary" bindtap="confirmSubmit">通过</button>
-            <button data-type="1" bindtap="confirmSubmit">驳回</button>
+            <button data-type="2" type="primary" bindtap="confirmSubmit">核损通过</button>
+            <button data-type="1" bindtap="confirmSubmit">核损驳回</button>
         </view>
 <!--        <view class="button-sp-area two-btn-wrap"> &lt;!&ndash; 市负责人 审核发票 &ndash;&gt;-->
 <!--            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>-->
