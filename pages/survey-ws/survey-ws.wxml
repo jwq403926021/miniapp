@@ -234,7 +234,7 @@
       </view>
     </block>
 
-    <view class="button-sp-area" wx:if="{{role != 1}}">
+    <view class="button-sp-area" wx:if="{{role == 1}}">
       <button type="primary" bindtap="commitSubmit">提交</button><!-- 办结 提交 -->
     </view>
   </view>
