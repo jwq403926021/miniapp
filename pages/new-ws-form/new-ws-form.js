@@ -1581,6 +1581,11 @@ Page({
   onactionsheetClose () {
     this.setData({ showactionsheet: false })
   },
+  goSurvey () {
+    wx.navigateTo({
+      url: '../survey-wx/survey-wx?id=' + this.id
+    })
+  },
   onactionsheetSelect (event) {
     switch (event.detail.name) {
       case '注销':

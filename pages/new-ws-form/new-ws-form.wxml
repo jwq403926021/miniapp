@@ -932,6 +932,9 @@
         <view class="button-sp-area" wx:if="{{role == 5 || role == 6 || role == 7}}">
             <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>
         </view>
+        <view class="button-sp-area" wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}">
+            <button type="primary" bindtap="goSurvey">满意度调查</button>
+        </view>
         <view class="button-sp-area" wx:if="{{orderId != null}}">
             <button type="primary" bindtap="downloadImages">下载所有图片</button>
         </view>
