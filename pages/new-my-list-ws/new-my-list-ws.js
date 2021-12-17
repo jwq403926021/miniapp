@@ -303,6 +303,11 @@ Page({
       })
     }
   },
+  goToSurvey (event) {
+    wx.navigateTo({
+      url: '../survey-ws/survey-ws?id=' + event.currentTarget.dataset.id
+    })
+  },
   goToHandleTask (event) {
     wx.navigateTo({
       url: '../new-ws-form/new-ws-form?id=' + event.currentTarget.dataset.id

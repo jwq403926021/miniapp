@@ -81,6 +81,12 @@
           <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
       </view>
+      <view wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}" class="weui-panel__ft" data-status="{{item.status}}" data-id="{{item.orderId}}" catchtap="goToSurvey">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+          <view class="weui-cell__bd">满意度调查</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </view>
     </view>
   </view>
   <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">

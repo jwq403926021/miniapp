@@ -42,7 +42,8 @@
     "pages/updateBasic/updateBasic",
     "pages/webview/webview",
     "pages/idi-form/idi-form",
-    "pages/idi-offer/idi-offer"
+    "pages/idi-offer/idi-offer",
+    "pages/survey-ws/survey-ws"
   ],
   "subPackages": [
     {

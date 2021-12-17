@@ -1,0 +1,4 @@
+.main-title{text-align: center; font-size: 22px; margin: 15px 0;}
+.type-title{font-size: 14px; padding: 5px 15px; background: #fff;}
+.mtb5{margin: 5px 0;}
+.weui-cells__title{font-size: 16px;}

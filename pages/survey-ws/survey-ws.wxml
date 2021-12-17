@@ -1,0 +1,241 @@
+<view class="page">
+  <view class="main-title">
+    满意度测评表
+  </view>
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd">
+            <view class="weui-label">是否匿名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <van-radio-group value="{{ isAnonymous }}" data-name="isAnonymous" custom-class="weui-input vertical"
+                             bind:change="onRadioChange">
+              <van-radio custom-class="fl mr5" name="0">否</van-radio>
+              <van-radio custom-class="fl mr5" name="1">是</van-radio>
+            </van-radio-group>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <block>
+      <view class="weui-cells__title">1.处理时效</view>
+      <view class="type-title">
+        您对我们的沟通、报价、维修及过程服务时效满意程度？
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">满意度</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type1.degree }}" data-type="1" data-name="degree" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="0">非常满意</van-radio>
+                <van-radio custom-class="mtb5" name="1">比较满意</van-radio>
+                <van-radio custom-class="mtb5" name="2">一般</van-radio>
+                <van-radio custom-class="mtb5" name="3">不满意</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{type1.degree == 2 || type1.degree == 3}}">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">不满意的原因</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type1.reason }}" data-type="1" data-name="reason" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="1">跟踪反馈</van-radio>
+                <van-radio custom-class="mtb5" name="2">资料收集</van-radio>
+                <van-radio custom-class="mtb5" name="3">报价速度</van-radio>
+                <van-radio custom-class="mtb5" name="4">维修及时性</van-radio>
+                <van-radio custom-class="mtb5" name="5">其他</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <textarea wx:if="{{type1.reason == 5}}"
+
+                  maxlength="-1"
+                  class="weui-textarea"
+                  bindinput="inputgetName"
+                  data-type="1"
+                  data-name="other"
+                  value="{{ type1.other }}"
+                  placeholder="请输入其他原因"
+                  style="height: 7em; width: 100%; padding: 10px;"
+        />
+      </view>
+    </block>
+
+    <block>
+      <view class="weui-cells__title">2.专业程度</view>
+      <view class="type-title">
+        您认为我们服务过程中的专业程度如何？
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">满意度</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type2.degree }}" data-type="2" data-name="degree" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="0">非常满意</van-radio>
+                <van-radio custom-class="mtb5" name="1">比较满意</van-radio>
+                <van-radio custom-class="mtb5" name="2">一般</van-radio>
+                <van-radio custom-class="mtb5" name="3">不满意</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{type2.degree == 2 || type2.degree == 3}}">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">不满意的原因</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type2.reason }}" data-type="2" data-name="reason" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="1">报价精准度</van-radio>
+                <van-radio custom-class="mtb5" name="2">照片拍照完整度</van-radio>
+                <van-radio custom-class="mtb5" name="3">谈判能力</van-radio>
+                <van-radio custom-class="mtb5" name="4">其他</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <textarea wx:if="{{type2.reason == 4}}"
+
+                  maxlength="-1"
+                  class="weui-textarea"
+                  bindinput="inputgetName"
+                  data-type="2"
+                  data-name="other"
+                  value="{{ type2.other }}"
+                  placeholder="请输入其他原因"
+                  style="height: 7em; width: 100%; padding: 10px;"
+        />
+      </view>
+    </block>
+
+    <block>
+      <view class="weui-cells__title">3.降赔能力</view>
+      <view class="type-title">
+        请问您对减损降赔能力的满意程度？
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">满意度</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type3.degree }}" data-type="3" data-name="degree" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="0">非常满意</van-radio>
+                <van-radio custom-class="mtb5" name="1">比较满意</van-radio>
+                <van-radio custom-class="mtb5" name="2">一般</van-radio>
+                <van-radio custom-class="mtb5" name="3">不满意</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{type3.degree == 2 || type3.degree == 3}}">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">不满意的原因</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type3.reason }}" data-type="3" data-name="reason" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="1">通信电力类</van-radio>
+                <van-radio custom-class="mtb5" name="2">交通设施类</van-radio>
+                <van-radio custom-class="mtb5" name="3">市政工程类</van-radio>
+                <van-radio custom-class="mtb5" name="4">房屋建筑类</van-radio>
+                <van-radio custom-class="mtb5" name="5">道闸伸缩门类</van-radio>
+                <van-radio custom-class="mtb5" name="6">园林绿化类</van-radio>
+                <van-radio custom-class="mtb5" name="7">充电桩及电动车类</van-radio>
+                <van-radio custom-class="mtb5" name="8">其他</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <textarea wx:if="{{type3.reason == 8}}"
+
+                  maxlength="-1"
+                  class="weui-textarea"
+                  bindinput="inputgetName"
+                  data-type="3"
+                  data-name="other"
+                  value="{{ type3.other }}"
+                  placeholder="请输入其他原因"
+                  style="height: 7em; width: 100%; padding: 10px;"
+        />
+      </view>
+    </block>
+
+    <block>
+      <view class="weui-cells__title">4.服务能力</view>
+      <view class="type-title">
+        请问您对我们的案件服务能力满意程度？
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">满意度</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type4.degree }}" data-type="4" data-name="degree" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="0">非常满意</van-radio>
+                <van-radio custom-class="mtb5" name="1">比较满意</van-radio>
+                <van-radio custom-class="mtb5" name="2">一般</van-radio>
+                <van-radio custom-class="mtb5" name="3">不满意</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{type4.degree == 2 || type4.degree == 3}}">
+          <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__hd">
+              <view class="weui-label">不满意的原因</view>
+            </view>
+            <view class="weui-cell__bd">
+              <van-radio-group value="{{ type4.reason }}" data-type="4" data-name="reason" custom-class="weui-input vertical"
+                               bind:change="onRadioChange">
+                <van-radio custom-class="mtb5" name="1">核损经常不通过</van-radio>
+                <van-radio custom-class="mtb5" name="2">客户不认可</van-radio>
+                <van-radio custom-class="mtb5" name="3">受损方不满意</van-radio>
+                <van-radio custom-class="mtb5" name="4">我认为不合理</van-radio>
+                <van-radio custom-class="mtb5" name="5">其他</van-radio>
+              </van-radio-group>
+            </view>
+          </view>
+        </view>
+        <textarea wx:if="{{type4.reason == 5}}"
+
+                  maxlength="-1"
+                  class="weui-textarea"
+                  bindinput="inputgetName"
+                  data-type="4"
+                  data-name="other"
+                  value="{{ type4.other }}"
+                  placeholder="请输入其他原因"
+                  style="height: 7em; width: 100%; padding: 10px;"
+        />
+      </view>
+    </block>
+
+    <view class="button-sp-area" wx:if="{{role != 1}}">
+      <button type="primary" bindtap="commitSubmit">提交</button><!-- 办结 提交 -->
+    </view>
+  </view>
+</view>

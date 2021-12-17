@@ -19,15 +19,15 @@
           "scene": null
         },
         {
-          "name": "pages/new-ws-offer-survey/new-ws-offer-survey",
-          "pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
-          "query": "id=20210316200615000109",
+          "name": "pages/new-ws-form/new-ws-form",
+          "pathName": "pages/new-ws-form/new-ws-form",
+          "query": "id=20211101150031000107",
           "scene": null
         },
         {
           "name": "pages/new-ws-form/new-ws-form",
           "pathName": "pages/new-ws-form/new-ws-form",
-          "query": "id=20210522085235000107",
+          "query": "id=20210511122358000107",
           "scene": null
         },
         {
@@ -47,7 +47,7 @@
         {
           "name": "pages/new-jc-form/new-jc-form",
           "pathName": "pages/new-jc-form/new-jc-form",
-          "query": "id=20210129170214000108",
+          "query": "id=20210902143028000108",
           "scene": null
         },
         {
@@ -116,7 +116,19 @@
         {
           "name": "subpackage/wscompare/new-ws-form/new-ws-form",
           "pathName": "subpackage/wscompare/new-ws-form/new-ws-form",
-          "query": "id=20210816082850000110",
+          "query": "id=20211115110404000110",
+          "scene": null
+        },
+        {
+          "name": "pages/updateBasic/updateBasic",
+          "pathName": "pages/updateBasic/updateBasic",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/survey-ws/survey-ws",
+          "pathName": "pages/survey-ws/survey-ws",
+          "query": "id=123",
           "scene": null
         }
       ]
