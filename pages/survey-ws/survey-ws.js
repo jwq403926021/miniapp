@@ -79,10 +79,10 @@ Page({
         satisfactionDegree: this.data[type].degree,
         flag: this.data.isAnonymous,
         type: i,
-        childList: [{
+        childList: (this.data[type].degree == '2' || this.data[type].degree == '3') ? [{
           mainId: this.data[type].reason,
           remark: this.data[type].other
-        }]
+        }] : []
       }
     })
     util.request({
