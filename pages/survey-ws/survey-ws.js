@@ -39,6 +39,14 @@ Page({
     }
   },
   initDataById (id) {
+    util.request({
+      path: `/app/businesssatisfactionmain/info/${id}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+          // res.businessSatisfactionMainEntityList
+      }
+    })
   },
   inputgetName(e) {
     let key = e.currentTarget.dataset.type;
