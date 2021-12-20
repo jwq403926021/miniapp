@@ -27,7 +27,8 @@ Page({
       degree: "0",
       reason: "",
       other: ""
-    }
+    },
+    isAllowSubmit: false
   },
   onLoad: function (routeParams ) {
     if (routeParams && routeParams.id) {
@@ -39,12 +40,15 @@ Page({
     }
   },
   initDataById (id) {
+    let _this = this
     util.request({
       path: `/app/businesssatisfactionmain/info/${id}`,
       method: 'GET'
     }, function (err, res) {
       if (res.code == 0) {
-          // res.businessSatisfactionMainEntityList
+        _this.setData({
+          isAllowSubmit: res.businessSatisfactionMainEntityList.length === 0
+        })
       }
     })
   },
