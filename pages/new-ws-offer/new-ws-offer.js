@@ -281,9 +281,9 @@ Page({
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
 
     let amountMoney =  offerListTotal - incompleteTotal
-    let tax = parseFloat(this.data.taxRate) / 100 * amountMoney
+    let tax = (parseFloat(this.data.taxRate) / 100 * amountMoney).toFixed(2)
 
-    let offerResult = (this.data.hasTax && this.data.hasTax == '1') ? (amountMoney + tax) : (amountMoney)
+    let offerResult = (this.data.hasTax && this.data.hasTax == '1') ? (amountMoney + parseFloat(tax)) : (amountMoney)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
     let compareList = this.data.compareList.map(item => {
@@ -294,7 +294,7 @@ Page({
     this.setData({
       amountMoney: (amountMoney || 0).toFixed(2),
       coinInsert: (coinInsert || 0).toFixed(2),
-      tax: (tax || 0).toFixed(2),
+      tax: (tax || 0),
       offerListTotal: (offerListTotal || 0).toFixed(2),
       incompleteTotal: (incompleteTotal || 0).toFixed(2),
       offerResult: (offerResult || 0).toFixed(2),
