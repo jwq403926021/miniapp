@@ -9,18 +9,17 @@ exports.main = async (event, context) => {
 
   switch (event.action) {
     case 'getUrlScheme': {
-      return getUrlScheme()
+      return getUrlScheme(event.query)
     }
   }
-
   return 'action not found'
 }
 
-async function getUrlScheme() {
+async function getUrlScheme(query) {
   return cloud.openapi.urlscheme.generate({
     jumpWxa: {
       path: '/pages/index/index', // <!-- replace -->
-      query: '',
+      query: query,
     },
     // 如果想不过期则置为 false，并可以存到数据库
     isExpire: false,
