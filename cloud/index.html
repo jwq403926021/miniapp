@@ -102,7 +102,7 @@
       async function openWeapp(onBeforeJump) {
         var c = window.c
         const res = await c.callFunction({
-          name: 'public',
+          name: 'jump',
           data: {
             action: 'getUrlScheme',
           },
