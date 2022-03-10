@@ -94,7 +94,7 @@
             意见反馈
         </view>
     </view>
-    <view class="new-btn fl" bindtap="goToUpdateBasic" wx:if="{{userId == 91 || userId == 271 || userId == 983 || userId == 52 || userId == 928 || userId == 2658 || userId == 3269 || userId == 3107 || userId == 277 || userId == 1792}}">
+    <view class="new-btn fl" bindtap="goToUpdateBasic" wx:if="{{userId == 91 || userId == 271 || userId == 983 || userId == 52 || userId == 928 || userId == 2658 || userId == 3269 || userId == 3107 || userId == 277 || userId == 1792 || userId == 1440}}">
         <view>
           <text class="iconfont icon-yijianfankui myicon"></text>
         </view>
