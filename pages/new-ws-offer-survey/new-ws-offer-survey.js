@@ -32,6 +32,7 @@ Page({
     incompleteTotal: '',
     offerListTotal: '',
     offerResult: '',
+    handlingType: '',
     compareList: [{
       companyName: '企业1',
       id: 0,
@@ -149,6 +150,7 @@ Page({
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         compareList: res.compareList.length ? res.compareList : _this.data.compareList,
         hasTax: data.hasTax == 1 ? true : false,
+        handlingType: data.handlingType,
         coinLevel: data.level || 1
       }
       _this.setData(result, () => {
