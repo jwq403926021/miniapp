@@ -36,6 +36,7 @@ Page({
     incompleteTotal: '',
     offerListTotal: '',
     offerResult: '',
+    handlingType: '',
     coinNum: '',
     coinRate: '',
     coinLevel: 1,
@@ -139,6 +140,7 @@ Page({
         taxRate: taxData[0] ? taxData[0].taxRate : 0,
         amountMoney: taxData[0] ? taxData[0].amountMoney : 0,
         hasTax: data.hasTax == 1 ? true : false,
+        handlingType: data.handlingType,
         coinLevel: data.level || 1
       }
       _this.setData(result, () => {

@@ -114,7 +114,7 @@
                             </view>
                         </block>
 
-                        <block wx:if="{{hasTax}}">
+                        <block wx:if="{{hasTax && handlingType != 0}}">
                             <view class="section-title">税额详情</view>
                             <view class="weui-cells weui-cells_after-title">
                                 <view class="weui-cell weui-cell_input">
@@ -148,7 +148,7 @@
             </van-collapse>
 
             <view class="offer-total">
-                <view wx:if="{{offerList.length > 0}}">不含税报价合计: {{offerListTotal || 0}}</view>
+                <view wx:if="{{hasTax && handlingType == 0}}">含税报价合计: {{offerListTotal || 0}}</view>
                 <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
                 <view wx:if="{{hasTax}}">总税额: {{tax || 0}}</view>
                 <view>总报价: {{offerResult || 0}}{{hasTax ? '(含税)' : ''}}</view>
