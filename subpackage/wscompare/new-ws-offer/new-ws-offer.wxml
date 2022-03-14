@@ -353,7 +353,7 @@
                         </view>
                     </view>
                 </van-collapse-item>
-                <van-collapse-item wx:if="{{hasTax}}" title="税金{{tax ? '  |  税:' + tax : ''}}" name="2">
+                <van-collapse-item wx:if="{{hasTax && handlingType != 0}}" title="税金{{tax ? '  |  税:' + tax : ''}}" name="2">
                     <view class="weui-cell weui-cell_input no-padding offerListRow">
                         <view class="weui-cell__hd">
                             <view class="weui-label">金额</view>
