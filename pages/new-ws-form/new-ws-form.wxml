@@ -496,6 +496,7 @@
                             </view>
                             <view class="weui-cell__ft">
                                 <van-button type="info" size="small" data-index='{{index}}' bind:tap="updateImageName">更改名称</van-button>
+                                <van-button type="danger" size="small" data-index='{{index}}' bind:tap="deleteWorkLiveImageFiles">删除</van-button>
                             </view>
                         </view>
                         <view wx:else>

@@ -516,6 +516,42 @@ Page({
       showreassign: false
     })
   },
+  deleteWorkLiveImageFiles (e) {
+    let index = e.currentTarget.dataset.index;
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        util.request({
+          path: `/app/image/deleteDamagePerson?orderId=${_this.data.orderId}&type=${3}&clientIndex=${index}`,
+          method: 'DELETE'
+        }, function (err, res) {
+          if (res.code == 0) {
+            wx.showToast({
+              mask: true,
+              title: '操作成功',
+              icon: 'success',
+              duration: 1000,
+              success () {
+                _this.data.workLiveImageFiles.splice(index, 1)
+                _this.setData({
+                  workLiveImageFiles: _this.data.workLiveImageFiles
+                })
+              }
+            })
+          } else {
+            wx.showToast({
+              mask: true,
+              title: '操作失败',
+              icon: 'none',
+              duration: 1000
+            })
+          }
+        })
+      }
+    })
+  },
   updateImageName (e) {
     let index = e.currentTarget.dataset.index;
     util.request({
