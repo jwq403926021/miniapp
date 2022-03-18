@@ -21,8 +21,9 @@
         {
           "name": "pages/new-ws-form/new-ws-form",
           "pathName": "pages/new-ws-form/new-ws-form",
-          "query": "id=20211101150031000107",
-          "scene": null
+          "query": "id=20210624085252000107",
+          "scene": null,
+          "launchMode": "default"
         },
         {
           "name": "pages/new-ws-offer-survey/new-ws-offer-survey",
@@ -55,8 +56,8 @@
           "name": "pages/new-ws-offer/new-ws-offer",
           "pathName": "pages/new-ws-offer/new-ws-offer",
           "query": "id=20211116143749000107",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "id": -1,
