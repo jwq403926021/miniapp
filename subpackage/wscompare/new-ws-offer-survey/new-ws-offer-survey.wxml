@@ -42,13 +42,13 @@
                 <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | {{['咨询', '施工'][project.proType]}} | 合计:{{project.offerResult}}" name="{{pindex}}">
                     <view>
                         <van-row custom-class="accident-detail-table-header">
-                            <van-col span="5">名称</van-col>
+                            <van-col span="6">名称</van-col>
                             <van-col span="5">单位</van-col>
                             <van-col span="5">单价</van-col>
-                            <van-col span="5">数量</van-col>
+                            <van-col span="4">数量</van-col>
                             <van-col span="4">金额</van-col>
                         </van-row>
-                        <view wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
+                        <view class="remark-row" wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                             <van-row custom-class="accident-detail-table-body">
                                 <van-col span="5">
                                     {{subItem.name}}
@@ -66,7 +66,7 @@
                                     {{subItem.itemTotal}}
                                 </van-col>
                             </van-row>
-                            <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body remark-row">
+                            <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body">
                                 <van-col span="6">
                                     项目备注:
                                 </van-col>
@@ -85,7 +85,7 @@
                                 <van-col span="4">数量</van-col>
                                 <van-col span="4">金额</van-col>
                             </van-row>
-                            <view wx:for="{{project.incompleteList}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
+                            <view class="remark-row" wx:for="{{project.incompleteList}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                                 <van-row custom-class="accident-detail-table-body">
                                     <van-col span="8">
                                         {{subItem.name}}
@@ -103,7 +103,7 @@
                                         {{subItem.itemTotal}}
                                     </van-col>
                                 </van-row>
-                                <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body remark-row">
+                                <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body">
                                     <van-col span="6">
                                         项目备注:
                                     </van-col>
