@@ -26,24 +26,24 @@
                 <van-collapse-item wx:for="{{offerList}}" wx:for-index="pindex" wx:key="pindex" wx:for-item="project" title="项目:{{project.proName || '-'}} | {{['咨询', '施工'][project.proType]}} | 合计:{{project.offerResult}}" name="{{pindex}}">
                     <view>
                         <van-row custom-class="accident-detail-table-header">
-                            <van-col span="6">名称</van-col>
-                            <van-col span="5">单位</van-col>
-                            <van-col span="5">单价</van-col>
+                            <van-col span="8">名称</van-col>
+                            <van-col span="4">单位</van-col>
+                            <van-col span="4">单价</van-col>
                             <van-col span="4">数量</van-col>
                             <van-col span="4">金额</van-col>
                         </van-row>
                         <view class="remark-row" wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                             <van-row custom-class="accident-detail-table-body">
-                                <van-col span="5">
+                                <van-col span="8">
                                     {{subItem.name}}
                                 </van-col>
-                                <van-col span="5">
+                                <van-col span="4">
                                     {{subItem.unit}}
                                 </van-col>
-                                <van-col span="5">
-                                    {{subItem.price}}
+                                <van-col span="4">
+                                    {{subItem.unitPrice}}
                                 </van-col>
-                                <van-col span="5">
+                                <van-col span="4">
                                     {{subItem.num}}
                                 </van-col>
                                 <van-col span="4">
