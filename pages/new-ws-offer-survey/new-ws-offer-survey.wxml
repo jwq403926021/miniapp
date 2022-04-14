@@ -50,7 +50,7 @@
                                     {{subItem.itemTotal}}
                                 </van-col>
                             </van-row>
-                            <van-row custom-class="accident-detail-table-body remark-row">
+                            <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body remark-row">
                                 <van-col span="6">
                                     项目备注:
                                 </van-col>
@@ -87,7 +87,7 @@
                                         {{subItem.itemTotal}}
                                     </van-col>
                                 </van-row>
-                                <van-row custom-class="accident-detail-table-body remark-row">
+                                <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body remark-row">
                                     <van-col span="6">
                                         项目备注:
                                     </van-col>
