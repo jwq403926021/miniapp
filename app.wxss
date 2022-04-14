@@ -113,6 +113,7 @@ page{
     text-align: left;
     font-size: 14px;
 }
+.tl{text-align: left!important; padding-left:5px;}
 .weui-select{
     font-size: 14px!important;
     color:#808080

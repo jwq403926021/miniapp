@@ -50,7 +50,7 @@
                         </van-row>
                         <view class="remark-row" wx:for="{{project.children}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                             <van-row custom-class="accident-detail-table-body">
-                                <van-col span="8">
+                                <van-col custom-class="tl" span="8">
                                     {{subItem.name}}
                                 </van-col>
                                 <van-col span="4">
@@ -67,11 +67,8 @@
                                 </van-col>
                             </van-row>
                             <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body">
-                                <van-col span="6">
-                                    项目备注:
-                                </van-col>
-                                <van-col custom-class="align-left" span="18">
-                                    {{subItem.remark || '-'}}
+                                <van-col custom-class="tl" span="24">
+                                    项目备注: {{subItem.remark || '-'}}
                                 </van-col>
                             </van-row>
                         </view>
@@ -87,7 +84,7 @@
                             </van-row>
                             <view class="remark-row" wx:for="{{project.incompleteList}}" wx:for-item="subItem" wx:for-index="subIndex" wx:key="subIndex">
                                 <van-row custom-class="accident-detail-table-body">
-                                    <van-col span="8">
+                                    <van-col custom-class="tl" span="8">
                                         {{subItem.name}}
                                     </van-col>
                                     <van-col span="4">
@@ -104,11 +101,8 @@
                                     </van-col>
                                 </van-row>
                                 <van-row wx:if="{{subItem.remark}}" custom-class="accident-detail-table-body">
-                                    <van-col span="6">
-                                        项目备注:
-                                    </van-col>
-                                    <van-col custom-class="align-left" span="18">
-                                        {{subItem.remark || '-'}}
+                                    <van-col custom-class="tl" span="24">
+                                        项目备注: {{subItem.remark || '-'}}
                                     </van-col>
                                 </van-row>
                             </view>
