@@ -57,7 +57,7 @@
                                     {{subItem.unit}}
                                 </van-col>
                                 <van-col span="4">
-                                    {{subItem.unitPrice}}
+                                    {{subItem.price}}
                                 </van-col>
                                 <van-col span="4">
                                     {{subItem.num}}
