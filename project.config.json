@@ -41,7 +41,7 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.16.0",
+  "libVersion": "2.16.1",
   "appid": "wxc9cdcd3084bb6aee",
   "projectname": "hbj",
   "debugOptions": {

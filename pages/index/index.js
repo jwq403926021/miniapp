@@ -92,7 +92,7 @@ Page({
     this.setData({
       isLogin: true,
       role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
-      userId: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.userId,
+      userId: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.userId || '',
     })
   }
 })
