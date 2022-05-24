@@ -1,15 +1,6 @@
 {
   "setting": {},
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
         {
@@ -32,14 +23,12 @@
           "scene": null
         },
         {
-          "id": 3,
           "name": "pages/new-jc-manage/new-jc-manage",
           "pathName": "pages/new-jc-manage/new-jc-manage",
           "query": "id=20210106090735000108&type=2",
           "scene": null
         },
         {
-          "id": 4,
           "name": "pages/new-my-list-jc/new-my-list-jc",
           "pathName": "pages/new-my-list-jc/new-my-list-jc",
           "query": "",
@@ -55,11 +44,10 @@
           "name": "pages/new-ws-offer/new-ws-offer",
           "pathName": "pages/new-ws-offer/new-ws-offer",
           "query": "id=20211116143749000107",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
-          "id": -1,
           "name": "pages/ws-form/ws-form",
           "pathName": "pages/ws-form/ws-form",
           "query": "",
@@ -72,7 +60,6 @@
           "scene": null
         },
         {
-          "id": -1,
           "name": "pages/pay/pay",
           "pathName": "pages/pay/pay",
           "query": "",
@@ -134,5 +121,6 @@
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
 }
