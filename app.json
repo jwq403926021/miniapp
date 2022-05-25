@@ -41,6 +41,7 @@
     "pages/pay/pay",
     "pages/updateBasic/updateBasic",
     "pages/webview/webview",
+    "pages/my-list-idi/my-list-idi",
     "pages/idi-form/idi-form",
     "pages/idi-offer/idi-offer",
     "pages/survey-ws/survey-ws"
