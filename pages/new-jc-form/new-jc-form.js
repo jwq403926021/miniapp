@@ -161,7 +161,7 @@ Page({
       path: '/app/businessdamagenew/getSameUnitWorker',
       method: 'GET',
       data: {
-        workerId: this.data.taskData.workerId
+        workerId: this.data.taskData.workerId || ''
       }
     }, function (err, res) {
       if (res) {
@@ -1020,6 +1020,7 @@ Page({
       let data = res.data
       _this.sourceData = data
       _this.sourceImage = res.Image
+      _this.sourceAttachment = res.attachment
       let informationImageFiles = []
       let floorImageFiles = []
       let wallImageFiles = []
@@ -1061,10 +1062,6 @@ Page({
           case 6:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             completeImageFiles.push(item)
-            break
-          case 66:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
-            workVideo.push(item)
             break
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -1122,6 +1119,12 @@ Page({
             item.path = `https://aplusprice.xyz/file/${item.path}`
             familyImages.source.push(item)
             break
+        }
+      })
+      _this.sourceAttachment.forEach(item => {
+        if (item.type) {
+          item.path = `https://aplusprice.xyz/file/${item.path}`
+          workVideo.push(item)
         }
       })
       wx.setStorageSync('familyImages', familyImages)
@@ -1617,6 +1620,27 @@ Page({
   closePreviewVideo: function (e) {
     this.setData({
       activeVideo: ''
+    })
+  },
+  chooseVideo: function (e) {
+    let key = e.currentTarget.dataset.name
+    var that = this
+    app.globalData.isIgnoreRefresh = true
+    wx.chooseVideo({
+      sourceType: ['album','camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success: function (res) {
+        let tempList = []
+        tempList.push({
+          "path": res.tempFilePath, "id": 66, "thumbTempFilePath": res.thumbTempFilePath
+        })
+        let list = that.data[key].concat(tempList)
+        that.setData({
+          [key]: list
+        })
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+      }
     })
   },
   removeVideo (e) {
