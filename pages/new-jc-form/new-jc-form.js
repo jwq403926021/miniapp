@@ -24,6 +24,8 @@ Page({
     looserList: [],
     losserValue: '',
     losserLabel: '',
+    workVideo: [],
+    activeVideo: '',
     showWorkerHit: false,
     showreassign: false,
     statusMap: {
@@ -298,6 +300,7 @@ Page({
   workerUploadImage () {
     let _this = this
     let completeImageFiles = []
+    let videoFiles = []
     wx.showLoading({
       mask: true,
       title: '提交中'
@@ -307,7 +310,12 @@ Page({
         completeImageFiles.push({path: item.path, type: 6})
       }
     })
-    let imgPaths = [...completeImageFiles]
+    _this.data.workVideo.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        videoFiles.push({path: item.path, type: 66})
+      }
+    })
+    let imgPaths = [...completeImageFiles, ...videoFiles]
     let count = 0
     let successUp = 0
     let failUp = 0
@@ -331,6 +339,7 @@ Page({
     let damageImageFiles = []
     let caleImageFiles = []
     let completeImageFiles  = []
+    let workVideo  = []
     let testImageFiles = []
     _this.data.damageImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
@@ -347,12 +356,17 @@ Page({
         completeImageFiles.push({path: item.path, type: 6})
       }
     })
+    _this.data.workVideo.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        workVideo.push({path: item.path, type: 66})
+      }
+    })
     _this.data.testImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         testImageFiles.push({path: item.path, type: 21})
       }
     })
-    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...testImageFiles]
+    return [...damageImageFiles, ...caleImageFiles, ...completeImageFiles, ...workVideo, ...testImageFiles]
   },
   workerCommit (event, save = false, isOfferSave = false) {
     let _this = this
@@ -1012,6 +1026,7 @@ Page({
       let damageImageFiles = []
       let caleImageFiles = []
       let completeImageFiles = []
+      let workVideo = []
       let testImageFiles = []
 
       let familyImages = {
@@ -1046,6 +1061,10 @@ Page({
           case 6:
             item.path = `https://aplusprice.xyz/file/${item.path}`
             completeImageFiles.push(item)
+            break
+          case 66:
+            item.path = `https://aplusprice.xyz/file/${item.path}`
+            workVideo.push(item)
             break
           case 7:
             item.path = `https://aplusprice.xyz/file/${item.path}`
@@ -1150,6 +1169,7 @@ Page({
         caleImageFiles: caleImageFiles,
         damageImageFiles: damageImageFiles,
         completeImageFiles: completeImageFiles,
+        workVideo: workVideo,
         testImageFiles: testImageFiles
       }, () => {
         if (_this.data.role == 12) {
@@ -1337,7 +1357,7 @@ Page({
       formData.clientIndex = imgPaths[count].clientIndex
     }
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
       name: `files`,
       header: {
@@ -1580,6 +1600,41 @@ Page({
           let id = e.currentTarget.dataset.id;
           if (id) {
             common.deleteImage(id)
+          }
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  previewVideo: function (e) {
+    let key = e.currentTarget.dataset.name
+    let id = e.currentTarget.id
+    this.setData({
+      activeVideo: id
+    })
+  },
+  closePreviewVideo: function (e) {
+    this.setData({
+      activeVideo: ''
+    })
+  },
+  removeVideo (e) {
+    let key = e.currentTarget.dataset.name
+    let index = e.currentTarget.dataset.index;
+    let _this = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (sm) {
+        if (sm.confirm) {
+          _this.data[key].splice(index, 1)
+          _this.setData({
+            [key]: _this.data[key]
+          })
+          let id = e.currentTarget.dataset.id;
+          if (id) {
+            common.deleteAttach(id)
           }
         } else if (sm.cancel) {
           console.log('用户点击取消')
