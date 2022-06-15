@@ -1,5 +1,7 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": false
+  },
   "condition": {
     "miniprogram": {
       "list": [

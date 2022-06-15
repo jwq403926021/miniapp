@@ -36,6 +36,7 @@ const statusMap = {
 Page({
   data: {
     id: '',
+    reportNumber: '',
     type: '1',
     statusListSource: Object.values(statusMap[1]),
     statusValue: '',
@@ -77,6 +78,11 @@ Page({
       id: ''
     })
   },
+  clearReportNumber () {
+    this.setData({
+      reportNumber: ''
+    })
+  },
   submitRequest () {
     let params = {}
     let url = this.data.type == '1' ? '/app/businessdamagenew/updateBasic' : '/app/businessinsurancefamilynew/updateBasic'
@@ -92,6 +98,7 @@ Page({
       params.handlingType = this.data.handlingType
       params.isAcceptance = this.data.isAcceptance
       params.isAgree = this.data.isAgree
+      params.reportNumber = this.data.reportNumber
     } else {
       params.flowId = this.data.id
       params.status = status
