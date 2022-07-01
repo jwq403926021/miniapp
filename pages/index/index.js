@@ -23,6 +23,11 @@ Page({
       url: '../../subpackage/wscompare/new-ws-form/new-ws-form?type='+type
     })
   },
+  goToPeace: function(event) {
+    wx.navigateTo({
+      url: '../../subpackage/peace/peace'
+    })
+  },
   goToJcForm: function () {
     wx.navigateTo({
       url: '../jc-form/jc-form'

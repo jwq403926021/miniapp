@@ -56,6 +56,12 @@
         "new-ws-offer-survey/new-ws-offer-survey",
         "new-ws-manage/new-ws-manage"
       ]
+    },
+    {
+      "root": "subpackage/peace/",
+      "pages": [
+        "peace"
+      ]
     }
   ],
   "permission": {
