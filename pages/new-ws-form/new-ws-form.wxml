@@ -175,7 +175,7 @@
                     <view class="weui-label">详细地址</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>
+                    <input class="weui-input" disabled="{{userLocationInfo.latitude === '' || userLocationInfo.latitude === null}}" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>
                 </view>
                 <view class="weui-cell__ft">
                     <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>
