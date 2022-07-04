@@ -27,6 +27,9 @@ Page({
     reassignRegionArr: [],
     reassignRegion: '',
     reassignRegionLabel: '',
+    typeValue: '',
+    typeList: ['物损', '其他'],
+    typeLabel: '',
     workerList: [],
     workerValue: '',
     workerLabel: '',
@@ -86,6 +89,12 @@ Page({
       latitude: '',
       longitude: ''
     },
+    userLocationInfo: {
+      latitude: null,
+      longitude: null,
+      name: '位置'
+    },
+    address: '',
     showactionsheet: false,
     actions: [
       {
@@ -1672,7 +1681,70 @@ Page({
         wx.hideLoading()
       })
     })
-  }
+  },
+  pickerChange (e) {
+    let name = e.currentTarget.dataset.name;
+    this.setData({
+      [`${name}Value`]: e.detail.value,
+      [`${name}Label`]: this.data[`${name}List`][e.detail.value] || ''
+    })
+  },
+  chooseLocation () {
+    let _this = this
+    app.globalData.isIgnoreRefresh = true
+    wx.getLocation({
+      type: 'wgs84',
+      isHighAccuracy: true,
+      success (res) {
+        const latitude = _this.data.userLocationInfo.latitude || res.latitude
+        const longitude = _this.data.userLocationInfo.longitude || res.longitude
+        wx.chooseLocation({
+          latitude: latitude,
+          longitude: longitude,
+          success (location) {
+            console.log('location:', location)
+            _this.setData({
+              address: location.address,
+              userLocationInfo: {
+                latitude: location.latitude,
+                longitude: location.longitude
+              }
+            })
+            setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+          }
+        })
+      },
+      fail: function (res) {
+        if (res.errMsg == 'getLocation:fail auth deny') {
+          wx.openSetting({
+            success: function (res) {
+              if (res.authSetting['scope.userLocation'] == false) {
+                wx.showModal({
+                  title: '提示',
+                  content: '您未开启定位权限.',
+                  showCancel: false
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: '您已开启定位权限，请重新点击登录',
+                  showCancel: false
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  goToLocation () {
+    wx.openLocation({
+      latitude: Number(this.data.userLocationInfo.latitude),
+      longitude: Number(this.data.userLocationInfo.longitude),
+      name: '',
+      address: ''
+    })
+  },
   // getMyLocation () {
   //   wx.chooseLocation({
   //     success: (res) => {
