@@ -272,7 +272,14 @@ Page({
         'taskData.cancelRemark': data.cancelRemark,
         'taskData.managerRemark': data.managerRemark,
         'taskData.isCompulsory': data.isCompulsory,
-        'taskData.isBusiness': data.isBusiness
+        'taskData.isBusiness': data.isBusiness,
+        'address': data.address,
+        'typeValue': data.type,
+        'typeLabel': _this.data.typeList[data.type],
+        'userLocationInfo': {
+          longitude: data.lon,
+          latitude: data.lat,
+        }
       }, () => {
         if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
           _this.initReassignList()
@@ -913,7 +920,11 @@ Page({
       customerPhone: data.customerPhone,
       plateNumber: data.plateNumber,
       reportNumber: data.reportNumber,
-      information: data.information
+      information: data.information,
+      address: data.address,
+      type: data.typeValue,
+      lon: data.userLocationInfo.longitude,
+      lat: data.userLocationInfo.latitude
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
