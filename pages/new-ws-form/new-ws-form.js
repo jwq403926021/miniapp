@@ -921,10 +921,10 @@ Page({
       plateNumber: data.plateNumber,
       reportNumber: data.reportNumber,
       information: data.information,
-      address: data.address,
-      type: data.typeValue,
-      lon: data.userLocationInfo.longitude,
-      lat: data.userLocationInfo.latitude
+      address: _this.data.address,
+      type: _this.data.typeValue,
+      lon: _this.data.userLocationInfo.longitude,
+      lat: _this.data.userLocationInfo.latitude
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
