@@ -922,7 +922,7 @@ Page({
       reportNumber: data.reportNumber,
       information: data.information,
       address: _this.data.address,
-      type: _this.data.typeValue,
+      // type: _this.data.typeValue,
       lon: _this.data.userLocationInfo.longitude,
       lat: _this.data.userLocationInfo.latitude
     }

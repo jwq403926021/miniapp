@@ -157,21 +157,21 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">物损类型</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
-                    <picker bindchange="pickerChange" data-name="type" value="{{typeValue}}" range="{{typeList}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{typeLabel || '请选择物损类型'}}
-                        </view>
-                    </picker>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    {{typeLabel}}
-                </view>
-            </view>
+<!--            <view class="weui-cell weui-cell_select">-->
+<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+<!--                    <view class="weui-label">物损类型</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">-->
+<!--                    <picker bindchange="pickerChange" data-name="type" value="{{typeValue}}" range="{{typeList}}">-->
+<!--                        <view class="picker weui-select weui-select_in-select-after">-->
+<!--                            {{typeLabel || '请选择物损类型'}}-->
+<!--                        </view>-->
+<!--                    </picker>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:else>-->
+<!--                    {{typeLabel}}-->
+<!--                </view>-->
+<!--            </view>-->
 
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
