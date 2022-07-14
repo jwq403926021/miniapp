@@ -741,8 +741,8 @@
             <button data-id="{{flowId}}" bindtap="bindTapToClient" type="primary">
                 {{((role == 12 && (status == 40 || status == 30 || status == 31 || status == 32 || status == 62)) || (role == 23 && (status == 51 || status == 52))) ? '完善图片信息' : '图片信息'}}
             </button>
-            <button wx:if="{{role != 27}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
-                {{role === 13 && status === 41 ? '待报价' : '报价信息'}}
+            <button wx:if="{{((role === 1 && (status === 61 ||status === 11)) || (role != 27 && role != 1 && status != null))}}" data-id="{{flowId}}" bindtap="bindTapToOffer" type="primary">
+                {{(role === 13 && status === 41) ? '待报价' : '报价信息'}}
             </button>
         </view>
 
