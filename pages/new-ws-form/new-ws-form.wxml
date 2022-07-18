@@ -173,20 +173,20 @@
 <!--                </view>-->
 <!--            </view>-->
 
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">详细地址</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" disabled="{{userLocationInfo.latitude === '' || userLocationInfo.latitude === null}}" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>
-                </view>
-                <view class="weui-cell__ft" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
-                    <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>
-                </view>
-            </view>
-            <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">
-                <map id="map" bindtap="goToLocation" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" scale="13" show-location style="width: 100%; height: 100%;"></map>
-            </view>
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">详细地址</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <input class="weui-input" disabled="{{userLocationInfo.latitude === '' || userLocationInfo.latitude === null}}" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__ft" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">-->
+<!--                    <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>-->
+<!--                </view>-->
+<!--            </view>-->
+<!--            <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">-->
+<!--                <map id="map" bindtap="goToLocation" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" scale="13" show-location style="width: 100%; height: 100%;"></map>-->
+<!--            </view>-->
 
             <view wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}" class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
