@@ -861,6 +861,15 @@ Page({
   estimateCommit (e) {
     let data = this.data
     let _this = this
+    if (data.estimatePersonValue === '' || data.estimatePersonValue === null) {
+      wx.showToast({
+        mask: true,
+        title: '请填写公估人员',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
     let {
       orderId,
       customerUser,
@@ -887,7 +896,7 @@ Page({
         surveyLossId,
         surveyId,
         cityManager,
-        estimateId: this.estimatePersonListSource[data.estimatePersonValue]['userId']
+        estimateId: _this.estimatePersonListSource[data.estimatePersonValue]['userId']
       }
     }, function (err, res) {
       if (res.code == 0) {
