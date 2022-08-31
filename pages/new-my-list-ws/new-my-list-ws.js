@@ -19,6 +19,7 @@ Page({
     dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
     searchCarNumber: '',
+    searchCustomerUser: '',
     searchReportNumber: '',
     searchOrderId: '',
     statusMap: {
@@ -126,6 +127,7 @@ Page({
       totalPage: 1,
       searchCarNumber: '',
       searchOrderId: '',
+      searchCustomerUser: '',
       searchReportNumber: '',
       statusFilter: '-1',
       startDate: '',
@@ -178,6 +180,11 @@ Page({
       searchReportNumber: data.detail
     })
   },
+  searchCustomerUserChange (data) {
+    this.setData({
+      searchCustomerUser: data.detail
+    })
+  },
   dateFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
     this.setData({
@@ -204,6 +211,7 @@ Page({
       page: this.data.page,
       size: 20,
       plateNumber: this.data.searchCarNumber,
+      customerUser: this.data.searchCustomerUser,
       reportNumber: this.data.searchReportNumber,
       orderId: this.data.searchOrderId,
       insuranceType: this.data.type
@@ -273,6 +281,7 @@ Page({
       totalPage: 1,
       searchCarNumber: '',
       searchOrderId: '',
+      searchCustomerUser: '',
       searchReportNumber: '',
       statusFilter: '-1',
       startDate: '',

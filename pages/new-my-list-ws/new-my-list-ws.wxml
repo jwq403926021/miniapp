@@ -29,6 +29,13 @@
                 bind:change="searchReportNumberChange">
         </van-search>
         <van-search
+                wx:if="{{type != 1}}"
+                value="{{ searchCustomerUser }}"
+                placeholder="请输入出险方"
+                custom-class="my-search"
+                bind:change="searchCustomerUserChange">
+        </van-search>
+        <van-search
                 wx:if="{{type == 1}}"
                 value="{{ searchCarNumber }}"
                 placeholder="请输入车牌号"
