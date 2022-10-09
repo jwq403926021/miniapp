@@ -57,7 +57,7 @@
         <view class="weui-media-box__desc">
           <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
           <view>出险方：{{item.customerUser || '-'}}</view>
-          <view style="color:red; font-weight: bold;">中标单位：{{item.workerCompanyName || '-'}}</view>
+          <view>中标单位：{{item.workerCompanyName || '-'}}</view>
           <view>中标金额：{{item.offer || '-'}}</view>
           <view wx:if="{{type == 1}}">车牌号：{{item.plateNumber || '-'}}</view>
           <view>创建时间：{{item.createTime || '-'}}</view>
