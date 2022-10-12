@@ -15,12 +15,13 @@
           "name": "pages/new-ws-form/new-ws-form",
           "pathName": "pages/new-ws-form/new-ws-form",
           "query": "id=20211101150031000107",
+          "launchMode": "default",
           "scene": null
         },
         {
-          "name": "pages/new-ws-offer-survey/new-ws-offer-survey",
-          "pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
-          "query": "id=20211116143749000107",
+          "name": "subpackage/wscompare/new-ws-offer-survey/new-ws-offer-survey",
+          "pathName": "subpackage/wscompare/new-ws-offer-survey/new-ws-offer-survey",
+          "query": "id=20211115110404000110",
           "launchMode": "default",
           "scene": null
         },

@@ -114,32 +114,30 @@
 
                         <block wx:if="{{hasTax && handlingType != 0}}">
                             <view class="section-title">税额详情</view>
-                            <view class="weui-cells weui-cells_after-title">
-                                <view class="weui-cell weui-cell_input">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">金额</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{project.amountMoney || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">税率 %</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{taxRate || '-'}}</text>
-                                    </view>
-                                </view>
-                                <view class="weui-cell weui-cell_input">
-                                    <view class="weui-cell__hd">
-                                        <view class="weui-label">税额</view>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                        <text class="weui-input readonly">{{project.tax || '-'}}</text>
-                                    </view>
-                                </view>
-                            </view>
+                            <van-row custom-class="font14">
+                                <van-col span="6" custom-class="bold">
+                                    不含税金额:
+                                </van-col>
+                                <van-col span="18">
+                                    {{project.amountMoney || '-'}}
+                                </van-col>
+                            </van-row>
+                            <van-row custom-class="font14">
+                                <van-col span="6" custom-class="bold">
+                                    税率 %:
+                                </van-col>
+                                <van-col span="18">
+                                    {{taxRate || '-'}}
+                                </van-col>
+                            </van-row>
+                            <van-row custom-class="font14">
+                                <van-col span="6" custom-class="bold">
+                                    税额:
+                                </van-col>
+                                <van-col span="18">
+                                    {{project.tax || '-'}}
+                                </van-col>
+                            </van-row>
                         </block>
                     </view>
                 </van-collapse-item>
