@@ -196,23 +196,24 @@
                     <text class="weui-input readonly">{{taskData.companyName || '-'}}</text>
                 </view>
             </view>
-
-            <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">交强险</view>
+            <block wx:if="{{taskData.insuranceType == '1'}}">
+                <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">交强险</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view data-index='{{index}}' data-id="{{orderId}}" data-type="0" data-value="{{taskData.isCompulsory}}" catchtap="setFinishCase" class="{{taskData.isCompulsory == 1 ? 'finished' : 'not-finish'}} fl"></view>
+                    </view>
                 </view>
-                <view class="weui-cell__bd">
-                    <view data-index='{{index}}' data-id="{{orderId}}" data-type="0" data-value="{{taskData.isCompulsory}}" catchtap="setFinishCase" class="{{taskData.isCompulsory == 1 ? 'finished' : 'not-finish'}} fl"></view>
+                <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">商业险</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view data-index='{{index}}' data-id="{{orderId}}" data-type="1" data-value="{{taskData.isBusiness}}" catchtap="setFinishCase" class="{{taskData.isBusiness == 1 ? 'finished' : 'not-finish'}} fl"></view>
+                    </view>
                 </view>
-            </view>
-            <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">商业险</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view data-index='{{index}}' data-id="{{orderId}}" data-type="1" data-value="{{taskData.isBusiness}}" catchtap="setFinishCase" class="{{taskData.isBusiness == 1 ? 'finished' : 'not-finish'}} fl"></view>
-                </view>
-            </view>
+            </block>
         </view>
 
         <view class="weui-cells__title">案件信息</view>
