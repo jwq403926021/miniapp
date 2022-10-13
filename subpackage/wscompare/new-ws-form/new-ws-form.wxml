@@ -28,7 +28,7 @@
 
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">区域</view>
+                    <view class="weui-label">出险区域</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
@@ -79,7 +79,7 @@
 
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">沟通方式</view>
+                        <view class="weui-label">联系方式</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                         <input class="weui-input" bindinput="inputgetName" data-name='customerPhone'
@@ -116,7 +116,7 @@
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{insuranceType != '2'}}">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">沟通方式</view>
+                        <view class="weui-label">联系方式</view>
                     </view>
                     <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                         <input class="weui-input" bindinput="inputgetName" data-name='damagedPhone'
@@ -138,28 +138,28 @@
                 </view>
             </block>
 
-            <view class="weui-cell weui-cell_select" wx:if="{{insuranceType == '1'}}">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">承保方式</view>
-                </view>
-                <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
-                    <van-radio-group value="{{ acceptInsurance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="acceptInsurance">
-                        <van-radio custom-class="fl mr5" name="1">异地</van-radio>
-                        <van-radio custom-class="fl mr5" name="2">本地</van-radio>
-                    </van-radio-group>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{acceptInsurance == 1 ? '异地' : '本地'}}</text>
-                </view>
-            </view>
+<!--            <view class="weui-cell weui-cell_select" wx:if="{{insuranceType == '1'}}">-->
+<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+<!--                    <view class="weui-label">承保方式</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">-->
+<!--                    <van-radio-group value="{{ acceptInsurance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="acceptInsurance">-->
+<!--                        <van-radio custom-class="fl mr5" name="1">异地</van-radio>-->
+<!--                        <van-radio custom-class="fl mr5" name="2">本地</van-radio>-->
+<!--                    </van-radio-group>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:else>-->
+<!--                    <text class="weui-input readonly">{{acceptInsurance == 1 ? '异地' : '本地'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
 
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label lh24">初步估损金额(查)</view>
+                    <view class="weui-label lh24">估损金额</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                     <input class="weui-input" type="digit" bindinput="inputgetName" data-name='budgetPreliminarySurvey'
-                           value="{{budgetPreliminarySurvey}}"  placeholder="初步估损金额(查)"/>
+                           value="{{budgetPreliminarySurvey}}"  placeholder="估损金额"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{(budgetPreliminarySurvey == null || budgetPreliminarySurvey == '') ? '-' : budgetPreliminarySurvey}}</text>
@@ -168,11 +168,11 @@
 
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label lh24">受损方索赔金额(查)</view>
+                    <view class="weui-label lh24">受损方索赔金额</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                     <input class="weui-input" type="digit" bindinput="inputgetName" data-name='damageMoneySurvey'
-                           value="{{damageMoneySurvey}}"  placeholder="受损方索赔金额(查)"/>
+                           value="{{damageMoneySurvey}}"  placeholder="受损方索赔金额"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{(damageMoneySurvey == null || damageMoneySurvey == '') ? '-' : damageMoneySurvey}}</text>
@@ -181,13 +181,13 @@
 
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">服务类型</view>
+                    <view class="weui-label">损失类型</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                     <picker bindchange="serviceTypeChange" value="{{serviceTypeValue}}"
                             range="{{serviceTypeList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{serviceTypeLabel || '请选择服务类型'}}
+                            {{serviceTypeLabel || '请选择损失类型'}}
                         </view>
                     </picker>
                 </view>
@@ -237,7 +237,7 @@
             </view>
             <view class="button-sp-area two-btn-wrap" wx:if="{{(role == 1 && (orderId == null || status == null || status == 21)) || (role == 8 && (status == 20 || status == 33))}}">
                 <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="information" bindtouchstart="recordStart" bindtouchend="recordEnd">
-                    <text wx:if="{{!recordState}}">语音报案</text>
+                    <text wx:if="{{!recordState}}">语音识别</text>
                     <text wx:else>松开结束</text>
                 </button>
                 <button class="yuyinBtn" bind:tap="digestRecord">

@@ -421,3 +421,6 @@ textarea[disabled]{
 }
 
 .lh24{line-height: 24px;}
+
+.bold{font-weight: bold; color:#4e4d50;}
+.font14{font-size: 14px;}
