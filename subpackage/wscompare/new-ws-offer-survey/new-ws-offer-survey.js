@@ -182,14 +182,14 @@ Page({
 
       project.amountMoney = project.projectOfferTotal - project.projectIncompleteTotal
       project.tax = parseFloat((parseFloat(this.data.taxRate) / 100 * project.amountMoney).toFixed(2))
-      project.offerResult = (this.data.hasTax && this.data.hasTax == '1') ? (project.amountMoney + project.tax).toFixed(2) : project.amountMoney.toFixed(2)
+      project.offerResult = (this.data.hasTax && this.data.hasTax == '1' && this.data.handlingType != 0) ? (project.amountMoney + project.tax).toFixed(2) : project.amountMoney.toFixed(2)
     })
 
     offerListTotal = parseFloat(offerListTotal.toFixed(2))
     incompleteTotal = parseFloat(incompleteTotal.toFixed(2))
     amountMoney =  offerListTotal - incompleteTotal
     tax = (parseFloat(this.data.taxRate) / 100 * amountMoney).toFixed(2)
-    offerResult = (this.data.hasTax && this.data.hasTax == '1') ? (amountMoney + parseFloat(tax)).toFixed(2) : amountMoney.toFixed(2)
+    offerResult = (this.data.hasTax && this.data.hasTax == '1' && this.data.handlingType != 0) ? (amountMoney + parseFloat(tax)).toFixed(2) : amountMoney.toFixed(2)
 
     this.setData({
       offerList: offerList,

@@ -273,7 +273,7 @@ Page({
     let amountMoney =  offerListTotal - incompleteTotal
     let tax = (parseFloat(this.data.taxRate) / 100 * amountMoney).toFixed(2)
 
-    let offerResult = (this.data.hasTax && this.data.hasTax == '1') ? (amountMoney + parseFloat(tax)) : (amountMoney)
+    let offerResult = (this.data.hasTax && this.data.hasTax == '1' && this.data.handlingType != 0) ? (amountMoney + parseFloat(tax)) : (amountMoney)
     let coinNum = (this.data.offerListTotal != offerListTotal || this.data.incompleteTotal != incompleteTotal) ? amountMoney : this.data.coinNum
 
     let coinInsert = Math.round(coinNum * parseFloat(this.data.coinRate) * parseFloat(this.data.coinLevel))
