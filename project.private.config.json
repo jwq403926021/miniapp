@@ -121,6 +121,13 @@
           "pathName": "pages/survey-ws/survey-ws",
           "query": "id=20211221090759000107",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/new-ws-offer-survey/new-ws-offer-survey",
+          "query": "id=20221013091352000107",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
