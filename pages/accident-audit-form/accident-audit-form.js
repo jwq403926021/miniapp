@@ -182,7 +182,7 @@ Page({
         that.setData({
           receiptImageImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

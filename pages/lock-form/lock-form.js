@@ -293,7 +293,7 @@ Page({
             informationImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -353,7 +353,7 @@ Page({
             liveImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

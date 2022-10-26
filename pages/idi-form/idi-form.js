@@ -1202,7 +1202,7 @@ Page({
                 longitude: location.longitude
               }
             })
-            setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+            setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
           }
         })
       },
@@ -1329,7 +1329,7 @@ Page({
             }
           })
         })
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

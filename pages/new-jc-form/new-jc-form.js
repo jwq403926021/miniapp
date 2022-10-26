@@ -1575,7 +1575,7 @@ Page({
             }
           })
         })
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -1639,7 +1639,7 @@ Page({
         that.setData({
           [key]: list
         })
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

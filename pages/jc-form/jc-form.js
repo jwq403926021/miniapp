@@ -446,7 +446,7 @@ Page({
             informationImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -506,7 +506,7 @@ Page({
             completeImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -573,7 +573,7 @@ Page({
             authorityImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -633,7 +633,7 @@ Page({
             caleImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -693,7 +693,7 @@ Page({
             damageImageFiles: list
           });
         }
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

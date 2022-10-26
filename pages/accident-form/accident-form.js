@@ -565,7 +565,7 @@ Page({
         that.setData({
           informationImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -632,7 +632,7 @@ Page({
         that.setData({
           bankImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -701,7 +701,7 @@ Page({
         that.setData({
           idImageFrontImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -723,7 +723,7 @@ Page({
         that.setData({
           idImageBackImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
@@ -744,7 +744,7 @@ Page({
         that.setData({
           receiptImageImageFiles: list
         });
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },

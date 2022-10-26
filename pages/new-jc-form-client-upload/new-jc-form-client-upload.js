@@ -112,7 +112,7 @@ Page({
           });
         }
         wx.setStorageSync('familyImages', _this.data.familyImages)
-        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 100)
+        setTimeout(() => {app.globalData.isIgnoreRefresh = false}, 300)
       }
     })
   },
