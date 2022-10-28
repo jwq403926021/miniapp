@@ -10,13 +10,13 @@ App({
     }
   },
   onShow (obj) {
-    let pageStages = getCurrentPages()
-    let currentPage = pageStages[pageStages.length - 1]
-    if (this.globalData.isIgnoreRefresh === false) {
-      currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
-      console.log('app onShow refresh:', obj, currentPage, this.globalData.isIgnoreRefresh)
-      this.globalData.isIgnoreRefresh = true
-    }
+    // let pageStages = getCurrentPages()
+    // let currentPage = pageStages[pageStages.length - 1]
+    // if (this.globalData.isIgnoreRefresh === false) {
+    //   currentPage && currentPage.onLoad(obj ? (obj.query || {}) : {})
+    //   console.log('app onShow refresh:', obj, currentPage, this.globalData.isIgnoreRefresh)
+    //   this.globalData.isIgnoreRefresh = true
+    // }
   },
   login (routerParams) {
     console.log('app login:', routerParams)
