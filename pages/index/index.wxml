@@ -70,22 +70,22 @@
         管道疏通
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="1" wx:if="{{role == 1}}">
-      <view>
-        <text class="iconfont icon-sunhuai myicon"></text>
-      </view>
-      <view>
-        竞价车物
-      </view>
-    </view>
-    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="2" wx:if="{{role == 1}}">
-      <view>
-        <text class="iconfont icon-sunhuai myicon"></text>
-      </view>
-      <view>
-        竞价非车
-      </view>
-    </view>
+<!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="1" wx:if="{{role == 1}}">-->
+<!--      <view>-->
+<!--        <text class="iconfont icon-sunhuai myicon"></text>-->
+<!--      </view>-->
+<!--      <view>-->
+<!--        竞价车物-->
+<!--      </view>-->
+<!--    </view>-->
+<!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="2" wx:if="{{role == 1}}">-->
+<!--      <view>-->
+<!--        <text class="iconfont icon-sunhuai myicon"></text>-->
+<!--      </view>-->
+<!--      <view>-->
+<!--        竞价非车-->
+<!--      </view>-->
+<!--    </view>-->
     <view class="new-btn fl" bindtap="goToFeedback">
         <view>
           <text class="iconfont icon-yijianfankui myicon"></text>
