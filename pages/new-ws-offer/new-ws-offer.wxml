@@ -36,7 +36,7 @@
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">区域</view>
+                    <view class="weui-label">事故地</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{isAllowEdit}}">
                     <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
