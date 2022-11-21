@@ -112,11 +112,7 @@
             </van-collapse>
 
             <view class="offer-total">
-                <view wx:if="{{handlingType == 0}}">{{hasTax ? '含' : '不含'}}税报价合计: {{offerListTotal || 0}}</view>
-                <view wx:if="{{handlingType == 1}}">不含税报价合计: {{offerListTotal || 0}}</view>
-                <view wx:if="{{incompleteTotal > 0}}">残值合计: {{incompleteTotal || 0}}</view>
-                <view wx:if="{{hasTax && handlingType != 0}}">总税额: {{tax || 0}}</view>
-                <view>总报价: {{offerResult || 0}}</view>
+                <view>报价合计：{{offerResult}}（{{hasTax == 1 ? '含' : '不含'}}税）</view>
             </view>
         </view>
         <view>
