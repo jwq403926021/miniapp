@@ -1630,6 +1630,37 @@ Page({
       _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
     }
   },
+  submitInfo () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessdamagenew/updateBasic',
+      method: 'PUT',
+      data: {
+        orderId: _this.data.orderId,
+        information: _this.data.taskData.information
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        wx.showToast({
+          mask: true,
+          title: '操作成功',
+          icon: 'success',
+          duration: 1000
+        })
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '操作失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   openOperation (event) {
     this.id = event.currentTarget.dataset.id
     this.setData({ showactionsheet: true })
