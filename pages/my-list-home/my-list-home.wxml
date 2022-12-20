@@ -3,7 +3,7 @@
     您好：服务者，请您联系管理维护您的角色
   </view>
   <view wx:else>
-    <view class="my-list-item" data-type="1" bindtap="goToNewWsList" wx:if="{{role == 5 || role == 11 || role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
+    <view class="my-list-item" data-type="1" bindtap="goToNewWsList" wx:if="{{role == 2 || role == 3 || role == 4 || role == 5 || role == 11 || role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
@@ -11,7 +11,7 @@
         <text class="iconfont icon-sunhuai myicon2"></text>车物损工单
       </view>
     </view>
-    <view class="my-list-item" data-type="2" bindtap="goToNewWsList" wx:if="{{role == 5 || role == 11 || role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
+    <view class="my-list-item" data-type="2" bindtap="goToNewWsList" wx:if="{{role == 2 || role == 3 || role == 4 || role == 5 || role == 11 || role == 1 || role == 6 || role == 12 || role == 13 || role == 22}}">
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
