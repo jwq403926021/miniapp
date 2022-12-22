@@ -362,6 +362,21 @@
                     </view>
                 </view>
 
+                <view class="weui-cell weui-cell_select" wx:if="{{taskData.insuranceType != '1'}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否自保客户</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <van-radio-group value="{{ taskData.isSelf }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isSelf">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd"  wx:else>
+                        <text class="weui-input readonly">{{['否', '是'][taskData.isSelf] || '-'}}</text>
+                    </view>
+                </view>
+
                 <view class="weui-cell weui-cell_select" wx:if="{{taskData.handlingType == 0}}">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                         <view class="weui-label">受损方是否同意</view>

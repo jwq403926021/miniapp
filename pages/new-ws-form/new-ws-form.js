@@ -273,6 +273,7 @@ Page({
         'taskData.managerRemark': data.managerRemark,
         'taskData.isCompulsory': data.isCompulsory,
         'taskData.isBusiness': data.isBusiness,
+        'taskData.isSelf': data.isSelf,
         'address': data.address,
         'typeValue': data.type,
         'typeLabel': _this.data.typeList[data.type],
@@ -1110,7 +1111,8 @@ Page({
       offerRemark,
       damageMoney,
       isAcceptance,
-      isAgree
+      isAgree,
+      isSelf
     } = this.data.taskData
     if (!isSave) {
       if (budgetPreliminary == null || budgetPreliminary == '') {
@@ -1169,7 +1171,8 @@ Page({
         offerRemark,
         damageMoney,
         isAcceptance,
-        isAgree
+        isAgree,
+        isSelf
       }
     }, function (err, res) {
       if (res.code == 0) {
