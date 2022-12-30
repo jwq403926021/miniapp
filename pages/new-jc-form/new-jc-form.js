@@ -24,6 +24,9 @@ Page({
     looserList: [],
     losserValue: '',
     losserLabel: '',
+    managerList: [],
+    managerValue: '',
+    managerLabel: '',
     workVideo: [],
     activeVideo: '',
     showWorkerHit: false,
@@ -148,6 +151,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
+        userId: app.globalData.currentRegisterInfo.userId,
         role: app.globalData.currentRegisterInfo.role // 12:施工人员 27:测漏人员 8:客服 22:财务 23:定损员
       }, () => {
         this.initDataById(routeParams.id)
@@ -157,6 +161,9 @@ Page({
   },
   initReassignList () {
     let _this = this
+    if (!this.data.taskData.workerId) {
+      return
+    }
     util.request({
       path: '/app/businessdamagenew/getSameUnitWorker',
       method: 'GET',
@@ -171,6 +178,23 @@ Page({
         }) : []
         _this.setData({
           'workerList': workerList
+        })
+      }
+    })
+  },
+  initReassignListForCitymanger () {
+    let _this = this
+    util.request({
+      path: `/app/getManager`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.managerListSource = res.data
+        let managerList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'managerList': managerList
         })
       }
     })
@@ -197,6 +221,35 @@ Page({
         orderId: this.data.orderId,
         information: this.data.taskData.investigatorText,
         userId: this.workListSource[this.data.workerValue]['user_id'] || this.workListSource[this.data.workerValue]['userId']
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.goToList()
+      } else {
+        wx.showToast({
+          mask: true,
+          title: '提交失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
+  assignToOtherProcessor () {
+    let _this = this
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: '/app/businessinsurancefamilynew/changeManagerByUserId',
+      method: 'POST',
+      data: {
+        orderId: this.data.orderId,
+        information: this.data.taskData.information,
+        cityManager: this.managerListSource[this.data.managerValue]['userId'],
+        surveyId: this.data.taskData.surveyId,
+        insuranceType: this.data.taskData.insuranceType
       }
     }, function (err, res) {
       if (res.code == 0) {
@@ -920,6 +973,12 @@ Page({
       'losserLabel': this.losserListSource[event.detail.value].name
     })
   },
+  managerChange (event) {
+    this.setData({
+      'managerValue': event.detail.value,
+      'managerLabel': this.managerListSource[event.detail.value].name
+    })
+  },
   handleWeatherCheck () {
     let _this = this
     wx.showLoading({
@@ -1175,9 +1234,8 @@ Page({
         workVideo: workVideo,
         testImageFiles: testImageFiles
       }, () => {
-        if (_this.data.role == 12) {
-          _this.initReassignList()
-        }
+        _this.initReassignList()
+        _this.initReassignListForCitymanger()
         _this.getRegionLabel()
         _this.getLosserList()
         wx.hideLoading()

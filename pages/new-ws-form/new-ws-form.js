@@ -431,6 +431,9 @@ Page({
   },
   initReassignList () {
     let _this = this
+    if (!this.data.taskData.workerId) {
+      return
+    }
     util.request({
       path: '/app/businessdamagenew/getSameUnitWorker',
       method: 'GET',
