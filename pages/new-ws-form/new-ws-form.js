@@ -18,21 +18,20 @@ Page({
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
     show: false,
-    showreassign: false,
     showWorkerHit: false,
     recordState: false,
     areaList: {},
     region: '',
     regionLabel: '',
-    reassignRegionArr: [],
-    reassignRegion: '',
-    reassignRegionLabel: '',
     typeValue: '',
     typeList: ['物损', '其他'],
     typeLabel: '',
     workerList: [],
     workerValue: '',
     workerLabel: '',
+    managerList: [],
+    managerValue: '',
+    managerLabel: '',
     statusMap: {
       '11': '已办结',
       '12': '暂存',
@@ -134,7 +133,7 @@ Page({
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
-        role: app.globalData.currentRegisterInfo.role,
+        role: 5, // app.globalData.currentRegisterInfo.role,
         userId: app.globalData.currentRegisterInfo.userId
       }, () => {
         this.initDataById(routeParams.id, routeParams.flag || null)
@@ -282,9 +281,8 @@ Page({
           latitude: data.lat,
         }
       }, () => {
-        if (_this.data.role == 12 && (data.status == 13 || data.status == 20)) {
-          _this.initReassignList()
-        }
+        _this.initReassignList()
+        _this.initReassignListForCitymanger()
         _this.getRegionLabel()
         wx.hideLoading()
       })
@@ -454,16 +452,16 @@ Page({
   initReassignListForCitymanger () {
     let _this = this
     util.request({
-      path: `/app/family/getWorkerByCity?city=${this.data.reassignRegion}`,
+      path: `/app/getManager`,
       method: 'GET'
     }, function (err, res) {
       if (res) {
-        _this.workListSource = res.data
-        let workerList = res.data ? res.data.map(item => {
+        _this.managerListSource = res.data
+        let managerList = res.data ? res.data.map(item => {
           return item.name
         }) : []
         _this.setData({
-          'workerList': workerList
+          'managerList': managerList
         })
       }
     })
@@ -472,6 +470,12 @@ Page({
     this.setData({
       'workerValue': event.detail.value,
       'workerLabel': this.workListSource[event.detail.value].name
+    })
+  },
+  managerChange (event) {
+    this.setData({
+      'managerValue': event.detail.value,
+      'managerLabel': this.managerListSource[event.detail.value].name
     })
   },
   getRegionLabel () {
@@ -493,11 +497,6 @@ Page({
       show: !this.show
     })
   },
-  openReassignLocation() {
-    this.setData({
-      showreassign: !this.showreassign
-    })
-  },
   onConfirm(data) {
     let strArr = []
     data.detail.values.forEach(item => {
@@ -513,24 +512,9 @@ Page({
       'taskData.provinceCode': data.detail.values[0].code,
     })
   },
-  onConfirmReassign(data) {
-    let strArr = []
-    data.detail.values.forEach(item => {
-      strArr.push(item.name)
-    })
-    this.setData({
-      showreassign: false,
-      reassignRegionArr: data.detail.values,
-      reassignRegion: data.detail.values[1].code,
-      reassignRegionLabel: strArr.join(',')
-    }, () => {
-      this.initReassignListForCitymanger()
-    })
-  },
   onCancel() {
     this.setData({
-      show: false,
-      showreassign: false
+      show: false
     })
   },
   deleteWorkLiveImageFiles (e) {
@@ -1461,32 +1445,19 @@ Page({
   },
   assignToOtherProcessor () {
     let _this = this
-    if (this.data.reassignRegionArr.length == 0){
-      wx.showToast({
-        mask: true,
-        title: '请选择转办区域',
-        icon: 'none',
-        duration: 1000
-      })
-      return false
-    }
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: '/app/businessdamagenew/changeManager',
+      path: '/app/businessdamagenew/changeManagerByUserId',
       method: 'POST',
       data: {
         orderId: this.data.orderId,
         information: this.data.taskData.information,
-        userId: '',
-        cityManager: this.data.taskData.cityManager,
+        cityManager: this.managerListSource[this.data.managerValue]['userId'],
         surveyId: this.data.taskData.surveyId,
-        insuranceType: this.data.taskData.insuranceType,
-        provinceCode: this.data.reassignRegionArr[0].code,
-        cityCode: this.data.reassignRegionArr[1].code,
-        townCode: this.data.reassignRegionArr[2].code
+        insuranceType: this.data.taskData.insuranceType
       }
     }, function (err, res) {
       if (res.code == 0) {
