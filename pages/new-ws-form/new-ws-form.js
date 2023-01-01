@@ -18,11 +18,15 @@ Page({
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
     show: false,
+    showreassign: false,
     showWorkerHit: false,
     recordState: false,
     areaList: {},
     region: '',
     regionLabel: '',
+    reassignRegionArr: [],
+    reassignRegion: '',
+    reassignRegionLabel: '',
     typeValue: '',
     typeList: ['物损', '其他'],
     typeLabel: '',
@@ -469,6 +473,23 @@ Page({
       }
     })
   },
+  initReassignListForWorker () {
+    let _this = this
+    util.request({
+      path: `/app/family/getWorkerByCity?city=${this.data.reassignRegion}`,
+      method: 'GET'
+    }, function (err, res) {
+      if (res) {
+        _this.workListSource = res.data
+        let workerList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'workerList': workerList
+        })
+      }
+    })
+  },
   workerChange (event) {
     this.setData({
       'workerValue': event.detail.value,
@@ -500,6 +521,11 @@ Page({
       show: !this.show
     })
   },
+  openReassignLocation() {
+    this.setData({
+      showreassign: !this.showreassign
+    })
+  },
   onConfirm(data) {
     let strArr = []
     data.detail.values.forEach(item => {
@@ -515,9 +541,24 @@ Page({
       'taskData.provinceCode': data.detail.values[0].code,
     })
   },
+  onConfirmReassign(data) {
+    let strArr = []
+    data.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+    this.setData({
+      showreassign: false,
+      reassignRegionArr: data.detail.values,
+      reassignRegion: data.detail.values[1].code,
+      reassignRegionLabel: strArr.join(',')
+    }, () => {
+      this.initReassignListForWorker()
+    })
+  },
   onCancel() {
     this.setData({
-      show: false
+      show: false,
+      showreassign: false
     })
   },
   deleteWorkLiveImageFiles (e) {
