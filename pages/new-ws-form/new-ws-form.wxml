@@ -682,47 +682,44 @@
             </view>
         </view>
 
-        <block wx:if="{{(userId == 51 || userId == 91) && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}">
-            <view class="weui-cells weui-cells_after-title">
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">转办区域</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
-                    </view>
+        <view class="weui-cells weui-cells_after-title" wx:if="{{(role == 5 || role == 6 || role == 7) && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">转办区域</view>
                 </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">转办(施工人员)</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <picker bindchange="workerChange" value="{{workerValue}}"
-                                range="{{workerList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{workerLabel || '请选择'}}
-                            </view>
-                        </picker>
-                    </view>
+                <view class="weui-cell__bd">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
                 </view>
             </view>
-            <view class="weui-cells weui-cells_after-title"> <!--市负责人 转办-->
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">转办(经办人)</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <picker bindchange="managerChange" value="{{managerValue}}"
-                                range="{{managerList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{managerLabel || '请选择'}}
-                            </view>
-                        </picker>
-                    </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">转办(施工人员)</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="workerChange" value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择'}}
+                        </view>
+                    </picker>
                 </view>
             </view>
-        </block>
-
+        </view>
+        <view class="weui-cells weui-cells_after-title" wx:if="{{(userId == 51 || userId == 91) && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}"> <!--市负责人 转办-->
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">转办(经办人)</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="managerChange" value="{{managerValue}}"
+                            range="{{managerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{managerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
 
         <view class="weui-cells weui-cells_after-title" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}"> <!--施工人员 转办-->
             <view class="weui-cell weui-cell_select">
@@ -985,8 +982,10 @@
         <view class="button-sp-area" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50) && ((taskData.moneySurvey > 1000 && taskData.managerReject == 2) || taskData.moneySurvey <= 1000)}}"> <!-- 财务人员 提交 发票 -->
             <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>
         </view>
-        <view class="button-sp-area two-btn-wrap" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 51 || userId == 91) }}">
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (role == 5 || role == 6 || role == 7) }}">
             <button type="primary" bindtap="assignToOtherWorker">转办(施工人员)</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 51 || userId == 91) }}">
             <button type="primary" bindtap="assignToOtherProcessor">转办(经办人)</button>
         </view>
         <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}"> <!-- 施工人员 留言提交 -->
