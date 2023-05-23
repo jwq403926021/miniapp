@@ -8,7 +8,11 @@
           <view class="weui-label">全国区域</view>
         </view>
         <view class="weui-cell__bd">
-          <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请选择区域'}}</view>
+          <picker bindchange="pickerChange" data-name="region" value="{{regionValue}}" range="{{regionList}}">
+            <view class="picker weui-select weui-select_in-select-after">
+              {{regionLabel || '请选择区域'}}
+            </view>
+          </picker>
         </view>
       </view>
 

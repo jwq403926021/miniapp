@@ -1,12 +1,41 @@
 // subpackage/calculate/calculate-ws/calculate-ws.js
-Page({
+const computedBehavior = require("miniprogram-computed");
 
+Page({
+  behaviors: [computedBehavior.behavior],
+  computed: {
+    regionList: (data) => {
+      return data.regionSourceList.map(i => {
+        return i.label
+      })
+    }
+  },
   /**
    * 页面的初始数据
    */
   data: {
     activeNames: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    region: ['西南西北','华南','华东','华中','华北','东北~内蒙'],
+    regionSourceList: [{
+      value: 0,
+      label: '西南西北',
+    },{
+      value: 1,
+      label: '华南',
+    },{
+      value: 2,
+      label: '华东',
+    },{
+      value: 3,
+      label: '华中'
+    },{
+      value: 4,
+      label: '华北',
+    },{
+      value: 5,
+      label: '东北~内蒙',
+    }],
+    regionValue: '',
+    regionLabel: '',
     calculateResultList: [
       {
         'id': 1,
@@ -108,6 +137,20 @@ Page({
         'caseInsuranceProportion': 1, //案件保费占比
       }
     ]
+  },
+  pickerChange (e) {
+    let name = e.currentTarget.dataset.name;
+    this.setData({
+      [`${name}Value`]: e.detail.value,
+      [`${name}Label`]: this.data[`${name}SourceList`][e.detail.value] ? this.data[`${name}SourceList`][e.detail.value].label : ''
+    }, () => {
+      // if (name === 'model') {
+      //   this.setData({
+      //     'thicknessValue': '',
+      //     'thicknessLabel': ''
+      //   })
+      // }
+    })
   },
 
   /**
