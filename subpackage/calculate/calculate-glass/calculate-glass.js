@@ -1,11 +1,53 @@
 const computedBehavior = require('miniprogram-computed')
 Page({
   behaviors: [computedBehavior.behavior],
-  computed: {},
+  computed: {
+    regionSourceList: (data) => {
+      return data.region.map(i => {
+        return {
+          label: `${i.split(',')[0]} - ${i.split(',')[1]}`,
+          value: i.split(',')[2]
+        }
+      })
+    },
+    regionList: (data) => {
+      return data.region.map(i => {
+        return `${i.split(',')[0]} - ${i.split(',')[1]}`
+      })
+    },
+    levelList: (data) => {
+      return data.levelSourceList.map(i => i.label)
+    },
+    productLocationList: (data) => {
+      return data.productLocationSourceList.map(i => i.label)
+    },
+    modelList: (data) => {
+      return data.modelSourceList.map(i => i.label)
+    },
+    thicknessSourceList: (data) => {
+      if (data.modelSourceList[data.modelValue]) {
+        return data.modelSourceList[data.modelValue].thickness.map(i => {
+          return {
+            label: i.label,
+            value: i.value,
+          }
+        })
+      }
+      return []
+    },
+    thicknessList: (data) => {
+      if (data.modelSourceList[data.modelValue]) {
+        return data.modelSourceList[data.modelValue].thickness.map(i => i.label)
+      }
+      return []
+    }
+  },
   /**
    * 页面的初始数据
    */
   data: {
+    regionValue: '',
+    regionLabel: '',
     region: [
       "北京市,北京,1",
       "河北省,石家庄,0.9",
@@ -43,7 +85,9 @@ Page({
       "宁波市,宁波,0.9",
       "厦门市,厦门,0.9"
     ],
-    level: [{
+    levelValue: '',
+    levelLabel: '',
+    levelSourceList: [{
       label: '21层以上',
       value: 2000
     }, {
@@ -56,14 +100,18 @@ Page({
       label: '1-3层',
       value: 1000
     }],
-    productLocation: [{
+    productLocationValue: '',
+    productLocationLabel: '',
+    productLocationSourceList: [{
       label: '国产',
       value: 1
     }, {
       label: '进口',
       value: 10
     }],
-    model: [{
+    modelValue: '',
+    modelLabel: '',
+    modelSourceList: [{
       label: '单片',
       value: 1,
       thickness: [{
@@ -158,13 +206,21 @@ Page({
         value: 552
       }]
     }],
-    thickness: []
+    thicknessValue: '',
+    thicknessLabel: ''
   },
   pickerChange (e) {
     let name = e.currentTarget.dataset.name;
     this.setData({
       [`${name}Value`]: e.detail.value,
-      [`${name}Label`]: this.data[`${name}SourceList`][e.detail.value] ? this.data[`${name}SourceList`][e.detail.value].name : ''
+      [`${name}Label`]: this.data[`${name}SourceList`][e.detail.value] ? this.data[`${name}SourceList`][e.detail.value].label : ''
+    }, () => {
+      if (name === 'model') {
+        this.setData({
+          'thicknessValue': '',
+          'thicknessLabel': ''
+        })
+      }
     })
   },
 

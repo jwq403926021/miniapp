@@ -8,9 +8,9 @@
           <view class="weui-label">全国区域</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="pickerChange" data-name="fff" value="{{serviceTypeValue}}" range="{{serviceTypeList}}">
+          <picker bindchange="pickerChange" data-name="region" value="{{regionValue}}" range="{{regionList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{serviceTypeLabel || '请选择区域'}}
+              {{regionLabel || '请选择区域'}}
             </view>
           </picker>
         </view>
@@ -21,9 +21,9 @@
           <view class="weui-label">楼层选择</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="pickerChange" data-name="fff" value="{{serviceTypeValue}}" range="{{serviceTypeList}}">
+          <picker bindchange="pickerChange" data-name="level" value="{{levelValue}}" range="{{levelList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{serviceTypeLabel || '请选择楼层'}}
+              {{levelLabel || '请选择楼层'}}
             </view>
           </picker>
         </view>
@@ -34,9 +34,9 @@
           <view class="weui-label">玻璃产地</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="pickerChange" data-name="fff" value="{{serviceTypeValue}}" range="{{serviceTypeList}}">
+          <picker bindchange="pickerChange" data-name="productLocation" value="{{productLocationValue}}" range="{{productLocationList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{serviceTypeLabel || '请选择玻璃产地'}}
+              {{productLocationLabel || '请选择玻璃产地'}}
             </view>
           </picker>
         </view>
@@ -47,9 +47,9 @@
           <view class="weui-label">玻璃型号</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="pickerChange" data-name="fff" value="{{serviceTypeValue}}" range="{{serviceTypeList}}">
+          <picker bindchange="pickerChange" data-name="model" value="{{modelValue}}" range="{{modelList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{serviceTypeLabel || '请选择玻璃型号'}}
+              {{modelLabel || '请选择玻璃型号'}}
             </view>
           </picker>
         </view>
@@ -60,9 +60,9 @@
           <view class="weui-label">厚度</view>
         </view>
         <view class="weui-cell__bd">
-          <picker bindchange="pickerChange" data-name="fff" value="{{serviceTypeValue}}" range="{{serviceTypeList}}">
+          <picker bindchange="pickerChange" data-name="thickness" value="{{thicknessValue}}" range="{{thicknessList}}">
             <view class="picker weui-select weui-select_in-select-after">
-              {{serviceTypeLabel || '请选择厚度'}}
+              {{thicknessLabel || '请选择厚度'}}
             </view>
           </picker>
         </view>
