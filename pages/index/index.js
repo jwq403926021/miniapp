@@ -93,6 +93,11 @@ Page({
       url: '../updateBasic/updateBasic'
     })
   },
+  goToCalculate () {
+    wx.navigateTo({
+      url: '../../subpackage/calculate/calculate-list/calculate-list'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,

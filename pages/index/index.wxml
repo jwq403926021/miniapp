@@ -110,6 +110,14 @@
             更新工单
         </view>
     </view>
+    <view class="new-btn fl" bindtap="goToCalculate">
+        <view>
+          <text class="iconfont icon-yijianfankui myicon"></text>
+        </view>
+        <view>
+            模型演算
+        </view>
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToWebview">-->
 <!--        webview demo-->
 <!--    </view>-->

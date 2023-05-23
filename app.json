@@ -62,6 +62,14 @@
       "pages": [
         "peace"
       ]
+    },
+    {
+      "root": "subpackage/calculate/",
+      "pages": [
+        "calculate-list/calculate-list",
+        "calculate-glass/calculate-glass",
+        "calculate-ws/calculate-ws"
+      ]
     }
   ],
   "permission": {

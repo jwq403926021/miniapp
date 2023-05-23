@@ -1,0 +1,11 @@
+.model-item {
+    margin: 10px;
+    height: 100px;
+    line-height: 100px;
+    background: #016eff;
+    color:#fff;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}

@@ -1,0 +1,8 @@
+<view class="page">
+  <view bind:tap="goToCalculateGlass" class="model-item">
+    物损模型
+  </view>
+  <view bind:tap="goToCalculateWs" class="model-item">
+    玻璃幕墙模型
+  </view>
+</view>

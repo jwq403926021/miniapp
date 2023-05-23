@@ -42,7 +42,8 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true,
     "useStaticServer": true,
-    "lazyloadPlaceholderEnable": false
+    "lazyloadPlaceholderEnable": false,
+    "condition": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.16.1",
