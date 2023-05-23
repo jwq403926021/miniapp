@@ -18,7 +18,7 @@
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
-          <view class="weui-label">车险保费（万元）</view>
+          <view class="weui-label">车险保费(万元)</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" bindinput="inputgetName" data-name='reportNumber'
@@ -66,7 +66,7 @@
         <van-col span="16">{{item.insuranceProportion}}</van-col>
       </van-row>
       <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
+        <van-col span="8">案均赔款(万元)</van-col>
         <van-col span="16">{{item.averagePay}}</van-col>
       </van-row>
       <van-row gutter="10">
