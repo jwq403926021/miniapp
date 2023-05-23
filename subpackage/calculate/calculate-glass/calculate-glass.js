@@ -1,4 +1,7 @@
+const computedBehavior = require('miniprogram-computed')
 Page({
+  behaviors: [computedBehavior.behavior],
+  computed: {},
   /**
    * 页面的初始数据
    */
@@ -156,6 +159,13 @@ Page({
       }]
     }],
     thickness: []
+  },
+  pickerChange (e) {
+    let name = e.currentTarget.dataset.name;
+    this.setData({
+      [`${name}Value`]: e.detail.value,
+      [`${name}Label`]: this.data[`${name}SourceList`][e.detail.value] ? this.data[`${name}SourceList`][e.detail.value].name : ''
+    })
   },
 
   /**

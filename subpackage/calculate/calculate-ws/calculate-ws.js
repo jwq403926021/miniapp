@@ -6,7 +6,7 @@ Page({
    */
   data: {
     activeNames: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    //
+    region: ['西南西北','华南','华东','华中','华北','东北~内蒙'],
     calculateResultList: [
       {
         'id': 1,
