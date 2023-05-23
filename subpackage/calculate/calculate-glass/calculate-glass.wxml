@@ -1,2 +1,43 @@
-<!--subpackage/calculate/calculate-glass/calculate-glass.wxml-->
-<text>subpackage/calculate/calculate-glass/calculate-glass.wxml</text>
+<view>
+  <view class="page__bd">
+    <view class="weui-cells__title">玻璃幕墙模型</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">全国区域</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell__hd">
+      <view class="weui-label">车险保费（万元）</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput="inputgetName" data-name='reportNumber'
+             value="{{reportNumber}}" placeholder="报案号"/>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell__hd">
+      <view class="weui-label">风险系数</view>
+    </view>
+    <view class="weui-cell__bd">
+      <text class="weui-input readonly">1000</text>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input weui-cell_vcode">
+    <view class="weui-cell__hd">
+      <view class="weui-label">赔款金额</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput="inputgetName" data-name='reportNumber'
+             value="{{reportNumber}}" placeholder="报案号"/>
+    </view>
+  </view>
+
+</view>

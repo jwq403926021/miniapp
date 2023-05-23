@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-divider": "../../../asset/vant/divider/index",
+    "van-collapse": "../../../asset/vant/collapse/index",
+    "van-collapse-item": "../../../asset/vant/collapse-item/index",
+    "van-col": "../../../asset/vant/col/index",
+    "van-row": "../../../asset/vant/row/index",
+    "van-button": "../../../asset/vant/button/index"
+  }
 }

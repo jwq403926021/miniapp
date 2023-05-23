@@ -1,6 +1,4 @@
 {
-  "enablePullDownRefresh": true,
-  "onReachBottomDistance": 100,
   "usingComponents": {
     "van-button": "../../../asset/vant/button/index",
     "van-area": "../../../asset/vant/area/index",
