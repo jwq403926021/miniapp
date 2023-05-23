@@ -5,7 +5,109 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activeNames: ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    activeNames: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    //
+    calculateResultList: [
+      {
+        'id': 1,
+        'title': '2K以下',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 2,
+        'title': '2K-5K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 3,
+        'title': '5K-10K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 4,
+        'title': '10K-20K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 5,
+        'title': '20K-30K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 6,
+        'title': '30K-40K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 7,
+        'title': '40K-50K',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 8,
+        'title': '50K上',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      },
+      {
+        'id': 9,
+        'title': '总数',
+        'sumDistribution': 1, //金额分布（万元）
+        'sumProportion': 1, //金额占比
+        'insuranceProportion': 1, //金额保费占比
+        'averagePay': 1, //案均赔款（万元）
+        'caseNum': 1, //案件数（件）
+        'caseProportion': 1, //件数占比
+        'caseInsuranceProportion': 1, //案件保费占比
+      }
+    ]
   },
 
   /**

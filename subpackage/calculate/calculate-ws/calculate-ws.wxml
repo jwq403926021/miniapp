@@ -48,274 +48,34 @@
     演算结果
   </van-divider>
   <van-collapse value="{{ activeNames }}">
-    <van-collapse-item title="2K以下" name="1">
+    <van-collapse-item wx:for="{{calculateResultList}}" wx:key="index" title="{{item.title}}" name="{{item.id}}">
       <van-row gutter="10">
         <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.sumDistribution}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.sumProportion}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.insuranceProportion}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.averagePay}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.caseNum}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.caseProportion}}</van-col>
       </van-row>
       <van-row gutter="10">
         <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="2K-5K" name="2">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="5K-10K" name="3">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="10K-20K" name="4">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="20K-30K" name="5">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="30K-40K" name="6">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="40K-50K" name="7">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="50K上" name="8">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-    </van-collapse-item>
-    <van-collapse-item title="总数" name="9">
-      <van-row gutter="10">
-        <van-col span="8">金额分布（万元)</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">金额保费占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案均赔款（万元）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件数（件）</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">件数占比</van-col>
-        <van-col span="16">16</van-col>
-      </van-row>
-      <van-row gutter="10">
-        <van-col span="8">案件保费占比</van-col>
-        <van-col span="16">16</van-col>
+        <van-col span="16">{{item.caseInsuranceProportion}}</van-col>
       </van-row>
     </van-collapse-item>
   </van-collapse>
