@@ -70,14 +70,14 @@
         管道疏通
       </view>
     </view>
-<!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="1" wx:if="{{role == 1}}">-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-sunhuai myicon"></text>-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        竞价车物-->
-<!--      </view>-->
-<!--    </view>-->
+    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="1" wx:if="{{role == 1}}">
+      <view>
+        <text class="iconfont icon-sunhuai myicon"></text>
+      </view>
+      <view>
+        竞价车物
+      </view>
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="2" wx:if="{{role == 1}}">-->
 <!--      <view>-->
 <!--        <text class="iconfont icon-sunhuai myicon"></text>-->
@@ -110,14 +110,14 @@
             更新工单
         </view>
     </view>
-    <view class="new-btn fl" bindtap="goToCalculate">
-        <view>
-          <text class="iconfont icon-yijianfankui myicon"></text>
-        </view>
-        <view>
-            模型演算
-        </view>
-    </view>
+<!--    <view class="new-btn fl" bindtap="goToCalculate">-->
+<!--        <view>-->
+<!--          <text class="iconfont icon-yijianfankui myicon"></text>-->
+<!--        </view>-->
+<!--        <view>-->
+<!--            模型演算-->
+<!--        </view>-->
+<!--    </view>-->
 <!--    <view class="new-btn fl" bindtap="goToWebview">-->
 <!--        webview demo-->
 <!--    </view>-->

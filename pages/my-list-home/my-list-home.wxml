@@ -41,14 +41,14 @@
       <view><text class="iconfont icon-baoxian1 myicon2"></text>IDI工单</view>
     </view>
 
-<!--    <view class="my-list-item" data-type="1" bindtap="goToCompareWsList">-->
-<!--      <view class="fr" style="margin-top:13px;">-->
-<!--        <van-icon name="arrow" style="font-size: 18px;" />-->
-<!--      </view>-->
-<!--      <view>-->
-<!--        <text class="iconfont icon-sunhuai myicon2"></text>竞价物损工单-->
-<!--      </view>-->
-<!--    </view>-->
+    <view class="my-list-item" data-type="1" bindtap="goToCompareWsList">
+      <view class="fr" style="margin-top:13px;">
+        <van-icon name="arrow" style="font-size: 18px;" />
+      </view>
+      <view>
+        <text class="iconfont icon-sunhuai myicon2"></text>竞价物损工单
+      </view>
+    </view>
 <!--    <view class="my-list-item" data-type="2" bindtap="goToCompareWsList">-->
 <!--      <view class="fr" style="margin-top:13px;">-->
 <!--        <van-icon name="arrow" style="font-size: 18px;" />-->
