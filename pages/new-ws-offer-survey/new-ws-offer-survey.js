@@ -93,6 +93,7 @@ Page({
     }, function (err, res) {
       let data = res.data
       _this.setData({
+        companyNameCode: data.companyNameCode,
         plateNumber: data.plateNumber,
         reportNumber: data.reportNumber,
         offerRemark: data.offerRemark
