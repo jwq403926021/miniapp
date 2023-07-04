@@ -26,6 +26,7 @@ Page({
     type: '',
     manageType: '',
     isComplaint: '0',
+    isSelf: '',
     managerRemark: '',
     showKeyboard: false,
     insuranceType: ''
@@ -62,6 +63,7 @@ Page({
         plateNumber: data.plateNumber,
         insuranceType: data.insuranceType,
         isComplaint: data.isComplaint || '0',
+        isSelf: data.isSelf || '0',
         managerRemark: data.managerRemark
       })
     })
@@ -150,6 +152,7 @@ Page({
         damagedPhone: _this.data.damagedPhone,
         plateNumber: _this.data.plateNumber,
         isComplaint: _this.data.isComplaint,
+        isSelf: _this.data.isSelf,
         managerRemark: _this.data.managerRemark
       }
     }, function (err, res) {

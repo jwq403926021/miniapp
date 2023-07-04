@@ -128,6 +128,13 @@
           "query": "id=20221013091352000107",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/new-ws-manage/new-ws-manage",
+          "query": "id=20200622113007000107&type=2&manageType=1",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

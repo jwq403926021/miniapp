@@ -84,6 +84,18 @@
                     </view>
                 </view>
 
+                <view class="weui-cell weui-cell_select" wx:if="{{insuranceType == '2'}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否自保</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <van-radio-group value="{{ isSelf }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isSelf">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                </view>
+
                 <view class="weui-cells__title">负责人备注</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
