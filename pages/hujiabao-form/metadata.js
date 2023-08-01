@@ -8,7 +8,23 @@ const status = {
   '03': '已退保',
 }
 /**
- * 1.5延迟报案原因
+ * 案件状态 和 子赔案状态
+ * @type {{"01": string, "02": string, "03": string}}
+ */
+const caseStatus = {
+  '01':	'报案',
+  '02':	'立案',
+  '03':	'理算',
+  '05':	'结案',
+  '06':	'注销',
+  '07':	'拒赔',
+  '08':	'查勘',
+  '12':	'调度',
+  '13':	'核赔',
+  '14':	'赔付确认',
+}
+/**
+ * 延迟报案原因
  * @type {{"01": string, "02": string, "03": string, "04": string, "05": string, "06": string}}
  */
 const delayReportReason = {
@@ -32,7 +48,7 @@ const reportReason = {
   '06': '雷击',
   '07': '管道破裂',
   '08': '高空物体坠落',
-  '09': '其他意外事故',
+  '99': '其他意外事故',
 }
 /**
  * 是否代码
@@ -41,6 +57,15 @@ const reportReason = {
 const isCode = {
   '1': '是',
   '0': '否',
+}
+/**
+ * 报案方式
+ * @type {{"0": string, "1": string}}
+ */
+const reportType = {
+  '01': '前端报案',
+  '02': '400电话报案',
+  '03': '核心报案',
 }
 /**
  * 与出险人关系
@@ -68,7 +93,7 @@ const childCompensationCategory = {
   '07': '三者人伤',
 }
 /**
- * 证件类型
+ * 证件类型 01个人 02机构
  * @type {{"990": string, "111": string, "1": string, "2": string, "553": string, "3": string, "114": string, "411": string, "4": string, "115": string, "511": string, "5": string, "6": string, "414": string, "7": string, "118": string, "119": string, "5501": string, "516": string, "5502": string, "10": string}}
  */
 const certificationCategory = {
@@ -81,9 +106,9 @@ const certificationCategory = {
   '414': '普通护照',
   '511': '台湾居民来往大陆通行证',
   '516': '港澳居民来往内地通行证',
-  '5501': '港澳居民居住证',
-  '5502': '台湾居民居住证',
+  '550': '港澳台居民居住证',
   '553': '外国人永久居留证',
+  '559': '文职干部证',
   '990': '其他',
   '1': '组织机构代码证',
   '2': '税务登记证',
@@ -95,7 +120,7 @@ const certificationCategory = {
   '10': '统一社会信用代码',
 }
 /**
- * 1.12性别代码
+ * 性别代码
  * @type {{"0": string, "1": string, "2": string, "9": string}}
  */
 const genderCode = {
@@ -105,7 +130,7 @@ const genderCode = {
   '9': '未说明的性别',
 }
 /**
- * 1.13伤情类别
+ * 伤情类别
  * @type {{"01": string, "02": string}}
  */
 const injuryCategory = {
@@ -113,7 +138,7 @@ const injuryCategory = {
   '02': '死亡',
 }
 /**
- * 1.14伤残等级
+ * 伤残等级
  * @type {{"01": string, "02": string, "03": string, "04": string, "05": string, "06": string, "07": string, "08": string, "09": string, "10": string}}
  */
 const injuryLevel = {
@@ -129,7 +154,7 @@ const injuryLevel = {
   '10': '10',
 }
 /**
- * 1.15治疗方式
+ * 治疗方式
  * @type {{"01": string, "02": string}}
  */
 const cureWay = {
@@ -137,15 +162,44 @@ const cureWay = {
   '02': '门诊',
 }
 /**
- * 1.16任务类型
+ * 注销原因
+ * @type {{"01": string, "02": string}}
+ */
+const cancelReason = {
+  '01': '重复索赔',
+  '03': '被保险人取消',
+  '06': '错误报案',
+  '05': '其他',
+}
+/**
+ * 任务类型
  * @type {{"01": string, "02": string}}
  */
 const missionCategory = {
-  '01': '查勘任务',
-  '02': '理算任务',
+  '01':	'报案',
+  '02':	'立案',
+  '03':	'查勘',
+  '07':	'理算',
+  '08': '核赔',
+  '11':	'追偿申请',
+  '12':	'追偿申请审核',
+  '18':	'预估损失更新审核',
+  '20'	:'重开预估损失审核',
+  '21':	'追偿处理',
+  '22':	'支付退回',
+  '23':	'赔付确认',
 }
 /**
- * 1.17房屋使用性质
+ * 查勘方式
+ * @type {{"01": string, "02": string}}
+ */
+const surveyWay = {
+  '01': '自查勘',
+  '02': '委外查勘',
+  '03': '自助查勘',
+}
+/**
+ * 房屋使用性质
  * @type {{"01": string, "02": string, "03": string}}
  */
 const buildingCategory = {
@@ -154,7 +208,7 @@ const buildingCategory = {
   '03': '租赁',
 }
 /**
- * 1.18伤情程度
+ * 伤情程度
  * @type {{"01": string, "02": string, "03": string}}
  */
 const injuryDegree = {
@@ -163,7 +217,7 @@ const injuryDegree = {
   '03': '重伤',
 }
 /**
- * 1.19损失项目类型
+ * 损失项目类型
  * @type {{"99": string, "01": string, "02": string, "03": string, "04": string, "05": string, "06": string, "07": string, "08": string}}
  */
 const lossCategory = {
@@ -178,12 +232,12 @@ const lossCategory = {
   '99': '其他',
 }
 /**
- * 1.20定损类型
+ * 定损类型
  * @type {{"01": string, "02": string}}
  */
 const lossAssessmentCategory = {
-  '01': '以修代赔',
-  '02': '现金赔付'
+  '01': '现金赔付',
+  '02': '实物赔付'
 }
 /**
  * 赔偿类型
@@ -197,10 +251,10 @@ const compensationCategory = {
   '05': '鉴定费',
   '06': '检测费',
   '07': '差旅费',
-  '09': '其他',
+  '99': '其他',
 }
 /**
- * 1.23对公/对私
+ * 对公/对私
  * @type {{"01": string, "02": string}}
  */
 const transferCategory = {
@@ -208,7 +262,7 @@ const transferCategory = {
   '02': '对私',
 }
 /**
- * 1.24银行代码（需业务提供）
+ * 银行代码（需业务提供）
  * @type {{"593": string, "594": string, "595": string, "596": string, "597": string, "751": string, "598": string, "631": string, "752": string, "511": string, "632": string, "512": string, "633": string, "513": string, "514": string, "999": string, "001": string, "761": string, "641": string, "762": string, "521": string, "522": string, "523": string, "765": string, "403": string, "524": string, "525": string, "767": string, "526": string, "527": string, "528": string, "529": string, "011": string, "771": string, "651": string, "531": string, "773": string, "532": string, "533": string, "775": string, "534": string, "776": string, "781": string, "782": string, "662": string, "301": string, "302": string, "303": string, "787": string, "304": string, "305": string, "306": string, "307": string, "308": string, "309": string, "671": string, "310": string, "673": string, "315": string, "316": string, "712": string, "713": string, "318": string, "319": string, "716": string, "717": string, "681": string, "561": string, "682": string, "683": string, "321": string, "563": string, "201": string, "322": string, "564": string, "565": string, "203": string, "566": string, "325": string, "567": string, "326": string, "691": string, "694": string, "695": string, "731": string, "611": string, "732": string, "616": string, "581": string, "102": string, "103": string, "741": string, "104": string, "621": string, "742": string, "105": string, "501": string, "502": string, "623": string, "503": string, "504": string, "506": string, "507": string, "508": string}}
  */
 const bank = {
@@ -448,7 +502,7 @@ const bank = {
   // '999': '其他',
 }
 /**
- * 1.26上传影像-业务类型
+ * 上传影像-业务类型
  * @type {{"001": string, "002": string}}
  */
 const uploadCategory = {
@@ -456,7 +510,7 @@ const uploadCategory = {
   '002': '承保',
 }
 /**
- * 1.27上传影像-目录
+ * 上传影像-目录
  * @type {{"001": string, "002": string, "003": string, "004": string}}
  */
 const uploadType = {
@@ -465,8 +519,119 @@ const uploadType = {
   '003': '损失资料',
   '004': '其他',
 }
-
+/**
+ * 操作类型
+ * @type {{"01": string, "02": string, "03": string, "04": string}}
+ */
+const operationType = {
+  '01':	'提交',
+  '02':	'拒赔',
+  '03':	'案件注销',
+  '04':	'放弃',
+}
+/**
+ * 拒赔原因
+ * @type {{"01": string, "02": string, "04": string, "05": string, "06": string, "07": string, "09": string}}
+ */
+const rejectReason = {
+  '01':	'重复索赔',
+  '02':	'利于判决',
+  '04':	'第三方有罪',
+  '05':	'无证',
+  '06':	'被保险人取消',
+  '07':	'第三方取消',
+  '09':	'其他',
+}
+/**
+ * 审核意见
+ * @type {{"01": string, "02": string}}
+ */
+const approveOpinion = {
+  '01':	'同意',
+  '02':	'不同意',
+}
+/**
+ * 预估损失状态
+ * @type {{"01": string, "02": string, "03": string}}
+ */
+const estimatedDamageStatus = {
+  '01':	'开启',
+  '02':	'关闭',
+  '03':	'重开',
+}
+/**
+ * 预估损失更新类型
+ * @type {{"01": string, "02": string, "03": string}}
+ */
+const estimatedDamageUpdateCategory = {
+  '01':	'人工修改',
+  '02':	'拒赔',
+  '03':	'创建',
+  '05':	'核赔',
+  '06':	'核赔前调整',
+  '08':	'重开',
+  '11':	'追偿申请',
+  '14':	'追偿处理前调整',
+  '15':	'追偿处理',
+  '16':	'注销',
+  '17':	'查勘'
+}
+/**
+ * 重开原因
+ * @type {{"01": string, "02": string, "03": string, "04": string}}
+ */
+const reopenReason = {
+  '01':	'错误关闭',
+  '02':	'诉讼',
+  '03':	'新建赔款/回收',
+  '04':	'其他',
+}
+/**
+ * 第三方机构角色
+ * @type {{"01": string, "02": string}}
+ */
+const thirdRole = {
+  '01':	'委外机构',
+  '02':	'维修供应商',
+}
+/**
+ * 状态
+ * @type {{"01": string, "02": string}}
+ */
+const active = {
+  '01':	'有效',
+  '02':	'无效',
+}
+/**
+ * 第三方机构地址类型
+ * @type {{"01": string, "02": string}}
+ */
+const thirdAddressCategory = {
+  '01':	'工作地方',
+  '02':	'家',
+}
+/**
+ * 消息生成类型
+ * @type {{"01": string, "02": string}}
+ */
+const messageGenerateType = {
+  '01':	'手工',
+  '02':	'自动',
+}
 export default {
+  thirdAddressCategory,
+  reportType,
+  operationType,
+  rejectReason,
+  approveOpinion,
+  estimatedDamageStatus,
+  estimatedDamageUpdateCategory,
+  reopenReason,
+  thirdRole,
+  active,
+  messageGenerateType,
+  cancelReason,
+  caseStatus,
   status,
   delayReportReason,
   reportReason,
