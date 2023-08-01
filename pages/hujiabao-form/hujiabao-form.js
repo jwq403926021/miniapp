@@ -2,7 +2,6 @@ import util from "../../utils/util";
 import common from "../../utils/common";
 import MetaData from './metadata.js'
 const computedBehavior = require('miniprogram-computed')
-const plugin = requirePlugin('WechatSI')
 const app = getApp()
 Page({
   behaviors: [computedBehavior.behavior],
@@ -24,22 +23,25 @@ Page({
       '6': '核损通过',
       '7': '已关闭',
     },
-    delayReportReasonSelectedIndex: '',
-    delayReportReasonValue: '',
+    delayReportReason: { index: '', value: '', label: '' },
     delayReportReasonList: Object.values(MetaData.delayReportReason),
-    delayReportReasonLabel: ''
   },
   pickerChange (e) {
     let name = e.currentTarget.dataset.name;
     let source = MetaData[name]
     let key = Object.keys(source)[e.detail.value]
     this.setData({
-      [`${name}SelectedIndex`]: e.detail.value,
-      [`${name}Value`]: key,
-      [`${name}Label`]: source[key] ? source[key] : ''
+      [name]: {
+        index: e.detail.value,
+        value: key,
+        label: source[key] ? source[key] : '',
+      }
     })
+  },
+  submit () {
+    console.log('submit')
   },
   async onLoad (routeParams) {
 
-  },
+  }
 })

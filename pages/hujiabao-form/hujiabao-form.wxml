@@ -49,12 +49,12 @@
 <!--            </view>-->
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">事故原因</view>
+                    <view class="weui-label">延迟报案原因</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="pickerChange" data-name="delayReportReason" value="{{delayReportReasonSelectedIndex}}" range="{{delayReportReasonList}}">
+                    <picker bindchange="pickerChange" data-name="delayReportReason" value="{{delayReportReason.index}}" range="{{delayReportReasonList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{delayReportReasonLabel || '请选择事故原因'}}
+                            {{delayReportReason.label || '请选择延迟报案原因'}}
                         </view>
                     </picker>
                 </view>
@@ -85,8 +85,9 @@
             </view>
             -->
         </view>
+
         <!-- BUTTON AREA -->
-        <view class="button-sp-area"><button type="primary" bindtap="applyReject">提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="submit">提交</button></view>
         <!-- BUTTON AREA -->
     </view>
 </view>
