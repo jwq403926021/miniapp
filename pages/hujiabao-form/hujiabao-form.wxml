@@ -2,19 +2,19 @@
     <view class="page__bd">
         <view class="weui-cells__title">沪家保</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">工单号</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{orderId}}</text>
-                </view>
-                <view class="weui-cell__ft">
-                    <view class="field-right-btn" data-content="{{orderId}}" bindtap="copy">
-                        <van-icon name="column" />
-                    </view>
-                </view>
-            </view>
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">工单号</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <text class="weui-input readonly">{{orderId}}</text>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__ft">-->
+<!--                    <view class="field-right-btn" data-content="{{orderId}}" bindtap="copy">-->
+<!--                        <van-icon name="column" />-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--            </view>-->
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">工单状态</view>
@@ -23,98 +23,46 @@
                     <text class="weui-input readonly">{{statusMap[status] || '暂存'}}</text>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">保单号</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" bindblur="getAccordingWorker" data-name='insuranceOrderId'
-                           value="{{insuranceOrderId}}" placeholder="保单号"/>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{insuranceOrderId || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">报案号</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" data-name='reportId'
-                           value="{{reportId}}" placeholder="报案号"/>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{reportId || '-'}}</text>
-                </view>
-            </view>
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">保单号</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <input class="weui-input" bindinput="inputChange" bindblur="getAccordingWorker" data-name='insuranceOrderId'-->
+<!--                           value="{{insuranceOrderId}}" placeholder="保单号"/>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <text class="weui-input readonly">{{insuranceOrderId || '-'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">报案号</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <input class="weui-input" bindinput="inputChange" data-name='reportId'-->
+<!--                           value="{{reportId}}" placeholder="报案号"/>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <text class="weui-input readonly">{{reportId || '-'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">施工人员</view>
+                    <view class="weui-label">事故原因</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="pickerChange" data-name="workerId" value="{{workerIdValue}}" range="{{workerIdList}}">
+                    <picker bindchange="pickerChange" data-name="delayReportReason" value="{{delayReportReasonSelectedIndex}}" range="{{delayReportReasonList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{workerIdLabel || '请选择施工人员'}}
+                            {{delayReportReasonLabel || '请选择事故原因'}}
                         </view>
                     </picker>
                 </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{workerIdLabel || '-'}}</text>
-                </view>
             </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">事故地</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view class="weui-cell__bd">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showAreaPopup" bindtap="openPopup">
-                            {{regionLabel ? regionLabel : '请填写地址'}}
-                        </view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{regionLabel || '-'}}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">详细地址</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{address || '-'}}</text>
-                </view>
-                <view class="weui-cell__ft">
-                    <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>
-                </view>
-            </view>
-            <view>
-                <map id="map" bindtap="goToLocation" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" markers="{{[userLocationInfo]}}" scale="13" show-location style="width: 100%; height: 100%;"></map>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">受损标的</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <van-radio-group value="{{ damageTarget }}" data-name="damageTarget" custom-class="weui-input vertical" bind:change="radioChange">
-                        <van-radio custom-class="fl mr5" name="0">业主</van-radio>
-                        <van-radio custom-class="fl mr5" name="1">物业</van-radio>
-                    </van-radio-group>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{['业主', '物业'][damageTarget] || '-'}}</text>
-                </view>
-            </view>
+            <!--
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人姓名</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" data-name='insuredName'
-                           value="{{insuredName}}" placeholder="请输入被保险人姓名"/>
                 </view>
                 <view class="weui-cell__bd">
                     <text class="weui-input readonly">{{insuredName || '-'}}</text>
@@ -123,10 +71,6 @@
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">被保险人电话</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <input class="weui-input" type="digit" bindinput="inputChange" data-name='insuredPhone'
-                           value="{{insuredPhone}}" placeholder="请输入被保险人电话"/>
                 </view>
                 <block>
                     <view class="weui-cell__bd">
@@ -139,317 +83,10 @@
                     </view>
                 </block>
             </view>
-            <block>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">业主姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputChange" data-name='ownerName'
-                               value="{{ownerName}}" placeholder="请输入被保险人姓名"/>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{ownerName || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">业主电话</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" type="digit" bindinput="inputChange" data-name='ownerPhone'
-                               value="{{ownerPhone}}" placeholder="请输入被保险人电话"/>
-                    </view>
-                    <block>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{ownerPhone || '-'}}</text>
-                        </view>
-                        <view class="weui-cell__ft">
-                            <view class="field-right-btn" data-phone="{{ownerPhone}}" bindtap="dialPhone">
-                                <van-icon name="phone"></van-icon>
-                            </view>
-                        </view>
-                    </block>
-                </view>
-            </block>
-            <block>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">施工人员姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{workerName || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">施工人员电话</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{workerPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{workerPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </view>
-            </block>
-            <block>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{investigatorName || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">查勘员电话</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{investigatorPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{investigatorPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </view>
-            </block>
-            <block>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">处理人姓名</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{managerName || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">处理人电话</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{managerPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{managerPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
-                        </view>
-                    </view>
-                </view>
-            </block>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">上门时间</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view class="weui-cell__bd">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showComeDateTimePopup" bindtap="openPopup">
-                            {{comeDateTimeLabel ? comeDateTimeLabel : '请选择上门时间'}}
-                        </view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{comeDateTimeLabel || '-'}}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">出险时间</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <view class="weui-cell__bd">
-                        <view class="picker weui-select weui-select_in-select-after" data-name="showInsuranceTimePopup" bindtap="openPopup">
-                            {{insuranceTimeLabel ? insuranceTimeLabel : '请选择上门时间'}}
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <block>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">保险期限起始</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <view class="weui-cell__bd">
-                            <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimePopup" bindtap="openPopup">
-                                {{expireDateTimeLabel ? expireDateTimeLabel : '请选择保险期限起始'}}
-                            </view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{expireDateTimeLabel || '-'}}</text>
-                        </view>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">保险期限结束</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <view class="weui-cell__bd">
-                            <view class="picker weui-select weui-select_in-select-after" data-name="showExpireDateTimeEndPopup" bindtap="openPopup">
-                                {{expireDateTimeEndLabel ? expireDateTimeEndLabel : '请选择保险期限结束'}}
-                            </view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{expireDateTimeEndLabel || '-'}}</text>
-                        </view>
-                    </view>
-                </view>
-                <view>
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">估损金额</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputChange" data-name='estimatePrice'
-                               value="{{estimatePrice}}" placeholder="请输入估损金额"/>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{estimatePrice || '-'}}</text>
-                    </view>
-                </view>
-                <view>
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">比价金额</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputChange" data-name='compareEstimatePrice'
-                               value="{{compareEstimatePrice}}" placeholder="请输入比价金额"/>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_input weui-cell_vcode" wx-if="{{role != 28 && role != 29 && role != 10 && role != 11 && role != 12}}">
-                    <view class="weui-cell__hd">
-                        <view class="weui-label">报价金额</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{offerPrice || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <van-button type="info" size="small" bindtap="offerDetail">报价单</van-button>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">事故原因</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <picker bindchange="pickerChange" data-name="accidentReason" value="{{accidentReasonValue}}" range="{{accidentReasonList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{accidentReasonLabel || '请选择事故原因'}}
-                            </view>
-                        </picker>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{accidentReasonLabel || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select" wx-if="{{role != 28 && role != 29}}">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">保险责任</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <van-radio-group value="{{ insurerResponsibility }}" data-name="insurerResponsibility" custom-class="weui-input vertical" bind:change="radioChange">
-                            <van-radio custom-class="fl mr5" name="0">不成立</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">成立</van-radio>
-                        </van-radio-group>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{['不成立', '成立'][insurerResponsibility] || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">非责任施工</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <van-radio-group value="{{ noResponsibilityConstruct }}" data-name="noResponsibilityConstruct" custom-class="weui-input vertical" bind:change="radioChange">
-                            <van-radio custom-class="fl mr5" name="0">拒绝</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">同意</van-radio>
-                        </van-radio-group>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{['拒绝', '同意'][noResponsibilityConstruct] || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">经营单位</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <picker bindchange="pickerChange" data-name="runCompany" value="{{runCompanyValue}}" range="{{runCompanyList}}">
-                            <view class="picker weui-select weui-select_in-select-after">
-                                {{runCompanyLabel || '请选择经营单位'}}
-                            </view>
-                        </picker>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{businessName || '-'}}</text>
-                    </view>
-                </view>
-                <block>
-                    <view class="weui-cell weui-cell_select">
-                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                            <view class="weui-label">TIS单位</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <picker bindchange="pickerChange" data-name="tisCompany" value="{{tisCompanyValue}}" range="{{tisCompanyList}}">
-                                <view class="picker weui-select weui-select_in-select-after">
-                                    {{tisCompanyLabel || '请选择TIS单位'}}
-                                </view>
-                            </picker>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{tisCompanyLabel || '-'}}</text>
-                        </view>
-                    </view>
-                    <view class="weui-cell weui-cell_select">
-                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                            <view class="weui-label">TIS人员</view>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <picker bindchange="pickerChange" data-name="tisUser" value="{{tisUserValue}}" range="{{tisUserList}}">
-                                <view class="picker weui-select weui-select_in-select-after">
-                                    {{tisUserLabel || '请选择TIS单位'}}
-                                </view>
-                            </picker>
-                        </view>
-                        <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{tisUserLabel || '-'}}</text>
-                        </view>
-                    </view>
-                </block>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view style="line-height: 14px;" class="weui-label">是否需要上级核赔复核</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <van-radio-group value="{{ jobRole }}" data-name="jobRole" custom-class="weui-input vertical" bind:change="radioChange">
-                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
-                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
-                        </van-radio-group>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{['否', '是'][jobRole] || '-'}}</text>
-                    </view>
-                </view>
-                <view class="weui-cell weui-cell_select">
-                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                        <view class="weui-label">是否支付</view>
-                    </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">已支付</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <van-button type="info" size="small">去支付</van-button>
-                    </view>
-                </view>
-            </block>
+            -->
         </view>
         <!-- BUTTON AREA -->
-        <view class="button-sp-area"><button type="primary" bindtap="applyReject">申请退单</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="applyReject">提交</button></view>
         <!-- BUTTON AREA -->
     </view>
 </view>
