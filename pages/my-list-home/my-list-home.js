@@ -21,6 +21,11 @@ Page({
       url: '../new-my-list-ws/new-my-list-ws?type='+type
     })
   },
+  goToHuJiaBaoList: function (event) {
+    wx.navigateTo({
+      url: '../my-list-hujiabao/my-list-hujiabao'
+    })
+  },
   goToCompareWsList: function (event) {
     let type = event.currentTarget.dataset.type
     wx.navigateTo({

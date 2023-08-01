@@ -28,6 +28,8 @@
     "pages/feedback-form/feedback-form",
     "pages/idi-feedback-form/idi-feedback-form",
     "pages/my-list-home/my-list-home",
+    "pages/my-list-hujiabao/my-list-hujiabao",
+    "pages/hujiabao-form/hujiabao-form",
     "pages/new-my-list-ws/new-my-list-ws",
     "pages/new-my-list-jc/new-my-list-jc",
     "pages/my-list-ws/my-list-ws",

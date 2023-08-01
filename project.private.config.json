@@ -135,6 +135,13 @@
           "query": "id=20200622113007000107&type=2&manageType=1",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/hujiabao-form/hujiabao-form",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -1,0 +1,165 @@
+<view class="page">
+  <view class="filter-wrap clearfix">
+    <view style="float: left; width: 85%;">
+      <view class="field filterDropdown">
+        <view class="caret" bind:tap="openFilterStatusPop">{{statusMap[statusFilter]}}</view>
+      </view>
+      <van-search
+              value="{{ searchOrderId }}"
+              placeholder="请输入工单号"
+              custom-class="my-search"
+              bind:change="searchOrderIdChange">
+      </van-search>
+      <view class="field filterDropdown">
+        <view class="caret" bind:tap="openFilterDatePop">{{dateFilterArr[dateFilter]}}</view>
+      </view>
+      <van-search
+              value="{{ searchReportNumber }}"
+              placeholder="请输入报案号"
+              custom-class="my-search"
+              bind:change="searchReportNumberChange">
+      </van-search>
+      <view class="field filterDropdown">
+        <view style="width: 70px; height: 1px;"> </view>
+      </view>
+    </view>
+    <view class="searchBtn" style="line-height: 90px; text-align: center; margin-left: -10px;" bind:tap="getInitData">搜索</view>
+  </view>
+  <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.damageId}}" bindtap="goToHandleTask">
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">工单号：{{item.damageId}}</view>
+        <view class="weui-media-box__desc">
+          <view>工单状态：{{statusMap[item.status]}}</view>
+          <view>肇事方：{{item.customerUser || '-'}}</view>
+          <view>车牌号：{{item.plateNumber || '-'}}</view>
+          <view>创建时间：{{item.createTime || '-'}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-panel__ft">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__bd">查看处理</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+    <view class="weui-panel__ft" data-id="{{item.damageId}}" catchtap="goToOffer">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__bd">查看报价</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </view>
+  <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ statusFilter }}" bind:change="statusFilterChange">
+      <van-cell-group>
+        <van-cell title="状态不限" clickable data-name="-1" bind:click="statusFilterItemClick">
+          <van-radio name="-1" />
+        </van-cell>
+        <van-cell title="查勘员已派送" clickable data-name="1" bind:click="statusFilterItemClick">
+          <van-radio name="1" />
+        </van-cell>
+        <van-cell title="待查勘员完善" clickable data-name="2" bind:click="statusFilterItemClick">
+          <van-radio name="2" />
+        </van-cell>
+        <van-cell title="查勘员已完善" clickable data-name="3" bind:click="statusFilterItemClick">
+          <van-radio name="3" />
+        </van-cell>
+        <van-cell title="待区域负责人线下报价" clickable data-name="4" bind:click="statusFilterItemClick">
+          <van-radio name="4" />
+        </van-cell>
+        <van-cell title="待报价中心报价" clickable data-name="5" bind:click="statusFilterItemClick">
+          <van-radio name="5" />
+        </van-cell>
+        <van-cell title="施工人员施工" clickable data-name="6" bind:click="statusFilterItemClick">
+          <van-radio name="6" />
+        </van-cell>
+        <van-cell title="施工中" clickable data-name="7" bind:click="statusFilterItemClick">
+          <van-radio name="7" />
+        </van-cell>
+        <van-cell title="计算书已上传" clickable data-name="8" bind:click="statusFilterItemClick">
+          <van-radio name="8" />
+        </van-cell>
+        <van-cell title="报价中心驳回" clickable data-name="9" bind:click="statusFilterItemClick">
+          <van-radio name="9" />
+        </van-cell>
+        <van-cell title="已报价" clickable data-name="10" bind:click="statusFilterItemClick">
+          <van-radio name="10" />
+        </van-cell>
+        <van-cell title="已办结" clickable data-name="1" bind:click="statusFilterItemClick">
+          <van-radio name="11" />
+        </van-cell>
+        <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">
+          <van-radio name="12" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <!--<van-transition name="fade-up" show="{{ isShowTypeFilter }}" custom-class="filterBlock">-->
+    <!--<van-radio-group value="{{ typeFilter }}" bind:change="typeFilterChange">-->
+      <!--<van-cell-group>-->
+        <!--<van-cell title="状态不限" clickable data-name="-1" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="-1" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="查勘员已派送" clickable data-name="1" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="1" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="待查勘员完善" clickable data-name="2" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="2" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="查勘员已完善" clickable data-name="3" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="3" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="待区域负责人线下报价" clickable data-name="4" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="4" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="待报价中心报价" clickable data-name="5" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="5" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="施工人员施工" clickable data-name="6" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="6" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="施工中" clickable data-name="7" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="7" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="计算书已上传" clickable data-name="8" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="8" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="报价中心驳回" clickable data-name="9" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="9" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="已报价" clickable data-name="10" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="10" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="已办结" clickable data-name="1" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="11" />-->
+        <!--</van-cell>-->
+        <!--<van-cell title="暂存" clickable data-name="12" bind:click="typeFilterItemClick">-->
+          <!--<van-radio name="12" />-->
+        <!--</van-cell>-->
+      <!--</van-cell-group>-->
+    <!--</van-radio-group>-->
+  <!--</van-transition>-->
+  <van-transition name="fade-up" show="{{ isShowDateFilter }}" custom-class="filterBlock">
+    <van-radio-group value="{{ dateFilter }}" bind:change="dateFilterChange">
+      <van-cell-group>
+        <van-cell title="不限" clickable data-name="0" bind:click="dateFilterItemClick">
+          <van-radio name="0" />
+        </van-cell>
+        <van-cell title="最近3天" clickable data-name="1" bind:click="dateFilterItemClick">
+          <van-radio name="1" />
+        </van-cell>
+        <van-cell title="最近7天" clickable data-name="2" bind:click="dateFilterItemClick">
+          <van-radio name="2" />
+        </van-cell>
+        <van-cell title="最近30天" clickable data-name="3" bind:click="dateFilterItemClick">
+          <van-radio name="3" />
+        </van-cell>
+      </van-cell-group>
+    </van-radio-group>
+  </van-transition>
+  <view bindtap="closeFilter" wx:if="{{isShowDateFilter || isShowTypeFilter || isShowStatusFilter}}" class="mask"></view>
+  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}">
+    <van-area area-list="{{ areaList }}" value="110101" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+  </van-popup>
+</view>
