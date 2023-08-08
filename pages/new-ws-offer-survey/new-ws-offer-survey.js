@@ -204,7 +204,7 @@ Page({
 
     this.setData({
       offerList: offerList,
-      amountMoney: amountMoney.toFixed(2),
+      amountMoney: amountMoney,
       tax: (tax || 0),
       offerListTotal,
       incompleteTotal,

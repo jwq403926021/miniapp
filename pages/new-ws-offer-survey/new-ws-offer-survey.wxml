@@ -100,11 +100,8 @@
                         <block wx:if="{{hasTax && handlingType != 0}}">
                             <view class="section-title">税额详情</view>
                             <van-row custom-class="font14">
-                                <van-col span="6" custom-class="bold">
-                                    税率 %:
-                                </van-col>
-                                <van-col span="18">
-                                    {{taxRate || '-'}}
+                                <van-col span="24">
+                                    {{taxRate ? '税金' + taxRate + '% = '+ amountMoney + ' * ' + taxRate + '% = ' + tax : '-'}}
                                 </van-col>
                             </van-row>
                         </block>
