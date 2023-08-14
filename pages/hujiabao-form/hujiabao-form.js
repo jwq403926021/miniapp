@@ -184,16 +184,15 @@ Page({
     orderId: null,
     statusMap: MetaData.orderStatus,
     'PolicyInfo': DefaultValue,
-    investigatorImageFiles: [],
-    delayReportReason: { index: '', value: '', label: '' },
-    delayReportReasonList: Object.values(MetaData.delayReportReason),
+    investigatorImageFiles: []
   },
   pickerChange (e) {
-    let name = e.currentTarget.dataset.name;
-    let source = MetaData[name]
+    let value_name = e.currentTarget.dataset.vname;
+    let list_name = e.currentTarget.dataset.lname;
+    let source = MetaData[list_name]
     let key = Object.keys(source)[e.detail.value]
     this.setData({
-      [name]: {
+      [value_name]: {
         index: e.detail.value,
         value: key,
         label: source[key] ? source[key] : '',
@@ -204,7 +203,14 @@ Page({
     console.log('submit')
   },
   async onLoad (routeParams) {
-
+    this.initPickerList()
+  },
+  initPickerList () {
+    const initList = {}
+    Object.entries(MetaData).forEach(i => {
+      initList[i[0] + 'List'] = Object.values(i[1])
+    })
+    this.setData(initList)
   },
   chooseImage (e) {
     let key = e.currentTarget.dataset.name
