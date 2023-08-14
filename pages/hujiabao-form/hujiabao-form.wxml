@@ -2,19 +2,6 @@
     <view class="page__bd">
         <view class="weui-cells__title">沪家保</view>
         <view class="weui-cells weui-cells_after-title">
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">工单号</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{orderId}}</text>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__ft">-->
-<!--                    <view class="field-right-btn" data-content="{{orderId}}" bindtap="copy">-->
-<!--                        <van-icon name="column" />-->
-<!--                    </view>-->
-<!--                </view>-->
-<!--            </view>-->
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">工单状态</view>
@@ -23,36 +10,24 @@
                     <text class="weui-input readonly">{{statusMap[status] || '暂存'}}</text>
                 </view>
             </view>
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">保单号</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <input class="weui-input" bindinput="inputChange" bindblur="getAccordingWorker" data-name='insuranceOrderId'-->
-<!--                           value="{{insuranceOrderId}}" placeholder="保单号"/>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{insuranceOrderId || '-'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
-<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
-<!--                <view class="weui-cell__hd">-->
-<!--                    <view class="weui-label">报案号</view>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <input class="weui-input" bindinput="inputChange" data-name='reportId'-->
-<!--                           value="{{reportId}}" placeholder="报案号"/>-->
-<!--                </view>-->
-<!--                <view class="weui-cell__bd">-->
-<!--                    <text class="weui-input readonly">{{reportId || '-'}}</text>-->
-<!--                </view>-->
-<!--            </view>-->
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="inputChange" data-name='reportId'
+                           value="{{reportId}}" placeholder="报案号"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{reportId || '-'}}</text>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">延迟报案原因</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <picker bindchange="pickerChange" data-name="delayReportReason" value="{{delayReportReason.index}}" range="{{delayReportReasonList}}">
+                    <picker bindchange="pickerChange" data-vname="delayReportReason" data-lname="delayReportReason" value="{{delayReportReason.index}}" range="{{delayReportReasonList}}">
                         <view class="picker weui-select weui-select_in-select-after">
                             {{delayReportReason.label || '请选择延迟报案原因'}}
                         </view>
