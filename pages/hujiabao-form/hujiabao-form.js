@@ -190,6 +190,12 @@ Page({
     'PolicyInfo': DefaultValue,
     investigatorImageFiles: []
   },
+  inputChange (e) {
+    let name = e.currentTarget.dataset.name;
+    let nameMap = {}
+    nameMap[name] = e.detail.value
+    this.setData(nameMap)
+  },
   openAreaPopup (e) {
     let regionKey = e.currentTarget.dataset.name;
     let value = e.currentTarget.dataset.value;

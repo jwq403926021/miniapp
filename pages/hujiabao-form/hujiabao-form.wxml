@@ -56,6 +56,20 @@
                     </picker>
                 </view>
             </view>
+            <block wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem" wx:key="index">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">保额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].SumInsured'}}"
+                               value="{{CoverageItem.SumInsured}}" placeholder="保额"/>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{CoverageItem.SumInsured || '-'}}</text>
+                    </view>
+                </view>
+            </block>
             <!--
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
@@ -121,6 +135,6 @@
         <!-- BUTTON AREA -->
     </view>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
-        <van-area data-name="showAreaPopup" area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
     </van-popup>
 </view>
