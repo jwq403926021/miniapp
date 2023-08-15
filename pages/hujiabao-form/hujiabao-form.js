@@ -238,7 +238,18 @@ Page({
     })
   },
   submit () {
-    console.log('submit')
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/save',
+      method: 'POST',
+      data: {
+        PolicyInfo: this.data.PolicyInfo
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
   },
   async onLoad (routeParams) {
     const _this = this

@@ -131,7 +131,7 @@
 <!--        </block>-->
 
         <!-- BUTTON AREA -->
-        <view class="button-sp-area"><button type="primary" bindtap="submit">提交</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="submit">提交 /save</button></view>
         <!-- BUTTON AREA -->
     </view>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
