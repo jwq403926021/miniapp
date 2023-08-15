@@ -182,9 +182,41 @@ Page({
   data: {
     role: 1, // 理算 施工人员
     orderId: null,
+    showAreaPopup: false,
+    areaList: {},
+    regionKey: '',
+    region: '',
     statusMap: MetaData.orderStatus,
     'PolicyInfo': DefaultValue,
     investigatorImageFiles: []
+  },
+  openAreaPopup (e) {
+    let regionKey = e.currentTarget.dataset.name;
+    let value = e.currentTarget.dataset.value;
+    this.setData({
+      showAreaPopup: true,
+      regionKey: regionKey,
+      region: value
+    })
+  },
+  closePopup (e) {
+    this.setData({
+      showAreaPopup: false
+    })
+  },
+  confirmAreaPopup (e) {
+    let strArr = []
+    const regionKey = this.data.regionKey
+    e.detail.values.forEach(item => {
+      strArr.push(item.name)
+    })
+    this.setData({
+      showAreaPopup: false,
+      [`${regionKey}Label`]: strArr.join(','),
+      [`${regionKey}Province`]: e.detail.values[0].code,
+      [`${regionKey}PropertyCity`]: e.detail.values[1].code,
+      [`${regionKey}District`]: e.detail.values[2].code
+    })
   },
   pickerChange (e) {
     let value_name = e.currentTarget.dataset.vname;
@@ -203,6 +235,15 @@ Page({
     console.log('submit')
   },
   async onLoad (routeParams) {
+    const _this = this
+    await util.request({
+      path: '/sys/area/list',
+      method: 'GET'
+    }, function (err, res) {
+      _this.setData({
+        areaList: res ? res.DATA.DATA : []
+      })
+    })
     this.initPickerList()
   },
   initPickerList () {

@@ -22,6 +22,24 @@
                     <text class="weui-input readonly">{{reportId || '-'}}</text>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">区域</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd">
+                        <view class="picker weui-select weui-select_in-select-after"
+                              data-name="PolicyInfo.Property.Property"
+                              data-value="{{PolicyInfo.Property.PropertyDistrict}}"
+                              bindtap="openAreaPopup">
+                            {{PolicyInfo.Property.PropertyLabel ? PolicyInfo.Property.PropertyLabel : '请填写地址'}}
+                        </view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{PolicyInfo.Property.PropertyLabel || '-'}}</text>
+                    </view>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">延迟报案原因</view>
@@ -102,4 +120,7 @@
         <view class="button-sp-area"><button type="primary" bindtap="submit">提交</button></view>
         <!-- BUTTON AREA -->
     </view>
+    <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
+        <van-area data-name="showAreaPopup" area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
+    </van-popup>
 </view>
