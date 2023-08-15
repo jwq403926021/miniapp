@@ -142,6 +142,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/my-list-hujiabao/my-list-hujiabao",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

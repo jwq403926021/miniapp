@@ -2,40 +2,24 @@
 import util from "../../utils/util";
 
 const app = getApp()
-import location from '../../asset/location'
+import Metadata from "../hujiabao-form/metadata";
 Page({
   data: {
     show: false,
-    areaList: location,
     isShowStatusFilter: false,
     statusFilter: '-1',
-    isShowTypeFilter: false,
-    typeFilter: '0',
-    isShowDateFilter: false,
-    dateFilter: '0',
-    dataList: [],
-    dateFilterArr: ['时间不限', '最近3天', '最近7天', '最近30天'],
     height: '',
-    searchCarNumber: '',
-    searchReportNumber: '',
     searchOrderId: '',
     statusMap: {
       '-1': '状态不限',
-      '1': '查勘员已派送',
-      '2': '待查勘员完善',
-      '3': '查勘员已完善',
-      '4': '待区域负责人线下报价',
-      '5': '待报价中心报价',
-      '6': '施工人员施工',
-      '7': '施工中',
-      '8': '计算书已上传',
-      '9': '报价中心驳回',
-      '10': '已报价',
-      '11': '已办结',
-      '12': '暂存'
+      ...Metadata.orderStatus
     },
-    role: 1,
-    type: 1
+    statusList: [
+      {name: '状态不限', value: '-1'},
+      ...Object.entries(Metadata.orderStatus).map(([v, l]) => {
+        return {name: l, value: v}
+      })
+    ]
   },
   onPullDownRefresh () {
     this.getInitData()
@@ -45,22 +29,7 @@ Page({
       isShowStatusFilter: true
     });
   },
-  openFilterTypePop () {
-    this.setData({
-      isShowTypeFilter: true
-    });
-  },
-  openFilterDatePop () {
-    this.setData({
-      isShowDateFilter: true
-    });
-  },
-  statusFilterChange (data) {
-  },
-  typeFilterChange (data) {
-  },
-  dateFilterChange (data) {
-  },
+
   statusFilterItemClick (event) {
     const value = event.currentTarget.dataset.name;
     this.setData({
@@ -68,38 +37,9 @@ Page({
       isShowStatusFilter: false
     });
   },
-  typeFilterItemClick (event) {
-    const value = event.currentTarget.dataset.name;
-    this.setData({
-      typeFilter: value,
-      isShowTypeFilter: false
-    });
-  },
-  searchCarNumberChange (data) {
-    this.setData({
-      searchCarNumber: data.detail
-    })
-  },
   searchOrderIdChange (data) {
     this.setData({
       searchOrderId: data.detail
-    })
-  },
-  searchReportNumberChange (data) {
-    this.setData({
-      searchReportNumber: data.detail
-    })
-  },
-  dateFilterItemClick (event) {
-    const value = event.currentTarget.dataset.name;
-    this.setData({
-      dateFilter: value,
-      isShowDateFilter: false
-    });
-  },
-  openLocation () {
-    this.setData({
-      show: !this.show
     })
   },
   getInitData () {
@@ -107,11 +47,7 @@ Page({
     let filter = {
       page: 1,
       size: 100,
-      datetime: this.data.dateFilter,
-      carNumber: this.data.searchCarNumber,
-      reportNumber: this.data.searchReportNumber,
-      orderId: this.data.searchOrderId,
-      insuranceType: this.data.type
+      policyNo: this.data.searchOrderId
     }
     if (this.data.statusFilter != '-1') {
       filter.status = this.data.statusFilter
@@ -121,14 +57,14 @@ Page({
       title: '加载中'
     })
     util.request({
-      path: '/app/damage/damageList',
+      path: '/app/hjbpolicyinfo/orders',
       method: 'GET',
       data: filter
     }, function (err, res) {
       wx.hideLoading()
       wx.stopPullDownRefresh()
       _this.setData({
-        dataList: res.data
+        dataList: res.data.records
       })
     })
   },
@@ -137,10 +73,6 @@ Page({
   },
   onLoad: function (routeParams) {
     let _this = this
-    _this.setData({
-      type: routeParams.type,
-      role: app.globalData.currentRegisterInfo.role
-    })
     wx.getSystemInfo({
       success: function (res) {
         _this.setData({
@@ -149,34 +81,14 @@ Page({
       }
     })
   },
-  getMore () {
-
-  },
-  goToOffer (event) {
-    wx.navigateTo({
-      url: '../ws-offer/ws-offer?id=' + event.currentTarget.dataset.id
-    })
-  },
   goToHandleTask (event) {
     wx.navigateTo({
-      url: '../ws-form/ws-form?id=' + event.currentTarget.dataset.id
-    })
-  },
-  onCancel () {
-    this.setData({
-      show: false
-    })
-  },
-  onConfirm () {
-    this.setData({
-      show: false
+      url: '../hujiabao-form/hujiabao-form?id=' + event.currentTarget.dataset.id
     })
   },
   closeFilter () {
     this.setData({
-      isShowDateFilter:false,
-      isShowStatusFilter: false,
-      isShowTypeFilter:false
+      isShowStatusFilter: false
     })
   }
 })

@@ -262,6 +262,36 @@ Page({
       })
     })
     this.initPickerList()
+    if (routeParams.id) {
+      this.initDataById(routeParams.id)
+    }
+  },
+  async initDataById (id) {
+    let _this = this
+    await util.request({
+      path: `/app/hjbpolicyinfo/detail`,
+      method: 'GET',
+      data: {
+        policyNo: 1
+      }
+    }, function (err, res) {
+      console.log(res, res.data)
+      let data = res.data
+      let state = {}
+      // _this.sourceData = data
+      // _this.sourceImage = res.Image
+      // let investigatorImageFiles = []
+      // _this.sourceImage.forEach(item => {
+      //   switch (item.type) {
+      //     case 2:
+      //       item.path = `https://aplusprice.xyz/file/${item.path}`
+      //       investigatorImageFiles.push(item)
+      //       break
+      //   }
+      // })
+      // state.investigatorImageFiles = investigatorImageFiles
+      _this.setData(state)
+    })
   },
   initPickerList () {
     const initList = {}
