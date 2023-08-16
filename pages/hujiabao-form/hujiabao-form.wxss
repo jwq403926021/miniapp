@@ -1,32 +1,9 @@
-.text-center{
-    text-align: center;
-    padding: 10px;
-    font-size: 14px;
-}
-.compare-wrapper{
-    background: #fff;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-}
-.compare-detail-table-header{
-    border-bottom: 1px solid #ccc;
-    font-weight: bold;
-}
-.compare-detail-table-body {
-}
-.compare-detail-table-header .van-col, .compare-detail-table-body .van-col {
-    font-size: 14px;
-    color: #4e4d50;
-    line-height: 36px;
-    padding: 0 4px;
-}
-.compare-detail-table-body .van-col {
+.hujiabao-sub-title-wrap {
+    display:flex;
+    justify-content: space-between;
     font-size: 12px;
+    padding: 5px;
 }
-.delete-btn{
-    text-decoration: underline;
-    color: #cc2629;
-}
-.idi-checkbox{
-    margin-top: 7px;
+.hujiabao-sub-title{
+    line-height: 22px;
 }

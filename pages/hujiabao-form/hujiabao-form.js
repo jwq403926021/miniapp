@@ -190,8 +190,17 @@ Page({
     dateTimePickerKey: '',
     dateTimeValue: '',
     statusMap: MetaData.orderStatus,
+    DefaultValue: DefaultValue,
     'PolicyInfo': DefaultValue,
     investigatorImageFiles: []
+  },
+  addList (e) {
+    let name = e.currentTarget.dataset.name;
+    let current = e.currentTarget.dataset.current;
+    let defaultValue = e.currentTarget.dataset.default;
+    this.setData({
+      [name]: current.concat(defaultValue)
+    })
   },
   inputChange (e) {
     let name = e.currentTarget.dataset.name;
@@ -214,7 +223,7 @@ Page({
     this.setData({
       showDateTimePopup: true,
       dateTimePickerKey: dateTimePickerKey,
-      dateTimeValue: value
+      dateTimeValue: value || (+new Date())
     })
   },
   closePopup (e) {

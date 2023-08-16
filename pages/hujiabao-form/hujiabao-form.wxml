@@ -9,7 +9,7 @@
 </wxs>
 <view class="page">
     <view class="page__bd">
-        <view class="weui-cells__title">沪家保</view>
+        <view class="weui-cells__title">保单信息</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
@@ -59,6 +59,21 @@
                     </view>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">保险止期</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd">
+                        <view class="picker weui-select weui-select_in-select-after"
+                              data-value="{{PolicyInfo.ExpireDate}}"
+                              data-name="PolicyInfo.ExpireDate"
+                              bindtap="openDatePickerPopup">
+                            {{PolicyInfo.ExpireDate ? wxsUtil.formatDateTime(PolicyInfo.ExpireDate) : '请选择'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">保单状态</view>
@@ -76,61 +91,180 @@
                 </view>
             </view>
 
-
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">区域</view>
+                    <view class="weui-label">签单保费</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <view class="weui-cell__bd">
-                        <view class="picker weui-select weui-select_in-select-after"
-                              data-name="PolicyInfo.Property.Property"
-                              data-value="{{PolicyInfo.Property.PropertyDistrict}}"
-                              bindtap="openAreaPopup">
-                            {{PolicyInfo.Property.PropertyLabel ? PolicyInfo.Property.PropertyLabel : '请填写地址'}}
-                        </view>
-                    </view>
+                    <input class="weui-input" type="number" bindinput="inputChange" data-name="PolicyInfo.StandardPremium"
+                           value="{{PolicyInfo.StandardPremium}}" placeholder="签单保费"/>
                 </view>
             </view>
-            <block wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem" wx:key="index">
+        </view>
+
+        <view class="page__bd">
+            <view class="weui-cells__title">房屋标的信息</view>
+            <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">保额</view>
+                        <view class="weui-label">房屋所在</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].SumInsured'}}"
-                               value="{{CoverageItem.SumInsured}}" placeholder="保额"/>
-                    </view>
-<!--                    <view class="weui-cell__bd">-->
-<!--                        <text class="weui-input readonly">{{CoverageItem.SumInsured || '-'}}</text>-->
-<!--                    </view>-->
-                </view>
-            </block>
-            <!--
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">被保险人姓名</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{insuredName || '-'}}</text>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">被保险人电话</view>
-                </view>
-                <block>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{insuredPhone || '-'}}</text>
-                    </view>
-                    <view class="weui-cell__ft">
-                        <view class="field-right-btn" data-phone="{{insuredPhone}}" bindtap="dialPhone">
-                            <van-icon name="phone"></van-icon>
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-name="PolicyInfo.Property.Property"
+                                  data-value="{{PolicyInfo.Property.PropertyDistrict}}"
+                                  bindtap="openAreaPopup">
+                                {{PolicyInfo.Property.PropertyLabel ? PolicyInfo.Property.PropertyLabel : '请填写地址'}}
+                            </view>
                         </view>
                     </view>
-                </block>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">房屋详细地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="number" bindinput="inputChange" data-name="PolicyInfo.Property.PropertyDetailAddress"
+                               value="{{PolicyInfo.Property.PropertyDetailAddress}}" placeholder="房屋详细地址"/>
+                    </view>
+                </view>
+                <view style="border: 10px solid #f8f8f8;">
+                    <view style="border-bottom: 10px solid #f8f8f8;" class="hujiabao-sub-title-wrap">
+                        <view class="hujiabao-sub-title">
+                            - 险别信息
+                        </view>
+                        <view>
+                            <van-button bind:tap="addList"
+                                        data-name="PolicyInfo.Property.CoverageList"
+                                        data-current="{{PolicyInfo.Property.CoverageList}}"
+                                        data-default="{{DefaultValue.Property.CoverageList[0]}}"
+                                        icon="plus" type="primary" size="mini" />
+                        </view>
+                    </view>
+                    <view style="border-bottom: 10px solid #f8f8f8;" wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem">
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">是否最后一级</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="pickerChange"
+                                        data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].IsFinalLevelCt'}}"
+                                        data-lname="isCode"
+                                        range="{{isCodeList}}"
+                                        value="{{CoverageItem.IsFinalLevelCt.index}}">
+                                    <view class="picker weui-select weui-select_in-select-after">
+                                        {{CoverageItem.IsFinalLevelCt.label || '请选择'}}
+                                    </view>
+                                </picker>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">险别代码</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="pickerChange"
+                                        data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].CoverageCode'}}"
+                                        data-lname=""
+                                        range="{{[]}}"
+                                        value="{{CoverageItem.CoverageCode.index}}">
+                                    <view class="picker weui-select weui-select_in-select-after">
+                                        {{CoverageItem.CoverageCode.label || '请选择'}}
+                                    </view>
+                                </picker>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">保额</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].SumInsured'}}"
+                                       value="{{CoverageItem.SumInsured}}" placeholder="保额"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">历史预估金额</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].SumPaymentAmt'}}"
+                                       value="{{CoverageItem.SumPaymentAmt}}" placeholder="历史案件预估金额"/>
+                            </view>
+                        </view>
+
+                        <view>
+                            <view style="border-top: 5px solid #f8f8f8;" class="hujiabao-sub-title-wrap">
+                                <view class="hujiabao-sub-title">
+                                    -- 责任信息
+                                </view>
+                                <view>
+                                    <van-button
+                                      bind:tap="addList"
+                                      data-name="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList'}}"
+                                      data-current="{{PolicyInfo.Property.CoverageList[index].BenefitList}}"
+                                      data-default="{{DefaultValue.Property.CoverageList[0].BenefitList[0]}}"
+                                      icon="plus" type="primary" size="mini" />
+                                </view>
+                            </view>
+                            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.Property.CoverageList[index].BenefitList}}" wx:for-item="BenefitItem" wx:for-index="bIndex">
+                                <view class="weui-cell weui-cell_select">
+                                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                        <view class="weui-label">是否最后一级</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <picker bindchange="pickerChange"
+                                                data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].IsFinalLevelCt'}}"
+                                                data-lname="isCode"
+                                                range="{{isCodeList}}"
+                                                value="{{BenefitItem.IsFinalLevelCt.index}}">
+                                            <view class="picker weui-select weui-select_in-select-after">
+                                                {{BenefitItem.IsFinalLevelCt.label || '请选择'}}
+                                            </view>
+                                        </picker>
+                                    </view>
+                                </view>
+                                <view class="weui-cell weui-cell_select">
+                                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                        <view class="weui-label">险别代码</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <picker bindchange="pickerChange"
+                                                data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].CoverageCode'}}"
+                                                data-lname=""
+                                                range="{{[]}}"
+                                                value="{{BenefitItem.CoverageCode.index}}">
+                                            <view class="picker weui-select weui-select_in-select-after">
+                                                {{BenefitItem.CoverageCode.label || '请选择'}}
+                                            </view>
+                                        </picker>
+                                    </view>
+                                </view>
+                                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                                    <view class="weui-cell__hd">
+                                        <view class="weui-label">保额</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].SumInsured'}}"
+                                               value="{{BenefitItem.SumInsured}}" placeholder="保额"/>
+                                    </view>
+                                </view>
+                                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                                    <view class="weui-cell__hd">
+                                        <view class="weui-label">历史预估金额</view>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                        <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].SumPaymentAmt'}}"
+                                               value="{{BenefitItem.SumPaymentAmt}}" placeholder="历史案件预估金额"/>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
             </view>
-            -->
         </view>
 
 <!--        <block>-->
