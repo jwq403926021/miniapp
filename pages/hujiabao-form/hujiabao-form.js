@@ -266,18 +266,79 @@ Page({
       this.initDataById(routeParams.id)
     }
   },
+  compileData (data) {
+    let result
+    if (data) {
+      if (Array.isArray(data)) {
+        let arr = []
+        data.forEach(i => {
+          let obj = {}
+          Object.entries(i).forEach(item => {
+            const key = item[0].slice(0, 1).toUpperCase() + item[0].slice(1)
+            obj[key] = item[1]
+          })
+          arr.push(obj)
+        })
+        result = arr
+      } else {
+        let obj = {}
+        Object.entries(data).forEach(item => {
+          const key = item[0].slice(0, 1).toUpperCase() + item[0].slice(1)
+          if (key.endsWith('List')) {
+            obj[key] = item[1] ? [
+              ...this.compileData(item[1])
+            ] : []
+          } else {
+            obj[key] = item[1]
+          }
+        })
+        result = obj
+      }
+    }
+    return result || data
+  },
   async initDataById (id) {
     let _this = this
     await util.request({
       path: `/app/hjbpolicyinfo/detail`,
       method: 'GET',
       data: {
-        policyNo: 1
+        policyNo: id
       }
     }, function (err, res) {
-      console.log(res, res.data)
-      let data = res.data
-      let state = {}
+      const data = res
+      let state = {
+        ..._this.compileData(data.policyInfo),
+        'Property': {
+          ..._this.compileData(data.property)
+        },
+        'ClaimInfo': {
+          ..._this.compileData(data.claimInfo),
+          'SubClaimInfo': {
+            ..._this.compileData(data.subClaimInfo),
+            'TaskInfo': {
+              ..._this.compileData(data.taskInfo)
+              // ...this.compileData(data.taskInfo2)
+            },
+            'InvestigationInfo': {
+              ..._this.compileData(data.investigationInfo),
+              'LossItemList': [
+                ..._this.compileData(data.lossItemList)
+                // ...this.compileData(data.lossItem2List)
+              ],
+              'RescueFeeList': [
+                ..._this.compileData(data.rescueFeeList)
+              ]
+            },
+            'CalculationInfoList': [
+              ..._this.compileData(data.calculationInfoList)
+            ],
+            'PayeeInfoList': [
+              ..._this.compileData(data.payeeInfoList)
+            ]
+          }
+        }
+      }
       // _this.sourceData = data
       // _this.sourceImage = res.Image
       // let investigatorImageFiles = []
@@ -290,7 +351,9 @@ Page({
       //   }
       // })
       // state.investigatorImageFiles = investigatorImageFiles
-      _this.setData(state)
+      _this.setData({
+        PolicyInfo: state
+      })
     })
   },
   initPickerList () {

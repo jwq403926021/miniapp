@@ -7,21 +7,52 @@
                     <view class="weui-label">工单状态</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{statusMap[status] || '暂存'}}</text>
+                    <text class="weui-input readonly">{{statusMap[PolicyInfo.State] || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
-                    <view class="weui-label">报案号</view>
+                    <view class="weui-label">保单号</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" bindinput="inputChange" data-name='reportId'
-                           value="{{reportId}}" placeholder="报案号"/>
-                </view>
-                <view class="weui-cell__bd">
-                    <text class="weui-input readonly">{{reportId || '-'}}</text>
+                    <input class="weui-input" bindinput="inputChange" data-name='PolicyInfo.PolicyNo'
+                           value="{{PolicyInfo.PolicyNo}}" placeholder="保单号"/>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">产品类型</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="pickerChange"
+                            data-vname="PolicyInfo.ProductType"
+                            data-lname="delayReportReason"
+                            range="{{[]}}"
+                            value="{{PolicyInfo.ProductType.index}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{PolicyInfo.ProductType.label || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">保单状态</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="pickerChange"
+                            data-vname="PolicyInfo.PolicyStatus"
+                            data-lname="status"
+                            range="{{statusList}}"
+                            value="{{PolicyInfo.PolicyStatus.index}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{PolicyInfo.PolicyStatus.label || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+
+
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">区域</view>
@@ -35,25 +66,9 @@
                             {{PolicyInfo.Property.PropertyLabel ? PolicyInfo.Property.PropertyLabel : '请填写地址'}}
                         </view>
                     </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{PolicyInfo.Property.PropertyLabel || '-'}}</text>
-                    </view>
-                </view>
-            </view>
-            <view class="weui-cell weui-cell_select">
-                <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                    <view class="weui-label">延迟报案原因</view>
-                </view>
-                <view class="weui-cell__bd">
-                    <picker bindchange="pickerChange"
-                            data-vname="PolicyInfo.ProductType"
-                            data-lname="delayReportReason"
-                            range="{{delayReportReasonList}}"
-                            value="{{PolicyInfo.ProductType.index}}">
-                        <view class="picker weui-select weui-select_in-select-after">
-                            {{PolicyInfo.ProductType.label || '请选择延迟报案原因'}}
-                        </view>
-                    </picker>
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{PolicyInfo.Property.PropertyLabel || '-'}}</text>-->
+<!--                    </view>-->
                 </view>
             </view>
             <block wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem" wx:key="index">

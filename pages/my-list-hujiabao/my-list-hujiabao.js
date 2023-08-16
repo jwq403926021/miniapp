@@ -10,6 +10,7 @@ Page({
     statusFilter: '-1',
     height: '',
     searchOrderId: '',
+    Metadata: Metadata,
     statusMap: {
       '-1': '状态不限',
       ...Metadata.orderStatus
