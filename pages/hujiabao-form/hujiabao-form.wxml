@@ -1,7 +1,6 @@
 <wxs module="wxsUtil">
-    function formatDateTime (milliseconds) {
-      var date = getDate(milliseconds);
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+    function formatDateTime (str) {
+      return str.replace('T', ' ').replace('Z', ' ')
     }
     module.exports = {
         formatDateTime: formatDateTime
@@ -130,7 +129,7 @@
                                value="{{PolicyInfo.Property.PropertyDetailAddress}}" placeholder="房屋详细地址"/>
                     </view>
                 </view>
-                <view style="border: 10px solid #f8f8f8;">
+                <view style="border: 10px solid #f8f8f8; border-bottom: none;">
                     <view style="border-bottom: 10px solid #f8f8f8;" class="hujiabao-sub-title-wrap">
                         <view class="hujiabao-sub-title">
                             - 险别信息
@@ -143,7 +142,7 @@
                                         icon="plus" type="primary" size="mini" />
                         </view>
                     </view>
-                    <view style="border-bottom: 10px solid #f8f8f8;" wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem">
+                    <view class="hujiabao-list-bb10" wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem">
                         <view class="weui-cell weui-cell_select">
                             <view class="weui-cell__hd weui-cell__hd_in-select-after">
                                 <view class="weui-label">是否最后一级</view>
@@ -265,8 +264,53 @@
                     </view>
                 </view>
             </view>
-        </view>
 
+            <view class="weui-cells__title">案件信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理赔编号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" type="number" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.ClaimNo"
+                               value="{{PolicyInfo.ClaimInfo.ClaimNo}}" placeholder="理赔编号"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险时间</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.AccidentTime}}"
+                                  data-name="PolicyInfo.ClaimInfo.AccidentTime"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.AccidentTime ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.AccidentTime) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">报案时间</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.ReportTime}}"
+                                  data-name="PolicyInfo.ClaimInfo.ReportTime"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.ReportTime ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.ReportTime) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
 <!--        <block>-->
 <!--            <view class="weui-cells__title">查勘图片</view>-->
 <!--            <view class="weui-cells weui-cells_after-title">-->

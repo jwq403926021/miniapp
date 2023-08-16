@@ -219,11 +219,11 @@ Page({
   },
   openDatePickerPopup (e) {
     let dateTimePickerKey = e.currentTarget.dataset.name;
-    let value = e.currentTarget.dataset.value;
+    let value = e.currentTarget.dataset.value.replaceAll('Z', ' ').replaceAll('T', ' ');
     this.setData({
       showDateTimePopup: true,
       dateTimePickerKey: dateTimePickerKey,
-      dateTimeValue: value || (+new Date())
+      dateTimeValue: value ? (+new Date(value)) : (+new Date())
     })
   },
   closePopup (e) {
@@ -235,7 +235,7 @@ Page({
   confirmDateTimePopup (e) {
     let data = {
       showDateTimePopup: false,
-      [`${this.data.dateTimePickerKey}`]: e.detail
+      [`${this.data.dateTimePickerKey}`]: common.formatDateTimeForHjb(new Date(e.detail))
     }
     this.setData(data)
   },
