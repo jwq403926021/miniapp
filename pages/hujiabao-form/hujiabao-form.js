@@ -183,9 +183,12 @@ Page({
     role: 1, // 理算 施工人员
     orderId: null,
     showAreaPopup: false,
+    showDateTimePopup: false,
     areaList: {},
     regionKey: '',
     region: '',
+    dateTimePickerKey: '',
+    dateTimeValue: '',
     statusMap: MetaData.orderStatus,
     'PolicyInfo': DefaultValue,
     investigatorImageFiles: []
@@ -205,10 +208,27 @@ Page({
       region: value
     })
   },
+  openDatePickerPopup (e) {
+    let dateTimePickerKey = e.currentTarget.dataset.name;
+    let value = e.currentTarget.dataset.value;
+    this.setData({
+      showDateTimePopup: true,
+      dateTimePickerKey: dateTimePickerKey,
+      dateTimeValue: value
+    })
+  },
   closePopup (e) {
     this.setData({
-      showAreaPopup: false
+      showAreaPopup: false,
+      showDateTimePopup: false
     })
+  },
+  confirmDateTimePopup (e) {
+    let data = {
+      showDateTimePopup: false,
+      [`${this.data.dateTimePickerKey}`]: e.detail
+    }
+    this.setData(data)
   },
   confirmAreaPopup (e) {
     let strArr = []

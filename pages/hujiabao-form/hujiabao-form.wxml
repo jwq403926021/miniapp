@@ -1,3 +1,12 @@
+<wxs module="wxsUtil">
+    function formatDateTime (milliseconds) {
+      var date = getDate(milliseconds);
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
+    }
+    module.exports = {
+        formatDateTime: formatDateTime
+    }
+</wxs>
 <view class="page">
     <view class="page__bd">
         <view class="weui-cells__title">沪家保</view>
@@ -35,6 +44,21 @@
                     </picker>
                 </view>
             </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">保险起期</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="weui-cell__bd">
+                        <view class="picker weui-select weui-select_in-select-after"
+                              data-value="{{PolicyInfo.EffectiveDate}}"
+                              data-name="PolicyInfo.EffectiveDate"
+                              bindtap="openDatePickerPopup">
+                            {{PolicyInfo.EffectiveDate ? wxsUtil.formatDateTime(PolicyInfo.EffectiveDate) : '请选择'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_select">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">保单状态</view>
@@ -66,9 +90,6 @@
                             {{PolicyInfo.Property.PropertyLabel ? PolicyInfo.Property.PropertyLabel : '请填写地址'}}
                         </view>
                     </view>
-<!--                    <view class="weui-cell__bd">-->
-<!--                        <text class="weui-input readonly">{{PolicyInfo.Property.PropertyLabel || '-'}}</text>-->
-<!--                    </view>-->
                 </view>
             </view>
             <block wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem" wx:key="index">
@@ -80,9 +101,9 @@
                         <input class="weui-input" bindinput="inputChange" data-name="{{'PolicyInfo.Property.CoverageList['+index+'].SumInsured'}}"
                                value="{{CoverageItem.SumInsured}}" placeholder="保额"/>
                     </view>
-                    <view class="weui-cell__bd">
-                        <text class="weui-input readonly">{{CoverageItem.SumInsured || '-'}}</text>
-                    </view>
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <text class="weui-input readonly">{{CoverageItem.SumInsured || '-'}}</text>-->
+<!--                    </view>-->
                 </view>
             </block>
             <!--
@@ -151,5 +172,8 @@
     </view>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
         <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="confirmAreaPopup" bind:cancel="closePopup"/>
+    </van-popup>
+    <van-popup show="{{ showDateTimePopup }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker type="datetime" value="{{ dateTimeValue }}" bind:confirm="confirmDateTimePopup" bind:cancel="closePopup"/>
     </van-popup>
 </view>
