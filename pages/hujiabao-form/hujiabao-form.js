@@ -182,6 +182,7 @@ Page({
   data: {
     role: 1, // 理算 施工人员
     orderId: null,
+    pickerType: 'datetime',
     showAreaPopup: false,
     showDateTimePopup: false,
     areaList: {},
@@ -219,8 +220,10 @@ Page({
   },
   openDatePickerPopup (e) {
     let dateTimePickerKey = e.currentTarget.dataset.name;
+    let type = e.currentTarget.dataset.type;
     let value = e.currentTarget.dataset.value.replaceAll('Z', ' ').replaceAll('T', ' ');
     this.setData({
+      pickerType: type || 'datetime',
       showDateTimePopup: true,
       dateTimePickerKey: dateTimePickerKey,
       dateTimeValue: value ? (+new Date(value)) : (+new Date())
