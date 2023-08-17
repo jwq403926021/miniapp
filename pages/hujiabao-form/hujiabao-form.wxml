@@ -349,10 +349,10 @@
                         <view class="weui-label">事故描述</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.AccidentCauseDesc'
-                                  value="{{PolicyInfo.ClaimInfo.AccidentCauseDesc}}" placeholder="其他意外事故描述" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.AccidentCauseDesc}}" placeholder="其他意外事故描述" />
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_select">
@@ -485,10 +485,10 @@
                         <view class="weui-label">案件经过</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.AccidentDesc'
-                                  value="{{PolicyInfo.ClaimInfo.AccidentDesc}}" placeholder="案件经过" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.AccidentDesc}}" placeholder="案件经过" />
                     </view>
                 </view>
             </view>
@@ -543,10 +543,10 @@
                         <view class="weui-label">损失描述</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.DamageDesc'
-                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DamageDesc}}" placeholder="案件经过" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DamageDesc}}" placeholder="案件经过" />
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -876,10 +876,10 @@
                         <view class="weui-label">备注</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.Remark'
-                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.Remark}}" placeholder="备注" />
                     </view>
                 </view>
             </view>
@@ -983,10 +983,10 @@
                         <view class="weui-label">备注</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Remark'
-                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Remark}}" placeholder="备注" />
                     </view>
                 </view>
 
@@ -1081,10 +1081,10 @@
                         <view class="weui-label">查勘描述</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription'
-                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription}}" placeholder="其他意外事故描述" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription}}" placeholder="其他意外事故描述" />
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -1101,10 +1101,10 @@
                         <view class="weui-label">备注</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark'
-                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark}}" placeholder="备注" />
                     </view>
                 </view>
             </view>
@@ -1257,11 +1257,11 @@
                         <view class="weui-label">备注</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange"
                                   data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].Remark'}}"
-                                  value="{{LossItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                                  value="{{LossItem.Remark}}" placeholder="备注" />
                     </view>
                 </view>
             </view>
@@ -1369,11 +1369,11 @@
                         <view class="weui-label">备注</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <textarea maxlength="-1"
+                        <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                   wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                   class="weui-textarea" bindinput="inputChange"
                                   data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].Remark'}}"
-                                  value="{{RescueFeeItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                                  value="{{RescueFeeItem.Remark}}" placeholder="备注" />
                     </view>
                 </view>
             </view>
@@ -1876,11 +1876,11 @@
                                 <view class="weui-label">备注</view>
                             </view>
                             <view class="weui-cell__bd">
-                                <textarea maxlength="-1"
+                                <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                           wx:if="{{!showAreaPopup && !showDateTimePopup}}"
                                           class="weui-textarea" bindinput="inputChange"
                                           data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].Remark'}}"
-                                          value="{{IndemnityInfoItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                                          value="{{IndemnityInfoItem.Remark}}" placeholder="备注" />
                             </view>
                         </view>
 
