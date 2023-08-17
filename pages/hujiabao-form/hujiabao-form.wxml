@@ -142,7 +142,7 @@
                                         icon="plus" type="primary" size="mini" />
                         </view>
                     </view>
-                    <view class="hujiabao-list-bb10" wx:for="{{PolicyInfo.Property.CoverageList}}" wx:for-item="CoverageItem">
+                    <view class="hujiabao-list-bb10" wx:for="{{PolicyInfo.Property.CoverageList}}" wx:key="index" wx:for-item="CoverageItem">
                         <view class="weui-cell weui-cell_select">
                             <view class="weui-cell__hd weui-cell__hd_in-select-after">
                                 <view class="weui-label">是否最后一级</view>
@@ -208,7 +208,7 @@
                                       icon="plus" type="primary" size="mini" />
                                 </view>
                             </view>
-                            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.Property.CoverageList[index].BenefitList}}" wx:for-item="BenefitItem" wx:for-index="bIndex">
+                            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.Property.CoverageList[index].BenefitList}}" wx:for-item="BenefitItem" wx:for-index="bIndex" wx:key="bIndex">
                                 <view class="weui-cell weui-cell_select">
                                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
                                         <view class="weui-label">是否最后一级</view>
@@ -1117,7 +1117,7 @@
                                 icon="plus" type="primary" size="mini" />
                 </view>
             </view>
-            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList}}" wx:for-item="LossItem" class="weui-cells weui-cells_after-title">
+            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList}}" wx:for-item="LossItem" wx:key="index" class="weui-cells weui-cells_after-title">
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">序号</view>
@@ -1277,6 +1277,7 @@
             <view style="border-bottom: 2px #f8f8f8 dashed;"
                   wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList}}"
                   wx:for-item="RescueFeeItem"
+                  wx:key="index"
                   class="weui-cells weui-cells_after-title">
 
                 <view class="weui-cell weui-cell_select">
@@ -1388,6 +1389,7 @@
             <view style="border-bottom: 2px #f8f8f8 dashed;"
                   wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList}}"
                   wx:for-item="CalculationInfoItem"
+                  wx:key="index"
                   class="weui-cells weui-cells_after-title">
 
                 <view class="weui-cell weui-cell_select">
@@ -1611,6 +1613,7 @@
             <view style="border-bottom: 2px #f8f8f8 dashed;"
                   wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList}}"
                   wx:for-item="PayeeInfoItem"
+                  wx:key="index"
                   class="weui-cells weui-cells_after-title">
 
                 <view class="weui-cell weui-cell_select">
@@ -1774,6 +1777,7 @@
                     <view class="hujiabao-list-bb10"
                           wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList[index].IndemnityInfoList}}"
                           wx:for-index="IndemnityIndex"
+                          wx:key="IndemnityIndex"
                           wx:for-item="IndemnityInfoItem">
 
                         <view class="weui-cell weui-cell_select">
