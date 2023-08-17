@@ -1949,9 +1949,9 @@
         <view class="button-sp-area"><button type="primary" bindtap="managerCommit">提交 /managerCommit</button></view>
         <view class="button-sp-area"><button type="primary" bindtap="lossAssessment">提交 /lossAssessment</button></view>
         <view class="button-sp-area"><button type="primary" bindtap="lossAssessmentCommit">提交 /lossAssessmentCommit</button></view>
-        <view class="button-sp-area"><button type="primary" size="small" bindtap="closeTask">测试用 /closeTask</button></view>
-        <view class="button-sp-area"><button type="primary" size="small" bindtap="pass">测试用 /pass</button></view>
-        <view class="button-sp-area"><button type="primary" size="small" bindtap="reject">测试用 /reject</button></view>
+        <view class="button-sp-area"><button type="primary" size="mini" bindtap="closeTask">测试用 /closeTask</button></view>
+        <view class="button-sp-area"><button type="primary" size="mini" bindtap="pass">测试用 /pass</button></view>
+        <view class="button-sp-area"><button type="primary" size="mini" bindtap="reject">测试用 /reject</button></view>
         <!-- BUTTON AREA -->
     </view>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
