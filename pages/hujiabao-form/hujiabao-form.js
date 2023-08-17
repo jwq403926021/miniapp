@@ -272,15 +272,35 @@ Page({
       }
     })
   },
+  generateParameters (data) {
+    for (const key in data) {
+      if (Array.isArray(data[key])) {
+        data[key].forEach(child => {
+          this.generateParameters(child)
+        })
+      } else if (typeof data[key] === 'object') {
+        if (
+          data[key].hasOwnProperty('value') &&
+          data[key].hasOwnProperty('label') &&
+          data[key].hasOwnProperty('index')
+        ) {
+          data[key] = data[key].value
+        } else {
+          this.generateParameters(data[key])
+        }
+      }
+    }
+    return data
+  },
   save () {
     const that = this
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: '/app/hjbpolicyinfo/save',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         PolicyInfo: this.data.PolicyInfo
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -292,10 +312,10 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/changeWorker',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         'policyNo': this.data.PolicyInfo.PolicyNo,
         'workerId': this.workListSource[this.data.workerValue]['user_id']
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -307,13 +327,13 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/workerCommit',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         SubClaimInfo: {
           'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
           'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
           ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
         }
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -325,14 +345,14 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/managerCommit',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         SubClaimInfo: {
           'PolicyNo': this.data.PolicyInfo.PolicyNo,
           'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
           'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
           ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
         }
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -344,7 +364,7 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/lossAssessment',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         TaskInfo: {
           'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
           'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
@@ -357,7 +377,7 @@ Page({
         },
         CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList,
         PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -369,7 +389,7 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/lossAssessmentCommit',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         TaskInfo: {
           'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
           'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
@@ -382,7 +402,7 @@ Page({
         },
         CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList,
         PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -394,12 +414,12 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/closeTask',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
         'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
         'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
         'TaskType': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -411,12 +431,12 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/pass',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
         'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
         'CalculationTimes': '1',
         'IsDeclined': '01'
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
@@ -428,14 +448,14 @@ Page({
     util.request({
       path: '/app/hjbpolicyinfo/reject',
       method: 'POST',
-      data: {
+      data: this.generateParameters({
         'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
         'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
         'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
         'IsDocQualified': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.IsDocQualified,
         'UnQualifiedDoc': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.UnQualifiedDoc,
         'Remark': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Remark
-      }
+      })
     }, function (err, res) {
       wx.hideLoading()
       // that.uploadImage()
