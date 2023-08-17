@@ -1,3 +1,37 @@
+const KeyMap = {
+  'ProductType': '',
+  'PolicyStatus': 'status',
+  'IsFinalLevelCt': 'isCode',
+  'CoverageCode': '',
+  'BenefitCode': '',
+  'ReportDelayCause': 'delayReportReason',
+  'AccidentCause': 'reportReason',
+  'IsCatastrophe': 'isCode',
+  'CatastropheCode': '',
+  'ReportType': 'reportType',
+  'InsuredRelation': 'relationship',
+  'SubClaimType': 'childCompensationCategory',
+  'TotalLoss': 'isCode',
+  'CertiType': 'certificationCategory',
+  'Sex': 'genderCode',
+  'InjuryType': 'injuryCategory',
+  'InjuryLevel': 'injuryDegree',
+  'DisabilityGrade': 'injuryLevel',
+  'Treatment': 'cureWay',
+  'AppraisalType': 'lossAssessmentCategory',
+  'IsDocQualified': 'isCode',
+  'TaskType': 'missionCategory',
+  'IsConfirmed': 'isCode',
+  'PropertyNature': 'buildingCategory',
+  'IsInvolveRecovery': 'isCode',
+  'LossItemType': 'lossCategory',
+  'OperationType': 'operationType',
+  'ReserveType': 'compensationCategory',
+  'PayMode': 'payMode',
+  'AccountType': 'transferCategory',
+  'BankCode': 'bank'
+}
+
 const orderStatus = {
   '10': '待查勘',
   '11': '线下已提交',
@@ -673,5 +707,6 @@ export default {
   uploadType,
   surveyWay,
   orderStatus,
-  payMode
+  payMode,
+  KeyMap
 }

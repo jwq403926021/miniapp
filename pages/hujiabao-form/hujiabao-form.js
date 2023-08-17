@@ -494,39 +494,6 @@ Page({
     }
   },
   compileData (data) {
-    const specialField = {
-      'ProductType': '',
-      'PolicyStatus': 'status',
-      'IsFinalLevelCt': 'isCode',
-      'CoverageCode': '',
-      'BenefitCode': '',
-      'ReportDelayCause': 'delayReportReason',
-      'AccidentCause': 'reportReason',
-      'IsCatastrophe': 'isCode',
-      'CatastropheCode': '',
-      'ReportType': 'reportType',
-      'InsuredRelation': 'relationship',
-      'SubClaimType': 'childCompensationCategory',
-      'TotalLoss': 'isCode',
-      'CertiType': 'certificationCategory',
-      'Sex': 'genderCode',
-      'InjuryType': 'injuryCategory',
-      'InjuryLevel': 'injuryDegree',
-      'DisabilityGrade': 'injuryLevel',
-      'Treatment': 'cureWay',
-      'AppraisalType': 'lossAssessmentCategory',
-      'IsDocQualified': 'isCode',
-      'TaskType': 'missionCategory',
-      'IsConfirmed': 'isCode',
-      'PropertyNature': 'buildingCategory',
-      'IsInvolveRecovery': 'isCode',
-      'LossItemType': 'lossCategory',
-      'OperationType': 'operationType',
-      'ReserveType': 'compensationCategory',
-      'PayMode': 'payMode',
-      'AccountType': 'transferCategory',
-      'BankCode': 'bank'
-    }
     let result
     if (data) {
       if (Array.isArray(data)) {
@@ -535,11 +502,11 @@ Page({
           let obj = {}
           Object.entries(i).forEach(item => {
             const key = item[0].slice(0, 1).toUpperCase() + item[0].slice(1)
-            if (specialField[key]) {
-              const index = Object.keys(MetaData[specialField[key]]).findIndex(i => i === item[1])
+            if (MetaData.KeyMap[key]) {
+              const index = Object.keys(MetaData[MetaData.KeyMap[key]]).findIndex(i => i === item[1])
               obj[key] = {
                 value: item[1] || '',
-                label: MetaData[specialField[key]][item[1]] || '',
+                label: MetaData[MetaData.KeyMap[key]][item[1]] || '',
                 index: index === -1 ? '' : index
               }
             } else {
@@ -558,11 +525,11 @@ Page({
               ...this.compileData(item[1])
             ] : []
           } else {
-            if (specialField[key]) {
-              const index = Object.keys(MetaData[specialField[key]]).findIndex(i => i === item[1])
+            if (MetaData.KeyMap[key]) {
+              const index = Object.keys(MetaData[MetaData.KeyMap[key]]).findIndex(i => i === item[1])
               obj[key] = {
                 value: item[1] || '',
-                label: MetaData[specialField[key]][item[1]] || '',
+                label: MetaData[MetaData.KeyMap[key]][item[1]] || '',
                 index: index === -1 ? '' : index
               }
             } else {
