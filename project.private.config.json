@@ -139,7 +139,7 @@
         {
           "name": "",
           "pathName": "pages/hujiabao-form/hujiabao-form",
-          "query": "",
+          "query": "id=2",
           "launchMode": "default",
           "scene": null
         },
