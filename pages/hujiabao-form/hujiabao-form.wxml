@@ -1,6 +1,10 @@
 <wxs module="wxsUtil">
-    function formatDateTime (str) {
-      return str.replace('T', ' ').replace('Z', ' ')
+    function formatDateTime (str, isDate) {
+      if (isDate) {
+          return str.split('T')[0]
+      } else {
+          return str.replace('T', ' ').replace('Z', ' ')
+      }
     }
     module.exports = {
         formatDateTime: formatDateTime
@@ -622,7 +626,7 @@
                                   data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth"
                                   data-type="date"
                                   bindtap="openDatePickerPopup">
-                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth) : '请选择'}}
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth, true) : '请选择'}}
                             </view>
                         </view>
                     </view>
@@ -730,7 +734,7 @@
                                   data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission"
                                   data-type="date"
                                   bindtap="openDatePickerPopup">
-                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission) : '请选择'}}
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission, true) : '请选择'}}
                             </view>
                         </view>
                     </view>
@@ -746,7 +750,7 @@
                                   data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge"
                                   data-type="date"
                                   bindtap="openDatePickerPopup">
-                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) : '请选择'}}
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge, true) : '请选择'}}
                             </view>
                         </view>
                     </view>
