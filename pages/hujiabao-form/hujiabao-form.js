@@ -185,6 +185,9 @@ Page({
     pickerType: 'datetime',
     showAreaPopup: false,
     showDateTimePopup: false,
+    workerList: [],
+    workerValue: '',
+    workerLabel: '',
     areaList: {},
     regionKey: '',
     region: '',
@@ -269,7 +272,7 @@ Page({
       }
     })
   },
-  submit () {
+  save () {
     const that = this
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
@@ -277,6 +280,161 @@ Page({
       method: 'POST',
       data: {
         PolicyInfo: this.data.PolicyInfo
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  changeWorker () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/changeWorker',
+      method: 'POST',
+      data: {
+        'policyNo': this.data.PolicyInfo.PolicyNo,
+        'workerId': this.workListSource[this.data.workerValue]['user_id']
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  workerCommit () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/workerCommit',
+      method: 'POST',
+      data: {
+        SubClaimInfo: {
+          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+          'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+        }
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  managerCommit () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/managerCommit',
+      method: 'POST',
+      data: {
+        SubClaimInfo: {
+          'PolicyNo': this.data.PolicyInfo.PolicyNo,
+          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+          'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+        }
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  lossAssessment () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/lossAssessment',
+      method: 'POST',
+      data: {
+        TaskInfo: {
+          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+          'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo
+        },
+        AppraisalInfo: {
+          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList,
+          RescueFeeList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+        },
+        CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList,
+        PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  lossAssessmentCommit () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/lossAssessmentCommit',
+      method: 'POST',
+      data: {
+        TaskInfo: {
+          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+          'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo
+        },
+        AppraisalInfo: {
+          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList,
+          RescueFeeList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList,
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+        },
+        CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList,
+        PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  closeTask () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/closeTask',
+      method: 'POST',
+      data: {
+        'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+        'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
+        'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
+        'TaskType': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  pass () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/pass',
+      method: 'POST',
+      data: {
+        'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+        'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
+        'CalculationTimes': '1',
+        'IsDeclined': '01'
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      // that.uploadImage()
+    })
+  },
+  reject () {
+    const that = this
+    wx.showLoading({ mask: true, title: '提交中' })
+    util.request({
+      path: '/app/hjbpolicyinfo/reject',
+      method: 'POST',
+      data: {
+        'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
+        'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
+        'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
+        'IsDocQualified': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.IsDocQualified,
+        'UnQualifiedDoc': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.UnQualifiedDoc,
+        'Remark': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Remark
       }
     }, function (err, res) {
       wx.hideLoading()
@@ -292,6 +450,23 @@ Page({
       _this.setData({
         areaList: res ? res.DATA.DATA : []
       })
+    })
+    await util.request({
+      path: '/app/businessdamagenew/getSameUnitWorker',
+      method: 'GET',
+      data: {
+        workerId: 310100
+      }
+    }, function (err, res) {
+      if (res) {
+        _this.workListSource = res.data
+        let workerList = res.data ? res.data.map(item => {
+          return item.name
+        }) : []
+        _this.setData({
+          'workerList': workerList
+        })
+      }
     })
     this.initPickerList()
     if (routeParams.id) {
@@ -386,6 +561,12 @@ Page({
       _this.setData({
         PolicyInfo: state
       })
+    })
+  },
+  workerChange (event) {
+    this.setData({
+      'workerValue': event.detail.value,
+      'workerLabel': this.workListSource[event.detail.value].name
     })
   },
   initPickerList () {

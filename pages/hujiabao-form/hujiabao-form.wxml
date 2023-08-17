@@ -1882,6 +1882,25 @@
 
             </view>
 
+
+            <view class="weui-cells__title">施工人员</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">施工人员</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="workerChange" value="{{worker}}"
+                                range="{{workerList}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{WorkerLabel || '请选择施工人员'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+
+
         </view>
 <!--        <block>-->
 <!--            <view class="weui-cells__title">查勘图片</view>-->
@@ -1917,7 +1936,15 @@
 <!--        </block>-->
 
         <!-- BUTTON AREA -->
-        <view class="button-sp-area"><button type="primary" bindtap="submit">提交 /save</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="save">提交 /save</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="changeWorker">提交 /changeWorker</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="workerCommit">提交 /workerCommit</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="managerCommit">提交 /managerCommit</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="lossAssessment">提交 /lossAssessment</button></view>
+        <view class="button-sp-area"><button type="primary" bindtap="lossAssessmentCommit">提交 /lossAssessmentCommit</button></view>
+        <view class="button-sp-area"><button type="primary" size="small" bindtap="closeTask">测试用 /closeTask</button></view>
+        <view class="button-sp-area"><button type="primary" size="small" bindtap="pass">测试用 /pass</button></view>
+        <view class="button-sp-area"><button type="primary" size="small" bindtap="reject">测试用 /reject</button></view>
         <!-- BUTTON AREA -->
     </view>
     <van-popup show="{{ showAreaPopup }}" position="bottom" overlay="{{ true }}">
