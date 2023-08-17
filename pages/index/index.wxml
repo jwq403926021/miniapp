@@ -78,6 +78,14 @@
         竞价车物
       </view>
     </view>
+    <view class="new-btn fl" bindtap="goToHjbForm" wx:if="{{role == 35}}">
+      <view>
+        <text class="iconfont icon-fangwuxinxi myicon"></text>
+      </view>
+      <view>
+        沪家保
+      </view>
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="2" wx:if="{{role == 1}}">-->
 <!--      <view>-->
 <!--        <text class="iconfont icon-sunhuai myicon"></text>-->
