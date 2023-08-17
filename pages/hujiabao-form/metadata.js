@@ -8,6 +8,14 @@ const orderStatus = {
   '16': '已关闭'
 }
 
+
+/**
+ * 支付方式
+ * @type {{"01": string, "02": string, "03": string}}
+ */
+const payMode = {
+  '01': '转账'
+}
 /**
  * 保单状态
  * @type {{"01": string, "02": string, "03": string}}
@@ -664,5 +672,6 @@ export default {
   uploadCategory,
   uploadType,
   surveyWay,
-  orderStatus
+  orderStatus,
+  payMode
 }

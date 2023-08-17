@@ -627,7 +627,1261 @@
                         </view>
                     </view>
                 </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">联系电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.Mobile"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.Mobile}}" placeholder="联系电话"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">伤情名称</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InjuryName"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InjuryName}}" placeholder="伤情名称"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">伤情类别</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.InjuryType"
+                                data-lname="injuryCategory"
+                                range="{{injuryCategoryList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InjuryType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InjuryType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">伤情程度</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.InjuryLevel"
+                                data-lname="injuryDegree"
+                                range="{{injuryDegreeList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InjuryLevel.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InjuryLevel.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">伤残等级</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.DisabilityGrade"
+                                data-lname="injuryLevel"
+                                range="{{injuryLevelList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DisabilityGrade.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DisabilityGrade.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">治疗方式</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.Treatment"
+                                data-lname="cureWay"
+                                range="{{cureWayList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.Treatment.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.Treatment.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">医院名称</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.HospitalName"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.HospitalName}}" placeholder="医院名称"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">入院日期</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission}}"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission"
+                                  data-type="date"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出院日期</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge}}"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge"
+                                  data-type="date"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">住院天数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital}}" placeholder="住院天数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">护理人名称</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.CareName"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.CareName}}" placeholder="护理人名称"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">护理天数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.CareDays"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.CareDays}}" placeholder="护理天数"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">联系地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.Contact"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.ContactDistrict}}"
+                                  bindtap="openAreaPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.ContactLabel ? PolicyInfo.ClaimInfo.SubClaimInfo.ContactLabel : '请填写地址'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险详细地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.ContactDetailAddress"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.ContactDetailAddress}}" placeholder="出险详细地址"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">定损类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.AppraisalType"
+                                data-lname="lossAssessmentCategory"
+                                range="{{lossAssessmentCategoryList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.AppraisalType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.AppraisalType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">总损失金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount}}" placeholder="总损失金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">总施救金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount}}" placeholder="总施救金额"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">单证是否齐全</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.IsDocQualified"
+                                data-lname="isCode"
+                                range="{{isCodeList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.IsDocQualified.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.IsDocQualified.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">不合格单证</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.UnQualifiedDoc"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.UnQualifiedDoc}}" placeholder="不合格单证"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">备注</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.Remark'
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                    </view>
+                </view>
             </view>
+
+            <view class="weui-cells__title">任务信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">任务类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType"
+                                data-lname="missionCategory"
+                                range="{{missionCategoryList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">任务ID</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID}}" placeholder="不合格单证"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">到期日</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.DueDate}}"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.DueDate"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.DueDate ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.DueDate) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Investigation"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationDistrict}}"
+                                  bindtap="openAreaPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel ? PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel : '请填写地址'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险详细地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationDetailAddress"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationDetailAddress}}" placeholder="出险详细地址"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">当前理算次数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.CurrentCalculationTime"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.CurrentCalculationTime}}" placeholder="当前理算次数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">客户已赔付确认</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskType"
+                                data-lname="isCode"
+                                range="{{isCodeList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.IsConfirmed.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.IsConfirmed.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">备注</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Remark'
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                    </view>
+                </view>
+
+            </view>
+
+            <view class="weui-cells__title">查勘信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">房屋使用性质</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyNature"
+                                data-lname="buildingCategory"
+                                range="{{buildingCategoryList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyNature.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyNature.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否涉及追偿</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.IsInvolveRecovery"
+                                data-lname="isCode"
+                                range="{{isCodeList}}"
+                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.IsInvolveRecovery.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.IsInvolveRecovery.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员联系方式</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorContact"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorContact}}" placeholder="查勘员联系方式"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员到达时间</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorArrivalDate}}"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorArrivalDate"
+                                  bindtap="openDatePickerPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorArrivalDate ? wxsUtil.formatDateTime(PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorArrivalDate) : '请选择'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view class="weui-cell__bd">
+                            <view class="picker weui-select weui-select_in-select-after"
+                                  data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Investigation"
+                                  data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDistrict}}"
+                                  bindtap="openAreaPopup">
+                                {{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationLabel ? PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationLabel : '请填写地址'}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">出险详细地址</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDetailAddress"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDetailAddress}}" placeholder="出险详细地址"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">查勘描述</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription'
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription}}" placeholder="其他意外事故描述" style="height: 4em"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">预估损失总金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount}}" placeholder="预估损失总金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">备注</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark'
+                                  value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark}}" placeholder="备注" style="height: 4em"/>
+                    </view>
+                </view>
+            </view>
+
+            <view class="weui-cells__title" style="display:flex; justify-content: space-between;">
+                <view>
+                    责任信息
+                </view>
+                <view>
+                    <van-button bind:tap="addList"
+                                data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList"
+                                data-current="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList}}"
+                                data-default="{{DefaultValue.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList[0]}}"
+                                icon="plus" type="primary" size="mini" />
+                </view>
+            </view>
+            <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList}}" wx:for-item="LossItem" class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">序号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].SequenceNo'}}"
+                               value="{{LossItem.SequenceNo}}" placeholder="序号"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">损失项目名称</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].LossItemName'}}"
+                               value="{{LossItem.LossItemName}}" placeholder="损失项目名称"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">损失项目类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].LossItemType'}}"
+                                data-lname="lossCategory"
+                                range="{{lossCategoryList}}"
+                                value="{{LossItem.LossItemType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{LossItem.LossItemType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">险别代码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].BenefitCode'}}"
+                                data-lname=""
+                                range="{{[]}}"
+                                value="{{LossItem.BenefitCode.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{LossItem.BenefitCode.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">数量</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].Number'}}"
+                               value="{{LossItem.Number}}" placeholder="数量"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">单价</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].UnitPrice'}}"
+                               value="{{LossItem.UnitPrice}}" placeholder="单价"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">残值</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].Salvage'}}"
+                               value="{{LossItem.Salvage}}" placeholder="残值"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">预估损失金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].EstimatedAmount'}}"
+                               value="{{LossItem.EstimatedAmount}}" placeholder="预估损失金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">定损次数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].AppraisalTimes'}}"
+                               value="{{LossItem.AppraisalTimes}}" placeholder="定损次数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">损失金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].LossAmount'}}"
+                               value="{{LossItem.LossAmount}}" placeholder="损失金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">备注</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange"
+                                  data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].Remark'}}"
+                                  value="{{LossItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                    </view>
+                </view>
+            </view>
+
+            <view class="weui-cells__title" style="display:flex; justify-content: space-between;">
+                <view>
+                    施救信息
+                </view>
+                <view>
+                    <van-button bind:tap="addList"
+                                data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList"
+                                data-current="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList}}"
+                                data-default="{{DefaultValue.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList[0]}}"
+                                icon="plus" type="primary" size="mini" />
+                </view>
+            </view>
+            <view style="border-bottom: 2px #f8f8f8 dashed;"
+                  wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList}}"
+                  wx:for-item="RescueFeeItem"
+                  class="weui-cells weui-cells_after-title">
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">操作类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].OperationType'}}"
+                                data-lname="operationType"
+                                range="{{operationTypeList}}"
+                                value="{{RescueFeeItem.OperationType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{RescueFeeItem.OperationType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施救项目ID</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].SequenceNo'}}"
+                               value="{{RescueFeeItem.SequenceNo}}" placeholder="施救项目ID"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">定损次数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].AppraisalTimes'}}"
+                               value="{{RescueFeeItem.AppraisalTimes}}" placeholder="定损次数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施救单位</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].RescueUnit'}}"
+                               value="{{RescueFeeItem.RescueUnit}}" placeholder="施救单位"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施救金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].RescueAmount'}}"
+                               value="{{RescueFeeItem.RescueAmount}}" placeholder="施救金额"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">险别代码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].BenefitCode'}}"
+                                data-lname=""
+                                range="{{[]}}"
+                                value="{{RescueFeeItem.BenefitCode.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{RescueFeeItem.BenefitCode.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">备注</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="-1"
+                                  wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                  class="weui-textarea" bindinput="inputChange"
+                                  data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].Remark'}}"
+                                  value="{{RescueFeeItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                    </view>
+                </view>
+            </view>
+
+            <view class="weui-cells__title" style="display:flex; justify-content: space-between;">
+                <view>
+                    理算信息
+                </view>
+                <view>
+                    <van-button bind:tap="addList"
+                                data-name="PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList"
+                                data-current="{{PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList}}"
+                                data-default="{{DefaultValue.ClaimInfo.SubClaimInfo.CalculationInfoList[0]}}"
+                                icon="plus" type="primary" size="mini" />
+                </view>
+            </view>
+            <view style="border-bottom: 2px #f8f8f8 dashed;"
+                  wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList}}"
+                  wx:for-item="CalculationInfoItem"
+                  class="weui-cells weui-cells_after-title">
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">操作类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].OperationType'}}"
+                                data-lname="operationType"
+                                range="{{operationTypeList}}"
+                                value="{{CalculationInfoItem.OperationType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{CalculationInfoItem.OperationType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算项目ID</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].SequenceNo'}}"
+                               value="{{CalculationInfoItem.SequenceNo}}" placeholder="理算项目ID"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算次数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].CalculationTimes'}}"
+                               value="{{CalculationInfoItem.CalculationTimes}}" placeholder="理算次数"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">赔偿类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].ReserveType'}}"
+                                data-lname="compensationCategory"
+                                range="{{compensationCategoryList}}"
+                                value="{{CalculationInfoItem.ReserveType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{CalculationInfoItem.ReserveType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">赔偿类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].BenefitCode'}}"
+                                data-lname=""
+                                range="{{[]}}"
+                                value="{{CalculationInfoItem.BenefitCode.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{CalculationInfoItem.BenefitCode.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">损失索赔金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].RequestedAmount'}}"
+                               value="{{CalculationInfoItem.RequestedAmount}}" placeholder="损失索赔金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">索赔确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].RecognizedAmount'}}"
+                               value="{{CalculationInfoItem.RecognizedAmount}}" placeholder="索赔确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">免赔额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].Deductible'}}"
+                               value="{{CalculationInfoItem.Deductible}}" placeholder="免赔额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">事故责任比例</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].AccidentLiabilityRatio'}}"
+                               value="{{CalculationInfoItem.AccidentLiabilityRatio}}" placeholder="事故责任比例"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">前次索赔损失确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].PreviousRecognizedAmount'}}"
+                               value="{{CalculationInfoItem.PreviousRecognizedAmount}}" placeholder="前次索赔损失确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">累计索赔损失确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].TotalRecognizedAmount'}}"
+                               value="{{CalculationInfoItem.TotalRecognizedAmount}}" placeholder="累计索赔损失确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">前次理算确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].PreviousAdjustedAmount'}}"
+                               value="{{CalculationInfoItem.PreviousAdjustedAmount}}" placeholder="前次理算确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].CalculationAmount'}}"
+                               value="{{CalculationInfoItem.CalculationAmount}}" placeholder="理算金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].AdjustedAmount'}}"
+                               value="{{CalculationInfoItem.AdjustedAmount}}" placeholder="理算确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">累计理算确认金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].TotalAdjustedAmount'}}"
+                               value="{{CalculationInfoItem.TotalAdjustedAmount}}" placeholder="累计理算确认金额"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算金额计算公式代码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].CalculationFormula'}}"
+                               value="{{CalculationInfoItem.CalculationFormula}}" placeholder="理算金额计算公式代码"/>
+                    </view>
+                </view>
+            </view>
+
+            <view class="weui-cells__title" style="display:flex; justify-content: space-between;">
+                <view>
+                    领款人信息
+                </view>
+                <view>
+                    <van-button bind:tap="addList"
+                                data-name="PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList"
+                                data-current="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList}}"
+                                data-default="{{DefaultValue.ClaimInfo.SubClaimInfo.PayeeInfoList[0]}}"
+                                icon="plus" type="primary" size="mini" />
+                </view>
+            </view>
+            <view style="border-bottom: 2px #f8f8f8 dashed;"
+                  wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList}}"
+                  wx:for-item="PayeeInfoItem"
+                  class="weui-cells weui-cells_after-title">
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">操作类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].OperationType'}}"
+                                data-lname="operationType"
+                                range="{{operationTypeList}}"
+                                value="{{PayeeInfoItem.OperationType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PayeeInfoItem.OperationType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">领款人ID</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].SequenceNo'}}"
+                               value="{{PayeeInfoItem.SequenceNo}}" placeholder="领款人ID"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">理算次数</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="number"
+                               class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].CalculationTimes'}}"
+                               value="{{PayeeInfoItem.CalculationTimes}}" placeholder="理算次数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">收款人姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].PayeeName'}}"
+                               value="{{PayeeInfoItem.PayeeName}}" placeholder="领款人ID"/>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">支付方式</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].PayMode'}}"
+                                data-lname="payMode"
+                                range="{{payModeList}}"
+                                value="{{PayeeInfoItem.PayMode.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PayeeInfoItem.PayMode.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">对公/对私</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].AccountType'}}"
+                                data-lname="transferCategory"
+                                range="{{transferCategoryList}}"
+                                value="{{PayeeInfoItem.AccountType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PayeeInfoItem.AccountType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">银行代码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].BankCode'}}"
+                                data-lname="bank"
+                                range="{{bankList}}"
+                                value="{{PayeeInfoItem.BankCode.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{PayeeInfoItem.BankCode.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">开户支行名称开户支行代码</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].OpenAccountBranchCode'}}"
+                               value="{{PayeeInfoItem.OpenAccountBranchCode}}" placeholder="开户支行名称开户支行代码"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">账户名称</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].AccountName'}}"
+                               value="{{PayeeInfoItem.AccountName}}" placeholder="账户名称"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">银行卡号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].BankCardNo'}}"
+                               value="{{PayeeInfoItem.BankCardNo}}" placeholder="银行卡号"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">赔偿金额总计</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input"
+                               bindinput="inputChange"
+                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].TotalIndemnityAmount'}}"
+                               value="{{PayeeInfoItem.TotalIndemnityAmount}}" placeholder="赔偿金额总计"/>
+                    </view>
+                </view>
+
+                <view style="border: 10px solid #f8f8f8; border-bottom: none;">
+                    <view style="border-bottom: 10px solid #f8f8f8;" class="hujiabao-sub-title-wrap">
+                        <view class="hujiabao-sub-title">
+                            - 赔偿信息
+                        </view>
+                        <view>
+                            <van-button bind:tap="addList"
+                                        data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList'}}"
+                                        data-current="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList[index].IndemnityInfoList}}"
+                                        data-default="{{DefaultValue.ClaimInfo.SubClaimInfo.PayeeInfoList[0].IndemnityInfoList[0]}}"
+                                        icon="plus" type="primary" size="mini" />
+                        </view>
+                    </view>
+                    <view class="hujiabao-list-bb10"
+                          wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList[index].IndemnityInfoList}}"
+                          wx:for-index="IndemnityIndex"
+                          wx:for-item="IndemnityInfoItem">
+
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">操作类型</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="pickerChange"
+                                        data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].OperationType'}}"
+                                        data-lname="operationType"
+                                        range="{{operationTypeList}}"
+                                        value="{{IndemnityInfoItem.OperationType.index}}">
+                                    <view class="picker weui-select weui-select_in-select-after">
+                                        {{IndemnityInfoItem.OperationType.label || '请选择'}}
+                                    </view>
+                                </picker>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">赔偿信息ID</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input"
+                                       bindinput="inputChange"
+                                       data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].SequenceNo'}}"
+                                       value="{{IndemnityInfoItem.SequenceNo}}" placeholder="赔偿信息ID"/>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">赔偿类型</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="pickerChange"
+                                        data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].ReserveType'}}"
+                                        data-lname="compensationCategory"
+                                        range="{{compensationCategoryList}}"
+                                        value="{{IndemnityInfoItem.ReserveType.index}}">
+                                    <view class="picker weui-select weui-select_in-select-after">
+                                        {{IndemnityInfoItem.ReserveType.label || '请选择'}}
+                                    </view>
+                                </picker>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">险别代码</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="pickerChange"
+                                        data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].BenefitCode'}}"
+                                        data-lname=""
+                                        range="{{[]}}"
+                                        value="{{IndemnityInfoItem.BenefitCode.index}}">
+                                    <view class="picker weui-select weui-select_in-select-after">
+                                        {{IndemnityInfoItem.BenefitCode.label || '请选择'}}
+                                    </view>
+                                </picker>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">未决预估金额</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input"
+                                       type="number"
+                                       bindinput="inputChange"
+                                       data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].UnrecognizedAmount'}}"
+                                       value="{{IndemnityInfoItem.UnrecognizedAmount}}" placeholder="未决预估金额"/>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">赔偿金额</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input"
+                                       type="number"
+                                       bindinput="inputChange"
+                                       data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].IndemnityAmount'}}"
+                                       value="{{IndemnityInfoItem.IndemnityAmount}}" placeholder="赔偿金额"/>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_select">
+                            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                                <view class="weui-label">备注</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <textarea maxlength="-1"
+                                          wx:if="{{!showAreaPopup && !showDateTimePopup}}"
+                                          class="weui-textarea" bindinput="inputChange"
+                                          data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].Remark'}}"
+                                          value="{{IndemnityInfoItem.Remark}}" placeholder="备注" style="height: 4em"/>
+                            </view>
+                        </view>
+
+                    </view>
+                </view>
+
+            </view>
+
         </view>
 <!--        <block>-->
 <!--            <view class="weui-cells__title">查勘图片</view>-->
