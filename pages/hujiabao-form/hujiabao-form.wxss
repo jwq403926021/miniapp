@@ -11,6 +11,9 @@
 .hujiabao-list-bb10{
     border-bottom: 10px solid #f8f8f8;
 }
+.hujiabao-list-bb2dashed{
+    border-bottom: 2px dashed #f8f8f8;
+}
 .hujiabao-list-bb10:last-child{
     border-bottom: none;
 }

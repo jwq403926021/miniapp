@@ -1610,11 +1610,10 @@
                                 icon="plus" type="primary" size="mini" />
                 </view>
             </view>
-            <view style="border-bottom: 2px #f8f8f8 dashed;"
-                  wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList}}"
+            <view wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList}}"
                   wx:for-item="PayeeInfoItem"
                   wx:key="index"
-                  class="weui-cells weui-cells_after-title">
+                  class="weui-cells weui-cells_after-title hujiabao-list-bb10">
 
                 <view class="weui-cell weui-cell_select">
                     <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -1774,7 +1773,7 @@
                                         icon="plus" type="primary" size="mini" />
                         </view>
                     </view>
-                    <view class="hujiabao-list-bb10"
+                    <view class="hujiabao-list-bb2dashed"
                           wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList[index].IndemnityInfoList}}"
                           wx:for-index="IndemnityIndex"
                           wx:key="IndemnityIndex"
