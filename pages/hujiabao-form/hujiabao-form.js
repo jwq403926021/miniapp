@@ -292,6 +292,27 @@ Page({
     }
     return data
   },
+  handleResponse (data) {
+    const that = this
+    if (data.code === 0 || (data.Head && data.Head.ResponseCode === '1')) {
+      wx.showToast({
+        mask: true,
+        title: '提交成功',
+        icon: 'success',
+        duration: 1000,
+        success () {
+          that.goToList()
+        }
+      })
+    } else {
+      wx.showToast({
+        mask: true,
+        title: (data.Head && data.Head.ErrorMessage) || data.msg || 'Error',
+        icon: 'error',
+        duration: 1000
+      })
+    }
+  },
   save () {
     const that = this
     wx.showLoading({ mask: true, title: '提交中' })
@@ -303,6 +324,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -314,10 +336,11 @@ Page({
       method: 'POST',
       data: this.generateParameters({
         'policyNo': this.data.PolicyInfo.PolicyNo,
-        'workerId': this.workListSource[this.data.workerValue]['user_id']
+        'workerId': this.workListSource[this.data.workerValue] ? this.workListSource[this.data.workerValue]['user_id'] : ''
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -336,6 +359,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -355,6 +379,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -380,6 +405,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -405,6 +431,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -422,6 +449,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -439,6 +467,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
@@ -458,6 +487,7 @@ Page({
       })
     }, function (err, res) {
       wx.hideLoading()
+      that.handleResponse(res)
       // that.uploadImage()
     })
   },
