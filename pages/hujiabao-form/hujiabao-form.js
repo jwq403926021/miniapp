@@ -145,7 +145,7 @@ const DefaultValue = {
         'CalculationAmount': '',
         'AdjustedAmount': '',
         'TotalAdjustedAmount': '',
-        'CalculationFormula': '',
+        'CalculationFormula': { index: '', value: '', label: '' },
         'IsDeclined': ''
       }],
       'PayeeInfoList': [{
@@ -496,13 +496,33 @@ Page({
   },
   async onLoad (routeParams) {
     const _this = this
-    await util.request({
-      path: '/sys/area/list',
-      method: 'GET'
-    }, function (err, res) {
-      _this.setData({
-        areaList: res ? res.DATA.DATA : []
-      })
+    _this.setData({
+      areaList: {
+        province_list: {
+          310000: '上海'
+        },
+        city_list: {
+          310100: '上海'
+        },
+        county_list: {
+          310101:'黄浦区',
+          310104:'徐汇区',
+          310105:'长宁区',
+          310106:'静安区',
+          310107:'普陀区',
+          310109:'虹口区',
+          310110:'杨浦区',
+          310112:'闵行区',
+          310113:'宝山区',
+          310114:'嘉定区',
+          310115:'浦东新区',
+          310116:'金山区',
+          310117:'松江区',
+          310118:'青浦区',
+          310120:'奉贤区',
+          310151:'崇明区'
+        }
+      }
     })
     await util.request({
       path: '/app/businessdamagenew/getSameUnitWorker',

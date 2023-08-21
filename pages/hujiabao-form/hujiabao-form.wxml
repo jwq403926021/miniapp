@@ -1594,10 +1594,15 @@
                         <view class="weui-label">理算金额计算公式代码</view>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input"
-                               bindinput="inputChange"
-                               data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].CalculationFormula'}}"
-                               value="{{CalculationInfoItem.CalculationFormula}}" placeholder="理算金额计算公式代码"/>
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].CalculationFormula'}}"
+                                data-lname="calculationFormula"
+                                range="{{calculationFormulaList}}"
+                                value="{{CalculationInfoItem.CalculationFormula.index}}">
+                            <view class="picker weui-select weui-select_in-select-after" style="height: auto;">
+                                {{CalculationInfoItem.CalculationFormula.label || '请选择'}}
+                            </view>
+                        </picker>
                     </view>
                 </view>
             </view>
