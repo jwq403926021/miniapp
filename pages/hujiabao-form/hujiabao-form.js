@@ -280,6 +280,7 @@ Page({
         })
       } else if (typeof data[key] === 'object') {
         if (
+          data[key] &&
           data[key].hasOwnProperty('value') &&
           data[key].hasOwnProperty('label') &&
           data[key].hasOwnProperty('index')
@@ -629,6 +630,11 @@ Page({
       _this.setData({
         PolicyInfo: state
       })
+    })
+  },
+  goToList () {
+    wx.redirectTo({
+      url: '../my-list-hujiabao/my-list-hujiabao'
     })
   },
   workerChange (event) {
