@@ -420,6 +420,8 @@ Page({
         TaskInfo: {
           'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
           'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
+          // PropertyDetailAddress: this.data.PolicyInfo.Property.PropertyDetailAddress,
+          // StandardPremium: this.data.PolicyInfo.StandardPremium,
           ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo
         },
         AppraisalInfo: {
