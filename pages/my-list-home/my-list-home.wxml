@@ -19,7 +19,7 @@
         <text class="iconfont icon-feichelipei myicon2"></text>非车险工单
       </view>
     </view>
-    <view class="my-list-item" data-type="2" bindtap="goToHuJiaBaoList">
+    <view class="my-list-item" data-type="2" bindtap="goToHuJiaBaoList"  wx:if="{{role == 35}}">
       <view class="fr" style="margin-top:13px;">
         <van-icon name="arrow" style="font-size: 18px;" />
       </view>
