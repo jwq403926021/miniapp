@@ -38,8 +38,8 @@
                 <view class="weui-cell__bd">
                     <picker bindchange="pickerChange"
                             data-vname="PolicyInfo.ProductType"
-                            data-lname=""
-                            range="{{[]}}"
+                            data-lname="productType"
+                            range="{{productTypeList}}"
                             value="{{PolicyInfo.ProductType.index}}">
                         <view class="picker weui-select weui-select_in-select-after">
                             {{PolicyInfo.ProductType.label || '请选择'}}

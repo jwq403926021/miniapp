@@ -1,5 +1,4 @@
 const KeyMap = {
-  'ProductType': '',
   'PolicyStatus': 'status',
   'IsFinalLevelCt': 'isCode',
   'CoverageCode': '',
@@ -31,6 +30,7 @@ const KeyMap = {
   'AccountType': 'transferCategory',
   'BankCode': 'bank',
   'CalculationFormula': 'calculationFormula',
+  'ProductType': 'productType',
 }
 
 const orderStatus = {
@@ -118,6 +118,13 @@ const areaList = [{
   value: '310000',
   label: '上海'
 }]
+/**
+ * 产品类型
+ * @type {{"01": string, "02": string, "03": string}}
+ */
+const productType = {
+  'HJBI': '沪家保'
+}
 /**
  * 支付方式
  * @type {{"01": string, "02": string, "03": string}}
@@ -793,5 +800,6 @@ export default {
   payMode,
   KeyMap,
   areaList,
-  calculationFormula
+  calculationFormula,
+  productType
 }
