@@ -608,7 +608,11 @@ Page({
       let state = {
         ..._this.compileData(data.policyInfo),
         'Property': {
-          ..._this.compileData(data.property)
+          ..._this.compileData(data.property),
+          CoverageList: _this.compileData(data.coverageList).map(i => {
+            i.BenefitList = _this.compileData(data.benefitMap[i.Id])
+            return i
+          })
         },
         'ClaimInfo': {
           ..._this.compileData(data.claimInfo),
