@@ -95,6 +95,18 @@ const DefaultValue = {
         'IsConfirmed': { index: '', value: '', label: '' },
         'Remark': ''
       },
+      'TaskInfo2': {
+        'TaskType': { index: '', value: '', label: '' },
+        'TaskID': '',
+        'DueDate': '',
+        'InvestigationProvince': '',
+        'InvestigationCity': '',
+        'InvestigationDistrict': '',
+        'InvestigationDetailAddress': '',
+        'CurrentCalculationTime': '',
+        'IsConfirmed': { index: '', value: '', label: '' },
+        'Remark': ''
+      },
       'InvestigationInfo': {
         'PropertyNature': { index: '', value: '', label: '' },
         'IsInvolveRecovery': { index: '', value: '', label: '' },
@@ -108,6 +120,19 @@ const DefaultValue = {
         'PropertyTotalEstimatedAmount': '',
         'Remark': '',
         'LossItemList': [{
+          'SequenceNo': '',
+          'LossItemName': '',
+          'LossItemType': { index: '', value: '', label: '' },
+          'BenefitCode': { index: '', value: '', label: '' },
+          'Number': '',
+          'UnitPrice': '',
+          'Salvage': '',
+          'EstimatedAmount': '',
+          'Remark': '',
+          'AppraisalTimes': '',
+          'LossAmount': ''
+        }],
+        'LossItemList2': [{
           'SequenceNo': '',
           'LossItemName': '',
           'LossItemType': { index: '', value: '', label: '' },
@@ -613,7 +638,7 @@ Page({
         'Property': {
           ..._this.compileData(data.property),
           CoverageList: _this.compileData(data.coverageList).map(i => {
-            i.BenefitList = _this.compileData(data.benefitMap[i.Id])
+            i.BenefitList = data.benefitMap[i.Id] ? _this.compileData(data.benefitMap[i.Id]) : []
             return i
           })
         },
@@ -623,13 +648,17 @@ Page({
             ..._this.compileData(data.subClaimInfo),
             'TaskInfo': {
               ..._this.compileData(data.taskInfo)
-              // ...this.compileData(data.taskInfo2)
+            },
+            'TaskInfo2': {
+              ..._this.compileData(data.taskInfo2)
             },
             'InvestigationInfo': {
               ..._this.compileData(data.investigationInfo),
               'LossItemList': [
                 ..._this.compileData(data.lossItemList)
-                // ...this.compileData(data.lossItem2List)
+              ],
+              'LossItemList2': [
+                ..._this.compileData(data.lossItem2List)
               ],
               'RescueFeeList': [
                 ..._this.compileData(data.rescueFeeList)
