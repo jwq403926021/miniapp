@@ -196,7 +196,10 @@ Page({
     statusMap: MetaData.orderStatus,
     DefaultValue: DefaultValue,
     'PolicyInfo': DefaultValue,
-    investigatorImageFiles: []
+    image001Files: [],
+    image002Files: [],
+    image003Files: [],
+    image004Files: []
   },
   addList (e) {
     let name = e.currentTarget.dataset.name;
@@ -735,14 +738,32 @@ Page({
   },
   prepareUploadImage () {
     let _this = this
-    let investigatorImageFiles = []
-    _this.data.investigatorImageFiles.map(item => {
+    let image001Files = []
+    let image002Files = []
+    let image003Files = []
+    let image004Files = []
+    _this.data.image001Files.map(item => {
       if (item.path.indexOf('https://') == -1){
-        investigatorImageFiles.push({path: item.path, type: 2})
+        image001Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '001', 'Directory': '001'})
+      }
+    })
+    _this.data.image002Files.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        image002Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '002', 'Directory': '002'})
+      }
+    })
+    _this.data.image003Files.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        image003Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '003', 'Directory': '003'})
+      }
+    })
+    _this.data.image004Files.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        image004Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '003', 'Directory': '003'})
       }
     })
 
-    return [...investigatorImageFiles]
+    return [...image001Files,...image002Files,...image003Files,...image004Files]
   },
   uploadImage () {
     let _this = this
@@ -767,13 +788,14 @@ Page({
   uploadOneByOne (imgPaths,successUp, failUp, count, length, callback) {
     let that = this
     let formData = {
-      'flowId': that.data.orderId,
-      'type': imgPaths[count].type
+      'BusinessNo': that.data.PolicyInfo.ClaimInfo.ClaimNo,
+      'BusinessType': imgPaths[count].BusinessType,
+      'Directory': imgPaths[count].Directory
     }
     wx.uploadFile({
       url: 'https://aplusprice.xyz/aprice/app/image/upload',
       filePath: imgPaths[count].path,
-      name: `files`,
+      name: `Files`,
       header: {
         "Content-Type": "multipart/form-data",
         'token': wx.getStorageSync('token')

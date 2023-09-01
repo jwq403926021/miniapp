@@ -1914,38 +1914,134 @@
 
 
         </view>
-<!--        <block>-->
-<!--            <view class="weui-cells__title">查勘图片</view>-->
-<!--            <view class="weui-cells weui-cells_after-title">-->
-<!--                <view class="weui-cell">-->
-<!--                    <view class="weui-cell__bd">-->
-<!--                        <view class="weui-uploader">-->
-<!--                            <view class="weui-uploader__bd">-->
-<!--                                <view class="weui-uploader__files">-->
-<!--                                    <view wx:for="{{investigatorImageFiles}}"-->
-<!--                                          wx:key="index"-->
-<!--                                          data-name="investigatorImageFiles"-->
-<!--                                          class="weui-uploader__file image-preview-wrap"-->
-<!--                                          bindtap="previewImage">-->
-<!--                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
-<!--                                        <van-icon data-name="investigatorImageFiles"-->
-<!--                                                  data-id="{{item.id}}"-->
-<!--                                                  catchtap="removeImage"-->
-<!--                                                  data-index="{{index}}"-->
-<!--                                                  name="clear"-->
-<!--                                                  custom-class="delete-image-icon">-->
-<!--                                        </van-icon>-->
-<!--                                    </view>-->
-<!--                                </view>-->
-<!--                                <view class="weui-uploader__input-box">-->
-<!--                                    <view data-name="investigatorImageFiles" class="weui-uploader__input" bindtap="chooseImage"></view>-->
-<!--                                </view>-->
-<!--                            </view>-->
-<!--                        </view>-->
-<!--                    </view>-->
-<!--                </view>-->
-<!--            </view>-->
-<!--        </block>-->
+        <block>
+            <view class="weui-cells__title">现场图片 损失图片</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view wx:for="{{image001Files}}"
+                                          wx:key="index"
+                                          data-name="image001Files"
+                                          class="weui-uploader__file image-preview-wrap"
+                                          bindtap="previewImage">
+                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        <van-icon data-name="image001Files"
+                                                  data-id="{{item.id}}"
+                                                  catchtap="removeImage"
+                                                  data-index="{{index}}"
+                                                  name="clear"
+                                                  custom-class="delete-image-icon">
+                                        </van-icon>
+                                    </view>
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view data-name="image001Files" class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block>
+            <view class="weui-cells__title">事故报告</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view wx:for="{{image002Files}}"
+                                          wx:key="index"
+                                          data-name="image002Files"
+                                          class="weui-uploader__file image-preview-wrap"
+                                          bindtap="previewImage">
+                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        <van-icon data-name="image002Files"
+                                                  data-id="{{item.id}}"
+                                                  catchtap="removeImage"
+                                                  data-index="{{index}}"
+                                                  name="clear"
+                                                  custom-class="delete-image-icon">
+                                        </van-icon>
+                                    </view>
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view data-name="image002Files" class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block>
+            <view class="weui-cells__title">损失资料</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view wx:for="{{image003Files}}"
+                                          wx:key="index"
+                                          data-name="image003Files"
+                                          class="weui-uploader__file image-preview-wrap"
+                                          bindtap="previewImage">
+                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        <van-icon data-name="image003Files"
+                                                  data-id="{{item.id}}"
+                                                  catchtap="removeImage"
+                                                  data-index="{{index}}"
+                                                  name="clear"
+                                                  custom-class="delete-image-icon">
+                                        </van-icon>
+                                    </view>
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view data-name="image003Files" class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block>
+            <view class="weui-cells__title">其他图片</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view wx:for="{{image004Files}}"
+                                          wx:key="index"
+                                          data-name="image004Files"
+                                          class="weui-uploader__file image-preview-wrap"
+                                          bindtap="previewImage">
+                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        <van-icon data-name="image004Files"
+                                                  data-id="{{item.id}}"
+                                                  catchtap="removeImage"
+                                                  data-index="{{index}}"
+                                                  name="clear"
+                                                  custom-class="delete-image-icon">
+                                        </van-icon>
+                                    </view>
+                                </view>
+                                <view class="weui-uploader__input-box">
+                                    <view data-name="image004Files" class="weui-uploader__input" bindtap="chooseImage"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
 
         <!-- BUTTON AREA -->
         <view class="button-sp-area"><button type="primary" bindtap="save">提交 /save</button></view>
