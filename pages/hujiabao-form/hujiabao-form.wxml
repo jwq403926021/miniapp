@@ -2321,7 +2321,6 @@
 
         <view class="button-sp-area"><button type="primary" size="mini" bindtap="save">提交 /save</button></view>
         <view class="button-sp-area"><button type="primary" size="mini" bindtap="workerCommit">提交 /workerCommit</button></view>
-
         <view class="button-sp-area"><button type="primary" size="mini" bindtap="lossAssessment">提交 /lossAssessment</button></view>
         <view class="button-sp-area"><button type="primary" size="mini" bindtap="closeTask">测试用 /closeTask</button></view>
         <view class="button-sp-area"><button type="primary" size="mini" bindtap="pass">测试用 /pass</button></view>
