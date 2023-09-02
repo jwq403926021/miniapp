@@ -237,7 +237,7 @@
                                         <view class="weui-cell__bd">
                                             <picker bindchange="pickerChange"
                                                     data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].BenefitCode'}}"
-                                                    data-lname="{{PolicyInfo.Property.CoverageList[index].CoverageCode}}"
+                                                    data-lname="{{PolicyInfo.Property.CoverageList[index].CoverageCode.value}}"
                                                     range="{{insuranceTypeChild[PolicyInfo.Property.CoverageList[index].CoverageCode.value]}}"
                                                     value="{{BenefitItem.BenefitCode.index}}">
                                                 <view class="picker weui-select weui-select_in-select-after">
