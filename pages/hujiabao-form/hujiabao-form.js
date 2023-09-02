@@ -450,10 +450,10 @@ Page({
           'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
           // PropertyDetailAddress: this.data.PolicyInfo.Property.PropertyDetailAddress,
           // StandardPremium: this.data.PolicyInfo.StandardPremium,
-          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo
+          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2
         },
         AppraisalInfo: {
-          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList,
+          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2,
           RescueFeeList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList,
           ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
         },

@@ -171,8 +171,8 @@
                                 <view class="weui-cell__bd">
                                     <picker bindchange="pickerChange"
                                             data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].CoverageCode'}}"
-                                            data-lname=""
-                                            range="{{[]}}"
+                                            data-lname="insuranceType"
+                                            range="{{insuranceTypeList}}"
                                             value="{{CoverageItem.CoverageCode.index}}">
                                         <view class="picker weui-select weui-select_in-select-after">
                                             {{CoverageItem.CoverageCode.label || '请选择'}}
@@ -237,8 +237,8 @@
                                         <view class="weui-cell__bd">
                                             <picker bindchange="pickerChange"
                                                     data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].CoverageCode'}}"
-                                                    data-lname=""
-                                                    range="{{[]}}"
+                                                    data-lname="insuranceType"
+                                                    range="{{insuranceTypeList}}"
                                                     value="{{BenefitItem.CoverageCode.index}}">
                                                 <view class="picker weui-select weui-select_in-select-after">
                                                     {{BenefitItem.CoverageCode.label || '请选择'}}
@@ -1171,8 +1171,8 @@
                         <view class="weui-cell__bd">
                             <picker bindchange="pickerChange"
                                     data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].BenefitCode'}}"
-                                    data-lname=""
-                                    range="{{[]}}"
+                                    data-lname="insuranceType"
+                                    range="{{insuranceTypeList}}"
                                     value="{{LossItem.BenefitCode.index}}">
                                 <view class="picker weui-select weui-select_in-select-after">
                                     {{LossItem.BenefitCode.label || '请选择'}}
@@ -1441,8 +1441,8 @@
                     <view class="weui-cell__bd">
                         <picker bindchange="pickerChange"
                                 data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2['+index+'].BenefitCode'}}"
-                                data-lname=""
-                                range="{{[]}}"
+                                data-lname="insuranceType"
+                                range="{{insuranceTypeList}}"
                                 value="{{LossItem.BenefitCode.index}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{LossItem.BenefitCode.label || '请选择'}}
@@ -1625,8 +1625,8 @@
                     <view class="weui-cell__bd">
                         <picker bindchange="pickerChange"
                                 data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList['+index+'].BenefitCode'}}"
-                                data-lname=""
-                                range="{{[]}}"
+                                data-lname="insuranceType"
+                                range="{{insuranceTypeList}}"
                                 value="{{RescueFeeItem.BenefitCode.index}}">
                             <view class="picker weui-select weui-select_in-select-after">
                                 {{RescueFeeItem.BenefitCode.label || '请选择'}}
@@ -2112,8 +2112,8 @@
                             <view class="weui-cell__bd">
                                 <picker bindchange="pickerChange"
                                         data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList['+index+'].IndemnityInfoList['+IndemnityIndex+'].BenefitCode'}}"
-                                        data-lname=""
-                                        range="{{[]}}"
+                                        data-lname="insuranceType"
+                                        range="{{insuranceTypeList}}"
                                         value="{{IndemnityInfoItem.BenefitCode.index}}">
                                     <view class="picker weui-select weui-select_in-select-after">
                                         {{IndemnityInfoItem.BenefitCode.label || '请选择'}}
