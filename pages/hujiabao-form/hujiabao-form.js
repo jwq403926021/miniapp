@@ -365,6 +365,7 @@ Page({
       method: 'POST',
       data: this.generateParameters({
         'policyNo': this.data.PolicyInfo.PolicyNo,
+        'claimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
         'workerId': this.workListSource[this.data.workerValue] ? this.workListSource[this.data.workerValue]['user_id'] : ''
       })
     }, function (err, res) {
@@ -570,8 +571,8 @@ Page({
       }
     })
     this.initPickerList()
-    if (routeParams.id) {
-      this.initDataById(routeParams.id)
+    if (routeParams.id && routeParams.claimno) {
+      this.initDataById(routeParams.id, routeParams.claimno)
     }
   },
   compileData (data) {
@@ -623,13 +624,14 @@ Page({
     }
     return result || data
   },
-  async initDataById (id) {
+  async initDataById (id,claimno) {
     let _this = this
     await util.request({
       path: `/app/hjbpolicyinfo/detail`,
       method: 'GET',
       data: {
-        policyNo: id
+        policyNo: id,
+        claimNo: claimno
       }
     }, function (err, res) {
       const data = res
