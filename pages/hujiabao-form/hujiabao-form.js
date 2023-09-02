@@ -641,6 +641,11 @@ Page({
           ..._this.compileData(data.property),
           CoverageList: _this.compileData(data.coverageList).map(i => {
             i.BenefitList = data.benefitMap[i.Id] ? _this.compileData(data.benefitMap[i.Id]) : []
+            i.BenefitList.forEach(b => {
+              const idx = Object.keys(MetaData[i.CoverageCode.value]).findIndex(ff => ff === b.BenefitCode.value)
+              b.BenefitCode.index = idx
+              b.BenefitCode.label = Object.values(MetaData[i.CoverageCode.value])[idx]
+            })
             return i
           })
         },
@@ -711,9 +716,15 @@ Page({
     })
   },
   initPickerList () {
-    const initList = {}
+    const initList = {
+      insuranceTypeChild: {}
+    }
     Object.entries(MetaData).forEach(i => {
-      initList[i[0] + 'List'] = Object.values(i[1])
+      if (i[0].startsWith('CF')) {
+        initList.insuranceTypeChild[i[0]] = Object.values(i[1])
+      } else {
+        initList[i[0] + 'List'] = Object.values(i[1])
+      }
     })
     this.setData(initList)
   },

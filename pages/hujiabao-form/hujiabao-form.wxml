@@ -232,16 +232,16 @@
                                     </view>
                                     <view class="weui-cell weui-cell_select">
                                         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                                            <view class="weui-label">险别代码</view>
+                                            <view class="weui-label">责任代码</view>
                                         </view>
                                         <view class="weui-cell__bd">
                                             <picker bindchange="pickerChange"
-                                                    data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].CoverageCode'}}"
-                                                    data-lname="insuranceType"
-                                                    range="{{insuranceTypeList}}"
-                                                    value="{{BenefitItem.CoverageCode.index}}">
+                                                    data-vname="{{'PolicyInfo.Property.CoverageList['+index+'].BenefitList['+bIndex+'].BenefitCode'}}"
+                                                    data-lname="{{PolicyInfo.Property.CoverageList[index].CoverageCode}}"
+                                                    range="{{insuranceTypeChild[PolicyInfo.Property.CoverageList[index].CoverageCode.value]}}"
+                                                    value="{{BenefitItem.BenefitCode.index}}">
                                                 <view class="picker weui-select weui-select_in-select-after">
-                                                    {{BenefitItem.CoverageCode.label || '请选择'}}
+                                                    {{BenefitItem.BenefitCode.label || '请选择'}}
                                                 </view>
                                             </picker>
                                         </view>
