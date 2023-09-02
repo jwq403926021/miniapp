@@ -690,6 +690,13 @@ Page({
       _this.setData({
         PolicyInfo: state
       })
+      _this.setData({
+        ['PolicyInfo.Property.PropertyLabel']: data.property.propertyDistrict ? `上海,上海,${MetaData.district.find(i => data.property.propertyDistrict).label}` : '',
+        ['PolicyInfo.ClaimInfo.AccidentLabel']: data.claimInfo.accidentDistrict ? `上海,上海,${MetaData.district.find(i => data.claimInfo.accidentDistrict).label}` : '',
+        ['PolicyInfo.ClaimInfo.SubClaimInfo.ContactLabel']: data.subClaimInfo.contactDistrict ? `上海,上海,${MetaData.district.find(i => data.subClaimInfo.contactDistrict).label}` : '',
+        ['PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel']: data.taskInfo.investigationDistrict ? `上海,上海,${MetaData.district.find(i => data.taskInfo.investigationDistrict).label}` : '',
+        ['PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.InvestigationLabel']: data.taskInfo2.investigationDistrict ? `上海,上海,${MetaData.district.find(i => data.taskInfo2.investigationDistrict).label}` : '',
+      })
     })
   },
   goToList () {

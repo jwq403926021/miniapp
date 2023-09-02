@@ -1,12 +1,12 @@
 const KeyMap = {
   'PolicyStatus': 'status',
   'IsFinalLevelCt': 'isCode',
-  'CoverageCode': '',
-  'BenefitCode': '',
+  'CoverageCode': 'insuranceType',
+  'BenefitCode': 'insuranceType',
   'ReportDelayCause': 'delayReportReason',
   'AccidentCause': 'reportReason',
   'IsCatastrophe': 'isCode',
-  'CatastropheCode': '',
+  'CatastropheCode': 'insuranceType',
   'ReportType': 'reportType',
   'InsuredRelation': 'relationship',
   'SubClaimType': 'childCompensationCategory',
@@ -42,75 +42,76 @@ const orderStatus = {
   '15': '核损通过',
   '16': '已关闭'
 }
+const district = [
+  {
+    value: '310101',
+    label: '黄浦区'
+  },
+  {
+    value: '310104',
+    label: '徐汇区'
+  },
+  {
+    value: '310105',
+    label: '长宁区'
+  },
+  {
+    value: '310106',
+    label: '静安区'
+  },
+  {
+    value: '310107',
+    label: '普陀区'
+  },
+  {
+    value: '310109',
+    label: '虹口区'
+  },
+  {
+    value: '310110',
+    label: '杨浦区'
+  },
+  {
+    value: '310112',
+    label: '闵行区'
+  },
+  {
+    value: '310113',
+    label: '宝山区'
+  },
+  {
+    value: '310114',
+    label: '嘉定区'
+  },
+  {
+    value: '310115',
+    label: '浦东新区'
+  },
+  {
+    value: '310116',
+    label: '金山区'
+  },
+  {
+    value: '310117',
+    label: '松江区'
+  },
+  {
+    value: '310118',
+    label: '青浦区'
+  },
+  {
+    value: '310120',
+    label: '奉贤区'
+  },
+  {
+    value: '310151',
+    label: '崇明区'
+  }
+]
 const areaList = [{
   children: [
     {
-      children: [
-        {
-          value: '310101',
-          label: '黄浦区'
-        },
-        {
-          value: '310104',
-          label: '徐汇区'
-        },
-        {
-          value: '310105',
-          label: '长宁区'
-        },
-        {
-          value: '310106',
-          label: '静安区'
-        },
-        {
-          value: '310107',
-          label: '普陀区'
-        },
-        {
-          value: '310109',
-          label: '虹口区'
-        },
-        {
-          value: '310110',
-          label: '杨浦区'
-        },
-        {
-          value: '310112',
-          label: '闵行区'
-        },
-        {
-          value: '310113',
-          label: '宝山区'
-        },
-        {
-          value: '310114',
-          label: '嘉定区'
-        },
-        {
-          value: '310115',
-          label: '浦东新区'
-        },
-        {
-          value: '310116',
-          label: '金山区'
-        },
-        {
-          value: '310117',
-          label: '松江区'
-        },
-        {
-          value: '310118',
-          label: '青浦区'
-        },
-        {
-          value: '310120',
-          label: '奉贤区'
-        },
-        {
-          value: '310151',
-          label: '崇明区'
-        }
-      ],
+      children: district,
       value: '310100',
       label: '上海'
     }
@@ -613,5 +614,6 @@ export default {
   areaList,
   calculationFormula,
   productType,
-  insuranceType
+  insuranceType,
+  district
 }
