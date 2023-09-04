@@ -571,8 +571,8 @@ Page({
       }
     })
     this.initPickerList()
-    if (routeParams.id && routeParams.claimno) {
-      this.initDataById(routeParams.id, routeParams.claimno)
+    if (routeParams.id && routeParams.subclaim) {
+      this.initDataById(routeParams.id, routeParams.subclaim)
     }
   },
   compileData (data) {
@@ -624,14 +624,14 @@ Page({
     }
     return result || data
   },
-  async initDataById (id,claimno) {
+  async initDataById (id,subclaim) {
     let _this = this
     await util.request({
       path: `/app/hjbpolicyinfo/detail`,
       method: 'GET',
       data: {
         policyNo: id,
-        claimNo: claimno
+        subClaim: subclaim
       }
     }, function (err, res) {
       const data = res

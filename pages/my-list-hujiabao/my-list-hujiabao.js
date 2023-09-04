@@ -84,7 +84,7 @@ Page({
   },
   goToHandleTask (event) {
     wx.navigateTo({
-      url: '../hujiabao-form/hujiabao-form?id=' + event.currentTarget.dataset.id + '&claimno=' + event.currentTarget.dataset.claimno
+      url: '../hujiabao-form/hujiabao-form?id=' + event.currentTarget.dataset.id + '&subclaim=' + event.currentTarget.dataset.subclaim
     })
   },
   closeFilter () {
