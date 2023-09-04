@@ -1060,10 +1060,10 @@
                         <view class="weui-cell__bd">
                             <view class="weui-cell__bd">
                                 <view class="picker weui-select weui-select_in-select-after"
-                                      data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.Investigation"
-                                      data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationDistrict}}"
+                                      data-name="PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Investigation"
+                                      data-value="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDistrict}}"
                                       bindtap="openAreaPopup">
-                                    {{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel ? PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel : '请填写地址'}}
+                                    {{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationLabel ? PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationLabel : '请填写地址'}}
                                 </view>
                             </view>
                         </view>

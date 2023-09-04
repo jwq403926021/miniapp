@@ -701,6 +701,7 @@ Page({
         ['PolicyInfo.ClaimInfo.SubClaimInfo.ContactLabel']: data.subClaimInfo.contactDistrict ? `上海,上海,${MetaData.district.find(i => data.subClaimInfo.contactDistrict).label}` : '',
         ['PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.InvestigationLabel']: data.taskInfo.investigationDistrict ? `上海,上海,${MetaData.district.find(i => data.taskInfo.investigationDistrict).label}` : '',
         ['PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.InvestigationLabel']: data.taskInfo2.investigationDistrict ? `上海,上海,${MetaData.district.find(i => data.taskInfo2.investigationDistrict).label}` : '',
+        ['PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationLabel']: data.InvestigationInfo.investigationDistrict ? `上海,上海,${MetaData.district.find(i => data.InvestigationInfo.investigationDistrict).label}` : '',
       })
     })
   },
