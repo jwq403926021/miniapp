@@ -120,6 +120,7 @@ const DefaultValue = {
         'PropertyTotalEstimatedAmount': '',
         'Remark': '',
         'LossItemList': [{
+          'OperationType': { index: '', value: '', label: '' },
           'SequenceNo': '',
           'LossItemName': '',
           'LossItemType': { index: '', value: '', label: '' },
@@ -133,6 +134,7 @@ const DefaultValue = {
           'LossAmount': ''
         }],
         'LossItemList2': [{
+          'OperationType': { index: '', value: '', label: '' },
           'SequenceNo': '',
           'LossItemName': '',
           'LossItemType': { index: '', value: '', label: '' },
@@ -401,10 +403,63 @@ Page({
       method: 'POST',
       data: this.generateParameters({
         SubClaimInfo: {
-          'PolicyNo': this.data.PolicyInfo.PolicyNo,
-          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
-          'TaskID': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID,
-          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+          PolicyNo: this.data.PolicyInfo.PolicyNo || '',
+          ClaimNo: this.data.PolicyInfo.ClaimInfo.ClaimNo || '',
+          TaskID: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo.TaskID || '',
+          SubClaim: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim || '',
+          RiskName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.RiskName || '',
+          SubClaimType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType || '',
+          DamageObject: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DamageObject || '',
+          Owner: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Owner || '',
+          TotalLoss: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLoss || '',
+          CertiType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType || '',
+          CertiNo: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo || '',
+          Sex: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Sex || '',
+          DateOfBirth: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth || '',
+          Mobile: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Mobile || '',
+          InjuryName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryName || '',
+          InjuryType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryType || '',
+          InjuryLevel: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryLevel || '',
+          DisabilityGrade: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DisabilityGrade || '',
+          Treatment: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Treatment || '',
+          HospitalName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.HospitalName || '',
+          DateOfAdmission: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission || '',
+          DateOfDischarge: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge || '',
+          DaysInHospital: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital || '',
+          CareName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CareName || '',
+          CareDays: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CareDays || '',
+          ContactProvince: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactProvince || '',
+          ContactCity: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactCity || '',
+          ContactDistrict: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactDistrict || '',
+          ContactDetailAddress: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactDetailAddress || '',
+          DamageDescription: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DamageDescription || '',
+          InvestigationInfo: {
+            PropertyNature: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyNature || '',
+            IsInvolveRecovery: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.IsInvolveRecovery || '',
+            InvestigatorContact: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorContact || '',
+            InvestigatorArrivalDate: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorArrivalDate || '',
+            InvestigationProvince: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationProvince || '',
+            InvestigationCity: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationCity || '',
+            InvestigationDistrict: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDistrict || '',
+            InvestigationDetailAddress: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDetailAddress || '',
+            InvestigationDescription: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigationDescription || '',
+            PropertyTotalEstimatedAmount: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount || '',
+            Remark: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.Remark || '',
+            LossItemList: (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList || []).map(i => {
+              return {
+                OperationType: i.OperationType || '',
+                SequenceNo: i.SequenceNo || '',
+                LossItemName: i.LossItemName || '',
+                LossItemType: i.LossItemType || '',
+                BenefitCode: i.BenefitCode || '',
+                Number: i.Number || '',
+                UnitPrice: i.UnitPrice || '',
+                Salvage: i.Salvage || '',
+                EstimatedAmount: i.EstimatedAmount || '',
+                Remark: i.Remark || ''
+              }
+            })
+          }
         }
       })
     }, function (err, res) {
@@ -447,19 +502,117 @@ Page({
       method: 'POST',
       data: this.generateParameters({
         TaskInfo: {
-          'ClaimNo': this.data.PolicyInfo.ClaimInfo.ClaimNo,
-          'SubClaim': this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim,
-          // PropertyDetailAddress: this.data.PolicyInfo.Property.PropertyDetailAddress,
-          // StandardPremium: this.data.PolicyInfo.StandardPremium,
-          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2
+          ClaimNo: this.data.PolicyInfo.ClaimInfo.ClaimNo || '',
+          SubClaim: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim || '',
+          TaskID: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.TaskID || '',
+          CurrentCalculationTime: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.CurrentCalculationTime || '',
+          IsConfirmed: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.IsConfirmed || '',
+          Remark: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.Remark || ''
         },
         AppraisalInfo: {
-          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2,
-          RescueFeeList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList,
-          ...this.data.PolicyInfo.ClaimInfo.SubClaimInfo
+          RiskName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.RiskName || '',
+          SubClaimType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType || '',
+          DamageObject: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DamageObject || '',
+          Owner: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Owner || '',
+          TotalLoss: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLoss || '',
+          CertiType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType || '',
+          CertiNo: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo || '',
+          Sex: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Sex || '',
+          DateOfBirth: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfBirth || '',
+          Mobile: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Mobile || '',
+          InjuryName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryName || '',
+          InjuryType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryType || '',
+          InjuryLevel: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InjuryLevel || '',
+          DisabilityGrade: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DisabilityGrade || '',
+          Treatment: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Treatment || '',
+          HospitalName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.HospitalName || '',
+          DateOfAdmission: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission || '',
+          DateOfDischarge: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge || '',
+          DaysInHospital: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital || '',
+          CareName: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CareName || '',
+          CareDays: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CareDays || '',
+          ContactProvince: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactProvince || '',
+          ContactCity: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactCity || '',
+          ContactDistrict: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactDistrict || '',
+          ContactDetailAddress: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactDetailAddress || '',
+          DamageDescription: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DamageDescription || '',
+          AppraisalType: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.AppraisalType || '',
+          TotalLossAmount: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount || 0,
+          TotalRescueAmount: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount || 0,
+          Remark: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.Remark || '',
+          LossItemList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.map(i => {
+            return {
+              OperationType: i.OperationType || '',
+              SequenceNo: i.SequenceNo || '',
+              AppraisalTimes: i.AppraisalTimes || '',
+              LossItemName: i.LossItemName || '',
+              LossItemType: i.LossItemType || '',
+              BenefitCode: i.BenefitCode || '',
+              Number: i.Number || '',
+              UnitPrice: i.UnitPrice || '',
+              Salvage: i.Salvage || '',
+              LossAmount: i.LossAmount || '',
+              Remark: i.Remark || ''
+            }
+          }),
+          RescueFeeList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.map(i => {
+            return {
+              OperationType: i.OperationType || '',
+              SequenceNo: i.SequenceNo || '',
+              AppraisalTimes: i.AppraisalTimes || '',
+              RescueUnit: i.RescueUnit || '',
+              BenefitCode: i.BenefitCode || '',
+              RescueAmount: i.RescueAmount || '',
+              Remark: i.Remark || ''
+            }
+          })
         },
-        CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList,
-        PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList
+        CalculationInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.map(i => {
+          return {
+            OperationType: i.OperationType || '',
+            SequenceNo: i.SequenceNo || '',
+            CalculationTimes: i.CalculationTimes || '',
+            ReserveType: i.ReserveType || '',
+            BenefitCode: i.BenefitCode || '',
+            RequestedAmount: i.RequestedAmount || '',
+            Deductible: i.Deductible || '',
+            AccidentLiabilityRatio: i.AccidentLiabilityRatio || '',
+            PreviousRecognizedAmount: i.PreviousRecognizedAmount || '',
+            TotalRecognizedAmount: i.TotalRecognizedAmount || '',
+            PreviousAdjustedAmount: i.PreviousAdjustedAmount || '',
+            CalculationAmount: i.CalculationAmount || '',
+            AdjustedAmount: i.AdjustedAmount || '',
+            TotalAdjustedAmount: i.TotalAdjustedAmount || '',
+            CalculationFormula: i.CalculationFormula || ''
+          }
+        }),
+        PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.map(i => {
+          return {
+            OperationType: i.OperationType || '',
+            SequenceNo: i.SequenceNo || '',
+            CalculationTimes: i.CalculationTimes || '',
+            PayeeName: i.PayeeName || '',
+            PayMode: i.PayMode || '',
+            AccountType: i.AccountType || '',
+            BankCode: i.BankCode || '',
+            BankName: i.BankName || '',
+            OpenAccountBranchName: i.OpenAccountBranchName || '',
+            AccountName: i.AccountName || '',
+            BankCardNo: i.BankCardNo || '',
+            TotalIndemnityAmount: i.TotalIndemnityAmount || '',
+            IndemnityInfoList: i.IndemnityInfoList.map(ii => {
+              return {
+                OperationType: ii.OperationType || '',
+                SequenceNo: ii.SequenceNo || '',
+                ReserveType: ii.ReserveType || '',
+                BenefitCode: ii.BenefitCode || '',
+                UnrecongnizedAmount: ii.UnrecongnizedAmount || '',
+                IndemnityAmount: ii.IndemnityAmount || '',
+                Remark: ii.Remark || ''
+              }
+            })
+          }
+        })
       })
     }, function (err, res) {
       wx.hideLoading()

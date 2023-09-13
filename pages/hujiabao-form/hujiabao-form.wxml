@@ -1123,6 +1123,23 @@
                     </view>
                 </view>
                 <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList}}" wx:for-item="LossItem" wx:key="index" class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_select">
+                        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                            <view class="weui-label">操作类型</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <picker bindchange="pickerChange"
+                                    data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].OperationType'}}"
+                                    data-lname="operationType"
+                                    range="{{operationTypeList}}"
+                                    value="{{LossItem.OperationType.index}}">
+                                <view class="picker weui-select weui-select_in-select-after">
+                                    {{LossItem.OperationType.label || '请选择'}}
+                                </view>
+                            </picker>
+                        </view>
+                    </view>
+
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
                             <view class="weui-label">序号</view>
@@ -1393,6 +1410,23 @@
                 </view>
             </view>
             <view style="border-bottom: 2px #f8f8f8 dashed;" wx:for="{{PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2}}" wx:for-item="LossItem" wx:key="index" class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">操作类型</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2['+index+'].OperationType'}}"
+                                data-lname="operationType"
+                                range="{{operationTypeList}}"
+                                value="{{LossItem.OperationType.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{LossItem.OperationType.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
                         <view class="weui-label">序号</view>
