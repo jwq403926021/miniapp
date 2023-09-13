@@ -397,6 +397,68 @@ Page({
   },
   managerCommit () {
     const that = this
+    // 4
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.length > 0 &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.filter(i => {
+        return i.LossItemName === '' || i.Number === '' || i.UnitPrice === '' || i.Salvage === '' || i.LossItemName === null || i.Number === null || i.UnitPrice === null || i.Salvage === null
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 4
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '03' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '07') &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.length > 0 &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.filter(i => {
+        return i.LossItemType === '' || i.LossItemType === null
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '子赔案类型为人伤损失时，损失项目类型必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 6
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== null) &&
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital) !== (
+        (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
+      )
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '住院天数与入院日期和出院日期不符，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 7
+    if (
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount) !==
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + Number(currentValue.EstimatedAmount)
+      }, 0)
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '预估总金额与损失信息预估金额总和不一致，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: '/app/hjbpolicyinfo/managerCommit',
@@ -496,6 +558,254 @@ Page({
   },
   lossAssessmentCommit () {
     const that = this
+    // 1
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length === 0 ||
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.length === 0 ||
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.length === 0 ||
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.length === 0 ||
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(i => i.IndemnityInfoList.length === 0).length > 1
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '定损信息节点、定损信息下的损失信息、理算信息、领款人信息、领款人下的赔偿信息节点必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 3
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '施救项目ID必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 3
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '理算项目ID必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 3
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '领款人ID必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 3
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(p => p.IndemnityInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '赔偿信息ID必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 5
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '03' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '07') &&
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType === '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType === null ||
+        this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo === '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo === null)
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '当子赔案类型为人伤损失时，证件类型、证件号码必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 6
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length > 0 &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
+        return i.LossItemName === '' || i.Number === '' || i.UnitPrice === '' || i.Salvage === '' || i.LossItemName === null || i.Number === null || i.UnitPrice === null || i.Salvage === null
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 6
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '03' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '07') &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length > 0 &&
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
+        return i.LossItemType === '' || i.LossItemType === null
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '子赔案类型为人伤损失时，损失项目类型必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 7
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length > 0 &&
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount) === this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + currentValue.LossAmount
+      }, 0)
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '总损失金额与本次损失信息损失金额总和不一致，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 7
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.length > 0 &&
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount) === this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + currentValue.RescueAmount
+      }, 0)
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '总施救金额与本次施救费信息施救金额之和不一致，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 8
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== null) &&
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital) !== (
+        (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
+      )
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '住院天数与入院日期和出院日期不符，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 9
+    if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') && this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
+        return i.LossAmount === Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage)
+      })) {
+      wx.showToast({
+        mask: true,
+        title: '损失金额不正确，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 10
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(payee => {
+        return Number(payee.TotalIndemnityAmount) !== payee.IndemnityInfoList.reduce((previousValue, currentValue, currentIndex, array) => {
+          return previousValue + Number(currentValue.IndemnityAmount)
+        }, 0)
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '赔偿金额总计与本次赔偿信息赔偿金额之和不一致，请检查。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 11
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.filter(Calc => {
+        return Number(Calc.TotalAdjustedAmount) !== (Number(Calc.PreviousAdjustedAmount) + Number(Calc.AdjustedAmount))
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '累计理算确认金额上传错误，请核实。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    // 13
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(payee => {
+        return payee.PayMode === '01' && (
+          payee.AccountType === '' || payee.AccountType === null ||
+          payee.BankCode === '' || payee.BankCode === null ||
+          payee.BankCardNo === '' || payee.BankCardNo === null ||
+          payee.AccountName === '' || payee.AccountName === null
+        )
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '支付方式为转账，银行代码、账户名称、银行卡号必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(payee => {
+        return payee.AccountType === '01' && (
+          payee.OpenAccountBranchCode === '' || payee.OpenAccountBranchCode === null
+        )
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '支付类型为对公，开户支行名称必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+    if (
+      this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(payee => {
+        return payee.BankCode === '999' && (
+          payee.BankName === '' || payee.BankName === null
+        )
+      }).length > 0
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '银行代码为其他，银行名称必传。',
+        icon: 'error',
+        duration: 1000
+      })
+      return false
+    }
+
     wx.showLoading({ mask: true, title: '提交中' })
     util.request({
       path: '/app/hjbpolicyinfo/lossAssessmentCommit',
