@@ -716,8 +716,8 @@ Page({
     // 9
     if (
       (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') && this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
-        return i.LossAmount === Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage)
-      })) {
+        return i.LossAmount !== Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage)
+      }).length > 0) {
       wx.showToast({
         mask: true,
         title: '损失金额不正确，请检查。',
