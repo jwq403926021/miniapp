@@ -3,6 +3,8 @@ import common from "../../utils/common";
 import MetaData from './metadata.js'
 const computedBehavior = require('miniprogram-computed')
 const app = getApp()
+const datekey = ['DateOfBirth', 'DateOfAdmission', 'DateOfDischarge']
+const datetimekey = ['EffectiveDate', 'ExpireDate', 'AccidentTime', 'ReportTime', 'DueDate', 'InvestigatorArrivalDate']
 const DefaultValue = {
   'PolicyNo': '',
   'ProductType': { index: '', value: '', label: '' },
