@@ -673,7 +673,7 @@ Page({
     // 7
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length > 0 &&
-      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount) === this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.reduce((previousValue, currentValue, currentIndex, array) => {
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.reduce((previousValue, currentValue, currentIndex, array) => {
         return previousValue + currentValue.LossAmount
       }, 0)
     ) {
@@ -688,7 +688,7 @@ Page({
     // 7
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.length > 0 &&
-      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount) === this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.reduce((previousValue, currentValue, currentIndex, array) => {
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.reduce((previousValue, currentValue, currentIndex, array) => {
         return previousValue + currentValue.RescueAmount
       }, 0)
     ) {
