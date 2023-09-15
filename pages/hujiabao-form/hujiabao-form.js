@@ -1104,7 +1104,7 @@ Page({
         ..._this.compileData(data.policyInfo),
         'Property': {
           ..._this.compileData(data.property),
-          CoverageList: _this.compileData(data.coverageList).map(i => {
+          CoverageList: data.coverageList ? _this.compileData(data.coverageList).map(i => {
             i.BenefitList = data.benefitMap[i.Id] ? _this.compileData(data.benefitMap[i.Id]) : []
             i.BenefitList.forEach(b => {
               const idx = Object.keys(MetaData[i.CoverageCode.value]).findIndex(ff => ff === b.BenefitCode.value)
@@ -1112,7 +1112,7 @@ Page({
               b.BenefitCode.label = Object.values(MetaData[i.CoverageCode.value])[idx]
             })
             return i
-          })
+          }) : []
         },
         'ClaimInfo': {
           ..._this.compileData(data.claimInfo),
@@ -1126,25 +1126,28 @@ Page({
             },
             'InvestigationInfo': {
               ..._this.compileData(data.investigationInfo),
-              'LossItemList': [
+              'LossItemList': data.lossItemList ? [
                 ..._this.compileData(data.lossItemList)
-              ],
-              'LossItemList2': [
+              ] : [],
+              'LossItemList2': data.lossItem2List ? [
                 ..._this.compileData(data.lossItem2List)
-              ],
-              'RescueFeeList': [
+              ] : [],
+              'RescueFeeList': data.rescueFeeList ? [
                 ..._this.compileData(data.rescueFeeList)
-              ]
+              ] : []
             },
-            'CalculationInfoList': [
+            'CalculationInfoList': data.calculationInfoList ? [
               ..._this.compileData(data.calculationInfoList)
-            ],
-            'PayeeInfoList': [
+            ] : [],
+            'PayeeInfoList': data.payeeInfoList ? [
               ..._this.compileData(data.payeeInfoList)
-            ]
+            ] : []
           }
         }
       }
+      state.ClaimInfo.SubClaimInfo.PayeeInfoList.forEach(i => {
+        i.IndemnityInfoList = i.IndemnityInfoList || []
+      })
       // _this.sourceData = data
       // _this.sourceImage = res.Image
       // let investigatorImageFiles = []
