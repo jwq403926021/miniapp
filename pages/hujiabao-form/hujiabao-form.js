@@ -433,6 +433,7 @@ Page({
     }
     // 6
     if (
+        (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '03' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '07') &&
         (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== null) &&
         Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital) !== (
             (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
