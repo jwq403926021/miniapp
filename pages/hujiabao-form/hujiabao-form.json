@@ -12,6 +12,8 @@
     "van-datetime-picker": "../../asset/vant/datetime-picker/index",
     "van-row": "../../asset/vant/row/index",
     "van-col": "../../asset/vant/col/index",
-    "van-notice-bar": "../../asset/vant/notice-bar/index"
+    "van-notice-bar": "../../asset/vant/notice-bar/index",
+    "van-tabs": "../../asset/vant/tabs/index",
+    "van-tab": "../../asset/vant/tab/index"
   }
 }

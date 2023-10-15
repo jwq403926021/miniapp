@@ -209,6 +209,7 @@ Page({
     }
   },
   data: {
+    activeTab: 0,
     role: 1, // 理算 施工人员
     orderId: null,
     pickerType: 'datetime',
@@ -229,6 +230,11 @@ Page({
     image002Files: [],
     image003Files: [],
     image004Files: []
+  },
+  onChangeTab(event) {
+    this.setData({
+      activeTab: event.detail.index
+    })
   },
   addList (e) {
     let name = e.currentTarget.dataset.name;
@@ -704,6 +710,7 @@ Page({
     }
     // 8
     if (
+      (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '03' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '07') &&
       (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital !== null) &&
       Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DaysInHospital) !== (
         (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
