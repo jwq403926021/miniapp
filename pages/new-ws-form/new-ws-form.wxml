@@ -985,6 +985,9 @@
         <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (role == 5 || role == 6 || role == 7) }}">
             <button type="primary" bindtap="assignToOtherWorker">转办(施工人员)</button>
         </view>
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 1517) }}">
+            <button type="primary" bindtap="assignToOtherWorker">转办(施工人员)</button>
+        </view>
         <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 52 || userId == 91) }}">
             <button type="primary" bindtap="assignToOtherProcessor">转办(经办人)</button>
         </view>
