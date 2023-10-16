@@ -11,6 +11,7 @@
     }
 </wxs>
 <view class="page">
+    <van-notify id="van-notify" />
     <view class="page__bd">
         <view class="weui-cells__title">沪家保保单信息</view>
         <van-tabs active="{{ activeTab }}" bind:change="onChangeTab">

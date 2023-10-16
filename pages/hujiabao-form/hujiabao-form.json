@@ -14,6 +14,7 @@
     "van-col": "../../asset/vant/col/index",
     "van-notice-bar": "../../asset/vant/notice-bar/index",
     "van-tabs": "../../asset/vant/tabs/index",
-    "van-tab": "../../asset/vant/tab/index"
+    "van-tab": "../../asset/vant/tab/index",
+    "van-notify": "../../asset/vant/notify/index"
   }
 }

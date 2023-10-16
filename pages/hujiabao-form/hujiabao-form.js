@@ -1,6 +1,7 @@
 import util from "../../utils/util";
 import common from "../../utils/common";
 import MetaData from './metadata.js'
+import Notify from '../../asset/vant/notify/notify';
 const computedBehavior = require('miniprogram-computed')
 const app = getApp()
 const datekey = ['DateOfBirth', 'DateOfAdmission', 'DateOfDischarge']
@@ -413,12 +414,7 @@ Page({
           return i.LossItemName === '' || i.Number === '' || i.UnitPrice === '' || i.Salvage === '' || i.LossItemName === null || i.Number === null || i.UnitPrice === null || i.Salvage === null
         }).length > 0
     ) {
-      wx.showToast({
-        mask: true,
-        title: '子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。',
-        icon: 'error',
-        duration: 1000
-      })
+      Notify('子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。');
       return false
     }
     // 4
@@ -429,12 +425,7 @@ Page({
           return i.LossItemType === '' || i.LossItemType === null
         }).length > 0
     ) {
-      wx.showToast({
-        mask: true,
-        title: '子赔案类型为人伤损失时，损失项目类型必传。',
-        icon: 'error',
-        duration: 1000
-      })
+      Notify('子赔案类型为人伤损失时，损失项目类型必传。');
       return false
     }
     // 6
@@ -445,12 +436,7 @@ Page({
             (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
         )
     ) {
-      wx.showToast({
-        mask: true,
-        title: '住院天数与入院日期和出院日期不符，请检查。',
-        icon: 'error',
-        duration: 1000
-      })
+      Notify('住院天数与入院日期和出院日期不符，请检查。');
       return false
     }
     // 7
@@ -460,12 +446,7 @@ Page({
           return previousValue + Number(currentValue.EstimatedAmount || 0)
         }, 0)
     ) {
-      wx.showToast({
-        mask: true,
-        title: '预估总金额与损失信息预估金额总和不一致，请检查。',
-        icon: 'error',
-        duration: 1000
-      })
+      Notify('预估总金额与损失信息预估金额总和不一致，请检查。');
       return false
     }
 
@@ -578,60 +559,35 @@ Page({
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.length === 0 ||
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(i => i.IndemnityInfoList.length === 0).length > 1
       ) {
-        wx.showToast({
-          mask: true,
-          title: '定损信息节点、定损信息下的损失信息、理算信息、领款人信息、领款人下的赔偿信息节点必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('定损信息节点、定损信息下的损失信息、理算信息、领款人信息、领款人下的赔偿信息节点必传。');
         return false
       }
       // 3
       if (
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '施救项目ID必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('施救项目ID必传。');
         return false
       }
       // 3
       if (
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '理算项目ID必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('理算项目ID必传。');
         return false
       }
       // 3
       if (
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '领款人ID必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('领款人ID必传。');
         return false
       }
       // 3
       if (
           this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(p => p.IndemnityInfoList.filter(i => i.OperationType !== '01' && (i.SequenceNo === '' || i.SequenceNo === null)).length > 0).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '赔偿信息ID必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('赔偿信息ID必传。');
         return false
       }
       // 5
@@ -640,12 +596,7 @@ Page({
           (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType === '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiType === null ||
               this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo === '' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CertiNo === null)
       ) {
-        wx.showToast({
-          mask: true,
-          title: '当子赔案类型为人伤损失时，证件类型、证件号码必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('当子赔案类型为人伤损失时，证件类型、证件号码必传。');
         return false
       }
       // 6
@@ -656,12 +607,7 @@ Page({
             return i.LossItemName === '' || i.Number === '' || i.UnitPrice === '' || i.Salvage === '' || i.LossItemName === null || i.Number === null || i.UnitPrice === null || i.Salvage === null
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('子赔案类型为财产损失时，损失项目名称、数量、单价、残值必传。');
         return false
       }
       // 6
@@ -672,12 +618,7 @@ Page({
             return i.LossItemType === '' || i.LossItemType === null
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '子赔案类型为人伤损失时，损失项目类型必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('子赔案类型为人伤损失时，损失项目类型必传。');
         return false
       }
       // 7
@@ -687,12 +628,7 @@ Page({
             return previousValue + Number(currentValue.LossAmount || 0)
           }, 0)
       ) {
-        wx.showToast({
-          mask: true,
-          title: '总损失金额与本次损失信息损失金额总和不一致，请检查。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('总损失金额与本次损失信息损失金额总和不一致，请检查。');
         return false
       }
       // 7
@@ -702,12 +638,7 @@ Page({
             return previousValue + Number(currentValue.RescueAmount || 0)
           }, 0)
       ) {
-        wx.showToast({
-          mask: true,
-          title: '总施救金额与本次施救费信息施救金额之和不一致，请检查。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('总施救金额与本次施救费信息施救金额之和不一致，请检查。');
         return false
       }
       // 8
@@ -718,12 +649,7 @@ Page({
               (new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfDischarge) - new Date(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DateOfAdmission)) / (24 * 60 * 60 * 1000) + 1
           )
       ) {
-        wx.showToast({
-          mask: true,
-          title: '住院天数与入院日期和出院日期不符，请检查。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('住院天数与入院日期和出院日期不符，请检查。');
         return false
       }
       // 9
@@ -731,12 +657,7 @@ Page({
           (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') && this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
             return Number(i.LossAmount || 0) !== (Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage))
           }).length > 0) {
-        wx.showToast({
-          mask: true,
-          title: '损失金额不正确，请检查。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('损失金额不正确，请检查。');
         return false
       }
       // 10
@@ -747,12 +668,7 @@ Page({
             }, 0)
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '赔偿金额总计与本次赔偿信息赔偿金额之和不一致，请检查。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('赔偿金额总计与本次赔偿信息赔偿金额之和不一致，请检查。');
         return false
       }
       // 11
@@ -761,12 +677,7 @@ Page({
             return Number(Calc.TotalAdjustedAmount || 0) !== (Number(Calc.PreviousAdjustedAmount || 0) + Number(Calc.AdjustedAmount || 0))
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '累计理算确认金额上传错误，请核实。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('累计理算确认金额上传错误，请核实。');
         return false
       }
       // 13
@@ -780,12 +691,7 @@ Page({
             )
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '支付方式为转账，银行代码、账户名称、银行卡号必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('支付方式为转账，银行代码、账户名称、银行卡号必传。');
         return false
       }
       if (
@@ -795,12 +701,7 @@ Page({
             )
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '支付类型为对公，开户支行名称必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('支付类型为对公，开户支行名称必传。');
         return false
       }
       if (
@@ -810,12 +711,7 @@ Page({
             )
           }).length > 0
       ) {
-        wx.showToast({
-          mask: true,
-          title: '银行代码为其他，银行名称必传。',
-          icon: 'error',
-          duration: 1000
-        })
+        Notify('银行代码为其他，银行名称必传。');
         return false
       }
     }
