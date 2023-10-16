@@ -455,9 +455,9 @@ Page({
     }
     // 7
     if (
-        Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount) !==
+        Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyTotalEstimatedAmount || 0) !==
         this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList.reduce((previousValue, currentValue, currentIndex, array) => {
-          return previousValue + Number(currentValue.EstimatedAmount)
+          return previousValue + Number(currentValue.EstimatedAmount || 0)
         }, 0)
     ) {
       wx.showToast({
@@ -681,8 +681,8 @@ Page({
     // 7
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.length > 0 &&
-      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.reduce((previousValue, currentValue, currentIndex, array) => {
-        return previousValue + Number(currentValue.LossAmount)
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalLossAmount || 0) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + Number(currentValue.LossAmount || 0)
       }, 0)
     ) {
       wx.showToast({
@@ -696,8 +696,8 @@ Page({
     // 7
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.length > 0 &&
-      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.reduce((previousValue, currentValue, currentIndex, array) => {
-        return previousValue + Number(currentValue.RescueAmount)
+      Number(this.data.PolicyInfo.ClaimInfo.SubClaimInfo.TotalRescueAmount || 0) !== this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.RescueFeeList.reduce((previousValue, currentValue, currentIndex, array) => {
+        return previousValue + Number(currentValue.RescueAmount || 0)
       }, 0)
     ) {
       wx.showToast({
@@ -727,7 +727,7 @@ Page({
     // 9
     if (
       (this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '01' || this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaimType === '06') && this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList2.filter(i => {
-        return Number(i.LossAmount) !== (Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage))
+        return Number(i.LossAmount || 0) !== (Number(i.Number) * Number(i.UnitPrice) - Number(i.Salvage))
       }).length > 0) {
       wx.showToast({
         mask: true,
@@ -740,8 +740,8 @@ Page({
     // 10
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.filter(payee => {
-        return Number(payee.TotalIndemnityAmount) !== payee.IndemnityInfoList.reduce((previousValue, currentValue, currentIndex, array) => {
-          return previousValue + Number(currentValue.IndemnityAmount)
+        return Number(payee.TotalIndemnityAmount || 0) !== payee.IndemnityInfoList.reduce((previousValue, currentValue, currentIndex, array) => {
+          return previousValue + Number(currentValue.IndemnityAmount || 0)
         }, 0)
       }).length > 0
     ) {
@@ -756,7 +756,7 @@ Page({
     // 11
     if (
       this.data.PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList.filter(Calc => {
-        return Number(Calc.TotalAdjustedAmount) !== (Number(Calc.PreviousAdjustedAmount) + Number(Calc.AdjustedAmount))
+        return Number(Calc.TotalAdjustedAmount || 0) !== (Number(Calc.PreviousAdjustedAmount || 0) + Number(Calc.AdjustedAmount || 0))
       }).length > 0
     ) {
       wx.showToast({
