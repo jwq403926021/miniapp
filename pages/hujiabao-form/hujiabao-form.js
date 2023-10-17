@@ -57,7 +57,7 @@ const DefaultValue = {
       'RiskName': '',
       'SubClaimType': { index: '', value: '', label: '' },
       'DamageObject': '',
-      'DamageDesc': '',
+      'DamageDescription': '',
       'Owner': '',
       'TotalLoss': { index: '', value: '', label: '' },
       'CertiType': { index: '', value: '', label: '' },
@@ -95,6 +95,8 @@ const DefaultValue = {
         'InvestigationDistrict': '',
         'InvestigationDetailAddress': '',
         'CurrentCalculationTime': '',
+        'DispatcherName': '',
+        'DispatcherTel': '',
         'IsConfirmed': { index: '', value: '', label: '' },
         'Remark': ''
       },
@@ -107,6 +109,8 @@ const DefaultValue = {
         'InvestigationDistrict': '',
         'InvestigationDetailAddress': '',
         'CurrentCalculationTime': '',
+        'DispatcherName': '',
+        'DispatcherTel': '',
         'IsConfirmed': { index: '', value: '', label: '' },
         'Remark': ''
       },
@@ -176,7 +180,7 @@ const DefaultValue = {
         'AdjustedAmount': '',
         'TotalAdjustedAmount': '',
         'CalculationFormula': { index: '', value: '', label: '' },
-        'IsDeclined': ''
+        'IsDeclined': { index: '', value: '', label: '' }
       }],
       'PayeeInfoList': [{
         'SequenceNo': '',
@@ -803,7 +807,8 @@ Page({
             CalculationAmount: i.CalculationAmount ?? '',
             AdjustedAmount: i.AdjustedAmount ?? '',
             TotalAdjustedAmount: i.TotalAdjustedAmount ?? '',
-            CalculationFormula: i.CalculationFormula ?? ''
+            CalculationFormula: i.CalculationFormula ?? '',
+            IsDeclined: i.IsDeclined ?? ''
           }
         }),
         PayeeInfoList: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.PayeeInfoList.map(i => {

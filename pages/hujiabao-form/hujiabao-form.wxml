@@ -550,8 +550,8 @@
                         <view class="weui-cell__bd">
                             <textarea maxlength="-1" fixed='true' contenteditable="true" auto-height="true"
                                       wx:if="{{!showAreaPopup && !showDateTimePopup}}"
-                                      class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.DamageDesc'
-                                      value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DamageDesc}}" placeholder="案件经过" />
+                                      class="weui-textarea" bindinput="inputChange" data-name='PolicyInfo.ClaimInfo.SubClaimInfo.DamageDescription'
+                                      value="{{PolicyInfo.ClaimInfo.SubClaimInfo.DamageDescription}}" placeholder="损失描述" />
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -1146,14 +1146,14 @@
 
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">序号</view>
+                            <view class="weui-label">损失项目ID</view>
                         </view>
                         <view class="weui-cell__bd">
                             <input type="number"
                                    class="weui-input"
                                    bindinput="inputChange"
                                    data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.LossItemList['+index+'].SequenceNo'}}"
-                                   value="{{LossItem.SequenceNo}}" placeholder="序号"/>
+                                   value="{{LossItem.SequenceNo}}" placeholder="损失项目ID"/>
                         </view>
                     </view>
 
@@ -1365,6 +1365,24 @@
                     <view class="weui-cell__bd">
                         <input type="number" class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.CurrentCalculationTime"
                                value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.CurrentCalculationTime}}" placeholder="当前理算次数"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">调度人员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.DispatcherName"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.DispatcherName}}" placeholder="调度人员姓名"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">调度人员电话</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputChange" data-name="PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.DispatcherTel"
+                               value="{{PolicyInfo.ClaimInfo.SubClaimInfo.TaskInfo2.DispatcherTel}}" placeholder="调度人员电话"/>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_select">
@@ -1778,14 +1796,14 @@
 
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">损失索赔金额</view>
+                        <view class="weui-label">损失金额</view>
                     </view>
                     <view class="weui-cell__bd">
                         <input type="number"
                                class="weui-input"
                                bindinput="inputChange"
                                data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].RequestedAmount'}}"
-                               value="{{CalculationInfoItem.RequestedAmount}}" placeholder="损失索赔金额"/>
+                               value="{{CalculationInfoItem.RequestedAmount}}" placeholder="损失金额"/>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -1825,26 +1843,26 @@
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">前次索赔损失确认金额</view>
+                        <view class="weui-label">前次损失确认金额</view>
                     </view>
                     <view class="weui-cell__bd">
                         <input type="number"
                                class="weui-input"
                                bindinput="inputChange"
                                data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].PreviousRecognizedAmount'}}"
-                               value="{{CalculationInfoItem.PreviousRecognizedAmount}}" placeholder="前次索赔损失确认金额"/>
+                               value="{{CalculationInfoItem.PreviousRecognizedAmount}}" placeholder="前次损失确认金额"/>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
                     <view class="weui-cell__hd">
-                        <view class="weui-label">累计索赔损失确认金额</view>
+                        <view class="weui-label">累计损失确认金额</view>
                     </view>
                     <view class="weui-cell__bd">
                         <input type="number"
                                class="weui-input"
                                bindinput="inputChange"
                                data-name="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].TotalRecognizedAmount'}}"
-                               value="{{CalculationInfoItem.TotalRecognizedAmount}}" placeholder="累计索赔损失确认金额"/>
+                               value="{{CalculationInfoItem.TotalRecognizedAmount}}" placeholder="累计损失确认金额"/>
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -1907,6 +1925,23 @@
                                 value="{{CalculationInfoItem.CalculationFormula.index}}">
                             <view class="picker weui-select weui-select_in-select-after" style="height: auto;">
                                 {{CalculationInfoItem.CalculationFormula.label || '请选择'}}
+                            </view>
+                        </picker>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否拒赔</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <picker bindchange="pickerChange"
+                                data-vname="{{'PolicyInfo.ClaimInfo.SubClaimInfo.CalculationInfoList['+index+'].IsDeclined'}}"
+                                data-lname="isCode"
+                                range="{{isCodeList}}"
+                                value="{{CalculationInfoItem.IsDeclined.index}}">
+                            <view class="picker weui-select weui-select_in-select-after">
+                                {{CalculationInfoItem.IsDeclined.label || '请选择'}}
                             </view>
                         </picker>
                     </view>
