@@ -491,6 +491,7 @@ Page({
           ContactDetailAddress: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.ContactDetailAddress ?? '',
           DamageDescription: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.DamageDescription ?? '',
           InvestigationInfo: {
+            SubClaim: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.SubClaim ?? '',
             PropertyNature: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.PropertyNature ?? '',
             IsInvolveRecovery: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.IsInvolveRecovery ?? '',
             InvestigatorContact: this.data.PolicyInfo.ClaimInfo.SubClaimInfo.InvestigationInfo.InvestigatorContact ?? '',
@@ -1180,17 +1181,17 @@ Page({
     })
     _this.data.image002Files.map(item => {
       if (item.path.indexOf('https://') == -1){
-        image002Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '002', 'Directory': '002'})
+        image002Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '001', 'Directory': '002'})
       }
     })
     _this.data.image003Files.map(item => {
       if (item.path.indexOf('https://') == -1){
-        image003Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '003', 'Directory': '003'})
+        image003Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '001', 'Directory': '003'})
       }
     })
     _this.data.image004Files.map(item => {
       if (item.path.indexOf('https://') == -1){
-        image004Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '003', 'Directory': '003'})
+        image004Files.push({path: item.path, 'BusinessNo': _this.data.PolicyInfo.ClaimInfo.ClaimNo, 'BusinessType': '001', 'Directory': '004'})
       }
     })
 
