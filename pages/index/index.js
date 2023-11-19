@@ -103,6 +103,11 @@ Page({
       url: '../../subpackage/calculate/calculate-list/calculate-list'
     })
   },
+  goToCalculateGlass () {
+    wx.navigateTo({
+      url: '../../subpackage/calculate/calculate-glass/calculate-glass'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,

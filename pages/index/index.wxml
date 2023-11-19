@@ -118,6 +118,14 @@
             更新工单
         </view>
     </view>
+    <view class="new-btn fl" bindtap="goToCalculateGlass">
+      <view>
+        <text class="iconfont icon-yijianfankui myicon"></text>
+      </view>
+      <view>
+        玻璃报价
+      </view>
+    </view>
 <!--    <view class="new-btn fl" bindtap="goToCalculate">-->
 <!--        <view>-->
 <!--          <text class="iconfont icon-yijianfankui myicon"></text>-->

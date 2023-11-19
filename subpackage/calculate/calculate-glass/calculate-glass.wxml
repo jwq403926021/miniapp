@@ -1,6 +1,6 @@
 <view class="page">
   <view class="page__bd" style="padding-bottom: 0px;">
-    <view class="weui-cells__title">玻璃幕墙模型</view>
+    <view class="weui-cells__title">玻璃报价</view>
     <view class="weui-cells weui-cells_after-title">
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -88,17 +88,13 @@
 
   <view style="padding:10px;">
     <view style="margin-bottom:10px;">
-      <view style="color: #888;">小计1</view>
-      <view style="font-size: 14px;">{{amount1 || '-'}}</view>
+      <view style="color: #888;">玻璃成本</view>
+      <view style="font-size: 14px;">小计: {{amount1 || '-'}}</view>
     </view>
     <view style="margin-bottom:10px;">
-      <view style="color: #888;">小计2</view>
-      <view style="font-size: 14px;">{{amount2 || '-'}}</view>
+      <view style="color:#888;">运输成本+排渣成本+辅料成本+人工成本+拆除费+安全防护</view>
+      <view style="font-size: 14px;">小计: {{amount2 || '-'}}</view>
     </view>
-<!--    <view style="margin-bottom:10px;">-->
-<!--      <view style="color:#888;">运输成本+排渣成本+辅料成本+人工成本+拆除费+安全防护</view>-->
-<!--      <view style="font-size: 14px;">小计: 1000</view>-->
-<!--    </view>-->
     <view style="text-align: right; font-size:20px;">总计: {{total || '-'}}</view>
   </view>
 
