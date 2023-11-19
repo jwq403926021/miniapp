@@ -18,6 +18,16 @@
 
       <view class="weui-cell weui-cell_input weui-cell_vcode">
         <view class="weui-cell__hd">
+          <view class="weui-label">实际面积</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" bindinput="inputgetName" data-name='area' type="number"
+                 value="{{area}}" placeholder="请输入实际面积"/>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
           <view class="weui-label">楼层选择</view>
         </view>
         <view class="weui-cell__bd">
@@ -68,18 +78,8 @@
         </view>
       </view>
 
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-        <view class="weui-cell__hd">
-          <view class="weui-label">实际面积</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input class="weui-input" bindinput="inputgetName" data-name='reportNumber'
-                 value="{{reportNumber}}" placeholder="请输入实际面积"/>
-        </view>
-      </view>
-
     </view>
-    <van-button type="primary" block>演算</van-button>
+    <van-button type="primary" block bind:tap="calculate">演算</van-button>
   </view>
 
   <van-divider contentPosition="center">
@@ -88,14 +88,18 @@
 
   <view style="padding:10px;">
     <view style="margin-bottom:10px;">
-      <view style="color: #888;">玻璃成本</view>
-      <view style="font-size: 14px;">小计: 1000</view>
+      <view style="color: #888;">小计1</view>
+      <view style="font-size: 14px;">{{amount1 || '-'}}</view>
     </view>
     <view style="margin-bottom:10px;">
-      <view style="color:#888;">运输成本+排渣成本+辅料成本+人工成本+拆除费+安全防护</view>
-      <view style="font-size: 14px;">小计: 1000</view>
+      <view style="color: #888;">小计2</view>
+      <view style="font-size: 14px;">{{amount2 || '-'}}</view>
     </view>
-    <view style="text-align: right; font-size:20px;">总计: 2000</view>
+<!--    <view style="margin-bottom:10px;">-->
+<!--      <view style="color:#888;">运输成本+排渣成本+辅料成本+人工成本+拆除费+安全防护</view>-->
+<!--      <view style="font-size: 14px;">小计: 1000</view>-->
+<!--    </view>-->
+    <view style="text-align: right; font-size:20px;">总计: {{total || '-'}}</view>
   </view>
 
 </view>

@@ -26,12 +26,21 @@ Page({
     },
     thicknessSourceList: (data) => {
       if (data.modelSourceList[data.modelValue]) {
-        return data.modelSourceList[data.modelValue].thickness.map(i => {
-          return {
-            label: i.label,
-            value: i.value,
-          }
-        })
+        if (data.area >= 4) {
+          return data.modelSourceList[data.modelValue].thicknessForBig.map(i => {
+            return {
+              label: i.label,
+              value: i.value,
+            }
+          })
+        } else {
+          return data.modelSourceList[data.modelValue].thickness.map(i => {
+            return {
+              label: i.label,
+              value: i.value,
+            }
+          })
+        }
       }
       return []
     },
@@ -46,6 +55,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    area: '',
     regionValue: '',
     regionLabel: '',
     region: [
@@ -303,7 +313,66 @@ Page({
       }]
     }],
     thicknessValue: '',
-    thicknessLabel: ''
+    thicknessLabel: '',
+    amount1: '',
+    amount2: '',
+    total: ''
+  },
+  calculate () {
+    if (
+      this.data.area === '' ||
+      this.data.regionValue === '' ||
+      this.data.levelValue === '' ||
+      this.data.productLocationValue === '' ||
+      this.data.modelValue === '' ||
+      this.data.thicknessValue === ''
+    ) {
+      wx.showToast({
+        mask: true,
+        title: '请输入必要信息',
+        icon: 'error',
+        duration: 2000
+      })
+      return false
+    }
+    const area = Number(this.data.area)
+    const region = Number(this.data.regionSourceList[this.data.regionValue].value)
+    let level = 0
+    if (area >= 4) {
+      level = this.data.levelSourceListForBig[this.data.levelValue].value
+    } else {
+      level = this.data.levelSourceList[this.data.levelValue].value
+    }
+    const productLocation = this.data.productLocationSourceList[this.data.productLocationValue].value
+    const mode = this.data.modelValue
+    let thickness = this.data.thicknessSourceList[this.data.thicknessValue].value
+    console.log('calculate!!!')
+    console.log('area:', area)
+    console.log('region:', region)
+    console.log('level:', level)
+    console.log('productLocation:', productLocation)
+    console.log('mode:', mode, this.data.modelLabel)
+    console.log('thickness:', thickness)
+    if (thickness === 0) {
+      wx.showToast({
+        mask: true,
+        title: '输入错误',
+        icon: 'error',
+        duration: 2000
+      })
+      return false
+    }
+    const amount1 = thickness * area * region
+    const amount2 = mode === '0' ? (4280 * region - 1400) * region : 4280 * region
+    let total = mode === '0' ? amount1 + 4280 * region - 1400 * region : amount1 + 4280 * region + level
+    console.log('amount1:', amount1)
+    console.log('amount2:', amount2)
+    console.log('total:', total)
+    this.setData({
+      amount1: Math.round(amount1 * 100) / 100,
+      amount2: Math.round(amount2 * 100) / 100,
+      total: Math.round(total * 100) / 100
+    })
   },
   pickerChange (e) {
     let name = e.currentTarget.dataset.name;
@@ -319,60 +388,15 @@ Page({
       }
     })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  inputgetName(e) {
+    let name = e.currentTarget.dataset.name;
+    let index = e.currentTarget.dataset.index;
+    let nameMap = {}
+    if (index !== undefined) {
+      nameMap[`${name}[${index}]`] = e.detail.value
+    } else {
+      nameMap[name] = e.detail.value
+    }
+    this.setData(nameMap)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })
