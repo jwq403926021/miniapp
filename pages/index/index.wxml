@@ -118,7 +118,7 @@
             更新工单
         </view>
     </view>
-    <view class="new-btn fl" bindtap="goToCalculateGlass">
+    <view class="new-btn fl" bindtap="goToCalculateGlass" wx:if="{{userId == 91 || userId == 3722}}">
       <view>
         <text class="iconfont icon-yijianfankui myicon"></text>
       </view>

@@ -80,6 +80,7 @@
 
     </view>
     <van-button type="primary" block bind:tap="calculate">演算</van-button>
+    <van-button type="primary" block bindtap="commitSubmit">支付测试</van-button>
   </view>
 
   <van-divider contentPosition="center">

@@ -1,4 +1,6 @@
 const computedBehavior = require('miniprogram-computed')
+const util = require("../../../utils/util");
+const app = getApp()
 Page({
   behaviors: [computedBehavior.behavior],
   computed: {
@@ -399,4 +401,45 @@ Page({
     }
     this.setData(nameMap)
   },
+  commitSubmit: function () {
+    let that = this
+    wx.showLoading({
+      title: '提交订单中',
+      mask: true
+    })
+    util.request({
+      authorization: false,
+      path: '/app/wxPay/js',
+      method: 'POST',
+      data: {
+        openId:  app.globalData.openId,
+        orderId: Math.ceil(Math.random() * 1000),
+        money: 0.01 // that.data.money
+      }
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.requestPayment({
+        ...res,
+        "success":function(res){
+          wx.showToast({
+            title: '支付成功',
+            icon: 'success',
+            duration: 2000
+          })
+          // that.backDetail()
+        },
+        "fail":function(res){
+          console.log('pay fail:', res)
+          wx.showToast({
+            title: '支付失败',
+            icon: 'error',
+            duration: 2000
+          })
+        },
+        "complete":function(res){
+
+        }
+      })
+    })
+  }
 })
