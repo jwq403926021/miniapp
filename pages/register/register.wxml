@@ -30,6 +30,9 @@
             <view style="text-align: center">欢迎使用汇报价小程序。</view>
             <view>登陆后，您将可以获得更畅快的办公体验。</view>
             <view>提高物损、家财、开锁、疏通等工单的处理效率。</view>
+            <view>
+                我们非常重视您的隐私。请输入您的手机号码，以便我们提供更好的服务。我们保证对您的手机号码进行严格保密，并仅限于提供相关服务。我们不会与任何第三方共享您的个人信息。谢谢您的信任！
+            </view>
         </view>
 
         <view class="weui-cells__title">绑定手机</view>
@@ -58,6 +61,9 @@
             <view>
                 <button class="weui-btn no-radius" formType="submit" type="primary"
                         bindtap="bindPhoneNum">绑定
+                </button>
+                <button class="weui-btn no-radius" formType="submit" type="warn" bindtap="reject">
+                    拒绝
                 </button>
             </view>
         </view>

@@ -468,6 +468,14 @@ Page({
       })
     }
   },
+  reject () {
+    wx.showToast({
+      mask: true,
+      title: '很遗憾不能为您提供服务。',
+      icon: 'none',
+      duration: 2000
+    })
+  },
   bindPhoneNum () {
     let _this = this
     if (!this.checkPhone()) {
