@@ -414,7 +414,7 @@ Page({
       data: {
         openId:  app.globalData.openId,
         orderId: Math.ceil(Math.random() * 1000),
-        money: 0.01 // that.data.money
+        money: that.data.total || 0.01 // that.data.money
       }
     }, function (err, res) {
       wx.hideLoading()
