@@ -409,7 +409,7 @@ Page({
     })
     util.request({
       authorization: false,
-      path: '/app/wxPay/js',
+      path: '/app/wxPay/miniAppPay',
       method: 'POST',
       data: {
         openId:  app.globalData.openId,
