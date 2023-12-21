@@ -419,7 +419,7 @@ Page({
     }, function (err, res) {
       wx.hideLoading()
       wx.requestPayment({
-        ...res,
+        ...res.DATA,
         "success":function(res){
           wx.showToast({
             title: '支付成功',
