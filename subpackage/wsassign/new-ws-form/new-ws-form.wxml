@@ -1,0 +1,1045 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells__title">{{taskData.insuranceType == '1' ? '物损工单' : '非车工单'}}</view>
+        <view class="weui-cells weui-cells_after-title">
+            <block wx:if="{{orderId != null}}">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">工单号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{orderId}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <view class="field-right-btn" data-content="{{orderId}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">工单状态</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{statusMap[taskData.status] || '暂存'}}</text>
+                    </view>
+                </view>
+            </block>
+
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">获取定位</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <text bind:tap="getMyLocation" class="weui-input readonly">{{location.latitude !== '' ? ('latitude:'+ location.latitude + '  longitude:' + location.longitude) : '点击'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">事故地</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openLocation">{{regionLabel ? regionLabel : '请填写地址'}}</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != null}}">
+                    <text class="weui-input readonly">{{regionLabel || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType == '1'}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd" bind:tap="openPlatePicker" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <text class="weui-input readonly">{{taskData.plateNumber || '请输入车牌号'}}</text>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != null}}">
+                    <text class="weui-input readonly">{{taskData.plateNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案号</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                           value="{{taskData.reportNumber}}" placeholder="报案号"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">出险方</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerUser'
+                           value="{{taskData.customerUser}}" placeholder="出险方姓名"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != null}}">
+                    <text class="weui-input readonly">{{taskData.customerUser || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">沟通方式</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.customerPhone'
+                           value="{{taskData.customerPhone}}" placeholder="请输入电话号码"/>
+                </view>
+                <block wx:if="{{orderId != null && taskData.status != null}}">
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.customerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft" wx:if="{{taskData.customerPhone}}">
+                        <view class="field-right-btn" data-content="{{taskData.customerPhone}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
+                        <view class="field-right-btn" data-phone="{{taskData.customerPhone}}" data-worker="1" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </block>
+            </view>
+            <view class="weui-cell weui-cell_input" wx:if="{{taskData.insuranceType != '2'}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">受损方</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedUser'
+                           value="{{taskData.damagedUser}}" placeholder="受损方姓名"/>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{orderId != null && taskData.status != null}}">
+                    <text class="weui-input readonly">{{taskData.damagedUser || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.insuranceType != '2'}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">沟通方式</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.damagedPhone'
+                           value="{{taskData.damagedPhone}}" placeholder="请输入电话号码"/>
+                </view>
+                <block wx:if="{{orderId != null && taskData.status != null}}">
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.damagedPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft" wx:if="{{taskData.damagedPhone}}">
+                        <view class="field-right-btn" data-content="{{taskData.damagedPhone}}" bindtap="copy">
+                            <van-icon name="column" />
+                        </view>
+                        <view class="field-right-btn" data-phone="{{taskData.damagedPhone}}" data-worker="1" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </block>
+            </view>
+
+            <view class="weui-cell weui-cell_select" wx:if="{{insuranceType == '1'}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">承保方式</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <van-radio-group value="{{ taskData.acceptInsurance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="acceptInsurance">
+                        <van-radio custom-class="fl mr5" name="1">异地</van-radio>
+                        <van-radio custom-class="fl mr5" name="2">本地</van-radio>
+                    </van-radio-group>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.acceptInsurance == 1 ? '异地' : '本地'}}</text>
+                </view>
+            </view>
+
+<!--            <view class="weui-cell weui-cell_select">-->
+<!--                <view class="weui-cell__hd weui-cell__hd_in-select-after">-->
+<!--                    <view class="weui-label">物损类型</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">-->
+<!--                    <picker bindchange="pickerChange" data-name="type" value="{{typeValue}}" range="{{typeList}}">-->
+<!--                        <view class="picker weui-select weui-select_in-select-after">-->
+<!--                            {{typeLabel || '请选择物损类型'}}-->
+<!--                        </view>-->
+<!--                    </picker>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:else>-->
+<!--                    {{typeLabel}}-->
+<!--                </view>-->
+<!--            </view>-->
+
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">详细地址</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd">-->
+<!--                    <input class="weui-input" disabled="{{userLocationInfo.latitude === '' || userLocationInfo.latitude === null}}" bindinput="inputChange" data-name='address' value="{{address}}" placeholder="详细地址"/>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__ft" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">-->
+<!--                    <van-button bindtap="chooseLocation" type="info" size="small">选择位置</van-button>-->
+<!--                </view>-->
+<!--            </view>-->
+<!--            <view wx:if="{{userLocationInfo.latitude && userLocationInfo.longitude}}" class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 200px;">-->
+<!--                <map id="map" bindtap="goToLocation" longitude="{{userLocationInfo.longitude}}" latitude="{{userLocationInfo.latitude}}" scale="13" show-location style="width: 100%; height: 100%;"></map>-->
+<!--            </view>-->
+
+            <view wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">保险公司</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <text class="weui-input readonly">{{taskData.companyName || '-'}}</text>
+                </view>
+            </view>
+            <block wx:if="{{taskData.insuranceType == '1'}}">
+                <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">交强险</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view data-index='{{index}}' data-id="{{orderId}}" data-type="0" data-value="{{taskData.isCompulsory}}" catchtap="setFinishCase" class="{{taskData.isCompulsory == 1 ? 'finished' : 'not-finish'}} fl"></view>
+                    </view>
+                </view>
+                <view wx:if="{{role == 5 || role == 6 || role == 7 || role == 22}}" class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">商业险</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <view data-index='{{index}}' data-id="{{orderId}}" data-type="1" data-value="{{taskData.isBusiness}}" catchtap="setFinishCase" class="{{taskData.isBusiness == 1 ? 'finished' : 'not-finish'}} fl"></view>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+        <view class="weui-cells__title">案件信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd" wx:if="{{role == 1}}">
+                    <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.information'
+                              value="{{taskData.information}}" placeholder="请输入文本" style="height: 7em"/>
+                </view>
+                <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                    {{taskData.information || '-'}}
+                </view>
+            </view>
+
+            <view class="button-sp-area two-btn-wrap" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                <button class="yuyinBtn {{recordState == true ? 'yuyinBtnBg' : '' }}" data-name="information" bindtouchstart="recordStart" bindtouchend="recordEnd">
+                    <text wx:if="{{!recordState}}">语音报案</text>
+                    <text wx:else>松开结束</text>
+                </button>
+                <button class="yuyinBtn" bind:tap="digestRecord">
+                    识别信息
+                </button>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">案件图片</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files">
+                                <view class="no-image" wx:if="{{liveImageFiles.length == 0 && orderId != null && taskData.status != null && !(role == 1 || role == 5 || role == 6 || role == 7)}}">
+                                    无图片
+                                </view>
+                                <block wx:for="{{liveImageFiles}}" wx:key="index">
+                                    <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="liveImageFiles" id="{{item.path}}">
+                                        <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        <van-icon wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}" catchtap="removeImage" data-name="liveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box" wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}">
+                                <view class="weui-uploader__input" bindtap="chooseImage" data-name="liveImageFiles"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <block wx:if="{{taskData.surveyUser && taskData.status != null && ((role != 10 && role != 11 && role != 12) || userId == 2898 || userId == 2003 || userId == 3201 || userId == 3292)}}">
+            <view class="weui-cells__title">查勘员信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.surveyUser || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">查勘员手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.surveyPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft" wx:if="{{taskData.surveyPhone}}">
+                        <view class="field-right-btn" data-phone="{{taskData.surveyPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{taskData.workerUser && role != 1 && role != 2 && role != 3 && role != 4}}">
+            <view class="weui-cells__title">施工方信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施工方姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.workerUser || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">施工方手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft" wx:if="{{taskData.workerPhone}}">
+                        <view class="field-right-btn" data-phone="{{taskData.workerPhone}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{taskData.cityManagerName}}">
+            <view class="weui-cells__title">平台负责人信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">平台负责人姓名</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.cityManagerName || '-'}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">平台负责人手机</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <text class="weui-input readonly">{{taskData.cityManagerMobile || '-'}}</text>
+                    </view>
+                    <view class="weui-cell__ft" wx:if="{{taskData.cityManagerMobile}}">
+                        <view class="field-right-btn" data-phone="{{taskData.cityManagerMobile}}" bindtap="dialPhone">
+                            <van-icon name="phone"></van-icon>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{orderId != null && taskData.status != null}}">
+            <view class="weui-cells">
+                <view class="weui-cell weui-cell_select" wx:if="{{role != 1}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">处理方式</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{((taskData.status == 13 || taskData.status == 43) && role == 12) || (role == 22 && (taskData.status == 11 || taskData.status == 50))}}">
+                        <van-radio-group value="{{ taskData.handlingType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="handlingType">
+                            <van-radio custom-class="fl mr5" name="0">咨询</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">施工</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{taskData.handlingType ? ['咨询', '施工'][taskData.handlingType] : '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select" wx:if="{{taskData.insuranceType != '1'}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">是否自保客户</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <van-radio-group value="{{ taskData.isSelf }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isSelf">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd"  wx:else>
+                        <text class="weui-input readonly">{{['否', '是'][taskData.isSelf] || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select" wx:if="{{taskData.handlingType == 0}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">受损方是否同意</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <van-radio-group value="{{ taskData.isAgree }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isAgree">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd"  wx:else>
+                        <text class="weui-input readonly">{{['否', '是'][taskData.isAgree] || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_select" wx:if="{{taskData.handlingType == 1 && role != 1}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">施工方式</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <van-radio-group value="{{ taskData.workType }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="workType">
+                            <van-radio custom-class="fl mr5" name="0">押金</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">授权</van-radio>
+                            <van-radio custom-class="fl mr5" name="2">垫付</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{['押金', '授权', '垫付'][taskData.workType] || '-'}}</text>
+                    </view>
+                </view>
+
+                <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 0}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">押金金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.deposit'
+                               value="{{taskData.deposit}}" placeholder="押金金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.deposit == null || taskData.deposit == '') ? '-' : taskData.deposit}}</text>
+                    </view>
+                </view>-->
+
+                <!--<view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.handlingType == 1 && taskData.workType == 2}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">垫付</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.prepay'
+                               value="{{taskData.prepay}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.prepay == null || taskData.prepay == '') ? '-' : taskData.prepay}}</text>
+                    </view>
+                </view>-->
+
+                <view class="weui-cell weui-cell_select" wx:if="{{taskData.handlingType != 0 && role != 1}}">
+                    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                        <view class="weui-label">验收</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <van-radio-group value="{{ taskData.isAcceptance }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="isAcceptance">
+                            <van-radio custom-class="fl mr5" name="0">否</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">是</van-radio>
+                        </van-radio-group>
+                    </view>
+                    <view class="weui-cell__bd"  wx:else>
+                        <text class="weui-input readonly">{{['否', '是'][taskData.isAcceptance] || '-'}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">初步估损金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.budgetPreliminary'
+                               value="{{taskData.budgetPreliminary}}"  placeholder="初步估损金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.budgetPreliminary == null || taskData.budgetPreliminary == '') ? '-' : taskData.budgetPreliminary}}</text>
+                    </view>
+                </view>
+
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role != 1}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">受损方索赔金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.damageMoney'
+                               value="{{taskData.damageMoney}}"  placeholder="受损方索赔金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.damageMoney == null || taskData.damageMoney == '') ? '-' : taskData.damageMoney}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
+                <view class="weui-cells__title">工程量清单</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <view class="no-image" wx:if="{{projectBillImageFiles.length == 0 && orderId != null && !(role == 12 || role == 5 || role == 6 || role == 7)}}">
+                                            无图片
+                                        </view>
+                                        <block wx:for="{{projectBillImageFiles}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="projectBillImageFiles" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12 || role == 5 || role == 6 || role == 7}}" catchtap="removeImage" data-name="projectBillImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 || role == 5 || role == 6 || role == 7}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="projectBillImageFiles"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <view class="weui-cells__title">授权（施工方）</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view class="no-image" wx:if="{{workerAuthImageFiles.length == 0 && orderId != null && !(role == 12 || role == 5 || role == 6 || role == 7)}}">
+                                        无图片
+                                    </view>
+                                    <block wx:for="{{workerAuthImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workerAuthImageFiles" id="{{item.path}}">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{role == 12 || role == 5 || role == 6 || role == 7}}" catchtap="removeImage" data-name="workerAuthImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12 || role == 5 || role == 6 || role == 7}}">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="workerAuthImageFiles"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-cells__title">现场图片 (施工方)</view>
+            <block wx:for="{{workLiveImageFiles}}" wx:key="index">
+                <view class="weui-cells weui-cells_after-title">
+                    <view style="padding-left: 15px;">
+                        <view class="weui-cell weui-cell_input no-padding one-line" wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">名称</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" bindinput="inputImageName" data-name='customerName' data-index='{{index}}'
+                                       value="{{customerName[index]}}" placeholder="受损人"/>
+                            </view>
+                            <view class="weui-cell__ft">
+                                <van-button type="info" size="small" data-index='{{index}}' bind:tap="updateImageName">更改名称</van-button>
+                                <van-button type="danger" size="small" data-index='{{index}}' bind:tap="deleteWorkLiveImageFiles">删除</van-button>
+                            </view>
+                        </view>
+                        <view wx:else>
+                            <text class="weui-input readonly">{{customerName[index] || '-'}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{item}}" wx:for-item="child" wx:for-index="idx" wx:key="idx">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workLiveImageFiles" id="{{child.path}}" data-index="{{index}}" data-childindex="{{idx}}">
+                                                <image class="weui-uploader__img" src="{{child.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{child.id}}" data-index="{{index}}" data-childindex="{{idx}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="workLiveImageFiles" data-index="{{index}}"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <button wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}" class="yuyinBtn" bindtap="addAnotherWorkLiveImage">
+                添加现场图片
+            </button>
+
+
+<!--            <view class="weui-cells__title">现场图片（施工方）</view>-->
+<!--            <view class="weui-cells weui-cells_after-title">-->
+<!--                <view class="weui-cell">-->
+<!--                    <view class="weui-cell__bd">-->
+<!--                        <view class="weui-uploader">-->
+<!--                            <view class="weui-uploader__bd">-->
+<!--                                <view class="weui-uploader__files">-->
+<!--                                    <view class="no-image" wx:if="{{workLiveImageFiles.length == 0 && orderId != null && !(role == 12 || role == 5 || role == 6 || role == 7) && !(role == 13 && taskData.status == 41)}}">-->
+<!--                                        无图片-->
+<!--                                    </view>-->
+<!--                                    <block wx:for="{{workLiveImageFiles}}" wx:key="index">-->
+<!--                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="workLiveImageFiles" id="{{item.path}}">-->
+<!--                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>-->
+<!--                                            <van-icon wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}" catchtap="removeImage" data-name="workLiveImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>-->
+<!--                                        </view>-->
+<!--                                    </block>-->
+<!--                                </view>-->
+<!--                                <view class="weui-uploader__input-box" wx:if="{{role == 12 || role == 5 || role == 6 || role == 7 || (role == 13 && taskData.status == 41)}}">-->
+<!--                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="workLiveImageFiles"></view>-->
+<!--                                </view>-->
+<!--                            </view>-->
+<!--                        </view>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--            </view>-->
+
+            <view class="weui-cells__title">视频（施工方）</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <view class="no-image" wx:if="{{workVideo.length == 0 && orderId != null && role != 12}}">
+                                        无视频
+                                    </view>
+                                    <block wx:for="{{workVideo}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewVideo" data-name="workVideo" id="{{item.path}}">
+                                            <van-icon id="{{item.path}}" bindtap="previewVideo" size="80px" data-name="workVideo" name="video"></van-icon>
+                                            <van-icon wx:if="{{role == 12}}" catchtap="removeVideo" data-name="workVideo" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                    <view class="weui-uploader__input" bindtap="chooseVideo" data-name="workVideo"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view wx:if="{{activeVideo}}" class="video-wrap">
+                    <video id="myVideo" src="{{activeVideo}}" controls></video>
+                    <button type="primary" bindtap="closePreviewVideo">关闭视频</button>
+                </view>
+            </view>
+
+            <block wx:if="{{role == 1 || role == 12}}">
+                <view class="weui-cells__title">留言[查勘员]</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{role == 12}}">
+                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.commentToSurvey'
+                                      value="{{taskData.commentToSurvey}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{taskData.commentToSurvey || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block wx:if="{{role == 5 || role == 6 || role == 7 || role == 12 || role == 13 || role == 14 || role == 22}}">
+                <view class="weui-cells__title">留言[报价员]</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{role == 12}}">
+                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.commentToOffer'
+                                      value="{{taskData.commentToOffer}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{taskData.commentToOffer || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+            <block wx:if="{{role != 1}}">
+                <view class="weui-cells__title">报价员意见</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <text style="height: 7em" class="weui-input readonly">{{taskData.offerRemark || '-'}}</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </block>
+
+        <view class="weui-cells weui-cells_after-title" wx:if="{{((role === 1 && (taskData.status === 50 || taskData.status === 11)) || (role != 1 && taskData.status != null && taskData.status != 20))}}">
+            <view class="weui-cell">
+                <button style="width:80%" data-id="{{orderId}}" bindtap="bindTapToOffer" class="weui-btn" type="primary">
+                    {{role === 13 && taskData.status === 41 ? '待报价' : '报价信息'}}
+                </button>
+            </view>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title" wx:if="{{(role == 5 || role == 6 || role == 7) && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}">
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">转办区域</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openReassignLocation">{{reassignRegionLabel ? reassignRegionLabel : '请填写地址'}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">转办(施工人员)</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="workerChange" value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title" wx:if="{{(userId == 52 || userId == 91) && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}"> <!--市负责人 转办-->
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">转办(经办人)</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="managerChange" value="{{managerValue}}"
+                            range="{{managerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{managerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 20 || taskData.status == 43)}}"> <!--施工人员 转办-->
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">施工人员</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="workerChange" value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择施工人员'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+
+        <block wx:if="{{role == 1 && (taskData.status == 50 || taskData.status == 11)}}">
+            <view class="weui-cells__title">查勘员开票</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">是否专票</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <van-radio-group value="{{ taskData.weatherBill }}" custom-class="weui-input vertical" bind:change="onRadioChange" data-name="weatherBill">
+                            <van-radio custom-class="fl mr5" name="0">普票</van-radio>
+                            <van-radio custom-class="fl mr5" name="1">专票</van-radio>
+                        </van-radio-group>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.weatherBill == '0'}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">邮箱</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputgetName" data-name='taskData.mail'
+                               value="{{taskData.mail}}" placeholder="邮箱"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.weatherBill == '1'}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">开户信息</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="inputgetName" data-name='taskData.accountName'
+                               value="{{taskData.accountName}}" placeholder="开户信息"/>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input type="digit" class="weui-input" bindinput="inputgetName" data-name='taskData.moneySurvey'
+                               value="{{taskData.moneySurvey}}" placeholder="金额"/>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{(role == 5 || role == 6 || role == 7 || role == 22 || role == 13) && (taskData.status == 50 || taskData.status == 11)}}">
+            <view class="weui-cells__title">开票信息</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">是否专票</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.weatherBill ? (taskData.weatherBill === '0' ? '普票' : '专票') : ''}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.weatherBill == '0'}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">邮箱</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.mail || '-'}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{taskData.weatherBill == '1'}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">开户信息</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.accountName || '-'}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">金额</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.moneySurvey || '-'}}
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input weui-cell_vcode" wx:if="{{role == 22}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">市负责人是否通过</view>
+                    </view>
+                    <view class="weui-cell__bd readonly">
+                        {{taskData.managerReject ? (taskData.managerReject === '2' ? '通过' : '驳回') : ''}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{taskData.status == 50 || taskData.status == 11}}">
+            <view class="weui-cells weui-cells_after-title">
+                <view wx:if="{{role == 22}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">保险公司打款</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.insurePay'
+                               value="{{taskData.insurePay}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.insurePay == null || taskData.insurePay == '') ? '-' : taskData.insurePay}}</text>
+                    </view>
+                </view>
+                <view wx:if="{{role == 22}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">管理费</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.manageMoney'
+                               value="{{taskData.manageMoney}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.manageMoney == null || taskData.manageMoney == '') ? '-' : taskData.manageMoney}}</text>
+                    </view>
+                </view>
+                <view wx:if="{{(role == 22 || role == 12) && userId != 1995}}" class="weui-cell weui-cell_input weui-cell_vcode">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">打给施工方金额</view>
+                    </view>
+                    <view class="weui-cell__bd" wx:if="{{role == 22 && taskData.status == 50}}">
+                        <input class="weui-input" type="digit" bindinput="inputgetName" data-name='taskData.payWorker'
+                               value="{{taskData.payWorker}}" placeholder="垫付金额"/>
+                    </view>
+                    <view class="weui-cell__bd" wx:else>
+                        <text class="weui-input readonly">{{(taskData.payWorker == null || taskData.payWorker == '') ? '-' : taskData.payWorker}}</text>
+                    </view>
+                </view>
+            </view>
+            <block wx:if="{{role == 22}}">
+                <view class="weui-cells__title">财务备注</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd" wx:if="{{taskData.status == 50}}">
+                            <textarea maxlength="-1" wx:if="{{!show && !showKeyboard && !showreassign}}" class="weui-textarea" bindinput="inputgetName" data-name='taskData.financeRemark'
+                                      value="{{taskData.financeRemark}}" placeholder="请输入文本" style="height: 7em"/>
+                        </view>
+                        <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;" wx:else>
+                            {{taskData.financeRemark || '-'}}
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </block>
+
+
+        <block wx:if="{{taskData.managerRemark}}">
+            <view class="weui-cells__title">负责人备注</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{taskData.managerRemark || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{taskData.cancelRemark}}">
+            <view class="weui-cells__title">注销原因</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd readonly" style="color:#808080; min-height: 7em; font-size:14px;">
+                        {{taskData.cancelRemark || '-'}}
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{(financeImageFiles.length > 0 && role != 10 && role != 11 && role != 12) || role == 22}}">
+            <view class="weui-cells__title">财务图片</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <block wx:for="{{financeImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="financeImageFiles" id="{{item.path}}">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                            <van-icon wx:if="{{taskData.status == 50 && role == 22}}" catchtap="removeImage" data-name="financeImageFiles" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="weui-uploader__input-box" wx:if="{{taskData.status == 50 && role == 22}}">
+                                    <view class="weui-uploader__input" bindtap="chooseImage" data-name="financeImageFiles"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{authorityImageFiles.length > 0}}">
+            <view class="weui-cells__title">授权书</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="weui-uploader">
+                            <view class="weui-uploader__bd">
+                                <view class="weui-uploader__files">
+                                    <block wx:for="{{authorityImageFiles}}" wx:key="index">
+                                        <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="authorityImageFiles" id="{{item.path}}">
+                                            <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                        </view>
+                                    </block>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 1 && (orderId == null || taskData.status == null)}}"> <!-- 新建 暂存 -->
+            <button type="primary" bindtap="submitWS">提交</button>
+            <button data-save="true" bindtap="submitWS">暂存</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 1 && taskData.status != null}}"> <!-- 新建 暂存 -->
+            <button type="primary" bindtap="submitInfo">提交案件信息</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 1 && orderId != null}}">
+            <button type="primary" bindtap="submitSurveyImage">上传图片</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{(taskData.status == 13 || taskData.status == 43) && role == 12}}"> <!-- 施工人员 提交 暂存 -->
+            <button type="primary" bindtap="workHandleWS">提交</button>
+            <button data-save="true" bindtap="workHandleWS">暂存</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 1 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 查勘员 申请开票 -->
+            <button type="primary" bindtap="receiptApplySubmit">申请开票</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{taskData.status == 13 && role == 12}}"> <!-- 授权 -->
+            <button type="primary" bindtap="signSubmit">授权</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50)}}"> <!-- 财务人员 提交 暂存 -->
+            <button type="primary" bindtap="financeSubmit">提交</button>
+            <button data-save="true" bindtap="financeSubmit">暂存</button>
+        </view>
+        <view class="button-sp-area two-btn-wrap" wx:if="{{role == 6 && (taskData.status == 50 || taskData.status == 11) && taskData.moneySurvey > 1000 && financeImageFiles.length === 0}}"> <!-- 市负责人 审核发票 -->
+            <button data-type="1" type="primary" bindtap="receiptApproveSubmit">驳回</button>
+            <button data-type="2" type="primary" bindtap="receiptApproveSubmit">通过</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 22 && (taskData.status == 11 || taskData.status == 50) && ((taskData.moneySurvey > 1000 && taskData.managerReject == 2) || taskData.moneySurvey <= 1000)}}"> <!-- 财务人员 提交 发票 -->
+            <button type="primary" bindtap="receiptImageSubmit">提交财务图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (role == 5 || role == 6 || role == 7) }}">
+            <button type="primary" bindtap="assignToOtherWorker">转办(施工人员)</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 1517) }}">
+            <button type="primary" bindtap="assignToOtherWorker">转办(施工人员)</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{(taskData.status == 13 || taskData.status == 20 || taskData.status == 43) && (userId == 52 || userId == 91) }}">
+            <button type="primary" bindtap="assignToOtherProcessor">转办(经办人)</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 13 || taskData.status == 41 || taskData.status == 43)}}"> <!-- 施工人员 留言提交 -->
+            <button type="primary" bindtap="workerSubmitComment">留言提交</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 12 && (taskData.status == 11 || taskData.status == 13 || taskData.status == 41 || taskData.status == 43 || taskData.status == 50)}}">
+            <button type="primary" bindtap="workerSubmitImage">施工提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 13 && taskData.status == 41}}">
+            <button type="primary" bindtap="offerSubmitImage">报价提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 5 || role == 6 || role == 7}}">
+            <button type="primary" bindtap="managerSubmitImage">负责人提交图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{role == 1 || role == 5 || role == 6 || role == 7}}">
+            <button type="primary" bindtap="goSurvey">满意度调查</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{orderId != null}}">
+            <button type="primary" bindtap="downloadImages">下载所有图片</button>
+        </view>
+        <view class="button-sp-area" wx:if="{{(role == 5 || role == 6 || role == 7) && taskData.status != null}}">
+            <button type="primary" data-id="{{orderId}}" bindtap="openOperation">管理工单</button>
+        </view>
+    </view>
+    <van-popup
+            show="{{ show }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ region }}" bind:confirm="onConfirm" bind:cancel="onCancel"/>
+    </van-popup>
+    <van-popup
+            show="{{ showreassign }}"
+            position="bottom"
+            overlay="{{ true }}"
+    >
+        <van-area area-list="{{ areaList }}" value="{{ reassignRegion }}" bind:confirm="onConfirmReassign" bind:cancel="onCancel"/>
+    </van-popup>
+    <van-dialog
+        message="请拨打出险方电话或者受损方电话。"
+        title="提醒"
+        show="{{ showWorkerHit }}"
+    ></van-dialog>
+    <plate-number-keyboard show="{{showKeyboard}}" bind:getResult="setNumber" bind:close="closePlateNum" initValue="{{taskData.plateNumber}}"></plate-number-keyboard>
+    <van-action-sheet
+            show="{{ showactionsheet }}"
+            actions="{{ actions }}"
+            bind:close="onactionsheetClose"
+            bind:select="onactionsheetSelect"
+    />
+    <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
+        <cover-view>开始语音</cover-view>
+    </cover-view>
+</view>
