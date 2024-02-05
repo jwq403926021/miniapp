@@ -38,6 +38,14 @@
 <!--        快速家财-->
 <!--      </view>-->
 <!--    </view>-->
+    <view class="new-btn fl" bindtap="goToNewWsFormAssign" data-type="2" wx:if="{{role == 1}}">
+      <view>
+        <text class="iconfont icon-feichelipei myicon"></text>
+      </view>
+      <view>
+        非车险(新)
+      </view>
+    </view>
     <view class="new-btn fl" bindtap="goToNewWsForm" data-type="2" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-feichelipei myicon"></text>
@@ -78,7 +86,7 @@
         管道疏通
       </view>
     </view>
-    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="1" wx:if="{{role == 1}}">
+    <view class="new-btn fl" bindtap="goToCompareWsForm" data-type="1" wx:if="{{role == 1}}">
       <view>
         <text class="iconfont icon-sunhuai myicon"></text>
       </view>
@@ -94,7 +102,7 @@
         沪家保
       </view>
     </view>
-<!--    <view class="new-btn fl" bindtap="goToNewWsForm2" data-type="2" wx:if="{{role == 1}}">-->
+<!--    <view class="new-btn fl" bindtap="goToCompareWsForm" data-type="2" wx:if="{{role == 1}}">-->
 <!--      <view>-->
 <!--        <text class="iconfont icon-sunhuai myicon"></text>-->
 <!--      </view>-->

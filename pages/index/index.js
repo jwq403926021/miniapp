@@ -23,7 +23,7 @@ Page({
       url: '../../subpackage/wsassign/new-ws-form/new-ws-form?type='+type
     })
   },
-  goToNewWsForm2: function(event) {
+  goToCompareWsForm: function(event) {
     let type = event.currentTarget.dataset.type
     wx.navigateTo({
       url: '../../subpackage/wscompare/new-ws-form/new-ws-form?type='+type
