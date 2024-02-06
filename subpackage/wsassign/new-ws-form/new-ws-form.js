@@ -1,6 +1,7 @@
 //获取应用实例
 import util from "../../../utils/util";
 import common from "../../../utils/common";
+import {deptList, wsTypeList} from "../data.json";
 const app = getApp()
 const plugin = requirePlugin('WechatSI')
 const manager = plugin.getRecordRecognitionManager()
@@ -34,6 +35,8 @@ Page({
     workerValue: '',
     workerLabel: '',
     managerList: [],
+    wsTypeList: wsTypeList,
+    deptList: deptList,
     managerValue: '',
     managerLabel: '',
     showTime: false,
