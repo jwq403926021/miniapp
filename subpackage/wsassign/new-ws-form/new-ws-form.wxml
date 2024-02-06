@@ -1,11 +1,5 @@
 <view class="page">
     <view class="page__bd">
-        报案时间
-        查勘员
-        所属分部 -
-        事故地点
-        物损类型 -
-        物损名称
         <view class="weui-cells__title">{{taskData.insuranceType == '1' ? '物损工单' : '非车工单'}}</view>
         <view class="weui-cells weui-cells_after-title">
             <block wx:if="{{orderId != null}}">
@@ -72,6 +66,97 @@
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
                            value="{{taskData.reportNumber}}" placeholder="报案号"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">报案时间</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <view class="picker weui-select weui-select_in-select-after" bindtap="openTimePicker">{{timepickerLabel ? timepickerLabel : '请选择报案时间'}}</view>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">查勘员</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <picker bindchange="pickerChange"
+                            value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">所属分部</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <picker bindchange="pickerChange"
+                            value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">事故地点</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                           value="{{taskData.reportNumber}}" placeholder="事故地点"/>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">物损类型</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <picker bindchange="pickerChange"
+                            value="{{workerValue}}"
+                            range="{{workerList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{workerLabel || '请选择'}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__bd" wx:else>
+                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">物损名称</view>
+                </view>
+                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
+                           value="{{taskData.reportNumber}}" placeholder="物损名称"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
                     <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
@@ -1048,4 +1133,7 @@
     <cover-view class="startYuyinImage" wx:if="{{recordState == true}}">
         <cover-view>开始语音</cover-view>
     </cover-view>
+    <van-popup show="{{ showTime }}" position="bottom" overlay="{{ true }}">
+        <van-datetime-picker type="datetime" value="{{ timepickerValue }}" bind:confirm="onTimeConfirm" bind:cancel="onTimeCancel"/>
+    </van-popup>
 </view>

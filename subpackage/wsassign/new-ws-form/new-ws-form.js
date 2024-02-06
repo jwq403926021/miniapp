@@ -36,6 +36,9 @@ Page({
     managerList: [],
     managerValue: '',
     managerLabel: '',
+    showTime: false,
+    timepickerValue: new Date().getTime(),
+    timepickerLabel: '',
     statusMap: {
       '11': '已办结',
       '12': '暂存',
@@ -1736,6 +1739,25 @@ Page({
     this.setData({
       [`${name}Value`]: e.detail.value,
       [`${name}Label`]: this.data[`${name}List`][e.detail.value] || ''
+    })
+  },
+  openTimePicker() {
+    this.setData({
+      showTime: !this.showTime
+    })
+  },
+  onTimeConfirm(data) {
+    console.log('onTimeConfirm', data.detail)
+    let d = new Date(data.detail)
+    this.setData({
+      showTime: false,
+      timepickerValue: data.detail,
+      timepickerLabel: d.toLocaleDateString() + '  ' + d.getHours() + ':' + d.getMinutes(),
+    })
+  },
+  onTimeCancel() {
+    this.setData({
+      showTime: false
     })
   },
   chooseLocation () {
