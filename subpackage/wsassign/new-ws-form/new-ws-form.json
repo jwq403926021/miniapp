@@ -9,6 +9,6 @@
     "van-dialog": "../../../asset/vant/dialog/index",
     "plate-number-keyboard": "../../../components/plate-number-keyboard/plate-number-keyboard",
     "van-action-sheet": "../../../asset/vant/action-sheet/index",
-    "van-datetime-picker": "../../asset/vant/datetime-picker/index"
+    "van-datetime-picker": "../../../asset/vant/datetime-picker/index"
   }
 }

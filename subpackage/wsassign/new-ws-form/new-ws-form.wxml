@@ -108,7 +108,7 @@
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <picker bindchange="pickerChange"
                             value="{{workerValue}}"
-                            range="{{workerList}}">
+                            range="{{deptList}}">
                         <view class="picker weui-select weui-select_in-select-after">
                             {{workerLabel || '请选择'}}
                         </view>
@@ -139,7 +139,7 @@
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <picker bindchange="pickerChange"
                             value="{{workerValue}}"
-                            range="{{workerList}}">
+                            range="{{wsTypeList}}">
                         <view class="picker weui-select weui-select_in-select-after">
                             {{workerLabel || '请选择'}}
                         </view>
