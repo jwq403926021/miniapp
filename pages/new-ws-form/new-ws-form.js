@@ -1,6 +1,7 @@
 //获取应用实例
 import util from "../../utils/util";
 import common from "../../utils/common";
+import {wsTypeList} from "../../subpackage/wsassign/data.json";
 const app = getApp()
 const plugin = requirePlugin('WechatSI')
 const manager = plugin.getRecordRecognitionManager()
@@ -118,7 +119,11 @@ Page({
       7: '受损人8',
       8: '受损人9',
       9: '受损人10'
-    }
+    },
+    wsTypeList:wsTypeList,
+    damageTypeValue: '',
+    damageTypeList: wsTypeList,
+    damageTypeLabel: ''
   },
   onLoad: function (routeParams) {
     setTimeout(() => {
@@ -942,7 +947,8 @@ Page({
       address: _this.data.address,
       // type: _this.data.typeValue,
       lon: _this.data.userLocationInfo.longitude,
-      lat: _this.data.userLocationInfo.latitude
+      lat: _this.data.userLocationInfo.latitude,
+      damageType: _this.data.damageTypeLabel
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
