@@ -65,6 +65,7 @@ Page({
       plateNumber: '',
       information: '',
       surveyUser: '',
+      damageName: '',
       surveyPhone: '',
       workerUser: '',
       workerPhone: '',
@@ -124,15 +125,148 @@ Page({
       7: '受损人8',
       8: '受损人9',
       9: '受损人10'
-    }
+    },
+    companySubCategory: '',
+    companySubCategoryLabel: '',
+    companySubCategoryList: [],
+
+    companyName: '',
+    companyNameLabel: '',
+    companyNameList: [],
+
+    companyLevel: '',
+    companyLevelLabel: '',
+    companyLevelList: ['省级', '市级', '区级'],
+
+    surveyIdValue: '',
+    surveyIdList: [],
+    surveyIdLabel: '',
+
+    branchValue: '',
+    branchList: deptList,
+    branchLabel: '',
+
+    damageTypeValue: '',
+    damageTypeList: wsTypeList,
+    damageTypeLabel: ''
+
   },
   onLoad: function (routeParams) {
     setTimeout(() => {
       this.routeParams = routeParams
       this.initRecord()
+      this.initCompanySubCategory()
       this.initArea(this.init)
     }, 500)
   },
+
+  initCompanySubCategory () {
+    let _this = this
+    util.request({
+      path: '/sys/industryInsurance/all',
+      method: 'GET'
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companySubSourceData = res.data
+        _this.setData({
+          'companySubCategoryList': _this.companySubSourceData.map(item => { return item.name })
+        })
+      }
+    })
+  },
+  companySubCategoryChange (data) {
+    this.setData({
+      insurance: this.companySubSourceData[data.detail.value].id,
+      companySubCategoryLabel: this.companySubSourceData[data.detail.value].name,
+      companySubCategory: data.detail.value,
+      companyNameCode: '',
+      companyNameLabel: '',
+      companyName: ''
+    })
+    this.initCompanyName()
+  },
+  checkCompanyNameList () {
+    if (this.data.companyNameList.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '没有可用单位名称',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  checksurvey () {
+    if (this.data.surveyIdList.length == 0) {
+      wx.showToast({
+        mask: true,
+        title: '没有可用查勘员',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  initCompanyName () {
+    let _this = this
+    let data = {
+      industryCode: '2',
+      cityCode:this.data.taskData.cityCode,
+      provinceCode:this.data.taskData.provinceCode,
+      areaCode:this.data.taskData.townCode,
+      organization:this.data.companyLevel,
+      insurance: this.data.companySubCategory
+    }
+    util.request({
+      path: '/sys/company/list',
+      method: 'GET',
+      data: data
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.companyNameSourceData = res.data
+        _this.setData({
+          'companyNameList': _this.companyNameSourceData.map(item => { return item.companyName })
+        })
+      }
+    })
+  },
+  companyNameChange (data) {
+    if (this.companyNameSourceData.length > 0) {
+      this.setData({
+        companyNameCode: this.companyNameSourceData[data.detail.value].id,
+        companyNameLabel: this.companyNameSourceData[data.detail.value].companyName,
+        companyName: data.detail.value
+      }, () => {
+        this.initInvestigator()
+      })
+    }
+  },
+  initInvestigator () {
+    const _this = this
+    util.request({
+      path: '/sys/company/list',
+      method: 'GET',
+      data: {
+        companyId: _this.data.companyNameCode
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.investigatorSourceData = res.data
+        _this.setData({
+          'investigatorNameList': _this.investigatorSourceData.map(item => { return item.companyName })
+        })
+      }
+    })
+  },
+  companyLevelChange (data) {
+    this.setData({
+      companyLevel: data.detail.value,
+      companyLevelLabel: this.data.companyLevelList[data.detail.value],
+      companyNameCode: '',
+      companyNameLabel: '',
+      companyName: ''
+    })
+    this.initCompanyName()
+  },
+
   init () {
     let routeParams = this.routeParams
     if (routeParams && routeParams.type) {
@@ -251,6 +385,7 @@ Page({
         'taskData.plateNumber': data.plateNumber,
         'taskData.information': data.information,
         "taskData.surveyUser": data.surveyUser,
+        "taskData.damageName": data.damageName,
         "taskData.surveyPhone": data.surveyPhone,
         "taskData.workerUser": data.workerUser,
         "taskData.workerPhone": data.workerPhone,
@@ -407,10 +542,10 @@ Page({
     try {
       let _this = this
       _this.setData({
-        region: app.globalData.currentRegisterInfo.townCode,
-        'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
-        'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
-        'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
+        region: '310101',
+        'taskData.townCode': '310101',
+        'taskData.cityCode': '310100',
+        'taskData.provinceCode': '310000'
       })
       util.request({
         path: '/sys/area/list',
@@ -948,7 +1083,12 @@ Page({
       address: _this.data.address,
       // type: _this.data.typeValue,
       lon: _this.data.userLocationInfo.longitude,
-      lat: _this.data.userLocationInfo.latitude
+      lat: _this.data.userLocationInfo.latitude,
+
+      damageName: data.damageName,
+      damageType: _this.data.damageTypeLabel,
+      branch: _this.data.branchLabel,
+      surveyId: _this.data.surveyIdLabel
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
@@ -1019,13 +1159,31 @@ Page({
       })
       return
     }
+    if (this.data.damageType == ''){
+      wx.showToast({
+        mask: true,
+        title: '请填写物损类型',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+    if (this.data.surveyId == ''){
+      wx.showToast({
+        mask: true,
+        title: '请选择查勘员',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
 
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/surveyCommit',
+      path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/manualCommit',
       method: 'POST',
       data: taskData
     }, function (err, res) {

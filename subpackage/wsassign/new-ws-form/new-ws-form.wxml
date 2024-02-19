@@ -72,33 +72,73 @@
                 </view>
             </view>
 
-            <view class="weui-cell weui-cell_input weui-cell_vcode">
-                <view class="weui-cell__hd">
-                    <view class="weui-label">报案时间</view>
+<!--            <view class="weui-cell weui-cell_input weui-cell_vcode">-->
+<!--                <view class="weui-cell__hd">-->
+<!--                    <view class="weui-label">报案时间</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">-->
+<!--                    <view class="picker weui-select weui-select_in-select-after" bindtap="openTimePicker">{{timepickerLabel ? timepickerLabel : '请选择报案时间'}}</view>-->
+<!--                </view>-->
+<!--                <view class="weui-cell__bd" wx:else>-->
+<!--                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>-->
+<!--                </view>-->
+<!--            </view>-->
+
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">单位级别</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
-                    <view class="picker weui-select weui-select_in-select-after" bindtap="openTimePicker">{{timepickerLabel ? timepickerLabel : '请选择报案时间'}}</view>
-                </view>
-                <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                <view class="weui-cell__bd">
+                    <picker bindchange="companyLevelChange" value="{{companyLevel}}"
+                            range="{{companyLevelList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{companyLevelLabel || '请选择单位级别'}}
+                        </view>
+                    </picker>
                 </view>
             </view>
-
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">单位子类</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="companySubCategoryChange" value="{{companySubCategory}}"
+                            range="{{companySubCategoryList}}">
+                        <view class="picker weui-select weui-select_in-select-after">
+                            {{companySubCategoryLabel || '请选择单位子类'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">单位名称</view>
+                </view>
+                <view class="weui-cell__bd" bindtap="checkCompanyNameList">
+                    <picker bindchange="companyNameChange" value="{{companyName}}"
+                            range="{{companyNameList}}">
+                        <view class="picker weui-select weui-select_in-select-after {{companyNameLabel?'companyNameWrap':'companyNameWrap2'}}">
+                            {{companyNameLabel || '请选择单位名称'}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
                 <view class="weui-cell__hd">
                     <view class="weui-label">查勘员</view>
                 </view>
-                <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
+                <view class="weui-cell__bd" bindtap="checksurvey" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <picker bindchange="pickerChange"
-                            value="{{workerValue}}"
-                            range="{{workerList}}">
+                            data-name='surveyId'
+                            value="{{surveyIdValue}}"
+                            range="{{surveyIdList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{workerLabel || '请选择'}}
+                            {{surveyIdLabel || '请选择'}}
                         </view>
                     </picker>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{surveyIdLabel || '-'}}</text>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -107,15 +147,16 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <picker bindchange="pickerChange"
-                            value="{{workerValue}}"
-                            range="{{deptList}}">
+                            data-name='branch'
+                            value="{{branchValue}}"
+                            range="{{branchList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{workerLabel || '请选择'}}
+                            {{branchLabel || '请选择'}}
                         </view>
                     </picker>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{branchLabel || '-'}}</text>
                 </view>
             </view>
 
@@ -124,11 +165,11 @@
                     <view class="weui-label">事故地点</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
-                           value="{{taskData.reportNumber}}" placeholder="事故地点"/>
+                    <input class="weui-input" bindinput="inputgetName" data-name='address'
+                           value="{{address}}" placeholder="事故地点"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{address || '-'}}</text>
                 </view>
             </view>
 
@@ -138,15 +179,16 @@
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
                     <picker bindchange="pickerChange"
-                            value="{{workerValue}}"
-                            range="{{wsTypeList}}">
+                            data-name='damageType'
+                            value="{{damageTypeValue}}"
+                            range="{{damageTypeList}}">
                         <view class="picker weui-select weui-select_in-select-after">
-                            {{workerLabel || '请选择'}}
+                            {{damageTypeLabel || '请选择'}}
                         </view>
                     </picker>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{damageTypeLabel || '-'}}</text>
                 </view>
             </view>
 
@@ -155,11 +197,11 @@
                     <view class="weui-label">物损名称</view>
                 </view>
                 <view class="weui-cell__bd" wx:if="{{(orderId == null || taskData.status == null) && role == 1}}">
-                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.reportNumber'
-                           value="{{taskData.reportNumber}}" placeholder="物损名称"/>
+                    <input class="weui-input" bindinput="inputgetName" data-name='taskData.damageName'
+                           value="{{taskData.damageName}}" placeholder="物损名称"/>
                 </view>
                 <view class="weui-cell__bd" wx:else>
-                    <text class="weui-input readonly">{{taskData.reportNumber || '-'}}</text>
+                    <text class="weui-input readonly">{{taskData.damageName || '-'}}</text>
                 </view>
             </view>
 
