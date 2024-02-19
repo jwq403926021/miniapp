@@ -362,6 +362,9 @@ Page({
         }
       })
       _this.setData({
+        surveyIdLabel: data.surveyUser,
+        branchLabel: data.branch,
+        damageTypeLabel: data.damageType,
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,

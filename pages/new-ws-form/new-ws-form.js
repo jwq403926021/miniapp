@@ -227,6 +227,7 @@ Page({
         }
       })
       _this.setData({
+        damageTypeLabel: data.damageType,
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
