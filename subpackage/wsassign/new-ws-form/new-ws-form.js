@@ -242,7 +242,7 @@ Page({
   initInvestigator () {
     const _this = this
     util.request({
-      path: '/sys/company/list',
+      path: '/app/user/userList',
       method: 'GET',
       data: {
         companyId: _this.data.companyNameCode
