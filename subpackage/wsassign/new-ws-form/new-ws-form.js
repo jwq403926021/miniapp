@@ -182,8 +182,9 @@ Page({
       companyNameCode: '',
       companyNameLabel: '',
       companyName: ''
+    }, () => {
+      this.initCompanyName()
     })
-    this.initCompanyName()
   },
   checkCompanyNameList () {
     if (this.data.companyNameList.length == 0) {
@@ -213,7 +214,7 @@ Page({
       provinceCode:this.data.taskData.provinceCode,
       areaCode:this.data.taskData.townCode,
       organization:this.data.companyLevel,
-      insurance: this.data.companySubCategory
+      insurance: this.companySubSourceData[this.data.companySubCategory]?.id
     }
     util.request({
       path: '/sys/company/list',
@@ -242,16 +243,16 @@ Page({
   initInvestigator () {
     const _this = this
     util.request({
-      path: '/app/user/userList',
+      path: '/app/userList',
       method: 'GET',
       data: {
         companyId: _this.data.companyNameCode
       }
     }, function (err, res) {
       if (res.code == 0) {
-        _this.investigatorSourceData = res.data
+        _this.surveyIdSourceData = res.data
         _this.setData({
-          'investigatorNameList': _this.investigatorSourceData.map(item => { return item.companyName })
+          'surveyIdList': _this.surveyIdSourceData.map(item => { return item.name })
         })
       }
     })
@@ -263,12 +264,13 @@ Page({
       companyNameCode: '',
       companyNameLabel: '',
       companyName: ''
+    }, () => {
+      this.initCompanyName()
     })
-    this.initCompanyName()
   },
 
   init () {
-    let routeParams = this.routeParams
+    let routeParams = this?.routeParams
     if (routeParams && routeParams.type) {
       this.setData({
         'taskData.insuranceType': routeParams.type || '',
@@ -1091,7 +1093,7 @@ Page({
       damageName: data.damageName,
       damageType: _this.data.damageTypeLabel,
       branch: _this.data.branchLabel,
-      surveyId: _this.data.surveyIdLabel
+      surveyId: _this.surveyIdSourceData[_this.data.surveyIdValue].userId
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
@@ -1186,7 +1188,7 @@ Page({
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/businessdamagenew/surveySave' : '/app/businessdamagenew/manualCommit',
+      path: isSave ? '/app/businessdamagenew/manualSave' : '/app/businessdamagenew/manualCommit',
       method: 'POST',
       data: taskData
     }, function (err, res) {
