@@ -1,7 +1,7 @@
 //获取应用实例
 import util from "../../utils/util";
 import common from "../../utils/common";
-import {wsTypeList} from "../../subpackage/wsassign/data.json";
+import {wsTypeList} from "./data.json.js";
 const app = getApp()
 const plugin = requirePlugin('WechatSI')
 const manager = plugin.getRecordRecognitionManager()
