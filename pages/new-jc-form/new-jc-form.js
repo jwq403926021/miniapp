@@ -1111,78 +1111,78 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             informationImageFiles.push(item)
             break
           case 4:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             damageImageFiles.push(item)
             break
           case 6:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             completeImageFiles.push(item)
             break
           case 7:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             caleImageFiles.push(item)
             break
           case 21:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             testImageFiles.push(item)
             break
           case 22:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             floorImageFiles.push(item)
             break
           case 23:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             wallImageFiles.push(item)
             break
           case 2001:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.house.push(item)
             break
           case 2002:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.electrical.push(item)
             break
           case 2003:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.cloths.push(item)
             break
           case 2004:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.furniture.push(item)
             break
           case 2005:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.overall.push(item)
             break
           case 2006:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.certificate.push(item)
             break
           case 2007:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.identification.push(item)
             break
           case 2008:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.bank.push(item)
             break
           case 2009:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.register.push(item)
             break
           case 2010:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             familyImages.source.push(item)
             break
         }
       })
       _this.sourceAttachment.forEach(item => {
         if (item.type) {
-          item.path = `https://aplusprice.xyz/file/${item.path}`
+          item.path = `https://aplusprice.com/file/${item.path}`
           workVideo.push(item)
         }
       })
@@ -1418,7 +1418,7 @@ Page({
       formData.clientIndex = imgPaths[count].clientIndex
     }
     wx.uploadFile({
-      url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      url: imgPaths[count].type == 66  ? 'https://aplusprice.com/aprice/app/attachments/uploadVideo' : 'https://aplusprice.com/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
       name: `files`,
       header: {

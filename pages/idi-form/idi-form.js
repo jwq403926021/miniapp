@@ -249,23 +249,23 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             orderImageFiles.push(item)
             break
           case 2:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             investigatorImageFiles.push(item)
             break
           case 3:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             workerInfoImageFiles.push(item)
             break
           case 4:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             workerApplicationImageFiles.push(item)
             break
           case 5:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             workerCompleteImageFiles.push(item)
             break
         }
@@ -435,7 +435,7 @@ Page({
       'type': imgPaths[count].type
     }
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload',
+      url: 'https://aplusprice.com/aprice/app/image/upload',
       filePath: imgPaths[count].path,
       name: `files`,
       header: {

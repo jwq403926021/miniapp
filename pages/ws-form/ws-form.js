@@ -116,27 +116,27 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             informationImageFiles.push(item)
             break
           case 2:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             liveImageFiles.push(item)
             break
           case 3:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             workLiveImageFiles.push(item)
             break
           case 4:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             damageImageFiles.push(item)
             break
           case 5:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             authorityImageFiles.push(item)
             break
           case 7:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             caleImageFiles.push(item)
             break
         }
@@ -687,7 +687,7 @@ Page({
     var that = this
     console.log('upload flowID:', this.id, '????',this.data.id)
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      url: 'https://aplusprice.com/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
       name: `files`,
       header: {

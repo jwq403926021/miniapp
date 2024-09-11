@@ -148,23 +148,23 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 1:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             informationImageFiles.push(item)
             break
           case 10:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             idImageFrontImageFiles.push(item)
             break
           case 12:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             idImageBackImageFiles.push(item)
             break
           case 13:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             receiptImageImageFiles.push(item)
             break
           case 15:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             bankImageFiles.push(item)
             break
         }
@@ -590,7 +590,7 @@ Page({
           title: '识别中'
         })
         wx.uploadFile({
-          url: 'https://aplusprice.xyz/aprice/app/image/uploadBankCard',
+          url: 'https://aplusprice.com/aprice/app/image/uploadBankCard',
           filePath: res.tempFilePaths[0],
           name: `files`,
           header: {
@@ -657,7 +657,7 @@ Page({
           title: '识别中'
         })
         wx.uploadFile({
-          url: 'https://aplusprice.xyz/aprice/app/image/uploadUserCard',
+          url: 'https://aplusprice.com/aprice/app/image/uploadUserCard',
           filePath: res.tempFilePaths[0],
           name: `files`,
           header: {
@@ -1284,7 +1284,7 @@ Page({
   //   var that = this
   //   console.log(that.data.video, '???')
   //   wx.uploadFile({
-  //     url: 'https://aplusprice.xyz/aprice/app/attachments/upload',
+  //     url: 'https://aplusprice.com/aprice/app/attachments/upload',
   //     filePath: that.data.video,
   //     name: `files`,
   //     header: {
@@ -1303,7 +1303,7 @@ Page({
     var that = this
     console.log('upload flowID:', this.data.id)
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload', //仅为示例，非真实的接口地址
+      url: 'https://aplusprice.com/aprice/app/image/upload', //仅为示例，非真实的接口地址
       filePath: imgPaths[count].path,
       name: `files`,
       header: {

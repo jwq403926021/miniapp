@@ -196,11 +196,11 @@ Page({
       _this.sourceImage.forEach(item => {
         switch (item.type) {
           case 2:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             liveImageFiles.push(item)
             break
           case 3:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             let clientIndex = item.clientIndex || 0
             if (!workLiveImageFiles[clientIndex]) {
               workLiveImageFiles[clientIndex] = []
@@ -209,26 +209,26 @@ Page({
             workLiveImageFiles[clientIndex].push(item)
             break
           case 13:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             financeImageFiles.push(item)
             break
           case 66:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             authorityImageFiles.push(item)
             break
           case 17:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             projectBillImageFiles.push(item)
             break
           case 16:
-            item.path = `https://aplusprice.xyz/file/${item.path}`
+            item.path = `https://aplusprice.com/file/${item.path}`
             workerAuthImageFiles.push(item)
             break
         }
       })
       _this.sourceAttachment.forEach(item => {
         if (item.type) {
-          item.path = `https://aplusprice.xyz/file/${item.path}`
+          item.path = `https://aplusprice.com/file/${item.path}`
           workVideo.push(item)
         }
       })
@@ -763,7 +763,7 @@ Page({
       formData.clientIndex = imgPaths[count].clientIndex
     }
     wx.uploadFile({
-      url: imgPaths[count].type == 66  ? 'https://aplusprice.xyz/aprice/app/attachments/uploadVideo' : 'https://aplusprice.xyz/aprice/app/image/upload',
+      url: imgPaths[count].type == 66  ? 'https://aplusprice.com/aprice/app/attachments/uploadVideo' : 'https://aplusprice.com/aprice/app/image/upload',
       filePath: imgPaths[count].path,
       name: `files`,
       header: {

@@ -207,7 +207,7 @@ Page({
       canvasId: 'resultCanvas',
       success: function(res) {
         wx.uploadFile({
-          url: 'https://aplusprice.xyz/aprice/app/image/upload',
+          url: 'https://aplusprice.com/aprice/app/image/upload',
           filePath: res.tempFilePath,
           name: `files`,
           header: {

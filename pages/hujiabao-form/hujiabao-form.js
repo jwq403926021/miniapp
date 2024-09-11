@@ -1068,7 +1068,7 @@ Page({
       // _this.sourceImage.forEach(item => {
       //   switch (item.type) {
       //     case 2:
-      //       item.path = `https://aplusprice.xyz/file/${item.path}`
+      //       item.path = `https://aplusprice.com/file/${item.path}`
       //       investigatorImageFiles.push(item)
       //       break
       //   }
@@ -1225,7 +1225,7 @@ Page({
       'Directory': imgPaths[count].Directory
     }
     wx.uploadFile({
-      url: 'https://aplusprice.xyz/aprice/app/image/upload',
+      url: 'https://aplusprice.com/aprice/app/image/upload',
       filePath: imgPaths[count].path,
       name: `Files`,
       header: {
