@@ -496,7 +496,7 @@
             </view>
 
             <block wx:if="{{role != 1 && role != 2 && role != 3 && role != 4}}">
-                <view class="weui-cells__title">工程量清单</view>
+                <view class="weui-cells__title">{{taskData.insuranceType == '1' ? "工程量清单" : '查勘单证'}}</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
                         <view class="weui-cell__bd">
@@ -548,6 +548,143 @@
                     </view>
                 </view>
             </view>
+
+            <block wx:if="{{taskData.insuranceType != '1'}}">
+                <view class="weui-cells__title">现场照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage1Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage1Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage1Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage1Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells__title">进场照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage2Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage2Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage2Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage2Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells__title">损坏照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage3Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage3Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage3Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage3Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells__title">维修照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage4Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage4Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage4Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage4Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells__title">更换照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage5Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage5Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage5Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage5Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cells__title">复勘照片</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="weui-uploader">
+                                <view class="weui-uploader__bd">
+                                    <view class="weui-uploader__files">
+                                        <block wx:for="{{feicheImage6Fiels}}" wx:key="index">
+                                            <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage" data-name="feicheImage6Fiels" id="{{item.path}}">
+                                                <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
+                                                <van-icon wx:if="{{role == 12}}" catchtap="removeImage" data-name="feicheImage6Fiels" data-id="{{item.id}}" data-index="{{index}}" name="clear" custom-class="delete-image-icon"></van-icon>
+                                            </view>
+                                        </block>
+                                    </view>
+                                    <view class="weui-uploader__input-box" wx:if="{{role == 12}}">
+                                        <view class="weui-uploader__input" bindtap="chooseImage" data-name="feicheImage6Fiels"></view>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+
             <view class="weui-cells__title">现场图片 (施工方)</view>
             <block wx:for="{{workLiveImageFiles}}" wx:key="index">
                 <view class="weui-cells weui-cells_after-title">

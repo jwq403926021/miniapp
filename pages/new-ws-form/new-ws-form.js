@@ -18,6 +18,12 @@ Page({
     authorityImageFiles: [], // 授权图片
     financeImageFiles: [], // 财务图片
     workVideo: [], // 视频(施工方)
+    feicheImage1Fiels: [],
+    feicheImage2Fiels: [],
+    feicheImage3Fiels: [],
+    feicheImage4Fiels: [],
+    feicheImage5Fiels: [],
+    feicheImage6Fiels: [],
     show: false,
     showreassign: false,
     showWorkerHit: false,
@@ -180,6 +186,12 @@ Page({
       _this.sourceAttachment = res.attachment
       let liveImageFiles = []
       let workerAuthImageFiles = []
+      let feicheImage1Fiels = []
+      let feicheImage2Fiels = []
+      let feicheImage3Fiels = []
+      let feicheImage4Fiels = []
+      let feicheImage5Fiels = []
+      let feicheImage6Fiels = []
       let projectBillImageFiles = []
       let workLiveImageFiles = [[]]
       let authorityImageFiles = []
@@ -218,6 +230,30 @@ Page({
             item.path = `https://aplusprice.com/file/${item.path}`
             workerAuthImageFiles.push(item)
             break
+          case 21:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage1Fiels.push(item)
+            break
+          case 22:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage2Fiels.push(item)
+            break
+          case 23:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage3Fiels.push(item)
+            break
+          case 24:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage4Fiels.push(item)
+            break
+          case 25:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage5Fiels.push(item)
+            break
+          case 26:
+            item.path = `https://aplusprice.com/file/${item.path}`
+            feicheImage6Fiels.push(item)
+            break
         }
       })
       _this.sourceAttachment.forEach(item => {
@@ -232,6 +268,12 @@ Page({
         region: data.townCode,
         liveImageFiles: liveImageFiles,
         workerAuthImageFiles: workerAuthImageFiles,
+        feicheImage1Fiels: feicheImage1Fiels,
+        feicheImage2Fiels: feicheImage2Fiels,
+        feicheImage3Fiels: feicheImage3Fiels,
+        feicheImage4Fiels: feicheImage4Fiels,
+        feicheImage5Fiels: feicheImage5Fiels,
+        feicheImage6Fiels: feicheImage6Fiels,
         projectBillImageFiles: projectBillImageFiles,
         workLiveImageFiles: workLiveImageFiles,
         customerName: customerName,
@@ -1087,6 +1129,12 @@ Page({
     let workVideoAlreadyFiles = []
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
+    let feicheImage1Fiels = []
+    let feicheImage2Fiels = []
+    let feicheImage3Fiels = []
+    let feicheImage4Fiels = []
+    let feicheImage5Fiels = []
+    let feicheImage6Fiels = []
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
@@ -1111,6 +1159,37 @@ Page({
     _this.data.workerAuthImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         workerAuthImageFiles.push({path: item.path, type: 16})
+      }
+    })
+
+    _this.data.feicheImage1Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage1Fiels.push({path: item.path, type: 21})
+      }
+    })
+    _this.data.feicheImage2Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage2Fiels.push({path: item.path, type: 22})
+      }
+    })
+    _this.data.feicheImage3Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage3Fiels.push({path: item.path, type: 23})
+      }
+    })
+    _this.data.feicheImage4Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage4Fiels.push({path: item.path, type: 24})
+      }
+    })
+    _this.data.feicheImage5Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage5Fiels.push({path: item.path, type: 25})
+      }
+    })
+    _this.data.feicheImage6Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage6Fiels.push({path: item.path, type: 26})
       }
     })
     let isSendFirstTimeUpload = workLiveImageAlreadyFiles.length === 0 && workVideoAlreadyFiles.length === 0 && (workLiveImageFiles.length > 0 || workVideo.length > 0)
@@ -1200,7 +1279,13 @@ Page({
       }
     }, function (err, res) {
       if (res.code == 0) {
-        let imgPaths = [...workLiveImageFiles, ...workVideo, ...projectBillImageFiles, ...workerAuthImageFiles]
+        let imgPaths = [...workLiveImageFiles, ...workVideo, ...projectBillImageFiles, ...workerAuthImageFiles,
+          ...feicheImage1Fiels,
+          ...feicheImage2Fiels,
+          ...feicheImage3Fiels,
+          ...feicheImage4Fiels,
+          ...feicheImage5Fiels,
+          ...feicheImage6Fiels]
         let count = 0
         let successUp = 0
         let failUp = 0
@@ -1569,6 +1654,12 @@ Page({
     let workLiveImageFiles = []
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
+    let feicheImage1Fiels = []
+    let feicheImage2Fiels = []
+    let feicheImage3Fiels = []
+    let feicheImage4Fiels = []
+    let feicheImage5Fiels = []
+    let feicheImage6Fiels = []
     let liveImageFiles = []
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
@@ -1580,6 +1671,36 @@ Page({
     _this.data.projectBillImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         projectBillImageFiles.push({path: item.path, type: 17})
+      }
+    })
+    _this.data.feicheImage1Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage1Fiels.push({path: item.path, type: 21})
+      }
+    })
+    _this.data.feicheImage2Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage2Fiels.push({path: item.path, type: 22})
+      }
+    })
+    _this.data.feicheImage3Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage3Fiels.push({path: item.path, type: 23})
+      }
+    })
+    _this.data.feicheImage4Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage4Fiels.push({path: item.path, type: 24})
+      }
+    })
+    _this.data.feicheImage5Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage5Fiels.push({path: item.path, type: 25})
+      }
+    })
+    _this.data.feicheImage6Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage6Fiels.push({path: item.path, type: 26})
       }
     })
     _this.data.workerAuthImageFiles.map(item => {
@@ -1596,7 +1717,12 @@ Page({
       mask: true,
       title: '提交中'
     })
-    let imgPaths = [...workLiveImageFiles, ...projectBillImageFiles, ...workerAuthImageFiles, ...liveImageFiles]
+    let imgPaths = [...workLiveImageFiles, ...projectBillImageFiles, ...workerAuthImageFiles, ...liveImageFiles, ...feicheImage1Fiels,
+      ...feicheImage2Fiels,
+      ...feicheImage3Fiels,
+      ...feicheImage4Fiels,
+      ...feicheImage5Fiels,
+      ...feicheImage6Fiels]
     let count = 0
     let successUp = 0
     let failUp = 0
@@ -1610,6 +1736,12 @@ Page({
     let workVideo = []
     let projectBillImageFiles = []
     let workerAuthImageFiles = []
+    let feicheImage1Fiels = []
+    let feicheImage2Fiels = []
+    let feicheImage3Fiels = []
+    let feicheImage4Fiels = []
+    let feicheImage5Fiels = []
+    let feicheImage6Fiels = []
     _this.data.workLiveImageFiles.map((item, index) => {
       item.forEach(i => {
         if (i.path.indexOf('https://') == -1){
@@ -1632,11 +1764,52 @@ Page({
         workerAuthImageFiles.push({path: item.path, type: 16})
       }
     })
+    _this.data.feicheImage1Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage1Fiels.push({path: item.path, type: 21})
+      }
+    })
+    _this.data.feicheImage2Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage2Fiels.push({path: item.path, type: 22})
+      }
+    })
+    _this.data.feicheImage3Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage3Fiels.push({path: item.path, type: 23})
+      }
+    })
+    _this.data.feicheImage4Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage4Fiels.push({path: item.path, type: 24})
+      }
+    })
+    _this.data.feicheImage5Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage5Fiels.push({path: item.path, type: 25})
+      }
+    })
+    _this.data.feicheImage6Fiels.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        feicheImage6Fiels.push({path: item.path, type: 26})
+      }
+    })
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
-    let imgPaths = [...workLiveImageFiles, ...workVideo, ...projectBillImageFiles, ...workerAuthImageFiles]
+    let imgPaths = [
+        ...workLiveImageFiles,
+        ...workVideo,
+        ...projectBillImageFiles,
+        ...workerAuthImageFiles,
+        ...feicheImage1Fiels,
+        ...feicheImage2Fiels,
+        ...feicheImage3Fiels,
+        ...feicheImage4Fiels,
+        ...feicheImage5Fiels,
+        ...feicheImage6Fiels,
+    ]
     let count = 0
     let successUp = 0
     let failUp = 0
