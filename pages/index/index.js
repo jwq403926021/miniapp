@@ -122,7 +122,7 @@ Page({
   onLoad () {
     this.setData({
       isLogin: true,
-      role: 37, // app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
+      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
       userId: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.userId || '',
     })
   }
