@@ -114,10 +114,15 @@ Page({
       url: '../../subpackage/calculate/calculate-glass/calculate-glass'
     })
   },
+  goToWYform () {
+    wx.navigateTo({
+      url: '../../subpackage/wy/wy-form/wy-form'
+    })
+  },
   onLoad () {
     this.setData({
       isLogin: true,
-      role: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
+      role: 37, // app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.role,
       userId: app.globalData.currentRegisterInfo && app.globalData.currentRegisterInfo.userId || '',
     })
   }

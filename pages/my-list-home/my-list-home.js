@@ -72,6 +72,11 @@ Page({
       url: '../my-list-accident/my-list-accident'
     })
   },
+  goToWYList () {
+    wx.navigateTo({
+      url: '../../subpackage/wy/wy-list/wy-list'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

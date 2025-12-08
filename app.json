@@ -50,6 +50,13 @@
   ],
   "subPackages": [
     {
+      "root": "subpackage/wy/",
+      "pages": [
+        "wy-list/wy-list",
+        "wy-form/wy-form"
+      ]
+    },
+    {
       "root": "subpackage/wscompare/",
       "pages": [
         "new-my-list-ws/new-my-list-ws",
