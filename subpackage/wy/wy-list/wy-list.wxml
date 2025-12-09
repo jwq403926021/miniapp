@@ -1,12 +1,12 @@
 <view class="page">
     <view class="filter-wrap clearfix">
-        <view style="float: left; width: 85%;">
+        <view style="float: left; width: 85%; display: flex;">
             <view class="clearfix">
                 <view class="field filterDropdown">
                     <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
                 </view>
             </view>
-            <view class="clearfix">
+            <view class="clearfix" style="flex: 1;">
                 <van-search
                         value="{{ searchOrderId }}"
                         placeholder="请输入工单号"
