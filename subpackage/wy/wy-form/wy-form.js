@@ -8,29 +8,27 @@ Page({
     role: 37, // 36 协办 37 吾悦人员
     liveImageFiles: [], // 案件图片
     show: false,
-    showreassign: false,
     areaList: {},
     region: '',
     regionLabel: '',
-    managerList: [],
-    managerValue: '',
-    managerLabel: '',
-    showTime: false,
-    timepickerValue: new Date().getTime(),
-    timepickerLabel: '',
     statusMap: {
       '11': '已办结',
       '20': '已派送',
     },
+    businessInsuranceWuyueEntity: {},
     taskData: {
       status: null,
       provinceCode: '',
       cityCode: '',
       townCode: '',
-      customerUser: '',
-      customerPhone: '',
-      plateNumber: '',
-      information: ''
+      policyNo: '',
+      reportNumber: '',
+      budgetPreliminary: '',
+      commentToSurvey: '',
+      surveyUser: '',
+      surveyPhone: '',
+      workerUser: '',
+      workerPhone: ''
     }
   },
   onLoad: function (routeParams) {
@@ -41,23 +39,18 @@ Page({
   },
   init () {
     let routeParams = this?.routeParams
-    if (routeParams && routeParams.type) {
-      this.setData({
-        'taskData.insuranceType': routeParams.type || '',
-      })
-    }
     if (routeParams && routeParams.id && app.globalData.currentRegisterInfo) {
       this.setData({
         orderId: routeParams.id,
         role: app.globalData.currentRegisterInfo.role,
         userId: app.globalData.currentRegisterInfo.userId
       }, () => {
-        this.initDataById(routeParams.id, routeParams.flag || null)
+        this.initDataById(routeParams.id)
         this.getRegionLabel()
       })
     }
   },
-  initDataById (id, flag) {
+  initDataById (id) {
     let _this = this
     wx.showLoading({
       mask: true,
@@ -66,25 +59,14 @@ Page({
     let params = {
       orderId: id
     }
-    if (flag) {
-      params.flag = flag
-    }
     util.request({
       path: '/app/businessdamagenew/damageDetail',
       method: 'GET',
       data: params
     }, function (err, res) {
       let data = res.data
-
-      if (data.status == 20 && _this.data.role == 12) {
-        _this.setData({
-          showWorkerHit: true
-        })
-      }
-
       _this.sourceData = data
       _this.sourceImage = res.Image
-      _this.sourceAttachment = res.attachment
       let liveImageFiles = []
 
       _this.sourceImage.forEach(item => {
@@ -93,109 +75,27 @@ Page({
             item.path = `https://aplusprice.com/file/${item.path}`
             liveImageFiles.push(item)
             break
-          case 3:
-            item.path = `https://aplusprice.com/file/${item.path}`
-            let clientIndex = item.clientIndex || 0
-            if (!workLiveImageFiles[clientIndex]) {
-              workLiveImageFiles[clientIndex] = []
-            }
-            customerName[clientIndex] = item.customerName || customerName[clientIndex]
-            workLiveImageFiles[clientIndex].push(item)
-            break
-          case 13:
-            item.path = `https://aplusprice.com/file/${item.path}`
-            financeImageFiles.push(item)
-            break
-          case 66:
-            item.path = `https://aplusprice.com/file/${item.path}`
-            authorityImageFiles.push(item)
-            break
-          case 17:
-            item.path = `https://aplusprice.com/file/${item.path}`
-            projectBillImageFiles.push(item)
-            break
-          case 16:
-            item.path = `https://aplusprice.com/file/${item.path}`
-            workerAuthImageFiles.push(item)
-            break
         }
       })
-      _this.sourceAttachment.forEach(item => {
-        if (item.type) {
-          item.path = `https://aplusprice.com/file/${item.path}`
-          workVideo.push(item)
-        }
-      })
+
       _this.setData({
-        surveyIdLabel: data.surveyUser,
-        branchLabel: data.branch,
-        damageTypeLabel: data.damageType,
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
-        workerAuthImageFiles: workerAuthImageFiles,
-        projectBillImageFiles: projectBillImageFiles,
-        workLiveImageFiles: workLiveImageFiles,
-        customerName: customerName,
-        financeImageFiles: financeImageFiles,
-        authorityImageFiles: authorityImageFiles,
-        workVideo: workVideo,
-        'taskData.cityManagerName': data.cityManagerName,
-        'taskData.cityManagerMobile': data.cityManagerMobile,
-        'taskData.surveyId': data.surveyId,
+        businessInsuranceWuyueEntity: data,
         'taskData.status': data.status,
-        'taskData.insuranceType': data.insuranceType,
-        'taskData.acceptInsurance': data.acceptInsurance,
-        'taskData.damagedUser': data.damagedUser,
-        'taskData.damagedPhone': data.damagedPhone || '',
-        'taskData.customerUser': data.customerUser,
-        'taskData.customerPhone': data.customerPhone,
-        'taskData.plateNumber': data.plateNumber,
-        'taskData.information': data.information,
-        "taskData.surveyUser": data.surveyUser,
-        "taskData.damageName": data.damageName,
-        "taskData.surveyPhone": data.surveyPhone,
-        "taskData.workerUser": data.workerUser,
-        "taskData.workerPhone": data.workerPhone,
-        "taskData.workType": data.workType,
-        "taskData.budgetPreliminary": data.budgetPreliminary,
-        "taskData.damageMoney": data.damageMoney,
-        'taskData.handlingType': data.handlingType,
-        'taskData.deposit': data.deposit,
-        'taskData.prepay': data.prepay,
-        'taskData.offerRemark': data.offerRemark,
-        'taskData.companyName': data.companyName,
-        'taskData.cityManager': data.cityManager,
-        'taskData.workerId': data.workerId,
-        'taskData.commentToSurvey': data.commentToSurvey,
-        'taskData.commentToOffer': data.commentToOffer,
-        'taskData.financeRemark': data.financeRemark,
-        'taskData.manageMoney': data.manageMoney,
-        'taskData.insurePay': data.insurePay,
-        'taskData.payWorker': data.payWorker,
-        'taskData.isAcceptance': data.isAcceptance,
-        'taskData.isAgree': data.isAgree,
+        'taskData.provinceCode': data.provinceCode,
+        'taskData.cityCode': data.cityCode,
+        'taskData.townCode': data.townCode,
+        'taskData.policyNo': data.policyNo,
         'taskData.reportNumber': data.reportNumber,
-        'taskData.mail': data.mail,
-        'taskData.weatherBill': data.weatherBill,
-        'taskData.accountName': data.accountName,
-        'taskData.moneySurvey': data.moneySurvey,
-        'taskData.managerReject': data.managerReject,
-        'taskData.cancelRemark': data.cancelRemark,
-        'taskData.managerRemark': data.managerRemark,
-        'taskData.isCompulsory': data.isCompulsory,
-        'taskData.isBusiness': data.isBusiness,
-        'taskData.isSelf': data.isSelf,
-        'address': data.address,
-        'typeValue': data.type,
-        'typeLabel': _this.data.typeList[data.type],
-        'userLocationInfo': {
-          longitude: data.lon,
-          latitude: data.lat,
-        }
+        'taskData.budgetPreliminary': data.budgetPreliminary,
+        'taskData.commentToSurvey': data.commentToSurvey || '',
+        'taskData.surveyUser': data.surveyUser,
+        'taskData.surveyPhone': data.surveyPhone,
+        'taskData.workerUser': data.workerUser,
+        'taskData.workerPhone': data.workerPhone
       }, () => {
-        _this.initReassignList()
-        _this.initReassignListForCitymanger()
         _this.getRegionLabel()
         wx.hideLoading()
       })
@@ -266,8 +166,7 @@ Page({
   },
   onCancel() {
     this.setData({
-      show: false,
-      showreassign: false
+      show: false
     })
   },
   inputgetName(e) {
@@ -440,32 +339,7 @@ Page({
     })
   },
   dialPhone (e) {
-    let _this = this
     let phone = e.currentTarget.dataset.phone+'';
-    let worker = e.currentTarget.dataset.worker+'';
-
-    if (worker && this.data.taskData.status == 20 && this.data.role == 12) {
-      util.request({
-        path: '/app/businessdamagenew/contanctCustomer',
-        method: 'GET',
-        data: {
-          orderId: _this.data.orderId,
-          surveyId: _this.data.taskData.surveyId
-        }
-      }, function (err, res) {
-        wx.showToast({
-          mask: true,
-          title: '操作成功',
-          icon: 'success',
-          duration: 1000,
-          success () {
-            setTimeout(() => {
-              _this.goToList()
-            }, 1000)
-          }
-        })
-      })
-    }
     wx.makePhoneCall({
       phoneNumber: phone
     })
@@ -478,119 +352,57 @@ Page({
       provinceCode: data.provinceCode,
       cityCode: data.cityCode,
       townCode: data.townCode,
-      insuranceType: data.insuranceType,
-      acceptInsurance: data.acceptInsurance,
-      damagedUser: data.damagedUser,
-      damagedPhone: data.damagedPhone,
-      customerUser: data.customerUser,
-      customerPhone: data.customerPhone,
-      plateNumber: data.plateNumber,
+      policyNo: data.policyNo,
       reportNumber: data.reportNumber,
-      information: data.information,
-      address: _this.data.address,
-      // type: _this.data.typeValue,
-      lon: _this.data.userLocationInfo.longitude,
-      lat: _this.data.userLocationInfo.latitude,
-
-      damageName: data.damageName,
-      damageType: _this.data.damageTypeLabel,
-      branch: _this.data.branchLabel,
-      surveyId: _this.surveyIdSourceData[_this.data.surveyIdValue].userId
+      budgetPreliminary: data.budgetPreliminary,
+      commentToSurvey: data.commentToSurvey
     }
     if (this.data.orderId) {
       taskData.orderId = _this.data.orderId
     }
-
     let liveImageFiles = []
     _this.data.liveImageFiles.map(item => {
       if (item.path.indexOf('https://') == -1){
         liveImageFiles.push({path: item.path, type: 2})
       }
     })
-
-    if (taskData.insuranceType == 1) {
-      let flag = this.isLicenseNo(taskData.plateNumber || '')
-      if (!flag) {
-        wx.showToast({
-          mask: true,
-          title: '请填写正确的车牌号',
-          icon: 'none',
-          duration: 2000
-        })
-        return
-      }
-    }
-
-    if (
-        app.globalData.currentRegisterInfo.provinceCode == 110000 && _this.data.liveImageFiles.length === 0
-    ) {
+    if (liveImageFiles.length === 0) {
       wx.showToast({
         mask: true,
-        title: '北京地区必须传案件图片',
-        icon: 'none',
-        duration: 1000
-      })
-      return
-    }
-
-    if ((taskData.insuranceType == 1 && taskData.reportNumber == '') || !(/^[A-Za-z0-9]+$/.test(taskData.reportNumber))) {
-      wx.showToast({
-        mask: true,
-        title: '请输入正确的报案号',
+        title: '请上传现场照片',
         icon: 'none',
         duration: 2000
       })
       return
     }
 
-    if (taskData.customerPhone != ''){
-      let isVaidcustomerPhone = this.checkPhone(taskData.customerPhone, '请输入正确的沟通方式')
-      if (!isVaidcustomerPhone) {
-        return
-      }
+    if (taskData.townCode == ''){
+      wx.showToast({
+        mask: true,
+        title: '请填写事故地',
+        icon: 'none',
+        duration: 2000
+      })
+      return
     }
 
-    if(taskData.damagedPhone != '') {
-      let isVaiddamagedPhone = this.checkPhone(taskData.damagedPhone, '请输入正确的沟通方式')
-      if (!isVaiddamagedPhone) {
-        return
-      }
+    if (taskData.commentToSurvey == ''){
+      wx.showToast({
+        mask: true,
+        title: '请填写现场信息',
+        icon: 'none',
+        duration: 2000
+      })
+      return
     }
 
-    if (taskData.damagedPhone == '' && taskData.customerPhone == ''){
-      wx.showToast({
-        mask: true,
-        title: '请填写沟通方式',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    if (this.data.damageType == ''){
-      wx.showToast({
-        mask: true,
-        title: '请填写物损类型',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
-    if (this.data.surveyId == ''){
-      wx.showToast({
-        mask: true,
-        title: '请选择查勘员',
-        icon: 'none',
-        duration: 2000
-      })
-      return
-    }
 
     wx.showLoading({
       mask: true,
       title: '提交中'
     })
     util.request({
-      path: isSave ? '/app/businessdamagenew/manualSave' : '/app/businessdamagenew/manualCommit',
+      path: isSave ? '/app/businessinsurancewuyue/surveySave' : '/app/businessinsurancewuyue/surveyCommit',
       method: 'POST',
       data: taskData
     }, function (err, res) {
@@ -627,10 +439,110 @@ Page({
       }
     })
   },
+  workHandleWS (e) {
+    let data = this.data.taskData
+    let _this = this
+    let isSave = e.currentTarget.dataset.save
+    let taskData = {
+      provinceCode: data.provinceCode,
+      cityCode: data.cityCode,
+      townCode: data.townCode,
+      policyNo: data.policyNo,
+      reportNumber: data.reportNumber,
+      budgetPreliminary: data.budgetPreliminary,
+      commentToSurvey: data.commentToSurvey
+    }
+    if (this.data.orderId) {
+      taskData.orderId = _this.data.orderId
+    }
+    let liveImageFiles = []
+    _this.data.liveImageFiles.map(item => {
+      if (item.path.indexOf('https://') == -1){
+        liveImageFiles.push({path: item.path, type: 2})
+      }
+    })
+    if (liveImageFiles.length === 0) {
+      wx.showToast({
+        mask: true,
+        title: '请上传现场照片',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.townCode == ''){
+      wx.showToast({
+        mask: true,
+        title: '请填写事故地',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+    if (taskData.commentToSurvey == ''){
+      wx.showToast({
+        mask: true,
+        title: '请填写现场信息',
+        icon: 'none',
+        duration: 2000
+      })
+      return
+    }
+
+
+    wx.showLoading({
+      mask: true,
+      title: '提交中'
+    })
+    util.request({
+      path: isSave ? '/app/businessinsurancewuyue/workerSave' : '/app/businessinsurancewuyue/workerCommit',
+      method: 'POST',
+      data: {
+        businessInsuranceWuyueEntity: {
+          ..._this.data.businessInsuranceWuyueEntity,
+          ...taskData
+        }
+      }
+    }, function (err, res) {
+      if (res.code == 0) {
+        _this.setData({
+          orderId: res.data.flowId
+        })
+        let imgPaths = [...liveImageFiles]
+        let count = 0
+        let successUp = 0
+        let failUp = 0
+        if (imgPaths.length) {
+          _this.uploadOneByOne(imgPaths,successUp,failUp,count,imgPaths.length)
+        } else {
+          wx.showToast({
+            mask: true,
+            title: isSave ? '暂存成功' : '提交成功',
+            icon: 'success',
+            duration: 1000,
+            success () {
+              setTimeout(() => {
+                _this.goToList()
+              }, 1000)
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          mask: true,
+          title: isSave ? '暂存失败' : '创建失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+  },
   goToList () {
     let pages = getCurrentPages()
     let index = pages.findIndex((item) => {
-      return item.route == 'pages/new-my-list-ws/new-my-list-ws'
+      return item.route == 'subpackage/wy/wy-list/wy-list'
     })
     if (index != -1) {
       wx.navigateBack({
@@ -638,28 +550,17 @@ Page({
       })
     } else {
       wx.redirectTo({
-        url: '../new-my-list-ws/new-my-list-ws?type=' + this.data.taskData.insuranceType
+        url: '../wy-list/wy-list'
       })
     }
   },
   downloadImages () {
     let urls = []
     this.sourceImage.map(item => {
-      if (
-          !((this.data.role == 1 || this.data.role == 2 || this.data.role == 3 || this.data.role == 4) && (item.type == 2 || item.type == 17))
-      ) {
-        urls.push(item.path)
-      }
+      urls.push(item.path)
     })
     common.downloadImages({
       urls: urls
-    })
-  },
-  pickerChange (e) {
-    let name = e.currentTarget.dataset.name;
-    this.setData({
-      [`${name}Value`]: e.detail.value,
-      [`${name}Label`]: this.data[`${name}List`][e.detail.value] || ''
     })
   }
 })

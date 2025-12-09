@@ -1,66 +1,171 @@
-// subpackage/wy/wy-list/wy-list.js
+//获取应用实例
+import util from "../../../utils/util";
+
+const app = getApp()
+import location from '../../../asset/location'
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    totalPage: 1,
+    page: 1,
+    show: false,
+    isShowStatusFilter: false,
+    statusFilter: '-1',
+    dataList: [],
+    height: '',
+    searchCustomerUser: '',
+    searchReportNumber: '',
+    searchOrderId: '',
+    statusMap: {
+      '11': '已办结',
+      '12': '暂存',
+      '20': '已派送',
+    },
+    role: 1,
+    current: 0
+  },
+  onPullDownRefresh () {
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
+  },
+  onReachBottom () {
+    let page = (this.data.page + 1) > this.data.totalPage ? this.data.totalPage : (this.data.page + 1)
+    this.setData({
+      page: page
+    }, () => {
+      this.getInitData(true)
+    })
+  },
+  openFilterStatusPop () {
+    this.setData({
+      isShowStatusFilter: true
+    });
+  },
+  resetFilter () {
+    this.setData({
+      current: 0,
+      page: 1,
+      totalPage: 1,
+      searchOrderId: '',
+      searchCustomerUser: '',
+      searchReportNumber: '',
+      statusFilter: '-1',
+      dataList: []
+    }, () => {
+      this.getInitData()
+    })
+  },
+  statusFilterChange (data) {
+  },
+  typeFilterChange (data) {
+  },
+  dateFilterChange (data) {
+  },
+  statusFilterItemClick (event) {
+    const value = event.currentTarget.dataset.name;
+    this.setData({
+      statusFilter: value,
+      isShowStatusFilter: false
+    });
+  },
+  searchOrderIdChange (data) {
+    this.setData({
+      searchOrderId: data.detail
+    })
+  },
+  searchReportNumberChange (data) {
+    this.setData({
+      searchReportNumber: data.detail
+    })
+  },
+  searchCustomerUserChange (data) {
+    this.setData({
+      searchCustomerUser: data.detail
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  filter () {
+    this.setData({
+      current: 0,
+      dataList: []
+    }, () => {
+      this.getInitData()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  getInitData (flag) {
+    let _this = this
+    let filter = {
+      page: this.data.page,
+      size: 20,
+      surveyUser: this.data.searchCustomerUser,
+      reportNumber: this.data.searchReportNumber,
+      orderId: this.data.searchOrderId
+    }
+    if (this.data.statusFilter != '-1') {
+      filter.status = this.data.statusFilter
+    }
+    wx.showLoading({
+      mask: true,
+      title: '加载中'
+    })
+    util.request({
+      path: '/app/businessinsurancewuyue/orders',
+      method: 'GET',
+      data: filter
+    }, function (err, res) {
+      wx.hideLoading()
+      wx.stopPullDownRefresh()
+      let data = _this.data.dataList || []
+      if (res.data.current === _this.data.current && flag) return false
+      _this.setData({
+        current: res.data.current,
+        totalPage: res.data.total,
+        dataList: flag ? data.concat(res.data.records || []) : (res.data.records || [])
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  onShow () {
+    this.setData({
+      current: 0,
+      page: 1
+    }, () => {
+      this.getInitData()
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  onLoad: function (routeParams) {
+    let _this = this
+    _this.setData({
+      role: app.globalData.currentRegisterInfo.role
+    })
+    wx.getSystemInfo({
+      success: function (res) {
+        _this.setData({
+          height: res.windowHeight
+        })
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  goToHandleTask (event) {
+    wx.navigateTo({
+      url: '../wy-form/wy-form?id=' + event.currentTarget.dataset.id
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
+  onCancel () {
+    this.setData({
+      show: false
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
+  onConfirm () {
+    this.setData({
+      show: false
+    })
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  closeFilter () {
+    this.setData({
+      isShowStatusFilter: false
+    })
   }
 })

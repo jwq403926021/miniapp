@@ -1,2 +1,73 @@
-<!--subpackage/wy/wy-list/wy-list.wxml-->
-<text>subpackage/wy/wy-list/wy-list.wxml</text>
+<view class="page">
+    <view class="filter-wrap clearfix">
+        <view style="float: left; width: 85%;">
+            <view class="clearfix">
+                <view class="field filterDropdown">
+                    <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
+                </view>
+            </view>
+            <view class="clearfix">
+                <van-search
+                        value="{{ searchOrderId }}"
+                        placeholder="请输入工单号"
+                        custom-class="my-search"
+                        bind:change="searchOrderIdChange">
+                </van-search>
+                <van-search
+                        value="{{ searchReportNumber }}"
+                        placeholder="请输入报案号"
+                        custom-class="my-search"
+                        bind:change="searchReportNumberChange">
+                </van-search>
+                <van-search
+                        value="{{ searchCustomerUser }}"
+                        placeholder="请输入被保险人"
+                        custom-class="my-search"
+                        bind:change="searchCustomerUserChange">
+                </van-search>
+            </view>
+        </view>
+        <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="resetFilter">重置</view>
+        <view class="searchBtn" style="line-height: 60px; text-align: center; margin-left: -10px;" bind:tap="filter">搜索</view>
+    </view>
+    <view class="weui-panel weui-panel_access mt0" wx:for="{{dataList}}" wx:key="id" data-id="{{item.orderId}}" bindtap="goToHandleTask">
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">
+                    <view>工单号：{{item.orderId}}</view>
+                </view>
+                <view class="weui-media-box__desc">
+                    <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
+                    <view>被保险人：{{item.surveyUser || '-'}}</view>
+                    <view>协办人员：{{item.workerUser || '-'}}</view>
+                    <view>创建时间：{{item.createTime || '-'}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel__ft">
+            <view class="weui-cell weui-cell_access weui-cell_link">
+                <view class="weui-cell__bd">查看处理</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </view>
+    </view>
+    <van-transition name="fade-up" show="{{ isShowStatusFilter }}" custom-class="filterBlock">
+        <van-radio-group value="{{ statusFilter }}" bind:change="statusFilterChange">
+            <van-cell-group>
+                <van-cell title="状态不限" clickable data-name="-1" bind:click="statusFilterItemClick">
+                    <van-radio name="-1" />
+                </van-cell>
+                <van-cell title="已派送" clickable data-name="20" bind:click="statusFilterItemClick">
+                    <van-radio name="20" />
+                </van-cell>
+                <van-cell title="已办结" clickable data-name="11" bind:click="statusFilterItemClick">
+                    <van-radio name="11" />
+                </van-cell>
+                <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">
+                    <van-radio name="12" />
+                </van-cell>
+            </van-cell-group>
+        </van-radio-group>
+    </van-transition>
+    <view bindtap="closeFilter" wx:if="{{isShowStatusFilter}}" class="mask"></view>
+</view>
