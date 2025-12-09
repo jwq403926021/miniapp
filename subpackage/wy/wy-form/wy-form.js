@@ -25,9 +25,9 @@ Page({
       reportNumber: '',
       budgetPreliminary: '',
       commentToSurvey: '',
-      surveyUser: '',
+      surveyName: '',
       surveyPhone: '',
-      workerUser: '',
+      workerName: '',
       workerPhone: ''
     }
   },
@@ -91,9 +91,9 @@ Page({
         'taskData.reportNumber': data.reportNumber,
         'taskData.budgetPreliminary': data.budgetPreliminary,
         'taskData.commentToSurvey': data.commentToSurvey || '',
-        'taskData.surveyUser': data.surveyUser,
+        'taskData.surveyName': data.surveyName,
         'taskData.surveyPhone': data.surveyPhone,
-        'taskData.workerUser': data.workerUser,
+        'taskData.workerName': data.workerName,
         'taskData.workerPhone': data.workerPhone
       }, () => {
         _this.getRegionLabel()
@@ -341,7 +341,7 @@ Page({
   copyInfo () {
     wx.setClipboardData({
       data: `工单号: ${this.data.orderId}
-被保险人姓名: ${this.data.taskData.surveyUser}
+被保险人姓名: ${this.data.taskData.surveyName}
 被保险人电话: ${this.data.taskData.surveyPhone}
 现场信息: ${this.data.taskData.commentToSurvey}`,
       success (res) {

@@ -38,8 +38,8 @@
                 </view>
                 <view class="weui-media-box__desc">
                     <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
-                    <view>被保险人：{{item.surveyUser || '-'}}</view>
-                    <view>协办人：{{item.workerUser || '-'}}</view>
+                    <view>被保险人：{{item.surveyName || '-'}}</view>
+                    <view>协办人：{{item.workerName || '-'}}</view>
                     <view>创建时间：{{item.createTime || '-'}}</view>
                 </view>
             </view>
