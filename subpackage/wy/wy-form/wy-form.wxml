@@ -74,7 +74,6 @@
                 </view>
             </view>
 
-
             <block wx:if="{{taskData.surveyUser}}">
                 <view class="weui-cells__title">吾悦人员信息</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -101,6 +100,7 @@
                     </view>
                 </view>
             </block>
+
             <block wx:if="{{taskData.workerUser}}">
                 <view class="weui-cells__title">协办人信息</view>
                 <view class="weui-cells weui-cells_after-title">
@@ -169,10 +169,12 @@
                 <button type="primary" bindtap="workHandleWS">提交</button>
                 <button data-save="true" bindtap="workHandleWS">暂存</button>
             </view>
-            <view class="button-sp-area" wx:if="{{orderId != null}}">
+            <view class="button-sp-area two-btn-wrap" wx:if="{{orderId != null}}">
                 <button type="primary" bindtap="downloadImages">下载所有图片</button>
+                <button data-save="true" bindtap="copyInfo">一键复制</button>
             </view>
         </view>
+
         <van-popup
                 show="{{ show }}"
                 position="bottom"

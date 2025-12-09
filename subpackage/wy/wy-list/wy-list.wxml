@@ -39,7 +39,7 @@
                 <view class="weui-media-box__desc">
                     <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
                     <view>被保险人：{{item.surveyUser || '-'}}</view>
-                    <view>协办人员：{{item.workerUser || '-'}}</view>
+                    <view>协办人：{{item.workerUser || '-'}}</view>
                     <view>创建时间：{{item.createTime || '-'}}</view>
                 </view>
             </view>
@@ -62,9 +62,6 @@
                 </van-cell>
                 <van-cell title="已办结" clickable data-name="11" bind:click="statusFilterItemClick">
                     <van-radio name="11" />
-                </van-cell>
-                <van-cell title="暂存" clickable data-name="12" bind:click="statusFilterItemClick">
-                    <van-radio name="12" />
                 </van-cell>
             </van-cell-group>
         </van-radio-group>

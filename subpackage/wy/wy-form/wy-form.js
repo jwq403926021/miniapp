@@ -60,7 +60,7 @@ Page({
       orderId: id
     }
     util.request({
-      path: '/app/businessdamagenew/damageDetail',
+      path: '/app/businessinsurancewuyue/damageDetail',
       method: 'GET',
       data: params
     }, function (err, res) {
@@ -114,10 +114,10 @@ Page({
     try {
       let _this = this
       _this.setData({
-        region: '310101',
-        'taskData.townCode': '310101',
-        'taskData.cityCode': '310100',
-        'taskData.provinceCode': '310000'
+        region: app.globalData.currentRegisterInfo.townCode,
+        'taskData.townCode': app.globalData.currentRegisterInfo.townCode,
+        'taskData.cityCode': app.globalData.currentRegisterInfo.cityCode,
+        'taskData.provinceCode': app.globalData.currentRegisterInfo.provinceCode
       })
       util.request({
         path: '/sys/area/list',
@@ -328,6 +328,22 @@ Page({
     let content = e.currentTarget.dataset.content+'';
     wx.setClipboardData({
       data: content,
+      success (res) {
+        wx.showToast({
+          mask: true,
+          title: '复制成功',
+          icon: 'success',
+          duration: 1000
+        })
+      }
+    })
+  },
+  copyInfo () {
+    wx.setClipboardData({
+      data: `工单号: ${this.data.orderId}
+        被保险人姓名: ${this.data.taskData.surveyUser}
+        被保险人电话: ${this.data.taskData.surveyPhone}
+        现场信息: ${this.data.taskData.commentToSurvey}`,
       success (res) {
         wx.showToast({
           mask: true,

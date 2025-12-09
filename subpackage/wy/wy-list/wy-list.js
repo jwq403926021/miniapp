@@ -17,7 +17,6 @@ Page({
     searchOrderId: '',
     statusMap: {
       '11': '已办结',
-      '12': '暂存',
       '20': '已派送',
     },
     role: 1,
