@@ -341,9 +341,9 @@ Page({
   copyInfo () {
     wx.setClipboardData({
       data: `工单号: ${this.data.orderId}
-        被保险人姓名: ${this.data.taskData.surveyUser}
-        被保险人电话: ${this.data.taskData.surveyPhone}
-        现场信息: ${this.data.taskData.commentToSurvey}`,
+被保险人姓名: ${this.data.taskData.surveyUser}
+被保险人电话: ${this.data.taskData.surveyPhone}
+现场信息: ${this.data.taskData.commentToSurvey}`,
       success (res) {
         wx.showToast({
           mask: true,
