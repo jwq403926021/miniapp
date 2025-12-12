@@ -6,7 +6,7 @@ Page({
   data: {
     orderId: null,
     role: 37, // 36 协办 37 吾悦人员
-    liveImageFiles: [], // 案件图片
+    liveImageFiles: [], // 现场照片
     show: false,
     areaList: {},
     region: '',
