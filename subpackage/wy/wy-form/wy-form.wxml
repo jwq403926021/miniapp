@@ -74,7 +74,7 @@
                 </view>
             </view>
 
-            <block wx:if="{{taskData.surveyUser}}">
+            <block wx:if="{{taskData.surveyName}}">
                 <view class="weui-cells__title">吾悦人员信息</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input">
@@ -82,7 +82,7 @@
                             <view class="weui-label">吾悦人员姓名</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{taskData.surveyUser || '-'}}</text>
+                            <text class="weui-input readonly">{{taskData.surveyName || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -101,7 +101,7 @@
                 </view>
             </block>
 
-            <block wx:if="{{taskData.workerUser}}">
+            <block wx:if="{{taskData.workerName}}">
                 <view class="weui-cells__title">协办人信息</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input">
@@ -109,7 +109,7 @@
                             <view class="weui-label">协办人姓名</view>
                         </view>
                         <view class="weui-cell__bd">
-                            <text class="weui-input readonly">{{taskData.workerUser || '-'}}</text>
+                            <text class="weui-input readonly">{{taskData.workerName || '-'}}</text>
                         </view>
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">

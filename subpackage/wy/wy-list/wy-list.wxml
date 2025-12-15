@@ -1,12 +1,12 @@
 <view class="page">
     <view class="filter-wrap clearfix">
-        <view style="float: left; width: 85%;">
+        <view style="float: left; width: 85%; display: flex;">
             <view class="clearfix">
                 <view class="field filterDropdown">
                     <view class="caret" bind:tap="openFilterStatusPop">{{statusFilter == -1 ? '状态不限' : statusMap[statusFilter]}}</view>
                 </view>
             </view>
-            <view class="clearfix">
+            <view class="clearfix" style="flex: 1;">
                 <van-search
                         value="{{ searchOrderId }}"
                         placeholder="请输入工单号"
@@ -38,8 +38,8 @@
                 </view>
                 <view class="weui-media-box__desc">
                     <view>工单状态：{{item.status ? statusMap[item.status] : '暂存'}}</view>
-                    <view>被保险人：{{item.surveyUser || '-'}}</view>
-                    <view>协办人：{{item.workerUser || '-'}}</view>
+                    <view>被保险人：{{item.surveyName || '-'}}</view>
+                    <view>协办人：{{item.workerName || '-'}}</view>
                     <view>创建时间：{{item.createTime || '-'}}</view>
                 </view>
             </view>

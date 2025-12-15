@@ -99,7 +99,7 @@ Page({
     let filter = {
       page: this.data.page,
       size: 20,
-      surveyUser: this.data.searchCustomerUser,
+      surveyName: this.data.searchCustomerUser,
       reportNumber: this.data.searchReportNumber,
       orderId: this.data.searchOrderId
     }
