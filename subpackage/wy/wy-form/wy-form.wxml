@@ -143,13 +143,13 @@
                                         <view class="weui-uploader__file image-preview-wrap" bindtap="previewImage"
                                               data-name="liveImageFiles" id="{{item.path}}">
                                             <image class="weui-uploader__img" src="{{item.path}}" mode="aspectFill"/>
-                                            <van-icon catchtap="removeImage" data-name="liveImageFiles"
+                                            <van-icon wx-if="{{taskData.status != 11}}" catchtap="removeImage" data-name="liveImageFiles"
                                                       data-id="{{item.id}}" data-index="{{index}}" name="clear"
                                                       custom-class="delete-image-icon"></van-icon>
                                         </view>
                                     </block>
                                 </view>
-                                <view class="weui-uploader__input-box">
+                                <view class="weui-uploader__input-box" wx-if="{{taskData.status != 11}}">
                                     <view class="weui-uploader__input" bindtap="chooseImage"
                                           data-name="liveImageFiles"></view>
                                 </view>

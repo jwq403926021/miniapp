@@ -15,7 +15,6 @@ Page({
       '11': '已办结',
       '20': '已派送',
     },
-    businessInsuranceWuyueEntity: {},
     taskData: {
       status: null,
       provinceCode: '',
@@ -82,7 +81,6 @@ Page({
         orderId: data.orderId,
         region: data.townCode,
         liveImageFiles: liveImageFiles,
-        businessInsuranceWuyueEntity: data,
         'taskData.status': data.status,
         'taskData.provinceCode': data.provinceCode,
         'taskData.cityCode': data.cityCode,
@@ -515,12 +513,7 @@ Page({
     util.request({
       path: isSave ? '/app/businessinsurancewuyue/workerSave' : '/app/businessinsurancewuyue/workerCommit',
       method: 'POST',
-      data: {
-        businessInsuranceWuyueEntity: {
-          ..._this.data.businessInsuranceWuyueEntity,
-          ...taskData
-        }
-      }
+      data: taskData
     }, function (err, res) {
       if (res.code == 0) {
         _this.setData({
