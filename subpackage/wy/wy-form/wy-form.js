@@ -26,7 +26,7 @@ Page({
       budgetPreliminary: '',
       commentToSurvey: '',
       surveyName: '',
-      surveyPhone: '',
+      mobile: '',
       workerName: '',
       workerPhone: ''
     }
@@ -92,7 +92,7 @@ Page({
         'taskData.budgetPreliminary': data.budgetPreliminary,
         'taskData.commentToSurvey': data.commentToSurvey || '',
         'taskData.surveyName': data.surveyName,
-        'taskData.surveyPhone': data.surveyPhone,
+        'taskData.mobile': data.mobile,
         'taskData.workerName': data.workerName,
         'taskData.workerPhone': data.workerPhone
       }, () => {
@@ -342,7 +342,7 @@ Page({
     wx.setClipboardData({
       data: `工单号: ${this.data.orderId}
 被保险人姓名: ${this.data.taskData.surveyName}
-被保险人电话: ${this.data.taskData.surveyPhone}
+被保险人电话: ${this.data.taskData.mobile}
 现场信息: ${this.data.taskData.commentToSurvey}`,
       success (res) {
         wx.showToast({
