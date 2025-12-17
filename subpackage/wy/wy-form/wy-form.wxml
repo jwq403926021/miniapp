@@ -102,11 +102,11 @@
             </block>
 
             <block wx:if="{{taskData.workerName}}">
-                <view class="weui-cells__title">协办人信息</view>
+                <view class="weui-cells__title">协赔人信息</view>
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">协办人姓名</view>
+                            <view class="weui-label">协赔人姓名</view>
                         </view>
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{taskData.workerName || '-'}}</text>
@@ -114,7 +114,7 @@
                     </view>
                     <view class="weui-cell weui-cell_input weui-cell_vcode">
                         <view class="weui-cell__hd">
-                            <view class="weui-label">协办人手机</view>
+                            <view class="weui-label">协赔人手机</view>
                         </view>
                         <view class="weui-cell__bd">
                             <text class="weui-input readonly">{{taskData.workerPhone || '-'}}</text>

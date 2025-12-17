@@ -5,7 +5,7 @@ const app = getApp()
 Page({
   data: {
     orderId: null,
-    role: 37, // 36 协办 37 吾悦人员
+    role: 37, // 36 协赔 37 吾悦人员
     liveImageFiles: [], // 现场照片
     show: false,
     areaList: {},
