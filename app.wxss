@@ -73,6 +73,7 @@
   box-sizing: border-box;
 }  */
 view{
+    /*color:#323232;*/
 }
 page{
     background-color: #F8F8F8;
